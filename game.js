@@ -52,6 +52,24 @@ const SPIN_PRIZES = [
   { text: '1000金', type: 'gold', value: 1000, weight: 3 }
 ];
 
+// 签到奖励（7天循环）
+const CHECKIN_REWARDS = [
+  { gold: 100, bonus: null },
+  { gold: 200, bonus: null },
+  { gold: 300, bonus: { name: '棒棒糖', icon: '🍭' } },
+  { gold: 400, bonus: null },
+  { gold: 500, bonus: { name: '牛奶', icon: '🥛' } },
+  { gold: 600, bonus: null },
+  { gold: 1000, bonus: { name: '烤肉', icon: '🍖' } }
+];
+
+// 每日任务
+const DAILY_TASKS = [
+  { id: 'kills', desc: '击杀50只怪物', target: 50, reward: 200, track: (s) => s._dailyKills || 0 },
+  { id: 'clicks', desc: '点击200次', target: 200, reward: 150, track: (s) => s._dailyClicks || 0 },
+  { id: 'waves', desc: '通关5波', target: 5, reward: 300, track: (s) => s._dailyWaves || 0 }
+];
+
 class Game {
   constructor() {
     this.gold = 0;
@@ -68,6 +86,11 @@ class Game {
     this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
     this.freeSpins = 3;
     this.spinDate = new Date().toDateString();
+    this.stats = { totalKills: 0, totalGold: 0, maxRound: 1, maxWave: 1, totalClicks: 0, playTime: 0 };
+    this.checkinDay = 0;      // 连续签到天数（0=未签）
+    this.checkinDate = '';     // 上次签到日期
+    this.dailyTaskDate = '';   // 每日任务重置日期
+    this.dailyTaskDone = [false, false, false]; // 任务完成状态
     this.loadGame();
     this.render();
     this.bindEvents();
@@ -143,8 +166,8 @@ class Game {
         <button onclick="game.openUpgrade()">升级</button>
         <button onclick="game.openSupermarket()">超市</button>
         <button onclick="game.openSpinWheel()">转盘</button>
-        <button onclick="game.showToast('功能开发中')">排行</button>
-        <button onclick="game.showToast('功能开发中')">商城</button>
+        <button onclick="game.openLeaderboard()">排行</button>
+        <button onclick="game.openDailyTasks()">任务</button>
       </div>
     `;
     this.renderMonsters();
@@ -202,9 +225,12 @@ class Game {
   nextWave() {
     this.wave++;
     this.totalCleared++;
+    if (this.wave > this.stats.maxWave) this.stats.maxWave = this.wave;
+    this.checkDailyTasks('wave');
     if (this.wave > CONFIG.maxWave) {
       this.wave = 1;
       this.round++;
+      if (this.round > this.stats.maxRound) this.stats.maxRound = this.round;
       this.showToast(`🎉 通关！进入第${this.round}轮`);
     }
     this.checkSupports();
@@ -217,6 +243,8 @@ class Game {
     const m = this.monsters[idx];
     if (!m || m.hp <= 0 || this.energy < 1) return;
     this.energy--;
+    this.stats.totalClicks++;
+    this.checkDailyTasks('click');
     this.doDamage(m, CONFIG.mainDmg(this.mainLevel), idx);
   }
 
@@ -254,6 +282,9 @@ class Game {
     this.gold += reward;
     this.energy = Math.min(CONFIG.maxEnergy, this.energy + (m.isBoss ? 10 : 2));
     this.killCount++;
+    this.stats.totalKills++;
+    if (this.gold > this.stats.totalGold) this.stats.totalGold = this.gold;
+    this.checkDailyTasks('kill');
     this.monsters.splice(realIdx, 1);
     if (this.monsters.length === 0) this.nextWave();
     this.checkLevelUp();
@@ -533,6 +564,162 @@ class Game {
 
     // 检查离线收益
     this.checkOfflineReward();
+    // 检查每日签到（延迟显示）
+    setTimeout(() => this.checkDailyCheckin(), 1200);
+  }
+
+  // ---------- 签到系统 ----------
+
+  checkDailyCheckin() {
+    const today = new Date().toDateString();
+    if (this.checkinDate === today) return; // 今天已签到
+    // 连续签到中断则重置
+    if (this.checkinDate) {
+      const lastDate = new Date(this.checkinDate);
+      const diff = Math.floor((new Date(today) - lastDate) / 86400000);
+      if (diff > 1) this.checkinDay = 0;
+    }
+    this.openCheckin(true);
+  }
+
+  openCheckin(auto = false) {
+    const today = new Date().toDateString();
+    const alreadyChecked = this.checkinDate === today;
+    const day = alreadyChecked ? this.checkinDay : (this.checkinDay % 7);
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay && !auto) overlay.remove(); };
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>📅 每日签到</h3>
+        <p style="color:#aaa;font-size:12px;margin-bottom:10px;">连续签到: ${this.checkinDay}天</p>
+        <div class="checkin-grid">
+          ${CHECKIN_REWARDS.map((r, i) => {
+            const done = alreadyChecked ? i < day : i < day;
+            const isToday = alreadyChecked ? false : i === day;
+            return `<div class="checkin-item ${done ? 'done' : ''} ${isToday ? 'today' : ''}">
+              <div class="checkin-day">第${i+1}天</div>
+              <div class="checkin-reward">💰${r.gold}${r.bonus ? ' + ' + r.bonus.icon : ''}</div>
+              ${done ? '<div class="checkin-mark">✓</div>' : ''}
+            </div>`;
+          }).join('')}
+        </div>
+        <button class="spin-btn" onclick="game.doCheckin()" ${alreadyChecked ? 'disabled' : ''} style="margin-top:12px;">
+          ${alreadyChecked ? '今日已签到' : '签到领取'}
+        </button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  doCheckin() {
+    const today = new Date().toDateString();
+    if (this.checkinDate === today) { this.showToast('今日已签到！'); return; }
+    const day = this.checkinDay % 7;
+    const reward = CHECKIN_REWARDS[day];
+    this.gold += reward.gold;
+    if (reward.bonus) {
+      this.foods[reward.bonus.name] = (this.foods[reward.bonus.name] || 0) + 1;
+      this.showToast(`📅 签到奖励: ${reward.gold}金 + ${reward.bonus.icon}×1`);
+    } else {
+      this.showToast(`📅 签到奖励: ${reward.gold}金`);
+    }
+    this.checkinDay++;
+    this.checkinDate = today;
+    this.saveGame();
+    document.querySelector('.panel-overlay')?.remove();
+    this.updateUI();
+  }
+
+  // ---------- 每日任务 ----------
+
+  resetDailyTasks() {
+    const today = new Date().toDateString();
+    if (this.dailyTaskDate !== today) {
+      this.dailyTaskDate = today;
+      this.dailyTaskDone = [false, false, false];
+      // 重置每日计数器
+      this.stats._dailyKills = 0;
+      this.stats._dailyClicks = 0;
+      this.stats._dailyWaves = 0;
+    }
+  }
+
+  checkDailyTasks(type) {
+    this.resetDailyTasks();
+    if (type === 'kill') this.stats._dailyKills = (this.stats._dailyKills || 0) + 1;
+    if (type === 'click') this.stats._dailyClicks = (this.stats._dailyClicks || 0) + 1;
+    if (type === 'wave') this.stats._dailyWaves = (this.stats._dailyWaves || 0) + 1;
+    // 自动检查完成
+    DAILY_TASKS.forEach((t, i) => {
+      if (!this.dailyTaskDone[i] && t.track(this.stats) >= t.target) {
+        this.dailyTaskDone[i] = true;
+        this.showToast(`📋 任务完成: ${t.desc}！`);
+      }
+    });
+  }
+
+  openDailyTasks() {
+    this.resetDailyTasks();
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>📋 每日任务</h3>
+        ${DAILY_TASKS.map((t, i) => {
+          const done = this.dailyTaskDone[i];
+          const progress = Math.min(t.track(this.stats), t.target);
+          return `<div class="upgrade-row">
+            <div class="char-icon" style="background:${done ? '#2ecc71' : '#3498db'};font-size:14px;">${done ? '✓' : '📋'}</div>
+            <div class="info">${t.desc}<br>
+              <div class="progress-bar" style="margin-top:4px;"><div class="progress-fill" style="width:${progress/t.target*100}%"></div></div>
+              <span style="font-size:10px;color:#888;">${progress}/${t.target}</span>
+            </div>
+            <button onclick="game.claimTask(${i})" ${!done ? 'disabled' : ''}>${done ? `+${t.reward}金` : '未完成'}</button>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  claimTask(idx) {
+    if (!this.dailyTaskDone[idx]) return;
+    const t = DAILY_TASKS[idx];
+    this.gold += t.reward;
+    this.showToast(`📋 领取奖励: ${t.reward}金`);
+    this.dailyTaskDone[idx] = false; // 标记已领取
+    this.saveGame();
+    document.querySelector('.panel-overlay')?.remove();
+    this.updateUI();
+  }
+
+  // ---------- 排行榜 ----------
+
+  openLeaderboard() {
+    const s = this.stats;
+    const playH = Math.floor(s.playTime / 3600);
+    const playM = Math.floor((s.playTime % 3600) / 60);
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>🏆 排行榜</h3>
+        <div class="stat-row"><span>💰 最高金币</span><span class="stat-val">${this.fmt(s.totalGold)}</span></div>
+        <div class="stat-row"><span>🌊 最高波次</span><span class="stat-val">第${s.maxRound}轮 第${s.maxWave}波</span></div>
+        <div class="stat-row"><span>⚔️ 总击杀数</span><span class="stat-val">${this.fmt(s.totalKills)}</span></div>
+        <div class="stat-row"><span>👆 总点击数</span><span class="stat-val">${this.fmt(s.totalClicks)}</span></div>
+        <div class="stat-row"><span>⏱️ 游戏时间</span><span class="stat-val">${playH}h ${playM}m</span></div>
+        <div class="stat-row"><span>💪 总DPS</span><span class="stat-val">${this.fmt(this.totalDps())}</span></div>
+        <p style="font-size:10px;color:#555;margin-top:12px;text-align:center;">（排行榜数据为本地记录）</p>
+      </div>
+    `;
+    document.body.appendChild(overlay);
   }
 
   // ---------- 离线收益 ----------
@@ -585,8 +772,9 @@ class Game {
   // ---------- 游戏主循环 ----------
 
   startLoop() {
-    // 每秒：能量恢复 + 技能CD
+    // 每秒：能量恢复 + 技能CD + 游戏时间
     setInterval(() => {
+      this.stats.playTime++;
       this.energy = Math.min(CONFIG.maxEnergy, this.energy + CONFIG.energyRecovery);
       for (let i = 0; i < this.skillCD.length; i++) {
         if (this.skillCD[i] > 0) this.skillCD[i]--;
@@ -624,7 +812,9 @@ class Game {
         wave: this.wave, round: this.round, totalCleared: this.totalCleared,
         killCount: this.killCount, skillCD: this.skillCD, skillUnlocked: this.skillUnlocked,
         supports: this.supports.map(s => ({ level: s.level, unlocked: s.unlocked })),
-        foods: this.foods, freeSpins: this.freeSpins, spinDate: this.spinDate
+        foods: this.foods, freeSpins: this.freeSpins, spinDate: this.spinDate,
+        stats: this.stats, checkinDay: this.checkinDay, checkinDate: this.checkinDate,
+        dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone
       }));
       localStorage.setItem('gujiyouxi_time', Date.now().toString());
     } catch(e) {}
@@ -652,6 +842,11 @@ class Game {
       if (d.foods) this.foods = { ...this.foods, ...d.foods };
       if (d.freeSpins !== undefined) this.freeSpins = d.freeSpins;
       if (d.spinDate) this.spinDate = d.spinDate;
+      if (d.stats) this.stats = { ...this.stats, ...d.stats };
+      if (d.checkinDay !== undefined) this.checkinDay = d.checkinDay;
+      if (d.checkinDate) this.checkinDate = d.checkinDate;
+      if (d.dailyTaskDate) this.dailyTaskDate = d.dailyTaskDate;
+      if (d.dailyTaskDone) this.dailyTaskDone = d.dailyTaskDone;
     } catch(e) {}
   }
 }

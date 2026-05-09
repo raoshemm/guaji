@@ -77,6 +77,15 @@
     .spin-pointer { position: absolute; top: -18px; font-size: 24px; color: #fff; z-index: 3; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     .spin-btn { background: #e74c3c; border: none; color: #fff; padding: 10px 30px; border-radius: 20px; font-size: 14px; cursor: pointer; }
     .spin-btn:disabled { background: #555; cursor: not-allowed; }
+    .stat-row { display: flex; justify-content: space-between; padding: 10px 8px; border-bottom: 1px solid #0f3460; font-size: 13px; }
+    .stat-val { color: #ffd700; font-weight: bold; }
+    .checkin-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .checkin-item { background: #16213e; border-radius: 8px; padding: 8px 4px; text-align: center; font-size: 11px; position: relative; }
+    .checkin-item.today { border: 2px solid #2ecc71; background: rgba(46,204,113,0.15); }
+    .checkin-item.done { opacity: 0.5; }
+    .checkin-day { color: #aaa; font-size: 10px; margin-bottom: 4px; }
+    .checkin-reward { color: #ffd700; font-size: 10px; }
+    .checkin-mark { position: absolute; top: 2px; right: 4px; color: #2ecc71; font-size: 14px; }
     .wave-progress { height: 6px; background: #0f3460; border-radius: 3px; margin: 4px 0; width: 80%; margin-left: 10%; }
     .wave-progress-fill { height: 100%; background: linear-gradient(90deg, #3498db, #2ecc71); border-radius: 3px; transition: width 0.3s; }
   </style>
