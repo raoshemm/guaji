@@ -1,0 +1,8 @@
+{
+  "name": "gujiyouxi",
+  "version": "1.0.0",
+  "description": "吃饭睡觉打豆豆 - H5放置类游戏",
+  "dependencies": {
+    "phaser": "^4.1.0"
+  }
+}
