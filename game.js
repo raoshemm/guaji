@@ -188,7 +188,7 @@ class Game {
         <button onclick="game.openSupermarket()">超市</button>
         <button onclick="game.openSpinWheel()">转盘</button>
         <button onclick="game.openLeaderboard()">排行</button>
-        <button onclick="game.openDailyTasks()">任务</button>
+        <button onclick="game.openShop()">商城</button>
       </div>
     `;
     this.renderMonsters();
@@ -241,6 +241,13 @@ class Game {
       });
     }
     this.renderMonsters();
+    if (isBoss) {
+      this.showToast('💀 BOSS出现！');
+      const flash = document.createElement('div');
+      flash.className = 'boss-flash';
+      document.body.appendChild(flash);
+      setTimeout(() => flash.remove(), 800);
+    }
   }
 
   nextWave() {
@@ -385,6 +392,15 @@ class Game {
       if (this.mainLevel >= s.lv && !this.skillUnlocked[i]) {
         this.skillUnlocked[i] = true;
         this.showToast(`🔓【${s.name}】解锁！`);
+        // 技能按钮闪烁3秒
+        this.updateUI();
+        setTimeout(() => {
+          const btns = document.querySelectorAll('#skills .skill');
+          if (btns[i]) {
+            btns[i].classList.add('flash');
+            setTimeout(() => btns[i].classList.remove('flash'), 1500);
+          }
+        }, 50);
       }
     });
   }
@@ -594,6 +610,54 @@ class Game {
     setTimeout(() => this.checkDailyCheckin(), 1200);
   }
 
+  // ---------- 商城 ----------
+
+  openShop() {
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    const offlineCap = this.offlineCap || 8;
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>🏪 商城</h3>
+        <div class="upgrade-row">
+          <div class="char-icon" style="background:#3498db;font-size:16px;">⚡</div>
+          <div class="info">能量药水<br><span style="font-size:10px;color:#aaa;">恢复50能量</span></div>
+          <button onclick="game.shopBuy('energy')" ${this.gold < 50 ? 'disabled' : ''}>50金</button>
+        </div>
+        <div class="upgrade-row">
+          <div class="char-icon" style="background:#9b59b6;font-size:16px;">💤</div>
+          <div class="info">离线扩展包<br><span style="font-size:10px;color:#aaa;">离线上限+4h (当前${offlineCap}h)</span></div>
+          <button onclick="game.shopBuy('offline')" ${this.gold < 500 || offlineCap >= 24 ? 'disabled' : ''}>500金</button>
+        </div>
+        <div class="upgrade-row" style="margin-top:12px;">
+          <div class="char-icon" style="background:#e67e22;font-size:16px;">📋</div>
+          <div class="info">每日任务<br><span style="font-size:10px;color:#aaa;">查看每日任务进度</span></div>
+          <button onclick="game.openDailyTasks();this.parentElement.parentElement.parentElement.remove();" style="background:#3498db;">查看</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  shopBuy(type) {
+    if (type === 'energy') {
+      if (this.gold < 50) { this.showToast('金币不足！'); return; }
+      this.gold -= 50;
+      this.energy = Math.min(CONFIG.maxEnergy, this.energy + 50);
+      this.showToast('⚡ 购买能量药水！+50能量');
+    } else if (type === 'offline') {
+      if (this.gold < 500) { this.showToast('金币不足！'); return; }
+      this.gold -= 500;
+      this.offlineCap = Math.min(24, (this.offlineCap || 8) + 4);
+      this.showToast(`💤 离线上限提升至${this.offlineCap}小时！`);
+    }
+    this.saveGame();
+    document.querySelector('.panel-overlay')?.remove();
+    this.updateUI();
+  }
+
   // ---------- 签到系统 ----------
 
   checkDailyCheckin() {
@@ -793,7 +857,7 @@ class Game {
       const now = Date.now();
       const elapsed = Math.floor((now - lastTime) / 1000); // 秒
       if (elapsed < 60) return; // 少于1分钟不计算
-      const maxOffline = 8 * 3600; // 最多8小时
+      const maxOffline = (this.offlineCap || 8) * 3600; // 离线上限
       const seconds = Math.min(elapsed, maxOffline);
       // 离线收益 = 所有角色DPS总和 × 10% × 秒数
       const dps = this.totalDps();
@@ -877,7 +941,7 @@ class Game {
         foods: this.foods, freeSpins: this.freeSpins, spinDate: this.spinDate,
         stats: this.stats, checkinDay: this.checkinDay, checkinDate: this.checkinDate,
         dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone,
-        achievements: this.achievements
+        achievements: this.achievements, offlineCap: this.offlineCap || 8
       }));
       localStorage.setItem('gujiyouxi_time', Date.now().toString());
     } catch(e) {}
@@ -911,6 +975,7 @@ class Game {
       if (d.dailyTaskDate) this.dailyTaskDate = d.dailyTaskDate;
       if (d.dailyTaskDone) this.dailyTaskDone = d.dailyTaskDone;
       if (d.achievements) this.achievements = d.achievements;
+      if (d.offlineCap) this.offlineCap = d.offlineCap;
     } catch(e) {}
   }
 }

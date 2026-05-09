@@ -16,7 +16,7 @@
       -webkit-tap-highlight-color: transparent;
     }
     body { display: flex; justify-content: center; }
-    #game {
+    #game-root {
       width: 100%;
       max-width: 500px;
       height: 100%;
@@ -47,6 +47,10 @@
     .skill { width: 44px; height: 44px; background: #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; position: relative; }
     .skill.active { background: #27ae60; }
     .skill.cd { opacity: 0.4; }
+    .skill.flash { animation: skillFlash 0.5s ease 3; }
+    @keyframes skillFlash { 0%,100% { background: #27ae60; box-shadow: none; } 50% { background: #f1c40f; box-shadow: 0 0 12px #f1c40f; } }
+    .boss-flash { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(231,76,60,0.4); z-index: 150; animation: bossFlash 0.4s ease 2; pointer-events: none; }
+    @keyframes bossFlash { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
     .nav { display: flex; justify-content: space-around; padding: 8px; background: #1a1a2e; flex-shrink: 0; }
     .nav button { background: #0f3460; border: none; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 12px; cursor: pointer; }
     .supports { position: absolute; top: 30%; transform: translateY(-50%); }
