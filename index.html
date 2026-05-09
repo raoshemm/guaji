@@ -3,25 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>吃饭睡觉打豆豆 - Phaser版</title>
+  <title>吃饭睡觉打豆豆</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
+    html, body {
+      font-family: "Microsoft YaHei", sans-serif;
       background: #16243a;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
+      height: 100%;
+      overflow: hidden;
+      color: #fff;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
-    #game-wrapper {
-      max-width: 500px;
+    body { display: flex; justify-content: center; }
+    #game {
       width: 100%;
+      max-width: 500px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
-    canvas { display: block; margin: 0 auto; }
+    .bar { background: #1a1a2e; padding: 10px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #0f3460; flex-shrink: 0; }
+    .avatar { width: 36px; height: 36px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+    .wave { font-size: 16px; font-weight: bold; margin: 0 auto; }
+    .gold { font-size: 14px; color: #ffd700; flex-shrink: 0; }
+    .battle { flex: 1; background: #1a1a2e; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; min-height: 0; }
+    .monster { width: 60px; height: 60px; background: #ff6666; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: absolute; }
+    .monster.boss { background: #e74c3c; width: 70px; height: 70px; }
+    .monster .name { font-size: 12px; }
+    .hp-bar { width: 56px; height: 6px; background: #333; border-radius: 3px; margin-top: 4px; }
+    .hp-fill { height: 100%; background: #2ecc71; border-radius: 3px; transition: width 0.1s; }
+    .hp-text { font-size: 10px; color: #aaa; margin-top: 2px; }
+    .main-char { width: 70px; height: 70px; background: #3498db; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); }
+    .main-char .label { font-size: 14px; font-weight: bold; }
+    .main-char .level { font-size: 12px; color: #aaa; }
+    .dps { position: absolute; bottom: 2%; left: 50%; transform: translateX(-50%); font-size: 12px; color: #888; }
+    .damage-text { position: absolute; font-size: 20px; font-weight: bold; color: #fff; pointer-events: none; animation: floatUp 0.8s ease-out forwards; }
+    .damage-text.crit { color: #ffff00; font-size: 26px; }
+    @keyframes floatUp { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-60px); } }
+    .skills { display: flex; gap: 6px; padding: 8px 10px; background: #1a1a2e; justify-content: center; border-bottom: 1px solid #0f3460; flex-shrink: 0; }
+    .skill { width: 44px; height: 44px; background: #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; position: relative; }
+    .skill.active { background: #27ae60; }
+    .skill.cd { opacity: 0.4; }
+    .nav { display: flex; justify-content: space-around; padding: 8px; background: #1a1a2e; flex-shrink: 0; }
+    .nav button { background: #0f3460; border: none; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+    .supports { position: absolute; top: 30%; transform: translateY(-50%); }
+    .supports.left { left: 4%; }
+    .supports.right { right: 4%; }
+    .support { width: 36px; height: 36px; border-radius: 50%; margin: 6px 0; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+    .support.on { background: #9b59b6; }
+    .support.off { background: #444; opacity: 0.5; }
+    .toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); padding: 10px 20px; border-radius: 8px; font-size: 14px; z-index: 100; animation: toastAnim 2s ease-out forwards; }
+    @keyframes toastAnim { 0% { opacity: 1; top: 70px; } 80% { opacity: 1; } 100% { opacity: 0; top: 50px; } }
+    .panel-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; display: flex; justify-content: center; align-items: center; }
+    .panel { background: #1a1a2e; border-radius: 12px; width: 90%; max-width: 380px; max-height: 70vh; overflow-y: auto; padding: 16px; }
+    .panel h3 { text-align: center; margin-bottom: 12px; }
+    .panel .upgrade-row { display: flex; align-items: center; gap: 10px; padding: 8px; background: #16213e; border-radius: 8px; margin-bottom: 8px; }
+    .panel .char-icon { width: 40px; height: 40px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+    .panel .info { flex: 1; font-size: 12px; }
+    .panel button { background: #27ae60; border: none; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+    .panel button:disabled { background: #555; cursor: not-allowed; }
+    .panel .close-btn { position: absolute; top: 8px; right: 12px; font-size: 20px; cursor: pointer; background: none; color: #fff; }
+    .progress-bar { height: 8px; background: #0f3460; border-radius: 4px; margin: 8px 0; }
+    .progress-fill { height: 100%; background: #2ecc71; border-radius: 4px; transition: width 0.3s; }
+    .energy-bar { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #aaa; }
+    .buff-bar { display: flex; gap: 6px; justify-content: center; font-size: 11px; color: #e67e22; }
+    .buff-icon { background: rgba(230,126,34,0.2); padding: 1px 6px; border-radius: 8px; }
+    .spin-wheel { width: 200px; height: 200px; margin: 0 auto; position: relative; border-radius: 50%; background: conic-gradient(#e74c3c 0deg 45deg, #3498db 45deg 90deg, #2ecc71 90deg 135deg, #f39c12 135deg 180deg, #9b59b6 180deg 225deg, #1abc9c 225deg 270deg, #e67e22 270deg 315deg, #34495e 315deg 360deg); display: flex; align-items: center; justify-content: center; transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.3, 1); }
+    .spin-wheel.spinning { transform: rotate(1440deg); }
+    .spin-wheel::after { content: ''; width: 40px; height: 40px; background: #fff; border-radius: 50%; position: absolute; z-index: 2; }
+    .spin-segment { position: absolute; font-size: 10px; font-weight: bold; color: #fff; width: 50px; text-align: center; transform: rotate(calc(var(--i) * 45deg)) translateY(-70px); }
+    .spin-pointer { position: absolute; top: -18px; font-size: 24px; color: #fff; z-index: 3; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    .spin-btn { background: #e74c3c; border: none; color: #fff; padding: 10px 30px; border-radius: 20px; font-size: 14px; cursor: pointer; }
+    .spin-btn:disabled { background: #555; cursor: not-allowed; }
+    .wave-progress { height: 6px; background: #0f3460; border-radius: 3px; margin: 4px 0; width: 80%; margin-left: 10%; }
+    .wave-progress-fill { height: 100%; background: linear-gradient(90deg, #3498db, #2ecc71); border-radius: 3px; transition: width 0.3s; }
   </style>
 </head>
 <body>
-  <div id="game-wrapper"></div>
-  <script src="lib/phaser.min.js"></script>
+  <div id="game"></div>
   <script src="game.js"></script>
 </body>
 </html>

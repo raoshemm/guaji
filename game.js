@@ -1,751 +1,660 @@
-// ==================== 游戏主逻辑 - Phaser 版本 ====================
+// ==================== 吃饭睡觉打豆豆 - H5原生版 ====================
 
-// 数值配置
 const CONFIG = {
-  baseMonsterHp: 100,
-  baseGoldReward: 10,
-  mainBaseDmg: 50,
-  mainDmgPerLevel: 1.3,
   maxWave: 10,
   maxEnergy: 100,
-  energyPerAttack: 1,
   energyRecovery: 2,
-  bossEnergyBonus: 10,
-  upgradesForNextLevel: (level) => level * 5 + 3,
-  upgradeCost: (level) => Math.floor(50 * Math.pow(1.5, level - 1)),
   monsterHp: (wave) => Math.floor(100 * Math.pow(wave, 1.2)),
   goldReward: (wave, isBoss) => Math.floor(10 * Math.pow(wave, 1.2) * (isBoss ? 5 : 1)),
-  mainDmg: (level) => Math.floor(50 * Math.pow(level, 1.3))
+  mainDmg: (level) => Math.floor(50 * Math.pow(level, 1.3)),
+  upgradeCost: (level) => Math.floor(50 * Math.pow(1.5, level - 1)),
+  killsNeeded: (level) => level * 5 + 3
 };
 
-// 技能配置
 const SKILLS = [
-  { name: '普攻', cd: 0, dmg: 1, hits: 1, unlockLevel: 1 },
-  { name: '重击', cd: 5, dmg: 1.5, hits: 1, unlockLevel: 2 },
-  { name: '连击', cd: 8, dmg: 0.8, hits: 2, unlockLevel: 3 },
-  { name: '暴击', cd: 15, dmg: 3, hits: 1, unlockLevel: 5 },
-  { name: '旋风', cd: 20, dmg: 2, hits: 0, unlockLevel: 8 },
-  { name: '雷霆', cd: 45, dmg: 5, hits: 1, unlockLevel: 12 },
-  { name: '终极', cd: 90, dmg: 10, hits: 1, unlockLevel: 18 }
+  { name: '普攻', cd: 0, dmg: 1, hits: 1, lv: 1 },
+  { name: '重击', cd: 5, dmg: 1.5, hits: 1, lv: 2 },
+  { name: '连击', cd: 8, dmg: 0.8, hits: 2, lv: 3 },
+  { name: '暴击', cd: 15, dmg: 3, hits: 1, lv: 5 },
+  { name: '旋风', cd: 20, dmg: 2, hits: 0, lv: 8 },
+  { name: '雷霆', cd: 45, dmg: 5, hits: 1, lv: 12 },
+  { name: '终极', cd: 90, dmg: 10, hits: 1, lv: 18 }
 ];
 
-// 辅助角色配置
+// DPS = 每0.5秒投骰子时投出的伤害值（实际DPS ≈ DPS × 0.6 / 0.5 = DPS × 1.2/秒）
 const SUPPORTS = [
-  { name: '小毛绒', dps: 22200, unlockWave: 0 },
-  { name: '棉花糖', dps: 18500, unlockWave: 5 },
-  { name: '肉丸', dps: 15000, unlockWave: 10 },
-  { name: '布丁', dps: 12000, unlockWave: 20 },
-  { name: '蛋筒', dps: 9800, unlockWave: 30 },
-  { name: '麻薯', dps: 7600, unlockWave: 50 },
-  { name: '雪糕', dps: 5500, unlockWave: 75 },
-  { name: '甜甜', dps: 3500, unlockWave: 100 }
+  { name: '小毛绒', dps: 30, wave: 0 },
+  { name: '棉花糖', dps: 55, wave: 5 },
+  { name: '肉丸',   dps: 90, wave: 10 },
+  { name: '布丁',   dps: 150, wave: 20 },
+  { name: '蛋筒',   dps: 250, wave: 30 },
+  { name: '麻薯',   dps: 420, wave: 50 },
+  { name: '雪糕',   dps: 700, wave: 75 },
+  { name: '甜甜',   dps: 1100, wave: 100 }
 ];
 
-// ==================== 游戏场景 ====================
-class GameScene extends Phaser.Scene {
-  constructor() {
-    super({ key: 'GameScene' });
-  }
+// 食物系统（堆叠型buff，每购买一个永久生效）
+const FOODS = [
+  { name: '棒棒糖', icon: '🍭', price: 100,  desc: '暴击+10%，攻速+10%' },
+  { name: '牛奶',   icon: '🥛', price: 200,  desc: '攻击+15%' },
+  { name: '烤肉',   icon: '🍖', price: 500,  desc: '全属性+20%' }
+];
 
-  create() {
-    // 游戏状态
+// 转盘奖品
+const SPIN_PRIZES = [
+  { text: '50金',   type: 'gold', value: 50,   weight: 30 },
+  { text: '100金',  type: 'gold', value: 100,  weight: 25 },
+  { text: '200金',  type: 'gold', value: 200,  weight: 15 },
+  { text: '500金',  type: 'gold', value: 500,  weight: 8 },
+  { text: '🍭×1',   type: 'food', value: '棒棒糖', weight: 8 },
+  { text: '🥛×1',   type: 'food', value: '牛奶', weight: 6 },
+  { text: '20能量', type: 'energy', value: 20, weight: 5 },
+  { text: '1000金', type: 'gold', value: 1000, weight: 3 }
+];
+
+class Game {
+  constructor() {
     this.gold = 0;
-    this.diamond = 0;
     this.energy = 100;
     this.mainLevel = 1;
     this.wave = 1;
-    this.totalWaveCount = 0;
-    this.totalWavesCleared = 0;
+    this.round = 1;
+    this.totalCleared = 0;
     this.killCount = 0;
-    this.totalKills = 0;
-    this.gachaCount = 3;
-    this.skillCD = [0, 0, 0, 0, 0, 0, 0];
-    this.skillLevel = [1, 0, 0, 0, 0, 0, 0];
-    this.toastQueue = [];
-
-    // 辅助角色
-    this.supports = SUPPORTS.map(s => ({
-      ...s,
-      level: 1,
-      unlocked: s.unlockWave === 0
-    }));
-
+    this.skillCD = new Array(7).fill(0);
+    this.skillUnlocked = [true, false, false, false, false, false, false];
+    this.supports = SUPPORTS.map(s => ({ ...s, level: 1, unlocked: s.wave === 0 }));
     this.monsters = [];
-
-    // 加载存档
+    this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
+    this.freeSpins = 3;
+    this.spinDate = new Date().toDateString();
     this.loadGame();
-
-    // 创建UI
-    this.createUI();
-
-    // 绑定事件
-    this.input.on('pointerdown', this.onAttack, this);
-    document.addEventListener('keydown', (e) => {
-      if (e.code === 'Space' || e.keyCode === 32) {
-        e.preventDefault();
-        this.onAttack();
-      }
-    });
-
-    // 生成波次
+    this.render();
+    this.bindEvents();
     this.spawnWave();
-
-    // 启动定时器
-    this.time.addEvent({
-      delay: 1000,
-      callback: this.onSecondTick,
-      callbackScope: this,
-      loop: true
-    });
-
-    this.time.addEvent({
-      delay: 500,
-      callback: this.onSupportAttack,
-      callbackScope: this,
-      loop: true
-    });
-
-    this.time.addEvent({
-      delay: 1000,
-      callback: this.onAutoAttack,
-      callbackScope: this,
-      loop: true
-    });
-
-    // 启动Toast循环
-    this.time.addEvent({
-      delay: 500,
-      callback: this.showNextToast,
-      callbackScope: this,
-      loop: true
-    });
-
-    // 每15秒存档
-    this.time.addEvent({
-      delay: 15000,
-      callback: this.saveGame,
-      callbackScope: this,
-      loop: true
-    });
+    this.startLoop();
   }
 
-  createUI() {
-    const w = 500;
+  // ---------- 工具方法 ----------
 
-    // 顶部状态栏
-    const topBar = this.add.graphics()
-      .fillStyle(0x16213e, 1)
-      .fillRect(0, 0, w, 60)
-      .setDepth(10);
-
-    // 用户头像
-    this.add.rectangle(50, 30, 40, 40, 0x3498db).setDepth(11);
-    this.add.text(35, 20, '微信', { fontSize: '10px', color: '#fff' }).setDepth(12);
-    this.add.text(35, 32, '头像', { fontSize: '10px', color: '#fff' }).setDepth(12);
-
-    // VIP标签
-    this.add.rectangle(90, 15, 40, 18, 0xf39c12).setDepth(11);
-    this.add.text(72, 10, 'VIP0', { fontSize: '10px', color: '#fff' }).setDepth(12);
-
-    // 用户名
-    this.add.text(10, 42, 'admin', { fontSize: '12px', color: '#fff' }).setDepth(11);
-
-    // 波次显示
-    this.waveLabel = this.add.text(w / 2, 30, '第1轮 第1波', {
-      fontSize: '16px',
-      color: '#fff',
-      fontStyle: 'bold'
-    }).setOrigin(0.5).setDepth(11);
-
-    // 金币显示
-    this.goldIcon = this.add.rectangle(w - 100, 30, 24, 24, 0xffd700).setDepth(11);
-    this.goldLabel = this.add.text(w - 120, 20, '0', {
-      fontSize: '16px',
-      color: '#ffd700',
-      fontStyle: 'bold'
-    }).setDepth(11);
-
-    // 战斗区域背景
-    const battleBg = this.add.rectangle(w / 2, 200, w, 250, 0x1a1a2e).setDepth(1);
-
-    // 怪物显示区域
-    this.monsterContainer = this.add.container(0, 0).setDepth(5);
-
-    // 主角显示
-    this.mainCharBg = this.add.circle(w / 2, 280, 35, 0x3498db).setDepth(2);
-    this.mainCharLabel = this.add.text(w / 2, 270, '主角', { fontSize: '14px', color: '#fff' }).setOrigin(0.5).setDepth(3);
-    this.mainLevelLabel = this.add.text(w / 2, 285, 'Lv.1', { fontSize: '12px', color: '#ccc' }).setOrigin(0.5).setDepth(3);
-
-    // DPS显示
-    this.dpsLabel = this.add.text(w / 2, 330, 'DPS 0', {
-      fontSize: '14px',
-      color: '#888'
-    }).setOrigin(0.5).setDepth(2);
-
-    // 辅助角色（左侧）
-    this.supports.forEach((s, i) => {
-      if (i < 4) {
-        s.display = this.add.container(20, 180 + i * 50).setDepth(3);
-      } else {
-        s.display = this.add.container(w - 50, 180 + (i - 4) * 50).setDepth(3);
-      }
-
-      const color = s.unlocked ? 0x9b59b6 : 0x555555;
-      const circle = this.add.circle(0, 0, 18, color).setDepth(3);
-      const nameText = this.add.text(0, 0, s.name.substring(0, 2), {
-        fontSize: '9px',
-        color: '#fff'
-      }).setOrigin(0.5).setDepth(4);
-      const levelText = this.add.text(0, 20, s.unlocked ? `1级` : '未解锁', {
-        fontSize: '8px',
-        color: '#888'
-      }).setOrigin(0.5).setDepth(4);
-
-      s.display.add([circle, nameText, levelText]);
-    });
-
-    // 技能栏背景
-    const skillBg = this.add.graphics()
-      .fillStyle(0x16213e, 1)
-      .fillRect(0, 380, w, 50)
-      .setDepth(10);
-
-    // 技能按钮
-    this.skillBtns = [];
-    const skillStartX = 50;
-    const skillSpacing = 60;
-
-    SKILLS.forEach((skill, i) => {
-      const x = skillStartX + i * skillSpacing;
-      const btn = this.add.container(x, 405).setDepth(11);
-
-      // 技能背景
-      const bg = this.add.circle(0, 0, 22, i === 0 ? 0x27ae60 : 0x555555).setDepth(11);
-      btn.add(bg);
-
-      // 技能名称
-      const text = this.add.text(0, 0, skill.name, {
-        fontSize: '10px',
-        color: '#fff'
-      }).setOrigin(0.5).setDepth(12);
-      btn.add(text);
-
-      // CD遮罩
-      const cdOverlay = this.add.circle(0, 0, 22, 0x000000, 0.7).setDepth(13);
-      cdOverlay.setVisible(false);
-      btn.add(cdOverlay);
-      btn.cdOverlay = cdOverlay;
-
-      // 设为可点击
-      btn.setSize(44, 44);
-      btn.setInteractive();
-      btn.on('pointerdown', () => this.onSkillClick(i));
-
-      this.skillBtns.push(btn);
-    });
-
-    // 底部导航栏
-    const navBg = this.add.graphics()
-      .fillStyle(0x16213e, 1)
-      .fillRect(0, 430, w, 50)
-      .setDepth(10);
-
-    const navItems = ['升级', '超市', '转盘', '排行', '商城'];
-    navItems.forEach((item, i) => {
-      const x = 50 + i * 90;
-      const btn = this.add.container(x, 455).setDepth(11);
-      const bg = this.add.roundRect(-35, -18, 70, 36, 8, 0x0f3460).setDepth(11);
-      const text = this.add.text(0, 0, item, {
-        fontSize: '12px',
-        color: '#fff'
-      }).setOrigin(0.5).setDepth(12);
-      btn.add([bg, text]);
-
-      btn.setSize(70, 36);
-      btn.setInteractive();
-      btn.on('pointerdown', () => this.openPanel(item));
-    });
-
-    // 伤害文字容器
-    this.damageTextContainer = this.add.container(0, 0).setDepth(100);
-
-    // Toast容器
-    this.toastContainer = this.add.container(w / 2, 70).setDepth(200);
+  fmt(n) {
+    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+    return n + '';
   }
 
-  // ==================== 攻击 ====================
-  onAttack() {
-    if (this.monsters.length === 0) return;
-    if (this.energy < 1) {
-      this.showToast('能量不足！');
-      return;
-    }
+  roundText() { return `第${this.round}轮 第${this.wave}波`; }
 
-    this.energy -= 1;
-    this.doAttack();
-    this.updateUI();
+  totalDps() {
+    return CONFIG.mainDmg(this.mainLevel) +
+      this.supports.filter(s => s.unlocked).reduce((a, s) => a + s.dps * s.level, 0);
   }
 
-  onAutoAttack() {
-    if (this.monsters.length === 0) return;
-    this.doAttack();
+  // 食物buff计算（堆叠型）
+  getBuffs() {
+    const lollipop = this.foods['棒棒糖'] || 0;
+    const milk = this.foods['牛奶'] || 0;
+    const meat = this.foods['烤肉'] || 0;
+    return {
+      critChance: 0.1 + lollipop * 0.1,        // 基础10% + 每个棒棒糖+10%
+      attackMult: (1 + milk * 0.15) * (1 + meat * 0.2),  // 攻击倍率
+      speedMult: (1 + lollipop * 0.1) * (1 + meat * 0.2), // 攻速倍率（影响能量恢复）
+      supportMult: 1 + meat * 0.2                // 辅助角色倍率
+    };
   }
 
-  doAttack(targetIndex = null) {
-    if (this.monsters.length === 0) return;
+  // ---------- 渲染 ----------
 
-    let target = this.monsters[0];
-    if (targetIndex !== null && this.monsters[targetIndex]) {
-      target = this.monsters[targetIndex];
-    } else {
-      this.monsters.forEach(m => {
-        if (m.hp > target.hp) target = m;
-      });
-    }
-
-    const damage = CONFIG.mainDmg(this.mainLevel);
-    const isCrit = Math.random() < 0.1;
-    const finalDamage = isCrit ? damage * 2 : damage;
-
-    target.hp -= finalDamage;
-    this.showDamageText(finalDamage, isCrit, target.container.x, target.container.y);
-
-    if (target.hp <= 0) {
-      this.onMonsterKilled(target);
-    }
-
-    this.updateMonsterDisplay();
+  render() {
+    const game = document.getElementById('game');
+    game.innerHTML = `
+      <div class="bar">
+        <div class="avatar">头像</div>
+        <span>admin</span>
+        <div class="wave" id="wave">${this.roundText()}</div>
+        <div class="gold">💰 <span id="gold">${this.fmt(this.gold)}</span></div>
+      </div>
+      <div class="battle" id="battle">
+        <div class="supports left">
+          ${this.supports.slice(4).map(s =>
+            `<div class="support ${s.unlocked ? 'on' : 'off'}">${s.name.slice(0,2)}</div>`
+          ).join('')}
+        </div>
+        <div class="supports right">
+          ${this.supports.slice(0, 4).map(s =>
+            `<div class="support ${s.unlocked ? 'on' : 'off'}">${s.name.slice(0,2)}</div>`
+          ).join('')}
+        </div>
+        <div id="monsters-area"></div>
+        <div class="main-char">
+          <span class="label">主角</span>
+          <span class="level" id="main-level">Lv.${this.mainLevel}</span>
+        </div>
+        <div class="dps" id="dps">DPS: ${this.fmt(this.totalDps())}</div>
+        <div class="wave-progress">
+          <div class="wave-progress-fill" id="wave-fill" style="width:${(this.wave / CONFIG.maxWave) * 100}%"></div>
+        </div>
+        <div class="energy-bar" id="energy-bar">⚡ ${this.energy}/${CONFIG.maxEnergy}</div>
+        <div class="buff-bar" id="buff-bar">${this.renderBuffs()}</div>
+        <div id="damage-layer" style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;"></div>
+      </div>
+      <div class="skills" id="skills">${this.renderSkills()}</div>
+      <div class="nav">
+        <button onclick="game.openUpgrade()">升级</button>
+        <button onclick="game.openSupermarket()">超市</button>
+        <button onclick="game.openSpinWheel()">转盘</button>
+        <button onclick="game.showToast('功能开发中')">排行</button>
+        <button onclick="game.showToast('功能开发中')">商城</button>
+      </div>
+    `;
+    this.renderMonsters();
   }
 
-  onSupportAttack() {
-    if (this.monsters.length === 0) return;
-
-    this.supports.forEach(s => {
-      if (!s.unlocked) return;
-      if (Math.random() < 0.4) return;
-
-      let target = this.monsters[0];
-      this.monsters.forEach(m => {
-        if (m.hp > target.hp) target = m;
-      });
-
-      const damage = Math.floor(s.dps * s.level * 0.5);
-      target.hp -= damage;
-
-      if (target.hp <= 0) {
-        this.onMonsterKilled(target);
-      }
-    });
-
-    this.updateMonsterDisplay();
+  renderBuffs() {
+    return FOODS.map(f => {
+      const count = this.foods[f.name] || 0;
+      if (count === 0) return '';
+      return `<span class="buff-icon" title="${f.name} ×${count}">${f.icon}${count}</span>`;
+    }).join('');
   }
 
-  onMonsterKilled(monster) {
-    const goldReward = CONFIG.goldReward(this.wave, monster.isBoss);
-    this.gold += goldReward;
-    this.energy = Math.min(CONFIG.maxEnergy, this.energy + 2);
-    if (monster.isBoss) this.energy = Math.min(CONFIG.maxEnergy, this.energy + 10);
-
-    this.killCount++;
-    this.totalKills++;
-    this.checkLevelUp();
-
-    // 移除怪物
-    const idx = this.monsters.indexOf(monster);
-    if (idx >= 0) {
-      this.monsters.splice(idx, 1);
-      monster.container.destroy();
-    }
-
-    if (this.monsters.length === 0) {
-      this.onWaveComplete();
-    }
-
-    this.updateUI();
+  renderSkills() {
+    return SKILLS.map((s, i) => {
+      const unlocked = this.mainLevel >= s.lv;
+      const cd = this.skillCD[i] > 0;
+      return `<div class="skill ${unlocked ? 'active' : ''} ${cd ? 'cd' : ''}" onclick="game.useSkill(${i})">${s.name}${cd ? `(${Math.ceil(this.skillCD[i])}s)` : ''}</div>`;
+    }).join('');
   }
 
-  onSkillClick(index) {
-    if (this.skillLevel[index] === 0) {
-      this.showToast('技能未解锁！');
-      return;
-    }
-    if (this.skillCD[index] > 0) {
-      this.showToast('冷却中！');
-      return;
-    }
-    if (this.monsters.length === 0) {
-      this.showToast('没有怪物！');
-      return;
-    }
-    if (this.energy < 10) {
-      this.showToast('能量不足！');
-      return;
-    }
-
-    this.energy -= 10;
-    this.skillCD[index] = SKILLS[index].cd;
-
-    const skill = SKILLS[index];
-    const dmg = CONFIG.mainDmg(this.mainLevel) * skill.dmg;
-
-    if (skill.hits === 0) {
-      // 全体攻击
-      this.monsters.forEach(m => {
-        m.hp -= dmg;
-        this.showDamageText(dmg, true, m.container.x, m.container.y);
-        if (m.hp <= 0) this.onMonsterKilled(m);
-      });
-    } else {
-      for (let i = 0; i < skill.hits; i++) {
-        let target = this.monsters[Math.floor(Math.random() * this.monsters.length)];
-        target.hp -= dmg;
-        this.showDamageText(dmg, true, target.container.x, target.container.y);
-        if (target.hp <= 0) this.onMonsterKilled(target);
-        if (this.monsters.length === 0) break;
-      }
-    }
-
-    this.updateMonsterDisplay();
-    this.updateUI();
+  renderMonsters() {
+    const area = document.getElementById('monsters-area');
+    if (!area) return;
+    const w = this.monsters.length;
+    area.innerHTML = this.monsters.map((m, i) => {
+      const pct = Math.max(0, m.hp / m.maxHp * 100);
+      // 水平等分居中，垂直30%位置
+      const xPct = (i + 0.5) / w * 100;
+      return `<div class="monster ${m.isBoss ? 'boss' : ''}" style="left:${xPct}%;top:25%;transform:translate(-50%,-50%)" onclick="game.hitMonster(${i})">
+        <span class="name">${m.isBoss ? 'BOSS' : '豆豆怪'}</span>
+        <div class="hp-bar"><div class="hp-fill" style="width:${pct}%"></div></div>
+        <div class="hp-text">${Math.max(0, Math.floor(m.hp))}/${m.maxHp}</div>
+      </div>`;
+    }).join('');
   }
 
-  // ==================== 波次系统 ====================
+  // ---------- 波次 & 怪物 ----------
+
   spawnWave() {
-    const isBoss = this.wave === 10 && this.totalWaveCount > 0;
-    const monsterCount = isBoss ? 1 : (this.wave <= 5 ? 2 : (this.wave <= 9 ? 3 : 4));
-    const hp = CONFIG.monsterHp(this.wave);
-
-    if (isBoss) {
-      this.showToast('💀 BOSS出现！');
-    }
-
-    const positions = this.getMonsterPositions(monsterCount);
-
-    for (let i = 0; i < monsterCount; i++) {
-      const monster = {
+    const isBoss = this.wave === CONFIG.maxWave && this.round > 1;
+    const count = isBoss ? 1 : (this.wave <= 5 ? 2 : 3);
+    const hp = CONFIG.monsterHp(this.wave + (this.round - 1) * CONFIG.maxWave);
+    this.monsters = [];
+    for (let i = 0; i < count; i++) {
+      this.monsters.push({
         hp: isBoss ? hp * 5 : hp,
         maxHp: isBoss ? hp * 5 : hp,
-        isBoss: isBoss,
-        container: this.monsterContainer
-      };
-
-      const container = this.add.container(positions[i].x, positions[i].y).setDepth(5);
-      monster.container = container;
-
-      // 怪物背景
-      const bg = this.add.circle(0, 0, 28, isBoss ? 0xe74c3c : 0xff6666).setDepth(5);
-      container.add(bg);
-
-      // 怪物名称
-      const name = this.add.text(0, -5, '豆豆怪', {
-        fontSize: '12px',
-        color: '#fff'
-      }).setOrigin(0.5).setDepth(6);
-      container.add(name);
-
-      // 血量条背景
-      const hpBg = this.add.rectangle(0, 15, 56, 8, 0x333333).setDepth(6);
-      container.add(hpBg);
-
-      // 血量条
-      const hpBar = this.add.rectangle(-28, 15, 56, 8, 0x2ecc71).setDepth(7);
-      hpBar.setOrigin(0, 0.5);
-      container.add(hpBar);
-      monster.hpBar = hpBar;
-
-      // 血量文字
-      const hpText = this.add.text(0, 25, `${monster.hp}/${monster.maxHp}`, {
-        fontSize: '10px',
-        color: '#ccc'
-      }).setOrigin(0.5).setDepth(6);
-      container.add(hpText);
-      monster.hpText = hpText;
-
-      // 点击事件
-      container.setSize(56, 56);
-      container.setInteractive();
-      container.on('pointerdown', () => {
-        if (this.energy >= 1) {
-          this.energy -= 1;
-          this.doAttack(this.monsters.indexOf(monster));
-          this.updateUI();
-        }
+        isBoss
       });
-
-      this.monsters.push(monster);
     }
+    this.renderMonsters();
   }
 
-  getMonsterPositions(count) {
-    const centerX = 250;
-    const startY = 120;
-    const positions = [];
-
-    if (count === 1) {
-      positions.push({ x: centerX, y: startY + 30 });
-    } else if (count === 2) {
-      positions.push({ x: centerX - 80, y: startY + 30 });
-      positions.push({ x: centerX + 80, y: startY + 30 });
-    } else if (count === 3) {
-      positions.push({ x: centerX, y: startY });
-      positions.push({ x: centerX - 80, y: startY + 50 });
-      positions.push({ x: centerX + 80, y: startY + 50 });
-    } else {
-      positions.push({ x: centerX - 100, y: startY });
-      positions.push({ x: centerX + 100, y: startY });
-      positions.push({ x: centerX - 60, y: startY + 50 });
-      positions.push({ x: centerX + 60, y: startY + 50 });
-    }
-
-    return positions;
-  }
-
-  onWaveComplete() {
+  nextWave() {
     this.wave++;
-    this.totalWavesCleared++;
-
+    this.totalCleared++;
     if (this.wave > CONFIG.maxWave) {
       this.wave = 1;
-      this.totalWaveCount++;
-      this.showToast(`🎉 通关！进入第${this.totalWaveCount + 1}轮`);
+      this.round++;
+      this.showToast(`🎉 通关！进入第${this.round}轮`);
     }
-
-    this.checkTeamUnlock();
-    this.updateUI();
-    this.spawnWave();
+    this.checkSupports();
+    setTimeout(() => this.spawnWave(), 300);
   }
 
-  // ==================== 升级 ====================
+  // ---------- 战斗逻辑 ----------
+
+  hitMonster(idx) {
+    const m = this.monsters[idx];
+    if (!m || m.hp <= 0 || this.energy < 1) return;
+    this.energy--;
+    this.doDamage(m, CONFIG.mainDmg(this.mainLevel), idx);
+  }
+
+  doDamage(m, dmg, idx, isCrit = false) {
+    const buffs = this.getBuffs();
+    dmg = Math.floor(dmg * buffs.attackMult);
+    if (!isCrit && Math.random() < buffs.critChance) { dmg *= 2; isCrit = true; }
+    m.hp -= dmg;
+    this.showDamage(dmg, isCrit, idx);
+    if (m.hp <= 0) this.onKill(m, idx);
+    this.updateUI();
+  }
+
+  showDamage(dmg, isCrit, idx) {
+    const layer = document.getElementById('damage-layer');
+    if (!layer) return;
+    const el = document.createElement('div');
+    el.className = 'damage-text' + (isCrit ? ' crit' : '');
+    el.textContent = `-${this.fmt(dmg)}${isCrit ? '!' : ''}`;
+    const w = this.monsters.length || 1;
+    const xPct = ((idx >= 0 ? idx : 0) + 0.5) / w * 100 + (Math.random() * 6 - 3);
+    el.style.left = xPct + '%';
+    el.style.top = (20 + Math.random() * 15) + '%';
+    layer.appendChild(el);
+    setTimeout(() => el.remove(), 800);
+  }
+
+  onKill(m, idx) {
+    // 安全检查：防止重复击杀
+    if (m.hp > 0) return;
+    const realIdx = this.monsters.indexOf(m);
+    if (realIdx === -1) return;
+
+    const reward = CONFIG.goldReward(this.wave, m.isBoss);
+    this.gold += reward;
+    this.energy = Math.min(CONFIG.maxEnergy, this.energy + (m.isBoss ? 10 : 2));
+    this.killCount++;
+    this.monsters.splice(realIdx, 1);
+    if (this.monsters.length === 0) this.nextWave();
+    this.checkLevelUp();
+  }
+
+  // ---------- 升级 ----------
+
   checkLevelUp() {
-    const needed = CONFIG.upgradesForNextLevel(this.mainLevel);
-    if (this.killCount >= needed) {
+    if (this.killCount >= CONFIG.killsNeeded(this.mainLevel)) {
       this.killCount = 0;
       this.mainLevel++;
-      this.showToast(`⬆️ 升级成功！现在是 Lv.${this.mainLevel}`);
-      this.checkSkillUnlock();
-      this.checkTeamUnlock();
+      this.showToast(`⬆️ 主角升级！Lv.${this.mainLevel}`);
+      SKILLS.forEach((s, i) => {
+        if (this.mainLevel >= s.lv && !this.skillUnlocked[i]) {
+          this.skillUnlocked[i] = true;
+          this.showToast(`🔓【${s.name}】解锁！`);
+        }
+      });
     }
   }
 
-  checkSkillUnlock() {
-    SKILLS.forEach((skill, i) => {
-      if (i > 0 && this.mainLevel >= skill.unlockLevel && this.skillLevel[i] === 0) {
-        this.skillLevel[i] = 1;
-        this.showToast(`🔓【${skill.name}】解锁！`);
-        this.skillBtns[i].getAt(0).setFillStyle(0x27ae60);
+  checkSupports() {
+    this.supports.forEach(s => {
+      if (!s.unlocked && this.totalCleared >= s.wave) {
+        s.unlocked = true;
+        this.showToast(`🌟【${s.name}】加入队伍！`);
       }
     });
   }
 
-  checkTeamUnlock() {
-    this.supports.forEach((s, i) => {
-      if (!s.unlocked && this.totalWavesCleared >= s.unlockWave) {
-        s.unlocked = true;
-        this.showToast(`🌟【${s.name}】加入队伍！`);
-        this.updateSupportDisplay(i);
-      }
-    });
+  openUpgrade() {
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>升级</h3>
+        <div class="upgrade-row">
+          <div class="char-icon">主角</div>
+          <div class="info">主角 Lv.${this.mainLevel}<br>伤害: ${this.fmt(CONFIG.mainDmg(this.mainLevel))}</div>
+          <button onclick="game.upgradeMain()" ${this.gold < CONFIG.upgradeCost(this.mainLevel) ? 'disabled' : ''}>${this.fmt(CONFIG.upgradeCost(this.mainLevel))}金</button>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${this.killCount / CONFIG.killsNeeded(this.mainLevel) * 100}%"></div></div>
+        <p style="font-size:11px;color:#888;">击杀进度: ${this.killCount}/${CONFIG.killsNeeded(this.mainLevel)}</p>
+        ${this.supports.filter(s => s.unlocked).map(s => `
+          <div class="upgrade-row">
+            <div class="char-icon" style="background:#9b59b6">${s.name.slice(0,2)}</div>
+            <div class="info">${s.name} Lv.${s.level}<br>DPS: ${this.fmt(s.dps * s.level)}</div>
+            <button onclick="game.upgradeSupport(${SUPPORTS.indexOf(s)})" ${this.gold < CONFIG.upgradeCost(s.level) ? 'disabled' : ''}>${this.fmt(CONFIG.upgradeCost(s.level))}金</button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    document.body.appendChild(overlay);
   }
 
   upgradeMain() {
     const cost = CONFIG.upgradeCost(this.mainLevel);
-    if (this.gold < cost) {
-      this.showToast('金币不足！');
-      return;
-    }
+    if (this.gold < cost) { this.showToast('金币不足！'); return; }
     this.gold -= cost;
     this.mainLevel++;
-    this.killCount = 0;
-    this.checkSkillUnlock();
-    this.checkTeamUnlock();
-    this.showToast(`升级成功！现在是 Lv.${this.mainLevel}`);
-    this.updateUI();
+    this.showToast(`主角升级！Lv.${this.mainLevel}`);
+    this.checkLevelUpSkills();
     this.saveGame();
+    document.querySelector('.panel-overlay')?.remove();
+    this.updateUI();
   }
 
-  upgradeSupport(index) {
-    const s = this.supports[index];
+  checkLevelUpSkills() {
+    SKILLS.forEach((s, i) => {
+      if (this.mainLevel >= s.lv && !this.skillUnlocked[i]) {
+        this.skillUnlocked[i] = true;
+        this.showToast(`🔓【${s.name}】解锁！`);
+      }
+    });
+  }
+
+  upgradeSupport(idx) {
+    const s = this.supports[idx];
     const cost = CONFIG.upgradeCost(s.level);
-    if (this.gold < cost) {
-      this.showToast('金币不足！');
-      return;
-    }
+    if (this.gold < cost) { this.showToast('金币不足！'); return; }
     this.gold -= cost;
     s.level++;
-    this.showToast(`${s.name} 升级！`);
-    this.updateUI();
+    this.showToast(`${s.name}升级！Lv.${s.level}`);
     this.saveGame();
+    document.querySelector('.panel-overlay')?.remove();
+    this.updateUI();
   }
 
-  // ==================== UI更新 ====================
+  // ---------- 超市 ----------
+
+  openSupermarket() {
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    const buffs = this.getBuffs();
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>🛒 超市</h3>
+        <div style="font-size:11px;color:#888;margin-bottom:10px;">
+          当前buff: 暴击${Math.floor(buffs.critChance*100)}% | 攻击×${buffs.attackMult.toFixed(2)} | 攻速×${buffs.speedMult.toFixed(2)}
+        </div>
+        ${FOODS.map((f, i) => {
+          const count = this.foods[f.name] || 0;
+          return `<div class="upgrade-row">
+            <div class="char-icon" style="background:#e67e22;font-size:18px;">${f.icon}</div>
+            <div class="info">${f.name} ×${count}<br><span style="color:#aaa;font-size:10px;">${f.desc}</span></div>
+            <button onclick="game.buyFood(${i})" ${this.gold < f.price ? 'disabled' : ''}>${f.price}金</button>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  buyFood(idx) {
+    const f = FOODS[idx];
+    if (this.gold < f.price) { this.showToast('金币不足！'); return; }
+    this.gold -= f.price;
+    this.foods[f.name] = (this.foods[f.name] || 0) + 1;
+    this.showToast(`${f.icon} 购买${f.name}成功！`);
+    this.saveGame();
+    document.querySelector('.panel-overlay')?.remove();
+    this.updateUI();
+  }
+
+  // ---------- 转盘 ----------
+
+  openSpinWheel() {
+    // 检查日期重置
+    const today = new Date().toDateString();
+    if (this.spinDate !== today) {
+      this.freeSpins = 3;
+      this.spinDate = today;
+    }
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;text-align:center;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>🎡 转盘</h3>
+        <p style="color:#aaa;font-size:12px;margin-bottom:12px;">今日免费: ${this.freeSpins}/3 次</p>
+        <div id="spin-wheel" class="spin-wheel">
+          ${SPIN_PRIZES.map((p, i) => `<div class="spin-segment" style="--i:${i}">${p.text}</div>`).join('')}
+          <div class="spin-pointer">▼</div>
+        </div>
+        <div id="spin-result" style="margin:12px 0;font-size:16px;min-height:30px;"></div>
+        <button id="spin-btn" class="spin-btn" onclick="game.spin()" ${this.freeSpins <= 0 ? 'disabled' : ''}>
+          ${this.freeSpins > 0 ? '开始抽奖！' : '今日次数已用完'}
+        </button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  spin() {
+    if (this.freeSpins <= 0) return;
+    this.freeSpins--;
+    const btn = document.getElementById('spin-btn');
+    const result = document.getElementById('spin-result');
+    const wheel = document.getElementById('spin-wheel');
+    if (btn) { btn.disabled = true; btn.textContent = '抽奖中...'; }
+
+    // 加权随机选择奖品
+    const totalWeight = SPIN_PRIZES.reduce((s, p) => s + p.weight, 0);
+    let r = Math.random() * totalWeight;
+    let prize = SPIN_PRIZES[0];
+    for (const p of SPIN_PRIZES) {
+      r -= p.weight;
+      if (r <= 0) { prize = p; break; }
+    }
+
+    // 转盘动画
+    if (wheel) {
+      wheel.classList.remove('spinning');
+      void wheel.offsetWidth; // 强制重排
+      wheel.classList.add('spinning');
+    }
+
+    // 1.5秒后显示结果
+    setTimeout(() => {
+      if (prize.type === 'gold') {
+        this.gold += prize.value;
+      } else if (prize.type === 'food') {
+        this.foods[prize.value] = (this.foods[prize.value] || 0) + 1;
+      } else if (prize.type === 'energy') {
+        this.energy = Math.min(CONFIG.maxEnergy, this.energy + prize.value);
+      }
+      if (result) result.textContent = `🎉 获得: ${prize.text}`;
+      this.showToast(`🎡 转盘奖励: ${prize.text}`);
+      this.saveGame();
+      this.updateUI();
+      if (btn) {
+        btn.disabled = this.freeSpins <= 0;
+        btn.textContent = this.freeSpins > 0 ? `再来一次 (${this.freeSpins})` : '今日次数已用完';
+      }
+      // 更新免费次数显示
+      const info = document.querySelector('.panel p');
+      if (info) info.textContent = `今日免费: ${this.freeSpins}/3 次`;
+    }, 1500);
+  }
+
+  // ---------- 技能 ----------
+
+  useSkill(idx) {
+    if (!this.skillUnlocked[idx]) { this.showToast('技能未解锁！'); return; }
+    if (this.skillCD[idx] > 0) { this.showToast('冷却中！'); return; }
+    if (this.monsters.length === 0) { this.showToast('没有怪物！'); return; }
+    if (this.energy < 5) { this.showToast('能量不足！'); return; }
+    const s = SKILLS[idx];
+    this.energy -= 5;
+    this.skillCD[idx] = s.cd;
+    const dmg = CONFIG.mainDmg(this.mainLevel) * s.dmg;
+    if (s.hits === 0) {
+      // 旋风：全体攻击
+      this.monsters.slice().forEach((m, i) => this.doDamage(m, dmg, i, true));
+    } else {
+      for (let i = 0; i < s.hits; i++) {
+        if (this.monsters.length === 0) break;
+        const mi = Math.floor(Math.random() * this.monsters.length);
+        const m = this.monsters[mi];
+        if (m) this.doDamage(m, dmg, mi, true);
+      }
+    }
+  }
+
+  // ---------- UI 更新 ----------
+
   updateUI() {
-    this.goldLabel.setText(this.formatNumber(this.gold));
-    this.waveLabel.setText(`第${this.totalWaveCount + 1}轮 第${this.wave}波`);
-    this.mainLevelLabel.setText(`Lv.${this.mainLevel}`);
-
-    const totalDps = CONFIG.mainDmg(this.mainLevel) + this.getSupportDps();
-    this.dpsLabel.setText(`DPS ${this.formatNumber(totalDps)}`);
-
-    this.updateSkillCD();
+    const g = document.getElementById('gold');
+    const w = document.getElementById('wave');
+    const ml = document.getElementById('main-level');
+    const d = document.getElementById('dps');
+    const eb = document.getElementById('energy-bar');
+    const wf = document.getElementById('wave-fill');
+    if (g) g.textContent = this.fmt(this.gold);
+    if (w) w.textContent = this.roundText();
+    if (ml) ml.textContent = `Lv.${this.mainLevel}`;
+    if (d) d.textContent = `DPS: ${this.fmt(this.totalDps())}`;
+    if (eb) eb.textContent = `⚡ ${this.energy}/${CONFIG.maxEnergy}`;
+    if (wf) wf.style.width = `${(this.wave / CONFIG.maxWave) * 100}%`;
+    const bb = document.getElementById('buff-bar');
+    if (bb) bb.innerHTML = this.renderBuffs();
+    this.renderMonsters();
+    const sk = document.getElementById('skills');
+    if (sk) sk.innerHTML = this.renderSkills();
   }
 
-  updateMonsterDisplay() {
-    this.monsters.forEach(m => {
-      const hpPercent = Math.max(0, m.hp / m.maxHp);
-      m.hpBar.setDisplaySize(56 * hpPercent, 8);
-      m.hpText.setText(`${Math.max(0, Math.floor(m.hp))}/${m.maxHp}`);
-    });
-  }
+  // ---------- 事件绑定 ----------
 
-  updateSkillCD() {
-    this.skillBtns.forEach((btn, i) => {
-      if (this.skillCD[i] > 0) {
-        btn.cdOverlay.setVisible(true);
-        btn.cdOverlay.setAlpha(0.5);
-      } else {
-        btn.cdOverlay.setVisible(false);
+  bindEvents() {
+    // 点击战斗区域攻击（排除点击怪物和技能的情况）
+    document.getElementById('battle').addEventListener('click', (e) => {
+      if (e.target.closest('.monster') || e.target.closest('.skill')) return;
+      if (this.monsters.length > 0 && this.energy >= 1) {
+        this.energy--;
+        const m = this.monsters.reduce((a, b) => a.hp > b.hp ? a : b);
+        this.doDamage(m, CONFIG.mainDmg(this.mainLevel), this.monsters.indexOf(m));
       }
     });
-  }
-
-  updateSupportDisplay(index) {
-    const s = this.supports[index];
-    s.display.getAt(0).setFillStyle(s.unlocked ? 0x9b59b6 : 0x555555);
-    s.display.getAt(2).setText(s.unlocked ? `${s.level}级` : '未解锁');
-  }
-
-  // ==================== 特效 ====================
-  showDamageText(damage, isCrit, x, y) {
-    const text = this.add.text(x, y, `-${this.formatNumber(damage)}${isCrit ? '!' : ''}`, {
-      fontSize: isCrit ? '24px' : '18px',
-      color: isCrit ? '#ff0' : '#fff',
-      fontStyle: 'bold'
-    }).setOrigin(0.5).setDepth(101);
-
-    this.tweens.add({
-      targets: text,
-      y: y - 60,
-      alpha: 0,
-      duration: 800,
-      onComplete: () => text.destroy()
+    // 空格键攻击
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (this.monsters.length > 0 && this.energy >= 1) {
+          this.energy--;
+          const m = this.monsters.reduce((a, b) => a.hp > b.hp ? a : b);
+          this.doDamage(m, CONFIG.mainDmg(this.mainLevel), this.monsters.indexOf(m));
+        }
+      }
     });
+    // 页面关闭时存档
+    window.addEventListener('beforeunload', () => this.saveGame());
+
+    // 检查离线收益
+    this.checkOfflineReward();
   }
+
+  // ---------- 离线收益 ----------
+
+  checkOfflineReward() {
+    try {
+      const lastTime = parseInt(localStorage.getItem('gujiyouxi_time') || '0');
+      if (!lastTime) return;
+      const now = Date.now();
+      const elapsed = Math.floor((now - lastTime) / 1000); // 秒
+      if (elapsed < 60) return; // 少于1分钟不计算
+      const maxOffline = 8 * 3600; // 最多8小时
+      const seconds = Math.min(elapsed, maxOffline);
+      // 离线收益 = 所有角色DPS总和 × 10% × 秒数
+      const dps = this.totalDps();
+      const reward = Math.floor(dps * 0.1 * seconds);
+      if (reward <= 0) return;
+      this.gold += reward;
+      const hours = Math.floor(seconds / 3600);
+      const mins = Math.floor((seconds % 3600) / 60);
+      const timeStr = hours > 0 ? `${hours}小时${mins}分钟` : `${mins}分钟`;
+      // 延迟显示，等页面渲染完
+      setTimeout(() => {
+        const overlay = document.createElement('div');
+        overlay.className = 'panel-overlay';
+        overlay.innerHTML = `
+          <div class="panel" style="text-align:center;">
+            <h3>💤 离线收益</h3>
+            <p style="color:#aaa;font-size:12px;margin:8px 0;">你离开了 ${timeStr}</p>
+            <p style="font-size:24px;color:#ffd700;margin:16px 0;">+${this.fmt(reward)} 💰</p>
+            <p style="font-size:11px;color:#666;">DPS: ${this.fmt(dps)} × 10% × ${seconds}s</p>
+            <button class="spin-btn" onclick="this.parentElement.parentElement.remove()" style="margin-top:12px;">收下</button>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+      }, 500);
+    } catch(e) {}
+  }
+
+  // ---------- Toast ----------
 
   showToast(msg) {
-    if (this.toastQueue.length < 3) {
-      this.toastQueue.push(msg);
-    }
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2200);
   }
 
-  showNextToast() {
-    if (this.toastQueue.length === 0) return;
-    const msg = this.toastQueue.shift();
+  // ---------- 游戏主循环 ----------
 
-    const bg = this.add.rectangle(0, 0, 200, 40, 0x000000, 0.8).setOrigin(0.5);
-    const text = this.add.text(0, 0, msg, {
-      fontSize: '14px',
-      color: '#fff'
-    }).setOrigin(0.5);
-
-    const toast = this.add.container(250, 70, [bg, text]).setDepth(201);
-
-    this.tweens.add({
-      targets: toast,
-      y: 50,
-      alpha: 0,
-      duration: 2000,
-      onComplete: () => toast.destroy()
-    });
-  }
-
-  // ==================== 定时事件 ====================
-  onSecondTick() {
-    // 能量恢复
-    this.energy = Math.min(CONFIG.maxEnergy, this.energy + CONFIG.energyRecovery);
-
-    // 技能CD递减
-    for (let i = 0; i < this.skillCD.length; i++) {
-      if (this.skillCD[i] > 0) {
-        this.skillCD[i] = Math.max(0, this.skillCD[i] - 1);
+  startLoop() {
+    // 每秒：能量恢复 + 技能CD
+    setInterval(() => {
+      this.energy = Math.min(CONFIG.maxEnergy, this.energy + CONFIG.energyRecovery);
+      for (let i = 0; i < this.skillCD.length; i++) {
+        if (this.skillCD[i] > 0) this.skillCD[i]--;
       }
-    }
+      this.updateUI();
+    }, 1000);
 
-    this.updateUI();
+    // 每0.5秒：辅助角色自动攻击（安全迭代）
+    setInterval(() => {
+      if (this.monsters.length === 0) return;
+      // 创建当前怪物快照，避免迭代中修改数组的问题
+      const aliveMonsters = this.monsters.filter(m => m.hp > 0);
+      if (aliveMonsters.length === 0) return;
+      this.supports.forEach(s => {
+        if (!s.unlocked || Math.random() < 0.4) return;
+        // 找血最多的活着的怪物
+        const target = aliveMonsters.reduce((a, b) => a.hp > b.hp ? a : b);
+        const dmg = Math.floor(s.dps * s.level * 0.5 * this.getBuffs().supportMult);
+        target.hp -= dmg;
+        if (target.hp <= 0) this.onKill(target, -1);
+      });
+      this.renderMonsters();
+    }, 500);
+
+    // 每15秒自动存档
+    setInterval(() => this.saveGame(), 15000);
   }
 
-  // ==================== 工具方法 ====================
-  formatNumber(num) {
-    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-    return num.toString();
-  }
+  // ---------- 存档 ----------
 
-  getSupportDps() {
-    let total = 0;
-    this.supports.forEach(s => {
-      if (s.unlocked) total += s.dps * s.level;
-    });
-    return total;
-  }
-
-  openPanel(name) {
-    this.showToast(`打开${name}面板`);
-  }
-
-  // ==================== 存档 ====================
   saveGame() {
-    const data = {
-      gold: this.gold,
-      diamond: this.diamond,
-      energy: this.energy,
-      mainLevel: this.mainLevel,
-      wave: this.wave,
-      totalWaveCount: this.totalWaveCount,
-      totalWavesCleared: this.totalWavesCleared,
-      totalKills: this.totalKills,
-      supports: this.supports.map(s => ({ level: s.level, unlocked: s.unlocked })),
-      skillLevel: this.skillLevel,
-      gachaCount: this.gachaCount
-    };
-    localStorage.setItem('gujiyouxi_save', JSON.stringify(data));
+    try {
+      localStorage.setItem('gujiyouxi', JSON.stringify({
+        gold: this.gold, energy: this.energy, mainLevel: this.mainLevel,
+        wave: this.wave, round: this.round, totalCleared: this.totalCleared,
+        killCount: this.killCount, skillCD: this.skillCD, skillUnlocked: this.skillUnlocked,
+        supports: this.supports.map(s => ({ level: s.level, unlocked: s.unlocked })),
+        foods: this.foods, freeSpins: this.freeSpins, spinDate: this.spinDate
+      }));
+      localStorage.setItem('gujiyouxi_time', Date.now().toString());
+    } catch(e) {}
   }
 
   loadGame() {
-    const saved = localStorage.getItem('gujiyouxi_save');
-    if (saved) {
-      const data = JSON.parse(saved);
-      this.gold = data.gold || 0;
-      this.diamond = data.diamond || 0;
-      this.energy = data.energy || 100;
-      this.mainLevel = data.mainLevel || 1;
-      this.wave = data.wave || 1;
-      this.totalWaveCount = data.totalWaveCount || 0;
-      this.totalWavesCleared = data.totalWavesCleared || 0;
-      this.totalKills = data.totalKills || 0;
-      this.gachaCount = data.gachaCount || 3;
-      this.skillLevel = data.skillLevel || [1, 0, 0, 0, 0, 0, 0];
-
-      if (data.supports) {
-        data.supports.forEach((s, i) => {
-          if (this.supports[i]) {
-            this.supports[i].level = s.level || 1;
-            this.supports[i].unlocked = s.unlocked || SUPPORTS[i].unlockWave === 0;
-          }
-        });
-      }
-    }
+    try {
+      const d = JSON.parse(localStorage.getItem('gujiyouxi'));
+      if (!d) return;
+      this.gold = d.gold || 0;
+      this.energy = d.energy || 100;
+      this.mainLevel = d.mainLevel || 1;
+      this.wave = d.wave || 1;
+      this.round = d.round || 1;
+      this.totalCleared = d.totalCleared || 0;
+      this.killCount = d.killCount || 0;
+      this.skillCD = d.skillCD || new Array(7).fill(0);
+      this.skillUnlocked = d.skillUnlocked || [true, ...new Array(6).fill(false)];
+      if (d.supports) d.supports.forEach((s, i) => {
+        if (this.supports[i]) {
+          this.supports[i].level = s.level;
+          this.supports[i].unlocked = s.unlocked;
+        }
+      });
+      if (d.foods) this.foods = { ...this.foods, ...d.foods };
+      if (d.freeSpins !== undefined) this.freeSpins = d.freeSpins;
+      if (d.spinDate) this.spinDate = d.spinDate;
+    } catch(e) {}
   }
 }
 
-// ==================== 游戏配置 ====================
-const config = {
-  type: Phaser.AUTO,
-  width: 500,
-  height: 480,
-  parent: 'game-wrapper',
-  backgroundColor: '#16243a',
-  scene: GameScene
-};
-
 // 启动游戏
-const game = new Phaser.Game(config);
+const game = new Game();
