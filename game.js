@@ -70,6 +70,25 @@ const DAILY_TASKS = [
   { id: 'waves', desc: '通关5波', target: 5, reward: 300, track: (s) => s._dailyWaves || 0 }
 ];
 
+// 成就系统
+const ACHIEVEMENTS = [
+  { id: 'kill100',   icon: '⚔️', name: '新手猎手',   desc: '击杀100只怪物',   reward: 500,   check: (g) => g.stats.totalKills >= 100 },
+  { id: 'kill1000',  icon: '⚔️', name: '怪物克星',   desc: '击杀1000只怪物',  reward: 2000,  check: (g) => g.stats.totalKills >= 1000 },
+  { id: 'kill10000', icon: '⚔️', name: '杀戮之王',   desc: '击杀10000只怪物', reward: 10000, check: (g) => g.stats.totalKills >= 10000 },
+  { id: 'lv5',       icon: '⬆️', name: '小有成就',   desc: '主角达到5级',     reward: 300,   check: (g) => g.mainLevel >= 5 },
+  { id: 'lv10',      icon: '⬆️', name: '实力不凡',   desc: '主角达到10级',    reward: 1000,  check: (g) => g.mainLevel >= 10 },
+  { id: 'lv20',      icon: '⬆️', name: '登峰造极',   desc: '主角达到20级',    reward: 5000,  check: (g) => g.mainLevel >= 20 },
+  { id: 'round5',    icon: '🌊', name: '乘风破浪',   desc: '到达第5轮',       reward: 2000,  check: (g) => g.stats.maxRound >= 5 },
+  { id: 'round10',   icon: '🌊', name: '波涛汹涌',   desc: '到达第10轮',      reward: 8000,  check: (g) => g.stats.maxRound >= 10 },
+  { id: 'click1k',   icon: '👆', name: '点击达人',   desc: '点击1000次',      reward: 500,   check: (g) => g.stats.totalClicks >= 1000 },
+  { id: 'click10k',  icon: '👆', name: '疯狂点击',   desc: '点击10000次',     reward: 3000,  check: (g) => g.stats.totalClicks >= 10000 },
+  { id: 'food10',    icon: '🍭', name: '美食家',     desc: '累计购买10个食物', reward: 1000,  check: (g) => Object.values(g.foods).reduce((a,b) => a+b, 0) >= 10 },
+  { id: 'allskills', icon: '🔓', name: '技能大师',   desc: '解锁所有技能',     reward: 5000,  check: (g) => g.skillUnlocked.every(u => u) },
+  { id: 'allsupport',icon: '👥', name: '满编战队',   desc: '解锁所有队友',     reward: 10000, check: (g) => g.supports.every(s => s.unlocked) },
+  { id: 'boss1',     icon: '💀', name: 'BOSS终结者', desc: '击杀1个BOSS',     reward: 500,   check: (g) => g.stats.bossKills >= 1 },
+  { id: 'boss10',    icon: '💀', name: 'BOSS猎人',   desc: '击杀10个BOSS',    reward: 3000,  check: (g) => g.stats.bossKills >= 10 }
+];
+
 class Game {
   constructor() {
     this.gold = 0;
@@ -86,7 +105,8 @@ class Game {
     this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
     this.freeSpins = 3;
     this.spinDate = new Date().toDateString();
-    this.stats = { totalKills: 0, totalGold: 0, maxRound: 1, maxWave: 1, totalClicks: 0, playTime: 0 };
+    this.stats = { totalKills: 0, totalGold: 0, maxRound: 1, maxWave: 1, totalClicks: 0, playTime: 0, bossKills: 0 };
+    this.achievements = [];   // 已完成的成就ID
     this.checkinDay = 0;      // 连续签到天数（0=未签）
     this.checkinDate = '';     // 上次签到日期
     this.dailyTaskDate = '';   // 每日任务重置日期
@@ -129,13 +149,14 @@ class Game {
   // ---------- 渲染 ----------
 
   render() {
-    const game = document.getElementById('game');
-    game.innerHTML = `
+    const root = document.getElementById('game-root');
+    root.innerHTML = `
       <div class="bar">
         <div class="avatar">头像</div>
         <span>admin</span>
         <div class="wave" id="wave">${this.roundText()}</div>
         <div class="gold">💰 <span id="gold">${this.fmt(this.gold)}</span></div>
+        <div class="achievement-badge" onclick="game.openAchievements()" title="成就">🏆${this.achievements.length}</div>
       </div>
       <div class="battle" id="battle">
         <div class="supports left">
@@ -283,8 +304,10 @@ class Game {
     this.energy = Math.min(CONFIG.maxEnergy, this.energy + (m.isBoss ? 10 : 2));
     this.killCount++;
     this.stats.totalKills++;
+    if (m.isBoss) this.stats.bossKills++;
     if (this.gold > this.stats.totalGold) this.stats.totalGold = this.gold;
     this.checkDailyTasks('kill');
+    this.checkAchievements();
     this.monsters.splice(realIdx, 1);
     if (this.monsters.length === 0) this.nextWave();
     this.checkLevelUp();
@@ -297,6 +320,7 @@ class Game {
       this.killCount = 0;
       this.mainLevel++;
       this.showToast(`⬆️ 主角升级！Lv.${this.mainLevel}`);
+      this.checkAchievements();
       SKILLS.forEach((s, i) => {
         if (this.mainLevel >= s.lv && !this.skillUnlocked[i]) {
           this.skillUnlocked[i] = true;
@@ -313,6 +337,7 @@ class Game {
         this.showToast(`🌟【${s.name}】加入队伍！`);
       }
     });
+    this.checkAchievements();
   }
 
   openUpgrade() {
@@ -349,6 +374,7 @@ class Game {
     this.mainLevel++;
     this.showToast(`主角升级！Lv.${this.mainLevel}`);
     this.checkLevelUpSkills();
+    this.checkAchievements();
     this.saveGame();
     document.querySelector('.panel-overlay')?.remove();
     this.updateUI();
@@ -697,6 +723,42 @@ class Game {
     this.updateUI();
   }
 
+  // ---------- 成就系统 ----------
+
+  checkAchievements() {
+    ACHIEVEMENTS.forEach(a => {
+      if (this.achievements.includes(a.id)) return;
+      if (a.check(this)) {
+        this.achievements.push(a.id);
+        this.gold += a.reward;
+        this.showToast(`🏆 成就达成: ${a.name}！+${a.reward}金`);
+      }
+    });
+  }
+
+  openAchievements() {
+    const overlay = document.createElement('div');
+    overlay.className = 'panel-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    const done = this.achievements.length;
+    const total = ACHIEVEMENTS.length;
+    overlay.innerHTML = `
+      <div class="panel" style="position:relative;">
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">×</button>
+        <h3>🏆 成就 (${done}/${total})</h3>
+        ${ACHIEVEMENTS.map(a => {
+          const completed = this.achievements.includes(a.id);
+          return `<div class="upgrade-row" style="${completed ? '' : 'opacity:0.5'}">
+            <div class="char-icon" style="background:${completed ? '#f39c12' : '#555'};font-size:16px;">${a.icon}</div>
+            <div class="info">${a.name}<br><span style="font-size:10px;color:#aaa;">${a.desc}</span></div>
+            <span style="font-size:11px;color:${completed ? '#ffd700' : '#666'};">${completed ? '✓ +'+a.reward+'金' : '+'+a.reward+'金'}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
   // ---------- 排行榜 ----------
 
   openLeaderboard() {
@@ -814,7 +876,8 @@ class Game {
         supports: this.supports.map(s => ({ level: s.level, unlocked: s.unlocked })),
         foods: this.foods, freeSpins: this.freeSpins, spinDate: this.spinDate,
         stats: this.stats, checkinDay: this.checkinDay, checkinDate: this.checkinDate,
-        dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone
+        dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone,
+        achievements: this.achievements
       }));
       localStorage.setItem('gujiyouxi_time', Date.now().toString());
     } catch(e) {}
@@ -847,6 +910,7 @@ class Game {
       if (d.checkinDate) this.checkinDate = d.checkinDate;
       if (d.dailyTaskDate) this.dailyTaskDate = d.dailyTaskDate;
       if (d.dailyTaskDone) this.dailyTaskDone = d.dailyTaskDone;
+      if (d.achievements) this.achievements = d.achievements;
     } catch(e) {}
   }
 }
