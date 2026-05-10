@@ -2,8 +2,8 @@
   "name": "gujiyouxi",
   "version": "1.0.0",
   "description": "吃饭睡觉打豆豆 - H5放置类游戏",
+  "private": true,
   "dependencies": {
-    "egret-engine": "^5.2.18",
-    "phaser": "^4.1.0"
+    "egret-engine": "^5.2.18"
   }
 }

@@ -4,3 +4,7 @@ docs/
 *.log
 node_modules/
 package-lock.json
+
+# 设计资产（源码仓库 gujiadaima 保留，部署仓库不需要）
+Bxiaoguotu/
+layout-reference.png

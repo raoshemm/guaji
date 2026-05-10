@@ -255,12 +255,10 @@ BOSS HP = 普通怪HP × 5
 
 | 文档 | 说明 |
 |------|------|
-| [SPEC.md](./docs/SPEC.md) | 游戏设计规范（数值、玩法） |
-| [PRD.md](./docs/PRD.md) | 产品需求文档 |
-| [DEVELOP_GUIDE.md](./docs/DEVELOP_GUIDE.md) | 开发指南（技术、流程、协作） |
-| [EGRET_MIGRATION.md](./docs/EGRET_MIGRATION.md) | Egret迁移指南 |
-| [API_REFERENCE.md](./docs/API_REFERENCE.md) | API参考文档 |
-| [CHANGELOG.md](./docs/CHANGELOG.md) | 变更记录 |
+| [README.md](./README.md) | 项目入口、部署流程 |
+| [SPEC.md](./SPEC.md) | 本文档（游戏设计规范） |
+
+> 说明：PRD / 开发指南 / Egret 迁移 / API 参考 / CHANGELOG 等文档暂未编写，后续补充。
 
 ---
 
@@ -269,5 +267,5 @@ BOSS HP = 普通怪HP × 5
 | 版本 | 日期 | 修改内容 |
 |------|------|---------|
 | v1.0 | 2026-05-09 | 初始版本 |
-| v1.1 | 2026-05-09 | 新增开发文档体系 |
 | v1.1 | 2026-05-09 | 升级按钮显示花费、波次显示第X轮第X波、居中约束 |
+| v1.2 | 2026-05-10 | 清理未实装文档链接，移除 data/ 配置模块（已合并进 game.js） |

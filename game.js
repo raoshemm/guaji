@@ -27,10 +27,10 @@ var SKILLS = [
 
 // 怪物类型（外观、名称、血条颜色）
 var MONSTER_TYPES = [
-  { name: '豆豆怪', shape: 'blob',   color: 0xff6666, hpColor: 0x2ecc71 },
+  { name: '史莱姆', shape: 'slime',  color: 0x3498db, hpColor: 0x2ecc71 },
+  { name: '兔子',   shape: 'blob',   color: 0xff69b4, hpColor: 0x2ecc71 },
   { name: '蝙蝠',   shape: 'bat',    color: 0x8e44ad, hpColor: 0x9b59b6 },
   { name: '刺球',   shape: 'spike',  color: 0xe74c3c, hpColor: 0xe74c3c },
-  { name: '史莱姆', shape: 'slime',  color: 0x27ae60, hpColor: 0x2ecc71 },
   { name: '幽灵',   shape: 'ghost',  color: 0xbdc3c7, hpColor: 0x95a5a6 },
   { name: '骷髅',   shape: 'skull',  color: 0xecf0f1, hpColor: 0xbdc3c7 },
   { name: '火龙',   shape: 'dragon', color: 0xe67e22, hpColor: 0xf39c12 },
@@ -38,14 +38,14 @@ var MONSTER_TYPES = [
 ];
 
 var SUPPORTS_DEF = [
-  { name: '小毛绒', dps: 15, wave: 0,  atkInterval: 1200, color: 0x3498db, shape: 'circle',   symbol: '毛' },
-  { name: '棉花糖', dps: 28, wave: 5,  atkInterval: 1500, color: 0xe91e8c, shape: 'cloud',    symbol: '棉' },
-  { name: '肉丸',   dps: 45, wave: 15, atkInterval: 1000, color: 0xe74c3c, shape: 'diamond',  symbol: '肉' },
-  { name: '布丁',   dps: 75, wave: 30, atkInterval: 1800, color: 0xf39c12, shape: 'square',   symbol: '布' },
-  { name: '蛋筒',   dps: 120, wave: 50, atkInterval: 900,  color: 0x2ecc71, shape: 'triangle', symbol: '蛋' },
-  { name: '麻薯',   dps: 200, wave: 80, atkInterval: 1400, color: 0x9b59b6, shape: 'star',     symbol: '麻' },
-  { name: '雪糕',   dps: 350, wave: 120, atkInterval: 1100, color: 0x1abc9c, shape: 'crescent', symbol: '雪' },
-  { name: '甜甜',   dps: 600, wave: 180, atkInterval: 1600, color: 0xe67e22, shape: 'heart',    symbol: '甜' }
+  { name: '小毛绒', dps: 15, wave: 0,  atkInterval: 1200, color: 0xff69b4, shape: 'circle',   symbol: '毛' },
+  { name: '棉花糖', dps: 28, wave: 5,  atkInterval: 1500, color: 0xff69b4, shape: 'cloud',    symbol: '棉' },
+  { name: '肉丸',   dps: 45, wave: 15, atkInterval: 1000, color: 0xff69b4, shape: 'diamond',  symbol: '肉' },
+  { name: '布丁',   dps: 75, wave: 30, atkInterval: 1800, color: 0xff69b4, shape: 'square',   symbol: '布' },
+  { name: '蛋筒',   dps: 120, wave: 50, atkInterval: 900,  color: 0x808080, shape: 'triangle', symbol: '蛋' },
+  { name: '麻薯',   dps: 200, wave: 80, atkInterval: 1400, color: 0x808080, shape: 'star',     symbol: '麻' },
+  { name: '雪糕',   dps: 350, wave: 120, atkInterval: 1100, color: 0x808080, shape: 'crescent', symbol: '雪' },
+  { name: '甜甜',   dps: 600, wave: 180, atkInterval: 1600, color: 0x808080, shape: 'heart',    symbol: '甜' }
 ];
 
 var FOODS = [
@@ -245,7 +245,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
     case 'square':   g.drawRoundRect(cx - 13, cy - 13, 26, 26, 5); break;
     case 'triangle': g.moveTo(cx, cy - 15); g.lineTo(cx + 14, cy + 12); g.lineTo(cx - 14, cy + 12); break;
     case 'star':     this.drawStar(g, cx, cy, 15, 7, 5); break;
-    case 'crescent': g.drawCircle(cx, cy, 14); g.endFill(); g.beginFill(s.unlocked ? 0x16243a : 0x333333); g.drawCircle(cx + 5, cy - 3, 12); break;
+    case 'crescent': g.drawCircle(cx, cy, 14); g.endFill(); g.beginFill(s.unlocked ? 0x3d2b1f : 0x333333); g.drawCircle(cx + 5, cy - 3, 12); break;
     case 'heart':    g.drawCircle(cx - 5, cy - 4, 8); g.drawCircle(cx + 5, cy - 4, 8); g.endFill(); g.beginFill(c); g.moveTo(cx - 13, cy - 1); g.lineTo(cx, cy + 14); g.lineTo(cx + 13, cy - 1); break;
     default:         g.drawCircle(cx, cy, 14);
   }
@@ -307,7 +307,10 @@ Game.prototype.drawStar = function(g, cx, cy, outerR, innerR, points) {
 // 主角攻击动画（向上冲刺 + 剑气弧线）
 Game.prototype.heroAttackAnim = function(targetIdx) {
   if (!this.heroGroup) return;
-  var origY = this.heroGroup.y;
+  var origY = this._heroBaseY;
+  // 停止之前的动画，防止叠加
+  egret.Tween.removeTweens(this.heroGroup);
+  this.heroGroup.y = origY;
   // 向上冲刺
   egret.Tween.get(this.heroGroup)
     .to({ y: origY - 16 }, 50, egret.Ease.quadOut)
@@ -315,11 +318,11 @@ Game.prototype.heroAttackAnim = function(targetIdx) {
 
   // 剑气弧线（从主角飞向怪物，带弧度）
   var w = this.monsters.length || 1;
-  var areaW = 280;
-  var startX = 375 / 2;
+  var cx = this._centerX || 55;
+  var cw = this._centerW || 265;
+  var startX = cx + cw / 2;
   var startY = origY + 10;
-  var areaStartX = (375 - areaW) / 2;
-  var endX = areaStartX + areaW * ((targetIdx >= 0 ? targetIdx : 0) + 0.5) / w;
+  var endX = cx + cw * ((targetIdx >= 0 ? targetIdx : 0) + 0.5) / w;
   var endY = this._monsterAreaY + this._monsterAreaH / 2 + 10;
 
   var arc = new egret.Shape();
@@ -341,18 +344,20 @@ Game.prototype.heroAttackAnim = function(targetIdx) {
 // 辅助英雄攻击动画（缩放 + 不同形状飞弹）
 // 辅助英雄攻击动画（物理系前冲挥砍 / 法术系施法光环+飞弹）
 Game.prototype.supportAttackAnim = function(supportIdx, targetIdx, dmg) {
-  var group = supportIdx < 4 ? this.rightSupGroup : this.leftSupGroup;
+  var group = supportIdx < 4 ? this.leftSupGroup : this.rightSupGroup;
   if (!group) return;
   var localIdx = supportIdx < 4 ? supportIdx : (supportIdx - 4);
   var sc = group.getChildAt(localIdx);
   var def = SUPPORTS_DEF[supportIdx];
   var color = def.color;
-  var startX = supportIdx < 4 ? (375 - 44 + 20) : (8 + 20);
-  var startY = this._monsterAreaY + 20 + localIdx * 40 + 20;
+  var sw = this._stageW || 375;
+  var bh = this._battleH || 400;
+  var startX = supportIdx < 4 ? (5 + 20) : (sw - 45 + 20);
+  var startY = Math.floor(bh * 0.18) + localIdx * 55 + 20;
   var w = this.monsters.length || 1;
-  var areaW = 280;
-  var areaStartX = (375 - areaW) / 2;
-  var endX = areaStartX + areaW * ((targetIdx >= 0 ? targetIdx : 0) + 0.5) / w;
+  var cx = this._centerX || 55;
+  var cw = this._centerW || 265;
+  var endX = cx + cw * ((targetIdx >= 0 ? targetIdx : 0) + 0.5) / w;
   var endY = this._monsterAreaY + this._monsterAreaH / 2;
   var self = this;
   // 物理系: 0小毛绒 2肉丸 3布丁 4蛋筒 / 法术系: 1棉花糖 5麻薯 6雪糕 7甜甜
@@ -427,62 +432,109 @@ Game.prototype.buildUI = function() {
   layout.gap = 0;
   this.main.layout = layout;
 
-  var TOP_H = 44;    // 顶部栏高度
+  var TOP_H = 70;    // 顶部栏高度（含HP条）
   var SKILL_H = 52;  // 技能栏高度
-  var NAV_H = 44;    // 底部导航高度
+  var NAV_H = 50;    // 底部导航高度
   var stageH = this.main.stage ? this.main.stage.stageHeight : 667;
   var BATTLE_H = Math.max(300, stageH - TOP_H - SKILL_H - NAV_H);
+  this._stageW = stageW;
+  this._battleH = BATTLE_H;
 
   // ===== 顶部栏 =====
   var topBar = new eui.Group();
   topBar.width = stageW; topBar.height = TOP_H;
   var topBg = new eui.Rect();
-  topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = 0x1a1a2e;
+  topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = 0x2d1810;
   topBar.addChild(topBg);
 
-  // 头像（圆形背景 + 文字）
+  // 第一行：VIP + 头像 + 名字 + 波次进度数字 + 金币
+  // VIP标识
+  var vipBg = new eui.Rect();
+  vipBg.width = 45; vipBg.height = 18; vipBg.ellipseWidth = 4; vipBg.ellipseHeight = 4;
+  vipBg.fillColor = 0xc0392b; vipBg.x = 8; vipBg.y = 6;
+  topBar.addChild(vipBg);
+  var vipText = new eui.Label();
+  vipText.text = 'VIP0'; vipText.size = 10; vipText.textColor = 0xffffff; vipText.bold = true;
+  vipText.x = 12; vipText.y = 8;
+  topBar.addChild(vipText);
+
+  // 头像（方形）
   var avatarBg = new eui.Rect();
-  avatarBg.width = 32; avatarBg.height = 32; avatarBg.ellipseWidth = 16; avatarBg.ellipseHeight = 16;
-  avatarBg.fillColor = 0x3498db; avatarBg.x = 10; avatarBg.y = 6;
+  avatarBg.width = 36; avatarBg.height = 36; avatarBg.ellipseWidth = 4; avatarBg.ellipseHeight = 4;
+  avatarBg.fillColor = 0x8b4513; avatarBg.x = 8; avatarBg.y = 28;
   topBar.addChild(avatarBg);
   var avatarText = new eui.Label();
-  avatarText.text = '头'; avatarText.size = 11; avatarText.textColor = 0xffffff;
-  avatarText.x = 20; avatarText.y = 16;
+  avatarText.text = '头像'; avatarText.size = 9; avatarText.textColor = 0xffffff;
+  avatarText.x = 10; avatarText.y = 40;
   topBar.addChild(avatarText);
 
   // 名字
   var nameLb = new eui.Label();
-  nameLb.text = 'admin'; nameLb.size = 12; nameLb.textColor = 0xcccccc;
-  nameLb.x = 48; nameLb.y = 16;
+  nameLb.text = '玩家姓名'; nameLb.size = 12; nameLb.textColor = 0xffffff; nameLb.bold = true;
+  nameLb.x = 50; nameLb.y = 32;
   topBar.addChild(nameLb);
 
-  // 波次（居中）
-  this.waveLabel = new eui.Label();
-  this.waveLabel.text = this.waveText(); this.waveLabel.size = 16; this.waveLabel.textColor = 0xffffff;
-  this.waveLabel.bold = true; this.waveLabel.x = stageW / 2 - 50; this.waveLabel.y = 12;
-  topBar.addChild(this.waveLabel);
+  // 波次进度数字（动态显示当前波次附近4个数字）
+  this._waveNumBgs = [];
+  this._waveNumLbs = [];
+  for (var i = 0; i < 4; i++) {
+    var numBg = new eui.Rect();
+    numBg.width = 28; numBg.height = 22; numBg.ellipseWidth = 4; numBg.ellipseHeight = 4;
+    numBg.fillColor = 0x5d3a1a;
+    numBg.x = 105 + i * 32; numBg.y = 6;
+    topBar.addChild(numBg);
+    this._waveNumBgs.push(numBg);
+    var numLb = new eui.Label();
+    numLb.text = ''; numLb.size = 12; numLb.textColor = 0xffffff; numLb.bold = true;
+    numLb.x = 113 + i * 32; numLb.y = 9;
+    topBar.addChild(numLb);
+    this._waveNumLbs.push(numLb);
+  }
+  this.updateWaveNumbers();
 
   // 金币（右上）
   this.goldLabel = new eui.Label();
   this.goldLabel.text = '💰 ' + this.fmt(this.gold);
-  this.goldLabel.size = 14; this.goldLabel.textColor = 0xffd700;
-  this.goldLabel.x = stageW - 100; this.goldLabel.y = 12;
+  this.goldLabel.size = 14; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
+  this.goldLabel.x = stageW - 80; this.goldLabel.y = 10;
   topBar.addChild(this.goldLabel);
 
   // 转生宝石
   this.gemsLabel = new eui.Label();
   this.gemsLabel.text = '💎' + this.rebirthGems;
-  this.gemsLabel.size = 12; this.gemsLabel.textColor = 0x9b59b6;
-  this.gemsLabel.x = stageW - 130; this.gemsLabel.y = 28;
+  this.gemsLabel.size = 11; this.gemsLabel.textColor = 0x9b59b6;
+  this.gemsLabel.x = stageW - 80; this.gemsLabel.y = 30;
   topBar.addChild(this.gemsLabel);
 
   // 成就按钮（最右）
   var achBtn = new eui.Label();
   achBtn.text = '🏆' + this.achievements.length;
-  achBtn.size = 12; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true;
-  achBtn.x = stageW - 40; achBtn.y = 14;
+  achBtn.size = 14; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true;
+  achBtn.x = stageW - 30; achBtn.y = 12;
   achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
   topBar.addChild(achBtn);
+
+  // 第二行：波次 + HP条
+  this.waveLabel = new eui.Label();
+  this.waveLabel.text = this.waveText(); this.waveLabel.size = 13; this.waveLabel.textColor = 0xffffff;
+  this.waveLabel.bold = true; this.waveLabel.x = 10; this.waveLabel.y = 50;
+  topBar.addChild(this.waveLabel);
+
+  // HP条背景
+  var hpBg = new eui.Rect();
+  hpBg.width = 160; hpBg.height = 12; hpBg.ellipseWidth = 6; hpBg.ellipseHeight = 6;
+  hpBg.fillColor = 0x1a1a1a; hpBg.x = 90; hpBg.y = 50;
+  topBar.addChild(hpBg);
+  // HP条填充
+  this.hpFill = new eui.Rect();
+  this.hpFill.width = 140; this.hpFill.height = 12; this.hpFill.ellipseWidth = 6; this.hpFill.ellipseHeight = 6;
+  this.hpFill.fillColor = 0x27ae60; this.hpFill.x = 90; this.hpFill.y = 50;
+  topBar.addChild(this.hpFill);
+  // HP文字
+  this.hpLabel = new eui.Label();
+  this.hpLabel.text = '100 / 100'; this.hpLabel.size = 9; this.hpLabel.textColor = 0xffffff;
+  this.hpLabel.x = 120; this.hpLabel.y = 51;
+  topBar.addChild(this.hpLabel);
 
   this.main.addChild(topBar);
 
@@ -491,69 +543,165 @@ Game.prototype.buildUI = function() {
   this.battleGroup.width = stageW; this.battleGroup.height = BATTLE_H;
   this.battleGroup.touchEnabled = true;
 
+  // 沙地背景
   var battleBg = new eui.Rect();
-  battleBg.percentWidth = 100; battleBg.percentHeight = 100; battleBg.fillColor = 0x16243a;
+  battleBg.percentWidth = 100; battleBg.percentHeight = 100; battleBg.fillColor = 0xc4a35a;
   this.battleGroup.addChild(battleBg);
+  // 上方绿色区域
+  var topGreen = new eui.Rect();
+  topGreen.percentWidth = 100; topGreen.height = Math.floor(BATTLE_H * 0.12);
+  topGreen.fillColor = 0x4a7c3f;
+  this.battleGroup.addChild(topGreen);
 
-  // --- 怪物区域（上半部分）---
-  this._monsterAreaY = Math.floor(BATTLE_H * 0.12);  // 怪物起始Y
-  this._monsterAreaH = Math.floor(BATTLE_H * 0.40);  // 怪物区域高度
+  // === 布局分区 ===
+  // 左边缘(0-45): 辅助角色作为敌人
+  // 左按钮(48-100): 功能按钮
+  // 中央(105-270): 怪物
+  // 右边缘(330-375): 辅助角色作为敌人
+  // 右上: 挑战BOSS按钮
 
-  // --- 左侧辅助角色（4个：蛋筒、麻薯、雪糕、甜甜）---
+  // --- 左侧辅助角色（作为敌人形象）---
   var leftSup = new eui.Group();
-  leftSup.x = 8; leftSup.y = this._monsterAreaY + 20;
-  for (var i = 4; i < 8; i++) {
-    var sc = this.createSupportView(i, (i - 4) * 40);
+  leftSup.x = 5; leftSup.y = Math.floor(BATTLE_H * 0.18);
+  for (var i = 0; i < 4; i++) {
+    var sc = this.createSupportView(i, i * 55);
     leftSup.addChild(sc);
   }
   this.leftSupGroup = leftSup;
   this.battleGroup.addChild(leftSup);
 
-  // --- 右侧辅助角色（4个：小毛绒、棉花糖、肉丸、布丁）---
+  // --- 右侧辅助角色（作为敌人形象）---
   var rightSup = new eui.Group();
-  rightSup.x = stageW - 44; rightSup.y = this._monsterAreaY + 20;
-  for (var i = 0; i < 4; i++) {
-    var sc = this.createSupportView(i, i * 40);
+  rightSup.x = stageW - 45; rightSup.y = Math.floor(BATTLE_H * 0.18);
+  for (var i = 4; i < 8; i++) {
+    var sc = this.createSupportView(i, (i - 4) * 55);
     rightSup.addChild(sc);
   }
   this.rightSupGroup = rightSup;
   this.battleGroup.addChild(rightSup);
 
-  // --- 主角（下半部分居中，盾牌形状）---
+  // === 左侧功能按钮区（x: 48-100）===
+  var leftBtnDefs = [
+    [
+      { text: '邀请', fn: function() { self.showToast('分享游戏给好友即可获得奖励！'); } },
+      { text: '首冲', fn: function() { self.openShop(); } },
+      { text: '邮件', fn: function() { self.openMail(); } }
+    ],
+    [
+      { text: '关注', fn: function() { self.showToast('关注官方号获取最新资讯！'); } },
+      { text: '每日', fn: function() { self.openDailyTasks(); } },
+      { text: '签到', fn: function() { self.openCheckin(); } }
+    ],
+    [
+      { text: '磨转石', fn: function() { self.openRebirth(); } },
+      { text: '公告', fn: function() { self.openAnnouncement(); } },
+      { text: '能量互助', fn: function() { self.openEnergyHelp(); } }
+    ]
+  ];
+  var leftBtnGroup = new eui.Group();
+  leftBtnGroup.x = 48; leftBtnGroup.y = 8;
+  for (var col = 0; col < 2; col++) {
+    for (var row = 0; row < leftBtnDefs[col].length; row++) {
+      var lb = new eui.Label();
+      lb.text = leftBtnDefs[col][row].text; lb.size = 9; lb.textColor = 0xffffff;
+      lb.x = col * 26; lb.y = row * 18;
+      lb.touchEnabled = true;
+      lb.addEventListener(egret.TouchEvent.TOUCH_TAP, leftBtnDefs[col][row].fn, this);
+      leftBtnGroup.addChild(lb);
+    }
+  }
+  this.battleGroup.addChild(leftBtnGroup);
+
+  // 第三列按钮
+  var leftBtnGroup2 = new eui.Group();
+  leftBtnGroup2.x = 48; leftBtnGroup2.y = 70;
+  for (var row = 0; row < leftBtnDefs[2].length; row++) {
+    var lb = new eui.Label();
+    lb.text = leftBtnDefs[2][row].text; lb.size = 9; lb.textColor = 0xffffff;
+    lb.x = 0; lb.y = row * 18;
+    lb.touchEnabled = true;
+    lb.addEventListener(egret.TouchEvent.TOUCH_TAP, leftBtnDefs[2][row].fn, this);
+    leftBtnGroup2.addChild(lb);
+  }
+  this.battleGroup.addChild(leftBtnGroup2);
+
+  // === 右侧：挑战BOSS按钮（右上）===
+  var bossBtnBg = new eui.Rect();
+  bossBtnBg.width = 65; bossBtnBg.height = 26; bossBtnBg.ellipseWidth = 6; bossBtnBg.ellipseHeight = 6;
+  bossBtnBg.fillColor = 0xc0392b; bossBtnBg.x = stageW - 70; bossBtnBg.y = 8;
+  bossBtnBg.touchEnabled = true;
+  bossBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    if (self.wave % 10 === 0) {
+      self.showToast('当前已是BOSS波！');
+    } else {
+      self.showToast('到达第10波才能挑战BOSS');
+    }
+  }, this);
+  this.battleGroup.addChild(bossBtnBg);
+  var bossBtnText = new eui.Label();
+  bossBtnText.text = '挑战BOSS'; bossBtnText.size = 10; bossBtnText.textColor = 0xffffff; bossBtnText.bold = true;
+  bossBtnText.x = stageW - 66; bossBtnText.y = 12;
+  this.battleGroup.addChild(bossBtnText);
+
+  // === 中央怪物区（x: 105-270）===
+  var CENTER_X = 105;
+  var CENTER_W = 165;
+  this._centerX = CENTER_X;
+  this._centerW = CENTER_W;
+
+  // --- 怪物区域（上半部分）---
+  this._monsterAreaY = Math.floor(BATTLE_H * 0.15);
+  this._monsterAreaH = Math.floor(BATTLE_H * 0.35);
+
+  // --- 主角（居中偏下）---
   var heroGroup = new eui.Group();
-  heroGroup.width = 64; heroGroup.height = 64;
-  heroGroup.x = (stageW - 64) / 2;
+  heroGroup.width = 70; heroGroup.height = 80;
+  heroGroup.x = CENTER_X + (CENTER_W - 70) / 2;
   heroGroup.y = Math.floor(BATTLE_H * 0.62);
-  // 盾牌形状
+  this._heroBaseY = heroGroup.y;
+  // 身体（紫色圆形）
   var heroShape = new egret.Shape();
   var hg = heroShape.graphics;
-  hg.beginFill(0x3498db);
-  hg.moveTo(32, 4);   // 顶部尖角
-  hg.lineTo(58, 16);  // 右上
-  hg.lineTo(58, 36);  // 右中
-  hg.lineTo(32, 60);  // 底部尖角
-  hg.lineTo(6, 36);   // 左中
-  hg.lineTo(6, 16);   // 左上
-  hg.lineTo(32, 4);   // 回到顶部
+  hg.beginFill(0x9b59b6);
+  hg.drawCircle(35, 45, 25);
   hg.endFill();
-  // 盾牌中间横条
-  hg.beginFill(0x2980b9);
-  hg.drawRect(10, 26, 44, 6);
+  // 头部（浅紫色）
+  hg.beginFill(0xd8b4fe);
+  hg.drawCircle(35, 25, 18);
   hg.endFill();
-  // 剑
-  hg.beginFill(0xecf0f1);
-  hg.drawRect(30, 8, 4, 32);
+  // 帽子（深紫色三角）
+  hg.beginFill(0x6b21a8);
+  hg.moveTo(35, 0);
+  hg.lineTo(50, 30);
+  hg.lineTo(20, 30);
   hg.endFill();
-  hg.beginFill(0xf39c12);
-  hg.drawRect(24, 36, 16, 4);
+  // 帽子装饰
+  hg.beginFill(0xfbbf24);
+  hg.drawCircle(35, 30, 4);
+  hg.endFill();
+  // 眼睛
+  hg.beginFill(0xffffff);
+  hg.drawCircle(30, 25, 4);
+  hg.drawCircle(40, 25, 4);
+  hg.endFill();
+  hg.beginFill(0x000000);
+  hg.drawCircle(31, 25, 2);
+  hg.drawCircle(41, 25, 2);
+  hg.endFill();
+  // 法杖
+  hg.beginFill(0x8b4513);
+  hg.drawRect(58, 20, 3, 40);
+  hg.endFill();
+  hg.beginFill(0xfbbf24);
+  hg.drawCircle(59, 18, 5);
   hg.endFill();
   heroGroup.addChild(heroShape);
-  var heroName = new eui.Label(); heroName.text = '勇者'; heroName.size = 11; heroName.bold = true;
-  heroName.textColor = 0xffffff; heroName.horizontalCenter = 0; heroName.top = 46;
+  var heroName = new eui.Label(); heroName.text = '魔法师'; heroName.size = 11; heroName.bold = true;
+  heroName.textColor = 0xffffff; heroName.horizontalCenter = 0; heroName.top = 65;
   heroGroup.addChild(heroName);
   this.levelLabel = new eui.Label();
   this.levelLabel.text = 'Lv.' + this.mainLevel; this.levelLabel.size = 10;
-  this.levelLabel.textColor = 0xaaaaaa; this.levelLabel.horizontalCenter = 0; this.levelLabel.top = 56;
+  this.levelLabel.textColor = 0xd4a017; this.levelLabel.horizontalCenter = 0; this.levelLabel.top = 76;
   heroGroup.addChild(this.levelLabel);
   this.heroGroup = heroGroup;
   this.battleGroup.addChild(heroGroup);
@@ -561,8 +709,8 @@ Game.prototype.buildUI = function() {
   // --- DPS显示 ---
   this.dpsLabel = new eui.Label();
   this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
-  this.dpsLabel.size = 12; this.dpsLabel.textColor = 0x666666;
-  this.dpsLabel.x = (stageW - 80) / 2; this.dpsLabel.y = heroGroup.y + 70;
+  this.dpsLabel.size = 12; this.dpsLabel.textColor = 0x5d3a1a;
+  this.dpsLabel.x = CENTER_X + (CENTER_W - 80) / 2; this.dpsLabel.y = heroGroup.y + 90;
   this.battleGroup.addChild(this.dpsLabel);
 
   // --- 底部状态区 ---
@@ -570,41 +718,41 @@ Game.prototype.buildUI = function() {
 
   // 波次进度条（当前10波进度）
   this.waveFillBg = new eui.Rect();
-  this.waveFillBg.width = Math.floor(stageW * 0.6); this.waveFillBg.height = 5;
-  this.waveFillBg.fillColor = 0x0f3460; this.waveFillBg.ellipseWidth = 3;
-  this.waveFillBg.x = (stageW - this.waveFillBg.width) / 2; this.waveFillBg.y = statusY;
+  this.waveFillBg.width = Math.floor(CENTER_W * 0.8); this.waveFillBg.height = 5;
+  this.waveFillBg.fillColor = 0x8b6914; this.waveFillBg.ellipseWidth = 3;
+  this.waveFillBg.x = CENTER_X + (CENTER_W - this.waveFillBg.width) / 2; this.waveFillBg.y = statusY;
   this.battleGroup.addChild(this.waveFillBg);
   var waveInCycle = ((this.wave - 1) % 10) + 1;
   this.waveFill = new eui.Rect();
   this.waveFill.width = (waveInCycle / 10) * this.waveFillBg.width;
-  this.waveFill.height = 5; this.waveFill.fillColor = 0x2ecc71; this.waveFill.ellipseWidth = 3;
+  this.waveFill.height = 5; this.waveFill.fillColor = 0xd4a017; this.waveFill.ellipseWidth = 3;
   this.waveFill.x = this.waveFillBg.x; this.waveFill.y = statusY;
   this.battleGroup.addChild(this.waveFill);
 
   // BOSS计时条（默认隐藏）
   this.bossTimerBar = new eui.Rect();
-  this.bossTimerBar.width = 280; this.bossTimerBar.height = 8;
+  this.bossTimerBar.width = CENTER_W - 40; this.bossTimerBar.height = 8;
   this.bossTimerBar.fillColor = 0xe74c3c; this.bossTimerBar.ellipseWidth = 4;
-  this.bossTimerBar.x = (stageW - 280) / 2; this.bossTimerBar.y = statusY - 14;
+  this.bossTimerBar.x = CENTER_X + 20; this.bossTimerBar.y = statusY - 14;
   this.bossTimerBar.visible = false;
   this.battleGroup.addChild(this.bossTimerBar);
   this.bossTimerLabel = new eui.Label();
   this.bossTimerLabel.text = ''; this.bossTimerLabel.size = 12; this.bossTimerLabel.textColor = 0xff6666;
   this.bossTimerLabel.bold = true;
-  this.bossTimerLabel.x = (stageW + 280) / 2 + 8; this.bossTimerLabel.y = statusY - 17;
+  this.bossTimerLabel.x = CENTER_X + CENTER_W + 5; this.bossTimerLabel.y = statusY - 17;
   this.bossTimerLabel.visible = false;
   this.battleGroup.addChild(this.bossTimerLabel);
 
   // 能量 + Buff 同一行
   this.energyLabel = new eui.Label();
   this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
-  this.energyLabel.size = 11; this.energyLabel.textColor = 0xaaaaaa;
+  this.energyLabel.size = 11; this.energyLabel.textColor = 0xd4a017;
   this.energyLabel.x = 12; this.energyLabel.y = statusY + 10;
   this.battleGroup.addChild(this.energyLabel);
 
   this.buffLabel = new eui.Label();
   this.buffLabel.text = this.renderBuffText();
-  this.buffLabel.size = 11; this.buffLabel.textColor = 0xe67e22;
+  this.buffLabel.size = 11; this.buffLabel.textColor = 0xfbbf24;
   this.buffLabel.right = 12; this.buffLabel.y = statusY + 10;
   this.battleGroup.addChild(this.buffLabel);
 
@@ -626,7 +774,7 @@ Game.prototype.buildUI = function() {
   skillBar.layout.verticalAlign = 'middle';
   skillBar.layout.gap = 6;
   var skillBg = new eui.Rect();
-  skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = 0x1a1a2e;
+  skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = 0x3d2b1f;
   skillBar.addChildAt(skillBg, 0);
 
   for (var i = 0; i < SKILLS.length; i++) {
@@ -644,22 +792,42 @@ Game.prototype.buildUI = function() {
   navBar.layout.verticalAlign = 'middle';
   navBar.paddingLeft = 8; navBar.paddingRight = 8;
   var navBg = new eui.Rect();
-  navBg.percentWidth = 100; navBg.percentHeight = 100; navBg.fillColor = 0x1a1a2e;
+  navBg.percentWidth = 100; navBg.percentHeight = 100; navBg.fillColor = 0x1a0f08;
   navBar.addChildAt(navBg, 0);
 
   var navItems = [
-    { text: '升级', fn: function() { self.openUpgrade(); } },
-    { text: '超市', fn: function() { self.openSupermarket(); } },
-    { text: '转盘', fn: function() { self.openSpinWheel(); } },
-    { text: '排行', fn: function() { self.openLeaderboard(); } },
-    { text: '商城', fn: function() { self.openShop(); } },
-    { text: '转生', fn: function() { self.openRebirth(); } }
+    { text: '升级', icon: '⬆️', fn: function() { self.openUpgrade(); } },
+    { text: '转盘', icon: '🎰', fn: function() { self.openSpinWheel(); } },
+    { text: '超市', icon: '🛒', fn: function() { self.openSupermarket(); } },
+    { text: '排行', icon: '🏆', fn: function() { self.openLeaderboard(); } },
+    { text: '商城', icon: '💎', fn: function() { self.openShop(); } }
   ];
   for (var i = 0; i < navItems.length; i++) {
-    var nb = this.createButton(navItems[i].text, i === 5 ? 0x6c3483 : 0x0f3460, 48, 28, navItems[i].fn, this);
+    var nb = this.createNavBtn(navItems[i].text, navItems[i].icon, navItems[i].fn);
     navBar.addChild(nb);
   }
   this.main.addChild(navBar);
+};
+
+// 创建导航按钮（图标+文字）
+Game.prototype.createNavBtn = function(text, icon, fn) {
+  var g = new eui.Group();
+  g.width = 60; g.height = 40;
+  g.layout = new eui.VerticalLayout();
+  g.layout.horizontalAlign = 'center';
+  g.layout.verticalAlign = 'middle';
+  g.layout.gap = 2;
+  g.touchEnabled = true;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, this);
+  var iconLb = new eui.Label();
+  iconLb.text = icon; iconLb.size = 18;
+  iconLb.horizontalCenter = 0;
+  g.addChild(iconLb);
+  var textLb = new eui.Label();
+  textLb.text = text; textLb.size = 10; textLb.textColor = 0xd4a017; textLb.bold = true;
+  textLb.horizontalCenter = 0;
+  g.addChild(textLb);
+  return g;
 };
 
 Game.prototype.createSkillBtn = function(idx) {
@@ -669,7 +837,7 @@ Game.prototype.createSkillBtn = function(idx) {
   g.width = 44; g.height = 44;
   var bg = new eui.Rect();
   bg.width = 44; bg.height = 44; bg.ellipseWidth = 22; bg.ellipseHeight = 22;
-  bg.fillColor = unlocked ? 0x27ae60 : 0x555555; bg.percentWidth = 100; bg.percentHeight = 100;
+  bg.fillColor = unlocked ? 0xd4a017 : 0x666666; bg.percentWidth = 100; bg.percentHeight = 100;
   bg.name = 'bg'; g.addChild(bg);
   var lb = new eui.Label();
   lb.text = s.name; lb.size = 10; lb.textColor = unlocked ? 0xffffff : 0x999999;
@@ -754,10 +922,10 @@ Game.prototype.showDamageText = function(dmg, isCrit, idx) {
   txt.textColor = isCrit ? 0xffff00 : 0xffffff;
   txt.bold = true;
   var w = this.monsters.length || 1;
-  var areaW = 280;
-  var startX = (375 - areaW) / 2;
+  var cx = this._centerX || 55;
+  var cw = this._centerW || 265;
   var xPct = ((idx >= 0 ? idx : 0) + 0.5) / w;
-  txt.x = startX + areaW * xPct + (Math.random() * 20 - 10);
+  txt.x = cx + cw * xPct + (Math.random() * 20 - 10);
   txt.y = this._monsterAreaY + Math.random() * 30;
   this.damageLayer.addChild(txt);
   egret.Tween.get(txt).to({ y: txt.y - 50, alpha: 0 }, 700).call(function() {
@@ -1002,9 +1170,21 @@ Game.prototype.useSkill = function(idx) {
 
 // ==================== UI 更新 ====================
 
+Game.prototype.updateWaveNumbers = function() {
+  if (!this._waveNumBgs || !this._waveNumLbs) return;
+  var waveNumStart = Math.max(1, this.wave - 2);
+  for (var i = 0; i < 4; i++) {
+    var num = waveNumStart + i;
+    var isCurrent = (num === this.wave);
+    this._waveNumBgs[i].fillColor = isCurrent ? 0xc0392b : 0x5d3a1a;
+    this._waveNumLbs[i].text = '' + num;
+  }
+};
+
 Game.prototype.updateUI = function() {
   if (this.goldLabel) this.goldLabel.text = '💰 ' + this.fmt(this.gold);
   if (this.waveLabel) this.waveLabel.text = this.waveText();
+  this.updateWaveNumbers();
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
   if (this.energyLabel) this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
@@ -1014,6 +1194,20 @@ Game.prototype.updateUI = function() {
   }
   if (this.buffLabel) this.buffLabel.text = this.renderBuffText();
   if (this.gemsLabel) this.gemsLabel.text = '💎' + this.rebirthGems;
+  // 更新HP条
+  if (this.hpFill && this.hpLabel && this.monsters.length > 0) {
+    var totalHp = 0;
+    var maxHp = 0;
+    for (var i = 0; i < this.monsters.length; i++) {
+      totalHp += Math.max(0, this.monsters[i].hp);
+      maxHp += this.monsters[i].maxHp;
+    }
+    if (maxHp > 0) {
+      var hpPct = totalHp / maxHp;
+      this.hpFill.width = Math.floor(140 * hpPct);
+      this.hpLabel.text = this.fmt(totalHp) + ' / ' + this.fmt(maxHp);
+    }
+  }
   this.updateMonsterDisplay();
   this.updateSkillBtns();
 };
@@ -1044,9 +1238,9 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   var g = new eui.Group();
   var sz = m.isBoss ? 76 : 56;
   g.width = sz; g.height = sz + 40;
-  var areaW = 280;
-  var startX = (375 - areaW) / 2;
-  g.x = startX + areaW * (idx + 0.5) / total - sz / 2;
+  var cx = this._centerX || 55;
+  var cw = this._centerW || 265;
+  g.x = cx + cw * (idx + 0.5) / total - sz / 2;
   g.y = this._monsterAreaY + (this._monsterAreaH - sz - 40) / 2;
   g.touchEnabled = true;
   var self = this;
@@ -1227,7 +1421,7 @@ Game.prototype.addPanelContent = function(overlay) {
   panel.horizontalCenter = 0; panel.verticalCenter = 0;
   var panelBg = new eui.Rect();
   panelBg.percentWidth = 100; panelBg.percentHeight = 100;
-  panelBg.fillColor = 0x1a1a2e; panelBg.ellipseWidth = 12; panelBg.ellipseHeight = 12;
+  panelBg.fillColor = 0x3d2b1f; panelBg.ellipseWidth = 12; panelBg.ellipseHeight = 12;
   panel.addChild(panelBg);
   overlay.addChild(panel);
 
@@ -1247,7 +1441,7 @@ Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, b
   var lines = infoText.split('\n');
   var rowH = lines.length > 1 ? 56 : 44;
   var rowBg = new eui.Rect();
-  rowBg.width = 310; rowBg.height = rowH; rowBg.fillColor = 0x16213e;
+  rowBg.width = 310; rowBg.height = rowH; rowBg.fillColor = 0x2d1810;
   rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
   rowBg.x = 15; rowBg.y = y;
   panel.addChild(rowBg);
@@ -1264,12 +1458,12 @@ Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, b
   panel.addChild(iconLb);
 
   var infoLb = new eui.Label();
-  infoLb.text = infoText; infoLb.size = 11; infoLb.textColor = 0xcccccc;
+  infoLb.text = infoText; infoLb.size = 11; infoLb.textColor = 0xffffff;
   infoLb.x = 68; infoLb.y = y + 5; infoLb.width = 170; infoLb.lineSpacing = 3;
   panel.addChild(infoLb);
 
   if (btnText) {
-    var btn = this.createButton(btnText, btnColor || 0x27ae60, 68, 28, handler, this);
+    var btn = this.createButton(btnText, btnColor || 0xd4a017, 68, 28, handler, this);
     btn.x = 245; btn.y = y + (rowH - 28) / 2;
     if (disabled) btn.alpha = 0.4;
     panel.addChild(btn);
@@ -1306,12 +1500,12 @@ Game.prototype.openUpgrade = function() {
 
   // 进度条
   var progBg = new eui.Rect();
-  progBg.width = 300; progBg.height = 8; progBg.fillColor = 0x0f3460;
+  progBg.width = 300; progBg.height = 8; progBg.fillColor = 0x5d3a1a;
   progBg.x = 20; progBg.y = y;
   panel.addChild(progBg);
   var progFill = new eui.Rect();
   progFill.width = 300 * (this.killCount / CONFIG.killsNeeded(this.mainLevel));
-  progFill.height = 8; progFill.fillColor = 0x2ecc71;
+  progFill.height = 8; progFill.fillColor = 0xd4a017;
   progFill.x = 20; progFill.y = y;
   panel.addChild(progFill);
   y += 14;
@@ -1602,6 +1796,151 @@ Game.prototype.openShop = function() {
   );
 
   panel.height = y + 16;
+};
+
+// ==================== 邮件系统 ====================
+
+Game.prototype.openMail = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 300;
+
+  var title = new eui.Label();
+  title.text = '📧 邮件'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var mails = [
+    { from: '系统', title: '欢迎来到打豆豆！', reward: '💰100金', claimed: false },
+    { from: '系统', title: '新手礼包', reward: '⚡20能量', claimed: false },
+    { from: 'GM', title: '感谢支持！', reward: '🍭×1', claimed: false }
+  ];
+
+  var self = this;
+  var y = 50;
+  for (var i = 0; i < mails.length; i++) {
+    var m = mails[i];
+    var rowBg = new eui.Rect();
+    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x16213e;
+    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+    rowBg.x = 15; rowBg.y = y;
+    panel.addChild(rowBg);
+
+    var fromLb = new eui.Label();
+    fromLb.text = '[' + m.from + ']'; fromLb.size = 10; fromLb.textColor = 0xf39c12;
+    fromLb.x = 25; fromLb.y = y + 6;
+    panel.addChild(fromLb);
+
+    var titleLb = new eui.Label();
+    titleLb.text = m.title; titleLb.size = 12; titleLb.textColor = 0xffffff;
+    titleLb.x = 25; titleLb.y = y + 22;
+    panel.addChild(titleLb);
+
+    var rewardLb = new eui.Label();
+    rewardLb.text = m.reward; rewardLb.size = 11; rewardLb.textColor = 0xffd700;
+    rewardLb.x = 180; rewardLb.y = y + 15;
+    panel.addChild(rewardLb);
+
+    (function(idx, mail) {
+      var claimBtn = self.createButton('领取', 0x27ae60, 50, 24, function() {
+        self.showToast('📧 已领取: ' + mail.reward);
+      }, self);
+      claimBtn.x = 255; claimBtn.y = y + 13;
+      panel.addChild(claimBtn);
+    })(i, m);
+
+    y += 56;
+  }
+  panel.height = y + 16;
+};
+
+// ==================== 公告系统 ====================
+
+Game.prototype.openAnnouncement = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 320;
+
+  var title = new eui.Label();
+  title.text = '📢 公告'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var anns = [
+    { tag: '热', color: 0xe74c3c, text: 'v2.0版本上线！新增转生系统和成就系统！' },
+    { tag: '新', color: 0x3498db, text: '新增8个辅助英雄，每个都有独特外形和武器！' },
+    { tag: '活', color: 0x2ecc71, text: '每日签到领好礼，连续7天获得烤肉奖励！' },
+    { tag: 'Tips', color: 0xf39c12, text: '升级辅助英雄可以大幅提升DPS，别忘了给他们升级！' }
+  ];
+
+  var y = 50;
+  for (var i = 0; i < anns.length; i++) {
+    var a = anns[i];
+    var rowBg = new eui.Rect();
+    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x16213e;
+    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+    rowBg.x = 15; rowBg.y = y;
+    panel.addChild(rowBg);
+
+    var tagBg = new eui.Rect();
+    tagBg.width = 28; tagBg.height = 16; tagBg.fillColor = a.color;
+    tagBg.ellipseWidth = 4; tagBg.ellipseHeight = 4;
+    tagBg.x = 22; tagBg.y = y + 6;
+    panel.addChild(tagBg);
+
+    var tagLb = new eui.Label();
+    tagLb.text = a.tag; tagLb.size = 9; tagLb.textColor = 0xffffff; tagLb.bold = true;
+    tagLb.x = 26; tagLb.y = y + 8;
+    panel.addChild(tagLb);
+
+    var textLb = new eui.Label();
+    textLb.text = a.text; textLb.size = 11; textLb.textColor = 0xcccccc;
+    textLb.x = 25; textLb.y = y + 26; textLb.width = 290;
+    panel.addChild(textLb);
+
+    y += 56;
+  }
+  panel.height = y + 16;
+};
+
+// ==================== 能量互助 ====================
+
+Game.prototype.openEnergyHelp = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 260;
+
+  var title = new eui.Label();
+  title.text = '⚡ 能量互助'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var info = new eui.Label();
+  info.text = '当前能量: ⚡' + this.energy + '/' + CONFIG.maxEnergy + '\n每秒恢复: +' + CONFIG.energyRecovery;
+  info.size = 13; info.textColor = 0xcccccc;
+  info.x = 25; info.top = 50; info.lineSpacing = 6;
+  panel.addChild(info);
+
+  var tip = new eui.Label();
+  tip.text = '点击战斗区域消耗1能量\n使用技能消耗5能量\n能量会自动恢复，也可以在商城购买';
+  tip.size = 11; tip.textColor = 0x888888;
+  tip.x = 25; tip.top = 100; tip.lineSpacing = 4;
+  panel.addChild(tip);
+
+  var self = this;
+  var buyBtn = this.createButton('购买能量药水 (+50⚡)', 0x3498db, 160, 36,
+    function() {
+      if (self.gold < 50) { self.showToast('金币不足！'); return; }
+      self.gold -= 50;
+      self.energy = Math.min(CONFIG.maxEnergy, self.energy + 50);
+      self.showToast('⚡ +50能量！');
+      self.saveGame();
+      self.updateUI();
+      self.closePanel();
+    }, this
+  );
+  buyBtn.horizontalCenter = 0; buyBtn.y = 170;
+  panel.addChild(buyBtn);
 };
 
 Game.prototype.shopBuy = function(type) {
@@ -2033,7 +2372,7 @@ Game.prototype.checkOfflineReward = function() {
       panel.horizontalCenter = 0; panel.verticalCenter = 0;
       var pBg = new eui.Rect();
       pBg.percentWidth = 100; pBg.percentHeight = 100;
-      pBg.fillColor = 0x1a1a2e; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+      pBg.fillColor = 0x3d2b1f; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
       panel.addChild(pBg);
 
       var t1 = new eui.Label();
