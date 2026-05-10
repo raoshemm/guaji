@@ -444,7 +444,7 @@ Game.prototype.buildUI = function() {
   var topBar = new eui.Group();
   topBar.width = stageW; topBar.height = TOP_H;
   var topBg = new eui.Rect();
-  topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = 0x2d1810;
+  topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = 0x1a0a2e;
   topBar.addChild(topBg);
 
   // 第一行：VIP + 头像 + 名字 + 波次进度数字 + 金币
@@ -480,7 +480,7 @@ Game.prototype.buildUI = function() {
   for (var i = 0; i < 4; i++) {
     var numBg = new eui.Rect();
     numBg.width = 28; numBg.height = 22; numBg.ellipseWidth = 4; numBg.ellipseHeight = 4;
-    numBg.fillColor = 0x5d3a1a;
+    numBg.fillColor = 0x2d1f4e;
     numBg.x = 105 + i * 32; numBg.y = 6;
     topBar.addChild(numBg);
     this._waveNumBgs.push(numBg);
@@ -543,15 +543,29 @@ Game.prototype.buildUI = function() {
   this.battleGroup.width = stageW; this.battleGroup.height = BATTLE_H;
   this.battleGroup.touchEnabled = true;
 
-  // 沙地背景
-  var battleBg = new eui.Rect();
-  battleBg.percentWidth = 100; battleBg.percentHeight = 100; battleBg.fillColor = 0xc4a35a;
-  this.battleGroup.addChild(battleBg);
-  // 上方绿色区域
-  var topGreen = new eui.Rect();
-  topGreen.percentWidth = 100; topGreen.height = Math.floor(BATTLE_H * 0.12);
-  topGreen.fillColor = 0x4a7c3f;
-  this.battleGroup.addChild(topGreen);
+  // 天空渐变背景（从浅蓝到深蓝）
+  var skyBg = new eui.Rect();
+  skyBg.percentWidth = 100; skyBg.height = Math.floor(BATTLE_H * 0.45);
+  skyBg.fillColor = 0x87CEEB;
+  this.battleGroup.addChild(skyBg);
+  // 中间过渡区
+  var skyMid = new eui.Rect();
+  skyMid.percentWidth = 100; skyMid.height = Math.floor(BATTLE_H * 0.15);
+  skyMid.y = Math.floor(BATTLE_H * 0.45);
+  skyMid.fillColor = 0x90EE90;
+  this.battleGroup.addChild(skyMid);
+  // 草地/战斗地面
+  var groundBg = new eui.Rect();
+  groundBg.percentWidth = 100; groundBg.height = Math.floor(BATTLE_H * 0.40);
+  groundBg.y = Math.floor(BATTLE_H * 0.60);
+  groundBg.fillColor = 0x2d8a4e;
+  this.battleGroup.addChild(groundBg);
+  // 地面深色边缘
+  var groundEdge = new eui.Rect();
+  groundEdge.percentWidth = 100; groundEdge.height = 4;
+  groundEdge.y = Math.floor(BATTLE_H * 0.60);
+  groundEdge.fillColor = 0x1e6b38;
+  this.battleGroup.addChild(groundEdge);
 
   // === 布局分区 ===
   // 左边缘(0-45): 辅助角色作为敌人
@@ -628,7 +642,7 @@ Game.prototype.buildUI = function() {
   // === 右侧：挑战BOSS按钮（右上）===
   var bossBtnBg = new eui.Rect();
   bossBtnBg.width = 65; bossBtnBg.height = 26; bossBtnBg.ellipseWidth = 6; bossBtnBg.ellipseHeight = 6;
-  bossBtnBg.fillColor = 0xc0392b; bossBtnBg.x = stageW - 70; bossBtnBg.y = 8;
+  bossBtnBg.fillColor = 0x9b2335; bossBtnBg.x = stageW - 70; bossBtnBg.y = 8;
   bossBtnBg.touchEnabled = true;
   bossBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
     if (self.wave % 10 === 0) {
@@ -709,7 +723,7 @@ Game.prototype.buildUI = function() {
   // --- DPS显示 ---
   this.dpsLabel = new eui.Label();
   this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
-  this.dpsLabel.size = 12; this.dpsLabel.textColor = 0x5d3a1a;
+  this.dpsLabel.size = 12; this.dpsLabel.textColor = 0xffffff;
   this.dpsLabel.x = CENTER_X + (CENTER_W - 80) / 2; this.dpsLabel.y = heroGroup.y + 90;
   this.battleGroup.addChild(this.dpsLabel);
 
@@ -744,10 +758,20 @@ Game.prototype.buildUI = function() {
   this.battleGroup.addChild(this.bossTimerLabel);
 
   // 能量 + Buff 同一行
+  // 能量条可视化
+  var energyBarBg = new eui.Rect();
+  energyBarBg.width = 100; energyBarBg.height = 10; energyBarBg.ellipseWidth = 5; energyBarBg.ellipseHeight = 5;
+  energyBarBg.fillColor = 0x1a1a2e; energyBarBg.x = 12; energyBarBg.y = statusY + 10;
+  this.battleGroup.addChild(energyBarBg);
+  this.energyFill = new eui.Rect();
+  this.energyFill.width = this.energy; this.energyFill.height = 10;
+  this.energyFill.ellipseWidth = 5; this.energyFill.ellipseHeight = 5;
+  this.energyFill.fillColor = 0x00d4ff; this.energyFill.x = 12; this.energyFill.y = statusY + 10;
+  this.battleGroup.addChild(this.energyFill);
   this.energyLabel = new eui.Label();
   this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
-  this.energyLabel.size = 11; this.energyLabel.textColor = 0xd4a017;
-  this.energyLabel.x = 12; this.energyLabel.y = statusY + 10;
+  this.energyLabel.size = 9; this.energyLabel.textColor = 0xffffff;
+  this.energyLabel.x = 14; this.energyLabel.y = statusY + 9;
   this.battleGroup.addChild(this.energyLabel);
 
   this.buffLabel = new eui.Label();
@@ -774,7 +798,7 @@ Game.prototype.buildUI = function() {
   skillBar.layout.verticalAlign = 'middle';
   skillBar.layout.gap = 6;
   var skillBg = new eui.Rect();
-  skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = 0x3d2b1f;
+  skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = 0x1a1a2e;
   skillBar.addChildAt(skillBg, 0);
 
   for (var i = 0; i < SKILLS.length; i++) {
@@ -792,7 +816,7 @@ Game.prototype.buildUI = function() {
   navBar.layout.verticalAlign = 'middle';
   navBar.paddingLeft = 8; navBar.paddingRight = 8;
   var navBg = new eui.Rect();
-  navBg.percentWidth = 100; navBg.percentHeight = 100; navBg.fillColor = 0x1a0f08;
+  navBg.percentWidth = 100; navBg.percentHeight = 100; navBg.fillColor = 0x0d0d1a;
   navBar.addChildAt(navBg, 0);
 
   var navItems = [
@@ -824,7 +848,7 @@ Game.prototype.createNavBtn = function(text, icon, fn) {
   iconLb.horizontalCenter = 0;
   g.addChild(iconLb);
   var textLb = new eui.Label();
-  textLb.text = text; textLb.size = 10; textLb.textColor = 0xd4a017; textLb.bold = true;
+  textLb.text = text; textLb.size = 10; textLb.textColor = 0x00d4ff; textLb.bold = true;
   textLb.horizontalCenter = 0;
   g.addChild(textLb);
   return g;
@@ -837,10 +861,18 @@ Game.prototype.createSkillBtn = function(idx) {
   g.width = 44; g.height = 44;
   var bg = new eui.Rect();
   bg.width = 44; bg.height = 44; bg.ellipseWidth = 22; bg.ellipseHeight = 22;
-  bg.fillColor = unlocked ? 0xd4a017 : 0x666666; bg.percentWidth = 100; bg.percentHeight = 100;
+  // 更丰富的配色方案：每个技能不同颜色
+  var skillColors = [0x3498db, 0xe74c3c, 0xf39c12, 0x9b59b6, 0x1abc9c, 0x2980b9, 0xe67e22];
+  bg.fillColor = unlocked ? skillColors[idx] : 0x4a4a4a; bg.percentWidth = 100; bg.percentHeight = 100;
   bg.name = 'bg'; g.addChild(bg);
+  // 边框效果
+  var border = new eui.Rect();
+  border.width = 44; border.height = 44; border.ellipseWidth = 22; border.ellipseHeight = 22;
+  border.fillAlpha = 0; border.strokeColor = unlocked ? 0xffffff : 0x666666;
+  border.strokeWeight = 2; border.percentWidth = 100; border.percentHeight = 100;
+  border.name = 'border'; g.addChild(border);
   var lb = new eui.Label();
-  lb.text = s.name; lb.size = 10; lb.textColor = unlocked ? 0xffffff : 0x999999;
+  lb.text = s.name; lb.size = 10; lb.textColor = unlocked ? 0xffffff : 0x888888;
   lb.horizontalCenter = 0; lb.verticalCenter = 0; lb.name = 'lb';
   g.addChild(lb);
   g.touchEnabled = true;
@@ -911,6 +943,17 @@ Game.prototype.doDamage = function(m, dmg, idx, isCrit) {
   if (!isCrit && Math.random() < buffs.critChance) { dmg *= 2; isCrit = true; }
   m.hp -= dmg;
   this.showDamageText(dmg, isCrit, idx);
+  // 怪物受击闪烁效果
+  if (this.monsterViews[idx]) {
+    var mv = this.monsterViews[idx];
+    egret.Tween.get(mv).to({ alpha: 0.3 }, 50).to({ alpha: 1 }, 80);
+    // 轻微震动
+    var origX = mv.x;
+    egret.Tween.get(mv, { override: false })
+      .to({ x: origX + 3 }, 30)
+      .to({ x: origX - 3 }, 30)
+      .to({ x: origX }, 30);
+  }
   if (m.hp <= 0) this.onKill(m, idx);
   this.updateUI();
 };
@@ -919,7 +962,7 @@ Game.prototype.showDamageText = function(dmg, isCrit, idx) {
   var txt = new egret.TextField();
   txt.text = '-' + this.fmt(dmg) + (isCrit ? '!' : '');
   txt.size = isCrit ? 26 : 20;
-  txt.textColor = isCrit ? 0xffff00 : 0xffffff;
+  txt.textColor = isCrit ? 0xffff00 : 0xff4444;
   txt.bold = true;
   var w = this.monsters.length || 1;
   var cx = this._centerX || 55;
@@ -1188,6 +1231,7 @@ Game.prototype.updateUI = function() {
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
   if (this.energyLabel) this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
+  if (this.energyFill) this.energyFill.width = Math.max(0, (this.energy / CONFIG.maxEnergy) * 100);
   if (this.waveFill && this.waveFillBg) {
     var waveInCycle = ((this.wave - 1) % 10) + 1;
     this.waveFill.width = (waveInCycle / 10) * this.waveFillBg.width;
@@ -1366,6 +1410,7 @@ Game.prototype.createMonsterView = function(m, idx, total) {
 };
 
 Game.prototype.updateSkillBtns = function() {
+  var skillColors = [0x3498db, 0xe74c3c, 0xf39c12, 0x9b59b6, 0x1abc9c, 0x2980b9, 0xe67e22];
   for (var i = 0; i < this.skillBtns.length; i++) {
     var btn = this.skillBtns[i];
     if (!btn) continue;
@@ -1374,10 +1419,10 @@ Game.prototype.updateSkillBtns = function() {
     var cd = this.skillCD[i] > 0;
     var bg = btn.getChildByName('bg');
     var lb = btn.getChildByName('lb');
-    if (bg) bg.fillColor = cd ? 0x333333 : (unlocked ? 0x27ae60 : 0x555555);
+    if (bg) bg.fillColor = cd ? 0x2c2c2c : (unlocked ? skillColors[i] : 0x4a4a4a);
     if (lb) {
-      lb.text = cd ? (s.name + '(' + Math.ceil(this.skillCD[i]) + 's)') : s.name;
-      lb.textColor = unlocked ? 0xffffff : 0x999999;
+      lb.text = cd ? Math.ceil(this.skillCD[i]) + 's' : s.name;
+      lb.textColor = cd ? 0x666666 : (unlocked ? 0xffffff : 0x888888);
     }
   }
 };
