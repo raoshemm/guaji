@@ -166,6 +166,7 @@ function Game(main) {
   this._justHitMonster = false;
 
   this.loadGame();
+  this.initSound();
   this.buildUI();
   this.spawnWave();
   this.bindEvents();
@@ -498,6 +499,14 @@ Game.prototype.buildUI = function() {
   achBtn.right = 60; achBtn.y = 24;
   achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
   topBar.addChild(achBtn);
+
+  // 静音切换按钮
+  this.muteLabel = new eui.Label();
+  this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
+  this.muteLabel.size = 14; this.muteLabel.touchEnabled = true;
+  this.muteLabel.right = 108; this.muteLabel.y = 23;
+  this.muteLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.toggleMute, this);
+  topBar.addChild(this.muteLabel);
 
   // 保留 updateWaveNumbers 的引用，避免其他地方调用时崩溃
   this._waveNumBgs = [];
@@ -920,6 +929,7 @@ Game.prototype.onBattleTouch = function(e) {
 
 Game.prototype.battleAreaClick = function() {
   if (this.monsters.length > 0 && this.energy >= 1) {
+    this.sfxClick();
     this.energy--;
     this.stats.totalClicks++;
     this.checkDailyTasks('click');
@@ -937,6 +947,7 @@ Game.prototype.onMonsterTouch = function(idx) {
   this._justHitMonster = true;
   var m = this.monsters[idx];
   if (!m || m.hp <= 0 || this.energy < 1) return;
+  this.sfxClick();
   this.energy--;
   this.stats.totalClicks++;
   this.checkDailyTasks('click');
@@ -995,7 +1006,10 @@ Game.prototype.onKill = function(m, idx) {
   this.energy = Math.min(CONFIG.maxEnergy, this.energy + (m.isBoss ? 10 : 2));
   this.killCount++;
   this.stats.totalKills++;
-  if (m.isBoss) this.stats.bossKills++;
+  if (m.isBoss) {
+    this.stats.bossKills++;
+    this.sfxHitBoss();
+  }
   if (this.gold > this.stats.totalGold) this.stats.totalGold = this.gold;
 
   this.checkDailyTasks('kill');
@@ -1121,11 +1135,13 @@ Game.prototype.checkLevelUp = function() {
   if (this.killCount >= CONFIG.killsNeeded(this.mainLevel)) {
     this.killCount = 0;
     this.mainLevel++;
+    this.sfxLevelUp();
     this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
     this.checkAchievements();
     for (var i = 0; i < SKILLS.length; i++) {
       if (this.mainLevel >= SKILLS[i].lv && !this.skillUnlocked[i]) {
         this.skillUnlocked[i] = true;
+        this.sfxUnlock();
         this.showToast('🔓【' + SKILLS[i].name + '】解锁！');
       }
     }
@@ -1161,6 +1177,7 @@ Game.prototype.upgradeMain = function() {
   if (this.gold < cost) { this.showToast('金币不足！'); return; }
   this.gold -= cost;
   this.mainLevel++;
+  this.sfxLevelUp();
   this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
   this.checkLevelUpSkills();
   this.checkAchievements();
@@ -1189,6 +1206,7 @@ Game.prototype.checkLevelUpSkills = function() {
   for (var i = 0; i < SKILLS.length; i++) {
     if (this.mainLevel >= SKILLS[i].lv && !this.skillUnlocked[i]) {
       this.skillUnlocked[i] = true;
+      this.sfxUnlock();
       this.showToast('🔓【' + SKILLS[i].name + '】解锁！');
     }
   }
@@ -1203,6 +1221,7 @@ Game.prototype.useSkill = function(idx) {
   if (this.monsters.length === 0) { this.showToast('没有怪物！'); return; }
   if (this.energy < 5) { this.showToast('能量不足！'); return; }
   var s = SKILLS[idx];
+  this.sfxSkill();
   this.energy -= 5;
   this.skillCD[idx] = s.cd;
   var dmg = CONFIG.mainDmg(this.mainLevel, this.rebirthGems) * s.dmg;
@@ -2465,6 +2484,94 @@ Game.prototype.checkOfflineReward = function() {
       overlay.addChild(panel);
     }, 500);
   } catch(e) {}
+};
+
+// ==================== 音效系统（Web Audio 程序合成，无需外部文件） ====================
+
+Game.prototype.initSound = function() {
+  this.soundMuted = (localStorage.getItem('gujiyouxi_mute') === '1');
+  this._audioCtx = null;
+  // 首次用户交互时再创建 AudioContext（浏览器自动播放策略要求）
+  var self = this;
+  var unlock = function() {
+    if (!self._audioCtx) {
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) self._audioCtx = new AC();
+      } catch(e) { self._audioCtx = null; }
+    }
+    if (self._audioCtx && self._audioCtx.state === 'suspended') {
+      self._audioCtx.resume();
+    }
+    document.removeEventListener('touchstart', unlock);
+    document.removeEventListener('mousedown', unlock);
+    document.removeEventListener('keydown', unlock);
+  };
+  document.addEventListener('touchstart', unlock);
+  document.addEventListener('mousedown', unlock);
+  document.addEventListener('keydown', unlock);
+};
+
+// 内部：播放一个 envelope 包络的 oscillator
+Game.prototype._beep = function(opts) {
+  if (this.soundMuted) return;
+  var ctx = this._audioCtx;
+  if (!ctx) return;
+  try {
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = opts.type || 'sine';
+    var freq = opts.freq || 440;
+    var freqEnd = opts.freqEnd || freq;
+    var now = ctx.currentTime;
+    var dur = opts.duration || 0.12;
+    osc.frequency.setValueAtTime(freq, now);
+    if (freqEnd !== freq) {
+      osc.frequency.exponentialRampToValueAtTime(Math.max(1, freqEnd), now + dur);
+    }
+    var vol = opts.volume || 0.15;
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(vol, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + dur + 0.02);
+  } catch(e) {}
+};
+
+// --- 对外音效 + 静音切换 ---
+Game.prototype.sfxClick = function() {
+  this._beep({ type: 'square', freq: 880, freqEnd: 660, duration: 0.06, volume: 0.08 });
+};
+Game.prototype.sfxHitBoss = function() {
+  this._beep({ type: 'sawtooth', freq: 140, freqEnd: 60, duration: 0.35, volume: 0.2 });
+  var self = this;
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 520, freqEnd: 260, duration: 0.22, volume: 0.15 }); }, 60);
+};
+Game.prototype.sfxLevelUp = function() {
+  var self = this;
+  this._beep({ type: 'triangle', freq: 523, duration: 0.1, volume: 0.13 });
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 659, duration: 0.1, volume: 0.13 }); }, 90);
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 784, duration: 0.18, volume: 0.15 }); }, 180);
+};
+Game.prototype.sfxSkill = function() {
+  this._beep({ type: 'sawtooth', freq: 660, freqEnd: 220, duration: 0.18, volume: 0.14 });
+};
+Game.prototype.sfxUnlock = function() {
+  this._beep({ type: 'sine', freq: 440, freqEnd: 1200, duration: 0.22, volume: 0.14 });
+};
+
+Game.prototype.toggleMute = function() {
+  this.soundMuted = !this.soundMuted;
+  localStorage.setItem('gujiyouxi_mute', this.soundMuted ? '1' : '0');
+  this.updateMuteBtn();
+  if (!this.soundMuted) this.sfxClick();
+  this.showToast(this.soundMuted ? '🔇 已静音' : '🔊 已开启音效');
+};
+
+Game.prototype.updateMuteBtn = function() {
+  if (this.muteLabel) this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
 };
 
 // ==================== Toast ====================
