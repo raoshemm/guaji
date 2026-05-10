@@ -440,100 +440,86 @@ Game.prototype.buildUI = function() {
   this._stageW = stageW;
   this._battleH = BATTLE_H;
 
-  // ===== 顶部栏 =====
+  // ===== 顶部栏（重构：两行结构，避免文字互相覆盖） =====
+  // Row1 (y 6-34)  : 头像+VIP徽章 | 昵称+波次 | 金币/钻石/成就
+  // Row2 (y 40-62) : 怪物HP 汇总条（满宽，带内嵌文字）
   var topBar = new eui.Group();
   topBar.width = stageW; topBar.height = TOP_H;
   var topBg = new eui.Rect();
   topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = 0x1a0a2e;
   topBar.addChild(topBg);
 
-  // 第一行：VIP + 头像 + 名字 + 波次进度数字 + 金币
-  // VIP标识
-  var vipBg = new eui.Rect();
-  vipBg.width = 45; vipBg.height = 18; vipBg.ellipseWidth = 4; vipBg.ellipseHeight = 4;
-  vipBg.fillColor = 0xc0392b; vipBg.x = 8; vipBg.y = 6;
-  topBar.addChild(vipBg);
-  var vipText = new eui.Label();
-  vipText.text = 'VIP0'; vipText.size = 10; vipText.textColor = 0xffffff; vipText.bold = true;
-  vipText.x = 12; vipText.y = 8;
-  topBar.addChild(vipText);
-
-  // 头像（方形）
+  // --- Row1 左：头像（36x36）+ VIP 徽章 ---
   var avatarBg = new eui.Rect();
-  avatarBg.width = 36; avatarBg.height = 36; avatarBg.ellipseWidth = 4; avatarBg.ellipseHeight = 4;
-  avatarBg.fillColor = 0x8b4513; avatarBg.x = 8; avatarBg.y = 28;
+  avatarBg.width = 36; avatarBg.height = 36; avatarBg.ellipseWidth = 6; avatarBg.ellipseHeight = 6;
+  avatarBg.fillColor = 0x8b4513; avatarBg.x = 6; avatarBg.y = 4;
   topBar.addChild(avatarBg);
   var avatarText = new eui.Label();
-  avatarText.text = '头像'; avatarText.size = 9; avatarText.textColor = 0xffffff;
-  avatarText.x = 10; avatarText.y = 40;
+  avatarText.text = '头像'; avatarText.size = 11; avatarText.textColor = 0xffffff;
+  avatarText.x = 10; avatarText.y = 15;
   topBar.addChild(avatarText);
+  // VIP 徽章贴在头像右下角
+  var vipBg = new eui.Rect();
+  vipBg.width = 32; vipBg.height = 14; vipBg.ellipseWidth = 4; vipBg.ellipseHeight = 4;
+  vipBg.fillColor = 0xc0392b; vipBg.x = 26; vipBg.y = 28;
+  topBar.addChild(vipBg);
+  var vipText = new eui.Label();
+  vipText.text = 'VIP0'; vipText.size = 9; vipText.textColor = 0xffffff; vipText.bold = true;
+  vipText.x = 30; vipText.y = 30;
+  topBar.addChild(vipText);
 
-  // 名字
+  // --- Row1 中：昵称 + 波次 ---
   var nameLb = new eui.Label();
-  nameLb.text = '玩家姓名'; nameLb.size = 12; nameLb.textColor = 0xffffff; nameLb.bold = true;
-  nameLb.x = 50; nameLb.y = 32;
+  nameLb.text = '玩家姓名'; nameLb.size = 13; nameLb.textColor = 0xffffff; nameLb.bold = true;
+  nameLb.x = 50; nameLb.y = 6;
   topBar.addChild(nameLb);
+  this.waveLabel = new eui.Label();
+  this.waveLabel.text = this.waveText(); this.waveLabel.size = 11; this.waveLabel.textColor = 0xfbbf24;
+  this.waveLabel.x = 50; this.waveLabel.y = 23;
+  topBar.addChild(this.waveLabel);
 
-  // 波次进度数字（动态显示当前波次附近4个数字）
-  this._waveNumBgs = [];
-  this._waveNumLbs = [];
-  for (var i = 0; i < 4; i++) {
-    var numBg = new eui.Rect();
-    numBg.width = 28; numBg.height = 22; numBg.ellipseWidth = 4; numBg.ellipseHeight = 4;
-    numBg.fillColor = 0x2d1f4e;
-    numBg.x = 105 + i * 32; numBg.y = 6;
-    topBar.addChild(numBg);
-    this._waveNumBgs.push(numBg);
-    var numLb = new eui.Label();
-    numLb.text = ''; numLb.size = 12; numLb.textColor = 0xffffff; numLb.bold = true;
-    numLb.x = 113 + i * 32; numLb.y = 9;
-    topBar.addChild(numLb);
-    this._waveNumLbs.push(numLb);
-  }
-  this.updateWaveNumbers();
-
-  // 金币（右上）
+  // --- Row1 右：金币 / 钻石 / 成就（右对齐，避免重叠） ---
   this.goldLabel = new eui.Label();
   this.goldLabel.text = '💰 ' + this.fmt(this.gold);
-  this.goldLabel.size = 14; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
-  this.goldLabel.x = stageW - 80; this.goldLabel.y = 10;
+  this.goldLabel.size = 13; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
+  this.goldLabel.right = 8; this.goldLabel.y = 6;
   topBar.addChild(this.goldLabel);
 
-  // 转生宝石
   this.gemsLabel = new eui.Label();
-  this.gemsLabel.text = '💎' + this.rebirthGems;
-  this.gemsLabel.size = 11; this.gemsLabel.textColor = 0x9b59b6;
-  this.gemsLabel.x = stageW - 80; this.gemsLabel.y = 30;
+  this.gemsLabel.text = '💎 ' + this.rebirthGems;
+  this.gemsLabel.size = 11; this.gemsLabel.textColor = 0xb28dd6;
+  this.gemsLabel.right = 8; this.gemsLabel.y = 24;
   topBar.addChild(this.gemsLabel);
 
-  // 成就按钮（最右）
+  // 成就按钮：放在 Row1 中段和右段之间
   var achBtn = new eui.Label();
-  achBtn.text = '🏆' + this.achievements.length;
-  achBtn.size = 14; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true;
-  achBtn.x = stageW - 30; achBtn.y = 12;
+  achBtn.text = '🏆 ' + this.achievements.length;
+  achBtn.size = 12; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true;
+  achBtn.right = 60; achBtn.y = 24;
   achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
   topBar.addChild(achBtn);
 
-  // 第二行：波次 + HP条
-  this.waveLabel = new eui.Label();
-  this.waveLabel.text = this.waveText(); this.waveLabel.size = 13; this.waveLabel.textColor = 0xffffff;
-  this.waveLabel.bold = true; this.waveLabel.x = 10; this.waveLabel.y = 50;
-  topBar.addChild(this.waveLabel);
+  // 保留 updateWaveNumbers 的引用，避免其他地方调用时崩溃
+  this._waveNumBgs = [];
+  this._waveNumLbs = [];
 
-  // HP条背景
+  // --- Row2：怪物 HP 汇总条（满宽） ---
+  var HP_X = 10, HP_Y = 44, HP_W = stageW - 20, HP_H = 16;
   var hpBg = new eui.Rect();
-  hpBg.width = 160; hpBg.height = 12; hpBg.ellipseWidth = 6; hpBg.ellipseHeight = 6;
-  hpBg.fillColor = 0x1a1a1a; hpBg.x = 90; hpBg.y = 50;
+  hpBg.width = HP_W; hpBg.height = HP_H; hpBg.ellipseWidth = 8; hpBg.ellipseHeight = 8;
+  hpBg.fillColor = 0x1a1a1a; hpBg.x = HP_X; hpBg.y = HP_Y;
   topBar.addChild(hpBg);
-  // HP条填充
   this.hpFill = new eui.Rect();
-  this.hpFill.width = 140; this.hpFill.height = 12; this.hpFill.ellipseWidth = 6; this.hpFill.ellipseHeight = 6;
-  this.hpFill.fillColor = 0x27ae60; this.hpFill.x = 90; this.hpFill.y = 50;
+  this.hpFill.width = HP_W; this.hpFill.height = HP_H;
+  this.hpFill.ellipseWidth = 8; this.hpFill.ellipseHeight = 8;
+  this.hpFill.fillColor = 0x27ae60; this.hpFill.x = HP_X; this.hpFill.y = HP_Y;
   topBar.addChild(this.hpFill);
-  // HP文字
+  this._hpMaxWidth = HP_W; // 供 updateUI 用，替换硬编码 140
+  // HP 文字居中叠在条上
   this.hpLabel = new eui.Label();
-  this.hpLabel.text = '100 / 100'; this.hpLabel.size = 9; this.hpLabel.textColor = 0xffffff;
-  this.hpLabel.x = 120; this.hpLabel.y = 51;
+  this.hpLabel.text = '100 / 100'; this.hpLabel.size = 10; this.hpLabel.textColor = 0xffffff;
+  this.hpLabel.bold = true;
+  this.hpLabel.horizontalCenter = 0; this.hpLabel.y = HP_Y + 2;
   topBar.addChild(this.hpLabel);
 
   this.main.addChild(topBar);
@@ -594,55 +580,30 @@ Game.prototype.buildUI = function() {
   this.rightSupGroup = rightSup;
   this.battleGroup.addChild(rightSup);
 
-  // === 左侧功能按钮区（x: 48-100）===
+  // === 左侧功能按钮区：2列×3行带背景圆角按钮（x: 48-104） ===
+  // 按钮尺寸 26x26，gap 4，总宽度 56，放得下 "能量" "磨转" 这种 2 字标签
   var leftBtnDefs = [
-    [
-      { text: '邀请', fn: function() { self.showToast('分享游戏给好友即可获得奖励！'); } },
-      { text: '首冲', fn: function() { self.openShop(); } },
-      { text: '邮件', fn: function() { self.openMail(); } }
-    ],
-    [
-      { text: '关注', fn: function() { self.showToast('关注官方号获取最新资讯！'); } },
-      { text: '每日', fn: function() { self.openDailyTasks(); } },
-      { text: '签到', fn: function() { self.openCheckin(); } }
-    ],
-    [
-      { text: '磨转石', fn: function() { self.openRebirth(); } },
-      { text: '公告', fn: function() { self.openAnnouncement(); } },
-      { text: '能量互助', fn: function() { self.openEnergyHelp(); } }
-    ]
+    { text: '签到', fn: function() { self.openCheckin(); } },
+    { text: '每日', fn: function() { self.openDailyTasks(); } },
+    { text: '邮件', fn: function() { self.openMail(); } },
+    { text: '公告', fn: function() { self.openAnnouncement(); } },
+    { text: '磨转', fn: function() { self.openRebirth(); } },
+    { text: '能量', fn: function() { self.openEnergyHelp(); } }
   ];
-  var leftBtnGroup = new eui.Group();
-  leftBtnGroup.x = 48; leftBtnGroup.y = 8;
-  for (var col = 0; col < 2; col++) {
-    for (var row = 0; row < leftBtnDefs[col].length; row++) {
-      var lb = new eui.Label();
-      lb.text = leftBtnDefs[col][row].text; lb.size = 9; lb.textColor = 0xffffff;
-      lb.x = col * 26; lb.y = row * 18;
-      lb.touchEnabled = true;
-      lb.addEventListener(egret.TouchEvent.TOUCH_TAP, leftBtnDefs[col][row].fn, this);
-      leftBtnGroup.addChild(lb);
-    }
+  var LEFT_BTN_X = 48, LEFT_BTN_Y = 8;
+  for (var i = 0; i < leftBtnDefs.length; i++) {
+    var col = i % 2, row = Math.floor(i / 2);
+    var bx = LEFT_BTN_X + col * 30;
+    var by = LEFT_BTN_Y + row * 30;
+    var sideBtn = this.createSideBtn(leftBtnDefs[i].text, bx, by, leftBtnDefs[i].fn);
+    this.battleGroup.addChild(sideBtn);
   }
-  this.battleGroup.addChild(leftBtnGroup);
 
-  // 第三列按钮
-  var leftBtnGroup2 = new eui.Group();
-  leftBtnGroup2.x = 48; leftBtnGroup2.y = 70;
-  for (var row = 0; row < leftBtnDefs[2].length; row++) {
-    var lb = new eui.Label();
-    lb.text = leftBtnDefs[2][row].text; lb.size = 9; lb.textColor = 0xffffff;
-    lb.x = 0; lb.y = row * 18;
-    lb.touchEnabled = true;
-    lb.addEventListener(egret.TouchEvent.TOUCH_TAP, leftBtnDefs[2][row].fn, this);
-    leftBtnGroup2.addChild(lb);
-  }
-  this.battleGroup.addChild(leftBtnGroup2);
-
-  // === 右侧：挑战BOSS按钮（右上）===
+  // === 右侧按钮区：挑战BOSS 大按钮 + 2×2 活动入口小按钮 ===
+  // 挑战BOSS（顶部显眼）
   var bossBtnBg = new eui.Rect();
-  bossBtnBg.width = 65; bossBtnBg.height = 26; bossBtnBg.ellipseWidth = 6; bossBtnBg.ellipseHeight = 6;
-  bossBtnBg.fillColor = 0x9b2335; bossBtnBg.x = stageW - 70; bossBtnBg.y = 8;
+  bossBtnBg.width = 66; bossBtnBg.height = 28; bossBtnBg.ellipseWidth = 8; bossBtnBg.ellipseHeight = 8;
+  bossBtnBg.fillColor = 0x9b2335; bossBtnBg.x = stageW - 72; bossBtnBg.y = 8;
   bossBtnBg.touchEnabled = true;
   bossBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
     if (self.wave % 10 === 0) {
@@ -653,9 +614,25 @@ Game.prototype.buildUI = function() {
   }, this);
   this.battleGroup.addChild(bossBtnBg);
   var bossBtnText = new eui.Label();
-  bossBtnText.text = '挑战BOSS'; bossBtnText.size = 10; bossBtnText.textColor = 0xffffff; bossBtnText.bold = true;
-  bossBtnText.x = stageW - 66; bossBtnText.y = 12;
+  bossBtnText.text = '挑战BOSS'; bossBtnText.size = 11; bossBtnText.textColor = 0xffffff; bossBtnText.bold = true;
+  bossBtnText.x = stageW - 68; bossBtnText.y = 14;
   this.battleGroup.addChild(bossBtnText);
+
+  // 右侧运营/商业化 2×2 按钮
+  var rightBtnDefs = [
+    { text: '首冲', fn: function() { self.openShop(); } },
+    { text: '邀请', fn: function() { self.showToast('分享游戏给好友即可获得奖励！'); } },
+    { text: '关注', fn: function() { self.showToast('关注官方号获取最新资讯！'); } },
+    { text: '活动', fn: function() { self.showToast('活动即将开启，敬请期待！'); } }
+  ];
+  var RIGHT_BTN_Y = 44;
+  for (var i = 0; i < rightBtnDefs.length; i++) {
+    var col = i % 2, row = Math.floor(i / 2);
+    var bx = stageW - 72 + col * 30;
+    var by = RIGHT_BTN_Y + row * 30;
+    var sideBtn = this.createSideBtn(rightBtnDefs[i].text, bx, by, rightBtnDefs[i].fn);
+    this.battleGroup.addChild(sideBtn);
+  }
 
   // === 中央怪物区（x: 105-270）===
   var CENTER_X = 105;
@@ -727,57 +704,72 @@ Game.prototype.buildUI = function() {
   this.dpsLabel.x = CENTER_X + (CENTER_W - 80) / 2; this.dpsLabel.y = heroGroup.y + 90;
   this.battleGroup.addChild(this.dpsLabel);
 
-  // --- 底部状态区 ---
-  var statusY = BATTLE_H - 38;
+  // --- 底部状态区（重构：三行垂直分离，修复宽度常量不一致 BUG） ---
+  // Row A (statusY)     : BOSS 计时条（条件显示，占满中央区宽度）
+  // Row B (statusY+12)  : 当前10波进度条 + 两侧标签
+  // Row C (statusY+26)  : 能量条(左) + Buff 文本(右)，文字分离不再压在条上
+  var statusY = BATTLE_H - 42;
+  var STATUS_W = stageW - 20;
+  var STATUS_X = 10;
 
-  // 波次进度条（当前10波进度）
-  this.waveFillBg = new eui.Rect();
-  this.waveFillBg.width = Math.floor(CENTER_W * 0.8); this.waveFillBg.height = 5;
-  this.waveFillBg.fillColor = 0x8b6914; this.waveFillBg.ellipseWidth = 3;
-  this.waveFillBg.x = CENTER_X + (CENTER_W - this.waveFillBg.width) / 2; this.waveFillBg.y = statusY;
-  this.battleGroup.addChild(this.waveFillBg);
-  var waveInCycle = ((this.wave - 1) % 10) + 1;
-  this.waveFill = new eui.Rect();
-  this.waveFill.width = (waveInCycle / 10) * this.waveFillBg.width;
-  this.waveFill.height = 5; this.waveFill.fillColor = 0xd4a017; this.waveFill.ellipseWidth = 3;
-  this.waveFill.x = this.waveFillBg.x; this.waveFill.y = statusY;
-  this.battleGroup.addChild(this.waveFill);
-
-  // BOSS计时条（默认隐藏）
+  // Row A: BOSS 计时条（默认隐藏）
+  var bossBarW = STATUS_W - 50; // 左侧留空间给标签
   this.bossTimerBar = new eui.Rect();
-  this.bossTimerBar.width = CENTER_W - 40; this.bossTimerBar.height = 8;
+  this.bossTimerBar.width = bossBarW; this.bossTimerBar.height = 8;
   this.bossTimerBar.fillColor = 0xe74c3c; this.bossTimerBar.ellipseWidth = 4;
-  this.bossTimerBar.x = CENTER_X + 20; this.bossTimerBar.y = statusY - 14;
+  this.bossTimerBar.x = STATUS_X + 40; this.bossTimerBar.y = statusY;
   this.bossTimerBar.visible = false;
   this.battleGroup.addChild(this.bossTimerBar);
+  this._bossBarMaxWidth = bossBarW; // 供 updateBossTimerUI 使用，替换硬编码 280
   this.bossTimerLabel = new eui.Label();
-  this.bossTimerLabel.text = ''; this.bossTimerLabel.size = 12; this.bossTimerLabel.textColor = 0xff6666;
+  this.bossTimerLabel.text = ''; this.bossTimerLabel.size = 11; this.bossTimerLabel.textColor = 0xff6666;
   this.bossTimerLabel.bold = true;
-  this.bossTimerLabel.x = CENTER_X + CENTER_W + 5; this.bossTimerLabel.y = statusY - 17;
+  this.bossTimerLabel.x = STATUS_X; this.bossTimerLabel.y = statusY - 2;
   this.bossTimerLabel.visible = false;
   this.battleGroup.addChild(this.bossTimerLabel);
 
-  // 能量 + Buff 同一行
-  // 能量条可视化
+  // Row B: 当前轮次（1-10波）进度条
+  this.waveFillBg = new eui.Rect();
+  this.waveFillBg.width = STATUS_W; this.waveFillBg.height = 6;
+  this.waveFillBg.fillColor = 0x3d2b5e; this.waveFillBg.ellipseWidth = 3;
+  this.waveFillBg.x = STATUS_X; this.waveFillBg.y = statusY + 12;
+  this.battleGroup.addChild(this.waveFillBg);
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  this.waveFill = new eui.Rect();
+  this.waveFill.width = (waveInCycle / 10) * STATUS_W;
+  this.waveFill.height = 6; this.waveFill.fillColor = 0xd4a017; this.waveFill.ellipseWidth = 3;
+  this.waveFill.x = STATUS_X; this.waveFill.y = statusY + 12;
+  this.battleGroup.addChild(this.waveFill);
+  this._waveFillMaxWidth = STATUS_W; // 供 updateUI 使用
+
+  // Row C: 能量条（左, 120px）+ DPS(中) + Buff(右)
+  var ENERGY_W = 120;
   var energyBarBg = new eui.Rect();
-  energyBarBg.width = 100; energyBarBg.height = 10; energyBarBg.ellipseWidth = 5; energyBarBg.ellipseHeight = 5;
-  energyBarBg.fillColor = 0x1a1a2e; energyBarBg.x = 12; energyBarBg.y = statusY + 10;
+  energyBarBg.width = ENERGY_W; energyBarBg.height = 12;
+  energyBarBg.ellipseWidth = 6; energyBarBg.ellipseHeight = 6;
+  energyBarBg.fillColor = 0x1a1a2e;
+  energyBarBg.x = STATUS_X; energyBarBg.y = statusY + 24;
   this.battleGroup.addChild(energyBarBg);
   this.energyFill = new eui.Rect();
-  this.energyFill.width = this.energy; this.energyFill.height = 10;
-  this.energyFill.ellipseWidth = 5; this.energyFill.ellipseHeight = 5;
-  this.energyFill.fillColor = 0x00d4ff; this.energyFill.x = 12; this.energyFill.y = statusY + 10;
+  this.energyFill.width = (this.energy / CONFIG.maxEnergy) * ENERGY_W;
+  this.energyFill.height = 12;
+  this.energyFill.ellipseWidth = 6; this.energyFill.ellipseHeight = 6;
+  this.energyFill.fillColor = 0x00d4ff;
+  this.energyFill.x = STATUS_X; this.energyFill.y = statusY + 24;
   this.battleGroup.addChild(this.energyFill);
+  this._energyMaxWidth = ENERGY_W; // 供 updateUI 使用（替换硬编码 100）
+  // 能量文字：紧跟在条右边，不再压在条上
   this.energyLabel = new eui.Label();
   this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
-  this.energyLabel.size = 9; this.energyLabel.textColor = 0xffffff;
-  this.energyLabel.x = 14; this.energyLabel.y = statusY + 9;
+  this.energyLabel.size = 11; this.energyLabel.textColor = 0x7fdbff; this.energyLabel.bold = true;
+  this.energyLabel.x = STATUS_X + ENERGY_W + 6; this.energyLabel.y = statusY + 25;
   this.battleGroup.addChild(this.energyLabel);
 
+  // Buff 文本（右侧）
   this.buffLabel = new eui.Label();
   this.buffLabel.text = this.renderBuffText();
   this.buffLabel.size = 11; this.buffLabel.textColor = 0xfbbf24;
-  this.buffLabel.right = 12; this.buffLabel.y = statusY + 10;
+  this.buffLabel.right = 10; this.buffLabel.y = statusY + 25;
   this.battleGroup.addChild(this.buffLabel);
 
   // 伤害飘字层（不可触摸）
@@ -831,6 +823,24 @@ Game.prototype.buildUI = function() {
     navBar.addChild(nb);
   }
   this.main.addChild(navBar);
+};
+
+// 创建战斗区左/右侧圆角按钮（小方块+文字）
+Game.prototype.createSideBtn = function(text, x, y, fn) {
+  var g = new eui.Group();
+  g.width = 26; g.height = 26; g.x = x; g.y = y;
+  var bg = new eui.Rect();
+  bg.width = 26; bg.height = 26; bg.ellipseWidth = 6; bg.ellipseHeight = 6;
+  bg.fillColor = 0x4a2d6b; bg.fillAlpha = 0.85;
+  bg.strokeColor = 0xfbbf24; bg.strokeWeight = 1;
+  g.addChild(bg);
+  var lb = new eui.Label();
+  lb.text = text; lb.size = 10; lb.textColor = 0xffffff; lb.bold = true;
+  lb.horizontalCenter = 0; lb.verticalCenter = 0;
+  g.addChild(lb);
+  g.touchEnabled = true;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, this);
+  return g;
 };
 
 // 创建导航按钮（图标+文字）
@@ -1075,7 +1085,8 @@ Game.prototype.updateBossTimerUI = function() {
       this.bossTimerLabel.text = this.bossTimer.toFixed(1) + 's';
     }
     var pct = this.bossTimer / CONFIG.bossTimeLimit;
-    this.bossTimerBar.width = Math.max(0, 280 * pct);
+    var bMax = this._bossBarMaxWidth || 280;
+    this.bossTimerBar.width = Math.max(0, bMax * pct);
     if (pct > 0.5) {
       this.bossTimerBar.fillColor = 0x2ecc71;
       if (this.bossTimerLabel) this.bossTimerLabel.textColor = 0x2ecc71;
@@ -1215,8 +1226,9 @@ Game.prototype.useSkill = function(idx) {
 
 Game.prototype.updateWaveNumbers = function() {
   if (!this._waveNumBgs || !this._waveNumLbs) return;
+  if (this._waveNumBgs.length === 0) return;
   var waveNumStart = Math.max(1, this.wave - 2);
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < this._waveNumBgs.length; i++) {
     var num = waveNumStart + i;
     var isCurrent = (num === this.wave);
     this._waveNumBgs[i].fillColor = isCurrent ? 0xc0392b : 0x5d3a1a;
@@ -1231,13 +1243,17 @@ Game.prototype.updateUI = function() {
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
   if (this.energyLabel) this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
-  if (this.energyFill) this.energyFill.width = Math.max(0, (this.energy / CONFIG.maxEnergy) * 100);
+  if (this.energyFill) {
+    var eMax = this._energyMaxWidth || 100;
+    this.energyFill.width = Math.max(0, (this.energy / CONFIG.maxEnergy) * eMax);
+  }
   if (this.waveFill && this.waveFillBg) {
     var waveInCycle = ((this.wave - 1) % 10) + 1;
-    this.waveFill.width = (waveInCycle / 10) * this.waveFillBg.width;
+    var wMax = this._waveFillMaxWidth || this.waveFillBg.width;
+    this.waveFill.width = (waveInCycle / 10) * wMax;
   }
   if (this.buffLabel) this.buffLabel.text = this.renderBuffText();
-  if (this.gemsLabel) this.gemsLabel.text = '💎' + this.rebirthGems;
+  if (this.gemsLabel) this.gemsLabel.text = '💎 ' + this.rebirthGems;
   // 更新HP条
   if (this.hpFill && this.hpLabel && this.monsters.length > 0) {
     var totalHp = 0;
@@ -1248,7 +1264,8 @@ Game.prototype.updateUI = function() {
     }
     if (maxHp > 0) {
       var hpPct = totalHp / maxHp;
-      this.hpFill.width = Math.floor(140 * hpPct);
+      var hpMax = this._hpMaxWidth || 140;
+      this.hpFill.width = Math.floor(hpMax * hpPct);
       this.hpLabel.text = this.fmt(totalHp) + ' / ' + this.fmt(maxHp);
     }
   }
