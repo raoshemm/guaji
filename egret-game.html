@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>吃饭睡觉打豆豆 - Egret版</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: #1a1a2e; height: 100%; overflow: hidden; display: flex; justify-content: center; }
+    #status { color: #0f0; position: fixed; top: 10px; left: 10px; font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; white-space: pre-line; max-width: 90%; }
+  </style>
+</head>
+<body>
+  <div id="status">加载引擎中...</div>
+  <script>
+    var statusEl = document.getElementById('status');
+    var scripts = [
+      'node_modules/egret-engine/build/egret/egret.min.js',
+      'node_modules/egret-engine/build/egret/egret.web.min.js',
+      'node_modules/egret-engine/build/game/game.min.js',
+      'node_modules/egret-engine/build/res/res.min.js',
+      'node_modules/egret-engine/build/tween/tween.min.js',
+      'node_modules/egret-engine/build/eui/eui.min.js',
+      'game.js'
+    ];
+
+    function loadScript(idx) {
+      if (idx >= scripts.length) {
+        statusEl.textContent += '\n引擎脚本就绪，初始化...';
+        try {
+          // 第一步：runEgret 初始化引擎全局状态（RenderBuffer 等必须在这里设置）
+          // 没有 .egret-player 元素，不会创建多余实例
+          egret.runEgret({ renderMode: 'canvas' });
+
+          // 第二步：手动创建容器和 WebPlayer
+          var cw = Math.min(window.innerWidth, 500);
+          var ch = window.innerHeight;
+          var scale = cw / 375;
+          var gameH = Math.floor(ch / scale);
+
+          var container = document.createElement('div');
+          container.style.width = cw + 'px';
+          container.style.height = ch + 'px';
+          container.style.margin = '0 auto';
+          document.body.appendChild(container);
+
+          var player = new egret.web.WebPlayer(container, {
+            entryClassName: 'Main',
+            scaleMode: 'fixedWidth',
+            frameRate: 60,
+            contentWidth: 375,
+            contentHeight: gameH,
+            renderMode: 'canvas'
+          });
+
+          // 第三步：手动实例化 Main 并加入舞台
+          var main = new window.Main();
+          player.stage.addChild(main);
+
+          statusEl.textContent += '\n启动成功!';
+          setTimeout(function() { statusEl.style.display = 'none'; }, 1500);
+        } catch(e) {
+          statusEl.textContent += '\n❌ ' + e.message;
+        }
+        return;
+      }
+      var s = document.createElement('script');
+      s.src = scripts[idx];
+      s.onload = function() {
+        var name = scripts[idx].split('/').pop();
+        statusEl.textContent = (idx+1) + '/' + scripts.length + ' ✓ ' + name;
+        loadScript(idx + 1);
+      };
+      s.onerror = function() {
+        statusEl.textContent += '\n❌ 加载失败: ' + scripts[idx];
+      };
+      document.head.appendChild(s);
+    }
+
+    loadScript(0);
+  </script>
+</body>
+</html>

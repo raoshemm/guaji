@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Egret引擎测试</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: #1a1a2e; height: 100%; overflow: hidden; }
+    #status { color: #0f0; position: fixed; top: 10px; left: 10px; font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; white-space: pre; }
+  </style>
+</head>
+<body>
+  <div id="status">0/6 加载中...</div>
+
+  <script>
+    // 动态顺序加载脚本
+    var statusEl = document.getElementById('status');
+    var scripts = [
+      'node_modules/egret-engine/build/egret/egret.min.js',
+      'node_modules/egret-engine/build/egret/egret.web.min.js',
+      'node_modules/egret-engine/build/game/game.min.js',
+      'node_modules/egret-engine/build/res/res.min.js',
+      'node_modules/egret-engine/build/tween/tween.min.js',
+      'node_modules/egret-engine/build/eui/eui.min.js'
+    ];
+
+    function loadScript(idx) {
+      if (idx >= scripts.length) {
+        statusEl.textContent += '\n全部加载完成!';
+        initEgret();
+        return;
+      }
+      var s = document.createElement('script');
+      s.src = scripts[idx];
+      s.onload = function() {
+        statusEl.textContent = (idx+1) + '/' + scripts.length + ' OK: ' + scripts[idx].split('/').pop();
+        loadScript(idx + 1);
+      };
+      s.onerror = function() {
+        statusEl.textContent += '\n❌ 加载失败: ' + scripts[idx];
+      };
+      document.head.appendChild(s);
+    }
+
+    function initEgret() {
+      statusEl.textContent += '\negret版本: ' + egret.Capabilities.engineVersion;
+      statusEl.textContent += '\nrunEgret: ' + typeof egret.runEgret;
+      statusEl.textContent += '\neui: ' + typeof eui;
+
+      // 定义入口类
+      window.Main = function() {
+        eui.UILayer.call(this);
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+      };
+      window.Main.prototype = Object.create(eui.UILayer.prototype);
+      window.Main.prototype.constructor = window.Main;
+
+      window.Main.prototype.onAddToStage = function() {
+        statusEl.textContent = '✅ Egret渲染成功!';
+
+        var bg = new eui.Rect();
+        bg.width = 375; bg.height = 667; bg.fillColor = 0x16243a;
+        this.addChild(bg);
+
+        var title = new eui.Label();
+        title.text = 'Egret引擎验证成功!'; title.size = 22; title.textColor = 0xffffff;
+        title.x = 60; title.y = 40;
+        this.addChild(title);
+
+        var monster = new egret.Shape();
+        monster.graphics.beginFill(0xff6666);
+        monster.graphics.drawCircle(0, 0, 40);
+        monster.graphics.endFill();
+        monster.x = 188; monster.y = 200;
+        this.addChild(monster);
+        this.monster = monster;
+
+        var hero = new egret.Shape();
+        hero.graphics.beginFill(0x3498db);
+        hero.graphics.drawCircle(0, 0, 40);
+        hero.graphics.endFill();
+        hero.x = 188; hero.y = 450;
+        this.addChild(hero);
+
+        var mLabel = new eui.Label();
+        mLabel.text = '豆豆怪 HP:100'; mLabel.size = 14; mLabel.textColor = 0xffffff;
+        mLabel.x = 130; mLabel.y = 250;
+        this.addChild(mLabel);
+        this.mLabel = mLabel;
+        this.hp = 100;
+
+        var hLabel = new eui.Label();
+        hLabel.text = '主角 Lv.1'; hLabel.size = 14; hLabel.textColor = 0xaaaaaa;
+        hLabel.x = 155; hLabel.y = 500;
+        this.addChild(hLabel);
+
+        monster.touchEnabled = true;
+        var self = this;
+        monster.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+          var dmg = 10 + Math.floor(Math.random() * 10);
+          self.hp = Math.max(0, self.hp - dmg);
+          self.mLabel.text = self.hp > 0 ? ('豆豆怪 HP:' + self.hp) : '击杀! 重生中...';
+
+          // 浮动伤害
+          var txt = new egret.TextField();
+          txt.text = '-' + dmg; txt.size = 20; txt.textColor = 0xffff00;
+          txt.x = monster.x + (Math.random() * 30 - 15); txt.y = monster.y - 30;
+          self.addChild(txt);
+          egret.Tween.get(txt).to({y: txt.y - 50, alpha: 0}, 600).call(function() { if(txt.parent) txt.parent.removeChild(txt); });
+
+          // 震动
+          egret.Tween.get(monster).to({x: monster.x + 8}, 40).to({x: monster.x - 8}, 40).to({x: 188}, 40);
+
+          if (self.hp <= 0) setTimeout(function() { self.hp = 100; self.mLabel.text = '豆豆怪 HP:100'; }, 500);
+        }, this);
+
+        var hint = new eui.Label();
+        hint.text = '点击红色怪物测试'; hint.size = 14; hint.textColor = 0x888888;
+        hint.x = 110; hint.y = 580;
+        this.addChild(hint);
+
+        this.time = 0;
+        this.addEventListener(egret.Event.ENTER_FRAME, function() {
+          self.time += 0.02;
+          if (self.monster && self.hp > 0) self.monster.y = 200 + Math.sin(self.time) * 8;
+        }, this);
+      };
+
+      // 启动
+      try {
+        egret.runEgret({
+          renderMode: 'canvas',
+          entryClassName: 'Main',
+          frameRate: 60,
+          scaleMode: 'fixedWidth',
+          contentWidth: 375,
+          contentHeight: 667
+        });
+        statusEl.textContent += '\nrunEgret已调用';
+      } catch(e) {
+        statusEl.textContent += '\n❌ 错误: ' + e.message;
+      }
+    }
+
+    // 开始加载
+    loadScript(0);
+  </script>
+</body>
+</html>
