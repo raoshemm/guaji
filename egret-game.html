@@ -125,6 +125,7 @@
       if (idx >= scripts.length) {
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
         try {
+          egret.runEgret({ renderMode: 'canvas' });
           player = new egret.web.WebPlayer(container, {
             entryClassName: 'Main',
             scaleMode: 'fixedWidth',
