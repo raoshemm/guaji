@@ -125,9 +125,6 @@
       if (idx >= scripts.length) {
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
         try {
-          // 必须：初始化 egret runtime，否则 RenderBuffer 为空，画面白屏
-          egret.runEgret({ renderMode: 'canvas' });
-
           player = new egret.web.WebPlayer(container, {
             entryClassName: 'Main',
             scaleMode: 'fixedWidth',
@@ -137,10 +134,6 @@
             orientation: 'auto',
             renderMode: 'canvas'
           });
-
-          // 必须：手动实例化 Main 并挂到 stage，WebPlayer 不会自动创建入口实例
-          var main = new window.Main();
-          player.stage.addChild(main);
 
           // 防抖，避免 iOS 地址栏抖动时频繁触发
           var resizeTimer = null;
