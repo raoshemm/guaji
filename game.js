@@ -25,27 +25,33 @@ var SKILLS = [
   { name: '终极', cd: 60, dmg: 12, hits: 1, lv: 25 }
 ];
 
-// 怪物类型（外观、名称、血条颜色）
+// 怪物类型定义
+//   name     显示名
+//   shape    createMonsterView 中的绘制 key
+//   color    主体色
+//   outline  深色描边色，用于勾边提升辨识度
+//   hpColor  血条颜色
+//   badge    名字图签背景色（与主体色呼应）
 var MONSTER_TYPES = [
-  { name: '史莱姆', shape: 'slime',  color: 0x3498db, hpColor: 0x2ecc71 },
-  { name: '兔子',   shape: 'blob',   color: 0xff69b4, hpColor: 0x2ecc71 },
-  { name: '蝙蝠',   shape: 'bat',    color: 0x8e44ad, hpColor: 0x9b59b6 },
-  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, hpColor: 0xe74c3c },
-  { name: '幽灵',   shape: 'ghost',  color: 0xbdc3c7, hpColor: 0x95a5a6 },
-  { name: '骷髅',   shape: 'skull',  color: 0xecf0f1, hpColor: 0xbdc3c7 },
-  { name: '火龙',   shape: 'dragon', color: 0xe67e22, hpColor: 0xf39c12 },
-  { name: '暗影',   shape: 'shadow', color: 0x2c3e50, hpColor: 0x34495e }
+  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, outline: 0x1e6b3a, hpColor: 0x2ecc71, badge: 0x1e6b3a },
+  { name: '兔子',   shape: 'rabbit', color: 0xffc9d9, outline: 0xc94f7a, hpColor: 0xff69b4, badge: 0xc94f7a },
+  { name: '蝙蝠',   shape: 'bat',    color: 0x6c3483, outline: 0x3a1d4a, hpColor: 0x9b59b6, badge: 0x3a1d4a },
+  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10 },
+  { name: '幽灵',   shape: 'ghost',  color: 0xe8eef5, outline: 0x6c7a89, hpColor: 0x95a5a6, badge: 0x6c7a89 },
+  { name: '骷髅',   shape: 'skull',  color: 0xecf0f1, outline: 0x34495e, hpColor: 0xbdc3c7, badge: 0x34495e },
+  { name: '火龙',   shape: 'dragon', color: 0xe67e22, outline: 0x8b3a06, hpColor: 0xf39c12, badge: 0x8b3a06 },
+  { name: '暗影',   shape: 'shadow', color: 0x2c3e50, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000 }
 ];
 
 var SUPPORTS_DEF = [
-  { name: '小毛绒', dps: 15, wave: 0,  atkInterval: 1200, color: 0xff69b4, shape: 'circle',   symbol: '毛' },
-  { name: '棉花糖', dps: 28, wave: 5,  atkInterval: 1500, color: 0xff69b4, shape: 'cloud',    symbol: '棉' },
-  { name: '肉丸',   dps: 45, wave: 15, atkInterval: 1000, color: 0xff69b4, shape: 'diamond',  symbol: '肉' },
-  { name: '布丁',   dps: 75, wave: 30, atkInterval: 1800, color: 0xff69b4, shape: 'square',   symbol: '布' },
-  { name: '蛋筒',   dps: 120, wave: 50, atkInterval: 900,  color: 0x808080, shape: 'triangle', symbol: '蛋' },
-  { name: '麻薯',   dps: 200, wave: 80, atkInterval: 1400, color: 0x808080, shape: 'star',     symbol: '麻' },
-  { name: '雪糕',   dps: 350, wave: 120, atkInterval: 1100, color: 0x808080, shape: 'crescent', symbol: '雪' },
-  { name: '甜甜',   dps: 600, wave: 180, atkInterval: 1600, color: 0x808080, shape: 'heart',    symbol: '甜' }
+  { name: '小毛绒', dps: 15, wave: 0,  atkInterval: 1200, color: 0xff69b4, shape: 'circle',   symbol: '毛', bodyColor: 0xff69b4 },
+  { name: '棉花糖', dps: 28, wave: 5,  atkInterval: 1500, color: 0xf8b4d9, shape: 'cloud',    symbol: '棉', bodyColor: 0xf8b4d9 },
+  { name: '肉丸',   dps: 45, wave: 15, atkInterval: 1000, color: 0xd35400, shape: 'diamond',  symbol: '肉', bodyColor: 0xd35400 },
+  { name: '布丁',   dps: 75, wave: 30, atkInterval: 1800, color: 0xf1c40f, shape: 'square',   symbol: '布', bodyColor: 0xf1c40f },
+  { name: '蛋筒',   dps: 120, wave: 50, atkInterval: 900,  color: 0x3498db, shape: 'triangle', symbol: '蛋', bodyColor: 0x3498db },
+  { name: '麻薯',   dps: 200, wave: 80, atkInterval: 1400, color: 0x9b59b6, shape: 'star',     symbol: '麻', bodyColor: 0x9b59b6 },
+  { name: '雪糕',   dps: 350, wave: 120, atkInterval: 1100, color: 0x00bcd4, shape: 'crescent', symbol: '雪', bodyColor: 0x00bcd4 },
+  { name: '甜甜',   dps: 600, wave: 180, atkInterval: 1600, color: 0xe91e63, shape: 'heart',    symbol: '甜', bodyColor: 0xe91e63 }
 ];
 
 var FOODS = [
@@ -143,6 +149,9 @@ function Game(main) {
   this.rebirthGems = 0;
   this.maxWaveReached = 0;
 
+  // --- 图签系统（怪物图鉴收集） ---
+  this.monsterCodex = {}; // { 'slime': { encountered: true, kills: 数量 }, ... }
+
   // --- BOSS计时器 ---
   this.bossActive = false;
   this.bossTimer = 0;
@@ -166,6 +175,7 @@ function Game(main) {
   this._justHitMonster = false;
 
   this.loadGame();
+  this.initSound();
   this.buildUI();
   this.spawnWave();
   this.bindEvents();
@@ -173,6 +183,12 @@ function Game(main) {
   this.checkOfflineReward();
   var self = this;
   setTimeout(function() { self.checkDailyCheckin(); }, 1200);
+
+  // 监听舞台尺寸变化（设备旋转 / 地址栏伸缩 / 窗口拖拽）
+  // fixedWidth 模式下宽度恒为 375，主要需要让全屏覆盖层跟随新高度
+  if (this.main.stage) {
+    this.main.stage.addEventListener(egret.Event.RESIZE, this.onStageResize, this);
+  }
 }
 
 // ==================== 工具方法 ====================
@@ -230,11 +246,21 @@ Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
 Game.prototype.createSupportView = function(idx, yPos) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
-  var sc = new eui.Group(); sc.width = 40; sc.height = 40; sc.y = yPos;
+  var sc = new eui.Group(); sc.width = 44; sc.height = 52; sc.y = yPos;
   var shape = new egret.Shape();
-  var c = s.unlocked ? def.color : 0x444444;
+  var c = s.unlocked ? (def.bodyColor || def.color) : 0x444444;
   var g = shape.graphics;
-  var cx = 20, cy = 20;
+  var cx = 22, cy = 20;
+
+  // 底座阴影
+  if (s.unlocked) {
+    g.beginFill(0x000000, 0.15);
+    g.drawEllipse(cx - 10, cy + 14, 20, 6);
+    g.endFill();
+  }
+
+  // 描边
+  g.lineStyle(1.5, s.unlocked ? 0x333333 : 0x222222);
 
   // 身体形状
   g.beginFill(c);
@@ -245,49 +271,70 @@ Game.prototype.createSupportView = function(idx, yPos) {
     case 'square':   g.drawRoundRect(cx - 13, cy - 13, 26, 26, 5); break;
     case 'triangle': g.moveTo(cx, cy - 15); g.lineTo(cx + 14, cy + 12); g.lineTo(cx - 14, cy + 12); break;
     case 'star':     this.drawStar(g, cx, cy, 15, 7, 5); break;
-    case 'crescent': g.drawCircle(cx, cy, 14); g.endFill(); g.beginFill(s.unlocked ? 0x3d2b1f : 0x333333); g.drawCircle(cx + 5, cy - 3, 12); break;
+    case 'crescent': g.drawCircle(cx, cy, 14); g.endFill(); g.beginFill(s.unlocked ? 0x004d5a : 0x333333); g.drawCircle(cx + 5, cy - 3, 12); break;
     case 'heart':    g.drawCircle(cx - 5, cy - 4, 8); g.drawCircle(cx + 5, cy - 4, 8); g.endFill(); g.beginFill(c); g.moveTo(cx - 13, cy - 1); g.lineTo(cx, cy + 14); g.lineTo(cx + 13, cy - 1); break;
     default:         g.drawCircle(cx, cy, 14);
   }
   g.endFill();
+  g.lineStyle(0);
 
-  // 武器（根据角色不同）
-  switch (idx) {
-    case 0: // 小毛绒 - 小木棒
-      g.beginFill(0x8b6914); g.drawRect(cx + 12, cy - 10, 3, 20); g.endFill();
-      g.beginFill(0xa0522d); g.drawCircle(cx + 13, cy - 12, 5); break;
-    case 1: // 棉花糖 - 魔法杖（星星）
-      g.beginFill(0xd4a017); g.drawRect(cx + 10, cy - 12, 2, 24); g.endFill();
-      g.beginFill(0xff69b4); this.drawStar(g, cx + 11, cy - 14, 6, 3, 5); break;
-    case 2: // 肉丸 - 大锤
-      g.beginFill(0x8b6914); g.drawRect(cx + 10, cy - 6, 3, 18); g.endFill();
-      g.beginFill(0x666666); g.drawRoundRect(cx + 6, cy - 14, 12, 10, 3); break;
-    case 3: // 布丁 - 汤勺
-      g.beginFill(0xc0c0c0); g.drawRect(cx + 10, cy - 8, 2, 20); g.endFill();
-      g.beginFill(0xf39c12); g.drawEllipse(cx + 7, cy - 14, 8, 6); break;
-    case 4: // 蛋筒 - 长枪
-      g.beginFill(0x8b6914); g.drawRect(cx + 11, cy - 16, 2, 32); g.endFill();
-      g.beginFill(0xc0c0c0); g.moveTo(cx + 12, cy - 20); g.lineTo(cx + 16, cy - 14); g.lineTo(cx + 8, cy - 14); break;
-    case 5: // 麻薯 - 魔法书
-      g.beginFill(0x6c3483); g.drawRoundRect(cx + 8, cy - 10, 14, 18, 2); g.endFill();
-      g.beginFill(0xf1c40f); g.drawRect(cx + 10, cy - 6, 10, 2); g.drawRect(cx + 10, cy - 2, 10, 2); break;
-    case 6: // 雪糕 - 冰杖
-      g.beginFill(0x85c1e9); g.drawRect(cx + 10, cy - 12, 2, 24); g.endFill();
-      g.beginFill(0x00bcd4); g.drawCircle(cx + 11, cy - 14, 5); break;
-    case 7: // 甜甜 - 爱心弓
-      g.beginFill(0xc0392b); g.drawRect(cx + 10, cy - 10, 2, 20); g.endFill();
-      g.lineStyle(2, 0xe74c3c); g.drawCircle(cx + 11, cy - 12, 6); g.lineStyle(0); break;
+  // 眼睛（解锁后才有）
+  if (s.unlocked) {
+    g.beginFill(0xffffff);
+    g.drawCircle(cx - 4, cy - 2, 3);
+    g.drawCircle(cx + 4, cy - 2, 3);
+    g.endFill();
+    g.beginFill(0x000000);
+    g.drawCircle(cx - 4, cy - 1, 1.5);
+    g.drawCircle(cx + 4, cy - 1, 1.5);
+    g.endFill();
+  } else {
+    // 未解锁锁图标
+    g.beginFill(0x888888);
+    g.drawRect(cx - 4, cy - 2, 8, 7);
+    g.endFill();
+    g.lineStyle(2, 0x888888);
+    g.drawCircle(cx, cy - 4, 4);
+    g.lineStyle(0);
   }
-  g.endFill();
+
+  // 武器（根据角色不同，仅解锁时显示）
+  if (s.unlocked) {
+    switch (idx) {
+      case 0: g.beginFill(0x8b6914); g.drawRect(cx + 12, cy - 8, 3, 18); g.endFill();
+              g.beginFill(0xa0522d); g.drawCircle(cx + 13, cy - 10, 4); g.endFill(); break;
+      case 1: g.beginFill(0xd4a017); g.drawRect(cx + 10, cy - 10, 2, 22); g.endFill();
+              g.beginFill(0xff69b4); this.drawStar(g, cx + 11, cy - 12, 5, 2.5, 5); g.endFill(); break;
+      case 2: g.beginFill(0x8b6914); g.drawRect(cx + 10, cy - 4, 3, 16); g.endFill();
+              g.beginFill(0x555555); g.drawRoundRect(cx + 7, cy - 10, 10, 8, 2); g.endFill(); break;
+      case 3: g.beginFill(0xc0c0c0); g.drawRect(cx + 10, cy - 6, 2, 18); g.endFill();
+              g.beginFill(0xf39c12); g.drawEllipse(cx + 7, cy - 12, 7, 5); g.endFill(); break;
+      case 4: g.beginFill(0x8b6914); g.drawRect(cx + 11, cy - 14, 2, 28); g.endFill();
+              g.beginFill(0xc0c0c0); g.moveTo(cx + 12, cy - 17); g.lineTo(cx + 15, cy - 12); g.lineTo(cx + 9, cy - 12); g.endFill(); break;
+      case 5: g.beginFill(0x6c3483); g.drawRoundRect(cx + 8, cy - 8, 12, 16, 2); g.endFill();
+              g.beginFill(0xf1c40f); g.drawRect(cx + 10, cy - 4, 8, 2); g.endFill(); break;
+      case 6: g.beginFill(0x85c1e9); g.drawRect(cx + 10, cy - 10, 2, 22); g.endFill();
+              g.beginFill(0x00bcd4); g.drawCircle(cx + 11, cy - 12, 4); g.endFill(); break;
+      case 7: g.beginFill(0xc0392b); g.drawRect(cx + 10, cy - 8, 2, 18); g.endFill();
+              g.lineStyle(2, 0xe74c3c); g.drawCircle(cx + 11, cy - 10, 5); g.lineStyle(0); break;
+    }
+  }
 
   shape.x = 0; shape.y = 0;
   sc.addChild(shape);
 
-  // 名字标签
+  // 名字标签（胶囊底色）
+  var nameBg = new eui.Rect();
+  nameBg.width = 32; nameBg.height = 12;
+  nameBg.ellipseWidth = 6; nameBg.ellipseHeight = 6;
+  nameBg.fillColor = s.unlocked ? 0x1a1a2e : 0x333333;
+  nameBg.fillAlpha = 0.8;
+  nameBg.horizontalCenter = 0; nameBg.top = 37;
+  sc.addChild(nameBg);
   var sl = new eui.Label();
   sl.text = def.symbol; sl.size = 9; sl.bold = true;
-  sl.textColor = s.unlocked ? 0xffffff : 0x888888;
-  sl.horizontalCenter = 0; sl.verticalCenter = 12;
+  sl.textColor = s.unlocked ? 0xffffff : 0x666666;
+  sl.horizontalCenter = 0; sl.top = 38;
   sc.addChild(sl);
   return sc;
 };
@@ -352,8 +399,8 @@ Game.prototype.supportAttackAnim = function(supportIdx, targetIdx, dmg) {
   var color = def.color;
   var sw = this._stageW || 375;
   var bh = this._battleH || 400;
-  var startX = supportIdx < 4 ? (5 + 20) : (sw - 45 + 20);
-  var startY = Math.floor(bh * 0.18) + localIdx * 55 + 20;
+  var startX = supportIdx < 4 ? (2 + 22) : (sw - 48 + 22);
+  var startY = Math.floor(bh * 0.15) + localIdx * 56 + 20;
   var w = this.monsters.length || 1;
   var cx = this._centerX || 55;
   var cw = this._centerW || 265;
@@ -424,7 +471,8 @@ Game.prototype.supportAttackAnim = function(supportIdx, targetIdx, dmg) {
 // ==================== UI 构建 ====================
 
 Game.prototype.buildUI = function() {
-  var stageW = 375;
+  // fixedWidth 模式下 stageWidth 固定为 contentWidth（375），但优先读取真实值以适配未来调整
+  var stageW = (this.main.stage && this.main.stage.stageWidth) ? this.main.stage.stageWidth : 375;
   var self = this;
 
   // 主容器用 VerticalLayout，固定高度确保子元素正确分配
@@ -440,87 +488,94 @@ Game.prototype.buildUI = function() {
   this._stageW = stageW;
   this._battleH = BATTLE_H;
 
-  // ===== 顶部栏 =====
+  // ===== 顶部栏（重构：两行结构，避免文字互相覆盖） =====
+  // Row1 (y 6-34)  : 头像+VIP徽章 | 昵称+波次 | 金币/钻石/成就
+  // Row2 (y 40-62) : 怪物HP 汇总条（满宽，带内嵌文字）
   var topBar = new eui.Group();
   topBar.width = stageW; topBar.height = TOP_H;
   var topBg = new eui.Rect();
   topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = 0x1a0a2e;
   topBar.addChild(topBg);
 
-  // 第一行：VIP + 头像 + 名字 + 波次进度数字 + 金币
-  // VIP标识
-  var vipBg = new eui.Rect();
-  vipBg.width = 45; vipBg.height = 18; vipBg.ellipseWidth = 4; vipBg.ellipseHeight = 4;
-  vipBg.fillColor = 0xc0392b; vipBg.x = 8; vipBg.y = 6;
-  topBar.addChild(vipBg);
-  var vipText = new eui.Label();
-  vipText.text = 'VIP0'; vipText.size = 10; vipText.textColor = 0xffffff; vipText.bold = true;
-  vipText.x = 12; vipText.y = 8;
-  topBar.addChild(vipText);
-
-  // 头像（方形）
+  // --- Row1 左：头像（36x36）+ VIP 徽章 ---
   var avatarBg = new eui.Rect();
-  avatarBg.width = 36; avatarBg.height = 36; avatarBg.ellipseWidth = 4; avatarBg.ellipseHeight = 4;
-  avatarBg.fillColor = 0x8b4513; avatarBg.x = 8; avatarBg.y = 28;
+  avatarBg.width = 36; avatarBg.height = 36; avatarBg.ellipseWidth = 6; avatarBg.ellipseHeight = 6;
+  avatarBg.fillColor = 0x8b4513; avatarBg.x = 6; avatarBg.y = 4;
   topBar.addChild(avatarBg);
   var avatarText = new eui.Label();
-  avatarText.text = '头像'; avatarText.size = 9; avatarText.textColor = 0xffffff;
-  avatarText.x = 10; avatarText.y = 40;
+  avatarText.text = '头像'; avatarText.size = 11; avatarText.textColor = 0xffffff;
+  avatarText.x = 10; avatarText.y = 15;
   topBar.addChild(avatarText);
+  // VIP 徽章贴在头像右下角
+  var vipBg = new eui.Rect();
+  vipBg.width = 32; vipBg.height = 14; vipBg.ellipseWidth = 4; vipBg.ellipseHeight = 4;
+  vipBg.fillColor = 0xc0392b; vipBg.x = 26; vipBg.y = 28;
+  topBar.addChild(vipBg);
+  var vipText = new eui.Label();
+  vipText.text = 'VIP0'; vipText.size = 9; vipText.textColor = 0xffffff; vipText.bold = true;
+  vipText.x = 30; vipText.y = 30;
+  topBar.addChild(vipText);
 
-  // 名字
+  // --- Row1 中：昵称 + 波次 ---
   var nameLb = new eui.Label();
-  nameLb.text = '玩家姓名'; nameLb.size = 12; nameLb.textColor = 0xffffff; nameLb.bold = true;
-  nameLb.x = 50; nameLb.y = 32;
+  nameLb.text = '玩家姓名'; nameLb.size = 13; nameLb.textColor = 0xffffff; nameLb.bold = true;
+  nameLb.x = 50; nameLb.y = 6;
   topBar.addChild(nameLb);
-
-  // 波次进度数字（动态显示当前波次附近4个数字）
-  this._waveNumBgs = [];
-  this._waveNumLbs = [];
-  for (var i = 0; i < 4; i++) {
-    var numBg = new eui.Rect();
-    numBg.width = 28; numBg.height = 22; numBg.ellipseWidth = 4; numBg.ellipseHeight = 4;
-    numBg.fillColor = 0x2d1f4e;
-    numBg.x = 105 + i * 32; numBg.y = 6;
-    topBar.addChild(numBg);
-    this._waveNumBgs.push(numBg);
-    var numLb = new eui.Label();
-    numLb.text = ''; numLb.size = 12; numLb.textColor = 0xffffff; numLb.bold = true;
-    numLb.x = 113 + i * 32; numLb.y = 9;
-    topBar.addChild(numLb);
-    this._waveNumLbs.push(numLb);
-  }
-  this.updateWaveNumbers();
-
-  // 金币（右上）
-  this.goldLabel = new eui.Label();
-  this.goldLabel.text = '💰 ' + this.fmt(this.gold);
-  this.goldLabel.size = 14; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
-  this.goldLabel.x = stageW - 80; this.goldLabel.y = 10;
-  topBar.addChild(this.goldLabel);
-
-  // 转生宝石 / 成就图标已移除（转生系统已删除）
-
-  // 第二行：波次 + HP条
   this.waveLabel = new eui.Label();
-  this.waveLabel.text = this.waveText(); this.waveLabel.size = 13; this.waveLabel.textColor = 0xffffff;
-  this.waveLabel.bold = true; this.waveLabel.x = 10; this.waveLabel.y = 50;
+  this.waveLabel.text = this.waveText(); this.waveLabel.size = 11; this.waveLabel.textColor = 0xfbbf24;
+  this.waveLabel.x = 50; this.waveLabel.y = 23;
   topBar.addChild(this.waveLabel);
 
-  // HP条背景
+  // --- Row1 右：金币 / 钻石 / 成就（右对齐，避免重叠） ---
+  this.goldLabel = new eui.Label();
+  this.goldLabel.text = '💰 ' + this.fmt(this.gold);
+  this.goldLabel.size = 13; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
+  this.goldLabel.right = 8; this.goldLabel.y = 6;
+  topBar.addChild(this.goldLabel);
+
+  this.gemsLabel = new eui.Label();
+  this.gemsLabel.text = '💎 ' + this.rebirthGems;
+  this.gemsLabel.size = 11; this.gemsLabel.textColor = 0xb28dd6;
+  this.gemsLabel.right = 8; this.gemsLabel.y = 24;
+  topBar.addChild(this.gemsLabel);
+
+  // 成就按钮：放在 Row1 中段和右段之间
+  var achBtn = new eui.Label();
+  achBtn.text = '🏆 ' + this.achievements.length;
+  achBtn.size = 12; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true;
+  achBtn.right = 60; achBtn.y = 24;
+  achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
+  topBar.addChild(achBtn);
+
+  // 静音切换按钮
+  this.muteLabel = new eui.Label();
+  this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
+  this.muteLabel.size = 14; this.muteLabel.touchEnabled = true;
+  this.muteLabel.right = 108; this.muteLabel.y = 23;
+  this.muteLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.toggleMute, this);
+  topBar.addChild(this.muteLabel);
+
+  // 保留 updateWaveNumbers 的引用，避免其他地方调用时崩溃
+  this._waveNumBgs = [];
+  this._waveNumLbs = [];
+
+  // --- Row2：怪物 HP 汇总条（满宽） ---
+  var HP_X = 10, HP_Y = 44, HP_W = stageW - 20, HP_H = 16;
   var hpBg = new eui.Rect();
-  hpBg.width = 160; hpBg.height = 12; hpBg.ellipseWidth = 6; hpBg.ellipseHeight = 6;
-  hpBg.fillColor = 0x1a1a1a; hpBg.x = 90; hpBg.y = 50;
+  hpBg.width = HP_W; hpBg.height = HP_H; hpBg.ellipseWidth = 8; hpBg.ellipseHeight = 8;
+  hpBg.fillColor = 0x1a1a1a; hpBg.x = HP_X; hpBg.y = HP_Y;
   topBar.addChild(hpBg);
-  // HP条填充
   this.hpFill = new eui.Rect();
-  this.hpFill.width = 140; this.hpFill.height = 12; this.hpFill.ellipseWidth = 6; this.hpFill.ellipseHeight = 6;
-  this.hpFill.fillColor = 0x27ae60; this.hpFill.x = 90; this.hpFill.y = 50;
+  this.hpFill.width = HP_W; this.hpFill.height = HP_H;
+  this.hpFill.ellipseWidth = 8; this.hpFill.ellipseHeight = 8;
+  this.hpFill.fillColor = 0x27ae60; this.hpFill.x = HP_X; this.hpFill.y = HP_Y;
   topBar.addChild(this.hpFill);
-  // HP文字
+  this._hpMaxWidth = HP_W; // 供 updateUI 用，替换硬编码 140
+  // HP 文字居中叠在条上
   this.hpLabel = new eui.Label();
-  this.hpLabel.text = '100 / 100'; this.hpLabel.size = 9; this.hpLabel.textColor = 0xffffff;
-  this.hpLabel.x = 120; this.hpLabel.y = 51;
+  this.hpLabel.text = '100 / 100'; this.hpLabel.size = 10; this.hpLabel.textColor = 0xffffff;
+  this.hpLabel.bold = true;
+  this.hpLabel.horizontalCenter = 0; this.hpLabel.y = HP_Y + 2;
   topBar.addChild(this.hpLabel);
 
   this.main.addChild(topBar);
@@ -563,9 +618,9 @@ Game.prototype.buildUI = function() {
 
   // --- 左侧辅助角色（作为敌人形象）---
   var leftSup = new eui.Group();
-  leftSup.x = 5; leftSup.y = Math.floor(BATTLE_H * 0.18);
+  leftSup.x = 2; leftSup.y = Math.floor(BATTLE_H * 0.15);
   for (var i = 0; i < 4; i++) {
-    var sc = this.createSupportView(i, i * 55);
+    var sc = this.createSupportView(i, i * 56);
     leftSup.addChild(sc);
   }
   this.leftSupGroup = leftSup;
@@ -573,33 +628,91 @@ Game.prototype.buildUI = function() {
 
   // --- 右侧辅助角色（作为敌人形象）---
   var rightSup = new eui.Group();
-  rightSup.x = stageW - 45; rightSup.y = Math.floor(BATTLE_H * 0.18);
+  rightSup.x = stageW - 48; rightSup.y = Math.floor(BATTLE_H * 0.15);
   for (var i = 4; i < 8; i++) {
-    var sc = this.createSupportView(i, (i - 4) * 55);
+    var sc = this.createSupportView(i, (i - 4) * 56);
     rightSup.addChild(sc);
   }
   this.rightSupGroup = rightSup;
   this.battleGroup.addChild(rightSup);
 
-  // === 左侧功能按钮区已移除（首冲/邀请/关注/活动/签到/任务/邮件/公告/转生/能量 已删除）===
+  // === 左侧功能按钮区：2列×3行带背景圆角按钮（x: 48-104） ===
+  // 按钮尺寸 26x26，gap 4，总宽度 56，放得下 "能量" "磨转" 这种 2 字标签
+  var leftBtnDefs = [
+    { text: '签到', fn: function() { self.openCheckin(); } },
+    { text: '每日', fn: function() { self.openDailyTasks(); } },
+    { text: '邮件', fn: function() { self.openMail(); } },
+    { text: '公告', fn: function() { self.openAnnouncement(); } },
+    { text: '磨转', fn: function() { self.openRebirth(); } },
+    { text: '能量', fn: function() { self.openEnergyHelp(); } }
+  ];
+  var LEFT_BTN_X = 48, LEFT_BTN_Y = 8;
+  for (var i = 0; i < leftBtnDefs.length; i++) {
+    var col = i % 2, row = Math.floor(i / 2);
+    var bx = LEFT_BTN_X + col * 30;
+    var by = LEFT_BTN_Y + row * 30;
+    var sideBtn = this.createSideBtn(leftBtnDefs[i].text, bx, by, leftBtnDefs[i].fn);
+    this.battleGroup.addChild(sideBtn);
+  }
 
-  // === 右侧：挑战BOSS按钮（右上）===
-  var bossBtnBg = new eui.Rect();
-  bossBtnBg.width = 65; bossBtnBg.height = 26; bossBtnBg.ellipseWidth = 6; bossBtnBg.ellipseHeight = 6;
-  bossBtnBg.fillColor = 0x9b2335; bossBtnBg.x = stageW - 70; bossBtnBg.y = 8;
-  bossBtnBg.touchEnabled = true;
-  bossBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
-    if (self.wave % 10 === 0) {
-      self.showToast('当前已是BOSS波！');
-    } else {
-      self.showToast('到达第10波才能挑战BOSS');
-    }
+  // === 右侧按钮区：挑战BOSS 大按钮 + 图签按钮 + 2×2 活动入口小按钮 ===
+  // 挑战BOSS（顶部显眼）—— 实际逻辑：未到10波灰色不可点，点击跳到第10波挑战BOSS
+  var bossBtnGroup = new eui.Group();
+  bossBtnGroup.width = 66; bossBtnGroup.height = 28;
+  bossBtnGroup.x = stageW - 72; bossBtnGroup.y = 8;
+  bossBtnGroup.touchEnabled = true;
+  this._bossBtnBg = new eui.Rect();
+  this._bossBtnBg.width = 66; this._bossBtnBg.height = 28;
+  this._bossBtnBg.ellipseWidth = 8; this._bossBtnBg.ellipseHeight = 8;
+  this._bossBtnBg.fillColor = 0x9b2335;
+  bossBtnGroup.addChild(this._bossBtnBg);
+  this._bossBtnText = new eui.Label();
+  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 11;
+  this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
+  this._bossBtnText.horizontalCenter = 0; this._bossBtnText.verticalCenter = 0;
+  bossBtnGroup.addChild(this._bossBtnText);
+  bossBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.challengeBoss();
   }, this);
-  this.battleGroup.addChild(bossBtnBg);
-  var bossBtnText = new eui.Label();
-  bossBtnText.text = '挑战BOSS'; bossBtnText.size = 10; bossBtnText.textColor = 0xffffff; bossBtnText.bold = true;
-  bossBtnText.x = stageW - 66; bossBtnText.y = 12;
-  this.battleGroup.addChild(bossBtnText);
+  this.battleGroup.addChild(bossBtnGroup);
+  this._bossBtnGroup = bossBtnGroup;
+  this.updateBossBtn();
+
+  // 图签按钮（怪物图鉴入口）
+  var codexBtnGroup = new eui.Group();
+  codexBtnGroup.width = 66; codexBtnGroup.height = 24;
+  codexBtnGroup.x = stageW - 72; codexBtnGroup.y = 40;
+  codexBtnGroup.touchEnabled = true;
+  var codexBtnBg = new eui.Rect();
+  codexBtnBg.width = 66; codexBtnBg.height = 24;
+  codexBtnBg.ellipseWidth = 8; codexBtnBg.ellipseHeight = 8;
+  codexBtnBg.fillColor = 0x2c6e49;
+  codexBtnGroup.addChild(codexBtnBg);
+  var codexBtnText = new eui.Label();
+  codexBtnText.text = '📖图签'; codexBtnText.size = 11;
+  codexBtnText.textColor = 0xffffff; codexBtnText.bold = true;
+  codexBtnText.horizontalCenter = 0; codexBtnText.verticalCenter = 0;
+  codexBtnGroup.addChild(codexBtnText);
+  codexBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.openMonsterCodex();
+  }, this);
+  this.battleGroup.addChild(codexBtnGroup);
+
+  // 右侧运营/商业化 2×2 按钮
+  var rightBtnDefs = [
+    { text: '首冲', fn: function() { self.openShop(); } },
+    { text: '邀请', fn: function() { self.showToast('分享游戏给好友即可获得奖励！'); } },
+    { text: '关注', fn: function() { self.showToast('关注官方号获取最新资讯！'); } },
+    { text: '活动', fn: function() { self.showToast('活动即将开启，敬请期待！'); } }
+  ];
+  var RIGHT_BTN_Y = 68;
+  for (var i = 0; i < rightBtnDefs.length; i++) {
+    var col = i % 2, row = Math.floor(i / 2);
+    var bx = stageW - 72 + col * 30;
+    var by = RIGHT_BTN_Y + row * 30;
+    var sideBtn = this.createSideBtn(rightBtnDefs[i].text, bx, by, rightBtnDefs[i].fn);
+    this.battleGroup.addChild(sideBtn);
+  }
 
   // === 中央怪物区（x: 105-270）===
   var CENTER_X = 105;
@@ -613,53 +726,104 @@ Game.prototype.buildUI = function() {
 
   // --- 主角（居中偏下）---
   var heroGroup = new eui.Group();
-  heroGroup.width = 70; heroGroup.height = 80;
+  heroGroup.width = 70; heroGroup.height = 90;
   heroGroup.x = CENTER_X + (CENTER_W - 70) / 2;
-  heroGroup.y = Math.floor(BATTLE_H * 0.62);
+  heroGroup.y = Math.floor(BATTLE_H * 0.58);
   this._heroBaseY = heroGroup.y;
-  // 身体（紫色圆形）
+  // 主角绘制：法师造型（带阴影底座）
   var heroShape = new egret.Shape();
   var hg = heroShape.graphics;
-  hg.beginFill(0x9b59b6);
-  hg.drawCircle(35, 45, 25);
+  // 底座阴影
+  hg.beginFill(0x000000, 0.2);
+  hg.drawEllipse(15, 72, 40, 10);
   hg.endFill();
-  // 头部（浅紫色）
-  hg.beginFill(0xd8b4fe);
-  hg.drawCircle(35, 25, 18);
+  // 身体（深紫色袍子，梯形）
+  hg.lineStyle(1.5, 0x4a1a7a);
+  hg.beginFill(0x7c3aed);
+  hg.moveTo(22, 42);
+  hg.lineTo(48, 42);
+  hg.lineTo(52, 72);
+  hg.lineTo(18, 72);
   hg.endFill();
-  // 帽子（深紫色三角）
+  // 腰带
+  hg.lineStyle(0);
+  hg.beginFill(0xfbbf24);
+  hg.drawRect(22, 50, 26, 4);
+  hg.endFill();
+  // 腰带扣
+  hg.beginFill(0xf59e0b);
+  hg.drawCircle(35, 52, 3);
+  hg.endFill();
+  // 头部（肤色）
+  hg.lineStyle(1.5, 0x4a1a7a);
+  hg.beginFill(0xfde68a);
+  hg.drawCircle(35, 28, 14);
+  hg.endFill();
+  // 帽子（圆锥形巫师帽）
+  hg.lineStyle(1.5, 0x3b0764);
   hg.beginFill(0x6b21a8);
-  hg.moveTo(35, 0);
-  hg.lineTo(50, 30);
-  hg.lineTo(20, 30);
+  hg.moveTo(35, 2);
+  hg.curveTo(48, 12, 52, 18);
+  hg.lineTo(18, 18);
+  hg.curveTo(22, 12, 35, 2);
   hg.endFill();
-  // 帽子装饰
+  // 帽檐
+  hg.beginFill(0x581c87);
+  hg.drawEllipse(18, 16, 34, 8);
+  hg.endFill();
+  // 帽子星星装饰
+  hg.lineStyle(0);
   hg.beginFill(0xfbbf24);
-  hg.drawCircle(35, 30, 4);
+  this.drawStar(hg, 35, 12, 4, 2, 5);
   hg.endFill();
-  // 眼睛
+  // 眼睛（大眼风格）
   hg.beginFill(0xffffff);
-  hg.drawCircle(30, 25, 4);
-  hg.drawCircle(40, 25, 4);
+  hg.drawEllipse(28, 24, 6, 7);
+  hg.drawEllipse(36, 24, 6, 7);
   hg.endFill();
-  hg.beginFill(0x000000);
-  hg.drawCircle(31, 25, 2);
-  hg.drawCircle(41, 25, 2);
+  hg.beginFill(0x1e1b4b);
+  hg.drawCircle(31, 28, 2.5);
+  hg.drawCircle(39, 28, 2.5);
   hg.endFill();
-  // 法杖
-  hg.beginFill(0x8b4513);
-  hg.drawRect(58, 20, 3, 40);
+  hg.beginFill(0xffffff);
+  hg.drawCircle(30, 27, 1);
+  hg.drawCircle(38, 27, 1);
   hg.endFill();
-  hg.beginFill(0xfbbf24);
-  hg.drawCircle(59, 18, 5);
+  // 微笑
+  hg.lineStyle(1.2, 0x92400e);
+  hg.moveTo(32, 33);
+  hg.curveTo(35, 36, 38, 33);
+  // 法杖（放右手）
+  hg.lineStyle(1.5, 0x5c3a0a);
+  hg.beginFill(0x92400e);
+  hg.drawRect(54, 18, 3, 50);
+  hg.endFill();
+  // 法杖顶部宝珠
+  hg.lineStyle(0);
+  hg.beginFill(0x06b6d4, 0.4);
+  hg.drawCircle(55, 14, 8);
+  hg.endFill();
+  hg.beginFill(0x22d3ee);
+  hg.drawCircle(55, 14, 5);
+  hg.endFill();
+  hg.beginFill(0xffffff, 0.6);
+  hg.drawCircle(53, 12, 2);
   hg.endFill();
   heroGroup.addChild(heroShape);
-  var heroName = new eui.Label(); heroName.text = '魔法师'; heroName.size = 11; heroName.bold = true;
-  heroName.textColor = 0xffffff; heroName.horizontalCenter = 0; heroName.top = 65;
+  // 名字标签
+  var heroNameBg = new eui.Rect();
+  heroNameBg.width = 50; heroNameBg.height = 14;
+  heroNameBg.ellipseWidth = 7; heroNameBg.ellipseHeight = 7;
+  heroNameBg.fillColor = 0x1a0a2e; heroNameBg.fillAlpha = 0.75;
+  heroNameBg.horizontalCenter = 0; heroNameBg.top = 76;
+  heroGroup.addChild(heroNameBg);
+  var heroName = new eui.Label(); heroName.text = '魔法师'; heroName.size = 10; heroName.bold = true;
+  heroName.textColor = 0xffffff; heroName.horizontalCenter = 0; heroName.top = 77;
   heroGroup.addChild(heroName);
   this.levelLabel = new eui.Label();
   this.levelLabel.text = 'Lv.' + this.mainLevel; this.levelLabel.size = 10;
-  this.levelLabel.textColor = 0xd4a017; this.levelLabel.horizontalCenter = 0; this.levelLabel.top = 76;
+  this.levelLabel.textColor = 0xfbbf24; this.levelLabel.bold = true;
+  this.levelLabel.horizontalCenter = 0; this.levelLabel.top = 63;
   heroGroup.addChild(this.levelLabel);
   this.heroGroup = heroGroup;
   this.battleGroup.addChild(heroGroup);
@@ -667,61 +831,76 @@ Game.prototype.buildUI = function() {
   // --- DPS显示 ---
   this.dpsLabel = new eui.Label();
   this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
-  this.dpsLabel.size = 12; this.dpsLabel.textColor = 0xffffff;
-  this.dpsLabel.x = CENTER_X + (CENTER_W - 80) / 2; this.dpsLabel.y = heroGroup.y + 90;
+  this.dpsLabel.size = 11; this.dpsLabel.textColor = 0xffffff;
+  this.dpsLabel.x = CENTER_X + (CENTER_W - 80) / 2; this.dpsLabel.y = heroGroup.y + 94;
   this.battleGroup.addChild(this.dpsLabel);
 
-  // --- 底部状态区 ---
-  var statusY = BATTLE_H - 38;
+  // --- 底部状态区（重构：三行垂直分离，修复宽度常量不一致 BUG） ---
+  // Row A (statusY)     : BOSS 计时条（条件显示，占满中央区宽度）
+  // Row B (statusY+12)  : 当前10波进度条 + 两侧标签
+  // Row C (statusY+26)  : 能量条(左) + Buff 文本(右)，文字分离不再压在条上
+  var statusY = BATTLE_H - 42;
+  var STATUS_W = stageW - 20;
+  var STATUS_X = 10;
 
-  // 波次进度条（当前10波进度）
-  this.waveFillBg = new eui.Rect();
-  this.waveFillBg.width = Math.floor(CENTER_W * 0.8); this.waveFillBg.height = 5;
-  this.waveFillBg.fillColor = 0x8b6914; this.waveFillBg.ellipseWidth = 3;
-  this.waveFillBg.x = CENTER_X + (CENTER_W - this.waveFillBg.width) / 2; this.waveFillBg.y = statusY;
-  this.battleGroup.addChild(this.waveFillBg);
-  var waveInCycle = ((this.wave - 1) % 10) + 1;
-  this.waveFill = new eui.Rect();
-  this.waveFill.width = (waveInCycle / 10) * this.waveFillBg.width;
-  this.waveFill.height = 5; this.waveFill.fillColor = 0xd4a017; this.waveFill.ellipseWidth = 3;
-  this.waveFill.x = this.waveFillBg.x; this.waveFill.y = statusY;
-  this.battleGroup.addChild(this.waveFill);
-
-  // BOSS计时条（默认隐藏）
+  // Row A: BOSS 计时条（默认隐藏）
+  var bossBarW = STATUS_W - 50; // 左侧留空间给标签
   this.bossTimerBar = new eui.Rect();
-  this.bossTimerBar.width = CENTER_W - 40; this.bossTimerBar.height = 8;
+  this.bossTimerBar.width = bossBarW; this.bossTimerBar.height = 8;
   this.bossTimerBar.fillColor = 0xe74c3c; this.bossTimerBar.ellipseWidth = 4;
-  this.bossTimerBar.x = CENTER_X + 20; this.bossTimerBar.y = statusY - 14;
+  this.bossTimerBar.x = STATUS_X + 40; this.bossTimerBar.y = statusY;
   this.bossTimerBar.visible = false;
   this.battleGroup.addChild(this.bossTimerBar);
+  this._bossBarMaxWidth = bossBarW; // 供 updateBossTimerUI 使用，替换硬编码 280
   this.bossTimerLabel = new eui.Label();
-  this.bossTimerLabel.text = ''; this.bossTimerLabel.size = 12; this.bossTimerLabel.textColor = 0xff6666;
+  this.bossTimerLabel.text = ''; this.bossTimerLabel.size = 11; this.bossTimerLabel.textColor = 0xff6666;
   this.bossTimerLabel.bold = true;
-  this.bossTimerLabel.x = CENTER_X + CENTER_W + 5; this.bossTimerLabel.y = statusY - 17;
+  this.bossTimerLabel.x = STATUS_X; this.bossTimerLabel.y = statusY - 2;
   this.bossTimerLabel.visible = false;
   this.battleGroup.addChild(this.bossTimerLabel);
 
-  // 能量 + Buff 同一行
-  // 能量条可视化
+  // Row B: 当前轮次（1-10波）进度条
+  this.waveFillBg = new eui.Rect();
+  this.waveFillBg.width = STATUS_W; this.waveFillBg.height = 6;
+  this.waveFillBg.fillColor = 0x3d2b5e; this.waveFillBg.ellipseWidth = 3;
+  this.waveFillBg.x = STATUS_X; this.waveFillBg.y = statusY + 12;
+  this.battleGroup.addChild(this.waveFillBg);
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  this.waveFill = new eui.Rect();
+  this.waveFill.width = (waveInCycle / 10) * STATUS_W;
+  this.waveFill.height = 6; this.waveFill.fillColor = 0xd4a017; this.waveFill.ellipseWidth = 3;
+  this.waveFill.x = STATUS_X; this.waveFill.y = statusY + 12;
+  this.battleGroup.addChild(this.waveFill);
+  this._waveFillMaxWidth = STATUS_W; // 供 updateUI 使用
+
+  // Row C: 能量条（左, 120px）+ DPS(中) + Buff(右)
+  var ENERGY_W = 120;
   var energyBarBg = new eui.Rect();
-  energyBarBg.width = 100; energyBarBg.height = 10; energyBarBg.ellipseWidth = 5; energyBarBg.ellipseHeight = 5;
-  energyBarBg.fillColor = 0x1a1a2e; energyBarBg.x = 12; energyBarBg.y = statusY + 10;
+  energyBarBg.width = ENERGY_W; energyBarBg.height = 12;
+  energyBarBg.ellipseWidth = 6; energyBarBg.ellipseHeight = 6;
+  energyBarBg.fillColor = 0x1a1a2e;
+  energyBarBg.x = STATUS_X; energyBarBg.y = statusY + 24;
   this.battleGroup.addChild(energyBarBg);
   this.energyFill = new eui.Rect();
-  this.energyFill.width = this.energy; this.energyFill.height = 10;
-  this.energyFill.ellipseWidth = 5; this.energyFill.ellipseHeight = 5;
-  this.energyFill.fillColor = 0x00d4ff; this.energyFill.x = 12; this.energyFill.y = statusY + 10;
+  this.energyFill.width = (this.energy / CONFIG.maxEnergy) * ENERGY_W;
+  this.energyFill.height = 12;
+  this.energyFill.ellipseWidth = 6; this.energyFill.ellipseHeight = 6;
+  this.energyFill.fillColor = 0x00d4ff;
+  this.energyFill.x = STATUS_X; this.energyFill.y = statusY + 24;
   this.battleGroup.addChild(this.energyFill);
+  this._energyMaxWidth = ENERGY_W; // 供 updateUI 使用（替换硬编码 100）
+  // 能量文字：紧跟在条右边，不再压在条上
   this.energyLabel = new eui.Label();
   this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
-  this.energyLabel.size = 9; this.energyLabel.textColor = 0xffffff;
-  this.energyLabel.x = 14; this.energyLabel.y = statusY + 9;
+  this.energyLabel.size = 11; this.energyLabel.textColor = 0x7fdbff; this.energyLabel.bold = true;
+  this.energyLabel.x = STATUS_X + ENERGY_W + 6; this.energyLabel.y = statusY + 25;
   this.battleGroup.addChild(this.energyLabel);
 
+  // Buff 文本（右侧）
   this.buffLabel = new eui.Label();
   this.buffLabel.text = this.renderBuffText();
   this.buffLabel.size = 11; this.buffLabel.textColor = 0xfbbf24;
-  this.buffLabel.right = 12; this.buffLabel.y = statusY + 10;
+  this.buffLabel.right = 10; this.buffLabel.y = statusY + 25;
   this.battleGroup.addChild(this.buffLabel);
 
   // 伤害飘字层（不可触摸）
@@ -765,6 +944,7 @@ Game.prototype.buildUI = function() {
 
   var navItems = [
     { text: '升级', icon: '⬆️', fn: function() { self.openUpgrade(); } },
+    { text: '图签', icon: '📖', fn: function() { self.openMonsterCodex(); } },
     { text: '转盘', icon: '🎰', fn: function() { self.openSpinWheel(); } },
     { text: '超市', icon: '🛒', fn: function() { self.openSupermarket(); } },
     { text: '排行', icon: '🏆', fn: function() { self.openLeaderboard(); } },
@@ -777,22 +957,40 @@ Game.prototype.buildUI = function() {
   this.main.addChild(navBar);
 };
 
+// 创建战斗区左/右侧圆角按钮（小方块+文字）
+Game.prototype.createSideBtn = function(text, x, y, fn) {
+  var g = new eui.Group();
+  g.width = 26; g.height = 26; g.x = x; g.y = y;
+  var bg = new eui.Rect();
+  bg.width = 26; bg.height = 26; bg.ellipseWidth = 6; bg.ellipseHeight = 6;
+  bg.fillColor = 0x4a2d6b; bg.fillAlpha = 0.85;
+  bg.strokeColor = 0xfbbf24; bg.strokeWeight = 1;
+  g.addChild(bg);
+  var lb = new eui.Label();
+  lb.text = text; lb.size = 10; lb.textColor = 0xffffff; lb.bold = true;
+  lb.horizontalCenter = 0; lb.verticalCenter = 0;
+  g.addChild(lb);
+  g.touchEnabled = true;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, this);
+  return g;
+};
+
 // 创建导航按钮（图标+文字）
 Game.prototype.createNavBtn = function(text, icon, fn) {
   var g = new eui.Group();
-  g.width = 60; g.height = 40;
+  g.width = 52; g.height = 40;
   g.layout = new eui.VerticalLayout();
   g.layout.horizontalAlign = 'center';
   g.layout.verticalAlign = 'middle';
-  g.layout.gap = 2;
+  g.layout.gap = 1;
   g.touchEnabled = true;
   g.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, this);
   var iconLb = new eui.Label();
-  iconLb.text = icon; iconLb.size = 18;
+  iconLb.text = icon; iconLb.size = 16;
   iconLb.horizontalCenter = 0;
   g.addChild(iconLb);
   var textLb = new eui.Label();
-  textLb.text = text; textLb.size = 10; textLb.textColor = 0x00d4ff; textLb.bold = true;
+  textLb.text = text; textLb.size = 9; textLb.textColor = 0x00d4ff; textLb.bold = true;
   textLb.horizontalCenter = 0;
   g.addChild(textLb);
   return g;
@@ -854,6 +1052,7 @@ Game.prototype.onBattleTouch = function(e) {
 
 Game.prototype.battleAreaClick = function() {
   if (this.monsters.length > 0 && this.energy >= 1) {
+    this.sfxClick();
     this.energy--;
     this.stats.totalClicks++;
     this.checkDailyTasks('click');
@@ -871,6 +1070,7 @@ Game.prototype.onMonsterTouch = function(idx) {
   this._justHitMonster = true;
   var m = this.monsters[idx];
   if (!m || m.hp <= 0 || this.energy < 1) return;
+  this.sfxClick();
   this.energy--;
   this.stats.totalClicks++;
   this.checkDailyTasks('click');
@@ -929,8 +1129,20 @@ Game.prototype.onKill = function(m, idx) {
   this.energy = Math.min(CONFIG.maxEnergy, this.energy + (m.isBoss ? 10 : 2));
   this.killCount++;
   this.stats.totalKills++;
-  if (m.isBoss) this.stats.bossKills++;
+  if (m.isBoss) {
+    this.stats.bossKills++;
+    this.sfxHitBoss();
+  }
   if (this.gold > this.stats.totalGold) this.stats.totalGold = this.gold;
+
+  // 图签系统：记录击杀
+  if (m.type && m.type.shape) {
+    if (!this.monsterCodex[m.type.shape]) {
+      this.monsterCodex[m.type.shape] = { encountered: true, kills: 0 };
+      this.showToast('📖 新图签！发现【' + m.type.name + '】');
+    }
+    this.monsterCodex[m.type.shape].kills++;
+  }
 
   this.checkDailyTasks('kill');
   this.checkAchievements();
@@ -965,8 +1177,13 @@ Game.prototype.spawnWave = function() {
       isBoss: isBoss,
       type: mType
     });
+    // 图签：标记遇到
+    if (mType && mType.shape && !this.monsterCodex[mType.shape]) {
+      this.monsterCodex[mType.shape] = { encountered: true, kills: 0 };
+    }
   }
   this.updateMonsterDisplay();
+  this.updateBossBtn();
 
   // BOSS计时器
   this.stopBossTimer();
@@ -1004,10 +1221,67 @@ Game.prototype.stopBossTimer = function() {
 
 Game.prototype.onBossFail = function() {
   this.stopBossTimer();
-  this.showToast('💀 BOSS挑战失败！请升级后再来');
-  // 重新刷新同一波BOSS
+  this.showToast('💀 BOSS挑战失败！从第1波重新开始');
+  // 失败后波次重置到当前轮次的第1波
+  var cycleStart = Math.floor((this.wave - 1) / 10) * 10 + 1;
+  this.wave = cycleStart;
   var self = this;
-  setTimeout(function() { self.spawnWave(); }, 1000);
+  setTimeout(function() { self.spawnWave(); self.updateUI(); }, 1000);
+};
+
+// ==================== 挑战BOSS按钮逻辑 ====================
+
+Game.prototype.challengeBoss = function() {
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  if (this.wave % 10 === 0) {
+    this.showToast('当前已是BOSS波！');
+    return;
+  }
+  if (waveInCycle < 9) {
+    // 条件不满足时提示（按钮本身已灰色）
+    this.showToast('⚠️ 需通过第9波后才能挑战BOSS (' + waveInCycle + '/9)');
+    return;
+  }
+  // 满足条件：跳到BOSS波
+  this.skipToBoss();
+};
+
+// 直接跳到BOSS波
+Game.prototype.skipToBoss = function() {
+  // 跳到当前轮次的第10波
+  var cycleStart = Math.floor((this.wave - 1) / 10) * 10;
+  this.wave = cycleStart + 10;
+  this.stopBossTimer();
+  this.showToast('💀 挑战BOSS！');
+  this.sfxHitBoss();
+  this.spawnWave();
+  this.updateUI();
+  this.updateBossBtn();
+};
+
+// 更新BOSS按钮状态
+Game.prototype.updateBossBtn = function() {
+  if (!this._bossBtnBg || !this._bossBtnText) return;
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  var isBossWave = this.wave % 10 === 0;
+  var canChallenge = (waveInCycle >= 9 && !isBossWave); // 第9波及以上可挑战
+
+  if (isBossWave) {
+    this._bossBtnBg.fillColor = 0xe74c3c;
+    this._bossBtnText.text = '💀战斗中';
+    this._bossBtnText.textColor = 0xffffff;
+    if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
+  } else if (canChallenge) {
+    this._bossBtnBg.fillColor = 0x9b2335;
+    this._bossBtnText.text = '挑战BOSS';
+    this._bossBtnText.textColor = 0xffffff;
+    if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
+  } else {
+    this._bossBtnBg.fillColor = 0x444444;
+    this._bossBtnText.text = '挑战BOSS';
+    this._bossBtnText.textColor = 0x888888;
+    if (this._bossBtnGroup) this._bossBtnGroup.alpha = 0.6;
+  }
 };
 
 Game.prototype.updateBossTimerUI = function() {
@@ -1019,7 +1293,8 @@ Game.prototype.updateBossTimerUI = function() {
       this.bossTimerLabel.text = this.bossTimer.toFixed(1) + 's';
     }
     var pct = this.bossTimer / CONFIG.bossTimeLimit;
-    this.bossTimerBar.width = Math.max(0, 280 * pct);
+    var bMax = this._bossBarMaxWidth || 280;
+    this.bossTimerBar.width = Math.max(0, bMax * pct);
     if (pct > 0.5) {
       this.bossTimerBar.fillColor = 0x2ecc71;
       if (this.bossTimerLabel) this.bossTimerLabel.textColor = 0x2ecc71;
@@ -1044,6 +1319,7 @@ Game.prototype.nextWave = function() {
   if (this.wave > this.maxWaveReached) this.maxWaveReached = this.wave;
   this.checkDailyTasks('wave');
   this.checkSupports();
+  this.updateBossBtn();
   var self = this;
   setTimeout(function() { self.spawnWave(); }, 300);
 };
@@ -1054,11 +1330,13 @@ Game.prototype.checkLevelUp = function() {
   if (this.killCount >= CONFIG.killsNeeded(this.mainLevel)) {
     this.killCount = 0;
     this.mainLevel++;
+    this.sfxLevelUp();
     this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
     this.checkAchievements();
     for (var i = 0; i < SKILLS.length; i++) {
       if (this.mainLevel >= SKILLS[i].lv && !this.skillUnlocked[i]) {
         this.skillUnlocked[i] = true;
+        this.sfxUnlock();
         this.showToast('🔓【' + SKILLS[i].name + '】解锁！');
       }
     }
@@ -1094,6 +1372,7 @@ Game.prototype.upgradeMain = function() {
   if (this.gold < cost) { this.showToast('金币不足！'); return; }
   this.gold -= cost;
   this.mainLevel++;
+  this.sfxLevelUp();
   this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
   this.checkLevelUpSkills();
   this.checkAchievements();
@@ -1122,6 +1401,7 @@ Game.prototype.checkLevelUpSkills = function() {
   for (var i = 0; i < SKILLS.length; i++) {
     if (this.mainLevel >= SKILLS[i].lv && !this.skillUnlocked[i]) {
       this.skillUnlocked[i] = true;
+      this.sfxUnlock();
       this.showToast('🔓【' + SKILLS[i].name + '】解锁！');
     }
   }
@@ -1136,6 +1416,7 @@ Game.prototype.useSkill = function(idx) {
   if (this.monsters.length === 0) { this.showToast('没有怪物！'); return; }
   if (this.energy < 5) { this.showToast('能量不足！'); return; }
   var s = SKILLS[idx];
+  this.sfxSkill();
   this.energy -= 5;
   this.skillCD[idx] = s.cd;
   var dmg = CONFIG.mainDmg(this.mainLevel, this.rebirthGems) * s.dmg;
@@ -1159,8 +1440,9 @@ Game.prototype.useSkill = function(idx) {
 
 Game.prototype.updateWaveNumbers = function() {
   if (!this._waveNumBgs || !this._waveNumLbs) return;
+  if (this._waveNumBgs.length === 0) return;
   var waveNumStart = Math.max(1, this.wave - 2);
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < this._waveNumBgs.length; i++) {
     var num = waveNumStart + i;
     var isCurrent = (num === this.wave);
     this._waveNumBgs[i].fillColor = isCurrent ? 0xc0392b : 0x5d3a1a;
@@ -1175,13 +1457,17 @@ Game.prototype.updateUI = function() {
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
   if (this.energyLabel) this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
-  if (this.energyFill) this.energyFill.width = Math.max(0, (this.energy / CONFIG.maxEnergy) * 100);
+  if (this.energyFill) {
+    var eMax = this._energyMaxWidth || 100;
+    this.energyFill.width = Math.max(0, (this.energy / CONFIG.maxEnergy) * eMax);
+  }
   if (this.waveFill && this.waveFillBg) {
     var waveInCycle = ((this.wave - 1) % 10) + 1;
-    this.waveFill.width = (waveInCycle / 10) * this.waveFillBg.width;
+    var wMax = this._waveFillMaxWidth || this.waveFillBg.width;
+    this.waveFill.width = (waveInCycle / 10) * wMax;
   }
   if (this.buffLabel) this.buffLabel.text = this.renderBuffText();
-  if (this.gemsLabel) this.gemsLabel.text = '💎' + this.rebirthGems;
+  if (this.gemsLabel) this.gemsLabel.text = '💎 ' + this.rebirthGems;
   // 更新HP条
   if (this.hpFill && this.hpLabel && this.monsters.length > 0) {
     var totalHp = 0;
@@ -1192,7 +1478,8 @@ Game.prototype.updateUI = function() {
     }
     if (maxHp > 0) {
       var hpPct = totalHp / maxHp;
-      this.hpFill.width = Math.floor(140 * hpPct);
+      var hpMax = this._hpMaxWidth || 140;
+      this.hpFill.width = Math.floor(hpMax * hpPct);
       this.hpLabel.text = this.fmt(totalHp) + ' / ' + this.fmt(maxHp);
     }
   }
@@ -1225,132 +1512,411 @@ Game.prototype.updateMonsterDisplay = function() {
 Game.prototype.createMonsterView = function(m, idx, total) {
   var g = new eui.Group();
   var sz = m.isBoss ? 76 : 56;
-  g.width = sz; g.height = sz + 40;
+  // 图签 + 血条 + HP文本合计需要约 46px 高度
+  g.width = sz; g.height = sz + 46;
   var cx = this._centerX || 55;
   var cw = this._centerW || 265;
   g.x = cx + cw * (idx + 0.5) / total - sz / 2;
-  g.y = this._monsterAreaY + (this._monsterAreaH - sz - 40) / 2;
+  g.y = this._monsterAreaY + (this._monsterAreaH - sz - 46) / 2;
   g.touchEnabled = true;
   var self = this;
   g.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.onMonsterTouch(idx); }, this);
 
-  // 根据类型绘制不同怪物外形
   var mType = m.type || MONSTER_TYPES[0];
-  var shape = new egret.Shape();
-  var sg = shape.graphics;
-  var c = mType.color;
-  var half = sz / 2;
+  var body = new egret.Shape();
+  this.drawMonsterShape(body.graphics, mType, sz, m.isBoss);
+  g.addChild(body);
 
-  sg.beginFill(c);
-  switch (mType.shape) {
-    case 'blob': // 圆胖怪
-      sg.drawCircle(half, half, half - 2);
-      sg.endFill();
-      sg.beginFill(0xffffff); sg.drawCircle(half - 8, half - 6, 5); sg.drawCircle(half + 8, half - 6, 5);
-      sg.endFill(); sg.beginFill(0x000000); sg.drawCircle(half - 7, half - 5, 2.5); sg.drawCircle(half + 9, half - 5, 2.5);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half, half + 6, 8);
-      break;
-    case 'bat': // 蝙蝠
-      sg.drawCircle(half, half, half * 0.6);
-      sg.endFill(); sg.beginFill(c);
-      sg.moveTo(half - 20, half - 5); sg.lineTo(half - 8, half - 15); sg.lineTo(half - 4, half);
-      sg.moveTo(half + 20, half - 5); sg.lineTo(half + 8, half - 15); sg.lineTo(half + 4, half);
-      sg.endFill(); sg.beginFill(0xff0000);
-      sg.drawCircle(half - 6, half - 4, 3); sg.drawCircle(half + 6, half - 4, 3);
-      break;
-    case 'spike': // 刺球
-      for (var a = 0; a < 8; a++) {
-        var angle = (a / 8) * Math.PI * 2;
-        var ox = half + Math.cos(angle) * (half - 2);
-        var oy = half + Math.sin(angle) * (half - 2);
-        sg.drawCircle(ox, oy, 6);
-      }
-      sg.drawCircle(half, half, half * 0.55);
-      sg.endFill(); sg.beginFill(0xffffff);
-      sg.drawCircle(half - 5, half - 3, 3); sg.drawCircle(half + 5, half - 3, 3);
-      break;
-    case 'slime': // 史莱姆（扁圆 + 滴液效果）
-      sg.drawEllipse(half - 18, half - 8, 36, 24);
-      sg.endFill(); sg.beginFill(0x1e8449);
-      sg.drawEllipse(half - 14, half - 14, 28, 20);
-      sg.endFill(); sg.beginFill(0xffffff);
-      sg.drawCircle(half - 6, half - 10, 4); sg.drawCircle(half + 6, half - 10, 4);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half - 5, half - 9, 2); sg.drawCircle(half + 7, half - 9, 2);
-      break;
-    case 'ghost': // 幽灵（上圆下波浪）
-      sg.drawCircle(half, half - 4, half * 0.7);
-      sg.endFill(); sg.beginFill(c);
-      sg.moveTo(half - 16, half + 4);
-      for (var w = 0; w < 5; w++) {
-        var wx = half - 16 + w * 8;
-        sg.curveTo(wx + 2, half + 14, wx + 4, half + 4);
-      }
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half - 7, half - 8, 4); sg.drawCircle(half + 7, half - 8, 4);
-      break;
-    case 'skull': // 骷髅
-      sg.drawCircle(half, half - 2, half * 0.75);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half - 8, half - 6, 6); sg.drawCircle(half + 8, half - 6, 6);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawRect(half - 6, half + 6, 4, 6); sg.drawRect(half - 1, half + 6, 4, 6); sg.drawRect(half + 4, half + 6, 4, 6);
-      break;
-    case 'dragon': // 火龙BOSS
-      sg.drawCircle(half, half, half - 2);
-      sg.endFill(); sg.beginFill(0xd35400);
-      sg.moveTo(half - 4, half - 18); sg.lineTo(half - 14, half - 8); sg.lineTo(half - 8, half - 6);
-      sg.moveTo(half + 4, half - 18); sg.lineTo(half + 14, half - 8); sg.lineTo(half + 8, half - 6);
-      sg.endFill(); sg.beginFill(0xffff00);
-      sg.drawCircle(half - 8, half - 4, 5); sg.drawCircle(half + 8, half - 4, 5);
-      sg.endFill(); sg.beginFill(0xff0000);
-      sg.drawCircle(half - 8, half - 4, 2.5); sg.drawCircle(half + 8, half - 4, 2.5);
-      break;
-    case 'shadow': // 暗影（不规则形状）
-      sg.drawCircle(half, half - 2, half * 0.7);
-      sg.endFill(); sg.beginFill(0x1a252f);
-      sg.drawCircle(half, half + 4, half * 0.5);
-      sg.endFill(); sg.beginFill(0xe74c3c);
-      sg.drawCircle(half - 8, half - 4, 4); sg.drawCircle(half + 8, half - 4, 4);
-      break;
-    default:
-      sg.drawCircle(half, half, half - 2);
-      sg.endFill(); sg.beginFill(0xffffff);
-      sg.drawCircle(half - 6, half - 4, 4); sg.drawCircle(half + 6, half - 4, 4);
-  }
-  sg.endFill();
-  shape.x = 0; shape.y = 0;
-  g.addChild(shape);
-
-  // 名称
+  // --- 名字图签（胶囊徽章） ---
+  // 用与怪物配色呼应的深色底 + 白字 + 圆角，比裸文字辨识度高得多
+  var labelText = m.isBoss ? '💀 ' + mType.name : mType.name;
+  var badgeW = m.isBoss ? 72 : 50;
+  var badgeH = m.isBoss ? 18 : 15;
+  var badge = new eui.Rect();
+  badge.width = badgeW; badge.height = badgeH;
+  badge.ellipseWidth = badgeH; badge.ellipseHeight = badgeH;
+  badge.fillColor = m.isBoss ? 0x7a1a10 : mType.badge;
+  badge.fillAlpha = 0.92;
+  badge.strokeColor = 0xffffff; badge.strokeWeight = 1; badge.strokeAlpha = 0.6;
+  badge.horizontalCenter = 0; badge.top = sz + 2;
+  g.addChild(badge);
   var name = new eui.Label();
-  name.text = m.isBoss ? '💀BOSS·' + mType.name : mType.name;
-  name.size = m.isBoss ? 12 : 10; name.textColor = 0xffffff; name.bold = m.isBoss;
-  name.horizontalCenter = 0; name.top = sz + 2;
+  name.text = labelText;
+  name.size = m.isBoss ? 11 : 10;
+  name.textColor = 0xffffff;
+  name.bold = true;
+  name.horizontalCenter = 0; name.top = sz + 2 + (badgeH - (m.isBoss ? 13 : 12)) / 2;
   g.addChild(name);
 
-  // 血条（BOSS更粗）
-  var hpH = m.isBoss ? 8 : 5;
+  // --- 血条 ---
+  var hpY = sz + 2 + badgeH + 4;
+  var hpH = m.isBoss ? 7 : 5;
+  var hpW = sz - 4;
   var hpBg = new eui.Rect();
-  hpBg.width = sz - 4; hpBg.height = hpH; hpBg.fillColor = 0x333333; hpBg.ellipseWidth = 3;
-  hpBg.horizontalCenter = 0; hpBg.top = sz + 16;
+  hpBg.width = hpW; hpBg.height = hpH;
+  hpBg.fillColor = 0x1a1a1a;
+  hpBg.ellipseWidth = hpH; hpBg.ellipseHeight = hpH;
+  hpBg.horizontalCenter = 0; hpBg.top = hpY;
   g.addChild(hpBg);
   var pct = Math.max(0, m.hp / m.maxHp);
   var hpFill = new eui.Rect();
-  hpFill.width = Math.max(0, (sz - 4) * pct); hpFill.height = hpH;
-  hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
-  hpFill.x = 2; hpFill.top = sz + 16; hpFill.ellipseWidth = 3;
+  hpFill.width = Math.max(0, hpW * pct); hpFill.height = hpH;
+  hpFill.fillColor = m.isBoss ? 0xe74c3c
+    : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
+  hpFill.ellipseWidth = hpH; hpFill.ellipseHeight = hpH;
+  hpFill.x = (sz - hpW) / 2; hpFill.top = hpY;
   g.addChild(hpFill);
 
-  // 血量文字
+  // --- 血量文字 ---
   var hpText = new eui.Label();
   hpText.text = Math.max(0, Math.floor(m.hp)) + '/' + m.maxHp;
-  hpText.size = 9; hpText.textColor = 0xaaaaaa;
-  hpText.horizontalCenter = 0; hpText.top = sz + 16 + hpH + 2;
+  hpText.size = 9; hpText.textColor = 0xcccccc;
+  hpText.horizontalCenter = 0; hpText.top = hpY + hpH + 2;
   g.addChild(hpText);
 
   return g;
+};
+
+/**
+ * 所有怪物形状在此统一绘制。
+ * 通用约定：
+ *   - 先 lineStyle 设描边，beginFill 填充主色；复杂形状可多次 begin/end
+ *   - 最后统一画眼睛（白底黑瞳 + 白色高光点）让所有怪物视觉风格一致
+ * sz     = 怪物整体外接正方形边长（小怪 56，BOSS 76）
+ * isBoss = BOSS 会画得更威严（加角、加獠牙等）
+ */
+Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
+  var half = sz / 2;
+  var c = mType.color;
+  var ol = mType.outline;
+
+  switch (mType.shape) {
+    case 'slime':
+      // 半球形史莱姆，底部扁平，头顶高光
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.moveTo(half - half * 0.85, half + half * 0.55);
+      g.curveTo(half - half * 0.95, half - half * 0.4, half, half - half * 0.7);
+      g.curveTo(half + half * 0.95, half - half * 0.4, half + half * 0.85, half + half * 0.55);
+      g.lineTo(half - half * 0.85, half + half * 0.55);
+      g.endFill();
+      // 头顶高光
+      g.lineStyle(0);
+      g.beginFill(0xffffff, 0.5);
+      g.drawEllipse(half - 10, half - half * 0.5, 12, 5);
+      g.endFill();
+      // 眼睛（偏上）
+      this._drawEyes(g, half - 7, half - 4, half + 7, half - 4, 3, 1.5);
+      // 嘴（小弯线）
+      g.lineStyle(1.5, ol);
+      g.moveTo(half - 4, half + 6);
+      g.curveTo(half, half + 9, half + 4, half + 6);
+      break;
+
+    case 'rabbit':
+      // 兔子：两只长耳朵 + 圆脸 + 三瓣嘴
+      g.lineStyle(2, ol);
+      // 左耳
+      g.beginFill(c);
+      g.drawEllipse(half - 14, half - half * 0.95, 7, 22);
+      g.endFill();
+      g.beginFill(0xff9cc4);
+      g.drawEllipse(half - 12, half - half * 0.85, 4, 16);
+      g.endFill();
+      // 右耳
+      g.beginFill(c);
+      g.drawEllipse(half + 7, half - half * 0.95, 7, 22);
+      g.endFill();
+      g.beginFill(0xff9cc4);
+      g.drawEllipse(half + 9, half - half * 0.85, 4, 16);
+      g.endFill();
+      // 头
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, half - 4);
+      g.endFill();
+      // 眼睛
+      this._drawEyes(g, half - 7, half - 2, half + 7, half - 2, 3, 1.5);
+      // 粉色鼻子
+      g.lineStyle(0);
+      g.beginFill(0xe91e63);
+      g.drawCircle(half, half + 5, 2);
+      g.endFill();
+      // 三瓣嘴
+      g.lineStyle(1.5, ol);
+      g.moveTo(half, half + 7);
+      g.lineTo(half, half + 10);
+      g.moveTo(half, half + 10);
+      g.lineTo(half - 3, half + 12);
+      g.moveTo(half, half + 10);
+      g.lineTo(half + 3, half + 12);
+      break;
+
+    case 'bat':
+      // 蝙蝠：大翅膀 + 圆身 + 小尖耳
+      g.lineStyle(2, ol);
+      // 左翅（两段式）
+      g.beginFill(c);
+      g.moveTo(half - 4, half);
+      g.lineTo(half - half * 0.95, half - 8);
+      g.lineTo(half - half * 0.75, half - 2);
+      g.lineTo(half - half * 0.9, half + 6);
+      g.lineTo(half - half * 0.55, half + 2);
+      g.lineTo(half - 4, half + 6);
+      g.lineTo(half - 4, half);
+      g.endFill();
+      // 右翅
+      g.beginFill(c);
+      g.moveTo(half + 4, half);
+      g.lineTo(half + half * 0.95, half - 8);
+      g.lineTo(half + half * 0.75, half - 2);
+      g.lineTo(half + half * 0.9, half + 6);
+      g.lineTo(half + half * 0.55, half + 2);
+      g.lineTo(half + 4, half + 6);
+      g.lineTo(half + 4, half);
+      g.endFill();
+      // 身体
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, 10);
+      g.endFill();
+      // 尖耳
+      g.beginFill(c);
+      g.moveTo(half - 8, half - 8);
+      g.lineTo(half - 5, half - 14);
+      g.lineTo(half - 3, half - 7);
+      g.moveTo(half + 3, half - 7);
+      g.lineTo(half + 5, half - 14);
+      g.lineTo(half + 8, half - 8);
+      g.endFill();
+      // 红眼
+      g.lineStyle(0);
+      g.beginFill(0xff3030);
+      g.drawCircle(half - 4, half, 2);
+      g.drawCircle(half + 4, half, 2);
+      g.endFill();
+      // 獠牙
+      g.beginFill(0xffffff);
+      g.moveTo(half - 3, half + 6);
+      g.lineTo(half - 2, half + 10);
+      g.lineTo(half - 1, half + 6);
+      g.moveTo(half + 1, half + 6);
+      g.lineTo(half + 2, half + 10);
+      g.lineTo(half + 3, half + 6);
+      g.endFill();
+      break;
+
+    case 'spike':
+      // 刺球：圆身 + 向外放射的三角刺
+      var spikes = 10, outerR = half - 1, innerR = half - 10;
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.moveTo(half + innerR, half);
+      for (var i = 0; i < spikes; i++) {
+        var a1 = ((i + 0.5) / spikes) * Math.PI * 2;
+        var a2 = ((i + 1) / spikes) * Math.PI * 2;
+        g.lineTo(half + outerR * Math.cos(a1), half + outerR * Math.sin(a1));
+        g.lineTo(half + innerR * Math.cos(a2), half + innerR * Math.sin(a2));
+      }
+      g.endFill();
+      // 眼睛
+      this._drawEyes(g, half - 5, half - 2, half + 5, half - 2, 2.5, 1.2);
+      // 怒眉（斜线）
+      g.lineStyle(2, ol);
+      g.moveTo(half - 10, half - 8);
+      g.lineTo(half - 4, half - 6);
+      g.moveTo(half + 4, half - 6);
+      g.lineTo(half + 10, half - 8);
+      break;
+
+    case 'ghost':
+      // 幽灵：圆头 + 波浪下摆 + 空洞眼睛
+      g.lineStyle(2, ol);
+      g.beginFill(c, 0.9);
+      // 从左下开始顺时针画圆顶 + 波浪下摆
+      g.moveTo(half - half * 0.75, half + half * 0.7);
+      g.lineTo(half - half * 0.75, half - 4);
+      g.curveTo(half - half * 0.75, half - half * 0.85, half, half - half * 0.85);
+      g.curveTo(half + half * 0.75, half - half * 0.85, half + half * 0.75, half - 4);
+      g.lineTo(half + half * 0.75, half + half * 0.7);
+      // 三个波浪齿
+      g.lineTo(half + half * 0.45, half + half * 0.5);
+      g.lineTo(half + half * 0.2, half + half * 0.7);
+      g.lineTo(half - half * 0.1, half + half * 0.5);
+      g.lineTo(half - half * 0.35, half + half * 0.7);
+      g.lineTo(half - half * 0.6, half + half * 0.5);
+      g.lineTo(half - half * 0.75, half + half * 0.7);
+      g.endFill();
+      // 空洞眼睛（黑色椭圆）
+      g.lineStyle(0);
+      g.beginFill(ol);
+      g.drawEllipse(half - 10, half - 8, 6, 9);
+      g.drawEllipse(half + 4, half - 8, 6, 9);
+      g.endFill();
+      // 小圆嘴
+      g.beginFill(ol);
+      g.drawCircle(half, half + 4, 3);
+      g.endFill();
+      break;
+
+    case 'skull':
+      // 骷髅：圆颅 + 黑眼洞 + 牙齿栏栅
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half - 4, half - 4);
+      g.endFill();
+      // 下巴突出
+      g.beginFill(c);
+      g.drawRoundRect(half - 10, half + 6, 20, 12, 6, 6);
+      g.endFill();
+      // 眼洞（大黑圆）
+      g.lineStyle(0);
+      g.beginFill(ol);
+      g.drawCircle(half - 7, half - 4, 5);
+      g.drawCircle(half + 7, half - 4, 5);
+      g.endFill();
+      // 眼洞内红色邪光
+      g.beginFill(0xff3333, 0.9);
+      g.drawCircle(half - 7, half - 4, 1.8);
+      g.drawCircle(half + 7, half - 4, 1.8);
+      g.endFill();
+      // 鼻洞
+      g.beginFill(ol);
+      g.moveTo(half, half + 1);
+      g.lineTo(half - 2, half + 5);
+      g.lineTo(half + 2, half + 5);
+      g.endFill();
+      // 牙齿（小矩形）
+      g.beginFill(c);
+      g.lineStyle(1, ol);
+      g.drawRect(half - 8, half + 10, 3, 5);
+      g.drawRect(half - 4, half + 10, 3, 5);
+      g.drawRect(half,    half + 10, 3, 5);
+      g.drawRect(half + 4, half + 10, 3, 5);
+      g.endFill();
+      break;
+
+    case 'dragon':
+      // 火龙 BOSS：带角 + 龙脸 + 獠牙 + 火焰背景
+      // 火焰光晕
+      g.lineStyle(0);
+      g.beginFill(0xff6b1a, 0.3);
+      g.drawCircle(half, half, half + 4);
+      g.endFill();
+      g.beginFill(0xffb347, 0.5);
+      g.drawCircle(half, half, half - 1);
+      g.endFill();
+      // 头部
+      g.lineStyle(2.5, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, half - 6);
+      g.endFill();
+      // 吻部（椭圆向下突出）
+      g.beginFill(c);
+      g.drawEllipse(half - 10, half + 6, 20, 14);
+      g.endFill();
+      // 左右龙角（深色三角）
+      g.beginFill(ol);
+      g.moveTo(half - 12, half - half * 0.5);
+      g.lineTo(half - 18, half - half * 0.95);
+      g.lineTo(half - 8, half - half * 0.65);
+      g.moveTo(half + 8, half - half * 0.65);
+      g.lineTo(half + 18, half - half * 0.95);
+      g.lineTo(half + 12, half - half * 0.5);
+      g.endFill();
+      // 眼睛（黄底黑瞳）
+      g.lineStyle(1.5, ol);
+      g.beginFill(0xfff59d);
+      g.drawCircle(half - 8, half - 2, 5);
+      g.drawCircle(half + 8, half - 2, 5);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0x000000);
+      g.drawEllipse(half - 10, half - 5, 3, 7);
+      g.drawEllipse(half + 7, half - 5, 3, 7);
+      g.endFill();
+      // 鼻孔
+      g.beginFill(ol);
+      g.drawCircle(half - 4, half + 10, 1.5);
+      g.drawCircle(half + 4, half + 10, 1.5);
+      g.endFill();
+      // 獠牙
+      g.beginFill(0xffffff);
+      g.lineStyle(1, ol);
+      g.moveTo(half - 5, half + 15);
+      g.lineTo(half - 4, half + 22);
+      g.lineTo(half - 2, half + 15);
+      g.moveTo(half + 2, half + 15);
+      g.lineTo(half + 4, half + 22);
+      g.lineTo(half + 5, half + 15);
+      g.endFill();
+      break;
+
+    case 'shadow':
+      // 暗影：模糊黑影 + 悬浮 + 红眼
+      // 外层模糊（多层半透明扩散）
+      g.lineStyle(0);
+      g.beginFill(c, 0.25);
+      g.drawCircle(half, half, half + 2);
+      g.endFill();
+      g.beginFill(c, 0.5);
+      g.drawCircle(half, half, half - 2);
+      g.endFill();
+      // 实心主体（形状不规则）
+      g.lineStyle(1.5, ol);
+      g.beginFill(c);
+      g.moveTo(half - half * 0.7, half);
+      g.curveTo(half - half * 0.6, half - half * 0.85, half, half - half * 0.75);
+      g.curveTo(half + half * 0.6, half - half * 0.85, half + half * 0.7, half);
+      g.curveTo(half + half * 0.8, half + half * 0.5, half + half * 0.3, half + half * 0.75);
+      g.curveTo(half, half + half * 0.9, half - half * 0.3, half + half * 0.75);
+      g.curveTo(half - half * 0.8, half + half * 0.5, half - half * 0.7, half);
+      g.endFill();
+      // 发光红眼（带外圈光晕）
+      g.lineStyle(0);
+      g.beginFill(0xff3030, 0.35);
+      g.drawCircle(half - 7, half - 4, 5);
+      g.drawCircle(half + 7, half - 4, 5);
+      g.endFill();
+      g.beginFill(0xff0000);
+      g.drawCircle(half - 7, half - 4, 2.5);
+      g.drawCircle(half + 7, half - 4, 2.5);
+      g.endFill();
+      g.beginFill(0xffffff);
+      g.drawCircle(half - 7, half - 5, 0.8);
+      g.drawCircle(half + 7, half - 5, 0.8);
+      g.endFill();
+      break;
+
+    default:
+      // fallback：圆球 + 眼睛
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half, half - 2);
+      g.endFill();
+      this._drawEyes(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
+  }
+};
+
+/**
+ * 统一绘制一对眼睛（白底 + 黑瞳 + 高光）。所有怪物都用同一风格。
+ * x1/y1/x2/y2 为左右眼中心点，r 为眼白半径，pr 为瞳孔半径。
+ */
+Game.prototype._drawEyes = function(g, x1, y1, x2, y2, r, pr) {
+  g.lineStyle(0);
+  // 眼白
+  g.beginFill(0xffffff);
+  g.drawCircle(x1, y1, r);
+  g.drawCircle(x2, y2, r);
+  g.endFill();
+  // 瞳孔（稍微偏下让表情更可爱）
+  g.beginFill(0x000000);
+  g.drawCircle(x1, y1 + 0.5, pr);
+  g.drawCircle(x2, y2 + 0.5, pr);
+  g.endFill();
+  // 高光（左上角）
+  g.beginFill(0xffffff);
+  g.drawCircle(x1 - pr * 0.5, y1 - pr * 0.5, pr * 0.5);
+  g.drawCircle(x2 - pr * 0.5, y2 - pr * 0.5, pr * 0.5);
+  g.endFill();
 };
 
 Game.prototype.updateSkillBtns = function() {
@@ -1378,9 +1944,14 @@ Game.prototype.createPanelOverlay = function() {
     this._panelOverlay.parent.removeChild(this._panelOverlay);
   }
   var overlay = new eui.Group();
-  // 用显式尺寸 + 加到 stage 上，避免被 main 的 VerticalLayout 影响
-  overlay.width = 375;
-  overlay.height = this.main.stage ? this.main.stage.stageHeight : 667;
+  // 铺满整个舞台（包括动态调整后的尺寸），避免旋转 / 地址栏伸缩后出现裸露区域
+  if (this.main.stage) {
+    overlay.width = this.main.stage.stageWidth;
+    overlay.height = this.main.stage.stageHeight;
+  } else {
+    overlay.width = 375;
+    overlay.height = 667;
+  }
   overlay.x = 0; overlay.y = 0;
   overlay.touchEnabled = true;
   var dim = new eui.Rect();
@@ -1402,6 +1973,18 @@ Game.prototype.closePanel = function() {
     this._panelOverlay.parent.removeChild(this._panelOverlay);
   }
   this._panelOverlay = null;
+};
+
+// 舞台尺寸变化时同步内部缓存 + 已开面板的覆盖层尺寸
+Game.prototype.onStageResize = function() {
+  var stage = this.main && this.main.stage;
+  if (!stage) return;
+  this._stageW = stage.stageWidth;
+  // 仅更新当前活跃的全屏遮罩尺寸，避免 UI 主体因状态问题全量重建
+  if (this._panelOverlay) {
+    this._panelOverlay.width = stage.stageWidth;
+    this._panelOverlay.height = stage.stageHeight;
+  }
 };
 
 Game.prototype.addPanelContent = function(overlay) {
@@ -1766,6 +2349,22 @@ Game.prototype.openShop = function() {
     '500金', 0x27ae60,
     function() { self.shopBuy('offline'); },
     this.gold < 500 || this.offlineCap >= 24
+  );
+
+  // 每日任务
+  y = this.addPanelRow(panel, y, '📋', 0xe67e22,
+    '每日任务\n查看每日任务进度',
+    '查看', 0x3498db,
+    function() { self.closePanel(); self.openDailyTasks(); },
+    false
+  );
+
+  // 成就
+  y = this.addPanelRow(panel, y, '🏆', 0xf39c12,
+    '成就系统\n已完成: ' + this.achievements.length + '/' + ACHIEVEMENTS.length,
+    '查看', 0x3498db,
+    function() { self.closePanel(); self.openAchievements(); },
+    false
   );
 
   panel.height = y + 16;
@@ -2318,6 +2917,114 @@ Game.prototype.openAchievements = function() {
   }
 };
 
+// ==================== 图签系统（怪物图鉴） ====================
+
+Game.prototype.openMonsterCodex = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+
+  var discovered = 0;
+  for (var i = 0; i < MONSTER_TYPES.length; i++) {
+    if (this.monsterCodex[MONSTER_TYPES[i].shape]) discovered++;
+  }
+
+  var title = new eui.Label();
+  title.text = '📖 怪物图签 (' + discovered + '/' + MONSTER_TYPES.length + ')';
+  title.size = 16; title.textColor = 0xffffff; title.bold = true;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var subtitle = new eui.Label();
+  subtitle.text = '击杀怪物即可收集图签';
+  subtitle.size = 11; subtitle.textColor = 0x888888;
+  subtitle.horizontalCenter = 0; subtitle.top = 36;
+  panel.addChild(subtitle);
+
+  // 2列4行网格布局展示所有怪物
+  var COLS = 2;
+  var CARD_W = 148; var CARD_H = 72;
+  var GAP_X = 10; var GAP_Y = 8;
+  var START_X = 15; var START_Y = 55;
+  var self = this;
+
+  for (var i = 0; i < MONSTER_TYPES.length; i++) {
+    var mt = MONSTER_TYPES[i];
+    var codexEntry = this.monsterCodex[mt.shape];
+    var found = !!codexEntry;
+    var col = i % COLS; var row = Math.floor(i / COLS);
+    var cx = START_X + col * (CARD_W + GAP_X);
+    var cy = START_Y + row * (CARD_H + GAP_Y);
+
+    // 卡片背景
+    var cardBg = new eui.Rect();
+    cardBg.width = CARD_W; cardBg.height = CARD_H;
+    cardBg.ellipseWidth = 8; cardBg.ellipseHeight = 8;
+    cardBg.fillColor = found ? 0x1a2a3a : 0x222222;
+    cardBg.strokeColor = found ? mt.badge : 0x444444;
+    cardBg.strokeWeight = found ? 2 : 1;
+    cardBg.x = cx; cardBg.y = cy;
+    panel.addChild(cardBg);
+
+    // 怪物缩略图（小型绘制）
+    var monsterThumb = new egret.Shape();
+    if (found) {
+      this.drawMonsterShape(monsterThumb.graphics, mt, 40, mt.shape === 'dragon');
+    } else {
+      // 未发现：显示问号剪影
+      var tg = monsterThumb.graphics;
+      tg.beginFill(0x555555);
+      tg.drawCircle(20, 20, 16);
+      tg.endFill();
+      tg.beginFill(0x333333);
+      tg.drawCircle(20, 20, 12);
+      tg.endFill();
+    }
+    monsterThumb.x = cx + 6; monsterThumb.y = cy + 14;
+    monsterThumb.scaleX = 0.7; monsterThumb.scaleY = 0.7;
+    panel.addChild(monsterThumb);
+
+    // 怪物名字
+    var nameLb = new eui.Label();
+    nameLb.text = found ? mt.name : '???';
+    nameLb.size = 12; nameLb.bold = true;
+    nameLb.textColor = found ? 0xffffff : 0x666666;
+    nameLb.x = cx + 44; nameLb.y = cy + 8;
+    panel.addChild(nameLb);
+
+    // 击杀数
+    var killLb = new eui.Label();
+    killLb.text = found ? '击杀: ' + (codexEntry.kills || 0) : '未发现';
+    killLb.size = 10;
+    killLb.textColor = found ? 0xaaaaaa : 0x555555;
+    killLb.x = cx + 44; killLb.y = cy + 26;
+    panel.addChild(killLb);
+
+    // 胶囊图签标记
+    if (found) {
+      var badgeBg = new eui.Rect();
+      badgeBg.width = 46; badgeBg.height = 14;
+      badgeBg.ellipseWidth = 7; badgeBg.ellipseHeight = 7;
+      badgeBg.fillColor = mt.badge;
+      badgeBg.fillAlpha = 0.9;
+      badgeBg.x = cx + 44; badgeBg.y = cy + 44;
+      panel.addChild(badgeBg);
+      var badgeLb = new eui.Label();
+      badgeLb.text = '✓ 已收集'; badgeLb.size = 9;
+      badgeLb.textColor = 0xffffff; badgeLb.bold = true;
+      badgeLb.x = cx + 48; badgeLb.y = cy + 45;
+      panel.addChild(badgeLb);
+    } else {
+      var lockLb = new eui.Label();
+      lockLb.text = '🔒'; lockLb.size = 14;
+      lockLb.x = cx + 50; lockLb.y = cy + 42;
+      panel.addChild(lockLb);
+    }
+  }
+
+  var totalRows = Math.ceil(MONSTER_TYPES.length / COLS);
+  panel.height = START_Y + totalRows * (CARD_H + GAP_Y) + 16;
+};
+
 // ==================== 离线收益 ====================
 
 Game.prototype.checkOfflineReward = function() {
@@ -2376,6 +3083,94 @@ Game.prototype.checkOfflineReward = function() {
       overlay.addChild(panel);
     }, 500);
   } catch(e) {}
+};
+
+// ==================== 音效系统（Web Audio 程序合成，无需外部文件） ====================
+
+Game.prototype.initSound = function() {
+  this.soundMuted = (localStorage.getItem('gujiyouxi_mute') === '1');
+  this._audioCtx = null;
+  // 首次用户交互时再创建 AudioContext（浏览器自动播放策略要求）
+  var self = this;
+  var unlock = function() {
+    if (!self._audioCtx) {
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) self._audioCtx = new AC();
+      } catch(e) { self._audioCtx = null; }
+    }
+    if (self._audioCtx && self._audioCtx.state === 'suspended') {
+      self._audioCtx.resume();
+    }
+    document.removeEventListener('touchstart', unlock);
+    document.removeEventListener('mousedown', unlock);
+    document.removeEventListener('keydown', unlock);
+  };
+  document.addEventListener('touchstart', unlock);
+  document.addEventListener('mousedown', unlock);
+  document.addEventListener('keydown', unlock);
+};
+
+// 内部：播放一个 envelope 包络的 oscillator
+Game.prototype._beep = function(opts) {
+  if (this.soundMuted) return;
+  var ctx = this._audioCtx;
+  if (!ctx) return;
+  try {
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = opts.type || 'sine';
+    var freq = opts.freq || 440;
+    var freqEnd = opts.freqEnd || freq;
+    var now = ctx.currentTime;
+    var dur = opts.duration || 0.12;
+    osc.frequency.setValueAtTime(freq, now);
+    if (freqEnd !== freq) {
+      osc.frequency.exponentialRampToValueAtTime(Math.max(1, freqEnd), now + dur);
+    }
+    var vol = opts.volume || 0.15;
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(vol, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + dur + 0.02);
+  } catch(e) {}
+};
+
+// --- 对外音效 + 静音切换 ---
+Game.prototype.sfxClick = function() {
+  this._beep({ type: 'square', freq: 880, freqEnd: 660, duration: 0.06, volume: 0.08 });
+};
+Game.prototype.sfxHitBoss = function() {
+  this._beep({ type: 'sawtooth', freq: 140, freqEnd: 60, duration: 0.35, volume: 0.2 });
+  var self = this;
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 520, freqEnd: 260, duration: 0.22, volume: 0.15 }); }, 60);
+};
+Game.prototype.sfxLevelUp = function() {
+  var self = this;
+  this._beep({ type: 'triangle', freq: 523, duration: 0.1, volume: 0.13 });
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 659, duration: 0.1, volume: 0.13 }); }, 90);
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 784, duration: 0.18, volume: 0.15 }); }, 180);
+};
+Game.prototype.sfxSkill = function() {
+  this._beep({ type: 'sawtooth', freq: 660, freqEnd: 220, duration: 0.18, volume: 0.14 });
+};
+Game.prototype.sfxUnlock = function() {
+  this._beep({ type: 'sine', freq: 440, freqEnd: 1200, duration: 0.22, volume: 0.14 });
+};
+
+Game.prototype.toggleMute = function() {
+  this.soundMuted = !this.soundMuted;
+  localStorage.setItem('gujiyouxi_mute', this.soundMuted ? '1' : '0');
+  this.updateMuteBtn();
+  if (!this.soundMuted) this.sfxClick();
+  this.showToast(this.soundMuted ? '🔇 已静音' : '🔊 已开启音效');
+};
+
+Game.prototype.updateMuteBtn = function() {
+  if (this.muteLabel) this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
 };
 
 // ==================== Toast ====================
@@ -2472,7 +3267,8 @@ Game.prototype.saveGame = function() {
       stats: this.stats, checkinDay: this.checkinDay, checkinDate: this.checkinDate,
       dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone,
       achievements: this.achievements, offlineCap: this.offlineCap,
-      rebirthGems: this.rebirthGems, maxWaveReached: this.maxWaveReached
+      rebirthGems: this.rebirthGems, maxWaveReached: this.maxWaveReached,
+      monsterCodex: this.monsterCodex
     }));
     localStorage.setItem('gujiyouxi_egret_time', Date.now().toString());
   } catch(e) {}
@@ -2512,6 +3308,7 @@ Game.prototype.loadGame = function() {
     if (d.offlineCap) this.offlineCap = d.offlineCap;
     if (d.rebirthGems) this.rebirthGems = d.rebirthGems;
     if (d.maxWaveReached) this.maxWaveReached = d.maxWaveReached;
+    if (d.monsterCodex) this.monsterCodex = d.monsterCodex;
     // 兼容旧存档的 round 字段
     if (d.round && d.round > 1 && !d.maxWaveReached) {
       this.maxWaveReached = (d.round - 1) * 10 + (d.wave || 1);

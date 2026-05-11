@@ -1,19 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>吃饭睡觉打豆豆 - Egret版</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { background: #1a1a2e; height: 100%; overflow: hidden; display: flex; justify-content: center; }
-    #status { color: #0f0; position: fixed; top: 10px; left: 10px; font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; white-space: pre-line; max-width: 90%; }
+    /*
+     * 统一策略：容器恒定 9:16 竖屏比例，全平台一致。
+     *
+     * 为什么不按"容器等于视口"自由适配：Egret fixedWidth 模式下
+     *   stageHeight = container_h × 375 / container_w
+     * 容器比例不是 9:16 时 stageHeight 会偏离设计值 667，导致 UI 错位：
+     *   - iPhone 14 Pro (19.5:9) → stageHeight≈812，元素被拉散
+     *   - iPad 竖屏 (3:4)         → stageHeight≈500，元素被挤压
+     *   - PC 桌面 (16:9)          → stageHeight≈210，UI 完全破碎
+     * 锁定 9:16 后 stageHeight 恒为 ~667，game.js 里所有基于 stageH 的定位都稳定。
+     * 多出来的视口区域以深色背景 letterbox 展示（两侧或上下），比变形好看得多。
+     */
+    html, body {
+      background: #1a1a2e;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      overscroll-behavior: none;
+    }
+    body {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* 刘海屏 / PWA 全屏安全区；普通浏览器里为 0，不影响桌面 */
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+    }
+
+    /* 画布容器：9:16 比例，尽量大但不超出视口。
+       - height:100% 填满 body 可用高度
+       - aspect-ratio:9/16 锁比例；浏览器自动把 width 算成 height × 9/16
+       - max-width:100% 保证窄屏（手机）不超出左右边界
+       flex 容器居中 → 超高手机上下留 letterbox，超宽桌面左右留 letterbox */
+    #game-container {
+      width: auto;
+      height: 100%;
+      aspect-ratio: 9 / 16;
+      max-width: 100%;
+      position: relative;
+    }
+
+    /* PC / 桌面鼠标设备额外处理：限制最大高度 + 加阴影圆角突出画布感 */
+    @media (hover: hover) and (pointer: fine) and (min-width: 600px) {
+      #game-container {
+        height: min(880px, 100vh);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+    }
+
+    #status {
+      color: #0f0; position: fixed; top: max(10px, env(safe-area-inset-top)); left: 10px;
+      font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7);
+      padding: 4px 8px; border-radius: 4px; white-space: pre-line; max-width: 90%;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
   <div id="status">加载引擎中...</div>
+  <div id="game-container"></div>
   <script>
     var statusEl = document.getElementById('status');
+    var container = document.getElementById('game-container');
     var scripts = [
       'lib/egret/egret.min.js',
       'lib/egret/egret.web.min.js',
@@ -24,43 +93,66 @@
       'game.js'
     ];
 
+    // 逻辑宽度固定 375（fixedWidth 缩放模式）
+    var LOGICAL_W = 375;
+    var player = null;
+
+    /**
+     * 容器被锁成 9:16，所以理论上 stageHeight 恒等于 375 × 16/9 ≈ 667。
+     * 但实际运行中设备像素舍入、浏览器 sub-pixel 布局会让容器高 ±1~2px。
+     * 这里按真实测量重算一次，避免偶发的 1px 偏差引入渲染模糊。
+     */
+    function computeContentHeight() {
+      var rect = container.getBoundingClientRect();
+      var w = rect.width || window.innerWidth || 1;
+      var h = rect.height || window.innerHeight || 1;
+      return Math.max(1, Math.floor(h * LOGICAL_W / w));
+    }
+
+    function handleResize() {
+      if (!player) return;
+      try {
+        player.setContentSize(LOGICAL_W, computeContentHeight());
+      } catch (e) { /* 忽略，下次 resize 会再尝试 */ }
+    }
+
     function loadScript(idx) {
       if (idx >= scripts.length) {
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
         try {
-          // 第一步：runEgret 初始化引擎全局状态（RenderBuffer 等必须在这里设置）
-          // 没有 .egret-player 元素，不会创建多余实例
           egret.runEgret({ renderMode: 'canvas' });
 
-          // 第二步：手动创建容器和 WebPlayer
-          var cw = Math.min(window.innerWidth, 500);
-          var ch = window.innerHeight;
-          var scale = cw / 375;
-          var gameH = Math.floor(ch / scale);
-
-          var container = document.createElement('div');
-          container.style.width = cw + 'px';
-          container.style.height = ch + 'px';
-          container.style.margin = '0 auto';
-          document.body.appendChild(container);
-
-          var player = new egret.web.WebPlayer(container, {
+          player = new egret.web.WebPlayer(container, {
             entryClassName: 'Main',
             scaleMode: 'fixedWidth',
             frameRate: 60,
-            contentWidth: 375,
-            contentHeight: gameH,
+            contentWidth: LOGICAL_W,
+            contentHeight: computeContentHeight(),
+            orientation: 'auto',
             renderMode: 'canvas'
           });
 
-          // 第三步：手动实例化 Main 并加入舞台
           var main = new window.Main();
           player.stage.addChild(main);
+
+          // 防抖，避免 iOS 地址栏抖动时频繁触发
+          var resizeTimer = null;
+          function debouncedResize() {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() { resizeTimer = null; handleResize(); }, 120);
+          }
+          window.addEventListener('resize', debouncedResize);
+          window.addEventListener('orientationchange', function() {
+            setTimeout(handleResize, 300);
+          });
+          if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', debouncedResize);
+          }
 
           statusEl.textContent += '\n启动成功!';
           setTimeout(function() { statusEl.style.display = 'none'; }, 1500);
         } catch(e) {
-          statusEl.textContent += '\n❌ ' + e.message;
+          statusEl.textContent += '\n[ERR] ' + e.message;
         }
         return;
       }
@@ -68,11 +160,11 @@
       s.src = scripts[idx];
       s.onload = function() {
         var name = scripts[idx].split('/').pop();
-        statusEl.textContent = (idx+1) + '/' + scripts.length + ' ✓ ' + name;
+        statusEl.textContent = (idx+1) + '/' + scripts.length + ' OK ' + name;
         loadScript(idx + 1);
       };
       s.onerror = function() {
-        statusEl.textContent += '\n❌ 加载失败: ' + scripts[idx];
+        statusEl.textContent += '\n[ERR] 加载失败: ' + scripts[idx];
       };
       document.head.appendChild(s);
     }
