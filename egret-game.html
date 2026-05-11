@@ -84,7 +84,24 @@
 </head>
 <body>
   <div id="status">加载引擎中...</div>
-  <div id="game-container"></div>
+  <!--
+    必须加 class="egret-player" + data-* 属性：
+    egret.runEgret() 内部会 querySelectorAll('.egret-player') 找容器并为每个
+    容器 new WebPlayer(...)。直接 new egret.web.WebPlayer(...) 会绕过 runEgret
+    的 bootstrap（Html5Capatibility.$init / sys.RenderBuffer 赋值 / screenAdapter
+    初始化等），导致 "e.sys.RenderBuffer is not a constructor" 崩溃。
+  -->
+  <div id="game-container"
+       class="egret-player"
+       data-entry-class="Main"
+       data-scale-mode="fixedWidth"
+       data-frame-rate="60"
+       data-content-width="375"
+       data-content-height="667"
+       data-orientation="auto"
+       data-multi-fingered="2"
+       data-show-fps="false"
+       data-show-log="false"></div>
   <script>
     var statusEl = document.getElementById('status');
     var container = document.getElementById('game-container');
@@ -100,7 +117,6 @@
 
     // 逻辑宽度固定 375（fixedWidth 缩放模式）
     var LOGICAL_W = 375;
-    var player = null;
 
     /**
      * 容器被锁成 9:16，所以理论上 stageHeight 恒等于 375 × 16/9 ≈ 667。
@@ -115,9 +131,11 @@
     }
 
     function handleResize() {
-      if (!player) return;
+      // runEgret 把 WebPlayer 挂在 container['egret-player'] 上
+      var p = container['egret-player'];
+      if (!p) return;
       try {
-        player.setContentSize(LOGICAL_W, computeContentHeight());
+        p.setContentSize(LOGICAL_W, computeContentHeight());
       } catch (e) { /* 忽略，下次 resize 会再尝试 */ }
     }
 
@@ -125,14 +143,12 @@
       if (idx >= scripts.length) {
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
         try {
-          player = new egret.web.WebPlayer(container, {
-            entryClassName: 'Main',
-            scaleMode: 'fixedWidth',
-            frameRate: 60,
-            contentWidth: LOGICAL_W,
-            contentHeight: computeContentHeight(),
-            orientation: 'auto',
-            renderMode: 'canvas'
+          // 先把初始高度写到 data-content-height，再调 runEgret。
+          // runEgret 内部会完成必要的 bootstrap 并自动构造 WebPlayer。
+          container.setAttribute('data-content-height', String(computeContentHeight()));
+          egret.runEgret({
+            renderMode: 'canvas',
+            audioType: 0
           });
 
           // 防抖，避免 iOS 地址栏抖动时频繁触发
