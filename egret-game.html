@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport-fit=cover 让刘海屏区域也能被画布占据，配合 safe-area-inset 处理安全区 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,20 +10,16 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     /*
-     * 响应式策略（双模式）：
+     * 统一策略：容器恒定 9:16 竖屏比例，全平台一致。
      *
-     * 1) 移动端 / 触屏窄屏：容器 = 整个视口（100vw × 100dvh），全屏沉浸体验
-     * 2) PC / 桌面带鼠标设备：容器 = 居中的手机竖屏画布，两侧留深色背景
-     *
-     * Egret 的 fixedWidth 模式下，逻辑宽恒为 375，stageHeight 由容器实际比例算出。
-     * 不限制容器尺寸 → PC 上 stageHeight 会被拉扁到 200 左右，UI 全压一起（上次的问题）
-     * 所以 PC 必须限制容器为手机比例，保证 stageHeight 落在 ~667 这种正常范围内。
-     *
-     * 检测"PC/桌面"的条件：
-     *   - (hover: hover) and (pointer: fine)：鼠标设备（排除触屏）
-     *   - (min-width: 600px)：视口够宽（排除缩到很窄的桌面窗口）
-     * 两个条件 AND —— iPad 竖屏是触屏 → 不匹配 → 走手机模式
-     *                  桌面把窗口缩到手机宽度 → 不匹配 → 走手机模式
+     * 为什么不按"容器等于视口"自由适配：Egret fixedWidth 模式下
+     *   stageHeight = container_h × 375 / container_w
+     * 容器比例不是 9:16 时 stageHeight 会偏离设计值 667，导致 UI 错位：
+     *   - iPhone 14 Pro (19.5:9) → stageHeight≈812，元素被拉散
+     *   - iPad 竖屏 (3:4)         → stageHeight≈500，元素被挤压
+     *   - PC 桌面 (16:9)          → stageHeight≈210，UI 完全破碎
+     * 锁定 9:16 后 stageHeight 恒为 ~667，game.js 里所有基于 stageH 的定位都稳定。
+     * 多出来的视口区域以深色背景 letterbox 展示（两侧或上下），比变形好看得多。
      */
     html, body {
       background: #1a1a2e;
@@ -44,27 +39,30 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      /* 安全区：PWA 全屏 / 刘海屏时生效，普通桌面浏览器里是 0 */
+      /* 刘海屏 / PWA 全屏安全区；普通浏览器里为 0，不影响桌面 */
       padding-top: env(safe-area-inset-top);
       padding-right: env(safe-area-inset-right);
       padding-bottom: env(safe-area-inset-bottom);
       padding-left: env(safe-area-inset-left);
     }
 
-    /* 默认（移动端）：容器 = 视口全屏 */
+    /* 画布容器：9:16 比例，尽量大但不超出视口。
+       - height:100% 填满 body 可用高度
+       - aspect-ratio:9/16 锁比例；浏览器自动把 width 算成 height × 9/16
+       - max-width:100% 保证窄屏（手机）不超出左右边界
+       flex 容器居中 → 超高手机上下留 letterbox，超宽桌面左右留 letterbox */
     #game-container {
-      width: 100%;
+      width: auto;
       height: 100%;
+      aspect-ratio: 9 / 16;
+      max-width: 100%;
       position: relative;
     }
 
-    /* PC / 桌面鼠标设备：容器 = 居中的手机竖屏画布，两侧留背景 */
+    /* PC / 桌面鼠标设备额外处理：限制最大高度 + 加阴影圆角突出画布感 */
     @media (hover: hover) and (pointer: fine) and (min-width: 600px) {
       #game-container {
-        /* 高度吃满窗口但不超过 880px；宽度按 9:16 自动算（≈ 495px 时高 880） */
-        width: auto;
         height: min(880px, 100vh);
-        aspect-ratio: 9 / 16;
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
         border-radius: 12px;
         overflow: hidden;
@@ -100,8 +98,9 @@
     var player = null;
 
     /**
-     * 根据容器当前实际尺寸，计算 Egret 舞台的逻辑内容高度。
-     * fixedWidth 模式下，stageWidth = contentWidth = 375，stageHeight 由容器纵横比决定。
+     * 容器被锁成 9:16，所以理论上 stageHeight 恒等于 375 × 16/9 ≈ 667。
+     * 但实际运行中设备像素舍入、浏览器 sub-pixel 布局会让容器高 ±1~2px。
+     * 这里按真实测量重算一次，避免偶发的 1px 偏差引入渲染模糊。
      */
     function computeContentHeight() {
       var rect = container.getBoundingClientRect();
@@ -110,10 +109,6 @@
       return Math.max(1, Math.floor(h * LOGICAL_W / w));
     }
 
-    /**
-     * 视口变化（旋转、地址栏伸缩）时重新计算舞台尺寸。
-     * 调 setContentSize 会触发 Stage 的 RESIZE 事件，游戏内部据此回调布局。
-     */
     function handleResize() {
       if (!player) return;
       try {
@@ -133,7 +128,6 @@
             frameRate: 60,
             contentWidth: LOGICAL_W,
             contentHeight: computeContentHeight(),
-            // 不强制方向：由 CSS 容器撑满实际视口，避免双重旋转
             orientation: 'auto',
             renderMode: 'canvas'
           });
@@ -149,7 +143,6 @@
           }
           window.addEventListener('resize', debouncedResize);
           window.addEventListener('orientationchange', function() {
-            // iOS 旋转后要等一点时间让 innerWidth/Height 更新
             setTimeout(handleResize, 300);
           });
           if (window.visualViewport) {

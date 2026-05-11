@@ -25,16 +25,22 @@ var SKILLS = [
   { name: '终极', cd: 60, dmg: 12, hits: 1, lv: 25 }
 ];
 
-// 怪物类型（外观、名称、血条颜色）
+// 怪物类型定义
+//   name     显示名
+//   shape    createMonsterView 中的绘制 key
+//   color    主体色
+//   outline  深色描边色，用于勾边提升辨识度
+//   hpColor  血条颜色
+//   badge    名字图签背景色（与主体色呼应）
 var MONSTER_TYPES = [
-  { name: '史莱姆', shape: 'slime',  color: 0x3498db, hpColor: 0x2ecc71 },
-  { name: '兔子',   shape: 'blob',   color: 0xff69b4, hpColor: 0x2ecc71 },
-  { name: '蝙蝠',   shape: 'bat',    color: 0x8e44ad, hpColor: 0x9b59b6 },
-  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, hpColor: 0xe74c3c },
-  { name: '幽灵',   shape: 'ghost',  color: 0xbdc3c7, hpColor: 0x95a5a6 },
-  { name: '骷髅',   shape: 'skull',  color: 0xecf0f1, hpColor: 0xbdc3c7 },
-  { name: '火龙',   shape: 'dragon', color: 0xe67e22, hpColor: 0xf39c12 },
-  { name: '暗影',   shape: 'shadow', color: 0x2c3e50, hpColor: 0x34495e }
+  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, outline: 0x1e6b3a, hpColor: 0x2ecc71, badge: 0x1e6b3a },
+  { name: '兔子',   shape: 'rabbit', color: 0xffc9d9, outline: 0xc94f7a, hpColor: 0xff69b4, badge: 0xc94f7a },
+  { name: '蝙蝠',   shape: 'bat',    color: 0x6c3483, outline: 0x3a1d4a, hpColor: 0x9b59b6, badge: 0x3a1d4a },
+  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10 },
+  { name: '幽灵',   shape: 'ghost',  color: 0xe8eef5, outline: 0x6c7a89, hpColor: 0x95a5a6, badge: 0x6c7a89 },
+  { name: '骷髅',   shape: 'skull',  color: 0xecf0f1, outline: 0x34495e, hpColor: 0xbdc3c7, badge: 0x34495e },
+  { name: '火龙',   shape: 'dragon', color: 0xe67e22, outline: 0x8b3a06, hpColor: 0xf39c12, badge: 0x8b3a06 },
+  { name: '暗影',   shape: 'shadow', color: 0x2c3e50, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000 }
 ];
 
 var SUPPORTS_DEF = [
@@ -1324,132 +1330,411 @@ Game.prototype.updateMonsterDisplay = function() {
 Game.prototype.createMonsterView = function(m, idx, total) {
   var g = new eui.Group();
   var sz = m.isBoss ? 76 : 56;
-  g.width = sz; g.height = sz + 40;
+  // 图签 + 血条 + HP文本合计需要约 46px 高度
+  g.width = sz; g.height = sz + 46;
   var cx = this._centerX || 55;
   var cw = this._centerW || 265;
   g.x = cx + cw * (idx + 0.5) / total - sz / 2;
-  g.y = this._monsterAreaY + (this._monsterAreaH - sz - 40) / 2;
+  g.y = this._monsterAreaY + (this._monsterAreaH - sz - 46) / 2;
   g.touchEnabled = true;
   var self = this;
   g.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.onMonsterTouch(idx); }, this);
 
-  // 根据类型绘制不同怪物外形
   var mType = m.type || MONSTER_TYPES[0];
-  var shape = new egret.Shape();
-  var sg = shape.graphics;
-  var c = mType.color;
-  var half = sz / 2;
+  var body = new egret.Shape();
+  this.drawMonsterShape(body.graphics, mType, sz, m.isBoss);
+  g.addChild(body);
 
-  sg.beginFill(c);
-  switch (mType.shape) {
-    case 'blob': // 圆胖怪
-      sg.drawCircle(half, half, half - 2);
-      sg.endFill();
-      sg.beginFill(0xffffff); sg.drawCircle(half - 8, half - 6, 5); sg.drawCircle(half + 8, half - 6, 5);
-      sg.endFill(); sg.beginFill(0x000000); sg.drawCircle(half - 7, half - 5, 2.5); sg.drawCircle(half + 9, half - 5, 2.5);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half, half + 6, 8);
-      break;
-    case 'bat': // 蝙蝠
-      sg.drawCircle(half, half, half * 0.6);
-      sg.endFill(); sg.beginFill(c);
-      sg.moveTo(half - 20, half - 5); sg.lineTo(half - 8, half - 15); sg.lineTo(half - 4, half);
-      sg.moveTo(half + 20, half - 5); sg.lineTo(half + 8, half - 15); sg.lineTo(half + 4, half);
-      sg.endFill(); sg.beginFill(0xff0000);
-      sg.drawCircle(half - 6, half - 4, 3); sg.drawCircle(half + 6, half - 4, 3);
-      break;
-    case 'spike': // 刺球
-      for (var a = 0; a < 8; a++) {
-        var angle = (a / 8) * Math.PI * 2;
-        var ox = half + Math.cos(angle) * (half - 2);
-        var oy = half + Math.sin(angle) * (half - 2);
-        sg.drawCircle(ox, oy, 6);
-      }
-      sg.drawCircle(half, half, half * 0.55);
-      sg.endFill(); sg.beginFill(0xffffff);
-      sg.drawCircle(half - 5, half - 3, 3); sg.drawCircle(half + 5, half - 3, 3);
-      break;
-    case 'slime': // 史莱姆（扁圆 + 滴液效果）
-      sg.drawEllipse(half - 18, half - 8, 36, 24);
-      sg.endFill(); sg.beginFill(0x1e8449);
-      sg.drawEllipse(half - 14, half - 14, 28, 20);
-      sg.endFill(); sg.beginFill(0xffffff);
-      sg.drawCircle(half - 6, half - 10, 4); sg.drawCircle(half + 6, half - 10, 4);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half - 5, half - 9, 2); sg.drawCircle(half + 7, half - 9, 2);
-      break;
-    case 'ghost': // 幽灵（上圆下波浪）
-      sg.drawCircle(half, half - 4, half * 0.7);
-      sg.endFill(); sg.beginFill(c);
-      sg.moveTo(half - 16, half + 4);
-      for (var w = 0; w < 5; w++) {
-        var wx = half - 16 + w * 8;
-        sg.curveTo(wx + 2, half + 14, wx + 4, half + 4);
-      }
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half - 7, half - 8, 4); sg.drawCircle(half + 7, half - 8, 4);
-      break;
-    case 'skull': // 骷髅
-      sg.drawCircle(half, half - 2, half * 0.75);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawCircle(half - 8, half - 6, 6); sg.drawCircle(half + 8, half - 6, 6);
-      sg.endFill(); sg.beginFill(0x000000);
-      sg.drawRect(half - 6, half + 6, 4, 6); sg.drawRect(half - 1, half + 6, 4, 6); sg.drawRect(half + 4, half + 6, 4, 6);
-      break;
-    case 'dragon': // 火龙BOSS
-      sg.drawCircle(half, half, half - 2);
-      sg.endFill(); sg.beginFill(0xd35400);
-      sg.moveTo(half - 4, half - 18); sg.lineTo(half - 14, half - 8); sg.lineTo(half - 8, half - 6);
-      sg.moveTo(half + 4, half - 18); sg.lineTo(half + 14, half - 8); sg.lineTo(half + 8, half - 6);
-      sg.endFill(); sg.beginFill(0xffff00);
-      sg.drawCircle(half - 8, half - 4, 5); sg.drawCircle(half + 8, half - 4, 5);
-      sg.endFill(); sg.beginFill(0xff0000);
-      sg.drawCircle(half - 8, half - 4, 2.5); sg.drawCircle(half + 8, half - 4, 2.5);
-      break;
-    case 'shadow': // 暗影（不规则形状）
-      sg.drawCircle(half, half - 2, half * 0.7);
-      sg.endFill(); sg.beginFill(0x1a252f);
-      sg.drawCircle(half, half + 4, half * 0.5);
-      sg.endFill(); sg.beginFill(0xe74c3c);
-      sg.drawCircle(half - 8, half - 4, 4); sg.drawCircle(half + 8, half - 4, 4);
-      break;
-    default:
-      sg.drawCircle(half, half, half - 2);
-      sg.endFill(); sg.beginFill(0xffffff);
-      sg.drawCircle(half - 6, half - 4, 4); sg.drawCircle(half + 6, half - 4, 4);
-  }
-  sg.endFill();
-  shape.x = 0; shape.y = 0;
-  g.addChild(shape);
-
-  // 名称
+  // --- 名字图签（胶囊徽章） ---
+  // 用与怪物配色呼应的深色底 + 白字 + 圆角，比裸文字辨识度高得多
+  var labelText = m.isBoss ? '💀 ' + mType.name : mType.name;
+  var badgeW = m.isBoss ? 72 : 50;
+  var badgeH = m.isBoss ? 18 : 15;
+  var badge = new eui.Rect();
+  badge.width = badgeW; badge.height = badgeH;
+  badge.ellipseWidth = badgeH; badge.ellipseHeight = badgeH;
+  badge.fillColor = m.isBoss ? 0x7a1a10 : mType.badge;
+  badge.fillAlpha = 0.92;
+  badge.strokeColor = 0xffffff; badge.strokeWeight = 1; badge.strokeAlpha = 0.6;
+  badge.horizontalCenter = 0; badge.top = sz + 2;
+  g.addChild(badge);
   var name = new eui.Label();
-  name.text = m.isBoss ? '💀BOSS·' + mType.name : mType.name;
-  name.size = m.isBoss ? 12 : 10; name.textColor = 0xffffff; name.bold = m.isBoss;
-  name.horizontalCenter = 0; name.top = sz + 2;
+  name.text = labelText;
+  name.size = m.isBoss ? 11 : 10;
+  name.textColor = 0xffffff;
+  name.bold = true;
+  name.horizontalCenter = 0; name.top = sz + 2 + (badgeH - (m.isBoss ? 13 : 12)) / 2;
   g.addChild(name);
 
-  // 血条（BOSS更粗）
-  var hpH = m.isBoss ? 8 : 5;
+  // --- 血条 ---
+  var hpY = sz + 2 + badgeH + 4;
+  var hpH = m.isBoss ? 7 : 5;
+  var hpW = sz - 4;
   var hpBg = new eui.Rect();
-  hpBg.width = sz - 4; hpBg.height = hpH; hpBg.fillColor = 0x333333; hpBg.ellipseWidth = 3;
-  hpBg.horizontalCenter = 0; hpBg.top = sz + 16;
+  hpBg.width = hpW; hpBg.height = hpH;
+  hpBg.fillColor = 0x1a1a1a;
+  hpBg.ellipseWidth = hpH; hpBg.ellipseHeight = hpH;
+  hpBg.horizontalCenter = 0; hpBg.top = hpY;
   g.addChild(hpBg);
   var pct = Math.max(0, m.hp / m.maxHp);
   var hpFill = new eui.Rect();
-  hpFill.width = Math.max(0, (sz - 4) * pct); hpFill.height = hpH;
-  hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
-  hpFill.x = 2; hpFill.top = sz + 16; hpFill.ellipseWidth = 3;
+  hpFill.width = Math.max(0, hpW * pct); hpFill.height = hpH;
+  hpFill.fillColor = m.isBoss ? 0xe74c3c
+    : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
+  hpFill.ellipseWidth = hpH; hpFill.ellipseHeight = hpH;
+  hpFill.x = (sz - hpW) / 2; hpFill.top = hpY;
   g.addChild(hpFill);
 
-  // 血量文字
+  // --- 血量文字 ---
   var hpText = new eui.Label();
   hpText.text = Math.max(0, Math.floor(m.hp)) + '/' + m.maxHp;
-  hpText.size = 9; hpText.textColor = 0xaaaaaa;
-  hpText.horizontalCenter = 0; hpText.top = sz + 16 + hpH + 2;
+  hpText.size = 9; hpText.textColor = 0xcccccc;
+  hpText.horizontalCenter = 0; hpText.top = hpY + hpH + 2;
   g.addChild(hpText);
 
   return g;
+};
+
+/**
+ * 所有怪物形状在此统一绘制。
+ * 通用约定：
+ *   - 先 lineStyle 设描边，beginFill 填充主色；复杂形状可多次 begin/end
+ *   - 最后统一画眼睛（白底黑瞳 + 白色高光点）让所有怪物视觉风格一致
+ * sz     = 怪物整体外接正方形边长（小怪 56，BOSS 76）
+ * isBoss = BOSS 会画得更威严（加角、加獠牙等）
+ */
+Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
+  var half = sz / 2;
+  var c = mType.color;
+  var ol = mType.outline;
+
+  switch (mType.shape) {
+    case 'slime':
+      // 半球形史莱姆，底部扁平，头顶高光
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.moveTo(half - half * 0.85, half + half * 0.55);
+      g.curveTo(half - half * 0.95, half - half * 0.4, half, half - half * 0.7);
+      g.curveTo(half + half * 0.95, half - half * 0.4, half + half * 0.85, half + half * 0.55);
+      g.lineTo(half - half * 0.85, half + half * 0.55);
+      g.endFill();
+      // 头顶高光
+      g.lineStyle(0);
+      g.beginFill(0xffffff, 0.5);
+      g.drawEllipse(half - 10, half - half * 0.5, 12, 5);
+      g.endFill();
+      // 眼睛（偏上）
+      this._drawEyes(g, half - 7, half - 4, half + 7, half - 4, 3, 1.5);
+      // 嘴（小弯线）
+      g.lineStyle(1.5, ol);
+      g.moveTo(half - 4, half + 6);
+      g.curveTo(half, half + 9, half + 4, half + 6);
+      break;
+
+    case 'rabbit':
+      // 兔子：两只长耳朵 + 圆脸 + 三瓣嘴
+      g.lineStyle(2, ol);
+      // 左耳
+      g.beginFill(c);
+      g.drawEllipse(half - 14, half - half * 0.95, 7, 22);
+      g.endFill();
+      g.beginFill(0xff9cc4);
+      g.drawEllipse(half - 12, half - half * 0.85, 4, 16);
+      g.endFill();
+      // 右耳
+      g.beginFill(c);
+      g.drawEllipse(half + 7, half - half * 0.95, 7, 22);
+      g.endFill();
+      g.beginFill(0xff9cc4);
+      g.drawEllipse(half + 9, half - half * 0.85, 4, 16);
+      g.endFill();
+      // 头
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, half - 4);
+      g.endFill();
+      // 眼睛
+      this._drawEyes(g, half - 7, half - 2, half + 7, half - 2, 3, 1.5);
+      // 粉色鼻子
+      g.lineStyle(0);
+      g.beginFill(0xe91e63);
+      g.drawCircle(half, half + 5, 2);
+      g.endFill();
+      // 三瓣嘴
+      g.lineStyle(1.5, ol);
+      g.moveTo(half, half + 7);
+      g.lineTo(half, half + 10);
+      g.moveTo(half, half + 10);
+      g.lineTo(half - 3, half + 12);
+      g.moveTo(half, half + 10);
+      g.lineTo(half + 3, half + 12);
+      break;
+
+    case 'bat':
+      // 蝙蝠：大翅膀 + 圆身 + 小尖耳
+      g.lineStyle(2, ol);
+      // 左翅（两段式）
+      g.beginFill(c);
+      g.moveTo(half - 4, half);
+      g.lineTo(half - half * 0.95, half - 8);
+      g.lineTo(half - half * 0.75, half - 2);
+      g.lineTo(half - half * 0.9, half + 6);
+      g.lineTo(half - half * 0.55, half + 2);
+      g.lineTo(half - 4, half + 6);
+      g.lineTo(half - 4, half);
+      g.endFill();
+      // 右翅
+      g.beginFill(c);
+      g.moveTo(half + 4, half);
+      g.lineTo(half + half * 0.95, half - 8);
+      g.lineTo(half + half * 0.75, half - 2);
+      g.lineTo(half + half * 0.9, half + 6);
+      g.lineTo(half + half * 0.55, half + 2);
+      g.lineTo(half + 4, half + 6);
+      g.lineTo(half + 4, half);
+      g.endFill();
+      // 身体
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, 10);
+      g.endFill();
+      // 尖耳
+      g.beginFill(c);
+      g.moveTo(half - 8, half - 8);
+      g.lineTo(half - 5, half - 14);
+      g.lineTo(half - 3, half - 7);
+      g.moveTo(half + 3, half - 7);
+      g.lineTo(half + 5, half - 14);
+      g.lineTo(half + 8, half - 8);
+      g.endFill();
+      // 红眼
+      g.lineStyle(0);
+      g.beginFill(0xff3030);
+      g.drawCircle(half - 4, half, 2);
+      g.drawCircle(half + 4, half, 2);
+      g.endFill();
+      // 獠牙
+      g.beginFill(0xffffff);
+      g.moveTo(half - 3, half + 6);
+      g.lineTo(half - 2, half + 10);
+      g.lineTo(half - 1, half + 6);
+      g.moveTo(half + 1, half + 6);
+      g.lineTo(half + 2, half + 10);
+      g.lineTo(half + 3, half + 6);
+      g.endFill();
+      break;
+
+    case 'spike':
+      // 刺球：圆身 + 向外放射的三角刺
+      var spikes = 10, outerR = half - 1, innerR = half - 10;
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.moveTo(half + innerR, half);
+      for (var i = 0; i < spikes; i++) {
+        var a1 = ((i + 0.5) / spikes) * Math.PI * 2;
+        var a2 = ((i + 1) / spikes) * Math.PI * 2;
+        g.lineTo(half + outerR * Math.cos(a1), half + outerR * Math.sin(a1));
+        g.lineTo(half + innerR * Math.cos(a2), half + innerR * Math.sin(a2));
+      }
+      g.endFill();
+      // 眼睛
+      this._drawEyes(g, half - 5, half - 2, half + 5, half - 2, 2.5, 1.2);
+      // 怒眉（斜线）
+      g.lineStyle(2, ol);
+      g.moveTo(half - 10, half - 8);
+      g.lineTo(half - 4, half - 6);
+      g.moveTo(half + 4, half - 6);
+      g.lineTo(half + 10, half - 8);
+      break;
+
+    case 'ghost':
+      // 幽灵：圆头 + 波浪下摆 + 空洞眼睛
+      g.lineStyle(2, ol);
+      g.beginFill(c, 0.9);
+      // 从左下开始顺时针画圆顶 + 波浪下摆
+      g.moveTo(half - half * 0.75, half + half * 0.7);
+      g.lineTo(half - half * 0.75, half - 4);
+      g.curveTo(half - half * 0.75, half - half * 0.85, half, half - half * 0.85);
+      g.curveTo(half + half * 0.75, half - half * 0.85, half + half * 0.75, half - 4);
+      g.lineTo(half + half * 0.75, half + half * 0.7);
+      // 三个波浪齿
+      g.lineTo(half + half * 0.45, half + half * 0.5);
+      g.lineTo(half + half * 0.2, half + half * 0.7);
+      g.lineTo(half - half * 0.1, half + half * 0.5);
+      g.lineTo(half - half * 0.35, half + half * 0.7);
+      g.lineTo(half - half * 0.6, half + half * 0.5);
+      g.lineTo(half - half * 0.75, half + half * 0.7);
+      g.endFill();
+      // 空洞眼睛（黑色椭圆）
+      g.lineStyle(0);
+      g.beginFill(ol);
+      g.drawEllipse(half - 10, half - 8, 6, 9);
+      g.drawEllipse(half + 4, half - 8, 6, 9);
+      g.endFill();
+      // 小圆嘴
+      g.beginFill(ol);
+      g.drawCircle(half, half + 4, 3);
+      g.endFill();
+      break;
+
+    case 'skull':
+      // 骷髅：圆颅 + 黑眼洞 + 牙齿栏栅
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half - 4, half - 4);
+      g.endFill();
+      // 下巴突出
+      g.beginFill(c);
+      g.drawRoundRect(half - 10, half + 6, 20, 12, 6, 6);
+      g.endFill();
+      // 眼洞（大黑圆）
+      g.lineStyle(0);
+      g.beginFill(ol);
+      g.drawCircle(half - 7, half - 4, 5);
+      g.drawCircle(half + 7, half - 4, 5);
+      g.endFill();
+      // 眼洞内红色邪光
+      g.beginFill(0xff3333, 0.9);
+      g.drawCircle(half - 7, half - 4, 1.8);
+      g.drawCircle(half + 7, half - 4, 1.8);
+      g.endFill();
+      // 鼻洞
+      g.beginFill(ol);
+      g.moveTo(half, half + 1);
+      g.lineTo(half - 2, half + 5);
+      g.lineTo(half + 2, half + 5);
+      g.endFill();
+      // 牙齿（小矩形）
+      g.beginFill(c);
+      g.lineStyle(1, ol);
+      g.drawRect(half - 8, half + 10, 3, 5);
+      g.drawRect(half - 4, half + 10, 3, 5);
+      g.drawRect(half,    half + 10, 3, 5);
+      g.drawRect(half + 4, half + 10, 3, 5);
+      g.endFill();
+      break;
+
+    case 'dragon':
+      // 火龙 BOSS：带角 + 龙脸 + 獠牙 + 火焰背景
+      // 火焰光晕
+      g.lineStyle(0);
+      g.beginFill(0xff6b1a, 0.3);
+      g.drawCircle(half, half, half + 4);
+      g.endFill();
+      g.beginFill(0xffb347, 0.5);
+      g.drawCircle(half, half, half - 1);
+      g.endFill();
+      // 头部
+      g.lineStyle(2.5, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, half - 6);
+      g.endFill();
+      // 吻部（椭圆向下突出）
+      g.beginFill(c);
+      g.drawEllipse(half - 10, half + 6, 20, 14);
+      g.endFill();
+      // 左右龙角（深色三角）
+      g.beginFill(ol);
+      g.moveTo(half - 12, half - half * 0.5);
+      g.lineTo(half - 18, half - half * 0.95);
+      g.lineTo(half - 8, half - half * 0.65);
+      g.moveTo(half + 8, half - half * 0.65);
+      g.lineTo(half + 18, half - half * 0.95);
+      g.lineTo(half + 12, half - half * 0.5);
+      g.endFill();
+      // 眼睛（黄底黑瞳）
+      g.lineStyle(1.5, ol);
+      g.beginFill(0xfff59d);
+      g.drawCircle(half - 8, half - 2, 5);
+      g.drawCircle(half + 8, half - 2, 5);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0x000000);
+      g.drawEllipse(half - 10, half - 5, 3, 7);
+      g.drawEllipse(half + 7, half - 5, 3, 7);
+      g.endFill();
+      // 鼻孔
+      g.beginFill(ol);
+      g.drawCircle(half - 4, half + 10, 1.5);
+      g.drawCircle(half + 4, half + 10, 1.5);
+      g.endFill();
+      // 獠牙
+      g.beginFill(0xffffff);
+      g.lineStyle(1, ol);
+      g.moveTo(half - 5, half + 15);
+      g.lineTo(half - 4, half + 22);
+      g.lineTo(half - 2, half + 15);
+      g.moveTo(half + 2, half + 15);
+      g.lineTo(half + 4, half + 22);
+      g.lineTo(half + 5, half + 15);
+      g.endFill();
+      break;
+
+    case 'shadow':
+      // 暗影：模糊黑影 + 悬浮 + 红眼
+      // 外层模糊（多层半透明扩散）
+      g.lineStyle(0);
+      g.beginFill(c, 0.25);
+      g.drawCircle(half, half, half + 2);
+      g.endFill();
+      g.beginFill(c, 0.5);
+      g.drawCircle(half, half, half - 2);
+      g.endFill();
+      // 实心主体（形状不规则）
+      g.lineStyle(1.5, ol);
+      g.beginFill(c);
+      g.moveTo(half - half * 0.7, half);
+      g.curveTo(half - half * 0.6, half - half * 0.85, half, half - half * 0.75);
+      g.curveTo(half + half * 0.6, half - half * 0.85, half + half * 0.7, half);
+      g.curveTo(half + half * 0.8, half + half * 0.5, half + half * 0.3, half + half * 0.75);
+      g.curveTo(half, half + half * 0.9, half - half * 0.3, half + half * 0.75);
+      g.curveTo(half - half * 0.8, half + half * 0.5, half - half * 0.7, half);
+      g.endFill();
+      // 发光红眼（带外圈光晕）
+      g.lineStyle(0);
+      g.beginFill(0xff3030, 0.35);
+      g.drawCircle(half - 7, half - 4, 5);
+      g.drawCircle(half + 7, half - 4, 5);
+      g.endFill();
+      g.beginFill(0xff0000);
+      g.drawCircle(half - 7, half - 4, 2.5);
+      g.drawCircle(half + 7, half - 4, 2.5);
+      g.endFill();
+      g.beginFill(0xffffff);
+      g.drawCircle(half - 7, half - 5, 0.8);
+      g.drawCircle(half + 7, half - 5, 0.8);
+      g.endFill();
+      break;
+
+    default:
+      // fallback：圆球 + 眼睛
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half, half - 2);
+      g.endFill();
+      this._drawEyes(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
+  }
+};
+
+/**
+ * 统一绘制一对眼睛（白底 + 黑瞳 + 高光）。所有怪物都用同一风格。
+ * x1/y1/x2/y2 为左右眼中心点，r 为眼白半径，pr 为瞳孔半径。
+ */
+Game.prototype._drawEyes = function(g, x1, y1, x2, y2, r, pr) {
+  g.lineStyle(0);
+  // 眼白
+  g.beginFill(0xffffff);
+  g.drawCircle(x1, y1, r);
+  g.drawCircle(x2, y2, r);
+  g.endFill();
+  // 瞳孔（稍微偏下让表情更可爱）
+  g.beginFill(0x000000);
+  g.drawCircle(x1, y1 + 0.5, pr);
+  g.drawCircle(x2, y2 + 0.5, pr);
+  g.endFill();
+  // 高光（左上角）
+  g.beginFill(0xffffff);
+  g.drawCircle(x1 - pr * 0.5, y1 - pr * 0.5, pr * 0.5);
+  g.drawCircle(x2 - pr * 0.5, y2 - pr * 0.5, pr * 0.5);
+  g.endFill();
 };
 
 Game.prototype.updateSkillBtns = function() {
