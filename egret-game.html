@@ -1,19 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <!-- viewport-fit=cover 让刘海屏区域也能被画布占据，配合 safe-area-inset 处理安全区 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>吃饭睡觉打豆豆 - Egret版</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { background: #1a1a2e; height: 100%; overflow: hidden; display: flex; justify-content: center; }
-    #status { color: #0f0; position: fixed; top: 10px; left: 10px; font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; white-space: pre-line; max-width: 90%; }
+    html, body {
+      background: #1a1a2e;
+      width: 100%;
+      /* dvh 是动态视口高度；iOS Safari 地址栏收起/展开时不会留黑边，vh 作为兜底 */
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      overscroll-behavior: none;
+    }
+    body {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* 刘海屏 / Home Indicator 安全区 */
+      padding-top: env(safe-area-inset-top);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+    }
+    #game-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    /*
+     * 在较宽的横屏设备（桌面浏览器 / 平板横屏）上强制保持 9:16 竖屏比例，
+     * 避免画布被拉到很宽很丑。手机竖屏时不触发，保持真正全屏。
+     */
+    @media (min-aspect-ratio: 3/4) and (min-width: 600px) {
+      #game-container {
+        width: auto;
+        height: 100%;
+        aspect-ratio: 9 / 16;
+        max-width: 500px;
+      }
+    }
+    #status {
+      color: #0f0; position: fixed; top: max(10px, env(safe-area-inset-top)); left: 10px;
+      font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7);
+      padding: 4px 8px; border-radius: 4px; white-space: pre-line; max-width: 90%;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
   <div id="status">加载引擎中...</div>
+  <div id="game-container"></div>
   <script>
     var statusEl = document.getElementById('status');
+    var container = document.getElementById('game-container');
     var scripts = [
       'lib/egret/egret.min.js',
       'lib/egret/egret.web.min.js',
@@ -24,43 +76,71 @@
       'game.js'
     ];
 
+    // 逻辑宽度固定 375（fixedWidth 缩放模式）
+    var LOGICAL_W = 375;
+    var player = null;
+
+    /**
+     * 根据容器当前实际尺寸，计算 Egret 舞台的逻辑内容高度。
+     * fixedWidth 模式下，stageWidth = contentWidth = 375，stageHeight 由容器纵横比决定。
+     */
+    function computeContentHeight() {
+      var rect = container.getBoundingClientRect();
+      var w = rect.width || window.innerWidth || 1;
+      var h = rect.height || window.innerHeight || 1;
+      return Math.max(1, Math.floor(h * LOGICAL_W / w));
+    }
+
+    /**
+     * 视口变化（旋转、地址栏伸缩）时重新计算舞台尺寸。
+     * 调 setContentSize 会触发 Stage 的 RESIZE 事件，游戏内部据此回调布局。
+     */
+    function handleResize() {
+      if (!player) return;
+      try {
+        player.setContentSize(LOGICAL_W, computeContentHeight());
+      } catch (e) { /* 忽略，下次 resize 会再尝试 */ }
+    }
+
     function loadScript(idx) {
       if (idx >= scripts.length) {
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
         try {
-          // 第一步：runEgret 初始化引擎全局状态（RenderBuffer 等必须在这里设置）
-          // 没有 .egret-player 元素，不会创建多余实例
           egret.runEgret({ renderMode: 'canvas' });
 
-          // 第二步：手动创建容器和 WebPlayer
-          var cw = Math.min(window.innerWidth, 500);
-          var ch = window.innerHeight;
-          var scale = cw / 375;
-          var gameH = Math.floor(ch / scale);
-
-          var container = document.createElement('div');
-          container.style.width = cw + 'px';
-          container.style.height = ch + 'px';
-          container.style.margin = '0 auto';
-          document.body.appendChild(container);
-
-          var player = new egret.web.WebPlayer(container, {
+          player = new egret.web.WebPlayer(container, {
             entryClassName: 'Main',
             scaleMode: 'fixedWidth',
             frameRate: 60,
-            contentWidth: 375,
-            contentHeight: gameH,
+            contentWidth: LOGICAL_W,
+            contentHeight: computeContentHeight(),
+            // 不强制方向：由 CSS 容器撑满实际视口，避免双重旋转
+            orientation: 'auto',
             renderMode: 'canvas'
           });
 
-          // 第三步：手动实例化 Main 并加入舞台
           var main = new window.Main();
           player.stage.addChild(main);
+
+          // 防抖，避免 iOS 地址栏抖动时频繁触发
+          var resizeTimer = null;
+          function debouncedResize() {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() { resizeTimer = null; handleResize(); }, 120);
+          }
+          window.addEventListener('resize', debouncedResize);
+          window.addEventListener('orientationchange', function() {
+            // iOS 旋转后要等一点时间让 innerWidth/Height 更新
+            setTimeout(handleResize, 300);
+          });
+          if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', debouncedResize);
+          }
 
           statusEl.textContent += '\n启动成功!';
           setTimeout(function() { statusEl.style.display = 'none'; }, 1500);
         } catch(e) {
-          statusEl.textContent += '\n❌ ' + e.message;
+          statusEl.textContent += '\n[ERR] ' + e.message;
         }
         return;
       }
@@ -68,11 +148,11 @@
       s.src = scripts[idx];
       s.onload = function() {
         var name = scripts[idx].split('/').pop();
-        statusEl.textContent = (idx+1) + '/' + scripts.length + ' ✓ ' + name;
+        statusEl.textContent = (idx+1) + '/' + scripts.length + ' OK ' + name;
         loadScript(idx + 1);
       };
       s.onerror = function() {
-        statusEl.textContent += '\n❌ 加载失败: ' + scripts[idx];
+        statusEl.textContent += '\n[ERR] 加载失败: ' + scripts[idx];
       };
       document.head.appendChild(s);
     }

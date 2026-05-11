@@ -1,0 +1,70 @@
+name: Deploy to GitHub Pages
+
+# 预览部署：任何分支推到仓库都会生成一次 artifact；
+# 但只有 master 与 fix/* 分支会真正发布到 Pages（Pages 仅一个 live 环境）。
+# 默认落到 Pages 的是最后成功的那次 deploy。
+
+on:
+  push:
+    branches:
+      - master
+      - 'fix/**'
+      - 'feat/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          # 把所有静态资源复制到 _site，作为站点根。
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='_site' \
+            --exclude='node_modules' \
+            --exclude='README.md' \
+            --exclude='SPEC.md' \
+            --exclude='package.json' \
+            ./ _site/
+          # 生产入口：egret-game.html → 作为 Pages 首页（index.html 被覆盖）
+          # 原 index.html（纯 DOM 备份版）迁至 /native.html，仍可访问
+          if [ -f _site/index.html ]; then
+            mv _site/index.html _site/native.html
+          fi
+          if [ -f _site/egret-game.html ]; then
+            cp _site/egret-game.html _site/index.html
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

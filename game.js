@@ -174,6 +174,12 @@ function Game(main) {
   this.checkOfflineReward();
   var self = this;
   setTimeout(function() { self.checkDailyCheckin(); }, 1200);
+
+  // 监听舞台尺寸变化（设备旋转 / 地址栏伸缩 / 窗口拖拽）
+  // fixedWidth 模式下宽度恒为 375，主要需要让全屏覆盖层跟随新高度
+  if (this.main.stage) {
+    this.main.stage.addEventListener(egret.Event.RESIZE, this.onStageResize, this);
+  }
 }
 
 // ==================== 工具方法 ====================
@@ -425,7 +431,8 @@ Game.prototype.supportAttackAnim = function(supportIdx, targetIdx, dmg) {
 // ==================== UI 构建 ====================
 
 Game.prototype.buildUI = function() {
-  var stageW = 375;
+  // fixedWidth 模式下 stageWidth 固定为 contentWidth（375），但优先读取真实值以适配未来调整
+  var stageW = (this.main.stage && this.main.stage.stageWidth) ? this.main.stage.stageWidth : 375;
   var self = this;
 
   // 主容器用 VerticalLayout，固定高度确保子元素正确分配
@@ -1470,9 +1477,14 @@ Game.prototype.createPanelOverlay = function() {
     this._panelOverlay.parent.removeChild(this._panelOverlay);
   }
   var overlay = new eui.Group();
-  // 用显式尺寸 + 加到 stage 上，避免被 main 的 VerticalLayout 影响
-  overlay.width = 375;
-  overlay.height = this.main.stage ? this.main.stage.stageHeight : 667;
+  // 铺满整个舞台（包括动态调整后的尺寸），避免旋转 / 地址栏伸缩后出现裸露区域
+  if (this.main.stage) {
+    overlay.width = this.main.stage.stageWidth;
+    overlay.height = this.main.stage.stageHeight;
+  } else {
+    overlay.width = 375;
+    overlay.height = 667;
+  }
   overlay.x = 0; overlay.y = 0;
   overlay.touchEnabled = true;
   var dim = new eui.Rect();
@@ -1494,6 +1506,18 @@ Game.prototype.closePanel = function() {
     this._panelOverlay.parent.removeChild(this._panelOverlay);
   }
   this._panelOverlay = null;
+};
+
+// 舞台尺寸变化时同步内部缓存 + 已开面板的覆盖层尺寸
+Game.prototype.onStageResize = function() {
+  var stage = this.main && this.main.stage;
+  if (!stage) return;
+  this._stageW = stage.stageWidth;
+  // 仅更新当前活跃的全屏遮罩尺寸，避免 UI 主体因状态问题全量重建
+  if (this._panelOverlay) {
+    this._panelOverlay.width = stage.stageWidth;
+    this._panelOverlay.height = stage.stageHeight;
+  }
 };
 
 Game.prototype.addPanelContent = function(overlay) {
