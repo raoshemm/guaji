@@ -126,6 +126,7 @@
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
         try {
           egret.runEgret({ renderMode: 'canvas' });
+
           player = new egret.web.WebPlayer(container, {
             entryClassName: 'Main',
             scaleMode: 'fixedWidth',
@@ -135,6 +136,9 @@
             orientation: 'auto',
             renderMode: 'canvas'
           });
+
+          var main = new window.Main();
+          player.stage.addChild(main);
 
           // 防抖，避免 iOS 地址栏抖动时频繁触发
           var resizeTimer = null;
