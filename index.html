@@ -27,6 +27,9 @@
     body {
       position: fixed;
       inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       /* 刘海屏 / Home Indicator 安全区，非全屏浏览器里为 0 */
       padding-top: env(safe-area-inset-top);
       padding-right: env(safe-area-inset-right);
@@ -39,6 +42,17 @@
       display: flex;
       flex-direction: column;
       position: relative;
+    }
+    /* PC / 桌面鼠标设备：手机竖屏尺寸画布居中 */
+    @media (hover: hover) and (pointer: fine) and (min-width: 600px) {
+      #game-root {
+        width: auto;
+        height: min(880px, 100vh);
+        aspect-ratio: 9 / 16;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        overflow: hidden;
+      }
     }
     .bar { background: #1a1a2e; padding: 10px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #0f3460; flex-shrink: 0; }
     .avatar { width: 36px; height: 36px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }

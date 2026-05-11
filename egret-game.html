@@ -11,13 +11,20 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     /*
-     * 自适应策略：容器始终等于浏览器实际视口 —— 100vw × 100dvh。
-     * 不加任何 max-width / aspect-ratio 之类的尺寸锁，否则任意屏幕比例都会失真。
-     * Egret 的 fixedWidth 模式保证逻辑宽恒为 375，stageHeight 由实际容器比例动态算出，
-     * game.js 的战斗区高度 = stageH - 顶/中/底栏，天然对不同长宽比的手机/浏览器自适应。
-     * - 100dvh：动态视口高，解决 iOS 地址栏收起/展开时底部留黑边问题
-     * - 100vh：老浏览器兜底
-     * - env(safe-area-inset-*)：PWA 全屏 / 刘海屏时生效，普通浏览器里是 0，不影响桌面
+     * 响应式策略（双模式）：
+     *
+     * 1) 移动端 / 触屏窄屏：容器 = 整个视口（100vw × 100dvh），全屏沉浸体验
+     * 2) PC / 桌面带鼠标设备：容器 = 居中的手机竖屏画布，两侧留深色背景
+     *
+     * Egret 的 fixedWidth 模式下，逻辑宽恒为 375，stageHeight 由容器实际比例算出。
+     * 不限制容器尺寸 → PC 上 stageHeight 会被拉扁到 200 左右，UI 全压一起（上次的问题）
+     * 所以 PC 必须限制容器为手机比例，保证 stageHeight 落在 ~667 这种正常范围内。
+     *
+     * 检测"PC/桌面"的条件：
+     *   - (hover: hover) and (pointer: fine)：鼠标设备（排除触屏）
+     *   - (min-width: 600px)：视口够宽（排除缩到很窄的桌面窗口）
+     * 两个条件 AND —— iPad 竖屏是触屏 → 不匹配 → 走手机模式
+     *                  桌面把窗口缩到手机宽度 → 不匹配 → 走手机模式
      */
     html, body {
       background: #1a1a2e;
@@ -34,16 +41,36 @@
     body {
       position: fixed;
       inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* 安全区：PWA 全屏 / 刘海屏时生效，普通桌面浏览器里是 0 */
       padding-top: env(safe-area-inset-top);
       padding-right: env(safe-area-inset-right);
       padding-bottom: env(safe-area-inset-bottom);
       padding-left: env(safe-area-inset-left);
     }
+
+    /* 默认（移动端）：容器 = 视口全屏 */
     #game-container {
       width: 100%;
       height: 100%;
       position: relative;
     }
+
+    /* PC / 桌面鼠标设备：容器 = 居中的手机竖屏画布，两侧留背景 */
+    @media (hover: hover) and (pointer: fine) and (min-width: 600px) {
+      #game-container {
+        /* 高度吃满窗口但不超过 880px；宽度按 9:16 自动算（≈ 495px 时高 880） */
+        width: auto;
+        height: min(880px, 100vh);
+        aspect-ratio: 9 / 16;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+    }
+
     #status {
       color: #0f0; position: fixed; top: max(10px, env(safe-area-inset-top)); left: 10px;
       font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7);
