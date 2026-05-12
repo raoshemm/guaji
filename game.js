@@ -1080,14 +1080,14 @@ Game.prototype.buildUI = function() {
   // =========================================================
   // 战斗区布局分区（375px 宽）
   //
-  //   顶部功能条  y:0~28   满宽横排6个图标按钮（签到/每日/邮件/公告/磨转/能量）
-  //   左辅助列   x:0~44   上下4个精灵（单列，每格 BATTLE_H*0.5/4 高）
-  //   中央区     x:44~331 宽287（怪物 + 主角）
-  //     右上角   BOSS按钮 + 图签按钮（中央区内右上）
-  //   右辅助列   x:331~375 上下4个精灵（单列）
+  //   第一行(y:0~30)   满宽横排6个图标按钮（签到/每日/邮件/公告/磨转/能量）
+  //   第二行(y:30~60)  满宽横排：BOSS挑战 + 图签（各占一半，居中）
+  //   左辅助列  x:0~52   上下4个精灵（单列，scale=0.7放大）
+  //   中央区    x:52~323 宽271（怪物 + 主角）
+  //   右辅助列  x:323~375 上下4个精灵
   // =========================================================
 
-  // ① 顶部功能横排（6个图标按钮，满宽均分）
+  // ① 第一行：功能横排（6个图标按钮）
   var TOP_BTN_H = 30;
   var topBtnDefs = [
     { icon: '📅', text: '签到', fn: function() { self.openCheckin(); } },
@@ -1127,61 +1127,29 @@ Game.prototype.buildUI = function() {
     this.battleGroup.addChild(tbg);
   }
 
-  // ② 左侧辅助角色：单列4个，上下均分（占战斗区上半段）
-  var SUP_COL_W = 44;
-  var SUP_AREA_Y = TOP_BTN_H + 4;
-  var SUP_AREA_H = Math.floor(BATTLE_H * 0.82);
-  var SUP_SLOT_H = Math.floor(SUP_AREA_H / 4);
-  var leftSup = new eui.Group();
-  leftSup.x = 0; leftSup.y = SUP_AREA_Y;
-  for (var i = 0; i < 4; i++) {
-    var sc = this.createSupportView(i, 0);
-    sc.x = Math.floor((SUP_COL_W - 22) / 2);
-    sc.y = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50) / 2);
-    leftSup.addChild(sc);
-  }
-  this.leftSupGroup = leftSup;
-  this.battleGroup.addChild(leftSup);
-
-  // ③ 右侧辅助角色：单列4个，上下均分
-  var rightSup = new eui.Group();
-  rightSup.x = stageW - SUP_COL_W; rightSup.y = SUP_AREA_Y;
-  for (var i = 4; i < 8; i++) {
-    var sc = this.createSupportView(i, 0);
-    sc.x = Math.floor((SUP_COL_W - 22) / 2);
-    sc.y = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50) / 2);
-    rightSup.addChild(sc);
-  }
-  this.rightSupGroup = rightSup;
-  this.battleGroup.addChild(rightSup);
-
-  // ④ 中央区：BOSS按钮 + 图签按钮（右上角，紧贴右辅助列左边）
-  var CENTER_X = SUP_COL_W;           // 44
-  var CENTER_W = stageW - SUP_COL_W * 2; // 287
-  this._centerX = CENTER_X;
-  this._centerW = CENTER_W;
-
-  // BOSS按钮（中央区右上，带骷髅图标）
-  var BOSS_BTN_W = 58, BOSS_BTN_H = 28;
+  // ② 第二行：BOSS挑战 + 图签（各占一半，横排居中）
+  var ROW2_Y = TOP_BTN_H + 2;
+  var ROW2_H = 28;
+  var ROW2_BTN_W = Math.floor(stageW / 2) - 4;
+  // BOSS按钮（左半）
   var bossBtnGroup = new eui.Group();
-  bossBtnGroup.width = BOSS_BTN_W; bossBtnGroup.height = BOSS_BTN_H;
-  bossBtnGroup.x = CENTER_X + CENTER_W - BOSS_BTN_W - 2;
-  bossBtnGroup.y = TOP_BTN_H + 4;
+  bossBtnGroup.width = ROW2_BTN_W; bossBtnGroup.height = ROW2_H;
+  bossBtnGroup.x = 2; bossBtnGroup.y = ROW2_Y;
   bossBtnGroup.touchEnabled = true;
   this._bossBtnBg = new eui.Rect();
-  this._bossBtnBg.width = BOSS_BTN_W; this._bossBtnBg.height = BOSS_BTN_H;
+  this._bossBtnBg.width = ROW2_BTN_W; this._bossBtnBg.height = ROW2_H;
   this._bossBtnBg.ellipseWidth = 8; this._bossBtnBg.ellipseHeight = 8;
   this._bossBtnBg.fillColor = 0x7a1520;
   this._bossBtnBg.strokeColor = 0xff4444; this._bossBtnBg.strokeWeight = 1.2; this._bossBtnBg.strokeAlpha = 0.8;
   bossBtnGroup.addChild(this._bossBtnBg);
   var bossIconLb = new eui.Label();
-  bossIconLb.text = '💀'; bossIconLb.size = 13;
-  bossIconLb.x = 4; bossIconLb.y = 7;
+  bossIconLb.text = '💀'; bossIconLb.size = 14;
+  bossIconLb.x = Math.floor(ROW2_BTN_W / 2) - 28; bossIconLb.y = 6;
   bossBtnGroup.addChild(bossIconLb);
   this._bossBtnText = new eui.Label();
-  this._bossBtnText.text = 'BOSS'; this._bossBtnText.size = 11;
+  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 11;
   this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
-  this._bossBtnText.x = 20; this._bossBtnText.y = 8;
+  this._bossBtnText.x = Math.floor(ROW2_BTN_W / 2) - 12; this._bossBtnText.y = 8;
   bossBtnGroup.addChild(this._bossBtnText);
   bossBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
     self.challengeBoss();
@@ -1190,35 +1158,71 @@ Game.prototype.buildUI = function() {
   this._bossBtnGroup = bossBtnGroup;
   this.updateBossBtn();
 
-  // 图签按钮（BOSS按钮正下方，带书本图标）
+  // 图签按钮（右半）
   var codexBtnGroup = new eui.Group();
-  codexBtnGroup.width = BOSS_BTN_W; codexBtnGroup.height = 24;
-  codexBtnGroup.x = CENTER_X + CENTER_W - BOSS_BTN_W - 2;
-  codexBtnGroup.y = TOP_BTN_H + 4 + BOSS_BTN_H + 4;
+  codexBtnGroup.width = ROW2_BTN_W; codexBtnGroup.height = ROW2_H;
+  codexBtnGroup.x = stageW / 2 + 2; codexBtnGroup.y = ROW2_Y;
   codexBtnGroup.touchEnabled = true;
   var codexBtnBg = new eui.Rect();
-  codexBtnBg.width = BOSS_BTN_W; codexBtnBg.height = 24;
+  codexBtnBg.width = ROW2_BTN_W; codexBtnBg.height = ROW2_H;
   codexBtnBg.ellipseWidth = 8; codexBtnBg.ellipseHeight = 8;
   codexBtnBg.fillColor = 0x1a4d35;
   codexBtnBg.strokeColor = 0x4ade80; codexBtnBg.strokeWeight = 1; codexBtnBg.strokeAlpha = 0.7;
   codexBtnGroup.addChild(codexBtnBg);
   var codexIconLb = new eui.Label();
-  codexIconLb.text = '📖'; codexIconLb.size = 12;
-  codexIconLb.x = 4; codexIconLb.y = 5;
+  codexIconLb.text = '📖'; codexIconLb.size = 14;
+  codexIconLb.x = Math.floor(ROW2_BTN_W / 2) - 28; codexIconLb.y = 6;
   codexBtnGroup.addChild(codexIconLb);
   var codexBtnText = new eui.Label();
-  codexBtnText.text = '图签'; codexBtnText.size = 11;
+  codexBtnText.text = '怪物图签'; codexBtnText.size = 11;
   codexBtnText.textColor = 0xffffff; codexBtnText.bold = true;
-  codexBtnText.x = 22; codexBtnText.y = 6;
+  codexBtnText.x = Math.floor(ROW2_BTN_W / 2) - 12; codexBtnText.y = 8;
   codexBtnGroup.addChild(codexBtnText);
   codexBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
     self.openMonsterCodex();
   }, this);
   this.battleGroup.addChild(codexBtnGroup);
 
+  // ③ 左侧辅助角色：单列4个，上下均分，scale=0.7放大
+  var SUP_COL_W = 52;
+  var SUP_AREA_Y = TOP_BTN_H + ROW2_H + 6;
+  var SUP_AREA_H = BATTLE_H - SUP_AREA_Y - 44; // 留底部状态条空间
+  var SUP_SLOT_H = Math.floor(SUP_AREA_H / 4);
+  var SUP_SCALE = 0.7; // 精灵绘制坐标基于44px，×0.7≈31px实际
+  var leftSup = new eui.Group();
+  leftSup.x = 0; leftSup.y = SUP_AREA_Y;
+  for (var i = 0; i < 4; i++) {
+    var sc = this.createSupportView(i, 0);
+    sc.scaleX = SUP_SCALE; sc.scaleY = SUP_SCALE;
+    sc.x = Math.floor((SUP_COL_W - 22 * SUP_SCALE) / 2);
+    sc.y = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50 * SUP_SCALE) / 2);
+    leftSup.addChild(sc);
+  }
+  this.leftSupGroup = leftSup;
+  this.battleGroup.addChild(leftSup);
+
+  // ④ 右侧辅助角色：单列4个，上下均分
+  var rightSup = new eui.Group();
+  rightSup.x = stageW - SUP_COL_W; rightSup.y = SUP_AREA_Y;
+  for (var i = 4; i < 8; i++) {
+    var sc = this.createSupportView(i, 0);
+    sc.scaleX = SUP_SCALE; sc.scaleY = SUP_SCALE;
+    sc.x = Math.floor((SUP_COL_W - 22 * SUP_SCALE) / 2);
+    sc.y = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50 * SUP_SCALE) / 2);
+    rightSup.addChild(sc);
+  }
+  this.rightSupGroup = rightSup;
+  this.battleGroup.addChild(rightSup);
+
+  // ⑤ 中央区
+  var CENTER_X = SUP_COL_W;               // 52
+  var CENTER_W = stageW - SUP_COL_W * 2;  // 271
+  this._centerX = CENTER_X;
+  this._centerW = CENTER_W;
+
   // --- 怪物区域 ---
-  this._monsterAreaY = TOP_BTN_H + 8;
-  this._monsterAreaH = Math.floor(BATTLE_H * 0.38);
+  this._monsterAreaY = SUP_AREA_Y;
+  this._monsterAreaH = Math.floor(BATTLE_H * 0.36);
 
   // --- 主角（居中，靠下，地面线上方）---
   var heroGroup = new eui.Group();
@@ -1469,12 +1473,15 @@ Game.prototype.buildUI = function() {
   // ===== 技能栏 =====
   var skillBar = new eui.Group();
   skillBar.width = stageW; skillBar.height = SKILL_H;
-  skillBar.layout = new eui.HorizontalLayout();
-  skillBar.layout.horizontalAlign = 'center';
-  skillBar.layout.verticalAlign = 'middle';
-  skillBar.layout.gap = 2;
-  skillBar.layout.paddingLeft = 4;
-  skillBar.layout.paddingRight = 4;
+  var skillLayout = new eui.HorizontalLayout();
+  skillLayout.horizontalAlign = 'center';
+  skillLayout.verticalAlign = 'middle';
+  skillLayout.gap = 2;
+  skillLayout.paddingLeft = 4;
+  skillLayout.paddingRight = 4;
+  skillLayout.paddingTop = Math.floor((SKILL_H - 48) / 2);
+  skillLayout.paddingBottom = Math.floor((SKILL_H - 48) / 2);
+  skillBar.layout = skillLayout;
   var skillBg = new eui.Rect();
   skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = THEME.bgMid;
   skillBar.addChildAt(skillBg, 0);
