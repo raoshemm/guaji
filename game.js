@@ -367,7 +367,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.moveTo(cx - 6, cy - 7); g.lineTo(cx - 7, cy + 7);
       g.moveTo(cx + 6, cy - 7); g.lineTo(cx + 7, cy + 7);
       g.lineStyle(0);
-      this._drawEyes(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
+      drawEyesPair(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
       break;
 
     case 'marshmallow':
@@ -385,7 +385,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.drawCircle(cx - 6, cy + 2, 2);
       g.drawCircle(cx + 6, cy + 2, 2);
       g.endFill();
-      this._drawEyes(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
+      drawEyesPair(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
       g.lineStyle(1.2, 0xb83d6a);
       g.moveTo(cx - 2, cy + 2); g.curveTo(cx, cy + 4, cx + 2, cy + 2);
       break;
@@ -405,7 +405,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.beginFill(0xffd28a, 0.6);
       g.drawEllipse(cx - 4, cy - 2, 5, 2);
       g.endFill();
-      this._drawEyes(g, cx - 3, cy + 1, cx + 3, cy + 1, 2, 1);
+      drawEyesPair(g, cx - 3, cy + 1, cx + 3, cy + 1, 2, 1);
       break;
 
     case 'pudding':
@@ -426,7 +426,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.beginFill(0x5a7d3d);
       g.drawRect(cx - 1, cy - 14, 2, 3);
       g.endFill();
-      this._drawEyes(g, cx - 3, cy + 2, cx + 3, cy + 2, 2, 1);
+      drawEyesPair(g, cx - 3, cy + 2, cx + 3, cy + 2, 2, 1);
       break;
 
     case 'cone':
@@ -450,7 +450,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.beginFill(0xffffff, 0.55);
       g.drawEllipse(cx - 2, cy - 14, 4, 2);
       g.endFill();
-      this._drawEyes(g, cx - 3, cy - 7, cx + 3, cy - 7, 2, 1);
+      drawEyesPair(g, cx - 3, cy - 7, cx + 3, cy - 7, 2, 1);
       break;
 
     case 'mochi':
@@ -465,7 +465,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.beginFill(0xffffff, 0.5);
       g.drawEllipse(cx - 6, cy - 4, 6, 2);
       g.endFill();
-      this._drawEyes(g, cx - 4, cy + 1, cx + 4, cy + 1, 2, 1);
+      drawEyesPair(g, cx - 4, cy + 1, cx + 4, cy + 1, 2, 1);
       g.beginFill(0xff5577, 0.8);
       g.drawCircle(cx, cy + 7, 1.5);
       g.endFill();
@@ -516,7 +516,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.drawCircle(cx - 1, cy - 15, 0.5);
       g.drawCircle(cx + 1, cy - 16, 0.5);
       g.endFill();
-      this._drawEyes(g, cx - 3, cy, cx + 3, cy, 1.8, 0.9);
+      drawEyesPair(g, cx - 3, cy, cx + 3, cy, 1.8, 0.9);
       break;
 
     default:
@@ -524,7 +524,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
       g.beginFill(def.color);
       g.drawCircle(cx, cy, 13);
       g.endFill();
-      this._drawEyes(g, cx - 4, cy - 2, cx + 4, cy - 2, 3, 1.5);
+      drawEyesPair(g, cx - 4, cy - 2, cx + 4, cy - 2, 3, 1.5);
   }
 
   shape.x = 0; shape.y = 0;
@@ -2258,37 +2258,34 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   g.addChild(hpText);
 
   // === 走动动画 ===
-  // 每只怪物有独立的移动范围和速度，形成自然的群体感
-  var moveRange = m.isBoss ? 18 : (10 + idx * 4);  // 不同怪物移动幅度不同
+  var moveRange = m.isBoss ? 18 : (10 + idx * 4);
   var moveDur   = m.isBoss ? 1800 : (900 + idx * 200 + Math.floor(Math.random() * 300));
-  var moveDelay = idx * 180; // 错开启动时间，避免同步
-  // 上下浮动（BOSS更明显）
+  var moveDelay = idx * 180;
   var floatRange = m.isBoss ? 8 : 4;
   var floatDur   = m.isBoss ? 1200 : (800 + idx * 150);
 
-  // 左右走动（循环）
   var startX = g.x;
+  var startY2 = g.y;
+
   function startWalk() {
-    if (!g.parent) return; // 已被移除则停止
+    if (!g.parent) return;
     egret.Tween.get(g, { loop: false })
       .to({ x: startX + moveRange }, moveDur, egret.Ease.sineInOut)
       .to({ x: startX - moveRange }, moveDur * 2, egret.Ease.sineInOut)
       .to({ x: startX }, moveDur, egret.Ease.sineInOut)
       .call(startWalk);
   }
-  // 上下浮动（循环）
-  var startY = g.y;
   function startFloat() {
     if (!g.parent) return;
     egret.Tween.get(g, { loop: false })
-      .to({ y: startY - floatRange }, floatDur, egret.Ease.sineInOut)
-      .to({ y: startY + floatRange }, floatDur * 2, egret.Ease.sineInOut)
-      .to({ y: startY }, floatDur, egret.Ease.sineInOut)
+      .to({ y: startY2 - floatRange }, floatDur, egret.Ease.sineInOut)
+      .to({ y: startY2 + floatRange }, floatDur * 2, egret.Ease.sineInOut)
+      .to({ y: startY2 }, floatDur, egret.Ease.sineInOut)
       .call(startFloat);
   }
-  // 延迟启动，错开各怪物动画
-  egret.setTimeout(startWalk, this, moveDelay);
-  egret.setTimeout(startFloat, this, moveDelay + floatDur / 2);
+
+  setTimeout(startWalk, moveDelay);
+  setTimeout(startFloat, moveDelay + Math.floor(floatDur / 2));
 
   return g;
 };
@@ -2335,7 +2332,7 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.drawEllipse(half - 10, half - half * 0.5, 12, 5);
       g.endFill();
       // 眼睛（偏上）
-      this._drawEyes(g, half - 7, half - 4, half + 7, half - 4, 3, 1.5);
+      drawEyesPair(g, half - 7, half - 4, half + 7, half - 4, 3, 1.5);
       // 嘴（小弯线）
       g.lineStyle(1.5, ol);
       g.moveTo(half - 4, half + 6);
@@ -2364,7 +2361,7 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.drawCircle(half, half + 2, half - 4);
       g.endFill();
       // 眼睛
-      this._drawEyes(g, half - 7, half - 2, half + 7, half - 2, 3, 1.5);
+      drawEyesPair(g, half - 7, half - 2, half + 7, half - 2, 3, 1.5);
       // 粉色鼻子
       g.lineStyle(0);
       g.beginFill(0xe91e63);
@@ -2457,7 +2454,7 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       }
       g.endFill();
       // 眼睛
-      this._drawEyes(g, half - 5, half - 2, half + 5, half - 2, 2.5, 1.2);
+      drawEyesPair(g, half - 5, half - 2, half + 5, half - 2, 2.5, 1.2);
       // 怒眉（斜线）
       g.lineStyle(2, ol);
       g.moveTo(half - 10, half - 8);
@@ -2708,7 +2705,7 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
         g.drawRoundRect(half - half * 0.6, half - half * 0.1, half * 0.5, half * 0.6, 3, 3);
         g.drawRoundRect(half + half * 0.1, half - half * 0.1, half * 0.5, half * 0.6, 3, 3);
         g.endFill();
-        this._drawEyes(g, half - 6, half - half * 0.38, half + 6, half - half * 0.38, 4, 2);
+        drawEyesPair(g, half - 6, half - half * 0.38, half + 6, half - half * 0.38, 4, 2);
         // 眼睛改为冰蓝色
         g.beginFill(0x29b6f6); g.drawCircle(half - 6, half - half * 0.38 + 0.5, 2); g.endFill();
         g.beginFill(0x29b6f6); g.drawCircle(half + 6, half - half * 0.38 + 0.5, 2); g.endFill();
@@ -2831,31 +2828,31 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
         // 通用 fallback
         g.lineStyle(2, ol);
         g.beginFill(c); g.drawCircle(half, half, half - 2); g.endFill();
-        this._drawEyes(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
+        drawEyesPair(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
       }
   }
 
 /**
  * 统一绘制一对眼睛（白底 + 黑瞳 + 高光）。所有怪物都用同一风格。
- * x1/y1/x2/y2 为左右眼中心点，r 为眼白半径，pr 为瞳孔半径。
  */
-Game.prototype._drawEyes = function(g, x1, y1, x2, y2, r, pr) {
+function drawEyesPair(g, x1, y1, x2, y2, r, pr) {
   g.lineStyle(0);
-  // 眼白
   g.beginFill(0xffffff);
   g.drawCircle(x1, y1, r);
   g.drawCircle(x2, y2, r);
   g.endFill();
-  // 瞳孔（稍微偏下让表情更可爱）
   g.beginFill(0x000000);
   g.drawCircle(x1, y1 + 0.5, pr);
   g.drawCircle(x2, y2 + 0.5, pr);
   g.endFill();
-  // 高光（左上角）
   g.beginFill(0xffffff);
   g.drawCircle(x1 - pr * 0.5, y1 - pr * 0.5, pr * 0.5);
   g.drawCircle(x2 - pr * 0.5, y2 - pr * 0.5, pr * 0.5);
   g.endFill();
+}
+
+Game.prototype._drawEyes = function(g, x1, y1, x2, y2, r, pr) {
+  drawEyesPair(g, x1, y1, x2, y2, r, pr);
 };
 
 Game.prototype.updateSkillBtns = function() {
