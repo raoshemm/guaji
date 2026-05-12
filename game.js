@@ -294,51 +294,59 @@ Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
 Game.prototype.createSupportView = function(idx, yPos) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
-  var sc = new eui.Group(); sc.width = 44; sc.height = 52; sc.y = yPos;
+  // 每格 22px 宽，精灵绘制中心在 (11, 16)
+  var sc = new eui.Group(); sc.width = 22; sc.height = 50;
+  if (yPos !== undefined && yPos !== 0) sc.y = yPos;
   var shape = new egret.Shape();
   var g = shape.graphics;
-  var cx = 22, cy = 22;
+  var cx = 11, cy = 16;  // 缩小后的中心点
 
   if (!s.unlocked) {
     // 未解锁：灰色剪影 + 锁
     g.beginFill(0x000000, 0.18);
-    g.drawEllipse(cx - 12, cy + 14, 24, 5);
+    g.drawEllipse(cx - 7, cy + 9, 14, 4);
     g.endFill();
-    g.lineStyle(1.5, 0x3a355a);
+    g.lineStyle(1, 0x3a355a);
     g.beginFill(0x4a4566);
-    g.drawCircle(cx, cy, 13);
+    g.drawCircle(cx, cy, 8);
     g.endFill();
     g.lineStyle(0);
     g.beginFill(0xb8b0db);
-    g.drawRoundRect(cx - 5, cy - 1, 10, 9, 2, 2);
+    g.drawRoundRect(cx - 3, cy - 1, 6, 6, 1, 1);
     g.endFill();
-    g.lineStyle(1.6, 0xb8b0db);
-    g.moveTo(cx - 3, cy - 1); g.lineTo(cx - 3, cy - 4);
-    g.curveTo(cx - 3, cy - 7, cx, cy - 7);
-    g.curveTo(cx + 3, cy - 7, cx + 3, cy - 4);
-    g.lineTo(cx + 3, cy - 1);
+    g.lineStyle(1, 0xb8b0db);
+    g.moveTo(cx - 2, cy - 1); g.lineTo(cx - 2, cy - 3);
+    g.curveTo(cx - 2, cy - 5, cx, cy - 5);
+    g.curveTo(cx + 2, cy - 5, cx + 2, cy - 3);
+    g.lineTo(cx + 2, cy - 1);
     g.lineStyle(0);
     shape.x = 0; shape.y = 0;
     sc.addChild(shape);
 
     var lockNameBg = new eui.Rect();
-    lockNameBg.width = 44; lockNameBg.height = 13;
-    lockNameBg.ellipseWidth = 6; lockNameBg.ellipseHeight = 6;
+    lockNameBg.width = 22; lockNameBg.height = 12;
+    lockNameBg.ellipseWidth = 4; lockNameBg.ellipseHeight = 4;
     lockNameBg.fillColor = THEME.bgMid; lockNameBg.fillAlpha = 0.85;
-    lockNameBg.horizontalCenter = 0; lockNameBg.top = 37;
+    lockNameBg.horizontalCenter = 0; lockNameBg.top = 30;
     sc.addChild(lockNameBg);
     var lockLb = new eui.Label();
-    lockLb.text = '波次' + def.wave; lockLb.size = 8; lockLb.bold = true;
+    lockLb.text = 'W' + def.wave; lockLb.size = 7; lockLb.bold = true;
     lockLb.textColor = 0x8881b0;
-    lockLb.horizontalCenter = 0; lockLb.top = 38;
+    lockLb.horizontalCenter = 0; lockLb.top = 31;
     sc.addChild(lockLb);
     return sc;
   }
 
   // === 底座阴影 ===
   g.beginFill(0x000000, 0.22);
-  g.drawEllipse(cx - 13, cy + 13, 26, 5);
+  g.drawEllipse(cx - 8, cy + 9, 16, 4);
   g.endFill();
+
+  // 精灵绘制以 (22,22) 为中心，通过 scale 缩小到 22px 格子
+  shape.scaleX = 0.5; shape.scaleY = 0.5;
+  shape.x = 0; shape.y = 0;
+  // 重置 cx/cy 为原始绘制坐标（22,22），scale 后自动缩小
+  cx = 22; cy = 22;
 
   // === 糖果精灵本体（按 shape 独立造型）===
   switch (def.shape) {
@@ -519,18 +527,19 @@ Game.prototype.createSupportView = function(idx, yPos) {
   shape.x = 0; shape.y = 0;
   sc.addChild(shape);
 
-  // 名字标签（金边胶囊）
+  // 名字标签（金边胶囊，适配 22px 宽）
   var nameBg = new eui.Rect();
-  nameBg.width = 44; nameBg.height = 13;
-  nameBg.ellipseWidth = 6; nameBg.ellipseHeight = 6;
+  nameBg.width = 22; nameBg.height = 12;
+  nameBg.ellipseWidth = 4; nameBg.ellipseHeight = 4;
   nameBg.fillColor = THEME.bgMid; nameBg.fillAlpha = 0.92;
   nameBg.strokeColor = THEME.strokeGold; nameBg.strokeWeight = 0.5;
-  nameBg.horizontalCenter = 0; nameBg.top = 37;
+  nameBg.horizontalCenter = 0; nameBg.top = 30;
   sc.addChild(nameBg);
   var sl = new eui.Label();
-  sl.text = def.symbol; sl.size = 8; sl.bold = true;
+  sl.text = def.symbol.length > 2 ? def.symbol.slice(0, 2) : def.symbol;
+  sl.size = 7; sl.bold = true;
   sl.textColor = THEME.textMain;
-  sl.horizontalCenter = 0; sl.top = 38;
+  sl.horizontalCenter = 0; sl.top = 31;
   sc.addChild(sl);
   return sc;
 };
@@ -850,35 +859,42 @@ Game.prototype.buildUI = function() {
   sg.endFill();
   this.battleGroup.addChild(starsShape);
 
-  // === 布局分区 ===
-  // 左边缘(0-45): 辅助角色作为敌人
-  // 左按钮(48-100): 功能按钮
-  // 中央(105-270): 怪物
-  // 右边缘(330-375): 辅助角色作为敌人
-  // 右上: 挑战BOSS按钮
+  // =========================================================
+  // 战斗区布局分区（375px 宽）
+  //   左辅助列  x:  0 ~ 44   宽 44（2列×2行，每格 22px）
+  //   左功能键  x: 46 ~ 99   宽 54（2列×3行，每格 26px）
+  //   中央怪物  x:100 ~ 274  宽175（怪物 + 主角）
+  //   右功能键  x:276 ~ 329  宽 54（BOSS + 图签）
+  //   右辅助列  x:331 ~ 375  宽 44（2列×2行，每格 22px）
+  // =========================================================
 
-  // --- 左侧辅助角色（作为敌人形象）---
+  // --- 左侧辅助角色：2列×2行，每格 22px，共 4 个 ---
   var leftSup = new eui.Group();
-  leftSup.x = 2; leftSup.y = Math.floor(BATTLE_H * 0.15);
+  leftSup.x = 0;
+  leftSup.y = Math.floor(BATTLE_H * 0.12);
   for (var i = 0; i < 4; i++) {
-    var sc = this.createSupportView(i, i * 56);
+    var sc = this.createSupportView(i, 0);
+    var col = i % 2, row = Math.floor(i / 2);
+    sc.x = col * 22; sc.y = row * 58;
     leftSup.addChild(sc);
   }
   this.leftSupGroup = leftSup;
   this.battleGroup.addChild(leftSup);
 
-  // --- 右侧辅助角色（作为敌人形象）---
+  // --- 右侧辅助角色：2列×2行，每格 22px，共 4 个（idx 4-7）---
   var rightSup = new eui.Group();
-  rightSup.x = stageW - 48; rightSup.y = Math.floor(BATTLE_H * 0.15);
+  rightSup.x = stageW - 44;
+  rightSup.y = Math.floor(BATTLE_H * 0.12);
   for (var i = 4; i < 8; i++) {
-    var sc = this.createSupportView(i, (i - 4) * 56);
+    var sc = this.createSupportView(i, 0);
+    var col = (i - 4) % 2, row = Math.floor((i - 4) / 2);
+    sc.x = col * 22; sc.y = row * 58;
     rightSup.addChild(sc);
   }
   this.rightSupGroup = rightSup;
   this.battleGroup.addChild(rightSup);
 
-  // === 左侧功能按钮区：2列×3行带背景圆角按钮（x: 48-104） ===
-  // 按钮尺寸 26x26，gap 4，总宽度 56，放得下 "能量" "磨转" 这种 2 字标签
+  // === 左侧功能按钮区：2列×3行（x:46, 每格 26px）===
   var leftBtnDefs = [
     { text: '签到', fn: function() { self.openCheckin(); } },
     { text: '每日', fn: function() { self.openDailyTasks(); } },
@@ -887,28 +903,28 @@ Game.prototype.buildUI = function() {
     { text: '磨转', fn: function() { self.openRebirth(); } },
     { text: '能量', fn: function() { self.openEnergyHelp(); } }
   ];
-  var LEFT_BTN_X = 48, LEFT_BTN_Y = 8;
+  var LEFT_BTN_X = 46, LEFT_BTN_Y = 6;
   for (var i = 0; i < leftBtnDefs.length; i++) {
     var col = i % 2, row = Math.floor(i / 2);
-    var bx = LEFT_BTN_X + col * 30;
+    var bx = LEFT_BTN_X + col * 27;
     var by = LEFT_BTN_Y + row * 30;
     var sideBtn = this.createSideBtn(leftBtnDefs[i].text, bx, by, leftBtnDefs[i].fn);
     this.battleGroup.addChild(sideBtn);
   }
 
-  // === 右侧按钮区：挑战BOSS 大按钮 + 图签按钮 ===
-  // 挑战BOSS（顶部显眼）—— 实际逻辑：未到10波灰色不可点，点击跳到第10波挑战BOSS
+  // === 右侧按钮区（x: stageW-98 ~ stageW-44）：BOSS + 图签 ===
+  var RIGHT_BTN_X = stageW - 98;
   var bossBtnGroup = new eui.Group();
-  bossBtnGroup.width = 66; bossBtnGroup.height = 28;
-  bossBtnGroup.x = stageW - 72; bossBtnGroup.y = 8;
+  bossBtnGroup.width = 52; bossBtnGroup.height = 26;
+  bossBtnGroup.x = RIGHT_BTN_X; bossBtnGroup.y = 6;
   bossBtnGroup.touchEnabled = true;
   this._bossBtnBg = new eui.Rect();
-  this._bossBtnBg.width = 66; this._bossBtnBg.height = 28;
+  this._bossBtnBg.width = 52; this._bossBtnBg.height = 26;
   this._bossBtnBg.ellipseWidth = 8; this._bossBtnBg.ellipseHeight = 8;
   this._bossBtnBg.fillColor = 0x9b2335;
   bossBtnGroup.addChild(this._bossBtnBg);
   this._bossBtnText = new eui.Label();
-  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 11;
+  this._bossBtnText.text = 'BOSS'; this._bossBtnText.size = 11;
   this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
   this._bossBtnText.horizontalCenter = 0; this._bossBtnText.verticalCenter = 0;
   bossBtnGroup.addChild(this._bossBtnText);
@@ -919,18 +935,18 @@ Game.prototype.buildUI = function() {
   this._bossBtnGroup = bossBtnGroup;
   this.updateBossBtn();
 
-  // 图签按钮（怪物图鉴入口）
+  // 图签按钮
   var codexBtnGroup = new eui.Group();
-  codexBtnGroup.width = 66; codexBtnGroup.height = 24;
-  codexBtnGroup.x = stageW - 72; codexBtnGroup.y = 40;
+  codexBtnGroup.width = 52; codexBtnGroup.height = 22;
+  codexBtnGroup.x = RIGHT_BTN_X; codexBtnGroup.y = 36;
   codexBtnGroup.touchEnabled = true;
   var codexBtnBg = new eui.Rect();
-  codexBtnBg.width = 66; codexBtnBg.height = 24;
+  codexBtnBg.width = 52; codexBtnBg.height = 22;
   codexBtnBg.ellipseWidth = 8; codexBtnBg.ellipseHeight = 8;
   codexBtnBg.fillColor = 0x2c6e49;
   codexBtnGroup.addChild(codexBtnBg);
   var codexBtnText = new eui.Label();
-  codexBtnText.text = '📖图签'; codexBtnText.size = 11;
+  codexBtnText.text = '图签'; codexBtnText.size = 11;
   codexBtnText.textColor = 0xffffff; codexBtnText.bold = true;
   codexBtnText.horizontalCenter = 0; codexBtnText.verticalCenter = 0;
   codexBtnGroup.addChild(codexBtnText);
@@ -939,17 +955,15 @@ Game.prototype.buildUI = function() {
   }, this);
   this.battleGroup.addChild(codexBtnGroup);
 
-  // 右侧运营/商业化 2×2 按钮（首冲/邀请/关注/活动）已按需求移除
-
-  // === 中央怪物区（x: 105-270）===
-  var CENTER_X = 105;
-  var CENTER_W = 165;
+  // === 中央怪物区（x:100 ~ 275，宽175）===
+  var CENTER_X = 100;
+  var CENTER_W = 175;
   this._centerX = CENTER_X;
   this._centerW = CENTER_W;
 
-  // --- 怪物区域（上半部分）---
-  this._monsterAreaY = Math.floor(BATTLE_H * 0.15);
-  this._monsterAreaH = Math.floor(BATTLE_H * 0.35);
+  // --- 怪物区域（上半部分，留出顶部按钮空间）---
+  this._monsterAreaY = Math.floor(BATTLE_H * 0.10);
+  this._monsterAreaH = Math.floor(BATTLE_H * 0.40);
 
   // --- 主角（居中偏下）---
   // 星语法师：月冠 + 渐变袍 + 心形宝珠法杖 + 脚下魔法阵
@@ -1202,7 +1216,9 @@ Game.prototype.buildUI = function() {
   skillBar.layout = new eui.HorizontalLayout();
   skillBar.layout.horizontalAlign = 'center';
   skillBar.layout.verticalAlign = 'middle';
-  skillBar.layout.gap = 4;
+  skillBar.layout.gap = 2;
+  skillBar.layout.paddingLeft = 4;
+  skillBar.layout.paddingRight = 4;
   var skillBg = new eui.Rect();
   skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = THEME.bgMid;
   skillBar.addChildAt(skillBg, 0);
@@ -1291,24 +1307,24 @@ Game.prototype.createSkillBtn = function(idx) {
   var s = SKILLS[idx];
   var unlocked = this.mainLevel >= s.lv;
   var g = new eui.Group();
-  g.width = 44; g.height = 50;
+  g.width = 42; g.height = 48;
   // 辉光层
   var halo = new eui.Rect();
-  halo.width = 44; halo.height = 44;
-  halo.ellipseWidth = 22; halo.ellipseHeight = 22;
+  halo.width = 42; halo.height = 42;
+  halo.ellipseWidth = 21; halo.ellipseHeight = 21;
   halo.fillColor = unlocked ? s.color : 0x3a355a;
   halo.fillAlpha = 0.35;
   halo.name = 'halo';
   g.addChild(halo);
   // 实心圆
   var bg = new eui.Rect();
-  bg.width = 36; bg.height = 36; bg.ellipseWidth = 18; bg.ellipseHeight = 18;
+  bg.width = 34; bg.height = 34; bg.ellipseWidth = 17; bg.ellipseHeight = 17;
   bg.fillColor = unlocked ? s.color : 0x4a4566;
   bg.x = 4; bg.y = 4;
   bg.name = 'bg'; g.addChild(bg);
   // 描边
   var border = new eui.Rect();
-  border.width = 36; border.height = 36; border.ellipseWidth = 18; border.ellipseHeight = 18;
+  border.width = 34; border.height = 34; border.ellipseWidth = 17; border.ellipseHeight = 17;
   border.fillAlpha = 0;
   border.strokeColor = unlocked ? THEME.accentSoft : 0x6a628f;
   border.strokeWeight = 1.5;
@@ -1317,21 +1333,24 @@ Game.prototype.createSkillBtn = function(idx) {
   // 矢量图标
   var iconShape = new egret.Shape();
   this.drawSkillIcon(iconShape.graphics, s.icon, unlocked);
-  iconShape.x = 22; iconShape.y = 22;
+  iconShape.x = 21; iconShape.y = 21;
   iconShape.name = 'iconShape';
   g.addChild(iconShape);
   // CD 文字
   var cdLb = new eui.Label();
-  cdLb.text = ''; cdLb.size = 12; cdLb.textColor = THEME.textMain; cdLb.bold = true;
-  cdLb.horizontalCenter = 0; cdLb.top = 14;
+  cdLb.text = ''; cdLb.size = 11; cdLb.textColor = THEME.textMain; cdLb.bold = true;
+  cdLb.horizontalCenter = 0; cdLb.top = 13;
   cdLb.name = 'cdLb';
   cdLb.visible = false;
   g.addChild(cdLb);
-  // 技能名 / 解锁提示
+  // 技能名 / 解锁提示（固定在底部，不错位）
   var lb = new eui.Label();
-  lb.text = unlocked ? s.name : 'Lv.' + s.lv;
+  lb.text = unlocked ? s.name : 'Lv' + s.lv;
   lb.size = 9; lb.textColor = unlocked ? THEME.textMain : THEME.textMute;
-  lb.bold = true; lb.horizontalCenter = 0; lb.top = 38;
+  lb.bold = true;
+  lb.width = 42; lb.height = 12;
+  lb.textAlign = 'center';
+  lb.x = 0; lb.y = 36;
   lb.name = 'lb';
   g.addChild(lb);
 
@@ -1495,11 +1514,12 @@ Game.prototype.showDamageText = function(dmg, isCrit, idx) {
   txt.textColor = isCrit ? THEME.accent : THEME.pink;
   txt.bold = true;
   var w = this.monsters.length || 1;
-  var cx = this._centerX || 55;
-  var cw = this._centerW || 265;
-  var xPct = ((idx >= 0 ? idx : 0) + 0.5) / w;
-  txt.x = cx + cw * xPct + (Math.random() * 20 - 10);
-  txt.y = this._monsterAreaY + Math.random() * 30;
+  var cx = this._centerX || 100;
+  var cw = this._centerW || 175;
+  var slotW = cw / w;
+  var xPct = (idx >= 0 ? idx : 0);
+  txt.x = cx + slotW * xPct + slotW / 2 - 15 + (Math.random() * 16 - 8);
+  txt.y = this._monsterAreaY + Math.random() * 20;
   this.damageLayer.addChild(txt);
   egret.Tween.get(txt).to({ y: txt.y - 50, alpha: 0 }, 700).call(function() {
     if (txt.parent) txt.parent.removeChild(txt);
@@ -1898,13 +1918,20 @@ Game.prototype.updateMonsterDisplay = function() {
 
 Game.prototype.createMonsterView = function(m, idx, total) {
   var g = new eui.Group();
-  var sz = m.isBoss ? 76 : 56;
-  // 图签 + 血条 + HP文本合计需要约 46px 高度
-  g.width = sz; g.height = sz + 46;
-  var cx = this._centerX || 55;
-  var cw = this._centerW || 265;
-  g.x = cx + cw * (idx + 0.5) / total - sz / 2;
-  g.y = this._monsterAreaY + (this._monsterAreaH - sz - 46) / 2;
+  // 根据怪物数量动态调整尺寸，避免堆叠
+  var maxSz = m.isBoss ? 72 : 52;
+  var minSz = m.isBoss ? 52 : 36;
+  var sz = Math.max(minSz, Math.floor(maxSz / Math.max(1, total * 0.6)));
+  sz = Math.min(maxSz, sz);
+  // 每个怪物槽宽度 = 中央区宽度 / 怪物数量
+  var cx = this._centerX || 100;
+  var cw = this._centerW || 175;
+  var slotW = Math.floor(cw / total);
+  var slotX = cx + slotW * idx + Math.floor((slotW - sz) / 2);
+  // 图签 + 血条 + HP文本合计约 40px
+  g.width = sz; g.height = sz + 40;
+  g.x = slotX;
+  g.y = this._monsterAreaY + Math.floor((this._monsterAreaH - sz - 40) / 2);
   g.touchEnabled = true;
   var self = this;
   g.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.onMonsterTouch(idx); }, this);
@@ -1914,11 +1941,10 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   this.drawMonsterShape(body.graphics, mType, sz, m.isBoss);
   g.addChild(body);
 
-  // --- 名字图签（胶囊徽章） ---
-  // 用与怪物配色呼应的深色底 + 白字 + 圆角，比裸文字辨识度高得多
+  // --- 名字图签（胶囊徽章）---
   var labelText = m.isBoss ? '💀 ' + mType.name : mType.name;
-  var badgeW = m.isBoss ? 72 : 50;
-  var badgeH = m.isBoss ? 18 : 15;
+  var badgeW = Math.min(sz, m.isBoss ? 64 : 48);
+  var badgeH = m.isBoss ? 16 : 14;
   var badge = new eui.Rect();
   badge.width = badgeW; badge.height = badgeH;
   badge.ellipseWidth = badgeH; badge.ellipseHeight = badgeH;
@@ -1927,25 +1953,27 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   badge.strokeColor = m.isBoss ? THEME.strokeGold : 0xffffff;
   badge.strokeWeight = m.isBoss ? 1.5 : 1;
   badge.strokeAlpha = m.isBoss ? 0.9 : 0.6;
-  badge.horizontalCenter = 0; badge.top = sz + 2;
+  badge.horizontalCenter = 0; badge.top = sz + 1;
   g.addChild(badge);
   var name = new eui.Label();
   name.text = labelText;
-  name.size = m.isBoss ? 11 : 10;
+  name.size = m.isBoss ? 10 : 9;
   name.textColor = 0xffffff;
   name.bold = true;
-  name.horizontalCenter = 0; name.top = sz + 2 + (badgeH - (m.isBoss ? 13 : 12)) / 2;
+  name.width = badgeW; name.height = badgeH;
+  name.textAlign = 'center';
+  name.x = (sz - badgeW) / 2; name.y = sz + 1;
   g.addChild(name);
 
   // --- 血条 ---
-  var hpY = sz + 2 + badgeH + 4;
-  var hpH = m.isBoss ? 7 : 5;
-  var hpW = sz - 4;
+  var hpY = sz + 1 + badgeH + 2;
+  var hpH = m.isBoss ? 6 : 4;
+  var hpW = sz - 2;
   var hpBg = new eui.Rect();
   hpBg.width = hpW; hpBg.height = hpH;
   hpBg.fillColor = 0x1a1a1a;
   hpBg.ellipseWidth = hpH; hpBg.ellipseHeight = hpH;
-  hpBg.horizontalCenter = 0; hpBg.top = hpY;
+  hpBg.x = 1; hpBg.y = hpY;
   g.addChild(hpBg);
   var pct = Math.max(0, m.hp / m.maxHp);
   var hpFill = new eui.Rect();
@@ -1953,14 +1981,16 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   hpFill.fillColor = m.isBoss ? 0xe74c3c
     : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
   hpFill.ellipseWidth = hpH; hpFill.ellipseHeight = hpH;
-  hpFill.x = (sz - hpW) / 2; hpFill.top = hpY;
+  hpFill.x = 1; hpFill.y = hpY;
   g.addChild(hpFill);
 
   // --- 血量文字 ---
   var hpText = new eui.Label();
   hpText.text = Math.max(0, Math.floor(m.hp)) + '/' + m.maxHp;
-  hpText.size = 9; hpText.textColor = 0xcccccc;
-  hpText.horizontalCenter = 0; hpText.top = hpY + hpH + 2;
+  hpText.size = 8; hpText.textColor = 0xcccccc;
+  hpText.width = sz; hpText.height = 10;
+  hpText.textAlign = 'center';
+  hpText.x = 0; hpText.y = hpY + hpH + 1;
   g.addChild(hpText);
 
   return g;
@@ -2376,7 +2406,7 @@ Game.prototype.updateSkillBtns = function() {
     }
     if (border) border.strokeColor = cd ? 0x6a628f : (unlocked ? THEME.accentSoft : 0x6a628f);
     if (lb) {
-      lb.text = unlocked ? s.name : 'Lv.' + s.lv;
+      lb.text = unlocked ? s.name : 'Lv' + s.lv;
       lb.textColor = cd ? THEME.textMute : (unlocked ? THEME.textMain : THEME.textMute);
     }
     if (cdLb) {
