@@ -5,6 +5,24 @@
 // 主题：深夜空魔法绘本 × 放置点击 RPG。所有界面色彩从 THEME 统一取值，
 // 避免各模块各自写颜色常量导致风格碎裂。修改整站风格只需动 THEME。
 // --------------------------------------------------------------
+
+// 全局工具函数：绘制一对眼睛（必须在所有绘制代码之前定义）
+function drawEyesPair(g, x1, y1, x2, y2, r, pr) {
+  g.lineStyle(0);
+  g.beginFill(0xffffff);
+  g.drawCircle(x1, y1, r);
+  g.drawCircle(x2, y2, r);
+  g.endFill();
+  g.beginFill(0x000000);
+  g.drawCircle(x1, y1 + 0.5, pr);
+  g.drawCircle(x2, y2 + 0.5, pr);
+  g.endFill();
+  g.beginFill(0xffffff);
+  g.drawCircle(x1 - pr * 0.5, y1 - pr * 0.5, pr * 0.5);
+  g.drawCircle(x2 - pr * 0.5, y2 - pr * 0.5, pr * 0.5);
+  g.endFill();
+}
+
 var THEME = {
   // 背景层（从深到浅）
   bgDeep:   0x0a0820,
@@ -2830,27 +2848,12 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
         g.beginFill(c); g.drawCircle(half, half, half - 2); g.endFill();
         drawEyesPair(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
       }
-  }
+  } // end switch
+}; // end drawMonsterShape
 
 /**
- * 统一绘制一对眼睛（白底 + 黑瞳 + 高光）。所有怪物都用同一风格。
+ * 统一绘制一对眼睛（白底 + 黑瞳 + 高光）。
  */
-function drawEyesPair(g, x1, y1, x2, y2, r, pr) {
-  g.lineStyle(0);
-  g.beginFill(0xffffff);
-  g.drawCircle(x1, y1, r);
-  g.drawCircle(x2, y2, r);
-  g.endFill();
-  g.beginFill(0x000000);
-  g.drawCircle(x1, y1 + 0.5, pr);
-  g.drawCircle(x2, y2 + 0.5, pr);
-  g.endFill();
-  g.beginFill(0xffffff);
-  g.drawCircle(x1 - pr * 0.5, y1 - pr * 0.5, pr * 0.5);
-  g.drawCircle(x2 - pr * 0.5, y2 - pr * 0.5, pr * 0.5);
-  g.endFill();
-}
-
 Game.prototype._drawEyes = function(g, x1, y1, x2, y2, r, pr) {
   drawEyesPair(g, x1, y1, x2, y2, r, pr);
 };
@@ -3998,7 +4001,6 @@ Game.prototype.openMonsterCodex = function() {
       bossTag.textColor = 0xff8888; bossTag.x = cx2 + CARD_W - 32; bossTag.y = cy2 + 5;
       panel.addChild(bossTag);
     }
-  } // end if isBossType
   } // end renderCard
 
   // 普通怪物
