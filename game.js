@@ -1,4 +1,4 @@
-// ==================== 吃饭睡觉打豆豆 - Egret引擎版 ====================
+﻿// ==================== 吃饭睡觉打豆豆 - Egret引擎版 ====================
 //
 // 视觉系统："星夜糖果屋"（Starry Candy Cottage）
 // --------------------------------------------------------------
@@ -70,14 +70,23 @@ var SKILLS = [
 // 怪物类型定义（三层光影风格）
 //   highlight 浅色高光 / accent 点缀色（牙爪等）
 var MONSTER_TYPES = [
-  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, highlight: 0xa8ffcf, outline: 0x1e5f38, hpColor: 0x2ecc71, badge: 0x1e5f38, accent: 0xfff59d },
-  { name: '兔兔',   shape: 'rabbit', color: 0xffc9d9, highlight: 0xffe9f2, outline: 0xb83d6a, hpColor: 0xff69b4, badge: 0xb83d6a, accent: 0xe91e63 },
-  { name: '蝙蝠',   shape: 'bat',    color: 0x7e3cb8, highlight: 0xbd85e2, outline: 0x32124a, hpColor: 0x9b59b6, badge: 0x32124a, accent: 0xff3030 },
-  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, highlight: 0xff8a7a, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10, accent: 0xfff59d },
-  { name: '幽灵',   shape: 'ghost',  color: 0xe8f1ff, highlight: 0xffffff, outline: 0x4a3a6c, hpColor: 0xa0afc8, badge: 0x4a3a6c, accent: 0x5ec8ff },
-  { name: '骷髅',   shape: 'skull',  color: 0xf0ebe0, highlight: 0xffffff, outline: 0x2c2640, hpColor: 0xbdc3c7, badge: 0x2c2640, accent: 0xff3333 },
-  { name: '火龙',   shape: 'dragon', color: 0xe67e22, highlight: 0xffbe76, outline: 0x7a2d06, hpColor: 0xf39c12, badge: 0x7a2d06, accent: 0xff4500 },
-  { name: '暗影',   shape: 'shadow', color: 0x1a1030, highlight: 0x4b3a7a, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000, accent: 0xff0000 }
+  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, highlight: 0xa8ffcf, outline: 0x1e5f38, hpColor: 0x2ecc71, badge: 0x1e5f38, accent: 0xfff59d, wave: 1   },
+  { name: '兔兔',   shape: 'rabbit', color: 0xffc9d9, highlight: 0xffe9f2, outline: 0xb83d6a, hpColor: 0xff69b4, badge: 0xb83d6a, accent: 0xe91e63, wave: 5   },
+  { name: '蝙蝠',   shape: 'bat',    color: 0x7e3cb8, highlight: 0xbd85e2, outline: 0x32124a, hpColor: 0x9b59b6, badge: 0x32124a, accent: 0xff3030, wave: 10  },
+  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, highlight: 0xff8a7a, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10, accent: 0xfff59d, wave: 20  },
+  { name: '幽灵',   shape: 'ghost',  color: 0xe8f1ff, highlight: 0xffffff, outline: 0x4a3a6c, hpColor: 0xa0afc8, badge: 0x4a3a6c, accent: 0x5ec8ff, wave: 35  },
+  { name: '骷髅',   shape: 'skull',  color: 0xf0ebe0, highlight: 0xffffff, outline: 0x2c2640, hpColor: 0xbdc3c7, badge: 0x2c2640, accent: 0xff3333, wave: 50  },
+  { name: '火龙',   shape: 'dragon', color: 0xe67e22, highlight: 0xffbe76, outline: 0x7a2d06, hpColor: 0xf39c12, badge: 0x7a2d06, accent: 0xff4500, wave: 80  },
+  { name: '暗影',   shape: 'shadow', color: 0x1a1030, highlight: 0x4b3a7a, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000, accent: 0xff0000, wave: 120 }
+];
+
+// BOSS 专属形象（每10波出现一次）
+var BOSS_TYPES = [
+  { name: '魔眼王',   shape: 'boss_eye',     color: 0x8b0000, highlight: 0xff6666, outline: 0x3a0000, hpColor: 0xe74c3c, badge: 0x5a0a08, accent: 0xff0000 },
+  { name: '冰霜巨人', shape: 'boss_giant',   color: 0x4fc3f7, highlight: 0xe1f5fe, outline: 0x0277bd, hpColor: 0x29b6f6, badge: 0x01579b, accent: 0xffffff },
+  { name: '深渊蜘蛛', shape: 'boss_spider',  color: 0x4a148c, highlight: 0xce93d8, outline: 0x1a0030, hpColor: 0xab47bc, badge: 0x2d0050, accent: 0x00e5ff },
+  { name: '炎魔将军', shape: 'boss_demon',   color: 0xb71c1c, highlight: 0xff8a65, outline: 0x4a0000, hpColor: 0xef5350, badge: 0x7f0000, accent: 0xffeb3b },
+  { name: '星界凤凰', shape: 'boss_phoenix', color: 0xff6f00, highlight: 0xffe082, outline: 0x7f3300, hpColor: 0xffa726, badge: 0x5d2600, accent: 0x40c4ff }
 ];
 
 // 辅助角色（糖果精灵队）
@@ -1827,10 +1836,11 @@ Game.prototype.spawnWave = function() {
   }
   var hp = CONFIG.monsterHp(this.wave);
   this.monsters = [];
-  // BOSS用专属类型，小怪随机
-  var bossType = MONSTER_TYPES[6]; // 火龙作为BOSS
+  // BOSS用专属形象（按波次循环选取）
+  var bossIdx = Math.floor(this.wave / 10 - 1) % BOSS_TYPES.length;
+  var bossType = BOSS_TYPES[Math.max(0, bossIdx)];
   for (var i = 0; i < count; i++) {
-    var mType = isBoss ? bossType : MONSTER_TYPES[Math.floor(Math.random() * (MONSTER_TYPES.length - 1))];
+    var mType = isBoss ? bossType : MONSTER_TYPES[Math.floor(Math.random() * MONSTER_TYPES.length)];
     this.monsters.push({
       hp: isBoss ? hp * 5 : hp,
       maxHp: isBoss ? hp * 5 : hp,
@@ -1851,8 +1861,8 @@ Game.prototype.spawnWave = function() {
     this.bossActive = true;
     this.bossTimer = CONFIG.bossTimeLimit;
     this.startBossTimer();
-    this.showBossFlash(); // 全屏红色闪烁动效
-    this.showToast('💀 BOSS出现！限时' + CONFIG.bossTimeLimit + '秒！');
+    this.showBossFlash();
+    this.showToast('💀 ' + bossType.name + ' 出现！限时' + CONFIG.bossTimeLimit + '秒！');
   } else {
     this.bossActive = false;
   }
@@ -2172,20 +2182,24 @@ Game.prototype.updateMonsterDisplay = function() {
 
 Game.prototype.createMonsterView = function(m, idx, total) {
   var g = new eui.Group();
-  // 根据怪物数量动态调整尺寸，避免堆叠
-  var maxSz = m.isBoss ? 72 : 52;
-  var minSz = m.isBoss ? 52 : 36;
-  var sz = Math.max(minSz, Math.floor(maxSz / Math.max(1, total * 0.6)));
-  sz = Math.min(maxSz, sz);
-  // 每个怪物槽宽度 = 中央区宽度 / 怪物数量
-  var cx = this._centerX || 100;
-  var cw = this._centerW || 175;
+  var cx = this._centerX || 48;
+  var cw = this._centerW || 279;
+
+  // 每只怪物大小不同：基础尺寸 + 按 idx 的随机偏移
+  var baseSz = m.isBoss ? 80 : 48;
+  var sizeVariants = [0, 8, -6, 10, -4, 6, -8, 4]; // 每个位置的大小偏移
+  var sz = baseSz + (sizeVariants[idx % sizeVariants.length] || 0);
+  if (m.isBoss) sz = Math.max(72, Math.min(92, sz));
+  else sz = Math.max(36, Math.min(60, sz));
+
+  // 每个怪物槽宽度均分
   var slotW = Math.floor(cw / total);
-  var slotX = cx + slotW * idx + Math.floor((slotW - sz) / 2);
-  // 图签 + 血条 + HP文本合计约 40px
+  var baseX = cx + slotW * idx + Math.floor((slotW - sz) / 2);
+  var baseY = this._monsterAreaY + Math.floor((this._monsterAreaH - sz - 40) / 2);
+
   g.width = sz; g.height = sz + 40;
-  g.x = slotX;
-  g.y = this._monsterAreaY + Math.floor((this._monsterAreaH - sz - 40) / 2);
+  g.x = baseX;
+  g.y = baseY;
   g.touchEnabled = true;
   var self = this;
   g.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.onMonsterTouch(idx); }, this);
@@ -2196,8 +2210,8 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   g.addChild(body);
 
   // --- 名字图签（胶囊徽章）---
-  var labelText = m.isBoss ? '💀 ' + mType.name : mType.name;
-  var badgeW = Math.min(sz, m.isBoss ? 64 : 48);
+  var labelText = m.isBoss ? '👑 ' + mType.name : mType.name;
+  var badgeW = Math.min(sz, m.isBoss ? 72 : 50);
   var badgeH = m.isBoss ? 16 : 14;
   var badge = new eui.Rect();
   badge.width = badgeW; badge.height = badgeH;
@@ -2207,17 +2221,16 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   badge.strokeColor = m.isBoss ? THEME.strokeGold : 0xffffff;
   badge.strokeWeight = m.isBoss ? 1.5 : 1;
   badge.strokeAlpha = m.isBoss ? 0.9 : 0.6;
-  badge.horizontalCenter = 0; badge.top = sz + 1;
+  badge.x = Math.floor((sz - badgeW) / 2); badge.y = sz + 1;
   g.addChild(badge);
-  var name = new eui.Label();
-  name.text = labelText;
-  name.size = m.isBoss ? 10 : 9;
-  name.textColor = 0xffffff;
-  name.bold = true;
-  name.width = badgeW; name.height = badgeH;
-  name.textAlign = 'center';
-  name.x = (sz - badgeW) / 2; name.y = sz + 1;
-  g.addChild(name);
+  var nameLabel = new eui.Label();
+  nameLabel.text = labelText;
+  nameLabel.size = m.isBoss ? 10 : 9;
+  nameLabel.textColor = 0xffffff; nameLabel.bold = true;
+  nameLabel.width = badgeW; nameLabel.height = badgeH;
+  nameLabel.textAlign = 'center';
+  nameLabel.x = Math.floor((sz - badgeW) / 2); nameLabel.y = sz + 1;
+  g.addChild(nameLabel);
 
   // --- 血条 ---
   var hpY = sz + 1 + badgeH + 2;
@@ -2225,15 +2238,13 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   var hpW = sz - 2;
   var hpBg = new eui.Rect();
   hpBg.width = hpW; hpBg.height = hpH;
-  hpBg.fillColor = 0x1a1a1a;
-  hpBg.ellipseWidth = hpH; hpBg.ellipseHeight = hpH;
+  hpBg.fillColor = 0x1a1a1a; hpBg.ellipseWidth = hpH; hpBg.ellipseHeight = hpH;
   hpBg.x = 1; hpBg.y = hpY;
   g.addChild(hpBg);
   var pct = Math.max(0, m.hp / m.maxHp);
   var hpFill = new eui.Rect();
   hpFill.width = Math.max(0, hpW * pct); hpFill.height = hpH;
-  hpFill.fillColor = m.isBoss ? 0xe74c3c
-    : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
+  hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
   hpFill.ellipseWidth = hpH; hpFill.ellipseHeight = hpH;
   hpFill.x = 1; hpFill.y = hpY;
   g.addChild(hpFill);
@@ -2242,10 +2253,42 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   var hpText = new eui.Label();
   hpText.text = Math.max(0, Math.floor(m.hp)) + '/' + m.maxHp;
   hpText.size = 8; hpText.textColor = 0xcccccc;
-  hpText.width = sz; hpText.height = 10;
-  hpText.textAlign = 'center';
+  hpText.width = sz; hpText.height = 10; hpText.textAlign = 'center';
   hpText.x = 0; hpText.y = hpY + hpH + 1;
   g.addChild(hpText);
+
+  // === 走动动画 ===
+  // 每只怪物有独立的移动范围和速度，形成自然的群体感
+  var moveRange = m.isBoss ? 18 : (10 + idx * 4);  // 不同怪物移动幅度不同
+  var moveDur   = m.isBoss ? 1800 : (900 + idx * 200 + Math.floor(Math.random() * 300));
+  var moveDelay = idx * 180; // 错开启动时间，避免同步
+  // 上下浮动（BOSS更明显）
+  var floatRange = m.isBoss ? 8 : 4;
+  var floatDur   = m.isBoss ? 1200 : (800 + idx * 150);
+
+  // 左右走动（循环）
+  var startX = g.x;
+  function startWalk() {
+    if (!g.parent) return; // 已被移除则停止
+    egret.Tween.get(g, { loop: false })
+      .to({ x: startX + moveRange }, moveDur, egret.Ease.sineInOut)
+      .to({ x: startX - moveRange }, moveDur * 2, egret.Ease.sineInOut)
+      .to({ x: startX }, moveDur, egret.Ease.sineInOut)
+      .call(startWalk);
+  }
+  // 上下浮动（循环）
+  var startY = g.y;
+  function startFloat() {
+    if (!g.parent) return;
+    egret.Tween.get(g, { loop: false })
+      .to({ y: startY - floatRange }, floatDur, egret.Ease.sineInOut)
+      .to({ y: startY + floatRange }, floatDur * 2, egret.Ease.sineInOut)
+      .to({ y: startY }, floatDur, egret.Ease.sineInOut)
+      .call(startFloat);
+  }
+  // 延迟启动，错开各怪物动画
+  egret.setTimeout(startWalk, this, moveDelay);
+  egret.setTimeout(startFloat, this, moveDelay + floatDur / 2);
 
   return g;
 };
@@ -2608,14 +2651,189 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       break;
 
     default:
-      // fallback：圆球 + 眼睛
-      g.lineStyle(2, ol);
-      g.beginFill(c);
-      g.drawCircle(half, half, half - 2);
-      g.endFill();
-      this._drawEyes(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
+      // ── BOSS 专属形象 ──────────────────────────────────────
+      if (mType.shape === 'boss_eye') {
+        // 魔眼王：巨大眼球 + 多条触手 + 竖瞳
+        g.lineStyle(0);
+        g.beginFill(c, 0.3); g.drawCircle(half, half, half + 6); g.endFill();
+        // 触手（8条）
+        for (var ti = 0; ti < 8; ti++) {
+          var ta = (ti / 8) * Math.PI * 2;
+          var tx1 = half + (half - 4) * Math.cos(ta);
+          var ty1 = half + (half - 4) * Math.sin(ta);
+          var tx2 = half + (half + 14) * Math.cos(ta);
+          var ty2 = half + (half + 14) * Math.sin(ta);
+          g.lineStyle(3, ol, 0.8);
+          g.moveTo(tx1, ty1); g.lineTo(tx2, ty2);
+        }
+        g.lineStyle(2, ol);
+        g.beginFill(0xfff0f0); g.drawCircle(half, half, half - 2); g.endFill();
+        // 虹膜
+        g.beginFill(c); g.drawCircle(half, half, half * 0.65); g.endFill();
+        // 竖瞳
+        g.beginFill(0x000000); g.drawEllipse(half - 5, half - half * 0.55, 10, half * 1.1); g.endFill();
+        // 高光
+        g.beginFill(0xffffff, 0.8); g.drawEllipse(half - 8, half - half * 0.4, 6, 3); g.endFill();
+        g.beginFill(0xffffff, 0.5); g.drawCircle(half + 6, half - 4, 2); g.endFill();
+        // 血丝
+        g.lineStyle(1, 0xff0000, 0.5);
+        g.moveTo(half - 14, half - 6); g.lineTo(half - 6, half - 2);
+        g.moveTo(half + 14, half + 4); g.lineTo(half + 6, half + 1);
+        g.lineStyle(0);
+      } else if (mType.shape === 'boss_giant') {
+        // 冰霜巨人：方形身躯 + 冰晶甲 + 大角
+        g.lineStyle(2.5, ol);
+        g.beginFill(c);
+        g.drawRoundRect(half - half * 0.7, half - half * 0.5, half * 1.4, half * 1.3, 6, 6);
+        g.endFill();
+        // 头
+        g.beginFill(hi);
+        g.drawCircle(half, half - half * 0.35, half * 0.45);
+        g.endFill();
+        // 冰角（左右各一）
+        g.lineStyle(1.5, 0x81d4fa);
+        g.beginFill(0xe1f5fe);
+        g.moveTo(half - 14, half - half * 0.6);
+        g.lineTo(half - 22, half - half * 1.1);
+        g.lineTo(half - 8, half - half * 0.7);
+        g.endFill();
+        g.beginFill(0xe1f5fe);
+        g.moveTo(half + 14, half - half * 0.6);
+        g.lineTo(half + 22, half - half * 1.1);
+        g.lineTo(half + 8, half - half * 0.7);
+        g.endFill();
+        // 冰晶甲片
+        g.lineStyle(1, 0x81d4fa, 0.8);
+        g.beginFill(0xb3e5fc, 0.6);
+        g.drawRoundRect(half - half * 0.6, half - half * 0.1, half * 0.5, half * 0.6, 3, 3);
+        g.drawRoundRect(half + half * 0.1, half - half * 0.1, half * 0.5, half * 0.6, 3, 3);
+        g.endFill();
+        this._drawEyes(g, half - 6, half - half * 0.38, half + 6, half - half * 0.38, 4, 2);
+        // 眼睛改为冰蓝色
+        g.beginFill(0x29b6f6); g.drawCircle(half - 6, half - half * 0.38 + 0.5, 2); g.endFill();
+        g.beginFill(0x29b6f6); g.drawCircle(half + 6, half - half * 0.38 + 0.5, 2); g.endFill();
+        // 高光
+        g.lineStyle(0); g.beginFill(0xffffff, 0.5); g.drawEllipse(half - 8, half - half * 0.7, 10, 3); g.endFill();
+      } else if (mType.shape === 'boss_spider') {
+        // 深渊蜘蛛：圆腹 + 8条腿 + 多眼
+        // 腿（8条，左右各4）
+        var legAngles = [-0.3, -0.6, -0.9, -1.2];
+        for (var li2 = 0; li2 < 4; li2++) {
+          var la = legAngles[li2];
+          g.lineStyle(2.5, ol);
+          // 左腿
+          g.moveTo(half - 8, half);
+          g.lineTo(half - 8 - 18 * Math.cos(la), half + 18 * Math.sin(la));
+          g.lineTo(half - 8 - 28 * Math.cos(la + 0.4), half + 28 * Math.sin(la + 0.4));
+          // 右腿
+          g.moveTo(half + 8, half);
+          g.lineTo(half + 8 + 18 * Math.cos(la), half + 18 * Math.sin(la));
+          g.lineTo(half + 8 + 28 * Math.cos(la + 0.4), half + 28 * Math.sin(la + 0.4));
+        }
+        // 腹部
+        g.lineStyle(2, ol);
+        g.beginFill(c); g.drawCircle(half, half + 4, half * 0.7); g.endFill();
+        // 头胸
+        g.beginFill(0x6a1b9a); g.drawCircle(half, half - 8, half * 0.45); g.endFill();
+        // 8只眼睛（2排）
+        g.lineStyle(0);
+        var eyePos = [[-8,-12],[-4,-14],[4,-14],[8,-12],[-6,-9],[0,-10],[6,-9]];
+        for (var ei = 0; ei < eyePos.length; ei++) {
+          g.beginFill(ac); g.drawCircle(half + eyePos[ei][0], half + eyePos[ei][1], 1.8); g.endFill();
+        }
+        // 毒液滴
+        g.beginFill(0x76ff03, 0.8); g.drawCircle(half, half + 14, 3); g.endFill();
+        g.beginFill(0x76ff03, 0.5); g.drawCircle(half, half + 18, 1.5); g.endFill();
+        // 高光
+        g.beginFill(hi, 0.3); g.drawEllipse(half - 6, half - 2, 10, 4); g.endFill();
+      } else if (mType.shape === 'boss_demon') {
+        // 炎魔将军：人形 + 双角 + 火焰翅膀
+        // 火焰光晕
+        g.lineStyle(0);
+        g.beginFill(0xff6b1a, 0.2); g.drawCircle(half, half, half + 8); g.endFill();
+        // 翅膀（左右火焰）
+        g.beginFill(0xff6b1a, 0.7);
+        g.moveTo(half - 6, half - 4);
+        g.lineTo(half - half * 1.1, half - half * 0.8);
+        g.lineTo(half - half * 0.8, half + half * 0.3);
+        g.lineTo(half - 4, half + 4);
+        g.endFill();
+        g.beginFill(0xff6b1a, 0.7);
+        g.moveTo(half + 6, half - 4);
+        g.lineTo(half + half * 1.1, half - half * 0.8);
+        g.lineTo(half + half * 0.8, half + half * 0.3);
+        g.lineTo(half + 4, half + 4);
+        g.endFill();
+        // 身体
+        g.lineStyle(2, ol);
+        g.beginFill(c);
+        g.drawRoundRect(half - 12, half - 4, 24, 28, 4, 4);
+        g.endFill();
+        // 头
+        g.beginFill(c); g.drawCircle(half, half - 10, 14); g.endFill();
+        // 双角
+        g.beginFill(ol);
+        g.moveTo(half - 8, half - 18); g.lineTo(half - 14, half - 32); g.lineTo(half - 4, half - 20); g.endFill();
+        g.moveTo(half + 8, half - 18); g.lineTo(half + 14, half - 32); g.lineTo(half + 4, half - 20); g.endFill();
+        // 眼（发光黄色）
+        g.lineStyle(0);
+        g.beginFill(ac); g.drawCircle(half - 5, half - 12, 3.5); g.drawCircle(half + 5, half - 12, 3.5); g.endFill();
+        g.beginFill(0x000000); g.drawCircle(half - 5, half - 12, 1.5); g.drawCircle(half + 5, half - 12, 1.5); g.endFill();
+        // 高光
+        g.beginFill(hi, 0.35); g.drawEllipse(half - 6, half - 20, 10, 4); g.endFill();
+      } else if (mType.shape === 'boss_phoenix') {
+        // 星界凤凰：展翅 + 尾羽 + 星光
+        // 尾羽（下方扇形）
+        var tailColors = [0xff6f00, 0xffa726, 0x40c4ff, 0xffd740];
+        for (var tfi = 0; tfi < 5; tfi++) {
+          var tfa = -Math.PI * 0.3 + tfi * (Math.PI * 0.6 / 4);
+          g.lineStyle(0);
+          g.beginFill(tailColors[tfi % tailColors.length], 0.8);
+          g.moveTo(half, half + 6);
+          g.lineTo(half + Math.cos(tfa) * (half + 10), half + Math.sin(tfa) * (half + 10) + 6);
+          g.lineTo(half + Math.cos(tfa + 0.12) * (half + 10), half + Math.sin(tfa + 0.12) * (half + 10) + 6);
+          g.endFill();
+        }
+        // 翅膀
+        g.lineStyle(1.5, 0xff8f00);
+        g.beginFill(c, 0.9);
+        g.moveTo(half - 4, half - 4);
+        g.lineTo(half - half * 1.15, half - half * 0.6);
+        g.curveTo(half - half * 0.9, half + half * 0.2, half - 4, half + 4);
+        g.endFill();
+        g.beginFill(c, 0.9);
+        g.moveTo(half + 4, half - 4);
+        g.lineTo(half + half * 1.15, half - half * 0.6);
+        g.curveTo(half + half * 0.9, half + half * 0.2, half + 4, half + 4);
+        g.endFill();
+        // 翅膀高光
+        g.lineStyle(0); g.beginFill(hi, 0.5);
+        g.moveTo(half - 4, half - 4); g.lineTo(half - half * 0.9, half - half * 0.5);
+        g.curveTo(half - half * 0.7, half - half * 0.1, half - 4, half); g.endFill();
+        // 身体
+        g.lineStyle(2, 0xff8f00);
+        g.beginFill(hi); g.drawCircle(half, half - 4, half * 0.38); g.endFill();
+        // 冠羽
+        g.lineStyle(0);
+        g.beginFill(ac); g.moveTo(half, half - half * 0.7); g.lineTo(half - 4, half - half * 0.42); g.lineTo(half + 4, half - half * 0.42); g.endFill();
+        g.beginFill(0x40c4ff); g.moveTo(half - 5, half - half * 0.65); g.lineTo(half - 8, half - half * 0.38); g.lineTo(half - 2, half - half * 0.38); g.endFill();
+        g.beginFill(0x40c4ff); g.moveTo(half + 5, half - half * 0.65); g.lineTo(half + 8, half - half * 0.38); g.lineTo(half + 2, half - half * 0.38); g.endFill();
+        // 眼
+        g.beginFill(ac); g.drawCircle(half - 4, half - 6, 3); g.drawCircle(half + 4, half - 6, 3); g.endFill();
+        g.beginFill(0x000000); g.drawCircle(half - 4, half - 6, 1.2); g.drawCircle(half + 4, half - 6, 1.2); g.endFill();
+        // 星光粒子
+        g.beginFill(0xffffff, 0.9);
+        this.drawStar(g, half - half * 0.85, half - half * 0.5, 2.5, 1, 5);
+        this.drawStar(g, half + half * 0.85, half - half * 0.5, 2, 1, 5);
+        this.drawStar(g, half, half - half * 0.85, 2, 1, 5);
+        g.endFill();
+      } else {
+        // 通用 fallback
+        g.lineStyle(2, ol);
+        g.beginFill(c); g.drawCircle(half, half, half - 2); g.endFill();
+        this._drawEyes(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
+      }
   }
-};
 
 /**
  * 统一绘制一对眼睛（白底 + 黑瞳 + 高光）。所有怪物都用同一风格。
@@ -3681,102 +3899,138 @@ Game.prototype.openMonsterCodex = function() {
   for (var i = 0; i < MONSTER_TYPES.length; i++) {
     if (this.monsterCodex[MONSTER_TYPES[i].shape]) discovered++;
   }
+  var bossDiscovered = 0;
+  for (var i = 0; i < BOSS_TYPES.length; i++) {
+    if (this.monsterCodex[BOSS_TYPES[i].shape]) bossDiscovered++;
+  }
+  var total = MONSTER_TYPES.length + BOSS_TYPES.length;
 
   var title = new eui.Label();
-  title.text = '📖 怪物图签 (' + discovered + '/' + MONSTER_TYPES.length + ')';
-  title.size = 16; title.textColor = 0xffffff; title.bold = true;
-  title.horizontalCenter = 0; title.top = 14;
+  title.text = '📖 怪物图签 (' + (discovered + bossDiscovered) + '/' + total + ')';
+  title.size = 15; title.textColor = THEME.accentSoft; title.bold = true;
+  title.horizontalCenter = 0; title.top = 12;
   panel.addChild(title);
 
-  var subtitle = new eui.Label();
-  subtitle.text = '击杀怪物即可收集图签';
-  subtitle.size = 11; subtitle.textColor = 0x888888;
-  subtitle.horizontalCenter = 0; subtitle.top = 36;
-  panel.addChild(subtitle);
+  // 分栏标题
+  var secNormal = new eui.Label();
+  secNormal.text = '── 普通怪物 ──';
+  secNormal.size = 11; secNormal.textColor = THEME.textDim;
+  secNormal.horizontalCenter = 0; secNormal.top = 34;
+  panel.addChild(secNormal);
 
-  // 2列4行网格布局展示所有怪物
   var COLS = 2;
-  var CARD_W = 148; var CARD_H = 72;
-  var GAP_X = 10; var GAP_Y = 8;
-  var START_X = 15; var START_Y = 55;
+  var CARD_W = 148; var CARD_H = 80;
+  var GAP_X = 8; var GAP_Y = 6;
+  var START_X = 12; var START_Y = 50;
   var self = this;
 
-  for (var i = 0; i < MONSTER_TYPES.length; i++) {
-    var mt = MONSTER_TYPES[i];
-    var codexEntry = this.monsterCodex[mt.shape];
+  // 渲染一张图签卡片
+  function renderCard(mt, cardIdx, startY, isBossType) {
+    var codexEntry = self.monsterCodex[mt.shape];
     var found = !!codexEntry;
-    var col = i % COLS; var row = Math.floor(i / COLS);
-    var cx = START_X + col * (CARD_W + GAP_X);
-    var cy = START_Y + row * (CARD_H + GAP_Y);
+    var col = cardIdx % COLS; var row = Math.floor(cardIdx / COLS);
+    var cx2 = START_X + col * (CARD_W + GAP_X);
+    var cy2 = startY + row * (CARD_H + GAP_Y);
 
     // 卡片背景
     var cardBg = new eui.Rect();
     cardBg.width = CARD_W; cardBg.height = CARD_H;
     cardBg.ellipseWidth = 8; cardBg.ellipseHeight = 8;
-    cardBg.fillColor = found ? 0x1a2a3a : 0x222222;
-    cardBg.strokeColor = found ? mt.badge : 0x444444;
-    cardBg.strokeWeight = found ? 2 : 1;
-    cardBg.x = cx; cardBg.y = cy;
+    cardBg.fillColor = found ? (isBossType ? 0x2a0a0a : 0x0e1a2a) : 0x1a1a1a;
+    cardBg.strokeColor = found ? (isBossType ? 0xff4444 : mt.badge) : 0x333333;
+    cardBg.strokeWeight = found ? (isBossType ? 2 : 1.5) : 1;
+    cardBg.x = cx2; cardBg.y = cy2;
     panel.addChild(cardBg);
 
-    // 怪物缩略图（小型绘制）
-    var monsterThumb = new egret.Shape();
+    // 怪物缩略图
+    var thumb = new egret.Shape();
     if (found) {
-      this.drawMonsterShape(monsterThumb.graphics, mt, 40, mt.shape === 'dragon');
+      self.drawMonsterShape(thumb.graphics, mt, 44, isBossType);
     } else {
-      // 未发现：显示问号剪影
-      var tg = monsterThumb.graphics;
-      tg.beginFill(0x555555);
-      tg.drawCircle(20, 20, 16);
-      tg.endFill();
-      tg.beginFill(0x333333);
-      tg.drawCircle(20, 20, 12);
-      tg.endFill();
+      var tg = thumb.graphics;
+      tg.beginFill(0x444444); tg.drawCircle(22, 22, 18); tg.endFill();
+      tg.beginFill(0x222222); tg.drawCircle(22, 22, 13); tg.endFill();
+      tg.lineStyle(2, 0x666666);
+      tg.moveTo(18, 18); tg.lineTo(26, 26);
+      tg.moveTo(26, 18); tg.lineTo(18, 26);
     }
-    monsterThumb.x = cx + 6; monsterThumb.y = cy + 14;
-    monsterThumb.scaleX = 0.7; monsterThumb.scaleY = 0.7;
-    panel.addChild(monsterThumb);
+    thumb.x = cx2 + 4; thumb.y = cy2 + 18;
+    panel.addChild(thumb);
 
-    // 怪物名字
-    var nameLb = new eui.Label();
-    nameLb.text = found ? mt.name : '???';
-    nameLb.size = 12; nameLb.bold = true;
-    nameLb.textColor = found ? 0xffffff : 0x666666;
-    nameLb.x = cx + 44; nameLb.y = cy + 8;
-    panel.addChild(nameLb);
+    // 名字
+    var nameLb2 = new eui.Label();
+    nameLb2.text = found ? (isBossType ? '👑 ' + mt.name : mt.name) : '???';
+    nameLb2.size = 12; nameLb2.bold = true;
+    nameLb2.textColor = found ? (isBossType ? 0xff8888 : 0xffffff) : 0x555555;
+    nameLb2.x = cx2 + 52; nameLb2.y = cy2 + 6;
+    panel.addChild(nameLb2);
+
+    // 出现波次
+    var waveLb = new eui.Label();
+    waveLb.text = found ? '波次: ' + (mt.wave || (isBossType ? '每10波' : '?')) : '未发现';
+    waveLb.size = 9; waveLb.textColor = found ? THEME.accent : 0x444444;
+    waveLb.x = cx2 + 52; waveLb.y = cy2 + 24;
+    panel.addChild(waveLb);
 
     // 击杀数
-    var killLb = new eui.Label();
-    killLb.text = found ? '击杀: ' + (codexEntry.kills || 0) : '未发现';
-    killLb.size = 10;
-    killLb.textColor = found ? 0xaaaaaa : 0x555555;
-    killLb.x = cx + 44; killLb.y = cy + 26;
-    panel.addChild(killLb);
+    var killLb2 = new eui.Label();
+    killLb2.text = found ? '击杀: ' + (codexEntry.kills || 0) : '';
+    killLb2.size = 9; killLb2.textColor = 0x888888;
+    killLb2.x = cx2 + 52; killLb2.y = cy2 + 38;
+    panel.addChild(killLb2);
 
-    // 胶囊图签标记
-    if (found) {
-      var badgeBg = new eui.Rect();
-      badgeBg.width = 46; badgeBg.height = 14;
-      badgeBg.ellipseWidth = 7; badgeBg.ellipseHeight = 7;
-      badgeBg.fillColor = mt.badge;
-      badgeBg.fillAlpha = 0.9;
-      badgeBg.x = cx + 44; badgeBg.y = cy + 44;
-      panel.addChild(badgeBg);
-      var badgeLb = new eui.Label();
-      badgeLb.text = '✓ 已收集'; badgeLb.size = 9;
-      badgeLb.textColor = 0xffffff; badgeLb.bold = true;
-      badgeLb.x = cx + 48; badgeLb.y = cy + 45;
-      panel.addChild(badgeLb);
-    } else {
-      var lockLb = new eui.Label();
-      lockLb.text = '🔒'; lockLb.size = 14;
-      lockLb.x = cx + 50; lockLb.y = cy + 42;
-      panel.addChild(lockLb);
+    // 描述（截断到卡片宽度）
+    if (found && mt.desc) {
+      var descLb = new eui.Label();
+      descLb.text = mt.desc;
+      descLb.size = 8; descLb.textColor = THEME.textDim;
+      descLb.width = CARD_W - 56; descLb.wordWrap = true;
+      descLb.x = cx2 + 52; descLb.y = cy2 + 52;
+      panel.addChild(descLb);
     }
+
+    // BOSS 标记
+    if (isBossType && found) {
+      var bossBadge = new eui.Rect();
+      bossBadge.width = 30; bossBadge.height = 13;
+      bossBadge.ellipseWidth = 6; bossBadge.ellipseHeight = 6;
+      bossBadge.fillColor = 0x7a0000; bossBadge.x = cx2 + CARD_W - 34; bossBadge.y = cy2 + 4;
+      panel.addChild(bossBadge);
+      var bossTag = new eui.Label();
+      bossTag.text = 'BOSS'; bossTag.size = 8; bossTag.bold = true;
+      bossTag.textColor = 0xff8888; bossTag.x = cx2 + CARD_W - 32; bossTag.y = cy2 + 5;
+      panel.addChild(bossTag);
+    }
+  } // end if isBossType
+  } // end renderCard
+
+  // 普通怪物
+  for (var i = 0; i < MONSTER_TYPES.length; i++) {
+    renderCard(MONSTER_TYPES[i], i, START_Y, false);
   }
 
-  var totalRows = Math.ceil(MONSTER_TYPES.length / COLS);
-  panel.height = START_Y + totalRows * (CARD_H + GAP_Y) + 16;
+  // BOSS 分栏标题
+  var normalRows = Math.ceil(MONSTER_TYPES.length / COLS);
+  var bossSectionY = START_Y + normalRows * (CARD_H + GAP_Y) + 10;
+  var secBoss = new eui.Label();
+  secBoss.text = '── BOSS 图签 ──';
+  secBoss.size = 11; secBoss.textColor = 0xff8888;
+  secBoss.horizontalCenter = 0; secBoss.y = bossSectionY;
+  panel.addChild(secBoss);
+
+  // BOSS 怪物
+  for (var i = 0; i < BOSS_TYPES.length; i++) {
+    renderCard(BOSS_TYPES[i], i, bossSectionY + 18, true);
+  }
+
+  // 关闭按钮
+  var bossRows = Math.ceil(BOSS_TYPES.length / COLS);
+  var closeY = bossSectionY + 18 + bossRows * (CARD_H + GAP_Y) + 10;
+  var closeBtn = this.createButton('关闭', THEME.bgLite, 100, 32, function() {
+    if (overlay.parent) overlay.parent.removeChild(overlay);
+  }, this);
+  closeBtn.horizontalCenter = 0; closeBtn.y = closeY;
+  panel.addChild(closeBtn);
 };
 
 // ==================== 离线收益 ====================
