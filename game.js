@@ -814,119 +814,374 @@ Game.prototype.buildUI = function() {
   this.battleGroup.width = stageW; this.battleGroup.height = BATTLE_H;
   this.battleGroup.touchEnabled = true;
 
-  // 夜空渐变背景
-  var skyBg = new eui.Rect();
-  skyBg.percentWidth = 100; skyBg.height = Math.floor(BATTLE_H * 0.45);
-  skyBg.fillColor = THEME.bgDeep;
-  this.battleGroup.addChild(skyBg);
-  var skyMid = new eui.Rect();
-  skyMid.percentWidth = 100; skyMid.height = Math.floor(BATTLE_H * 0.15);
-  skyMid.y = Math.floor(BATTLE_H * 0.45);
-  skyMid.fillColor = 0x1a1240;
-  this.battleGroup.addChild(skyMid);
-  // 地板：糖果星尘深紫
-  var groundBg = new eui.Rect();
-  groundBg.percentWidth = 100; groundBg.height = Math.floor(BATTLE_H * 0.40);
-  groundBg.y = Math.floor(BATTLE_H * 0.60);
-  groundBg.fillColor = 0x241840;
-  this.battleGroup.addChild(groundBg);
-  var groundEdge = new eui.Rect();
-  groundEdge.percentWidth = 100; groundEdge.height = 2;
-  groundEdge.y = Math.floor(BATTLE_H * 0.60);
-  groundEdge.fillColor = THEME.strokeGold;
-  groundEdge.alpha = 0.6;
-  this.battleGroup.addChild(groundEdge);
-  // 星 + 月
-  var starsShape = new egret.Shape();
-  var sg = starsShape.graphics;
-  sg.beginFill(THEME.accentSoft, 0.8);
-  var starPositions = [
-    [36, 20], [76, 54], [140, 28], [210, 16], [256, 62],
-    [306, 34], [42, 96], [190, 90], [330, 110], [110, 78]
+  // ============================================================
+  // 魔幻场景背景
+  // 层次（从后到前）：
+  //   1. 深空底色（三段渐变色块）
+  //   2. 远山轮廓（紫色山脉剪影）
+  //   3. 魔法光柱（从地面射向天空）
+  //   4. 星云 / 光晕（大圆形半透明）
+  //   5. 星点（大小不一，多颗）
+  //   6. 月亮（弦月，带光晕）
+  //   7. 地面（魔法石板地，带裂缝发光）
+  //   8. 地面装饰（蘑菇、水晶石）
+  // ============================================================
+  var bg = new egret.Shape();
+  var bgG = bg.graphics;
+
+  // --- 1. 深空底色（三段）---
+  bgG.beginFill(0x04021a);
+  bgG.drawRect(0, 0, stageW, Math.floor(BATTLE_H * 0.55));
+  bgG.endFill();
+  bgG.beginFill(0x0d0730);
+  bgG.drawRect(0, Math.floor(BATTLE_H * 0.55), stageW, Math.floor(BATTLE_H * 0.12));
+  bgG.endFill();
+  bgG.beginFill(0x160b3a);
+  bgG.drawRect(0, Math.floor(BATTLE_H * 0.67), stageW, Math.ceil(BATTLE_H * 0.33));
+  bgG.endFill();
+
+  // --- 2. 远山剪影（三层，深→浅）---
+  // 最远层（最暗）
+  bgG.lineStyle(0);
+  bgG.beginFill(0x0e0630, 0.9);
+  bgG.moveTo(0, Math.floor(BATTLE_H * 0.62));
+  bgG.curveTo(40,  Math.floor(BATTLE_H * 0.38), 90,  Math.floor(BATTLE_H * 0.44));
+  bgG.curveTo(130, Math.floor(BATTLE_H * 0.30), 160, Math.floor(BATTLE_H * 0.40));
+  bgG.curveTo(200, Math.floor(BATTLE_H * 0.22), 230, Math.floor(BATTLE_H * 0.36));
+  bgG.curveTo(270, Math.floor(BATTLE_H * 0.28), 310, Math.floor(BATTLE_H * 0.42));
+  bgG.curveTo(345, Math.floor(BATTLE_H * 0.34), stageW, Math.floor(BATTLE_H * 0.48));
+  bgG.lineTo(stageW, Math.floor(BATTLE_H * 0.62));
+  bgG.endFill();
+  // 中层
+  bgG.beginFill(0x1a0d45, 0.85);
+  bgG.moveTo(0, Math.floor(BATTLE_H * 0.65));
+  bgG.curveTo(50,  Math.floor(BATTLE_H * 0.48), 100, Math.floor(BATTLE_H * 0.54));
+  bgG.curveTo(145, Math.floor(BATTLE_H * 0.40), 185, Math.floor(BATTLE_H * 0.50));
+  bgG.curveTo(225, Math.floor(BATTLE_H * 0.44), 260, Math.floor(BATTLE_H * 0.52));
+  bgG.curveTo(305, Math.floor(BATTLE_H * 0.42), stageW, Math.floor(BATTLE_H * 0.56));
+  bgG.lineTo(stageW, Math.floor(BATTLE_H * 0.65));
+  bgG.endFill();
+  // 近层（最亮）
+  bgG.beginFill(0x22104e, 0.9);
+  bgG.moveTo(0, Math.floor(BATTLE_H * 0.68));
+  bgG.curveTo(60,  Math.floor(BATTLE_H * 0.56), 110, Math.floor(BATTLE_H * 0.60));
+  bgG.curveTo(155, Math.floor(BATTLE_H * 0.50), 188, Math.floor(BATTLE_H * 0.58));
+  bgG.curveTo(230, Math.floor(BATTLE_H * 0.52), 280, Math.floor(BATTLE_H * 0.60));
+  bgG.curveTo(330, Math.floor(BATTLE_H * 0.54), stageW, Math.floor(BATTLE_H * 0.62));
+  bgG.lineTo(stageW, Math.floor(BATTLE_H * 0.68));
+  bgG.endFill();
+
+  // --- 3. 魔法光柱（3根，从地面向上渐隐）---
+  var pillarData = [
+    { x: 80,  w: 18, color: 0x7c3aed, alpha: 0.18 },
+    { x: 188, w: 28, color: 0xc026d3, alpha: 0.22 },
+    { x: 295, w: 16, color: 0x2563eb, alpha: 0.16 }
   ];
-  for (var si2 = 0; si2 < starPositions.length; si2++) {
-    this.drawStar(sg, starPositions[si2][0], starPositions[si2][1], 1.5, 0.7, 4);
+  for (var pi = 0; pi < pillarData.length; pi++) {
+    var pd = pillarData[pi];
+    // 宽光柱（底部不透明→顶部透明，用多层矩形模拟）
+    for (var li = 0; li < 8; li++) {
+      var ly = Math.floor(BATTLE_H * (0.67 - li * 0.08));
+      var lh = Math.floor(BATTLE_H * 0.09);
+      var la = pd.alpha * (1 - li / 8);
+      bgG.beginFill(pd.color, la);
+      bgG.drawRect(pd.x - pd.w / 2, ly, pd.w, lh + 2);
+      bgG.endFill();
+    }
+    // 中心亮线
+    bgG.beginFill(0xffffff, 0.12);
+    bgG.drawRect(pd.x - 1, 0, 2, Math.floor(BATTLE_H * 0.67));
+    bgG.endFill();
   }
-  sg.endFill();
-  sg.beginFill(THEME.accent, 0.2);
-  sg.drawCircle(stageW - 40, 36, 18);
-  sg.endFill();
-  sg.beginFill(THEME.accent, 0.4);
-  sg.drawCircle(stageW - 40, 36, 12);
-  sg.endFill();
-  sg.beginFill(THEME.bgDeep, 0.85);
-  sg.drawCircle(stageW - 34, 32, 10);
-  sg.endFill();
-  this.battleGroup.addChild(starsShape);
+
+  // --- 4. 星云光晕（大圆形半透明）---
+  var nebulaData = [
+    { x: 60,  y: 60,  r: 55, color: 0x4c1d95, alpha: 0.25 },
+    { x: 200, y: 40,  r: 70, color: 0x831843, alpha: 0.20 },
+    { x: 320, y: 80,  r: 50, color: 0x1e3a8a, alpha: 0.22 },
+    { x: 140, y: 110, r: 40, color: 0x5b21b6, alpha: 0.18 }
+  ];
+  for (var ni = 0; ni < nebulaData.length; ni++) {
+    var nd = nebulaData[ni];
+    bgG.beginFill(nd.color, nd.alpha);
+    bgG.drawCircle(nd.x, nd.y, nd.r);
+    bgG.endFill();
+    bgG.beginFill(nd.color, nd.alpha * 0.5);
+    bgG.drawCircle(nd.x, nd.y, nd.r * 1.6);
+    bgG.endFill();
+  }
+
+  // --- 5. 星点（大小不一）---
+  var starData = [
+    [30,12,1.8],[68,8,1.2],[110,22,2.2],[155,6,1.0],[195,18,1.6],
+    [240,10,1.4],[285,24,2.0],[330,14,1.2],[355,8,1.8],[15,45,1.0],
+    [88,38,1.6],[145,50,1.2],[210,32,2.0],[265,44,1.4],[310,36,1.8],
+    [50,70,1.0],[130,62,1.6],[220,68,1.2],[300,58,2.0],[360,72,1.4],
+    [75,90,1.2],[170,82,1.8],[250,94,1.0],[340,86,1.6],[20,100,1.4]
+  ];
+  for (var sti = 0; sti < starData.length; sti++) {
+    var sd = starData[sti];
+    // 外光晕
+    bgG.beginFill(0xfde68a, 0.15);
+    bgG.drawCircle(sd[0], sd[1], sd[2] * 2.5);
+    bgG.endFill();
+    // 星核
+    bgG.beginFill(0xffffff, 0.9);
+    bgG.drawCircle(sd[0], sd[1], sd[2]);
+    bgG.endFill();
+  }
+  // 十字星芒（4颗大星）
+  var bigStars = [[110,22],[195,18],[285,24],[50,70]];
+  for (var bsi = 0; bsi < bigStars.length; bsi++) {
+    var bx = bigStars[bsi][0], by = bigStars[bsi][1];
+    bgG.lineStyle(0.8, 0xfde68a, 0.6);
+    bgG.moveTo(bx - 6, by); bgG.lineTo(bx + 6, by);
+    bgG.moveTo(bx, by - 6); bgG.lineTo(bx, by + 6);
+    bgG.lineStyle(0);
+  }
+
+  // --- 6. 弦月（右上角，带光晕）---
+  var moonX = stageW - 52, moonY = 38, moonR = 22;
+  // 外光晕（三层）
+  bgG.beginFill(0xfde68a, 0.06); bgG.drawCircle(moonX, moonY, moonR * 3.5); bgG.endFill();
+  bgG.beginFill(0xfde68a, 0.12); bgG.drawCircle(moonX, moonY, moonR * 2.2); bgG.endFill();
+  bgG.beginFill(0xfde68a, 0.22); bgG.drawCircle(moonX, moonY, moonR * 1.4); bgG.endFill();
+  // 月面
+  bgG.beginFill(0xfef3c7);
+  bgG.drawCircle(moonX, moonY, moonR);
+  bgG.endFill();
+  // 遮罩（弦月缺口）
+  bgG.beginFill(0x04021a);
+  bgG.drawCircle(moonX + 10, moonY - 4, moonR - 2);
+  bgG.endFill();
+  // 月面纹理（淡色环形）
+  bgG.lineStyle(0.8, 0xfbbf24, 0.3);
+  bgG.drawCircle(moonX - 4, moonY + 2, 6);
+  bgG.lineStyle(0);
+
+  this.battleGroup.addChild(bg);
+
+  // --- 7. 地面（魔法石板）---
+  var ground = new egret.Shape();
+  var gg = ground.graphics;
+  var groundY = Math.floor(BATTLE_H * 0.67);
+  var groundH = BATTLE_H - groundY;
+  // 地面底色
+  gg.beginFill(0x0f0628);
+  gg.drawRect(0, groundY, stageW, groundH);
+  gg.endFill();
+  // 石板纹（横向分格）
+  var slabW = 62, slabH = 18;
+  for (var row = 0; row < 3; row++) {
+    var gy = groundY + row * slabH;
+    var offset = (row % 2) * (slabW / 2);
+    for (var col = -1; col < Math.ceil(stageW / slabW) + 1; col++) {
+      var gx = col * slabW + offset;
+      gg.lineStyle(0.8, 0x3b1f6e, 0.7);
+      gg.drawRect(gx + 1, gy + 1, slabW - 2, slabH - 2);
+      gg.lineStyle(0);
+    }
+  }
+  // 地面裂缝发光（3条）
+  var crackData = [
+    { x1: 30,  x2: 90,  y: groundY + 4,  color: 0x7c3aed },
+    { x1: 160, x2: 240, y: groundY + 8,  color: 0xc026d3 },
+    { x1: 290, x2: 360, y: groundY + 3,  color: 0x2563eb }
+  ];
+  for (var ci = 0; ci < crackData.length; ci++) {
+    var cd = crackData[ci];
+    gg.lineStyle(2, cd.color, 0.15); gg.moveTo(cd.x1, cd.y); gg.lineTo(cd.x2, cd.y); gg.lineStyle(0);
+    gg.lineStyle(1, cd.color, 0.35); gg.moveTo(cd.x1 + 4, cd.y); gg.lineTo(cd.x2 - 4, cd.y); gg.lineStyle(0);
+    gg.beginFill(cd.color, 0.5); gg.drawCircle((cd.x1 + cd.x2) / 2, cd.y, 1.5); gg.endFill();
+  }
+  // 地面边缘发光线
+  gg.lineStyle(1.5, 0x7c3aed, 0.5);
+  gg.moveTo(0, groundY); gg.lineTo(stageW, groundY);
+  gg.lineStyle(0.8, 0xc026d3, 0.3);
+  gg.moveTo(0, groundY + 1); gg.lineTo(stageW, groundY + 1);
+  gg.lineStyle(0);
+  this.battleGroup.addChild(ground);
+
+  // --- 8. 地面装饰（水晶石 + 蘑菇）---
+  var deco = new egret.Shape();
+  var dg = deco.graphics;
+  // 水晶石（左侧）
+  var crystalData = [
+    { x: 10, y: groundY - 2,  h: 14, w: 6,  color: 0x7c3aed },
+    { x: 18, y: groundY - 6,  h: 20, w: 5,  color: 0xa855f7 },
+    { x: 26, y: groundY - 3,  h: 12, w: 5,  color: 0x6d28d9 }
+  ];
+  for (var ki = 0; ki < crystalData.length; ki++) {
+    var kd = crystalData[ki];
+    dg.lineStyle(0.8, 0xffffff, 0.4);
+    dg.beginFill(kd.color, 0.85);
+    dg.moveTo(kd.x, kd.y);
+    dg.lineTo(kd.x - kd.w / 2, kd.y + kd.h);
+    dg.lineTo(kd.x + kd.w / 2, kd.y + kd.h);
+    dg.endFill();
+    // 高光
+    dg.lineStyle(0);
+    dg.beginFill(0xffffff, 0.35);
+    dg.moveTo(kd.x, kd.y + 2);
+    dg.lineTo(kd.x - 1, kd.y + kd.h * 0.5);
+    dg.lineTo(kd.x + 1, kd.y + kd.h * 0.5);
+    dg.endFill();
+  }
+  // 水晶石（右侧）
+  var crystalR = [
+    { x: stageW - 12, y: groundY - 4,  h: 16, w: 6,  color: 0x2563eb },
+    { x: stageW - 20, y: groundY - 8,  h: 22, w: 5,  color: 0x3b82f6 },
+    { x: stageW - 28, y: groundY - 3,  h: 13, w: 5,  color: 0x1d4ed8 }
+  ];
+  for (var kri = 0; kri < crystalR.length; kri++) {
+    var kd = crystalR[kri];
+    dg.lineStyle(0.8, 0xffffff, 0.4);
+    dg.beginFill(kd.color, 0.85);
+    dg.moveTo(kd.x, kd.y);
+    dg.lineTo(kd.x - kd.w / 2, kd.y + kd.h);
+    dg.lineTo(kd.x + kd.w / 2, kd.y + kd.h);
+    dg.endFill();
+    dg.lineStyle(0);
+    dg.beginFill(0xffffff, 0.35);
+    dg.moveTo(kd.x, kd.y + 2);
+    dg.lineTo(kd.x - 1, kd.y + kd.h * 0.5);
+    dg.lineTo(kd.x + 1, kd.y + kd.h * 0.5);
+    dg.endFill();
+  }
+  // 发光蘑菇（中央左右各一）
+  var mushData = [
+    { x: 55,  y: groundY, color: 0xec4899, spotColor: 0xfce7f3 },
+    { x: stageW - 55, y: groundY, color: 0x10b981, spotColor: 0xd1fae5 }
+  ];
+  for (var mi2 = 0; mi2 < mushData.length; mi2++) {
+    var md = mushData[mi2];
+    // 光晕
+    dg.beginFill(md.color, 0.12); dg.drawCircle(md.x, md.y, 14); dg.endFill();
+    // 菌柄
+    dg.lineStyle(0.8, 0xffffff, 0.3);
+    dg.beginFill(0xfde68a, 0.8);
+    dg.drawRect(md.x - 3, md.y - 10, 6, 10);
+    dg.endFill();
+    // 菌盖
+    dg.beginFill(md.color, 0.9);
+    dg.moveTo(md.x - 12, md.y - 10);
+    dg.curveTo(md.x, md.y - 24, md.x + 12, md.y - 10);
+    dg.endFill();
+    // 白点
+    dg.lineStyle(0);
+    dg.beginFill(md.spotColor, 0.9);
+    dg.drawCircle(md.x - 4, md.y - 16, 2);
+    dg.drawCircle(md.x + 4, md.y - 14, 1.5);
+    dg.drawCircle(md.x, md.y - 20, 1.2);
+    dg.endFill();
+  }
+  this.battleGroup.addChild(deco);
 
   // =========================================================
   // 战斗区布局分区（375px 宽）
-  //   左辅助列  x:  0 ~ 44   宽 44（2列×2行，每格 22px）
-  //   左功能键  x: 46 ~ 99   宽 54（2列×3行，每格 26px）
-  //   中央怪物  x:100 ~ 274  宽175（怪物 + 主角）
-  //   右功能键  x:276 ~ 329  宽 54（BOSS + 图签）
-  //   右辅助列  x:331 ~ 375  宽 44（2列×2行，每格 22px）
+  //
+  //   顶部功能条  y:0~28   满宽横排6个图标按钮（签到/每日/邮件/公告/磨转/能量）
+  //   左辅助列   x:0~44   上下4个精灵（单列，每格 BATTLE_H*0.5/4 高）
+  //   中央区     x:44~331 宽287（怪物 + 主角）
+  //     右上角   BOSS按钮 + 图签按钮（中央区内右上）
+  //   右辅助列   x:331~375 上下4个精灵（单列）
   // =========================================================
 
-  // --- 左侧辅助角色：2列×2行，每格 22px，共 4 个 ---
+  // ① 顶部功能横排（6个图标按钮，满宽均分）
+  var TOP_BTN_H = 30;
+  var topBtnDefs = [
+    { icon: '📅', text: '签到', fn: function() { self.openCheckin(); } },
+    { icon: '📋', text: '每日', fn: function() { self.openDailyTasks(); } },
+    { icon: '📬', text: '邮件', fn: function() { self.openMail(); } },
+    { icon: '📢', text: '公告', fn: function() { self.openAnnouncement(); } },
+    { icon: '🔄', text: '磨转', fn: function() { self.openRebirth(); } },
+    { icon: '⚡', text: '能量', fn: function() { self.openEnergyHelp(); } }
+  ];
+  var topBtnW = Math.floor(stageW / topBtnDefs.length);
+  for (var i = 0; i < topBtnDefs.length; i++) {
+    var tbd = topBtnDefs[i];
+    var tbg = new eui.Group();
+    tbg.width = topBtnW; tbg.height = TOP_BTN_H;
+    tbg.x = i * topBtnW; tbg.y = 0;
+    tbg.touchEnabled = true;
+    var tbbg = new eui.Rect();
+    tbbg.width = topBtnW - 2; tbbg.height = TOP_BTN_H - 2;
+    tbbg.x = 1; tbbg.y = 1;
+    tbbg.ellipseWidth = 6; tbbg.ellipseHeight = 6;
+    tbbg.fillColor = THEME.bgLite; tbbg.fillAlpha = 0.9;
+    tbbg.strokeColor = THEME.strokeGold; tbbg.strokeWeight = 0.8; tbbg.strokeAlpha = 0.5;
+    tbg.addChild(tbbg);
+    var tbIcon = new eui.Label();
+    tbIcon.text = tbd.icon; tbIcon.size = 13;
+    tbIcon.x = Math.floor((topBtnW - 13) / 2) - 2; tbIcon.y = 1;
+    tbg.addChild(tbIcon);
+    var tbLb = new eui.Label();
+    tbLb.text = tbd.text; tbLb.size = 8; tbLb.bold = true;
+    tbLb.textColor = THEME.accentSoft;
+    tbLb.width = topBtnW; tbLb.height = 10; tbLb.textAlign = 'center';
+    tbLb.x = 0; tbLb.y = 18;
+    tbg.addChild(tbLb);
+    (function(fn) {
+      tbg.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, self);
+    })(tbd.fn);
+    this.battleGroup.addChild(tbg);
+  }
+
+  // ② 左侧辅助角色：单列4个，上下均分（占战斗区上半段）
+  var SUP_COL_W = 44;
+  var SUP_AREA_Y = TOP_BTN_H + 4;
+  var SUP_AREA_H = Math.floor(BATTLE_H * 0.82);
+  var SUP_SLOT_H = Math.floor(SUP_AREA_H / 4);
   var leftSup = new eui.Group();
-  leftSup.x = 0;
-  leftSup.y = Math.floor(BATTLE_H * 0.12);
+  leftSup.x = 0; leftSup.y = SUP_AREA_Y;
   for (var i = 0; i < 4; i++) {
     var sc = this.createSupportView(i, 0);
-    var col = i % 2, row = Math.floor(i / 2);
-    sc.x = col * 22; sc.y = row * 58;
+    sc.x = Math.floor((SUP_COL_W - 22) / 2);
+    sc.y = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50) / 2);
     leftSup.addChild(sc);
   }
   this.leftSupGroup = leftSup;
   this.battleGroup.addChild(leftSup);
 
-  // --- 右侧辅助角色：2列×2行，每格 22px，共 4 个（idx 4-7）---
+  // ③ 右侧辅助角色：单列4个，上下均分
   var rightSup = new eui.Group();
-  rightSup.x = stageW - 44;
-  rightSup.y = Math.floor(BATTLE_H * 0.12);
+  rightSup.x = stageW - SUP_COL_W; rightSup.y = SUP_AREA_Y;
   for (var i = 4; i < 8; i++) {
     var sc = this.createSupportView(i, 0);
-    var col = (i - 4) % 2, row = Math.floor((i - 4) / 2);
-    sc.x = col * 22; sc.y = row * 58;
+    sc.x = Math.floor((SUP_COL_W - 22) / 2);
+    sc.y = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50) / 2);
     rightSup.addChild(sc);
   }
   this.rightSupGroup = rightSup;
   this.battleGroup.addChild(rightSup);
 
-  // === 左侧功能按钮区：2列×3行（x:46, 每格 26px）===
-  var leftBtnDefs = [
-    { text: '签到', fn: function() { self.openCheckin(); } },
-    { text: '每日', fn: function() { self.openDailyTasks(); } },
-    { text: '邮件', fn: function() { self.openMail(); } },
-    { text: '公告', fn: function() { self.openAnnouncement(); } },
-    { text: '磨转', fn: function() { self.openRebirth(); } },
-    { text: '能量', fn: function() { self.openEnergyHelp(); } }
-  ];
-  var LEFT_BTN_X = 46, LEFT_BTN_Y = 6;
-  for (var i = 0; i < leftBtnDefs.length; i++) {
-    var col = i % 2, row = Math.floor(i / 2);
-    var bx = LEFT_BTN_X + col * 27;
-    var by = LEFT_BTN_Y + row * 30;
-    var sideBtn = this.createSideBtn(leftBtnDefs[i].text, bx, by, leftBtnDefs[i].fn);
-    this.battleGroup.addChild(sideBtn);
-  }
+  // ④ 中央区：BOSS按钮 + 图签按钮（右上角，紧贴右辅助列左边）
+  var CENTER_X = SUP_COL_W;           // 44
+  var CENTER_W = stageW - SUP_COL_W * 2; // 287
+  this._centerX = CENTER_X;
+  this._centerW = CENTER_W;
 
-  // === 右侧按钮区（x: stageW-98 ~ stageW-44）：BOSS + 图签 ===
-  var RIGHT_BTN_X = stageW - 98;
+  // BOSS按钮（中央区右上，带骷髅图标）
+  var BOSS_BTN_W = 58, BOSS_BTN_H = 28;
   var bossBtnGroup = new eui.Group();
-  bossBtnGroup.width = 52; bossBtnGroup.height = 26;
-  bossBtnGroup.x = RIGHT_BTN_X; bossBtnGroup.y = 6;
+  bossBtnGroup.width = BOSS_BTN_W; bossBtnGroup.height = BOSS_BTN_H;
+  bossBtnGroup.x = CENTER_X + CENTER_W - BOSS_BTN_W - 2;
+  bossBtnGroup.y = TOP_BTN_H + 4;
   bossBtnGroup.touchEnabled = true;
   this._bossBtnBg = new eui.Rect();
-  this._bossBtnBg.width = 52; this._bossBtnBg.height = 26;
+  this._bossBtnBg.width = BOSS_BTN_W; this._bossBtnBg.height = BOSS_BTN_H;
   this._bossBtnBg.ellipseWidth = 8; this._bossBtnBg.ellipseHeight = 8;
-  this._bossBtnBg.fillColor = 0x9b2335;
+  this._bossBtnBg.fillColor = 0x7a1520;
+  this._bossBtnBg.strokeColor = 0xff4444; this._bossBtnBg.strokeWeight = 1.2; this._bossBtnBg.strokeAlpha = 0.8;
   bossBtnGroup.addChild(this._bossBtnBg);
+  var bossIconLb = new eui.Label();
+  bossIconLb.text = '💀'; bossIconLb.size = 13;
+  bossIconLb.x = 4; bossIconLb.y = 7;
+  bossBtnGroup.addChild(bossIconLb);
   this._bossBtnText = new eui.Label();
   this._bossBtnText.text = 'BOSS'; this._bossBtnText.size = 11;
   this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
-  this._bossBtnText.horizontalCenter = 0; this._bossBtnText.verticalCenter = 0;
+  this._bossBtnText.x = 20; this._bossBtnText.y = 8;
   bossBtnGroup.addChild(this._bossBtnText);
   bossBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
     self.challengeBoss();
@@ -935,42 +1190,41 @@ Game.prototype.buildUI = function() {
   this._bossBtnGroup = bossBtnGroup;
   this.updateBossBtn();
 
-  // 图签按钮
+  // 图签按钮（BOSS按钮正下方，带书本图标）
   var codexBtnGroup = new eui.Group();
-  codexBtnGroup.width = 52; codexBtnGroup.height = 22;
-  codexBtnGroup.x = RIGHT_BTN_X; codexBtnGroup.y = 36;
+  codexBtnGroup.width = BOSS_BTN_W; codexBtnGroup.height = 24;
+  codexBtnGroup.x = CENTER_X + CENTER_W - BOSS_BTN_W - 2;
+  codexBtnGroup.y = TOP_BTN_H + 4 + BOSS_BTN_H + 4;
   codexBtnGroup.touchEnabled = true;
   var codexBtnBg = new eui.Rect();
-  codexBtnBg.width = 52; codexBtnBg.height = 22;
+  codexBtnBg.width = BOSS_BTN_W; codexBtnBg.height = 24;
   codexBtnBg.ellipseWidth = 8; codexBtnBg.ellipseHeight = 8;
-  codexBtnBg.fillColor = 0x2c6e49;
+  codexBtnBg.fillColor = 0x1a4d35;
+  codexBtnBg.strokeColor = 0x4ade80; codexBtnBg.strokeWeight = 1; codexBtnBg.strokeAlpha = 0.7;
   codexBtnGroup.addChild(codexBtnBg);
+  var codexIconLb = new eui.Label();
+  codexIconLb.text = '📖'; codexIconLb.size = 12;
+  codexIconLb.x = 4; codexIconLb.y = 5;
+  codexBtnGroup.addChild(codexIconLb);
   var codexBtnText = new eui.Label();
   codexBtnText.text = '图签'; codexBtnText.size = 11;
   codexBtnText.textColor = 0xffffff; codexBtnText.bold = true;
-  codexBtnText.horizontalCenter = 0; codexBtnText.verticalCenter = 0;
+  codexBtnText.x = 22; codexBtnText.y = 6;
   codexBtnGroup.addChild(codexBtnText);
   codexBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
     self.openMonsterCodex();
   }, this);
   this.battleGroup.addChild(codexBtnGroup);
 
-  // === 中央怪物区（x:100 ~ 275，宽175）===
-  var CENTER_X = 100;
-  var CENTER_W = 175;
-  this._centerX = CENTER_X;
-  this._centerW = CENTER_W;
+  // --- 怪物区域 ---
+  this._monsterAreaY = TOP_BTN_H + 8;
+  this._monsterAreaH = Math.floor(BATTLE_H * 0.38);
 
-  // --- 怪物区域（上半部分，留出顶部按钮空间）---
-  this._monsterAreaY = Math.floor(BATTLE_H * 0.10);
-  this._monsterAreaH = Math.floor(BATTLE_H * 0.40);
-
-  // --- 主角（居中偏下）---
-  // 星语法师：月冠 + 渐变袍 + 心形宝珠法杖 + 脚下魔法阵
+  // --- 主角（居中，靠下，地面线上方）---
   var heroGroup = new eui.Group();
   heroGroup.width = 72; heroGroup.height = 96;
-  heroGroup.x = CENTER_X + (CENTER_W - 72) / 2;
-  heroGroup.y = Math.floor(BATTLE_H * 0.58);
+  heroGroup.x = CENTER_X + Math.floor((CENTER_W - 72) / 2);
+  heroGroup.y = Math.floor(BATTLE_H * 0.64);
   this._heroBaseY = heroGroup.y;
 
   // 脚下魔法阵（旋转层）
@@ -1125,11 +1379,13 @@ Game.prototype.buildUI = function() {
   // 魔法阵自转（循环）
   egret.Tween.get(magicCircle, { loop: true }).to({ rotation: 360 }, 12000);
 
-  // --- DPS显示 ---
+  // --- 攻击力显示（主角名字下方，居中）---
   this.dpsLabel = new eui.Label();
-  this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
-  this.dpsLabel.size = 11; this.dpsLabel.textColor = THEME.textDim;
-  this.dpsLabel.x = CENTER_X + (CENTER_W - 80) / 2; this.dpsLabel.y = heroGroup.y + 94;
+  this.dpsLabel.text = '攻击力: ' + this.fmt(this.totalDps());
+  this.dpsLabel.size = 10; this.dpsLabel.textColor = THEME.textDim;
+  this.dpsLabel.width = CENTER_W; this.dpsLabel.height = 14;
+  this.dpsLabel.textAlign = 'center';
+  this.dpsLabel.x = CENTER_X; this.dpsLabel.y = heroGroup.y + 98;
   this.battleGroup.addChild(this.dpsLabel);
 
   // --- 底部状态区（重构：三行垂直分离，修复宽度常量不一致 BUG） ---
