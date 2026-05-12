@@ -294,59 +294,53 @@ Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
 Game.prototype.createSupportView = function(idx, yPos) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
-  // 每格 22px 宽，精灵绘制中心在 (11, 16)
-  var sc = new eui.Group(); sc.width = 22; sc.height = 50;
+  // 精灵绘制坐标以 (22,22) 为中心，容器 44×56
+  var sc = new eui.Group(); sc.width = 44; sc.height = 56;
   if (yPos !== undefined && yPos !== 0) sc.y = yPos;
   var shape = new egret.Shape();
   var g = shape.graphics;
-  var cx = 11, cy = 16;  // 缩小后的中心点
+  var cx = 22, cy = 22;  // 绘制中心
 
   if (!s.unlocked) {
     // 未解锁：灰色剪影 + 锁
     g.beginFill(0x000000, 0.18);
-    g.drawEllipse(cx - 7, cy + 9, 14, 4);
+    g.drawEllipse(cx - 12, cy + 12, 24, 5);
     g.endFill();
-    g.lineStyle(1, 0x3a355a);
+    g.lineStyle(1.5, 0x3a355a);
     g.beginFill(0x4a4566);
-    g.drawCircle(cx, cy, 8);
+    g.drawCircle(cx, cy, 13);
     g.endFill();
     g.lineStyle(0);
     g.beginFill(0xb8b0db);
-    g.drawRoundRect(cx - 3, cy - 1, 6, 6, 1, 1);
+    g.drawRoundRect(cx - 5, cy - 1, 10, 9, 2, 2);
     g.endFill();
-    g.lineStyle(1, 0xb8b0db);
-    g.moveTo(cx - 2, cy - 1); g.lineTo(cx - 2, cy - 3);
-    g.curveTo(cx - 2, cy - 5, cx, cy - 5);
-    g.curveTo(cx + 2, cy - 5, cx + 2, cy - 3);
-    g.lineTo(cx + 2, cy - 1);
+    g.lineStyle(1.6, 0xb8b0db);
+    g.moveTo(cx - 3, cy - 1); g.lineTo(cx - 3, cy - 4);
+    g.curveTo(cx - 3, cy - 7, cx, cy - 7);
+    g.curveTo(cx + 3, cy - 7, cx + 3, cy - 4);
+    g.lineTo(cx + 3, cy - 1);
     g.lineStyle(0);
     shape.x = 0; shape.y = 0;
     sc.addChild(shape);
 
     var lockNameBg = new eui.Rect();
-    lockNameBg.width = 22; lockNameBg.height = 12;
-    lockNameBg.ellipseWidth = 4; lockNameBg.ellipseHeight = 4;
+    lockNameBg.width = 44; lockNameBg.height = 13;
+    lockNameBg.ellipseWidth = 6; lockNameBg.ellipseHeight = 6;
     lockNameBg.fillColor = THEME.bgMid; lockNameBg.fillAlpha = 0.85;
-    lockNameBg.horizontalCenter = 0; lockNameBg.top = 30;
+    lockNameBg.horizontalCenter = 0; lockNameBg.top = 40;
     sc.addChild(lockNameBg);
     var lockLb = new eui.Label();
-    lockLb.text = 'W' + def.wave; lockLb.size = 7; lockLb.bold = true;
+    lockLb.text = 'W' + def.wave; lockLb.size = 9; lockLb.bold = true;
     lockLb.textColor = 0x8881b0;
-    lockLb.horizontalCenter = 0; lockLb.top = 31;
+    lockLb.horizontalCenter = 0; lockLb.top = 41;
     sc.addChild(lockLb);
     return sc;
   }
 
   // === 底座阴影 ===
   g.beginFill(0x000000, 0.22);
-  g.drawEllipse(cx - 8, cy + 9, 16, 4);
+  g.drawEllipse(cx - 13, cy + 13, 26, 5);
   g.endFill();
-
-  // 精灵绘制以 (22,22) 为中心，通过 scale 缩小到 22px 格子
-  shape.scaleX = 0.5; shape.scaleY = 0.5;
-  shape.x = 0; shape.y = 0;
-  // 重置 cx/cy 为原始绘制坐标（22,22），scale 后自动缩小
-  cx = 22; cy = 22;
 
   // === 糖果精灵本体（按 shape 独立造型）===
   switch (def.shape) {
@@ -527,19 +521,19 @@ Game.prototype.createSupportView = function(idx, yPos) {
   shape.x = 0; shape.y = 0;
   sc.addChild(shape);
 
-  // 名字标签（金边胶囊，适配 22px 宽）
+  // 名字标签（金边胶囊，44px 宽）
   var nameBg = new eui.Rect();
-  nameBg.width = 22; nameBg.height = 12;
-  nameBg.ellipseWidth = 4; nameBg.ellipseHeight = 4;
+  nameBg.width = 44; nameBg.height = 13;
+  nameBg.ellipseWidth = 6; nameBg.ellipseHeight = 6;
   nameBg.fillColor = THEME.bgMid; nameBg.fillAlpha = 0.92;
   nameBg.strokeColor = THEME.strokeGold; nameBg.strokeWeight = 0.5;
-  nameBg.horizontalCenter = 0; nameBg.top = 30;
+  nameBg.horizontalCenter = 0; nameBg.top = 40;
   sc.addChild(nameBg);
   var sl = new eui.Label();
   sl.text = def.symbol.length > 2 ? def.symbol.slice(0, 2) : def.symbol;
-  sl.size = 7; sl.bold = true;
+  sl.size = 9; sl.bold = true;
   sl.textColor = THEME.textMain;
-  sl.horizontalCenter = 0; sl.top = 31;
+  sl.horizontalCenter = 0; sl.top = 41;
   sc.addChild(sl);
   return sc;
 };
@@ -1183,19 +1177,17 @@ Game.prototype.buildUI = function() {
   }, this);
   this.battleGroup.addChild(codexBtnGroup);
 
-  // ③ 左侧辅助角色：单列4个，上下均分，scale=0.7放大
-  var SUP_COL_W = 52;
+  // ③ 左侧辅助角色：单列4个，上下均分，原始尺寸44px
+  var SUP_COL_W = 48;
   var SUP_AREA_Y = TOP_BTN_H + ROW2_H + 6;
-  var SUP_AREA_H = BATTLE_H - SUP_AREA_Y - 44; // 留底部状态条空间
+  var SUP_AREA_H = BATTLE_H - SUP_AREA_Y - 44;
   var SUP_SLOT_H = Math.floor(SUP_AREA_H / 4);
-  var SUP_SCALE = 0.7; // 精灵绘制坐标基于44px，×0.7≈31px实际
   var leftSup = new eui.Group();
   leftSup.x = 0; leftSup.y = SUP_AREA_Y;
   for (var i = 0; i < 4; i++) {
     var sc = this.createSupportView(i, 0);
-    sc.scaleX = SUP_SCALE; sc.scaleY = SUP_SCALE;
-    sc.x = Math.floor((SUP_COL_W - 22 * SUP_SCALE) / 2);
-    sc.y = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50 * SUP_SCALE) / 2);
+    sc.x = Math.floor((SUP_COL_W - 44) / 2);
+    sc.y = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 56) / 2);
     leftSup.addChild(sc);
   }
   this.leftSupGroup = leftSup;
@@ -1206,17 +1198,16 @@ Game.prototype.buildUI = function() {
   rightSup.x = stageW - SUP_COL_W; rightSup.y = SUP_AREA_Y;
   for (var i = 4; i < 8; i++) {
     var sc = this.createSupportView(i, 0);
-    sc.scaleX = SUP_SCALE; sc.scaleY = SUP_SCALE;
-    sc.x = Math.floor((SUP_COL_W - 22 * SUP_SCALE) / 2);
-    sc.y = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 50 * SUP_SCALE) / 2);
+    sc.x = Math.floor((SUP_COL_W - 44) / 2);
+    sc.y = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 56) / 2);
     rightSup.addChild(sc);
   }
   this.rightSupGroup = rightSup;
   this.battleGroup.addChild(rightSup);
 
   // ⑤ 中央区
-  var CENTER_X = SUP_COL_W;               // 52
-  var CENTER_W = stageW - SUP_COL_W * 2;  // 271
+  var CENTER_X = SUP_COL_W;               // 48
+  var CENTER_W = stageW - SUP_COL_W * 2;  // 279
   this._centerX = CENTER_X;
   this._centerW = CENTER_W;
 
