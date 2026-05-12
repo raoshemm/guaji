@@ -1,4 +1,37 @@
 // ==================== 吃饭睡觉打豆豆 - Egret引擎版 ====================
+//
+// 视觉系统："星夜糖果屋"（Starry Candy Cottage）
+// --------------------------------------------------------------
+// 主题：深夜空魔法绘本 × 放置点击 RPG。所有界面色彩从 THEME 统一取值，
+// 避免各模块各自写颜色常量导致风格碎裂。修改整站风格只需动 THEME。
+// --------------------------------------------------------------
+var THEME = {
+  // 背景层（从深到浅）
+  bgDeep:   0x0a0820,
+  bgMid:    0x1a1340,
+  bgLite:   0x2a1f5c,
+  bgRow:    0x1a153f,
+  bgGlass:  0x140e36,
+  // 边框
+  strokeGold: 0xf5c842,
+  strokeSoft: 0x4a3a8c,
+  // 主色
+  accent:     0xfbbf24,
+  accentSoft: 0xfde68a,
+  pink:       0xff7eb0,
+  mint:       0x7be8b7,
+  sky:        0x5ec8ff,
+  lavender:   0xc7a7ff,
+  // 状态色
+  ok:      0x2ecc71,
+  warn:    0xf39c12,
+  danger:  0xef4444,
+  // 文字
+  textMain: 0xffffff,
+  textDim:  0xb8b0db,
+  textMute: 0x6a628f,
+  textGold: 0xfbbf24
+};
 
 var CONFIG = {
   maxEnergy: 100,
@@ -15,43 +48,50 @@ var CONFIG = {
   killsNeeded: function(level) { return level * 4 + 4; }
 };
 
+// 技能定义
+//   name   显示名
+//   cd     冷却时间（秒）
+//   dmg    伤害倍率
+//   hits   命中次数；0 = 全屏 AOE
+//   lv     解锁等级
+//   color  技能按钮主色
+//   icon   drawSkillIcon 消费的形状 key
+//   glow   辉光色
 var SKILLS = [
-  { name: '普攻', cd: 0, dmg: 1, hits: 1, lv: 1 },
-  { name: '重击', cd: 5, dmg: 2, hits: 1, lv: 3 },
-  { name: '连击', cd: 8, dmg: 0.8, hits: 3, lv: 5 },
-  { name: '暴击', cd: 12, dmg: 4, hits: 1, lv: 8 },
-  { name: '旋风', cd: 18, dmg: 2.5, hits: 0, lv: 12 },
-  { name: '雷霆', cd: 30, dmg: 6, hits: 1, lv: 18 },
-  { name: '终极', cd: 60, dmg: 12, hits: 1, lv: 25 }
+  { name: '轻击', cd: 0,  dmg: 1,   hits: 1, lv: 1,  color: 0x5ec8ff, icon: 'slash',   glow: 0xa8e0ff },
+  { name: '破岳', cd: 5,  dmg: 2,   hits: 1, lv: 3,  color: 0xef4444, icon: 'smash',   glow: 0xffb5b5 },
+  { name: '连斩', cd: 8,  dmg: 0.8, hits: 3, lv: 5,  color: 0xfbbf24, icon: 'triple',  glow: 0xfff1b0 },
+  { name: '裂光', cd: 12, dmg: 4,   hits: 1, lv: 8,  color: 0xc7a7ff, icon: 'crit',    glow: 0xe7d4ff },
+  { name: '糖风', cd: 18, dmg: 2.5, hits: 0, lv: 12, color: 0x7be8b7, icon: 'whirl',   glow: 0xc5f5dd },
+  { name: '雷霆', cd: 30, dmg: 6,   hits: 1, lv: 18, color: 0xffd166, icon: 'thunder', glow: 0xffe8a5 },
+  { name: '星陨', cd: 60, dmg: 12,  hits: 1, lv: 25, color: 0xff7eb0, icon: 'meteor',  glow: 0xffcfe2 }
 ];
 
-// 怪物类型定义
-//   name     显示名
-//   shape    createMonsterView 中的绘制 key
-//   color    主体色
-//   outline  深色描边色，用于勾边提升辨识度
-//   hpColor  血条颜色
-//   badge    名字图签背景色（与主体色呼应）
+// 怪物类型定义（三层光影风格）
+//   highlight 浅色高光 / accent 点缀色（牙爪等）
 var MONSTER_TYPES = [
-  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, outline: 0x1e6b3a, hpColor: 0x2ecc71, badge: 0x1e6b3a },
-  { name: '兔子',   shape: 'rabbit', color: 0xffc9d9, outline: 0xc94f7a, hpColor: 0xff69b4, badge: 0xc94f7a },
-  { name: '蝙蝠',   shape: 'bat',    color: 0x6c3483, outline: 0x3a1d4a, hpColor: 0x9b59b6, badge: 0x3a1d4a },
-  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10 },
-  { name: '幽灵',   shape: 'ghost',  color: 0xe8eef5, outline: 0x6c7a89, hpColor: 0x95a5a6, badge: 0x6c7a89 },
-  { name: '骷髅',   shape: 'skull',  color: 0xecf0f1, outline: 0x34495e, hpColor: 0xbdc3c7, badge: 0x34495e },
-  { name: '火龙',   shape: 'dragon', color: 0xe67e22, outline: 0x8b3a06, hpColor: 0xf39c12, badge: 0x8b3a06 },
-  { name: '暗影',   shape: 'shadow', color: 0x2c3e50, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000 }
+  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, highlight: 0xa8ffcf, outline: 0x1e5f38, hpColor: 0x2ecc71, badge: 0x1e5f38, accent: 0xfff59d },
+  { name: '兔兔',   shape: 'rabbit', color: 0xffc9d9, highlight: 0xffe9f2, outline: 0xb83d6a, hpColor: 0xff69b4, badge: 0xb83d6a, accent: 0xe91e63 },
+  { name: '蝙蝠',   shape: 'bat',    color: 0x7e3cb8, highlight: 0xbd85e2, outline: 0x32124a, hpColor: 0x9b59b6, badge: 0x32124a, accent: 0xff3030 },
+  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, highlight: 0xff8a7a, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10, accent: 0xfff59d },
+  { name: '幽灵',   shape: 'ghost',  color: 0xe8f1ff, highlight: 0xffffff, outline: 0x4a3a6c, hpColor: 0xa0afc8, badge: 0x4a3a6c, accent: 0x5ec8ff },
+  { name: '骷髅',   shape: 'skull',  color: 0xf0ebe0, highlight: 0xffffff, outline: 0x2c2640, hpColor: 0xbdc3c7, badge: 0x2c2640, accent: 0xff3333 },
+  { name: '火龙',   shape: 'dragon', color: 0xe67e22, highlight: 0xffbe76, outline: 0x7a2d06, hpColor: 0xf39c12, badge: 0x7a2d06, accent: 0xff4500 },
+  { name: '暗影',   shape: 'shadow', color: 0x1a1030, highlight: 0x4b3a7a, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000, accent: 0xff0000 }
 ];
 
+// 辅助角色（糖果精灵队）
+//   role     物理 phys / 法术 magic（决定攻击动画）
+//   shape    createSupportView + bullet 绘制 key
 var SUPPORTS_DEF = [
-  { name: '小毛绒', dps: 15, wave: 0,  atkInterval: 1200, color: 0xff69b4, shape: 'circle',   symbol: '小毛绒', bodyColor: 0xff69b4 },
-  { name: '棉花糖', dps: 28, wave: 5,  atkInterval: 1500, color: 0xf8b4d9, shape: 'cloud',    symbol: '棉花糖', bodyColor: 0xf8b4d9 },
-  { name: '肉丸',   dps: 45, wave: 15, atkInterval: 1000, color: 0xd35400, shape: 'diamond',  symbol: '肉丸',   bodyColor: 0xd35400 },
-  { name: '布丁',   dps: 75, wave: 30, atkInterval: 1800, color: 0xf1c40f, shape: 'square',   symbol: '布丁',   bodyColor: 0xf1c40f },
-  { name: '蛋筒',   dps: 120, wave: 50, atkInterval: 900,  color: 0x3498db, shape: 'triangle', symbol: '蛋筒',   bodyColor: 0x3498db },
-  { name: '麻薯',   dps: 200, wave: 80, atkInterval: 1400, color: 0x9b59b6, shape: 'star',     symbol: '麻薯',   bodyColor: 0x9b59b6 },
-  { name: '雪糕',   dps: 350, wave: 120, atkInterval: 1100, color: 0x00bcd4, shape: 'crescent', symbol: '雪糕',  bodyColor: 0x00bcd4 },
-  { name: '甜甜',   dps: 600, wave: 180, atkInterval: 1600, color: 0xe91e63, shape: 'heart',    symbol: '甜甜',  bodyColor: 0xe91e63 }
+  { name: '糖糖',   dps: 15,  wave: 0,   atkInterval: 1200, color: 0xff7eb0, shape: 'candy',       role: 'phys',  symbol: '糖糖'   },
+  { name: '棉花糖', dps: 28,  wave: 5,   atkInterval: 1500, color: 0xf8c4d9, shape: 'marshmallow', role: 'magic', symbol: '棉花糖' },
+  { name: '肉丸',   dps: 45,  wave: 15,  atkInterval: 1000, color: 0xd96a31, shape: 'meatball',    role: 'phys',  symbol: '肉丸'   },
+  { name: '布丁',   dps: 75,  wave: 30,  atkInterval: 1800, color: 0xf5c842, shape: 'pudding',     role: 'phys',  symbol: '布丁'   },
+  { name: '蛋筒',   dps: 120, wave: 50,  atkInterval: 900,  color: 0xff9933, shape: 'cone',        role: 'phys',  symbol: '蛋筒'   },
+  { name: '麻薯',   dps: 200, wave: 80,  atkInterval: 1400, color: 0xc7a7ff, shape: 'mochi',       role: 'magic', symbol: '麻薯'   },
+  { name: '月棒冰', dps: 350, wave: 120, atkInterval: 1100, color: 0x7be8b7, shape: 'popsicle',    role: 'magic', symbol: '月棒冰' },
+  { name: '草莓酱', dps: 600, wave: 180, atkInterval: 1600, color: 0xff5577, shape: 'cake',        role: 'magic', symbol: '草莓酱' }
 ];
 
 var FOODS = [
@@ -233,11 +273,13 @@ Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
   var g = new eui.Group();
   g.width = w; g.height = h;
   var bg = new eui.Rect();
-  bg.width = w; bg.height = h; bg.fillColor = color; bg.ellipseWidth = 6; bg.ellipseHeight = 6;
+  bg.width = w; bg.height = h; bg.fillColor = color;
+  bg.ellipseWidth = 8; bg.ellipseHeight = 8;
   bg.percentWidth = 100; bg.percentHeight = 100;
+  bg.strokeColor = THEME.accentSoft; bg.strokeWeight = 1; bg.strokeAlpha = 0.55;
   g.addChild(bg);
   var lb = new eui.Label();
-  lb.text = text; lb.size = 12; lb.textColor = 0xffffff;
+  lb.text = text; lb.size = 12; lb.textColor = 0xffffff; lb.bold = true;
   lb.horizontalCenter = 0; lb.verticalCenter = 0;
   g.addChild(lb);
   g.touchEnabled = true;
@@ -246,98 +288,248 @@ Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
 };
 
 // ==================== 角色外观绘制 ====================
-
+//
+// 统一风格：底座阴影 + 主体 + 描边 + 高光 + 眼睛（_drawEyes）
+//
 Game.prototype.createSupportView = function(idx, yPos) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
   var sc = new eui.Group(); sc.width = 44; sc.height = 52; sc.y = yPos;
   var shape = new egret.Shape();
-  var c = s.unlocked ? (def.bodyColor || def.color) : 0x444444;
   var g = shape.graphics;
-  var cx = 22, cy = 20;
+  var cx = 22, cy = 22;
 
-  // 底座阴影
-  if (s.unlocked) {
-    g.beginFill(0x000000, 0.15);
-    g.drawEllipse(cx - 10, cy + 14, 20, 6);
+  if (!s.unlocked) {
+    // 未解锁：灰色剪影 + 锁
+    g.beginFill(0x000000, 0.18);
+    g.drawEllipse(cx - 12, cy + 14, 24, 5);
     g.endFill();
-  }
-
-  // 描边
-  g.lineStyle(1.5, s.unlocked ? 0x333333 : 0x222222);
-
-  // 身体形状
-  g.beginFill(c);
-  switch (def.shape) {
-    case 'circle':   g.drawCircle(cx, cy, 14); break;
-    case 'cloud':    g.drawCircle(cx - 5, cy + 2, 9); g.drawCircle(cx + 5, cy + 2, 9); g.drawCircle(cx, cy - 4, 9); break;
-    case 'diamond':  g.moveTo(cx, cy - 15); g.lineTo(cx + 14, cy); g.lineTo(cx, cy + 15); g.lineTo(cx - 14, cy); break;
-    case 'square':   g.drawRoundRect(cx - 13, cy - 13, 26, 26, 5); break;
-    case 'triangle': g.moveTo(cx, cy - 15); g.lineTo(cx + 14, cy + 12); g.lineTo(cx - 14, cy + 12); break;
-    case 'star':     this.drawStar(g, cx, cy, 15, 7, 5); break;
-    case 'crescent': g.drawCircle(cx, cy, 14); g.endFill(); g.beginFill(s.unlocked ? 0x004d5a : 0x333333); g.drawCircle(cx + 5, cy - 3, 12); break;
-    case 'heart':    g.drawCircle(cx - 5, cy - 4, 8); g.drawCircle(cx + 5, cy - 4, 8); g.endFill(); g.beginFill(c); g.moveTo(cx - 13, cy - 1); g.lineTo(cx, cy + 14); g.lineTo(cx + 13, cy - 1); break;
-    default:         g.drawCircle(cx, cy, 14);
-  }
-  g.endFill();
-  g.lineStyle(0);
-
-  // 眼睛（解锁后才有）
-  if (s.unlocked) {
-    g.beginFill(0xffffff);
-    g.drawCircle(cx - 4, cy - 2, 3);
-    g.drawCircle(cx + 4, cy - 2, 3);
+    g.lineStyle(1.5, 0x3a355a);
+    g.beginFill(0x4a4566);
+    g.drawCircle(cx, cy, 13);
     g.endFill();
-    g.beginFill(0x000000);
-    g.drawCircle(cx - 4, cy - 1, 1.5);
-    g.drawCircle(cx + 4, cy - 1, 1.5);
-    g.endFill();
-  } else {
-    // 未解锁锁图标
-    g.beginFill(0x888888);
-    g.drawRect(cx - 4, cy - 2, 8, 7);
-    g.endFill();
-    g.lineStyle(2, 0x888888);
-    g.drawCircle(cx, cy - 4, 4);
     g.lineStyle(0);
+    g.beginFill(0xb8b0db);
+    g.drawRoundRect(cx - 5, cy - 1, 10, 9, 2, 2);
+    g.endFill();
+    g.lineStyle(1.6, 0xb8b0db);
+    g.moveTo(cx - 3, cy - 1); g.lineTo(cx - 3, cy - 4);
+    g.curveTo(cx - 3, cy - 7, cx, cy - 7);
+    g.curveTo(cx + 3, cy - 7, cx + 3, cy - 4);
+    g.lineTo(cx + 3, cy - 1);
+    g.lineStyle(0);
+    shape.x = 0; shape.y = 0;
+    sc.addChild(shape);
+
+    var lockNameBg = new eui.Rect();
+    lockNameBg.width = 44; lockNameBg.height = 13;
+    lockNameBg.ellipseWidth = 6; lockNameBg.ellipseHeight = 6;
+    lockNameBg.fillColor = THEME.bgMid; lockNameBg.fillAlpha = 0.85;
+    lockNameBg.horizontalCenter = 0; lockNameBg.top = 37;
+    sc.addChild(lockNameBg);
+    var lockLb = new eui.Label();
+    lockLb.text = '波次' + def.wave; lockLb.size = 8; lockLb.bold = true;
+    lockLb.textColor = 0x8881b0;
+    lockLb.horizontalCenter = 0; lockLb.top = 38;
+    sc.addChild(lockLb);
+    return sc;
   }
 
-  // 武器（根据角色不同，仅解锁时显示）
-  if (s.unlocked) {
-    switch (idx) {
-      case 0: g.beginFill(0x8b6914); g.drawRect(cx + 12, cy - 8, 3, 18); g.endFill();
-              g.beginFill(0xa0522d); g.drawCircle(cx + 13, cy - 10, 4); g.endFill(); break;
-      case 1: g.beginFill(0xd4a017); g.drawRect(cx + 10, cy - 10, 2, 22); g.endFill();
-              g.beginFill(0xff69b4); this.drawStar(g, cx + 11, cy - 12, 5, 2.5, 5); g.endFill(); break;
-      case 2: g.beginFill(0x8b6914); g.drawRect(cx + 10, cy - 4, 3, 16); g.endFill();
-              g.beginFill(0x555555); g.drawRoundRect(cx + 7, cy - 10, 10, 8, 2); g.endFill(); break;
-      case 3: g.beginFill(0xc0c0c0); g.drawRect(cx + 10, cy - 6, 2, 18); g.endFill();
-              g.beginFill(0xf39c12); g.drawEllipse(cx + 7, cy - 12, 7, 5); g.endFill(); break;
-      case 4: g.beginFill(0x8b6914); g.drawRect(cx + 11, cy - 14, 2, 28); g.endFill();
-              g.beginFill(0xc0c0c0); g.moveTo(cx + 12, cy - 17); g.lineTo(cx + 15, cy - 12); g.lineTo(cx + 9, cy - 12); g.endFill(); break;
-      case 5: g.beginFill(0x6c3483); g.drawRoundRect(cx + 8, cy - 8, 12, 16, 2); g.endFill();
-              g.beginFill(0xf1c40f); g.drawRect(cx + 10, cy - 4, 8, 2); g.endFill(); break;
-      case 6: g.beginFill(0x85c1e9); g.drawRect(cx + 10, cy - 10, 2, 22); g.endFill();
-              g.beginFill(0x00bcd4); g.drawCircle(cx + 11, cy - 12, 4); g.endFill(); break;
-      case 7: g.beginFill(0xc0392b); g.drawRect(cx + 10, cy - 8, 2, 18); g.endFill();
-              g.lineStyle(2, 0xe74c3c); g.drawCircle(cx + 11, cy - 10, 5); g.lineStyle(0); break;
-    }
+  // === 底座阴影 ===
+  g.beginFill(0x000000, 0.22);
+  g.drawEllipse(cx - 13, cy + 13, 26, 5);
+  g.endFill();
+
+  // === 糖果精灵本体（按 shape 独立造型）===
+  switch (def.shape) {
+    case 'candy':
+      // 糖果宝宝：圆球 + 两侧纸包扭结 + 条纹
+      g.lineStyle(1.2, 0xc94f7a);
+      g.beginFill(0xff9ec8);
+      g.moveTo(cx - 18, cy); g.lineTo(cx - 10, cy - 6); g.lineTo(cx - 10, cy + 6); g.endFill();
+      g.beginFill(0xff9ec8);
+      g.moveTo(cx + 18, cy); g.lineTo(cx + 10, cy - 6); g.lineTo(cx + 10, cy + 6); g.endFill();
+      g.lineStyle(1.5, 0xb83d6a);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy, 11); g.endFill();
+      g.lineStyle(1.8, 0xffffff, 0.7);
+      g.moveTo(cx - 6, cy - 7); g.lineTo(cx - 7, cy + 7);
+      g.moveTo(cx + 6, cy - 7); g.lineTo(cx + 7, cy + 7);
+      g.lineStyle(0);
+      this._drawEyes(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
+      break;
+
+    case 'marshmallow':
+      g.lineStyle(1.5, 0xb83d6a);
+      g.beginFill(def.color);
+      g.drawCircle(cx - 6, cy + 2, 8);
+      g.drawCircle(cx + 6, cy + 2, 8);
+      g.drawCircle(cx, cy - 4, 9);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffffff, 0.55);
+      g.drawEllipse(cx - 3, cy - 10, 7, 3);
+      g.endFill();
+      g.beginFill(0xff5599, 0.55);
+      g.drawCircle(cx - 6, cy + 2, 2);
+      g.drawCircle(cx + 6, cy + 2, 2);
+      g.endFill();
+      this._drawEyes(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
+      g.lineStyle(1.2, 0xb83d6a);
+      g.moveTo(cx - 2, cy + 2); g.curveTo(cx, cy + 4, cx + 2, cy + 2);
+      break;
+
+    case 'meatball':
+      g.lineStyle(0);
+      g.beginFill(0x8b6914);
+      g.drawRect(cx + 10, cy - 14, 2, 30);
+      g.endFill();
+      g.lineStyle(1.5, 0x5a2808);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy + 3, 10);
+      g.drawCircle(cx - 7, cy - 6, 6);
+      g.drawCircle(cx + 6, cy - 8, 5);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffd28a, 0.6);
+      g.drawEllipse(cx - 4, cy - 2, 5, 2);
+      g.endFill();
+      this._drawEyes(g, cx - 3, cy + 1, cx + 3, cy + 1, 2, 1);
+      break;
+
+    case 'pudding':
+      g.lineStyle(1.5, 0x8b6914);
+      g.beginFill(def.color);
+      g.moveTo(cx - 12, cy + 10);
+      g.lineTo(cx + 12, cy + 10);
+      g.lineTo(cx + 9, cy - 4);
+      g.lineTo(cx - 9, cy - 4);
+      g.endFill();
+      g.beginFill(0xa05a14);
+      g.drawEllipse(cx - 9, cy - 7, 18, 6);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xe74c3c);
+      g.drawCircle(cx, cy - 10, 3);
+      g.endFill();
+      g.beginFill(0x5a7d3d);
+      g.drawRect(cx - 1, cy - 14, 2, 3);
+      g.endFill();
+      this._drawEyes(g, cx - 3, cy + 2, cx + 3, cy + 2, 2, 1);
+      break;
+
+    case 'cone':
+      g.lineStyle(1.5, 0x8b6914);
+      g.beginFill(0xd49a5a);
+      g.moveTo(cx - 10, cy - 2);
+      g.lineTo(cx + 10, cy - 2);
+      g.lineTo(cx, cy + 14);
+      g.endFill();
+      g.lineStyle(0.6, 0x8b6914);
+      g.moveTo(cx - 7, cy + 1); g.lineTo(cx + 7, cy + 1);
+      g.moveTo(cx - 5, cy + 5); g.lineTo(cx + 5, cy + 5);
+      g.lineStyle(1.5, 0xc25a10);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy - 7, 8);
+      g.endFill();
+      g.beginFill(0xffffff);
+      g.drawCircle(cx, cy - 12, 6);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffffff, 0.55);
+      g.drawEllipse(cx - 2, cy - 14, 4, 2);
+      g.endFill();
+      this._drawEyes(g, cx - 3, cy - 7, cx + 3, cy - 7, 2, 1);
+      break;
+
+    case 'mochi':
+      g.lineStyle(1.5, 0x5d3a8c);
+      g.beginFill(def.color);
+      g.drawEllipse(cx - 12, cy - 8, 24, 24);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0x5a9a40, 0.55);
+      g.drawEllipse(cx - 8, cy - 8, 16, 4);
+      g.endFill();
+      g.beginFill(0xffffff, 0.5);
+      g.drawEllipse(cx - 6, cy - 4, 6, 2);
+      g.endFill();
+      this._drawEyes(g, cx - 4, cy + 1, cx + 4, cy + 1, 2, 1);
+      g.beginFill(0xff5577, 0.8);
+      g.drawCircle(cx, cy + 7, 1.5);
+      g.endFill();
+      break;
+
+    case 'popsicle':
+      g.lineStyle(0);
+      g.beginFill(0x8b6914);
+      g.drawRoundRect(cx - 2, cy + 2, 4, 14, 1, 1);
+      g.endFill();
+      g.lineStyle(1.5, 0x2a7d5e);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy - 2, 11);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0x1a0a2e);
+      g.drawCircle(cx + 4, cy - 4, 9);
+      g.endFill();
+      g.beginFill(0xfbbf24);
+      this.drawStar(g, cx - 5, cy - 6, 2, 1, 5);
+      this.drawStar(g, cx - 7, cy + 1, 1.5, 0.7, 5);
+      g.endFill();
+      break;
+
+    case 'cake':
+      g.lineStyle(1.2, 0x8b3d5e);
+      g.beginFill(0xfde8c4);
+      g.drawRoundRect(cx - 12, cy + 4, 24, 10, 2, 2);
+      g.endFill();
+      g.beginFill(def.color);
+      g.drawRoundRect(cx - 10, cy - 4, 20, 10, 2, 2);
+      g.endFill();
+      g.beginFill(0xffffff);
+      g.drawRoundRect(cx - 8, cy - 11, 16, 9, 2, 2);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffffff);
+      g.drawCircle(cx - 5, cy - 13, 2);
+      g.drawCircle(cx, cy - 13, 2);
+      g.drawCircle(cx + 5, cy - 13, 2);
+      g.endFill();
+      g.beginFill(0xe74c3c);
+      g.moveTo(cx, cy - 18);
+      g.lineTo(cx - 3, cy - 14);
+      g.lineTo(cx + 3, cy - 14);
+      g.endFill();
+      g.beginFill(0xfff59d);
+      g.drawCircle(cx - 1, cy - 15, 0.5);
+      g.drawCircle(cx + 1, cy - 16, 0.5);
+      g.endFill();
+      this._drawEyes(g, cx - 3, cy, cx + 3, cy, 1.8, 0.9);
+      break;
+
+    default:
+      g.lineStyle(1.5, 0x333333);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy, 13);
+      g.endFill();
+      this._drawEyes(g, cx - 4, cy - 2, cx + 4, cy - 2, 3, 1.5);
   }
 
   shape.x = 0; shape.y = 0;
   sc.addChild(shape);
 
-  // 名字标签（胶囊底色）— 宽度扩大到 44px，字号 8，支持最多 3 字名字
+  // 名字标签（金边胶囊）
   var nameBg = new eui.Rect();
   nameBg.width = 44; nameBg.height = 13;
   nameBg.ellipseWidth = 6; nameBg.ellipseHeight = 6;
-  nameBg.fillColor = s.unlocked ? 0x1a1a2e : 0x333333;
-  nameBg.fillAlpha = 0.85;
+  nameBg.fillColor = THEME.bgMid; nameBg.fillAlpha = 0.92;
+  nameBg.strokeColor = THEME.strokeGold; nameBg.strokeWeight = 0.5;
   nameBg.horizontalCenter = 0; nameBg.top = 37;
   sc.addChild(nameBg);
   var sl = new eui.Label();
   sl.text = def.symbol; sl.size = 8; sl.bold = true;
-  sl.textColor = s.unlocked ? 0xffffff : 0x666666;
+  sl.textColor = THEME.textMain;
   sl.horizontalCenter = 0; sl.top = 38;
   sc.addChild(sl);
   return sc;
@@ -411,8 +603,8 @@ Game.prototype.supportAttackAnim = function(supportIdx, targetIdx, dmg) {
   var endX = cx + cw * ((targetIdx >= 0 ? targetIdx : 0) + 0.5) / w;
   var endY = this._monsterAreaY + this._monsterAreaH / 2;
   var self = this;
-  // 物理系: 0小毛绒 2肉丸 3布丁 4蛋筒 / 法术系: 1棉花糖 5麻薯 6雪糕 7甜甜
-  var isMagic = (supportIdx === 1 || supportIdx === 5 || supportIdx === 6 || supportIdx === 7);
+  // 物理 / 法术
+  var isMagic = def.role === 'magic';
 
   if (sc) {
     if (isMagic) {
@@ -434,22 +626,37 @@ Game.prototype.supportAttackAnim = function(supportIdx, targetIdx, dmg) {
     }
   }
 
-  // 飞弹
+  // 飞弹（形状匹配糖果精灵风格）
   var bullet = new egret.Shape();
   var bg = bullet.graphics;
   bg.beginFill(color);
   var sz = 5;
   switch (def.shape) {
-    case 'circle':   bg.drawCircle(0, 0, sz); break;
-    case 'cloud':    bg.drawCircle(-2, 0, sz*0.7); bg.drawCircle(2, 0, sz*0.7); bg.drawCircle(0, -2, sz*0.7); break;
-    case 'diamond':  bg.moveTo(0, -sz); bg.lineTo(sz, 0); bg.lineTo(0, sz); bg.lineTo(-sz, 0); break;
-    case 'square':   bg.drawRect(-sz, -sz, sz*2, sz*2); break;
-    case 'triangle': bg.moveTo(0, -sz); bg.lineTo(sz, sz); bg.lineTo(-sz, sz); break;
-    case 'star':     this.drawStar(bg, 0, 0, sz, sz*0.4, 5); break;
-    case 'crescent': bg.drawCircle(0, 0, sz); bg.endFill(); bg.beginFill(0x16243a); bg.drawCircle(2, -1, sz*0.8); break;
-    case 'heart':    bg.drawCircle(-2, -2, sz*0.6); bg.drawCircle(2, -2, sz*0.6); bg.endFill(); bg.beginFill(color);
-                     bg.moveTo(-sz, 0); bg.lineTo(0, sz); bg.lineTo(sz, 0); break;
-    default:         bg.drawCircle(0, 0, sz);
+    case 'candy':
+      bg.drawCircle(0, 0, sz); bg.endFill();
+      bg.lineStyle(1, 0xffffff, 0.8);
+      bg.moveTo(-sz, 0); bg.lineTo(sz, 0); bg.lineStyle(0); break;
+    case 'marshmallow':
+      bg.drawCircle(-sz*0.5, 0, sz*0.7); bg.drawCircle(sz*0.5, 0, sz*0.7); bg.drawCircle(0, -sz*0.5, sz*0.7); break;
+    case 'meatball':
+      bg.drawCircle(0, 0, sz); bg.endFill();
+      bg.beginFill(0xffd28a, 0.5); bg.drawEllipse(-sz*0.6, -sz*0.6, sz, sz*0.5); break;
+    case 'pudding':
+      bg.moveTo(-sz, sz*0.6); bg.lineTo(sz, sz*0.6); bg.lineTo(sz*0.7, -sz*0.6); bg.lineTo(-sz*0.7, -sz*0.6); break;
+    case 'cone':
+      bg.moveTo(0, sz); bg.lineTo(sz, -sz*0.2); bg.lineTo(-sz, -sz*0.2); bg.endFill();
+      bg.beginFill(0xffffff); bg.drawCircle(0, -sz*0.5, sz*0.6); break;
+    case 'mochi':
+      this.drawStar(bg, 0, 0, sz, sz*0.45, 5); break;
+    case 'popsicle':
+      bg.drawCircle(0, 0, sz); bg.endFill();
+      bg.beginFill(0x1a0a2e); bg.drawCircle(sz*0.4, -sz*0.2, sz*0.7); break;
+    case 'cake':
+      bg.drawCircle(-sz*0.4, -sz*0.4, sz*0.6); bg.drawCircle(sz*0.4, -sz*0.4, sz*0.6); bg.endFill();
+      bg.beginFill(color);
+      bg.moveTo(-sz, 0); bg.lineTo(0, sz); bg.lineTo(sz, 0); break;
+    default:
+      bg.drawCircle(0, 0, sz);
   }
   bg.endFill();
   bullet.x = startX; bullet.y = startY;
@@ -492,14 +699,16 @@ Game.prototype.buildUI = function() {
   this._stageW = stageW;
   this._battleH = BATTLE_H;
 
-  // ===== 顶部栏（重构：两行结构，避免文字互相覆盖） =====
-  // Row1 (y 6-34)  : 头像+VIP徽章 | 昵称+波次 | 金币/钻石/成就
-  // Row2 (y 40-62) : 怪物HP 汇总条（满宽，带内嵌文字）
+  // ===== 顶部栏 =====
   var topBar = new eui.Group();
   topBar.width = stageW; topBar.height = TOP_H;
   var topBg = new eui.Rect();
-  topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = 0x1a0a2e;
+  topBg.percentWidth = 100; topBg.percentHeight = 100; topBg.fillColor = THEME.bgMid;
   topBar.addChild(topBg);
+  var topUnderline = new eui.Rect();
+  topUnderline.percentWidth = 100; topUnderline.height = 1;
+  topUnderline.bottom = 0; topUnderline.fillColor = THEME.strokeGold; topUnderline.fillAlpha = 0.6;
+  topBar.addChild(topUnderline);
 
   // --- Row1 左：头像（36x36，可点击切换，无 VIP 徽章）---
   // 头像颜色调色板（6 种）
@@ -579,7 +788,7 @@ Game.prototype.buildUI = function() {
   this.hpFill = new eui.Rect();
   this.hpFill.width = HP_W; this.hpFill.height = HP_H;
   this.hpFill.ellipseWidth = 8; this.hpFill.ellipseHeight = 8;
-  this.hpFill.fillColor = 0x27ae60; this.hpFill.x = HP_X; this.hpFill.y = HP_Y;
+  this.hpFill.fillColor = THEME.mint; this.hpFill.x = HP_X; this.hpFill.y = HP_Y;
   topBar.addChild(this.hpFill);
   this._hpMaxWidth = HP_W; // 供 updateUI 用，替换硬编码 140
   // HP 文字居中叠在条上
@@ -596,29 +805,50 @@ Game.prototype.buildUI = function() {
   this.battleGroup.width = stageW; this.battleGroup.height = BATTLE_H;
   this.battleGroup.touchEnabled = true;
 
-  // 天空渐变背景（从浅蓝到深蓝）
+  // 夜空渐变背景
   var skyBg = new eui.Rect();
   skyBg.percentWidth = 100; skyBg.height = Math.floor(BATTLE_H * 0.45);
-  skyBg.fillColor = 0x87CEEB;
+  skyBg.fillColor = THEME.bgDeep;
   this.battleGroup.addChild(skyBg);
-  // 中间过渡区
   var skyMid = new eui.Rect();
   skyMid.percentWidth = 100; skyMid.height = Math.floor(BATTLE_H * 0.15);
   skyMid.y = Math.floor(BATTLE_H * 0.45);
-  skyMid.fillColor = 0x90EE90;
+  skyMid.fillColor = 0x1a1240;
   this.battleGroup.addChild(skyMid);
-  // 草地/战斗地面
+  // 地板：糖果星尘深紫
   var groundBg = new eui.Rect();
   groundBg.percentWidth = 100; groundBg.height = Math.floor(BATTLE_H * 0.40);
   groundBg.y = Math.floor(BATTLE_H * 0.60);
-  groundBg.fillColor = 0x2d8a4e;
+  groundBg.fillColor = 0x241840;
   this.battleGroup.addChild(groundBg);
-  // 地面深色边缘
   var groundEdge = new eui.Rect();
-  groundEdge.percentWidth = 100; groundEdge.height = 4;
+  groundEdge.percentWidth = 100; groundEdge.height = 2;
   groundEdge.y = Math.floor(BATTLE_H * 0.60);
-  groundEdge.fillColor = 0x1e6b38;
+  groundEdge.fillColor = THEME.strokeGold;
+  groundEdge.alpha = 0.6;
   this.battleGroup.addChild(groundEdge);
+  // 星 + 月
+  var starsShape = new egret.Shape();
+  var sg = starsShape.graphics;
+  sg.beginFill(THEME.accentSoft, 0.8);
+  var starPositions = [
+    [36, 20], [76, 54], [140, 28], [210, 16], [256, 62],
+    [306, 34], [42, 96], [190, 90], [330, 110], [110, 78]
+  ];
+  for (var si2 = 0; si2 < starPositions.length; si2++) {
+    this.drawStar(sg, starPositions[si2][0], starPositions[si2][1], 1.5, 0.7, 4);
+  }
+  sg.endFill();
+  sg.beginFill(THEME.accent, 0.2);
+  sg.drawCircle(stageW - 40, 36, 18);
+  sg.endFill();
+  sg.beginFill(THEME.accent, 0.4);
+  sg.drawCircle(stageW - 40, 36, 12);
+  sg.endFill();
+  sg.beginFill(THEME.bgDeep, 0.85);
+  sg.drawCircle(stageW - 34, 32, 10);
+  sg.endFill();
+  this.battleGroup.addChild(starsShape);
 
   // === 布局分区 ===
   // 左边缘(0-45): 辅助角色作为敌人
@@ -722,113 +952,169 @@ Game.prototype.buildUI = function() {
   this._monsterAreaH = Math.floor(BATTLE_H * 0.35);
 
   // --- 主角（居中偏下）---
+  // 星语法师：月冠 + 渐变袍 + 心形宝珠法杖 + 脚下魔法阵
   var heroGroup = new eui.Group();
-  heroGroup.width = 70; heroGroup.height = 90;
-  heroGroup.x = CENTER_X + (CENTER_W - 70) / 2;
+  heroGroup.width = 72; heroGroup.height = 96;
+  heroGroup.x = CENTER_X + (CENTER_W - 72) / 2;
   heroGroup.y = Math.floor(BATTLE_H * 0.58);
   this._heroBaseY = heroGroup.y;
-  // 主角绘制：法师造型（带阴影底座）
+
+  // 脚下魔法阵（旋转层）
+  var magicCircle = new egret.Shape();
+  var mcG = magicCircle.graphics;
+  mcG.lineStyle(1.5, THEME.accent, 0.7);
+  mcG.drawCircle(0, 0, 26);
+  mcG.lineStyle(1, THEME.pink, 0.5);
+  mcG.drawCircle(0, 0, 20);
+  mcG.lineStyle(0.8, THEME.accentSoft, 0.6);
+  for (var mi = 0; mi < 6; mi++) {
+    var mangle = (mi / 6) * Math.PI * 2;
+    mcG.moveTo(0, 0);
+    mcG.lineTo(24 * Math.cos(mangle), 24 * Math.sin(mangle));
+  }
+  mcG.lineStyle(0);
+  mcG.beginFill(THEME.accent, 0.8);
+  for (var si = 0; si < 4; si++) {
+    var sangle = (si / 4) * Math.PI * 2 + Math.PI / 4;
+    this.drawStar(mcG, 24 * Math.cos(sangle), 24 * Math.sin(sangle), 2, 1, 5);
+  }
+  mcG.endFill();
+  magicCircle.x = 36;
+  magicCircle.y = 92;
+  magicCircle.scaleY = 0.35;
+  heroGroup.addChild(magicCircle);
+  this._magicCircle = magicCircle;
+
+  // 主角本体
   var heroShape = new egret.Shape();
   var hg = heroShape.graphics;
-  // 底座阴影
-  hg.beginFill(0x000000, 0.2);
-  hg.drawEllipse(15, 72, 40, 10);
-  hg.endFill();
-  // 身体（深紫色袍子，梯形）
-  hg.lineStyle(1.5, 0x4a1a7a);
-  hg.beginFill(0x7c3aed);
-  hg.moveTo(22, 42);
-  hg.lineTo(48, 42);
-  hg.lineTo(52, 72);
-  hg.lineTo(18, 72);
-  hg.endFill();
-  // 腰带
-  hg.lineStyle(0);
-  hg.beginFill(0xfbbf24);
-  hg.drawRect(22, 50, 26, 4);
-  hg.endFill();
-  // 腰带扣
-  hg.beginFill(0xf59e0b);
-  hg.drawCircle(35, 52, 3);
-  hg.endFill();
-  // 头部（肤色）
-  hg.lineStyle(1.5, 0x4a1a7a);
-  hg.beginFill(0xfde68a);
-  hg.drawCircle(35, 28, 14);
-  hg.endFill();
-  // 帽子（圆锥形巫师帽）
-  hg.lineStyle(1.5, 0x3b0764);
+  // 袍子（紫渐变）
+  hg.lineStyle(1.6, 0x3a0764);
   hg.beginFill(0x6b21a8);
-  hg.moveTo(35, 2);
-  hg.curveTo(48, 12, 52, 18);
-  hg.lineTo(18, 18);
-  hg.curveTo(22, 12, 35, 2);
+  hg.moveTo(22, 44);
+  hg.curveTo(18, 60, 16, 76);
+  hg.lineTo(56, 76);
+  hg.curveTo(54, 60, 50, 44);
   hg.endFill();
-  // 帽檐
-  hg.beginFill(0x581c87);
-  hg.drawEllipse(18, 16, 34, 8);
-  hg.endFill();
-  // 帽子星星装饰
   hg.lineStyle(0);
-  hg.beginFill(0xfbbf24);
-  this.drawStar(hg, 35, 12, 4, 2, 5);
+  hg.beginFill(0x8b3bc9, 0.8);
+  hg.moveTo(36, 44);
+  hg.curveTo(42, 60, 46, 76);
+  hg.lineTo(56, 76);
+  hg.curveTo(54, 60, 50, 44);
   hg.endFill();
-  // 眼睛（大眼风格）
+  // 金腰带 + 心形扣
+  hg.beginFill(THEME.strokeGold);
+  hg.drawRect(20, 52, 32, 4);
+  hg.endFill();
+  hg.beginFill(THEME.pink);
+  hg.drawCircle(34, 54, 2.2);
+  hg.drawCircle(38, 54, 2.2);
+  hg.endFill();
+  hg.beginFill(THEME.pink);
+  hg.moveTo(31.8, 55); hg.lineTo(36, 58.5); hg.lineTo(40.2, 55);
+  hg.endFill();
+  // 头
+  hg.lineStyle(1.5, 0x3a0764);
+  hg.beginFill(0xfde68a);
+  hg.drawCircle(36, 28, 14);
+  hg.endFill();
+  // 头发（刘海）
+  hg.lineStyle(0);
+  hg.beginFill(0x2a1a5c);
+  hg.moveTo(22, 26);
+  hg.curveTo(24, 18, 30, 16);
+  hg.curveTo(36, 20, 42, 16);
+  hg.curveTo(48, 18, 50, 26);
+  hg.curveTo(46, 22, 36, 24);
+  hg.curveTo(26, 22, 22, 26);
+  hg.endFill();
+  // 月冠
+  hg.beginFill(THEME.accent);
+  hg.drawCircle(36, 8, 5);
+  hg.endFill();
+  hg.beginFill(0x2a1a5c);
+  hg.drawCircle(38, 7, 4);
+  hg.endFill();
+  hg.beginFill(THEME.accentSoft);
+  this.drawStar(hg, 28, 6, 2, 1, 5);
+  this.drawStar(hg, 45, 10, 1.5, 0.8, 5);
+  hg.endFill();
+  // 眼
   hg.beginFill(0xffffff);
-  hg.drawEllipse(28, 24, 6, 7);
-  hg.drawEllipse(36, 24, 6, 7);
+  hg.drawEllipse(28, 24, 7, 8);
+  hg.drawEllipse(37, 24, 7, 8);
+  hg.endFill();
+  hg.beginFill(0x4a3aa0);
+  hg.drawEllipse(29.5, 25, 4, 6);
+  hg.drawEllipse(38.5, 25, 4, 6);
   hg.endFill();
   hg.beginFill(0x1e1b4b);
-  hg.drawCircle(31, 28, 2.5);
-  hg.drawCircle(39, 28, 2.5);
+  hg.drawCircle(31.5, 28, 1.8);
+  hg.drawCircle(40.5, 28, 1.8);
   hg.endFill();
   hg.beginFill(0xffffff);
-  hg.drawCircle(30, 27, 1);
-  hg.drawCircle(38, 27, 1);
+  hg.drawCircle(30.5, 26.5, 1);
+  hg.drawCircle(39.5, 26.5, 1);
   hg.endFill();
-  // 微笑
+  // 腮红
+  hg.beginFill(THEME.pink, 0.5);
+  hg.drawEllipse(25, 32, 4, 2);
+  hg.drawEllipse(43, 32, 4, 2);
+  hg.endFill();
+  // 嘴
   hg.lineStyle(1.2, 0x92400e);
-  hg.moveTo(32, 33);
-  hg.curveTo(35, 36, 38, 33);
-  // 法杖（放右手）
+  hg.moveTo(33, 35);
+  hg.curveTo(36, 38, 39, 35);
+  // 法杖
   hg.lineStyle(1.5, 0x5c3a0a);
   hg.beginFill(0x92400e);
-  hg.drawRect(54, 18, 3, 50);
+  hg.drawRect(58, 20, 3, 54);
   hg.endFill();
-  // 法杖顶部宝珠
+  // 心形宝珠（光晕 + 实心）
   hg.lineStyle(0);
-  hg.beginFill(0x06b6d4, 0.4);
-  hg.drawCircle(55, 14, 8);
+  hg.beginFill(THEME.pink, 0.35);
+  hg.drawCircle(59.5, 14, 11);
   hg.endFill();
-  hg.beginFill(0x22d3ee);
-  hg.drawCircle(55, 14, 5);
+  hg.beginFill(THEME.pink);
+  hg.drawCircle(57, 14, 5);
+  hg.drawCircle(62, 14, 5);
   hg.endFill();
-  hg.beginFill(0xffffff, 0.6);
-  hg.drawCircle(53, 12, 2);
+  hg.beginFill(THEME.pink);
+  hg.moveTo(53, 16); hg.lineTo(59.5, 23); hg.lineTo(66, 16);
+  hg.endFill();
+  hg.beginFill(0xffffff, 0.7);
+  hg.drawCircle(56, 12, 1.5);
   hg.endFill();
   heroGroup.addChild(heroShape);
+
   // 名字标签
   var heroNameBg = new eui.Rect();
-  heroNameBg.width = 50; heroNameBg.height = 14;
+  heroNameBg.width = 52; heroNameBg.height = 14;
   heroNameBg.ellipseWidth = 7; heroNameBg.ellipseHeight = 7;
-  heroNameBg.fillColor = 0x1a0a2e; heroNameBg.fillAlpha = 0.75;
-  heroNameBg.horizontalCenter = 0; heroNameBg.top = 76;
+  heroNameBg.fillColor = THEME.bgMid; heroNameBg.fillAlpha = 0.85;
+  heroNameBg.strokeColor = THEME.strokeGold; heroNameBg.strokeWeight = 0.5;
+  heroNameBg.horizontalCenter = 0; heroNameBg.top = 82;
   heroGroup.addChild(heroNameBg);
-  var heroName = new eui.Label(); heroName.text = '魔法师'; heroName.size = 10; heroName.bold = true;
-  heroName.textColor = 0xffffff; heroName.horizontalCenter = 0; heroName.top = 77;
+  var heroName = new eui.Label();
+  heroName.text = '星语法师'; heroName.size = 10; heroName.bold = true;
+  heroName.textColor = THEME.accentSoft; heroName.horizontalCenter = 0; heroName.top = 83;
   heroGroup.addChild(heroName);
   this.levelLabel = new eui.Label();
   this.levelLabel.text = 'Lv.' + this.mainLevel; this.levelLabel.size = 10;
-  this.levelLabel.textColor = 0xfbbf24; this.levelLabel.bold = true;
-  this.levelLabel.horizontalCenter = 0; this.levelLabel.top = 63;
+  this.levelLabel.textColor = THEME.accent; this.levelLabel.bold = true;
+  this.levelLabel.horizontalCenter = 0; this.levelLabel.top = 69;
   heroGroup.addChild(this.levelLabel);
   this.heroGroup = heroGroup;
   this.battleGroup.addChild(heroGroup);
 
+  // 魔法阵自转（循环）
+  egret.Tween.get(magicCircle, { loop: true }).to({ rotation: 360 }, 12000);
+
   // --- DPS显示 ---
   this.dpsLabel = new eui.Label();
   this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
-  this.dpsLabel.size = 11; this.dpsLabel.textColor = 0xffffff;
+  this.dpsLabel.size = 11; this.dpsLabel.textColor = THEME.textDim;
   this.dpsLabel.x = CENTER_X + (CENTER_W - 80) / 2; this.dpsLabel.y = heroGroup.y + 94;
   this.battleGroup.addChild(this.dpsLabel);
 
@@ -859,13 +1145,13 @@ Game.prototype.buildUI = function() {
   // Row B: 当前轮次（1-10波）进度条
   this.waveFillBg = new eui.Rect();
   this.waveFillBg.width = STATUS_W; this.waveFillBg.height = 6;
-  this.waveFillBg.fillColor = 0x3d2b5e; this.waveFillBg.ellipseWidth = 3;
+  this.waveFillBg.fillColor = THEME.bgGlass; this.waveFillBg.ellipseWidth = 3;
   this.waveFillBg.x = STATUS_X; this.waveFillBg.y = statusY + 12;
   this.battleGroup.addChild(this.waveFillBg);
   var waveInCycle = ((this.wave - 1) % 10) + 1;
   this.waveFill = new eui.Rect();
   this.waveFill.width = (waveInCycle / 10) * STATUS_W;
-  this.waveFill.height = 6; this.waveFill.fillColor = 0xd4a017; this.waveFill.ellipseWidth = 3;
+  this.waveFill.height = 6; this.waveFill.fillColor = THEME.accent; this.waveFill.ellipseWidth = 3;
   this.waveFill.x = STATUS_X; this.waveFill.y = statusY + 12;
   this.battleGroup.addChild(this.waveFill);
   this._waveFillMaxWidth = STATUS_W; // 供 updateUI 使用
@@ -875,21 +1161,21 @@ Game.prototype.buildUI = function() {
   var energyBarBg = new eui.Rect();
   energyBarBg.width = ENERGY_W; energyBarBg.height = 12;
   energyBarBg.ellipseWidth = 6; energyBarBg.ellipseHeight = 6;
-  energyBarBg.fillColor = 0x1a1a2e;
+  energyBarBg.fillColor = THEME.bgGlass;
   energyBarBg.x = STATUS_X; energyBarBg.y = statusY + 24;
   this.battleGroup.addChild(energyBarBg);
   this.energyFill = new eui.Rect();
   this.energyFill.width = (this.energy / CONFIG.maxEnergy) * ENERGY_W;
   this.energyFill.height = 12;
   this.energyFill.ellipseWidth = 6; this.energyFill.ellipseHeight = 6;
-  this.energyFill.fillColor = 0x00d4ff;
+  this.energyFill.fillColor = THEME.sky;
   this.energyFill.x = STATUS_X; this.energyFill.y = statusY + 24;
   this.battleGroup.addChild(this.energyFill);
   this._energyMaxWidth = ENERGY_W; // 供 updateUI 使用（替换硬编码 100）
   // 能量文字：紧跟在条右边，不再压在条上
   this.energyLabel = new eui.Label();
   this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
-  this.energyLabel.size = 11; this.energyLabel.textColor = 0x7fdbff; this.energyLabel.bold = true;
+  this.energyLabel.size = 11; this.energyLabel.textColor = THEME.sky; this.energyLabel.bold = true;
   this.energyLabel.x = STATUS_X + ENERGY_W + 6; this.energyLabel.y = statusY + 25;
   this.battleGroup.addChild(this.energyLabel);
 
@@ -916,10 +1202,14 @@ Game.prototype.buildUI = function() {
   skillBar.layout = new eui.HorizontalLayout();
   skillBar.layout.horizontalAlign = 'center';
   skillBar.layout.verticalAlign = 'middle';
-  skillBar.layout.gap = 6;
+  skillBar.layout.gap = 4;
   var skillBg = new eui.Rect();
-  skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = 0x1a1a2e;
+  skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = THEME.bgMid;
   skillBar.addChildAt(skillBg, 0);
+  var skillTopLine = new eui.Rect();
+  skillTopLine.percentWidth = 100; skillTopLine.height = 1;
+  skillTopLine.top = 0; skillTopLine.fillColor = THEME.strokeGold; skillTopLine.fillAlpha = 0.5;
+  skillBar.addChild(skillTopLine);
 
   for (var i = 0; i < SKILLS.length; i++) {
     var btn = this.createSkillBtn(i);
@@ -936,8 +1226,12 @@ Game.prototype.buildUI = function() {
   navBar.layout.verticalAlign = 'middle';
   navBar.paddingLeft = 8; navBar.paddingRight = 8;
   var navBg = new eui.Rect();
-  navBg.percentWidth = 100; navBg.percentHeight = 100; navBg.fillColor = 0x0d0d1a;
+  navBg.percentWidth = 100; navBg.percentHeight = 100; navBg.fillColor = THEME.bgDeep;
   navBar.addChildAt(navBg, 0);
+  var navTopLine = new eui.Rect();
+  navTopLine.percentWidth = 100; navTopLine.height = 1;
+  navTopLine.top = 0; navTopLine.fillColor = THEME.strokeGold; navTopLine.fillAlpha = 0.4;
+  navBar.addChild(navTopLine);
 
   var navItems = [
     { text: '升级', icon: '⬆️', fn: function() { self.openUpgrade(); } },
@@ -959,12 +1253,12 @@ Game.prototype.createSideBtn = function(text, x, y, fn) {
   var g = new eui.Group();
   g.width = 26; g.height = 26; g.x = x; g.y = y;
   var bg = new eui.Rect();
-  bg.width = 26; bg.height = 26; bg.ellipseWidth = 6; bg.ellipseHeight = 6;
-  bg.fillColor = 0x4a2d6b; bg.fillAlpha = 0.85;
-  bg.strokeColor = 0xfbbf24; bg.strokeWeight = 1;
+  bg.width = 26; bg.height = 26; bg.ellipseWidth = 8; bg.ellipseHeight = 8;
+  bg.fillColor = THEME.bgLite; bg.fillAlpha = 0.85;
+  bg.strokeColor = THEME.strokeGold; bg.strokeWeight = 1; bg.strokeAlpha = 0.7;
   g.addChild(bg);
   var lb = new eui.Label();
-  lb.text = text; lb.size = 10; lb.textColor = 0xffffff; lb.bold = true;
+  lb.text = text; lb.size = 10; lb.textColor = THEME.accentSoft; lb.bold = true;
   lb.horizontalCenter = 0; lb.verticalCenter = 0;
   g.addChild(lb);
   g.touchEnabled = true;
@@ -983,11 +1277,11 @@ Game.prototype.createNavBtn = function(text, icon, fn) {
   g.touchEnabled = true;
   g.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, this);
   var iconLb = new eui.Label();
-  iconLb.text = icon; iconLb.size = 16;
+  iconLb.text = icon; iconLb.size = 18;
   iconLb.horizontalCenter = 0;
   g.addChild(iconLb);
   var textLb = new eui.Label();
-  textLb.text = text; textLb.size = 9; textLb.textColor = 0x00d4ff; textLb.bold = true;
+  textLb.text = text; textLb.size = 9; textLb.textColor = THEME.accent; textLb.bold = true;
   textLb.horizontalCenter = 0;
   g.addChild(textLb);
   return g;
@@ -997,27 +1291,122 @@ Game.prototype.createSkillBtn = function(idx) {
   var s = SKILLS[idx];
   var unlocked = this.mainLevel >= s.lv;
   var g = new eui.Group();
-  g.width = 44; g.height = 44;
+  g.width = 44; g.height = 50;
+  // 辉光层
+  var halo = new eui.Rect();
+  halo.width = 44; halo.height = 44;
+  halo.ellipseWidth = 22; halo.ellipseHeight = 22;
+  halo.fillColor = unlocked ? s.color : 0x3a355a;
+  halo.fillAlpha = 0.35;
+  halo.name = 'halo';
+  g.addChild(halo);
+  // 实心圆
   var bg = new eui.Rect();
-  bg.width = 44; bg.height = 44; bg.ellipseWidth = 22; bg.ellipseHeight = 22;
-  // 更丰富的配色方案：每个技能不同颜色
-  var skillColors = [0x3498db, 0xe74c3c, 0xf39c12, 0x9b59b6, 0x1abc9c, 0x2980b9, 0xe67e22];
-  bg.fillColor = unlocked ? skillColors[idx] : 0x4a4a4a; bg.percentWidth = 100; bg.percentHeight = 100;
+  bg.width = 36; bg.height = 36; bg.ellipseWidth = 18; bg.ellipseHeight = 18;
+  bg.fillColor = unlocked ? s.color : 0x4a4566;
+  bg.x = 4; bg.y = 4;
   bg.name = 'bg'; g.addChild(bg);
-  // 边框效果
+  // 描边
   var border = new eui.Rect();
-  border.width = 44; border.height = 44; border.ellipseWidth = 22; border.ellipseHeight = 22;
-  border.fillAlpha = 0; border.strokeColor = unlocked ? 0xffffff : 0x666666;
-  border.strokeWeight = 2; border.percentWidth = 100; border.percentHeight = 100;
+  border.width = 36; border.height = 36; border.ellipseWidth = 18; border.ellipseHeight = 18;
+  border.fillAlpha = 0;
+  border.strokeColor = unlocked ? THEME.accentSoft : 0x6a628f;
+  border.strokeWeight = 1.5;
+  border.x = 4; border.y = 4;
   border.name = 'border'; g.addChild(border);
+  // 矢量图标
+  var iconShape = new egret.Shape();
+  this.drawSkillIcon(iconShape.graphics, s.icon, unlocked);
+  iconShape.x = 22; iconShape.y = 22;
+  iconShape.name = 'iconShape';
+  g.addChild(iconShape);
+  // CD 文字
+  var cdLb = new eui.Label();
+  cdLb.text = ''; cdLb.size = 12; cdLb.textColor = THEME.textMain; cdLb.bold = true;
+  cdLb.horizontalCenter = 0; cdLb.top = 14;
+  cdLb.name = 'cdLb';
+  cdLb.visible = false;
+  g.addChild(cdLb);
+  // 技能名 / 解锁提示
   var lb = new eui.Label();
-  lb.text = s.name; lb.size = 10; lb.textColor = unlocked ? 0xffffff : 0x888888;
-  lb.horizontalCenter = 0; lb.verticalCenter = 0; lb.name = 'lb';
+  lb.text = unlocked ? s.name : 'Lv.' + s.lv;
+  lb.size = 9; lb.textColor = unlocked ? THEME.textMain : THEME.textMute;
+  lb.bold = true; lb.horizontalCenter = 0; lb.top = 38;
+  lb.name = 'lb';
   g.addChild(lb);
+
   g.touchEnabled = true;
   var self = this;
   g.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.useSkill(idx); }, this);
   return g;
+};
+
+/**
+ * 绘制技能矢量图标（位于 (0,0) 中心）。
+ */
+Game.prototype.drawSkillIcon = function(g, key, enabled) {
+  var line = enabled ? THEME.textMain : 0x8881b0;
+  var fill = enabled ? THEME.textMain : 0xb8b0db;
+  switch (key) {
+    case 'slash':
+      g.lineStyle(2.5, line);
+      g.moveTo(-8, 6); g.lineTo(8, -6);
+      g.lineStyle(1.5, line, 0.6);
+      g.moveTo(4, -8); g.lineTo(8, -6); g.lineTo(6, -2);
+      break;
+    case 'smash':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      g.drawRoundRect(-8, -8, 16, 6, 2, 2);
+      g.drawRect(-1, -2, 2, 10);
+      g.endFill();
+      break;
+    case 'triple':
+      g.lineStyle(2, line);
+      g.moveTo(-9, 6); g.lineTo(-4, -4);
+      g.moveTo(-3, 7); g.lineTo(2, -3);
+      g.moveTo(3, 8); g.lineTo(8, -2);
+      break;
+    case 'crit':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      g.moveTo(0, -9); g.lineTo(8, 0); g.lineTo(0, 9); g.lineTo(-8, 0);
+      g.endFill();
+      g.lineStyle(1, line, 0.7);
+      g.moveTo(-8, 0); g.lineTo(8, 0);
+      g.moveTo(0, -9); g.lineTo(0, 9);
+      break;
+    case 'whirl':
+      g.lineStyle(2, line);
+      g.moveTo(8, 0); g.curveTo(6, 6, 0, 8);
+      g.moveTo(0, -8); g.curveTo(6, -6, 8, 0);
+      g.moveTo(-8, 0); g.curveTo(-6, -6, 0, -8);
+      g.moveTo(0, 8); g.curveTo(-6, 6, -8, 0);
+      break;
+    case 'thunder':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      g.moveTo(-2, -9); g.lineTo(4, -2); g.lineTo(0, -1);
+      g.lineTo(3, 9); g.lineTo(-4, 2); g.lineTo(0, 0);
+      g.lineTo(-4, -1);
+      g.endFill();
+      break;
+    case 'meteor':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      this.drawStar(g, 1, 1, 8, 3.5, 5);
+      g.endFill();
+      g.lineStyle(2, line, 0.7);
+      g.moveTo(-8, -8); g.lineTo(-3, -3);
+      g.lineStyle(1.2, line, 0.5);
+      g.moveTo(-5, -8); g.lineTo(-1, -4);
+      g.moveTo(-8, -5); g.lineTo(-4, -1);
+      break;
+    default:
+      g.beginFill(fill);
+      g.drawCircle(0, 0, 5);
+      g.endFill();
+  }
 };
 
 Game.prototype.renderBuffText = function() {
@@ -1103,7 +1492,7 @@ Game.prototype.showDamageText = function(dmg, isCrit, idx) {
   var txt = new egret.TextField();
   txt.text = '-' + this.fmt(dmg) + (isCrit ? '!' : '');
   txt.size = isCrit ? 26 : 20;
-  txt.textColor = isCrit ? 0xffff00 : 0xff4444;
+  txt.textColor = isCrit ? THEME.accent : THEME.pink;
   txt.bold = true;
   var w = this.monsters.length || 1;
   var cx = this._centerX || 55;
@@ -1443,7 +1832,7 @@ Game.prototype.updateWaveNumbers = function() {
   for (var i = 0; i < this._waveNumBgs.length; i++) {
     var num = waveNumStart + i;
     var isCurrent = (num === this.wave);
-    this._waveNumBgs[i].fillColor = isCurrent ? 0xc0392b : 0x5d3a1a;
+    this._waveNumBgs[i].fillColor = isCurrent ? 0xe74c3c : 0x1a153f;
     this._waveNumLbs[i].text = '' + num;
   }
 };
@@ -1533,9 +1922,11 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   var badge = new eui.Rect();
   badge.width = badgeW; badge.height = badgeH;
   badge.ellipseWidth = badgeH; badge.ellipseHeight = badgeH;
-  badge.fillColor = m.isBoss ? 0x7a1a10 : mType.badge;
+  badge.fillColor = m.isBoss ? 0x5a0a08 : mType.badge;
   badge.fillAlpha = 0.92;
-  badge.strokeColor = 0xffffff; badge.strokeWeight = 1; badge.strokeAlpha = 0.6;
+  badge.strokeColor = m.isBoss ? THEME.strokeGold : 0xffffff;
+  badge.strokeWeight = m.isBoss ? 1.5 : 1;
+  badge.strokeAlpha = m.isBoss ? 0.9 : 0.6;
   badge.horizontalCenter = 0; badge.top = sz + 2;
   g.addChild(badge);
   var name = new eui.Label();
@@ -1587,6 +1978,19 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
   var half = sz / 2;
   var c = mType.color;
   var ol = mType.outline;
+  var hi = mType.highlight || 0xffffff;
+  var ac = mType.accent || 0xffffff;
+
+  // BOSS 专属：外层脉冲光晕（两圈半透明）
+  if (isBoss) {
+    g.lineStyle(0);
+    g.beginFill(c, 0.18);
+    g.drawCircle(half, half, half + 10);
+    g.endFill();
+    g.beginFill(c, 0.28);
+    g.drawCircle(half, half, half + 4);
+    g.endFill();
+  }
 
   switch (mType.shape) {
     case 'slime':
@@ -1647,6 +2051,11 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.lineTo(half - 3, half + 12);
       g.moveTo(half, half + 10);
       g.lineTo(half + 3, half + 12);
+      // 兔子脸部高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.45);
+      g.drawEllipse(half - 6, half - 6, 8, 3);
+      g.endFill();
       break;
 
     case 'bat':
@@ -1700,6 +2109,11 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.lineTo(half + 2, half + 10);
       g.lineTo(half + 3, half + 6);
       g.endFill();
+      // 翅膀高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.3);
+      g.drawEllipse(half - half*0.7, half - 6, 10, 3);
+      g.endFill();
       break;
 
     case 'spike':
@@ -1723,6 +2137,11 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.lineTo(half - 4, half - 6);
       g.moveTo(half + 4, half - 6);
       g.lineTo(half + 10, half - 8);
+      // 刺球中心高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.4);
+      g.drawEllipse(half - 5, half - 8, 8, 3);
+      g.endFill();
       break;
 
     case 'ghost':
@@ -1752,6 +2171,11 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       // 小圆嘴
       g.beginFill(ol);
       g.drawCircle(half, half + 4, 3);
+      g.endFill();
+      // 幽灵顶部高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.5);
+      g.drawEllipse(half - 6, half - half*0.7, 10, 4);
       g.endFill();
       break;
 
@@ -1789,6 +2213,11 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.drawRect(half - 4, half + 10, 3, 5);
       g.drawRect(half,    half + 10, 3, 5);
       g.drawRect(half + 4, half + 10, 3, 5);
+      g.endFill();
+      // 骷髅颅顶高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.4);
+      g.drawEllipse(half - 5, half - 14, 8, 3);
       g.endFill();
       break;
 
@@ -1846,6 +2275,11 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.lineTo(half + 4, half + 22);
       g.lineTo(half + 5, half + 15);
       g.endFill();
+      // 龙头高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.4);
+      g.drawEllipse(half - 6, half - 10, 10, 4);
+      g.endFill();
       break;
 
     case 'shadow':
@@ -1881,6 +2315,11 @@ Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
       g.beginFill(0xffffff);
       g.drawCircle(half - 7, half - 5, 0.8);
       g.drawCircle(half + 7, half - 5, 0.8);
+      g.endFill();
+      // 暗影内核高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.2);
+      g.drawEllipse(half - 5, half - 10, 8, 3);
       g.endFill();
       break;
 
@@ -1918,7 +2357,6 @@ Game.prototype._drawEyes = function(g, x1, y1, x2, y2, r, pr) {
 };
 
 Game.prototype.updateSkillBtns = function() {
-  var skillColors = [0x3498db, 0xe74c3c, 0xf39c12, 0x9b59b6, 0x1abc9c, 0x2980b9, 0xe67e22];
   for (var i = 0; i < this.skillBtns.length; i++) {
     var btn = this.skillBtns[i];
     if (!btn) continue;
@@ -1926,12 +2364,26 @@ Game.prototype.updateSkillBtns = function() {
     var unlocked = this.mainLevel >= s.lv;
     var cd = this.skillCD[i] > 0;
     var bg = btn.getChildByName('bg');
+    var halo = btn.getChildByName('halo');
+    var border = btn.getChildByName('border');
     var lb = btn.getChildByName('lb');
-    if (bg) bg.fillColor = cd ? 0x2c2c2c : (unlocked ? skillColors[i] : 0x4a4a4a);
-    if (lb) {
-      lb.text = cd ? Math.ceil(this.skillCD[i]) + 's' : s.name;
-      lb.textColor = cd ? 0x666666 : (unlocked ? 0xffffff : 0x888888);
+    var cdLb = btn.getChildByName('cdLb');
+    var icon = btn.getChildByName('iconShape');
+    if (bg) bg.fillColor = cd ? 0x2a2440 : (unlocked ? s.color : 0x4a4566);
+    if (halo) {
+      halo.fillColor = unlocked ? s.color : 0x3a355a;
+      halo.fillAlpha = cd ? 0.12 : 0.35;
     }
+    if (border) border.strokeColor = cd ? 0x6a628f : (unlocked ? THEME.accentSoft : 0x6a628f);
+    if (lb) {
+      lb.text = unlocked ? s.name : 'Lv.' + s.lv;
+      lb.textColor = cd ? THEME.textMute : (unlocked ? THEME.textMain : THEME.textMute);
+    }
+    if (cdLb) {
+      if (cd) { cdLb.text = Math.ceil(this.skillCD[i]) + ''; cdLb.visible = true; }
+      else { cdLb.visible = false; }
+    }
+    if (icon) icon.visible = !cd;
   }
 };
 
@@ -1989,57 +2441,76 @@ Game.prototype.addPanelContent = function(overlay) {
   var panel = new eui.Group();
   panel.width = 340; panel.height = 400;
   panel.horizontalCenter = 0; panel.verticalCenter = 0;
+  // 深紫底 + 金边
   var panelBg = new eui.Rect();
   panelBg.percentWidth = 100; panelBg.percentHeight = 100;
-  panelBg.fillColor = 0x3d2b1f; panelBg.ellipseWidth = 12; panelBg.ellipseHeight = 12;
+  panelBg.fillColor = THEME.bgLite; panelBg.ellipseWidth = 14; panelBg.ellipseHeight = 14;
+  panelBg.strokeColor = THEME.strokeGold; panelBg.strokeWeight = 1.5; panelBg.strokeAlpha = 0.85;
   panel.addChild(panelBg);
+  // 顶部金色光条
+  var topGlow = new eui.Rect();
+  topGlow.percentWidth = 100; topGlow.height = 3;
+  topGlow.top = 0; topGlow.fillColor = THEME.accent; topGlow.fillAlpha = 0.55;
+  panel.addChild(topGlow);
   overlay.addChild(panel);
 
-  // 关闭按钮
+  // 关闭按钮（圆底）
+  var closeBtnBg = new eui.Rect();
+  closeBtnBg.width = 24; closeBtnBg.height = 24;
+  closeBtnBg.ellipseWidth = 12; closeBtnBg.ellipseHeight = 12;
+  closeBtnBg.fillColor = THEME.bgDeep;
+  closeBtnBg.strokeColor = THEME.strokeGold; closeBtnBg.strokeWeight = 1; closeBtnBg.strokeAlpha = 0.6;
+  closeBtnBg.right = 10; closeBtnBg.top = 8;
+  closeBtnBg.touchEnabled = true;
+  panel.addChild(closeBtnBg);
   var closeBtn = new eui.Label();
-  closeBtn.text = '×'; closeBtn.size = 24; closeBtn.textColor = 0xffffff;
-  closeBtn.right = 12; closeBtn.top = 8; closeBtn.touchEnabled = true;
+  closeBtn.text = '×'; closeBtn.size = 18; closeBtn.textColor = THEME.accentSoft; closeBtn.bold = true;
+  closeBtn.right = 18; closeBtn.top = 7; closeBtn.touchEnabled = true;
   var self = this;
   closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
+  closeBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
   panel.addChild(closeBtn);
 
   return panel;
 };
 
 Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, btnText, btnColor, handler, disabled) {
-  // 检测是否为多行文本（含预览信息）
   var lines = infoText.split('\n');
   var rowH = lines.length > 1 ? 56 : 44;
   var rowBg = new eui.Rect();
-  rowBg.width = 310; rowBg.height = rowH; rowBg.fillColor = 0x2d1810;
-  rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+  rowBg.width = 310; rowBg.height = rowH; rowBg.fillColor = THEME.bgRow;
+  rowBg.ellipseWidth = 10; rowBg.ellipseHeight = 10;
+  rowBg.strokeColor = THEME.strokeSoft; rowBg.strokeWeight = 1; rowBg.strokeAlpha = 0.5;
   rowBg.x = 15; rowBg.y = y;
   panel.addChild(rowBg);
 
   var iconBg = new eui.Rect();
   iconBg.width = 36; iconBg.height = 36; iconBg.ellipseWidth = 18; iconBg.ellipseHeight = 18;
-  iconBg.fillColor = iconColor; iconBg.x = 22; iconBg.y = y + (rowH - 36) / 2;
+  iconBg.fillColor = iconColor;
+  iconBg.strokeColor = THEME.accentSoft; iconBg.strokeWeight = 1; iconBg.strokeAlpha = 0.7;
+  iconBg.x = 22; iconBg.y = y + (rowH - 36) / 2;
   panel.addChild(iconBg);
 
   var iconLb = new eui.Label();
-  iconLb.text = iconText; iconLb.size = 10; iconLb.textColor = 0xffffff;
-  iconLb.x = iconBg.x + 18; iconLb.y = iconBg.y + 18;
-  iconLb.textAlign = 'center'; iconLb.width = 0;
+  iconLb.text = iconText; iconLb.size = 11; iconLb.textColor = THEME.textMain; iconLb.bold = true;
+  iconLb.width = 36; iconLb.height = 36;
+  iconLb.x = iconBg.x; iconLb.y = iconBg.y;
+  iconLb.textAlign = 'center'; iconLb.verticalAlign = 'middle';
   panel.addChild(iconLb);
 
   var infoLb = new eui.Label();
-  infoLb.text = infoText; infoLb.size = 11; infoLb.textColor = 0xffffff;
+  infoLb.text = infoText; infoLb.size = 11; infoLb.textColor = THEME.textMain;
   infoLb.x = 68; infoLb.y = y + 5; infoLb.width = 170; infoLb.lineSpacing = 3;
   panel.addChild(infoLb);
 
   if (btnText) {
-    var btn = this.createButton(btnText, btnColor || 0xd4a017, 68, 28, handler, this);
+    var btn = this.createButton(btnText, btnColor || THEME.accent, 68, 28, handler, this);
     btn.x = 245; btn.y = y + (rowH - 28) / 2;
     if (disabled) btn.alpha = 0.4;
     panel.addChild(btn);
   }
 
-  return y + rowH + 4;
+  return y + rowH + 6;
 };
 
 // ==================== 升级面板 ====================
@@ -2070,7 +2541,7 @@ Game.prototype.openUpgrade = function() {
 
   // 进度条
   var progBg = new eui.Rect();
-  progBg.width = 300; progBg.height = 8; progBg.fillColor = 0x5d3a1a;
+  progBg.width = 300; progBg.height = 8; progBg.fillColor = 0x140e36;
   progBg.x = 20; progBg.y = y;
   panel.addChild(progBg);
   var progFill = new eui.Rect();
@@ -2298,7 +2769,7 @@ Game.prototype.openLeaderboard = function() {
 
   for (var i = 0; i < rows.length; i++) {
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 32; rowBg.fillColor = 0x16213e;
+    rowBg.width = 310; rowBg.height = 32; rowBg.fillColor = 0x1a153f;
     rowBg.x = 15; rowBg.y = 45 + i * 36;
     panel.addChild(rowBg);
 
@@ -2391,7 +2862,7 @@ Game.prototype.openMail = function() {
   for (var i = 0; i < mails.length; i++) {
     var m = mails[i];
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x16213e;
+    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
     rowBg.x = 15; rowBg.y = y;
     panel.addChild(rowBg);
@@ -2447,7 +2918,7 @@ Game.prototype.openAnnouncement = function() {
   for (var i = 0; i < anns.length; i++) {
     var a = anns[i];
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x16213e;
+    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
     rowBg.x = 15; rowBg.y = y;
     panel.addChild(rowBg);
@@ -2560,7 +3031,7 @@ Game.prototype.openRebirth = function() {
 
   // 转生收益预览
   var previewBg = new eui.Rect();
-  previewBg.width = 310; previewBg.height = 80; previewBg.fillColor = 0x16213e;
+  previewBg.width = 310; previewBg.height = 80; previewBg.fillColor = 0x1a153f;
   previewBg.ellipseWidth = 8; previewBg.x = 15; previewBg.y = 110;
   panel.addChild(previewBg);
 
@@ -2581,7 +3052,7 @@ Game.prototype.openRebirth = function() {
 
   // 转生代价说明
   var costBg = new eui.Rect();
-  costBg.width = 310; costBg.height = 60; costBg.fillColor = 0x2c1320;
+  costBg.width = 310; costBg.height = 60; costBg.fillColor = 0x2c1340;
   costBg.ellipseWidth = 8; costBg.x = 15; costBg.y = 200;
   panel.addChild(costBg);
 
@@ -2687,7 +3158,7 @@ Game.prototype.openCheckin = function(auto) {
 
     var itemBg = new eui.Rect();
     itemBg.width = 72; itemBg.height = 80; itemBg.ellipseWidth = 8; itemBg.ellipseHeight = 8;
-    itemBg.fillColor = isToday ? 0x1a4a30 : 0x16213e;
+    itemBg.fillColor = isToday ? 0x2a3f5c : 0x1a153f;
     itemBg.x = cx; itemBg.y = cy;
     if (isToday) { itemBg.strokeWeight = 2; itemBg.strokeColor = 0x2ecc71; }
     panel.addChild(itemBg);
@@ -2791,7 +3262,7 @@ Game.prototype.openDailyTasks = function() {
     var pct = progress / t.target;
 
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 56; rowBg.fillColor = 0x16213e;
+    rowBg.width = 310; rowBg.height = 56; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
     rowBg.x = 15; rowBg.y = y;
     panel.addChild(rowBg);
@@ -2813,7 +3284,7 @@ Game.prototype.openDailyTasks = function() {
     panel.addChild(descLb);
 
     var progBg = new eui.Rect();
-    progBg.width = 150; progBg.height = 6; progBg.fillColor = 0x0f3460;
+    progBg.width = 150; progBg.height = 6; progBg.fillColor = 0x140e36;
     progBg.x = 68; progBg.y = y + 28;
     panel.addChild(progBg);
 
@@ -2884,7 +3355,7 @@ Game.prototype.openAchievements = function() {
     var completed = this.achievements.indexOf(a.id) >= 0;
 
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 44; rowBg.fillColor = 0x16213e;
+    rowBg.width = 310; rowBg.height = 44; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
     rowBg.x = 15; rowBg.y = y;
     rowBg.alpha = completed ? 1 : 0.5;
@@ -3051,7 +3522,7 @@ Game.prototype.checkOfflineReward = function() {
       panel.horizontalCenter = 0; panel.verticalCenter = 0;
       var pBg = new eui.Rect();
       pBg.percentWidth = 100; pBg.percentHeight = 100;
-      pBg.fillColor = 0x3d2b1f; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+      pBg.fillColor = 0x2a1f5c; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
       panel.addChild(pBg);
 
       var t1 = new eui.Label();
@@ -3351,7 +3822,7 @@ Game.prototype.openAvatarPicker = function() {
   panel.horizontalCenter = 0; panel.verticalCenter = 0;
   var pBg = new eui.Rect();
   pBg.percentWidth = 100; pBg.percentHeight = 100;
-  pBg.fillColor = 0x3d2b1f; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+  pBg.fillColor = 0x2a1f5c; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
   panel.addChild(pBg);
 
   var title = new eui.Label();
@@ -3387,7 +3858,7 @@ Game.prototype.openAvatarPicker = function() {
       var border = new eui.Rect();
       border.width = CELL_W; border.height = CELL_H;
       border.ellipseWidth = 10; border.ellipseHeight = 10;
-      border.fillColor = 0x16213e;
+      border.fillColor = 0x1a153f;
       border.strokeColor = (self.avatarIdx === idx) ? 0xfbbf24 : 0x333333;
       border.strokeWeight = (self.avatarIdx === idx) ? 2 : 1;
       border.percentWidth = 100; border.percentHeight = 100;
@@ -3438,7 +3909,7 @@ Game.prototype.openNameEditor = function() {
   panel.horizontalCenter = 0; panel.verticalCenter = 0;
   var pBg = new eui.Rect();
   pBg.percentWidth = 100; pBg.percentHeight = 100;
-  pBg.fillColor = 0x3d2b1f; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+  pBg.fillColor = 0x2a1f5c; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
   panel.addChild(pBg);
 
   var title = new eui.Label();
