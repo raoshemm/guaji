@@ -2,6 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,16 +18,8 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     /*
-     * 统一策略：容器恒定 9:16 竖屏比例，全平台一致。
-     *
-     * 为什么不按"容器等于视口"自由适配：Egret fixedWidth 模式下
-     *   stageHeight = container_h × 375 / container_w
-     * 容器比例不是 9:16 时 stageHeight 会偏离设计值 667，导致 UI 错位：
-     *   - iPhone 14 Pro (19.5:9) → stageHeight≈812，元素被拉散
-     *   - iPad 竖屏 (3:4)         → stageHeight≈500，元素被挤压
-     *   - PC 桌面 (16:9)          → stageHeight≈210，UI 完全破碎
-     * 锁定 9:16 后 stageHeight 恒为 ~667，game.js 里所有基于 stageH 的定位都稳定。
-     * 多出来的视口区域以深色背景 letterbox 展示（两侧或上下），比变形好看得多。
+     * 竖屏优先铺满视口，让战斗背景真正全屏；横屏/宽桌面再锁 9:16，
+     * 避免 fixedWidth 模式在过宽比例下把逻辑高度压得过低。
      */
     html, body {
       background: #1a1a2e;
@@ -51,23 +46,18 @@
       padding-left: env(safe-area-inset-left);
     }
 
-    /* 画布容器：9:16 比例，尽量大但不超出视口。
-       - height:100% 填满 body 可用高度
-       - aspect-ratio:9/16 锁比例；浏览器自动把 width 算成 height × 9/16
-       - max-width:100% 保证窄屏（手机）不超出左右边界
-       flex 容器居中 → 超高手机上下留 letterbox，超宽桌面左右留 letterbox */
     #game-container {
-      width: auto;
+      width: 100%;
       height: 100%;
-      aspect-ratio: 9 / 16;
-      max-width: 100%;
       position: relative;
+      overflow: hidden;
     }
 
-    /* PC / 桌面鼠标设备额外处理：限制最大高度 + 加阴影圆角突出画布感 */
-    @media (hover: hover) and (pointer: fine) and (min-width: 600px) {
+    /* 横屏或宽桌面：回到稳定的 9:16 画布，防止 UI 被横向比例压扁。 */
+    @media (orientation: landscape), (hover: hover) and (pointer: fine) and (min-width: 600px) {
       #game-container {
-        height: min(880px, 100vh);
+        width: min(100vw, calc(min(880px, 100dvh) * 9 / 16));
+        height: min(880px, 100dvh, calc(100vw * 16 / 9));
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
         border-radius: 12px;
         overflow: hidden;
@@ -105,6 +95,7 @@
   <script>
     var statusEl = document.getElementById('status');
     var container = document.getElementById('game-container');
+    var BUILD_VERSION = 'ui-layout-20260519-absolute-1';
     var scripts = [
       'lib/egret/egret.min.js',
       'lib/egret/egret.web.min.js',
@@ -173,7 +164,7 @@
         return;
       }
       var s = document.createElement('script');
-      s.src = scripts[idx];
+      s.src = scripts[idx] + (scripts[idx] === 'game.js' ? '?v=' + BUILD_VERSION : '');
       s.onload = function() {
         var name = scripts[idx].split('/').pop();
         statusEl.textContent = (idx+1) + '/' + scripts.length + ' OK ' + name;
