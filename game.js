@@ -53,6 +53,9 @@ var THEME = {
 
 var UI_ASSETS = {
   battleBackground: 'assets/image2-backgrounds/sky-ruins-v1/battle-sky-ruins-375x423.png',
+  battleForest: 'assets/image2-backgrounds/scene-cycle-v1/battle-forest-375x423.png',
+  battleCrystal: 'assets/image2-backgrounds/scene-cycle-v1/battle-crystal-375x423.png',
+  battleTemple: 'assets/image2-backgrounds/scene-cycle-v1/battle-temple-375x423.png',
   hero: 'assets/image2-character-sheets/v3/hero-mage-v3.png',
   monsterSlime: 'assets/image2-monsters/v1/monster-slime-v1.png',
   monsterRabbit: 'assets/image2-monsters/v1/monster-rabbit-v1.png',
@@ -97,6 +100,9 @@ var UI_ASSETS = {
 
 var UI_ASSET_SIZES = {};
 UI_ASSET_SIZES[UI_ASSETS.battleBackground] = { w: 375, h: 423 };
+UI_ASSET_SIZES[UI_ASSETS.battleForest] = { w: 375, h: 423 };
+UI_ASSET_SIZES[UI_ASSETS.battleCrystal] = { w: 375, h: 423 };
+UI_ASSET_SIZES[UI_ASSETS.battleTemple] = { w: 375, h: 423 };
 UI_ASSET_SIZES[UI_ASSETS.hero] = { w: 418, h: 418 };
 UI_ASSET_SIZES[UI_ASSETS.monsterSlime] = { w: 313, h: 313 };
 UI_ASSET_SIZES[UI_ASSETS.monsterRabbit] = { w: 313, h: 313 };
@@ -184,9 +190,22 @@ var MONSTER_IMAGE_ASSETS = {
   boss_phoenix: UI_ASSETS.bossPhoenix
 };
 
+var BATTLE_SCENES = [
+  { name: '星空遗迹', asset: UI_ASSETS.battleBackground },
+  { name: '月光森林', asset: UI_ASSETS.battleForest },
+  { name: '水晶峡谷', asset: UI_ASSETS.battleCrystal },
+  { name: '天空神殿', asset: UI_ASSETS.battleTemple }
+];
+
 var CONFIG = {
   maxEnergy: 100,
-  energyRecovery: 2,
+  energyRecovery: 1,
+  energyRecoveryInterval: 5,
+  attackEnergyCost: 2,
+  skillEnergyCost: 8,
+  killEnergyReward: 0,
+  bossKillEnergyReward: 6,
+  energyPotionValue: 30,
   bossTimeLimit: 10,  // BOSS限时（秒）
   monsterHp: function(wave) { return Math.floor(100 * Math.pow(wave, 1.25)); },
   goldReward: function(wave, isBoss) { return Math.floor(5 * Math.pow(wave, 1.1) * (isBoss ? 5 : 1)); },
@@ -379,6 +398,8 @@ function Game(main) {
   this.skillBtns = [];
   this.damageLayer = null;
   this.battleGroup = null;
+  this.fieldSkin = null;
+  this._sceneIndex = -1;
   this._panelOverlay = null;
   this._justHitMonster = false;
 
@@ -477,6 +498,34 @@ Game.prototype.coverImageInBox = function(img, source, boxW, boxH, x, y) {
   img.y = (y || 0) + Math.round((boxH - h) / 2);
   img.touchEnabled = false;
   return img;
+};
+
+Game.prototype.getBattleSceneIndex = function() {
+  var scenes = BATTLE_SCENES || [];
+  if (scenes.length === 0) return 0;
+  var cycle = Math.max(0, Math.floor((this.wave - 1) / 10));
+  return cycle % scenes.length;
+};
+
+Game.prototype.getBattleScene = function() {
+  var scenes = BATTLE_SCENES || [];
+  if (scenes.length === 0) return { name: '', asset: UI_ASSETS.battleBackground };
+  return scenes[this.getBattleSceneIndex()] || scenes[0];
+};
+
+Game.prototype.updateBattleScene = function(animate) {
+  if (!this.fieldSkin) return;
+  var idx = this.getBattleSceneIndex();
+  if (idx === this._sceneIndex && this.fieldSkin.source) return;
+  var scene = this.getBattleScene();
+  this._sceneIndex = idx;
+  this.coverImageInBox(this.fieldSkin, scene.asset, this._stageW || 375, this._battleH || 423, 0, 0);
+  if (animate) {
+    this.fieldSkin.alpha = 0;
+    egret.Tween.get(this.fieldSkin).to({ alpha: 1 }, 450);
+  } else {
+    this.fieldSkin.alpha = 1;
+  }
 };
 
 Game.prototype.monsterSpriteSource = function(mType, isBoss) {
@@ -1546,7 +1595,9 @@ Game.prototype.buildUI = function() {
 
   // 位图视觉层：使用分层素材里的全屏战斗背景，按战斗区 cover 适配。
   var fieldSkin = new eui.Image();
-  this.coverImageInBox(fieldSkin, UI_ASSETS.battleBackground, stageW, BATTLE_H, 0, 0);
+  this.fieldSkin = fieldSkin;
+  this._battleH = BATTLE_H;
+  this.updateBattleScene(false);
   this.battleGroup.addChild(fieldSkin);
   var controlsSkin = new eui.Image();
   controlsSkin.source = 'assets/ui/battle-skin-controls.png';
@@ -1965,7 +2016,7 @@ Game.prototype.buildUI = function() {
   this._energyMaxWidth = ENERGY_W; // 供 updateUI 使用（替换硬编码 100）
   // 能量文字：紧跟在条右边，不再压在条上
   this.energyLabel = new eui.Label();
-  this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
+  this.energyLabel.text = '⚡' + Math.floor(this.energy) + '/' + CONFIG.maxEnergy;
   this.energyLabel.size = 11; this.energyLabel.textColor = THEME.sky; this.energyLabel.bold = true;
   this.energyLabel.x = STATUS_X + ENERGY_W + 14; this.energyLabel.y = statusY + 30;
   statusBar.addChild(this.energyLabel);
@@ -2527,9 +2578,10 @@ Game.prototype.onBattleTouch = function(e) {
 };
 
 Game.prototype.battleAreaClick = function() {
-  if (this.monsters.length > 0 && this.energy >= 1) {
+  var cost = CONFIG.attackEnergyCost;
+  if (this.monsters.length > 0 && this.energy >= cost) {
     this.sfxClick();
-    this.energy--;
+    this.energy -= cost;
     this.stats.totalClicks++;
     this.checkDailyTasks('click');
     var target = this.monsters[0];
@@ -2545,9 +2597,10 @@ Game.prototype.battleAreaClick = function() {
 Game.prototype.onMonsterTouch = function(idx) {
   this._justHitMonster = true;
   var m = this.monsters[idx];
-  if (!m || m.hp <= 0 || this.energy < 1) return;
+  var cost = CONFIG.attackEnergyCost;
+  if (!m || m.hp <= 0 || this.energy < cost) return;
   this.sfxClick();
-  this.energy--;
+  this.energy -= cost;
   this.stats.totalClicks++;
   this.checkDailyTasks('click');
   this.heroAttackAnim(idx);
@@ -2603,7 +2656,8 @@ Game.prototype.onKill = function(m, idx) {
   if (realIdx === -1) return;
   var reward = CONFIG.goldReward(this.wave, m.isBoss);
   this.gold += reward;
-  this.energy = Math.min(CONFIG.maxEnergy, this.energy + (m.isBoss ? 10 : 2));
+  var energyBack = m.isBoss ? CONFIG.bossKillEnergyReward : CONFIG.killEnergyReward;
+  if (energyBack > 0) this.energy = Math.min(CONFIG.maxEnergy, this.energy + energyBack);
   this.killCount++;
   this.stats.totalKills++;
   if (m.isBoss) {
@@ -2635,6 +2689,7 @@ Game.prototype.onKill = function(m, idx) {
 // ==================== 波次 ====================
 
 Game.prototype.spawnWave = function() {
+  this.updateBattleScene(false);
   var isBoss = this.wave % 10 === 0;
   var count;
   if (isBoss) {
@@ -2805,10 +2860,15 @@ Game.prototype.updateBossTimerUI = function() {
 
 Game.prototype.nextWave = function() {
   // BOSS击杀成功，停止计时器
+  var wasBoss = this.wave % 10 === 0;
   this.stopBossTimer();
   this.wave++;
   this.totalCleared++;
   if (this.wave > this.maxWaveReached) this.maxWaveReached = this.wave;
+  if (wasBoss) {
+    this.updateBattleScene(true);
+    this.showToast('场地切换：' + this.getBattleScene().name);
+  }
   this.checkDailyTasks('wave');
   this.checkSupports();
   this.updateBossBtn();
@@ -2906,10 +2966,10 @@ Game.prototype.useSkill = function(idx) {
   if (!this.skillUnlocked[idx]) { this.showToast('技能未解锁！'); return; }
   if (this.skillCD[idx] > 0) { this.showToast('冷却中！'); return; }
   if (this.monsters.length === 0) { this.showToast('没有怪物！'); return; }
-  if (this.energy < 5) { this.showToast('能量不足！'); return; }
+  if (this.energy < CONFIG.skillEnergyCost) { this.showToast('能量不足！'); return; }
   var s = SKILLS[idx];
   this.sfxSkill();
-  this.energy -= 5;
+  this.energy -= CONFIG.skillEnergyCost;
   this.skillCD[idx] = s.cd;
   var dmg = CONFIG.mainDmg(this.mainLevel, this.rebirthGems) * s.dmg;
   if (s.hits === 0) {
@@ -2948,7 +3008,7 @@ Game.prototype.updateUI = function() {
   this.updateWaveNumbers();
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
-  if (this.energyLabel) this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
+  if (this.energyLabel) this.energyLabel.text = '⚡' + Math.floor(this.energy) + '/' + CONFIG.maxEnergy;
   if (this.energyFill) {
     var eMax = this._energyMaxWidth || 100;
     this.energyFill.width = Math.max(0, (this.energy / CONFIG.maxEnergy) * eMax);
@@ -4183,7 +4243,7 @@ Game.prototype.openShop = function() {
 
   // 能量药水
   y = this.addPanelRow(panel, y, '⚡', 0x3498db,
-    '能量药水\n恢复50能量',
+    '能量药水\n恢复' + CONFIG.energyPotionValue + '能量',
     '50金', 0x27ae60,
     function() { self.shopBuy('energy'); },
     this.gold < 50
@@ -4334,24 +4394,26 @@ Game.prototype.openEnergyHelp = function() {
   panel.addChild(title);
 
   var info = new eui.Label();
-  info.text = '当前能量: ⚡' + this.energy + '/' + CONFIG.maxEnergy + '\n每秒恢复: +' + CONFIG.energyRecovery;
+  info.text = '当前能量: ⚡' + Math.floor(this.energy) + '/' + CONFIG.maxEnergy +
+    '\n每' + CONFIG.energyRecoveryInterval + '秒恢复: +' + CONFIG.energyRecovery;
   info.size = 13; info.textColor = 0xcccccc;
   info.x = 25; info.top = 50; info.lineSpacing = 6;
   panel.addChild(info);
 
   var tip = new eui.Label();
-  tip.text = '点击战斗区域消耗1能量\n使用技能消耗5能量\n能量会自动恢复，也可以在商城购买';
+  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n使用技能消耗' +
+    CONFIG.skillEnergyCost + '能量\n能量会缓慢自动恢复，也可以在商城购买';
   tip.size = 11; tip.textColor = 0x888888;
   tip.x = 25; tip.top = 100; tip.lineSpacing = 4;
   panel.addChild(tip);
 
   var self = this;
-  var buyBtn = this.createButton('购买能量药水 (+50⚡)', 0x3498db, 160, 36,
+  var buyBtn = this.createButton('购买能量药水 (+' + CONFIG.energyPotionValue + '⚡)', 0x3498db, 160, 36,
     function() {
       if (self.gold < 50) { self.showToast('金币不足！'); return; }
       self.gold -= 50;
-      self.energy = Math.min(CONFIG.maxEnergy, self.energy + 50);
-      self.showToast('⚡ +50能量！');
+      self.energy = Math.min(CONFIG.maxEnergy, self.energy + CONFIG.energyPotionValue);
+      self.showToast('⚡ +' + CONFIG.energyPotionValue + '能量！');
       self.saveGame();
       self.updateUI();
       self.closePanel();
@@ -4365,8 +4427,8 @@ Game.prototype.shopBuy = function(type) {
   if (type === 'energy') {
     if (this.gold < 50) { this.showToast('金币不足！'); return; }
     this.gold -= 50;
-    this.energy = Math.min(CONFIG.maxEnergy, this.energy + 50);
-    this.showToast('⚡ 购买能量药水！+50能量');
+    this.energy = Math.min(CONFIG.maxEnergy, this.energy + CONFIG.energyPotionValue);
+    this.showToast('⚡ 购买能量药水！+' + CONFIG.energyPotionValue + '能量');
   } else if (type === 'offline') {
     if (this.gold < 500) { this.showToast('金币不足！'); return; }
     this.gold -= 500;
@@ -5090,10 +5152,12 @@ Game.prototype.showToast = function(msg) {
 Game.prototype.startLoop = function() {
   var self = this;
 
-  // 每秒：能量恢复 + 技能CD + 游戏时间
+  // 每秒：技能CD + 游戏时间；能量按较慢节奏恢复，避免长期满能量。
   setInterval(function() {
     self.stats.playTime++;
-    self.energy = Math.min(CONFIG.maxEnergy, self.energy + CONFIG.energyRecovery);
+    if (self.stats.playTime % CONFIG.energyRecoveryInterval === 0) {
+      self.energy = Math.min(CONFIG.maxEnergy, self.energy + CONFIG.energyRecovery);
+    }
     for (var i = 0; i < self.skillCD.length; i++) {
       if (self.skillCD[i] > 0) self.skillCD[i]--;
     }
