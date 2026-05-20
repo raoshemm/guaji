@@ -95,7 +95,7 @@
   <script>
     var statusEl = document.getElementById('status');
     var container = document.getElementById('game-container');
-    var BUILD_VERSION = 'ui-layout-20260520-skillfit-1';
+    var BUILD_VERSION = 'ui-layout-20260520-sky-ruins-bg-1';
     var scripts = [
       'lib/egret/egret.min.js',
       'lib/egret/egret.web.min.js',
@@ -157,7 +157,7 @@
           }
 
           statusEl.textContent += '\n启动成功!';
-          setTimeout(function() { statusEl.style.display = 'none'; }, 1500);
+          setTimeout(function() { statusEl.style.display = 'none'; }, 350);
         } catch(e) {
           statusEl.textContent += '\n[ERR] ' + e.message;
         }

@@ -1,1 +1,5469 @@
-var a0_0x592342=a0_0x4a14;(function(_0x60414d,_0x4f33a5){var _0x28ba33=a0_0x4a14,_0x5886dd=_0x60414d();while(!![]){try{var _0x4f8088=parseInt(_0x28ba33(0x197))/0x1*(-parseInt(_0x28ba33(0x148))/0x2)+-parseInt(_0x28ba33(0x1f2))/0x3+-parseInt(_0x28ba33(0x21b))/0x4*(-parseInt(_0x28ba33(0x1d5))/0x5)+parseInt(_0x28ba33(0xb2))/0x6+parseInt(_0x28ba33(0x19a))/0x7*(parseInt(_0x28ba33(0x213))/0x8)+-parseInt(_0x28ba33(0x20d))/0x9+-parseInt(_0x28ba33(0x85))/0xa;if(_0x4f8088===_0x4f33a5)break;else _0x5886dd['push'](_0x5886dd['shift']());}catch(_0x39613d){_0x5886dd['push'](_0x5886dd['shift']());}}}(a0_0x8733,0x56898));function drawEyesPair(_0x130109,_0x22ede5,_0x35e41f,_0x5b6242,_0x2f46a4,_0x3ae955,_0x17a65a){var _0x1c254e=a0_0x4a14;_0x130109[_0x1c254e(0x124)](0x0),_0x130109[_0x1c254e(0x199)](0xffffff),_0x130109['drawCircle'](_0x22ede5,_0x35e41f,_0x3ae955),_0x130109[_0x1c254e(0x16f)](_0x5b6242,_0x2f46a4,_0x3ae955),_0x130109['endFill'](),_0x130109['beginFill'](0x0),_0x130109['drawCircle'](_0x22ede5,_0x35e41f+0.5,_0x17a65a),_0x130109['drawCircle'](_0x5b6242,_0x2f46a4+0.5,_0x17a65a),_0x130109['endFill'](),_0x130109['beginFill'](0xffffff),_0x130109[_0x1c254e(0x16f)](_0x22ede5-_0x17a65a*0.5,_0x35e41f-_0x17a65a*0.5,_0x17a65a*0.5),_0x130109['drawCircle'](_0x5b6242-_0x17a65a*0.5,_0x2f46a4-_0x17a65a*0.5,_0x17a65a*0.5),_0x130109[_0x1c254e(0x182)]();}var THEME={'bgDeep':0xa0820,'bgMid':0x1a1340,'bgLite':0x2a1f5c,'bgRow':0x1a153f,'bgGlass':0x140e36,'strokeGold':0xf5c842,'strokeSoft':0x4a3a8c,'accent':0xfbbf24,'accentSoft':0xfde68a,'pink':0xff7eb0,'mint':0x7be8b7,'sky':0x5ec8ff,'lavender':0xc7a7ff,'ok':0x2ecc71,'warn':0xf39c12,'danger':0xef4444,'textMain':0xffffff,'textDim':0xb8b0db,'textMute':0x6a628f,'textGold':0xfbbf24},UI_ASSETS={'battleBackground':a0_0x592342(0x227),'hero':'assets/image2-layered-white/characters/hero-mage.png','monsterFire':'assets/image2-layered-white/monsters/monster-fire-slime.png','monsterGhost':'assets/image2-layered-white/monsters/monster-ghost.png','supportCandy':'assets/image2-layered-white/supports/support-candy.png','supportLocked':'assets/image2-layered-white/supports/support-locked-slot.png'},UI_ASSET_SIZES={};function a0_0x8733(){var _0x443d9c=['showBossFlash','w10','monsterSpriteSource','graphics','签到领取','🍭×1','triangle','paddingTop','ceil','_panelOverlay','slot','shopBuy','sine','soundMuted','title','💀\x20BOSS\x20出现！','horizontalCenter','layout','setItem','Tween','TouchEvent','updateMonsterDisplay','updateBossBtn','alpha','battleBackground','100金','ghost','phys','setChildIndex','showToast','（排行榜数据为本地记录）','Ease','horizontalAlign','checkDailyTasks','atan2','_bossBtnBg','monsters','desc','w50','meatball','TextField','💎\x20','1000金','】解锁！','center','bgDeep','textAlign','openMonsterCodex','strokeGold','goldReward','bossActive','onBattleTouch','boss1','击杀:\x20','doCheckin','伤害加成:\x20×','source','value','到达第50波','autoBtnLabel','冰霜巨人','checkLevelUp','Shape','skull','_nameLb','waveText','indexOf','openDailyTasks','lineSpacing','lineTo','暴击+10%，攻速+10%','refreshSupportViews','totalDps','paddingRight','length','lineStyle','skillCD','strokeWeight','⚡\x20+50能量！','start','prototype','createSupportView','初次转生','drawEllipse','_bossBarMaxWidth','every','rebirthGems','spike','backgroundColor','rabbit','mousedown','_dailyClicks','💪\x20总DPS','middle','battleAreaClick','achievements','freqEnd','freeSpins','anchorOffsetX','rightSupGroup','/3\x20次','price','energy','\x20伤害:\x20','avatarIdx','📅\x20每日签到','highlight','升级辅助英雄可以大幅提升DPS，别忘了给他们升级！','onMonsterTouch','每10波','💀战斗中','42HWzzhX','attackMult','supports','今日免费:\x20','dragon','checkinDate','_justHitMonster','startBossTimer','月棒冰','📋\x20领取奖励:\x20','updateAutoBtn','w200','⚡20能量','法师王','levelLabel','_beep','怪物图签','hpColor','_bossTimerInterval','cone','nextWave','totalKills','stopPropagation','resetDailyTasks','moveTo','技能未解锁！','mainDmg','call','includeInLayout','ellipseWidth','strokeColor','type','Event','bgMid','获得\x20💎\x20','shadow','你离开了\x20','主角达到10级','bossTimerBar','drawCircle','iconShape','main','gain','claimTask','connect','ellipseHeight','✓\x20+','_centerX','touchChildren','bossTimerLabel','满编战队','stop','maxEnergy','fmt','scaleX','totalClicks','boss_spider','onAdd','endFill','stage','heroGroup','wave','accentSoft','✅\x20条件满足：最高波次\x20≥\x2050','炎魔将军','buffLabel','touchEnabled','autoAttackEnabled','cdLb','20能量','bossTimeLimit','Image','每日签到领好礼，连续7天获得烤肉奖励！','点击下方按钮，在弹出框中输入新昵称\x0a（最多8个字符）','trim','cake','💤\x20离线收益','getBuffs','\x20\x20金币加成:\x20×','16723tbgnrZ','upgradeCost','beginFill','203DwgDbN','gold','棒棒糖','addEventListener','saveGame','updateUI','boss_phoenix','maxWaveReached','kills','supportAttackAnim','↻\x20自动战斗已开启','slash','toggleAutoAttack','cos','星界凤凰','foods','accent','addPanelContent','fillAlpha','hero','createOscillator','👆\x20总点击数','bgRow','checkinDay','verticalAlign','whirl','waveFill','hpFill','stageWidth','createButton','scaleY','波涛汹涌','50金','closePanel','onBossFail','top','🔊\x20已开启音效','dailyTaskDone','_monsterAreaH','离线扩展包\x0a离线上限+4h\x20(当前','解锁所有技能','gemsLabel','checkAchievements','smash','energyLabel','linearRampToValueAtTime','updateMuteBtn','upgradeMain','100\x20/\x20100','getItem','right','UILayer','小时！','📋\x20每日任务','sin','杀戮之王','push','连续签到:\x20','parent','65oxEzpq','stopBossTimer','random','_audioCtx','⚠️\x20需通过第9波后才能挑战BOSS\x20(','height','heroAttackAnim','doDamage','bonus','📖\x20新图签！发现【','lavender','monsterViews','📖\x20怪物图签\x20(','isBoss','没有怪物！','magic','renderBuffText','unlocked','battleGroup','totalGold','openCheckin','suspended','drawRect','food','_monsterAreaY','floor','min','paddingBottom','stats','352167DfGAPY','energyRecovery','toggleMute','当前昵称：','name','monsterCodex','onKill','candy','symbol','energyFill','v2.0版本上线！新增转生系统和成就系统！','sfxLevelUp','triple','Rect','主角达到30级','_bossBtnText','openNameEditor','openAchievements','max','sineInOut','challengeBoss','supportLocked','createPanelOverlay','forEach','goldLabel','spinDate','无尽征途','3044412yUmLiJ','bossTimer','openLeaderboard','rotation','maxHp','critChance','144752hdoetV','textDim','_heroBaseY','loadGame','Group','Label','草莓酱','addChildAt','101284whAQvi','sfxClick','destination','color','gujiyouxi_egret_time','getChildByName','muteLabel','bold','leftSupGroup','TOUCH_TAP','gap','track','assets/image2-layered-white/background/battle-background-field-375x423.png','totalCleared','kill','\x20DPS:\x20','_energyMaxWidth','✏️\x20手动输入','get','openAnnouncement','spawnWave','点击200次','updateWaveNumbers','dps','slice','textMain','通关5波','dpsLabel','toFixed','verticalCenter','getChildAt','617380ATQcqi','_avatarBg','addPanelRow','supportCost','解锁所有队友','_avatarIcon','bindEvents','thunder','pudding','autoBtnBg','_waveNumBgs','checkSupports','mainLevel','checkOfflineReward','DPS:\x20','drawMonsterShape','strokeAlpha','coverImageInBox','damageLayer','pow','width','icon','playerName','gujiyouxi_mute','sfxHitBoss','\x20(×','reward','frequency','removeChild','sfxUnlock','AudioContext','size','openShop','removeChildAt','killsNeeded','text','badge','addChild','↻\x20自动','fitImageToBox','金币不足！','target','offlineCap','✅\x20昵称已改为：','percentHeight','2214810YsSnqN','skillBtns','filter','_bossBtnGroup','marshmallow','exponentialRampToValueAtTime','fillColor','halo','waveFillBg','金\x20+\x20','waveLabel','level','removeEventListener','hpLabel','skillUnlocked','weight','skipToBoss','📧\x20邮件','感谢支持！','visible','round','background','drawStar','✅\x20头像已更换为','dailyTaskDate','shape','percentWidth','playTime','sawtooth','monsterGhost','💰\x20收益已翻倍！','drawRoundRect','textColor','map','updateSkillBtns','_waveNumLbs','openSupermarket','curveTo','killCount'];a0_0x8733=function(){return _0x443d9c;};return a0_0x8733();}UI_ASSET_SIZES[UI_ASSETS[a0_0x592342(0xf1)]]={'w':0x177,'h':0x1a7},UI_ASSET_SIZES[UI_ASSETS[a0_0x592342(0x1ad)]]={'w':0x400,'h':0x600},UI_ASSET_SIZES[UI_ASSETS['monsterFire']]={'w':0x600,'h':0x400},UI_ASSET_SIZES[UI_ASSETS['monsterGhost']]={'w':0x559,'h':0x47d},UI_ASSET_SIZES[UI_ASSETS['supportCandy']]={'w':0x4e6,'h':0x4e6},UI_ASSET_SIZES[UI_ASSETS['supportLocked']]={'w':0x462,'h':0x57a};var CONFIG={'maxEnergy':0x64,'energyRecovery':0x2,'bossTimeLimit':0xa,'monsterHp':function(_0x423bdb){return Math['floor'](0x64*Math['pow'](_0x423bdb,1.25));},'goldReward':function(_0x42a2c2,_0x3d4cbd){var _0x1ad0d7=a0_0x592342;return Math[_0x1ad0d7(0x1ee)](0x5*Math['pow'](_0x42a2c2,1.1)*(_0x3d4cbd?0x5:0x1));},'mainDmg':function(_0x505528,_0x414aba){var _0x2c1de7=a0_0x592342,_0x5a953d=0x1+(_0x414aba||0x0)*0.1;return Math[_0x2c1de7(0x1ee)](0x50*Math[_0x2c1de7(0x98)](_0x505528,1.35)*_0x5a953d);},'upgradeCost':function(_0x507026){var _0x54b1e3=a0_0x592342;return Math['floor'](0x1e*Math[_0x54b1e3(0x98)](1.4,_0x507026-0x1));},'supportCost':function(_0x385d7e){var _0x8f5e46=a0_0x592342;return Math['floor'](0x14*Math[_0x8f5e46(0x98)](1.35,_0x385d7e-0x1));},'killsNeeded':function(_0x2ed9ef){return _0x2ed9ef*0x4+0x4;}},SKILLS=[{'name':'轻击','cd':0x0,'dmg':0x1,'hits':0x1,'lv':0x1,'color':0x5ec8ff,'icon':a0_0x592342(0x1a5),'glow':0xa8e0ff},{'name':'破岳','cd':0x5,'dmg':0x2,'hits':0x1,'lv':0x3,'color':0xef4444,'icon':a0_0x592342(0x1c5),'glow':0xffb5b5},{'name':'连斩','cd':0x8,'dmg':0.8,'hits':0x3,'lv':0x5,'color':0xfbbf24,'icon':a0_0x592342(0x1fe),'glow':0xfff1b0},{'name':'裂光','cd':0xc,'dmg':0x4,'hits':0x1,'lv':0x8,'color':0xc7a7ff,'icon':'crit','glow':0xe7d4ff},{'name':'糖风','cd':0x12,'dmg':2.5,'hits':0x0,'lv':0xc,'color':0x7be8b7,'icon':a0_0x592342(0x1b3),'glow':0xc5f5dd},{'name':'雷霆','cd':0x1e,'dmg':0x6,'hits':0x1,'lv':0x12,'color':0xffd166,'icon':'thunder','glow':0xffe8a5},{'name':'星陨','cd':0x3c,'dmg':0xc,'hits':0x1,'lv':0x19,'color':0xff7eb0,'icon':'meteor','glow':0xffcfe2}],MONSTER_TYPES=[{'name':'史莱姆','shape':'slime','color':0x2ecc71,'highlight':0xa8ffcf,'outline':0x1e5f38,'hpColor':0x2ecc71,'badge':0x1e5f38,'accent':0xfff59d,'wave':0x1},{'name':'兔兔','shape':'rabbit','color':0xffc9d9,'highlight':0xffe9f2,'outline':0xb83d6a,'hpColor':0xff69b4,'badge':0xb83d6a,'accent':0xe91e63,'wave':0x5},{'name':'蝙蝠','shape':'bat','color':0x7e3cb8,'highlight':0xbd85e2,'outline':0x32124a,'hpColor':0x9b59b6,'badge':0x32124a,'accent':0xff3030,'wave':0xa},{'name':'刺球','shape':'spike','color':0xe74c3c,'highlight':0xff8a7a,'outline':0x7a1a10,'hpColor':0xe74c3c,'badge':0x7a1a10,'accent':0xfff59d,'wave':0x14},{'name':'幽灵','shape':a0_0x592342(0xf3),'color':0xe8f1ff,'highlight':0xffffff,'outline':0x4a3a6c,'hpColor':0xa0afc8,'badge':0x4a3a6c,'accent':0x5ec8ff,'wave':0x23},{'name':'骷髅','shape':'skull','color':0xf0ebe0,'highlight':0xffffff,'outline':0x2c2640,'hpColor':0xbdc3c7,'badge':0x2c2640,'accent':0xff3333,'wave':0x32},{'name':'火龙','shape':a0_0x592342(0x14c),'color':0xe67e22,'highlight':0xffbe76,'outline':0x7a2d06,'hpColor':0xf39c12,'badge':0x7a2d06,'accent':0xff4500,'wave':0x50},{'name':'暗影','shape':a0_0x592342(0x16b),'color':0x1a1030,'highlight':0x4b3a7a,'outline':0x0,'hpColor':0x34495e,'badge':0x0,'accent':0xff0000,'wave':0x78}],BOSS_TYPES=[{'name':'魔眼王','shape':'boss_eye','color':0x8b0000,'highlight':0xff6666,'outline':0x3a0000,'hpColor':0xe74c3c,'badge':0x5a0a08,'accent':0xff0000},{'name':a0_0x592342(0x115),'shape':'boss_giant','color':0x4fc3f7,'highlight':0xe1f5fe,'outline':0x277bd,'hpColor':0x29b6f6,'badge':0x1579b,'accent':0xffffff},{'name':'深渊蜘蛛','shape':a0_0x592342(0x180),'color':0x4a148c,'highlight':0xce93d8,'outline':0x1a0030,'hpColor':0xab47bc,'badge':0x2d0050,'accent':0xe5ff},{'name':a0_0x592342(0x188),'shape':'boss_demon','color':0xb71c1c,'highlight':0xff8a65,'outline':0x4a0000,'hpColor':0xef5350,'badge':0x7f0000,'accent':0xffeb3b},{'name':a0_0x592342(0x1a8),'shape':'boss_phoenix','color':0xff6f00,'highlight':0xffe082,'outline':0x7f3300,'hpColor':0xffa726,'badge':0x5d2600,'accent':0x40c4ff}],SUPPORTS_DEF=[{'name':'糖糖','dps':0xf,'wave':0x0,'atkInterval':0x4b0,'color':0xff7eb0,'shape':'candy','role':'phys','symbol':'糖糖'},{'name':'棉花糖','dps':0x1c,'wave':0x5,'atkInterval':0x5dc,'color':0xf8c4d9,'shape':a0_0x592342(0xb6),'role':a0_0x592342(0x1e4),'symbol':'棉花糖'},{'name':'肉丸','dps':0x2d,'wave':0xf,'atkInterval':0x3e8,'color':0xd96a31,'shape':'meatball','role':'phys','symbol':'肉丸'},{'name':'布丁','dps':0x4b,'wave':0x1e,'atkInterval':0x708,'color':0xf5c842,'shape':'pudding','role':'phys','symbol':'布丁'},{'name':'蛋筒','dps':0x78,'wave':0x32,'atkInterval':0x384,'color':0xff9933,'shape':'cone','role':a0_0x592342(0xf4),'symbol':'蛋筒'},{'name':'麻薯','dps':0xc8,'wave':0x50,'atkInterval':0x578,'color':0xc7a7ff,'shape':'mochi','role':'magic','symbol':'麻薯'},{'name':a0_0x592342(0x150),'dps':0x15e,'wave':0x78,'atkInterval':0x44c,'color':0x7be8b7,'shape':'popsicle','role':'magic','symbol':a0_0x592342(0x150)},{'name':a0_0x592342(0x219),'dps':0x258,'wave':0xb4,'atkInterval':0x640,'color':0xff5577,'shape':a0_0x592342(0x193),'role':'magic','symbol':'草莓酱'}],FOODS=[{'name':a0_0x592342(0x19c),'icon':'🍭','price':0x64,'desc':a0_0x592342(0x11f)},{'name':'牛奶','icon':'🥛','price':0xc8,'desc':'攻击+15%'},{'name':'烤肉','icon':'🍖','price':0x1f4,'desc':'全属性+20%'}],SPIN_PRIZES=[{'text':'50金','type':a0_0x592342(0x19b),'value':0x32,'weight':0x1e},{'text':a0_0x592342(0xf2),'type':'gold','value':0x64,'weight':0x19},{'text':'200金','type':a0_0x592342(0x19b),'value':0xc8,'weight':0xf},{'text':'500金','type':a0_0x592342(0x19b),'value':0x1f4,'weight':0x8},{'text':a0_0x592342(0xde),'type':'food','value':'棒棒糖','weight':0x8},{'text':'🥛×1','type':'food','value':'牛奶','weight':0x6},{'text':a0_0x592342(0x18d),'type':'energy','value':0x14,'weight':0x5},{'text':a0_0x592342(0x103),'type':a0_0x592342(0x19b),'value':0x3e8,'weight':0x3}],CHECKIN_REWARDS=[{'gold':0x64,'bonus':null},{'gold':0xc8,'bonus':null},{'gold':0x12c,'bonus':{'name':'棒棒糖','icon':'🍭'}},{'gold':0x190,'bonus':null},{'gold':0x1f4,'bonus':{'name':'牛奶','icon':'🥛'}},{'gold':0x258,'bonus':null},{'gold':0x3e8,'bonus':{'name':'烤肉','icon':'🍖'}}],DAILY_TASKS=[{'id':'kills','desc':'击杀50只怪物','target':0x32,'reward':0xc8,'track':function(_0x13f9e9){return _0x13f9e9['_dailyKills']||0x0;}},{'id':'clicks','desc':a0_0x592342(0x230),'target':0xc8,'reward':0x96,'track':function(_0x1a1bea){return _0x1a1bea['_dailyClicks']||0x0;}},{'id':'waves','desc':a0_0x592342(0x235),'target':0x5,'reward':0x12c,'track':function(_0x377e0d){return _0x377e0d['_dailyWaves']||0x0;}}],ACHIEVEMENTS=[{'id':a0_0x592342(0xda),'icon':'🌊','name':'初出茅庐','desc':'到达第10波','reward':0x12c,'check':function(_0x52a126){var _0x10bd64=a0_0x592342;return _0x52a126[_0x10bd64(0x1a1)]>=0xa;}},{'id':a0_0x592342(0xff),'icon':'🌊','name':'乘风破浪','desc':a0_0x592342(0x113),'reward':0xbb8,'check':function(_0x332090){return _0x332090['maxWaveReached']>=0x32;}},{'id':'w100','icon':'🌊','name':a0_0x592342(0x1b9),'desc':'到达第100波','reward':0x2710,'check':function(_0x4e8933){var _0x2a2dfe=a0_0x592342;return _0x4e8933[_0x2a2dfe(0x1a1)]>=0x64;}},{'id':a0_0x592342(0x153),'icon':'🌊','name':a0_0x592342(0x20c),'desc':'到达第200波','reward':0xc350,'check':function(_0x136cfc){return _0x136cfc['maxWaveReached']>=0xc8;}},{'id':'kill1000','icon':'⚔️','name':'怪物克星','desc':'击杀1000只怪物','reward':0x7d0,'check':function(_0x47ea9d){return _0x47ea9d['stats']['totalKills']>=0x3e8;}},{'id':'kill10000','icon':'⚔️','name':a0_0x592342(0x1d1),'desc':'击杀10000只怪物','reward':0x2710,'check':function(_0x355a93){var _0x384a89=a0_0x592342;return _0x355a93['stats'][_0x384a89(0x15d)]>=0x2710;}},{'id':'lv10','icon':'⬆️','name':'实力不凡','desc':a0_0x592342(0x16d),'reward':0x1f4,'check':function(_0x5e60ef){return _0x5e60ef['mainLevel']>=0xa;}},{'id':'lv30','icon':'⬆️','name':'登峰造极','desc':a0_0x592342(0x200),'reward':0x1388,'check':function(_0x3b8b05){return _0x3b8b05['mainLevel']>=0x1e;}},{'id':'rebirth1','icon':'💎','name':a0_0x592342(0x12b),'desc':'完成首次转生','reward':0x7d0,'check':function(_0xae3c5f){return _0xae3c5f['rebirthGems']>0x0;}},{'id':'rebirth10','icon':'💎','name':'转生大师','desc':'累计获得50宝石','reward':0x4e20,'check':function(_0x118e8a){return _0x118e8a['rebirthGems']>=0x32;}},{'id':'allskills','icon':'🔓','name':'技能大师','desc':a0_0x592342(0x1c2),'reward':0x1388,'check':function(_0x1d96cd){var _0x2c211f=a0_0x592342;return _0x1d96cd[_0x2c211f(0xc0)][_0x2c211f(0x12e)](function(_0x355887){return _0x355887;});}},{'id':'allsupport','icon':'👥','name':a0_0x592342(0x17a),'desc':a0_0x592342(0x89),'reward':0x2710,'check':function(_0x2f2240){return _0x2f2240['supports']['every'](function(_0x279c8c){var _0x424a0a=a0_0x4a14;return _0x279c8c[_0x424a0a(0x1e6)];});}},{'id':a0_0x592342(0x10d),'icon':'💀','name':'BOSS终结者','desc':'击杀1个BOSS','reward':0x1f4,'check':function(_0x1d8c32){return _0x1d8c32['stats']['bossKills']>=0x1;}},{'id':'boss50','icon':'💀','name':'BOSS猎人','desc':'击杀50个BOSS','reward':0x3a98,'check':function(_0x3a1b79){return _0x3a1b79['stats']['bossKills']>=0x32;}}];function Main(){var _0x15a40f=a0_0x592342;eui[_0x15a40f(0x1cd)][_0x15a40f(0x163)](this),this['addEventListener'](egret['Event']['ADDED_TO_STAGE'],this[_0x15a40f(0x181)],this);}Main['prototype']=Object['create'](eui['UILayer']['prototype']),Main['prototype']['constructor']=Main,Main['prototype']['onAdd']=function(){var _0x5ed78c=a0_0x592342;this[_0x5ed78c(0xbe)](egret['Event']['ADDED_TO_STAGE'],this['onAdd'],this),this['game']=new Game(this);};function a0_0x4a14(_0x4b3bc,_0x108f29){_0x4b3bc=_0x4b3bc-0x84;var _0x8733cd=a0_0x8733();var _0x4a1401=_0x8733cd[_0x4b3bc];return _0x4a1401;}function Game(_0x1834ed){var _0x41457c=a0_0x592342;this['main']=_0x1834ed,this['gold']=0x0,this[_0x41457c(0x13f)]=0x64,this['mainLevel']=0x1,this['wave']=0x1,this[_0x41457c(0x228)]=0x0,this['killCount']=0x0,this['skillCD']=[0x0,0x0,0x0,0x0,0x0,0x0,0x0],this['skillUnlocked']=[!![],![],![],![],![],![],![]],this['supports']=SUPPORTS_DEF[_0x41457c(0xd3)](function(_0x4ef2ea){var _0x402d0b=_0x41457c;return{'name':_0x4ef2ea['name'],'dps':_0x4ef2ea[_0x402d0b(0x232)],'wave':_0x4ef2ea[_0x402d0b(0x185)],'level':0x1,'unlocked':_0x4ef2ea['wave']===0x0};}),this[_0x41457c(0xfd)]=[],this['foods']={'棒棒糖':0x0,'牛奶':0x0,'烤肉':0x0},this['freeSpins']=0x3,this['spinDate']=new Date()['toDateString'](),this[_0x41457c(0x1f1)]={'totalKills':0x0,'totalGold':0x0,'totalClicks':0x0,'playTime':0x0,'bossKills':0x0},this['achievements']=[],this[_0x41457c(0x1b1)]=0x0,this['checkinDate']='',this[_0x41457c(0xca)]='',this['dailyTaskDone']=[![],![],![]],this['offlineCap']=0x8,this['autoAttackEnabled']=!![],this['rebirthGems']=0x0,this['maxWaveReached']=0x0,this[_0x41457c(0x1f7)]={},this['avatarIdx']=0x0,this[_0x41457c(0x9b)]='玩家',this['bossActive']=![],this[_0x41457c(0x20e)]=0x0,this[_0x41457c(0x15a)]=null,this['goldLabel']=null,this[_0x41457c(0xbc)]=null,this[_0x41457c(0x156)]=null,this['dpsLabel']=null,this['energyLabel']=null,this[_0x41457c(0x1b4)]=null,this['buffLabel']=null,this['gemsLabel']=null,this['bossTimerBar']=null,this['autoBtnBg']=null,this['autoBtnLabel']=null,this[_0x41457c(0x1e0)]=[],this[_0x41457c(0xb3)]=[],this['damageLayer']=null,this[_0x41457c(0x1e7)]=null,this['_panelOverlay']=null,this['_justHitMonster']=![],this[_0x41457c(0x216)](),this['initSound'](),this['buildUI'](),this['spawnWave'](),this[_0x41457c(0x8b)](),this['startLoop'](),this['checkOfflineReward']();var _0x2887e4=this;setTimeout(function(){_0x2887e4['checkDailyCheckin']();},0x4b0),this['main']['stage']&&this['main'][_0x41457c(0x183)][_0x41457c(0x19d)](egret[_0x41457c(0x168)]['RESIZE'],this['onStageResize'],this);}Game['prototype']['fmt']=function(_0x2dcb20){if(_0x2dcb20>=0xf4240)return(_0x2dcb20/0xf4240)['toFixed'](0x1)+'M';if(_0x2dcb20>=0x3e8)return(_0x2dcb20/0x3e8)['toFixed'](0x1)+'K';return _0x2dcb20+'';},Game[a0_0x592342(0x129)]['waveText']=function(){return'第\x20'+this['wave']+'\x20波'+(this['wave']%0xa===0x0?'\x20💀BOSS':'');},Game['prototype'][a0_0x592342(0x121)]=function(){var _0x4685de=a0_0x592342,_0xd28f75=CONFIG[_0x4685de(0x162)](this['mainLevel'],this[_0x4685de(0x12f)]),_0x305b32=0x1+this[_0x4685de(0x12f)]*0.08,_0x420e7f=0x0;for(var _0x22ece8=0x0;_0x22ece8<this['supports']['length'];_0x22ece8++){if(this[_0x4685de(0x14a)][_0x22ece8]['unlocked'])_0x420e7f+=this['supports'][_0x22ece8][_0x4685de(0x232)]*this['supports'][_0x22ece8][_0x4685de(0xbd)];}return _0xd28f75+Math['floor'](_0x420e7f*_0x305b32);},Game['prototype'][a0_0x592342(0x195)]=function(){var _0x152af9=a0_0x592342,_0x187776=this[_0x152af9(0x1a9)]['棒棒糖']||0x0,_0x5ba9cd=this['foods']['牛奶']||0x0,_0x38c7b6=this['foods']['烤肉']||0x0;return{'critChance':0.1+_0x187776*0.1,'attackMult':(0x1+_0x5ba9cd*0.15)*(0x1+_0x38c7b6*0.2),'speedMult':(0x1+_0x187776*0.1)*(0x1+_0x38c7b6*0.2),'supportMult':0x1+_0x38c7b6*0.2};},Game['prototype']['createButton']=function(_0x34501d,_0x13b64d,_0x24c912,_0x269c84,_0x983e9b,_0x11dbdd){var _0x8cabc5=a0_0x592342,_0x53175a=new eui['Group']();_0x53175a['width']=_0x24c912,_0x53175a['height']=_0x269c84;var _0x4dccd2=new eui['Rect']();_0x4dccd2['width']=_0x24c912,_0x4dccd2['height']=_0x269c84,_0x4dccd2[_0x8cabc5(0xb8)]=_0x13b64d,_0x4dccd2['ellipseWidth']=0x8,_0x4dccd2['ellipseHeight']=0x8,_0x4dccd2[_0x8cabc5(0xcc)]=0x64,_0x4dccd2['percentHeight']=0x64,_0x4dccd2[_0x8cabc5(0x166)]=THEME[_0x8cabc5(0x186)],_0x4dccd2['strokeWeight']=0x1,_0x4dccd2[_0x8cabc5(0x95)]=0.55,_0x53175a['addChild'](_0x4dccd2);var _0x54a201=new eui['Label']();return _0x54a201['text']=_0x34501d,_0x54a201[_0x8cabc5(0xa4)]=0xc,_0x54a201['textColor']=0xffffff,_0x54a201['bold']=!![],_0x54a201['horizontalCenter']=0x0,_0x54a201[_0x8cabc5(0x238)]=0x0,_0x53175a[_0x8cabc5(0xaa)](_0x54a201),_0x53175a['touchEnabled']=!![],_0x53175a[_0x8cabc5(0x19d)](egret['TouchEvent']['TOUCH_TAP'],_0x983e9b,_0x11dbdd),_0x53175a;},Game['prototype']['fitImageToBox']=function(_0x3385b5,_0x597823,_0x3c5f1e,_0x27cabc,_0x13eb00,_0x2f90ca){var _0x16f7f7=a0_0x592342,_0x1ba5bf=UI_ASSET_SIZES[_0x597823]||{'w':_0x3c5f1e,'h':_0x27cabc},_0x3e36df=Math['min'](_0x3c5f1e/_0x1ba5bf['w'],_0x27cabc/_0x1ba5bf['h']),_0x4d03f0=Math['max'](0x1,Math['round'](_0x1ba5bf['w']*_0x3e36df)),_0x1fd938=Math['max'](0x1,Math[_0x16f7f7(0xc6)](_0x1ba5bf['h']*_0x3e36df));return _0x3385b5[_0x16f7f7(0x111)]=_0x597823,_0x3385b5['width']=_0x4d03f0,_0x3385b5[_0x16f7f7(0x1da)]=_0x1fd938,_0x3385b5['x']=(_0x13eb00||0x0)+Math[_0x16f7f7(0xc6)]((_0x3c5f1e-_0x4d03f0)/0x2),_0x3385b5['y']=(_0x2f90ca||0x0)+Math['round']((_0x27cabc-_0x1fd938)/0x2),_0x3385b5['touchEnabled']=![],_0x3385b5;},Game['prototype'][a0_0x592342(0x96)]=function(_0x2894f3,_0x87461d,_0x2b9eee,_0x7d5ebb,_0xc32c,_0x3b4115){var _0x2cd5cb=a0_0x592342,_0x14a0de=UI_ASSET_SIZES[_0x87461d]||{'w':_0x2b9eee,'h':_0x7d5ebb},_0x2812b6=Math['max'](_0x2b9eee/_0x14a0de['w'],_0x7d5ebb/_0x14a0de['h']),_0x5bf4dd=Math['max'](0x1,Math[_0x2cd5cb(0xc6)](_0x14a0de['w']*_0x2812b6)),_0x3378ee=Math[_0x2cd5cb(0x204)](0x1,Math[_0x2cd5cb(0xc6)](_0x14a0de['h']*_0x2812b6));return _0x2894f3[_0x2cd5cb(0x111)]=_0x87461d,_0x2894f3[_0x2cd5cb(0x99)]=_0x5bf4dd,_0x2894f3[_0x2cd5cb(0x1da)]=_0x3378ee,_0x2894f3['x']=(_0xc32c||0x0)+Math['round']((_0x2b9eee-_0x5bf4dd)/0x2),_0x2894f3['y']=(_0x3b4115||0x0)+Math['round']((_0x7d5ebb-_0x3378ee)/0x2),_0x2894f3[_0x2cd5cb(0x18a)]=![],_0x2894f3;},Game[a0_0x592342(0x129)][a0_0x592342(0xdb)]=function(_0x2ec7a1,_0x27820b){var _0x323d71=a0_0x592342;if(_0x27820b)return UI_ASSETS[_0x323d71(0xcf)];var _0x3f4334=_0x2ec7a1&&_0x2ec7a1[_0x323d71(0xcb)];if(_0x3f4334===_0x323d71(0xf3)||_0x3f4334==='skull'||_0x3f4334==='shadow'||_0x3f4334==='bat')return UI_ASSETS['monsterGhost'];return UI_ASSETS['monsterFire'];},Game['prototype']['createSupportView']=function(_0x14ae5b,_0x266cd7){var _0x524014=a0_0x592342,_0x10bde8=this['supports'][_0x14ae5b],_0x37eb09=SUPPORTS_DEF[_0x14ae5b],_0x18a79b=new eui[(_0x524014(0x217))]();_0x18a79b['width']=0x2c,_0x18a79b[_0x524014(0x1da)]=0x38;if(_0x266cd7!==undefined&&_0x266cd7!==0x0)_0x18a79b['y']=_0x266cd7;var _0x845739=new eui['Image']();this['fitImageToBox'](_0x845739,_0x10bde8['unlocked']?UI_ASSETS['supportCandy']:UI_ASSETS[_0x524014(0x207)],0x2c,0x38,0x0,0x0),_0x18a79b['addChild'](_0x845739);return _0x18a79b;var _0x28ba66=new egret['Shape'](),_0x3a8784=_0x28ba66[_0x524014(0xdc)],_0x35b0e5=0x16,_0x55f42c=0x16;if(!_0x10bde8[_0x524014(0x1e6)]){_0x3a8784['beginFill'](0x0,0.18),_0x3a8784['drawEllipse'](_0x35b0e5-0xc,_0x55f42c+0xc,0x18,0x5),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](1.5,0x3a355a),_0x3a8784['beginFill'](0x4a4566),_0x3a8784['drawCircle'](_0x35b0e5,_0x55f42c,0xd),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](0x0),_0x3a8784['beginFill'](0xb8b0db),_0x3a8784[_0x524014(0xd1)](_0x35b0e5-0x5,_0x55f42c-0x1,0xa,0x9,0x2,0x2),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](1.6,0xb8b0db),_0x3a8784[_0x524014(0x160)](_0x35b0e5-0x3,_0x55f42c-0x1),_0x3a8784['lineTo'](_0x35b0e5-0x3,_0x55f42c-0x4),_0x3a8784['curveTo'](_0x35b0e5-0x3,_0x55f42c-0x7,_0x35b0e5,_0x55f42c-0x7),_0x3a8784[_0x524014(0xd7)](_0x35b0e5+0x3,_0x55f42c-0x7,_0x35b0e5+0x3,_0x55f42c-0x4),_0x3a8784['lineTo'](_0x35b0e5+0x3,_0x55f42c-0x1),_0x3a8784['lineStyle'](0x0),_0x28ba66['x']=0x0,_0x28ba66['y']=0x0,_0x18a79b['addChild'](_0x28ba66);var _0x37c083=new eui[(_0x524014(0x1ff))]();_0x37c083['width']=0x2c,_0x37c083[_0x524014(0x1da)]=0xd,_0x37c083['ellipseWidth']=0x6,_0x37c083['ellipseHeight']=0x6,_0x37c083[_0x524014(0xb8)]=THEME['bgMid'],_0x37c083['fillAlpha']=0.85,_0x37c083['horizontalCenter']=0x0,_0x37c083[_0x524014(0x1bd)]=0x28,_0x18a79b['addChild'](_0x37c083);var _0x115320=new eui[(_0x524014(0x218))]();return _0x115320['text']='W'+_0x37eb09['wave'],_0x115320['size']=0x9,_0x115320[_0x524014(0x222)]=!![],_0x115320['textColor']=0x8881b0,_0x115320[_0x524014(0xe9)]=0x0,_0x115320['top']=0x29,_0x18a79b[_0x524014(0xaa)](_0x115320),_0x18a79b;}_0x3a8784['beginFill'](0x0,0.22),_0x3a8784[_0x524014(0x12c)](_0x35b0e5-0xd,_0x55f42c+0xd,0x1a,0x5),_0x3a8784[_0x524014(0x182)]();switch(_0x37eb09[_0x524014(0xcb)]){case'candy':_0x3a8784['lineStyle'](1.2,0xc94f7a),_0x3a8784[_0x524014(0x199)](0xff9ec8),_0x3a8784['moveTo'](_0x35b0e5-0x12,_0x55f42c),_0x3a8784[_0x524014(0x11e)](_0x35b0e5-0xa,_0x55f42c-0x6),_0x3a8784[_0x524014(0x11e)](_0x35b0e5-0xa,_0x55f42c+0x6),_0x3a8784['endFill'](),_0x3a8784[_0x524014(0x199)](0xff9ec8),_0x3a8784[_0x524014(0x160)](_0x35b0e5+0x12,_0x55f42c),_0x3a8784['lineTo'](_0x35b0e5+0xa,_0x55f42c-0x6),_0x3a8784['lineTo'](_0x35b0e5+0xa,_0x55f42c+0x6),_0x3a8784[_0x524014(0x182)](),_0x3a8784['lineStyle'](1.5,0xb83d6a),_0x3a8784['beginFill'](_0x37eb09['color']),_0x3a8784['drawCircle'](_0x35b0e5,_0x55f42c,0xb),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](1.8,0xffffff,0.7),_0x3a8784[_0x524014(0x160)](_0x35b0e5-0x6,_0x55f42c-0x7),_0x3a8784[_0x524014(0x11e)](_0x35b0e5-0x7,_0x55f42c+0x7),_0x3a8784['moveTo'](_0x35b0e5+0x6,_0x55f42c-0x7),_0x3a8784['lineTo'](_0x35b0e5+0x7,_0x55f42c+0x7),_0x3a8784['lineStyle'](0x0),drawEyesPair(_0x3a8784,_0x35b0e5-0x3,_0x55f42c-0x2,_0x35b0e5+0x3,_0x55f42c-0x2,0x2,0x1);break;case'marshmallow':_0x3a8784['lineStyle'](1.5,0xb83d6a),_0x3a8784['beginFill'](_0x37eb09['color']),_0x3a8784[_0x524014(0x16f)](_0x35b0e5-0x6,_0x55f42c+0x2,0x8),_0x3a8784['drawCircle'](_0x35b0e5+0x6,_0x55f42c+0x2,0x8),_0x3a8784['drawCircle'](_0x35b0e5,_0x55f42c-0x4,0x9),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](0x0),_0x3a8784['beginFill'](0xffffff,0.55),_0x3a8784['drawEllipse'](_0x35b0e5-0x3,_0x55f42c-0xa,0x7,0x3),_0x3a8784['endFill'](),_0x3a8784['beginFill'](0xff5599,0.55),_0x3a8784['drawCircle'](_0x35b0e5-0x6,_0x55f42c+0x2,0x2),_0x3a8784[_0x524014(0x16f)](_0x35b0e5+0x6,_0x55f42c+0x2,0x2),_0x3a8784[_0x524014(0x182)](),drawEyesPair(_0x3a8784,_0x35b0e5-0x3,_0x55f42c-0x2,_0x35b0e5+0x3,_0x55f42c-0x2,0x2,0x1),_0x3a8784['lineStyle'](1.2,0xb83d6a),_0x3a8784['moveTo'](_0x35b0e5-0x2,_0x55f42c+0x2),_0x3a8784[_0x524014(0xd7)](_0x35b0e5,_0x55f42c+0x4,_0x35b0e5+0x2,_0x55f42c+0x2);break;case _0x524014(0x100):_0x3a8784[_0x524014(0x124)](0x0),_0x3a8784['beginFill'](0x8b6914),_0x3a8784['drawRect'](_0x35b0e5+0xa,_0x55f42c-0xe,0x2,0x1e),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](1.5,0x5a2808),_0x3a8784['beginFill'](_0x37eb09[_0x524014(0x21e)]),_0x3a8784[_0x524014(0x16f)](_0x35b0e5,_0x55f42c+0x3,0xa),_0x3a8784['drawCircle'](_0x35b0e5-0x7,_0x55f42c-0x6,0x6),_0x3a8784[_0x524014(0x16f)](_0x35b0e5+0x6,_0x55f42c-0x8,0x5),_0x3a8784['endFill'](),_0x3a8784[_0x524014(0x124)](0x0),_0x3a8784[_0x524014(0x199)](0xffd28a,0.6),_0x3a8784[_0x524014(0x12c)](_0x35b0e5-0x4,_0x55f42c-0x2,0x5,0x2),_0x3a8784[_0x524014(0x182)](),drawEyesPair(_0x3a8784,_0x35b0e5-0x3,_0x55f42c+0x1,_0x35b0e5+0x3,_0x55f42c+0x1,0x2,0x1);break;case _0x524014(0x8d):_0x3a8784['lineStyle'](1.5,0x8b6914),_0x3a8784['beginFill'](_0x37eb09['color']),_0x3a8784[_0x524014(0x160)](_0x35b0e5-0xc,_0x55f42c+0xa),_0x3a8784['lineTo'](_0x35b0e5+0xc,_0x55f42c+0xa),_0x3a8784[_0x524014(0x11e)](_0x35b0e5+0x9,_0x55f42c-0x4),_0x3a8784['lineTo'](_0x35b0e5-0x9,_0x55f42c-0x4),_0x3a8784[_0x524014(0x182)](),_0x3a8784[_0x524014(0x199)](0xa05a14),_0x3a8784['drawEllipse'](_0x35b0e5-0x9,_0x55f42c-0x7,0x12,0x6),_0x3a8784[_0x524014(0x182)](),_0x3a8784['lineStyle'](0x0),_0x3a8784['beginFill'](0xe74c3c),_0x3a8784['drawCircle'](_0x35b0e5,_0x55f42c-0xa,0x3),_0x3a8784[_0x524014(0x182)](),_0x3a8784['beginFill'](0x5a7d3d),_0x3a8784['drawRect'](_0x35b0e5-0x1,_0x55f42c-0xe,0x2,0x3),_0x3a8784['endFill'](),drawEyesPair(_0x3a8784,_0x35b0e5-0x3,_0x55f42c+0x2,_0x35b0e5+0x3,_0x55f42c+0x2,0x2,0x1);break;case _0x524014(0x15b):_0x3a8784[_0x524014(0x124)](1.5,0x8b6914),_0x3a8784['beginFill'](0xd49a5a),_0x3a8784['moveTo'](_0x35b0e5-0xa,_0x55f42c-0x2),_0x3a8784['lineTo'](_0x35b0e5+0xa,_0x55f42c-0x2),_0x3a8784['lineTo'](_0x35b0e5,_0x55f42c+0xe),_0x3a8784[_0x524014(0x182)](),_0x3a8784[_0x524014(0x124)](0.6,0x8b6914),_0x3a8784['moveTo'](_0x35b0e5-0x7,_0x55f42c+0x1),_0x3a8784[_0x524014(0x11e)](_0x35b0e5+0x7,_0x55f42c+0x1),_0x3a8784['moveTo'](_0x35b0e5-0x5,_0x55f42c+0x5),_0x3a8784['lineTo'](_0x35b0e5+0x5,_0x55f42c+0x5),_0x3a8784['lineStyle'](1.5,0xc25a10),_0x3a8784[_0x524014(0x199)](_0x37eb09[_0x524014(0x21e)]),_0x3a8784['drawCircle'](_0x35b0e5,_0x55f42c-0x7,0x8),_0x3a8784['endFill'](),_0x3a8784['beginFill'](0xffffff),_0x3a8784['drawCircle'](_0x35b0e5,_0x55f42c-0xc,0x6),_0x3a8784[_0x524014(0x182)](),_0x3a8784[_0x524014(0x124)](0x0),_0x3a8784[_0x524014(0x199)](0xffffff,0.55),_0x3a8784['drawEllipse'](_0x35b0e5-0x2,_0x55f42c-0xe,0x4,0x2),_0x3a8784['endFill'](),drawEyesPair(_0x3a8784,_0x35b0e5-0x3,_0x55f42c-0x7,_0x35b0e5+0x3,_0x55f42c-0x7,0x2,0x1);break;case'mochi':_0x3a8784['lineStyle'](1.5,0x5d3a8c),_0x3a8784[_0x524014(0x199)](_0x37eb09['color']),_0x3a8784['drawEllipse'](_0x35b0e5-0xc,_0x55f42c-0x8,0x18,0x18),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](0x0),_0x3a8784['beginFill'](0x5a9a40,0.55),_0x3a8784['drawEllipse'](_0x35b0e5-0x8,_0x55f42c-0x8,0x10,0x4),_0x3a8784[_0x524014(0x182)](),_0x3a8784['beginFill'](0xffffff,0.5),_0x3a8784['drawEllipse'](_0x35b0e5-0x6,_0x55f42c-0x4,0x6,0x2),_0x3a8784['endFill'](),drawEyesPair(_0x3a8784,_0x35b0e5-0x4,_0x55f42c+0x1,_0x35b0e5+0x4,_0x55f42c+0x1,0x2,0x1),_0x3a8784['beginFill'](0xff5577,0.8),_0x3a8784['drawCircle'](_0x35b0e5,_0x55f42c+0x7,1.5),_0x3a8784['endFill']();break;case'popsicle':_0x3a8784['lineStyle'](0x0),_0x3a8784[_0x524014(0x199)](0x8b6914),_0x3a8784['drawRoundRect'](_0x35b0e5-0x2,_0x55f42c+0x2,0x4,0xe,0x1,0x1),_0x3a8784[_0x524014(0x182)](),_0x3a8784[_0x524014(0x124)](1.5,0x2a7d5e),_0x3a8784['beginFill'](_0x37eb09['color']),_0x3a8784[_0x524014(0x16f)](_0x35b0e5,_0x55f42c-0x2,0xb),_0x3a8784['endFill'](),_0x3a8784['lineStyle'](0x0),_0x3a8784['beginFill'](0x1a0a2e),_0x3a8784['drawCircle'](_0x35b0e5+0x4,_0x55f42c-0x4,0x9),_0x3a8784['endFill'](),_0x3a8784['beginFill'](0xfbbf24),this['drawStar'](_0x3a8784,_0x35b0e5-0x5,_0x55f42c-0x6,0x2,0x1,0x5),this[_0x524014(0xc8)](_0x3a8784,_0x35b0e5-0x7,_0x55f42c+0x1,1.5,0.7,0x5),_0x3a8784['endFill']();break;case'cake':_0x3a8784[_0x524014(0x124)](1.2,0x8b3d5e),_0x3a8784['beginFill'](0xfde8c4),_0x3a8784[_0x524014(0xd1)](_0x35b0e5-0xc,_0x55f42c+0x4,0x18,0xa,0x2,0x2),_0x3a8784['endFill'](),_0x3a8784[_0x524014(0x199)](_0x37eb09[_0x524014(0x21e)]),_0x3a8784['drawRoundRect'](_0x35b0e5-0xa,_0x55f42c-0x4,0x14,0xa,0x2,0x2),_0x3a8784['endFill'](),_0x3a8784['beginFill'](0xffffff),_0x3a8784[_0x524014(0xd1)](_0x35b0e5-0x8,_0x55f42c-0xb,0x10,0x9,0x2,0x2),_0x3a8784[_0x524014(0x182)](),_0x3a8784['lineStyle'](0x0),_0x3a8784['beginFill'](0xffffff),_0x3a8784['drawCircle'](_0x35b0e5-0x5,_0x55f42c-0xd,0x2),_0x3a8784[_0x524014(0x16f)](_0x35b0e5,_0x55f42c-0xd,0x2),_0x3a8784['drawCircle'](_0x35b0e5+0x5,_0x55f42c-0xd,0x2),_0x3a8784[_0x524014(0x182)](),_0x3a8784[_0x524014(0x199)](0xe74c3c),_0x3a8784['moveTo'](_0x35b0e5,_0x55f42c-0x12),_0x3a8784[_0x524014(0x11e)](_0x35b0e5-0x3,_0x55f42c-0xe),_0x3a8784['lineTo'](_0x35b0e5+0x3,_0x55f42c-0xe),_0x3a8784['endFill'](),_0x3a8784['beginFill'](0xfff59d),_0x3a8784[_0x524014(0x16f)](_0x35b0e5-0x1,_0x55f42c-0xf,0.5),_0x3a8784['drawCircle'](_0x35b0e5+0x1,_0x55f42c-0x10,0.5),_0x3a8784['endFill'](),drawEyesPair(_0x3a8784,_0x35b0e5-0x3,_0x55f42c,_0x35b0e5+0x3,_0x55f42c,1.8,0.9);break;default:_0x3a8784[_0x524014(0x124)](1.5,0x333333),_0x3a8784['beginFill'](_0x37eb09[_0x524014(0x21e)]),_0x3a8784[_0x524014(0x16f)](_0x35b0e5,_0x55f42c,0xd),_0x3a8784[_0x524014(0x182)](),drawEyesPair(_0x3a8784,_0x35b0e5-0x4,_0x55f42c-0x2,_0x35b0e5+0x4,_0x55f42c-0x2,0x3,1.5);}_0x28ba66['x']=0x0,_0x28ba66['y']=0x0,_0x18a79b['addChild'](_0x28ba66);var _0x4ae7e9=new eui['Rect']();_0x4ae7e9['width']=0x2c,_0x4ae7e9['height']=0xd,_0x4ae7e9['ellipseWidth']=0x6,_0x4ae7e9['ellipseHeight']=0x6,_0x4ae7e9['fillColor']=THEME['bgMid'],_0x4ae7e9['fillAlpha']=0.92,_0x4ae7e9[_0x524014(0x166)]=THEME['strokeGold'],_0x4ae7e9['strokeWeight']=0.5,_0x4ae7e9[_0x524014(0xe9)]=0x0,_0x4ae7e9[_0x524014(0x1bd)]=0x28,_0x18a79b['addChild'](_0x4ae7e9);var _0x3868f=new eui['Label']();return _0x3868f['text']=_0x37eb09['symbol']['length']>0x2?_0x37eb09[_0x524014(0x1fa)]['slice'](0x0,0x2):_0x37eb09['symbol'],_0x3868f[_0x524014(0xa4)]=0x9,_0x3868f[_0x524014(0x222)]=!![],_0x3868f[_0x524014(0xd2)]=THEME[_0x524014(0x234)],_0x3868f[_0x524014(0xe9)]=0x0,_0x3868f[_0x524014(0x1bd)]=0x29,_0x18a79b['addChild'](_0x3868f),_0x18a79b;},Game['prototype'][a0_0x592342(0xc8)]=function(_0xf3f8ab,_0x1c6cf9,_0x9429a9,_0xe9f821,_0x52be28,_0x560b41){var _0x2f7364=a0_0x592342,_0x445ffc=Math['PI']/_0x560b41;_0xf3f8ab[_0x2f7364(0x160)](_0x1c6cf9,_0x9429a9-_0xe9f821);for(var _0x56996f=0x0;_0x56996f<0x2*_0x560b41;_0x56996f++){var _0x5d63b2=_0x56996f%0x2===0x0?_0xe9f821:_0x52be28,_0x16e514=-Math['PI']/0x2+(_0x56996f+0x1)*_0x445ffc;_0xf3f8ab[_0x2f7364(0x11e)](_0x1c6cf9+_0x5d63b2*Math[_0x2f7364(0x1a7)](_0x16e514),_0x9429a9+_0x5d63b2*Math['sin'](_0x16e514));}},Game['prototype']['heroAttackAnim']=function(_0x38009f){var _0x2ec59b=a0_0x592342;if(!this[_0x2ec59b(0x184)])return;var _0x46c935=this[_0x2ec59b(0x215)];egret['Tween']['removeTweens'](this['heroGroup']),this[_0x2ec59b(0x184)]['y']=_0x46c935,egret['Tween']['get'](this['heroGroup'])['to']({'y':_0x46c935-0x10},0x32,egret[_0x2ec59b(0xf8)]['quadOut'])['to']({'y':_0x46c935},0x46,egret[_0x2ec59b(0xf8)]['quadIn']);var _0x35cb11=this['monsters'][_0x2ec59b(0x123)]||0x1,_0x319df9=this['_centerX']||0x37,_0x3c2bf6=this['_centerW']||0x109,_0x38e453=_0x319df9+_0x3c2bf6/0x2,_0x4485ae=_0x46c935+0xa,_0x5530cf=_0x319df9+_0x3c2bf6*((_0x38009f>=0x0?_0x38009f:0x0)+0.5)/_0x35cb11,_0xa0b4c2=this['_monsterAreaY']+this[_0x2ec59b(0x1c0)]/0x2+0xa,_0x1fa3fb=new egret['Shape']();_0x1fa3fb['graphics'][_0x2ec59b(0x124)](0x3,0x5dade2,0.9),_0x1fa3fb['graphics'][_0x2ec59b(0x160)](-0xf,-0x3),_0x1fa3fb['graphics']['curveTo'](0x0,-0xa,0xf,-0x3),_0x1fa3fb['graphics']['moveTo'](-0xf,0x3),_0x1fa3fb['graphics'][_0x2ec59b(0xd7)](0x0,0xa,0xf,0x3),_0x1fa3fb['x']=_0x38e453,_0x1fa3fb['y']=_0x4485ae,_0x1fa3fb['rotation']=Math[_0x2ec59b(0xfb)](_0xa0b4c2-_0x4485ae,_0x5530cf-_0x38e453)*0xb4/Math['PI'],this['damageLayer']['addChild'](_0x1fa3fb),egret[_0x2ec59b(0xec)][_0x2ec59b(0x22d)](_0x1fa3fb)['to']({'x':_0x5530cf,'y':_0xa0b4c2,'scaleX':0.6,'scaleY':0.6,'alpha':0.3},0x8c)['to']({'alpha':0x0},0x3c)['call'](function(){if(_0x1fa3fb['parent'])_0x1fa3fb['parent']['removeChild'](_0x1fa3fb);});},Game[a0_0x592342(0x129)][a0_0x592342(0x1a3)]=function(_0x5027d8,_0x344775,_0x24ba30){var _0xb62784=a0_0x592342,_0x115525=_0x5027d8<0x4?this['leftSupGroup']:this[_0xb62784(0x13c)];if(!_0x115525)return;var _0x469c54=_0x5027d8<0x4?_0x5027d8:_0x5027d8-0x4,_0x3b8f92=_0x115525[_0xb62784(0x84)](0x3+_0x469c54*0x3)||_0x115525[_0xb62784(0x84)](_0x469c54+0x1)||_0x115525['getChildAt'](_0x469c54),_0x23d821=SUPPORTS_DEF[_0x5027d8],_0x33a470=_0x23d821['color'],_0x5c2089=this['_stageW']||0x177,_0x10d7cb=this['_battleH']||0x190,_0x403bf9=_0x5027d8<0x4?0x2+0x16:_0x5c2089-0x30+0x16,_0x17c542=Math['floor'](_0x10d7cb*0.15)+_0x469c54*0x38+0x14,_0x210383=this[_0xb62784(0xfd)]['length']||0x1,_0x1c95c6=this['_centerX']||0x37,_0x49eb3f=this['_centerW']||0x109,_0x3630e9=_0x1c95c6+_0x49eb3f*((_0x344775>=0x0?_0x344775:0x0)+0.5)/_0x210383,_0x52ec54=this['_monsterAreaY']+this['_monsterAreaH']/0x2,_0xb120a2=this,_0x3b6503=_0x23d821['role']==='magic';if(_0x3b8f92){if(_0x3b6503){egret['Tween'][_0xb62784(0x22d)](_0x3b8f92)['to']({'scaleX':1.2,'scaleY':1.2},0x50)['to']({'scaleX':0x1,'scaleY':0x1},0x64);var _0x3f389f=new egret['Shape']();_0x3f389f['graphics'][_0xb62784(0x124)](0x2,_0x33a470,0.7),_0x3f389f[_0xb62784(0xdc)][_0xb62784(0x16f)](0x0,0x0,0xc),_0x3f389f[_0xb62784(0xdc)]['endFill'](),_0x3f389f['x']=_0x403bf9,_0x3f389f['y']=_0x17c542,_0x3f389f[_0xb62784(0x17e)]=0.3,_0x3f389f[_0xb62784(0x1b8)]=0.3,_0x3f389f['alpha']=0.8,this[_0xb62784(0x97)]['addChild'](_0x3f389f),egret['Tween']['get'](_0x3f389f)['to']({'scaleX':1.5,'scaleY':1.5,'alpha':0x0},0xfa)[_0xb62784(0x163)](function(){var _0x16b8cf=_0xb62784;if(_0x3f389f['parent'])_0x3f389f[_0x16b8cf(0x1d4)]['removeChild'](_0x3f389f);});}else{var _0x26ed8d=_0x3b8f92['x'],_0x374f37=_0x5027d8<0x4?-0x1:0x1;egret['Tween']['get'](_0x3b8f92)['to']({'x':_0x26ed8d+_0x374f37*0x8},0x32)['to']({'x':_0x26ed8d},0x50);}}var _0x55f345=new egret['Shape'](),_0x37b7d5=_0x55f345['graphics'];_0x37b7d5['beginFill'](_0x33a470);var _0x26c3bf=0x5;switch(_0x23d821['shape']){case _0xb62784(0x1f9):_0x37b7d5['drawCircle'](0x0,0x0,_0x26c3bf),_0x37b7d5[_0xb62784(0x182)](),_0x37b7d5['lineStyle'](0x1,0xffffff,0.8),_0x37b7d5['moveTo'](-_0x26c3bf,0x0),_0x37b7d5['lineTo'](_0x26c3bf,0x0),_0x37b7d5['lineStyle'](0x0);break;case'marshmallow':_0x37b7d5['drawCircle'](-_0x26c3bf*0.5,0x0,_0x26c3bf*0.7),_0x37b7d5['drawCircle'](_0x26c3bf*0.5,0x0,_0x26c3bf*0.7),_0x37b7d5['drawCircle'](0x0,-_0x26c3bf*0.5,_0x26c3bf*0.7);break;case _0xb62784(0x100):_0x37b7d5[_0xb62784(0x16f)](0x0,0x0,_0x26c3bf),_0x37b7d5['endFill'](),_0x37b7d5[_0xb62784(0x199)](0xffd28a,0.5),_0x37b7d5[_0xb62784(0x12c)](-_0x26c3bf*0.6,-_0x26c3bf*0.6,_0x26c3bf,_0x26c3bf*0.5);break;case'pudding':_0x37b7d5['moveTo'](-_0x26c3bf,_0x26c3bf*0.6),_0x37b7d5['lineTo'](_0x26c3bf,_0x26c3bf*0.6),_0x37b7d5['lineTo'](_0x26c3bf*0.7,-_0x26c3bf*0.6),_0x37b7d5['lineTo'](-_0x26c3bf*0.7,-_0x26c3bf*0.6);break;case'cone':_0x37b7d5['moveTo'](0x0,_0x26c3bf),_0x37b7d5[_0xb62784(0x11e)](_0x26c3bf,-_0x26c3bf*0.2),_0x37b7d5['lineTo'](-_0x26c3bf,-_0x26c3bf*0.2),_0x37b7d5['endFill'](),_0x37b7d5['beginFill'](0xffffff),_0x37b7d5['drawCircle'](0x0,-_0x26c3bf*0.5,_0x26c3bf*0.6);break;case'mochi':this['drawStar'](_0x37b7d5,0x0,0x0,_0x26c3bf,_0x26c3bf*0.45,0x5);break;case'popsicle':_0x37b7d5['drawCircle'](0x0,0x0,_0x26c3bf),_0x37b7d5['endFill'](),_0x37b7d5['beginFill'](0x1a0a2e),_0x37b7d5['drawCircle'](_0x26c3bf*0.4,-_0x26c3bf*0.2,_0x26c3bf*0.7);break;case'cake':_0x37b7d5['drawCircle'](-_0x26c3bf*0.4,-_0x26c3bf*0.4,_0x26c3bf*0.6),_0x37b7d5[_0xb62784(0x16f)](_0x26c3bf*0.4,-_0x26c3bf*0.4,_0x26c3bf*0.6),_0x37b7d5['endFill'](),_0x37b7d5[_0xb62784(0x199)](_0x33a470),_0x37b7d5[_0xb62784(0x160)](-_0x26c3bf,0x0),_0x37b7d5['lineTo'](0x0,_0x26c3bf),_0x37b7d5[_0xb62784(0x11e)](_0x26c3bf,0x0);break;default:_0x37b7d5[_0xb62784(0x16f)](0x0,0x0,_0x26c3bf);}_0x37b7d5['endFill'](),_0x55f345['x']=_0x403bf9,_0x55f345['y']=_0x17c542,_0x55f345[_0xb62784(0x210)]=Math['atan2'](_0x52ec54-_0x17c542,_0x3630e9-_0x403bf9)*0xb4/Math['PI'],this[_0xb62784(0x97)]['addChild'](_0x55f345),egret['Tween'][_0xb62784(0x22d)](_0x55f345)['to']({'x':_0x3630e9,'y':_0x52ec54},_0x3b6503?0xfa:0x96)['call'](function(){var _0x25baf3=_0xb62784;if(_0x55f345['parent'])_0x55f345['parent']['removeChild'](_0x55f345);var _0x287b41=new egret[(_0x25baf3(0x101))]();_0x287b41['text']='-'+_0xb120a2['fmt'](_0x24ba30),_0x287b41['size']=0xd,_0x287b41['textColor']=_0x33a470,_0x287b41['bold']=!![],_0x287b41['x']=_0x3630e9+(Math['random']()*0x10-0x8),_0x287b41['y']=_0x52ec54-0xf,_0xb120a2['damageLayer']['addChild'](_0x287b41),egret[_0x25baf3(0xec)][_0x25baf3(0x22d)](_0x287b41)['to']({'y':_0x287b41['y']-0x1e,'alpha':0x0},0x1f4)['call'](function(){var _0x8247d5=_0x25baf3;if(_0x287b41['parent'])_0x287b41[_0x8247d5(0x1d4)]['removeChild'](_0x287b41);});});},Game['prototype']['buildUI']=function(){var _0x121ae5=a0_0x592342,_0x58486c=this['main'][_0x121ae5(0x183)]&&this['main']['stage']['stageWidth']?this[_0x121ae5(0x171)][_0x121ae5(0x183)][_0x121ae5(0x1b6)]:0x177,_0x47808c=this;this[_0x121ae5(0x171)][_0x121ae5(0xea)]=null;var _0x16b84f=0x54,_0x59a548=0x3a,_0x47aa61=0x34,_0x2ace20=0x32,_0x1f2ac4=this['main']['stage']?this[_0x121ae5(0x171)]['stage']['stageHeight']:0x29b,_0x30b95f=Math[_0x121ae5(0x204)](0x12c,_0x1f2ac4-_0x16b84f-_0x59a548-_0x47aa61-_0x2ace20);this['_stageW']=_0x58486c,this['_battleH']=_0x30b95f;var _0x335796=new eui['Group']();_0x335796['width']=_0x58486c,_0x335796['height']=_0x16b84f,_0x335796['x']=0x0,_0x335796['y']=0x0;var _0x2d1dec=new egret['Shape'](),_0x512729=_0x2d1dec['graphics'];_0x512729[_0x121ae5(0x199)](0x8051c),_0x512729['drawRect'](0x0,0x0,_0x58486c,_0x16b84f),_0x512729['endFill'](),_0x512729['beginFill'](0x17103b,0.96),_0x512729['drawRoundRect'](0x6,0x3,_0x58486c-0xc,_0x16b84f-0x8,0xa,0xa),_0x512729[_0x121ae5(0x182)](),_0x512729['beginFill'](0x2a1f5c,0.55),_0x512729[_0x121ae5(0xd1)](0x8,0x5,_0x58486c-0x10,0x1c,0x9,0x9),_0x512729[_0x121ae5(0x182)](),_0x512729[_0x121ae5(0x124)](1.2,THEME['strokeGold'],0.72),_0x512729['drawRoundRect'](6.5,3.5,_0x58486c-0xd,_0x16b84f-0x9,0xa,0xa),_0x512729['lineStyle'](0x0),_0x512729[_0x121ae5(0x199)](THEME[_0x121ae5(0x1aa)],0.18),_0x512729[_0x121ae5(0x1eb)](0x10,0x21,_0x58486c-0x20,0x1),_0x512729['endFill'](),_0x335796['addChild'](_0x2d1dec);var _0x2220b0=new eui['Image']();_0x2220b0['source']='assets/ui/battle-skin-top-clean.png',_0x2220b0['width']=_0x58486c,_0x2220b0['height']=_0x16b84f,_0x2220b0['x']=0x0,_0x2220b0['y']=0x0,_0x2220b0['alpha']=0x0,_0x335796['addChild'](_0x2220b0);var _0x23a393=new eui['Rect']();_0x23a393[_0x121ae5(0xcc)]=0x64,_0x23a393[_0x121ae5(0x1da)]=0x2,_0x23a393['bottom']=0x0,_0x23a393[_0x121ae5(0xb8)]=THEME[_0x121ae5(0x109)],_0x23a393['fillAlpha']=0x0,_0x335796['addChild'](_0x23a393);var _0x3757b8=[0x8b4513,0x3498db,0x27ae60,0xe74c3c,0x9b59b6,0xe67e22],_0x37256b=['🧙','🐼','🦊','🐯','🐸','🐺'],_0x582a52=new eui['Group']();_0x582a52['width']=0x2c,_0x582a52['height']=0x2c,_0x582a52['x']=0x8,_0x582a52['y']=0xa,_0x582a52['touchEnabled']=!![];var _0x13c037=new eui[(_0x121ae5(0x1ff))]();_0x13c037['width']=0x2c,_0x13c037[_0x121ae5(0x1da)]=0x2c,_0x13c037['ellipseWidth']=0xc,_0x13c037['ellipseHeight']=0xc,_0x13c037['fillColor']=0xa0820,_0x13c037['strokeColor']=THEME['strokeGold'],_0x13c037[_0x121ae5(0x126)]=1.3,_0x13c037['strokeAlpha']=0.9,_0x582a52['addChild'](_0x13c037);var _0x1cda82=new eui[(_0x121ae5(0x1ff))]();_0x1cda82['width']=0x24,_0x1cda82['height']=0x24,_0x1cda82['ellipseWidth']=0xa,_0x1cda82['ellipseHeight']=0xa,_0x1cda82['fillColor']=_0x3757b8[this['avatarIdx']||0x0],_0x1cda82['x']=0x4,_0x1cda82['y']=0x4,_0x582a52['addChild'](_0x1cda82);var _0x48dc2b=new eui[(_0x121ae5(0x218))]();_0x48dc2b[_0x121ae5(0xa8)]=_0x37256b[this[_0x121ae5(0x141)]||0x0],_0x48dc2b[_0x121ae5(0xa4)]=0x12,_0x48dc2b['horizontalCenter']=0x0,_0x48dc2b['verticalCenter']=0x0,_0x582a52[_0x121ae5(0xaa)](_0x48dc2b),_0x582a52['addEventListener'](egret['TouchEvent'][_0x121ae5(0x224)],function(){_0x47808c['openAvatarPicker']();},this),this[_0x121ae5(0x86)]=_0x1cda82,this['_avatarIcon']=_0x48dc2b,_0x335796['addChild'](_0x582a52);var _0x1ec653=new eui['Label']();_0x1ec653['text']=(this['playerName']||'玩家')+'\x20✏️',_0x1ec653[_0x121ae5(0xa4)]=0xd,_0x1ec653['textColor']=THEME['textMain'],_0x1ec653['bold']=!![],_0x1ec653['x']=0x3a,_0x1ec653['y']=0xc,_0x1ec653['touchEnabled']=!![],_0x1ec653['addEventListener'](egret['TouchEvent'][_0x121ae5(0x224)],function(){_0x47808c['openNameEditor']();},this),_0x335796[_0x121ae5(0xaa)](_0x1ec653),this['_nameLb']=_0x1ec653,this['waveLabel']=new eui['Label'](),this[_0x121ae5(0xbc)]['text']=this[_0x121ae5(0x11a)](),this[_0x121ae5(0xbc)]['size']=0xb,this['waveLabel']['textColor']=0xfbbf24,this['waveLabel']['x']=0x3a,this['waveLabel']['y']=0x20,_0x335796['addChild'](this['waveLabel']);var _0x33249f=new eui['Rect']();_0x33249f[_0x121ae5(0x99)]=0x56,_0x33249f[_0x121ae5(0x1da)]=0x14,_0x33249f['ellipseWidth']=0xa,_0x33249f['ellipseHeight']=0xa,_0x33249f['fillColor']=0x2a1a10,_0x33249f['fillAlpha']=0.9,_0x33249f[_0x121ae5(0x166)]=THEME['accent'],_0x33249f['strokeWeight']=0.8,_0x33249f[_0x121ae5(0x95)]=0.65,_0x33249f['alpha']=0x0,_0x33249f[_0x121ae5(0x1cc)]=0x8,_0x33249f['y']=0x7,_0x335796['addChild'](_0x33249f),this['goldLabel']=new eui['Label'](),this[_0x121ae5(0x20a)][_0x121ae5(0xa8)]='💰\x20'+this['fmt'](this[_0x121ae5(0x19b)]),this[_0x121ae5(0x20a)][_0x121ae5(0xa4)]=0xc,this[_0x121ae5(0x20a)]['textColor']=0xffd700,this['goldLabel'][_0x121ae5(0x222)]=!![],this['goldLabel']['width']=0x5c,this[_0x121ae5(0x20a)]['textAlign']='right',this[_0x121ae5(0x20a)][_0x121ae5(0x1cc)]=0xc,this['goldLabel']['y']=0xc,_0x335796['addChild'](this[_0x121ae5(0x20a)]);var _0x5cff15=new eui['Rect']();_0x5cff15['width']=0x36,_0x5cff15['height']=0x12,_0x5cff15['ellipseWidth']=0x9,_0x5cff15['ellipseHeight']=0x9,_0x5cff15['fillColor']=0x16113a,_0x5cff15['fillAlpha']=0.9,_0x5cff15['strokeColor']=THEME[_0x121ae5(0x1df)],_0x5cff15['strokeWeight']=0.8,_0x5cff15['strokeAlpha']=0.55,_0x5cff15['alpha']=0x0,_0x5cff15[_0x121ae5(0x1cc)]=0x8,_0x5cff15['y']=0x1f,_0x335796[_0x121ae5(0xaa)](_0x5cff15),this['gemsLabel']=new eui['Label'](),this['gemsLabel']['text']=_0x121ae5(0x102)+this[_0x121ae5(0x12f)],this[_0x121ae5(0x1c3)]['size']=0xb,this['gemsLabel'][_0x121ae5(0xd2)]=0xb28dd6,this['gemsLabel'][_0x121ae5(0x222)]=!![],this[_0x121ae5(0x1c3)]['width']=0x38,this['gemsLabel'][_0x121ae5(0x107)]='right',this['gemsLabel'][_0x121ae5(0x1cc)]=0xc,this['gemsLabel']['y']=0x25,_0x335796['addChild'](this['gemsLabel']);var _0x831e93=new eui[(_0x121ae5(0x218))]();_0x831e93[_0x121ae5(0xa8)]='🏆\x20'+this['achievements'][_0x121ae5(0x123)],_0x831e93['size']=0xc,_0x831e93['textColor']=0xf39c12,_0x831e93['touchEnabled']=!![],_0x831e93['bold']=!![],_0x831e93['right']=0x52,_0x831e93['y']=0x25,_0x831e93['addEventListener'](egret[_0x121ae5(0xed)][_0x121ae5(0x224)],this['openAchievements'],this),_0x335796['addChild'](_0x831e93),this['muteLabel']=new eui['Label'](),this['muteLabel']['text']=this[_0x121ae5(0xe6)]?'🔇':'🔊',this[_0x121ae5(0x221)]['size']=0xe,this[_0x121ae5(0x221)]['touchEnabled']=!![],this['muteLabel'][_0x121ae5(0x1cc)]=0x82,this[_0x121ae5(0x221)]['y']=0x24,this['muteLabel']['alpha']=0x0,this[_0x121ae5(0x221)][_0x121ae5(0x19d)](egret['TouchEvent']['TOUCH_TAP'],this[_0x121ae5(0x1f4)],this),_0x335796['addChild'](this['muteLabel']),this[_0x121ae5(0x8f)]=[],this['_waveNumLbs']=[];var _0x1e6971=0x3a,_0xf00d9e=0x36,_0x20be5c=_0x58486c-0x7e,_0x414239=0xd,_0x17ec26=new eui['Rect']();_0x17ec26['width']=_0x20be5c,_0x17ec26['height']=_0x414239,_0x17ec26['ellipseWidth']=0x8,_0x17ec26['ellipseHeight']=0x8,_0x17ec26['fillColor']=0x90616,_0x17ec26['strokeColor']=THEME[_0x121ae5(0x109)],_0x17ec26['strokeWeight']=0.7,_0x17ec26['strokeAlpha']=0.55,_0x17ec26['x']=_0x1e6971,_0x17ec26['y']=_0xf00d9e,_0x335796['addChild'](_0x17ec26),this[_0x121ae5(0x1b5)]=new eui[(_0x121ae5(0x1ff))](),this['hpFill']['width']=_0x20be5c,this[_0x121ae5(0x1b5)]['height']=_0x414239,this['hpFill']['ellipseWidth']=0x8,this['hpFill'][_0x121ae5(0x175)]=0x8,this['hpFill']['fillColor']=THEME['mint'],this['hpFill']['x']=_0x1e6971,this[_0x121ae5(0x1b5)]['y']=_0xf00d9e,_0x335796['addChild'](this['hpFill']),this['_hpMaxWidth']=_0x20be5c,this[_0x121ae5(0xbf)]=new eui[(_0x121ae5(0x218))](),this['hpLabel'][_0x121ae5(0xa8)]=_0x121ae5(0x1ca),this[_0x121ae5(0xbf)]['size']=0xa,this[_0x121ae5(0xbf)]['textColor']=0xffffff,this['hpLabel'][_0x121ae5(0x222)]=!![],this['hpLabel']['horizontalCenter']=0x0,this['hpLabel']['y']=_0xf00d9e+0x2,_0x335796['addChild'](this[_0x121ae5(0xbf)]),this['main']['addChild'](_0x335796),this[_0x121ae5(0x1e7)]=new eui[(_0x121ae5(0x217))](),this[_0x121ae5(0x1e7)]['width']=_0x58486c,this[_0x121ae5(0x1e7)]['height']=_0x30b95f,this['battleGroup']['x']=0x0,this['battleGroup']['y']=_0x16b84f,this[_0x121ae5(0x1e7)][_0x121ae5(0x18a)]=!![];egret['Rectangle']&&(this['battleGroup']['scrollRect']=new egret['Rectangle'](0x0,0x0,_0x58486c,_0x30b95f));var _0xa1a0e0=new egret[(_0x121ae5(0x117))](),_0x1373de=_0xa1a0e0[_0x121ae5(0xdc)];_0x1373de['beginFill'](0x4021a),_0x1373de['drawRect'](0x0,0x0,_0x58486c,Math['floor'](_0x30b95f*0.55)),_0x1373de[_0x121ae5(0x182)](),_0x1373de[_0x121ae5(0x199)](0xd0730),_0x1373de[_0x121ae5(0x1eb)](0x0,Math[_0x121ae5(0x1ee)](_0x30b95f*0.55),_0x58486c,Math['floor'](_0x30b95f*0.12)),_0x1373de[_0x121ae5(0x182)](),_0x1373de['beginFill'](0x160b3a),_0x1373de[_0x121ae5(0x1eb)](0x0,Math[_0x121ae5(0x1ee)](_0x30b95f*0.67),_0x58486c,Math['ceil'](_0x30b95f*0.33)),_0x1373de['endFill'](),_0x1373de['lineStyle'](0x0),_0x1373de['beginFill'](0xe0630,0.9),_0x1373de['moveTo'](0x0,Math['floor'](_0x30b95f*0.62)),_0x1373de['curveTo'](0x28,Math[_0x121ae5(0x1ee)](_0x30b95f*0.38),0x5a,Math[_0x121ae5(0x1ee)](_0x30b95f*0.44)),_0x1373de['curveTo'](0x82,Math['floor'](_0x30b95f*0.3),0xa0,Math['floor'](_0x30b95f*0.4)),_0x1373de[_0x121ae5(0xd7)](0xc8,Math[_0x121ae5(0x1ee)](_0x30b95f*0.22),0xe6,Math['floor'](_0x30b95f*0.36)),_0x1373de['curveTo'](0x10e,Math[_0x121ae5(0x1ee)](_0x30b95f*0.28),0x136,Math['floor'](_0x30b95f*0.42)),_0x1373de['curveTo'](0x159,Math['floor'](_0x30b95f*0.34),_0x58486c,Math[_0x121ae5(0x1ee)](_0x30b95f*0.48)),_0x1373de['lineTo'](_0x58486c,Math['floor'](_0x30b95f*0.62)),_0x1373de[_0x121ae5(0x182)](),_0x1373de['beginFill'](0x1a0d45,0.85),_0x1373de['moveTo'](0x0,Math[_0x121ae5(0x1ee)](_0x30b95f*0.65)),_0x1373de['curveTo'](0x32,Math[_0x121ae5(0x1ee)](_0x30b95f*0.48),0x64,Math['floor'](_0x30b95f*0.54)),_0x1373de[_0x121ae5(0xd7)](0x91,Math['floor'](_0x30b95f*0.4),0xb9,Math['floor'](_0x30b95f*0.5)),_0x1373de[_0x121ae5(0xd7)](0xe1,Math['floor'](_0x30b95f*0.44),0x104,Math[_0x121ae5(0x1ee)](_0x30b95f*0.52)),_0x1373de[_0x121ae5(0xd7)](0x131,Math['floor'](_0x30b95f*0.42),_0x58486c,Math[_0x121ae5(0x1ee)](_0x30b95f*0.56)),_0x1373de['lineTo'](_0x58486c,Math[_0x121ae5(0x1ee)](_0x30b95f*0.65)),_0x1373de['endFill'](),_0x1373de['beginFill'](0x22104e,0.9),_0x1373de[_0x121ae5(0x160)](0x0,Math[_0x121ae5(0x1ee)](_0x30b95f*0.68)),_0x1373de[_0x121ae5(0xd7)](0x3c,Math[_0x121ae5(0x1ee)](_0x30b95f*0.56),0x6e,Math[_0x121ae5(0x1ee)](_0x30b95f*0.6)),_0x1373de['curveTo'](0x9b,Math['floor'](_0x30b95f*0.5),0xbc,Math['floor'](_0x30b95f*0.58)),_0x1373de['curveTo'](0xe6,Math[_0x121ae5(0x1ee)](_0x30b95f*0.52),0x118,Math[_0x121ae5(0x1ee)](_0x30b95f*0.6)),_0x1373de[_0x121ae5(0xd7)](0x14a,Math['floor'](_0x30b95f*0.54),_0x58486c,Math['floor'](_0x30b95f*0.62)),_0x1373de['lineTo'](_0x58486c,Math['floor'](_0x30b95f*0.68)),_0x1373de[_0x121ae5(0x182)]();var _0x519f1e=[{'x':0x50,'w':0x12,'color':0x7c3aed,'alpha':0.18},{'x':0xbc,'w':0x1c,'color':0xc026d3,'alpha':0.22},{'x':0x127,'w':0x10,'color':0x2563eb,'alpha':0.16}];for(var _0x5f0308=0x0;_0x5f0308<_0x519f1e[_0x121ae5(0x123)];_0x5f0308++){var _0x2097ee=_0x519f1e[_0x5f0308];for(var _0x389883=0x0;_0x389883<0x8;_0x389883++){var _0x169ab7=Math[_0x121ae5(0x1ee)](_0x30b95f*(0.67-_0x389883*0.08)),_0xc8ca0c=Math['floor'](_0x30b95f*0.09),_0x489cdd=_0x2097ee[_0x121ae5(0xf0)]*(0x1-_0x389883/0x8);_0x1373de['beginFill'](_0x2097ee['color'],_0x489cdd),_0x1373de['drawRect'](_0x2097ee['x']-_0x2097ee['w']/0x2,_0x169ab7,_0x2097ee['w'],_0xc8ca0c+0x2),_0x1373de['endFill']();}_0x1373de[_0x121ae5(0x199)](0xffffff,0.12),_0x1373de[_0x121ae5(0x1eb)](_0x2097ee['x']-0x1,0x0,0x2,Math['floor'](_0x30b95f*0.67)),_0x1373de['endFill']();}var _0xb30d0d=[{'x':0x3c,'y':0x3c,'r':0x37,'color':0x4c1d95,'alpha':0.25},{'x':0xc8,'y':0x28,'r':0x46,'color':0x831843,'alpha':0.2},{'x':0x140,'y':0x50,'r':0x32,'color':0x1e3a8a,'alpha':0.22},{'x':0x8c,'y':0x6e,'r':0x28,'color':0x5b21b6,'alpha':0.18}];for(var _0x1dd09f=0x0;_0x1dd09f<_0xb30d0d['length'];_0x1dd09f++){var _0x522a36=_0xb30d0d[_0x1dd09f];_0x1373de['beginFill'](_0x522a36['color'],_0x522a36[_0x121ae5(0xf0)]),_0x1373de['drawCircle'](_0x522a36['x'],_0x522a36['y'],_0x522a36['r']),_0x1373de[_0x121ae5(0x182)](),_0x1373de['beginFill'](_0x522a36['color'],_0x522a36['alpha']*0.5),_0x1373de['drawCircle'](_0x522a36['x'],_0x522a36['y'],_0x522a36['r']*1.6),_0x1373de['endFill']();}var _0x32e5bf=[[0x1e,0xc,1.8],[0x44,0x8,1.2],[0x6e,0x16,2.2],[0x9b,0x6,0x1],[0xc3,0x12,1.6],[0xf0,0xa,1.4],[0x11d,0x18,0x2],[0x14a,0xe,1.2],[0x163,0x8,1.8],[0xf,0x2d,0x1],[0x58,0x26,1.6],[0x91,0x32,1.2],[0xd2,0x20,0x2],[0x109,0x2c,1.4],[0x136,0x24,1.8],[0x32,0x46,0x1],[0x82,0x3e,1.6],[0xdc,0x44,1.2],[0x12c,0x3a,0x2],[0x168,0x48,1.4],[0x4b,0x5a,1.2],[0xaa,0x52,1.8],[0xfa,0x5e,0x1],[0x154,0x56,1.6],[0x14,0x64,1.4]];for(var _0x5caf4e=0x0;_0x5caf4e<_0x32e5bf['length'];_0x5caf4e++){var _0x25ea60=_0x32e5bf[_0x5caf4e];_0x1373de['beginFill'](0xfde68a,0.15),_0x1373de['drawCircle'](_0x25ea60[0x0],_0x25ea60[0x1],_0x25ea60[0x2]*2.5),_0x1373de[_0x121ae5(0x182)](),_0x1373de['beginFill'](0xffffff,0.9),_0x1373de['drawCircle'](_0x25ea60[0x0],_0x25ea60[0x1],_0x25ea60[0x2]),_0x1373de[_0x121ae5(0x182)]();}var _0x3603fd=[[0x6e,0x16],[0xc3,0x12],[0x11d,0x18],[0x32,0x46]];for(var _0x4cc658=0x0;_0x4cc658<_0x3603fd['length'];_0x4cc658++){var _0x2d2f94=_0x3603fd[_0x4cc658][0x0],_0x247eda=_0x3603fd[_0x4cc658][0x1];_0x1373de['lineStyle'](0.8,0xfde68a,0.6),_0x1373de['moveTo'](_0x2d2f94-0x6,_0x247eda),_0x1373de['lineTo'](_0x2d2f94+0x6,_0x247eda),_0x1373de['moveTo'](_0x2d2f94,_0x247eda-0x6),_0x1373de[_0x121ae5(0x11e)](_0x2d2f94,_0x247eda+0x6),_0x1373de['lineStyle'](0x0);}var _0x1538f8=_0x58486c-0x34,_0x5cb375=0x26,_0x2982cb=0x16;_0x1373de['beginFill'](0xfde68a,0.06),_0x1373de[_0x121ae5(0x16f)](_0x1538f8,_0x5cb375,_0x2982cb*3.5),_0x1373de['endFill'](),_0x1373de[_0x121ae5(0x199)](0xfde68a,0.12),_0x1373de[_0x121ae5(0x16f)](_0x1538f8,_0x5cb375,_0x2982cb*2.2),_0x1373de['endFill'](),_0x1373de[_0x121ae5(0x199)](0xfde68a,0.22),_0x1373de['drawCircle'](_0x1538f8,_0x5cb375,_0x2982cb*1.4),_0x1373de['endFill'](),_0x1373de[_0x121ae5(0x199)](0xfef3c7),_0x1373de[_0x121ae5(0x16f)](_0x1538f8,_0x5cb375,_0x2982cb),_0x1373de['endFill'](),_0x1373de['beginFill'](0x4021a),_0x1373de['drawCircle'](_0x1538f8+0xa,_0x5cb375-0x4,_0x2982cb-0x2),_0x1373de[_0x121ae5(0x182)](),_0x1373de[_0x121ae5(0x124)](0.8,0xfbbf24,0.3),_0x1373de['drawCircle'](_0x1538f8-0x4,_0x5cb375+0x2,0x6),_0x1373de['lineStyle'](0x0);var _0x46603b=Math[_0x121ae5(0x1ee)](_0x30b95f*0.34),_0x233295=[{'x':0x48,'y':_0x46603b+0x12,'w':0x2a,'h':0x34,'roof':0x5b21b6,'wall':0x2a1858,'light':0xffd166},{'x':0x88,'y':_0x46603b+0x4,'w':0x34,'h':0x40,'roof':0x7c3aed,'wall':0x321b68,'light':0xffe7a3},{'x':0xf8,'y':_0x46603b+0xa,'w':0x38,'h':0x42,'roof':0x4c1d95,'wall':0x261450,'light':0xffc66d},{'x':0x134,'y':_0x46603b+0x1c,'w':0x26,'h':0x2c,'roof':0x831843,'wall':0x301340,'light':0xffe7a3}];for(var _0x4644b3=0x0;_0x4644b3<_0x233295['length'];_0x4644b3++){var _0x2c8aaf=_0x233295[_0x4644b3];_0x1373de['beginFill'](_0x2c8aaf['light'],0.06),_0x1373de['drawCircle'](_0x2c8aaf['x'],_0x2c8aaf['y']+_0x2c8aaf['h']*0.45,_0x2c8aaf['w']),_0x1373de[_0x121ae5(0x182)](),_0x1373de['lineStyle'](0x1,0x6d4db8,0.35),_0x1373de['beginFill'](_0x2c8aaf['wall'],0.82),_0x1373de[_0x121ae5(0xd1)](_0x2c8aaf['x']-_0x2c8aaf['w']/0x2,_0x2c8aaf['y'],_0x2c8aaf['w'],_0x2c8aaf['h'],0xc,0xc),_0x1373de[_0x121ae5(0x182)](),_0x1373de['lineStyle'](0x1,0xffb7e5,0.35),_0x1373de['beginFill'](_0x2c8aaf['roof'],0.92),_0x1373de[_0x121ae5(0x160)](_0x2c8aaf['x']-_0x2c8aaf['w']*0.62,_0x2c8aaf['y']+0xa),_0x1373de['curveTo'](_0x2c8aaf['x']-_0x2c8aaf['w']*0.25,_0x2c8aaf['y']-0x14,_0x2c8aaf['x'],_0x2c8aaf['y']-0x8),_0x1373de[_0x121ae5(0xd7)](_0x2c8aaf['x']+_0x2c8aaf['w']*0.28,_0x2c8aaf['y']-0x19,_0x2c8aaf['x']+_0x2c8aaf['w']*0.62,_0x2c8aaf['y']+0xa),_0x1373de[_0x121ae5(0x11e)](_0x2c8aaf['x']+_0x2c8aaf['w']*0.5,_0x2c8aaf['y']+0x12),_0x1373de[_0x121ae5(0x11e)](_0x2c8aaf['x']-_0x2c8aaf['w']*0.5,_0x2c8aaf['y']+0x12),_0x1373de['endFill'](),_0x1373de['lineStyle'](0x0),_0x1373de['beginFill'](_0x2c8aaf['light'],0.88),_0x1373de['drawRoundRect'](_0x2c8aaf['x']-_0x2c8aaf['w']*0.22,_0x2c8aaf['y']+_0x2c8aaf['h']*0.35,_0x2c8aaf['w']*0.18,_0x2c8aaf['h']*0.22,0x5,0x5),_0x1373de[_0x121ae5(0xd1)](_0x2c8aaf['x']+_0x2c8aaf['w']*0.06,_0x2c8aaf['y']+_0x2c8aaf['h']*0.33,_0x2c8aaf['w']*0.2,_0x2c8aaf['h']*0.24,0x5,0x5),_0x1373de[_0x121ae5(0x182)](),_0x1373de['beginFill'](0xffffff,0.18),_0x1373de[_0x121ae5(0x16f)](_0x2c8aaf['x']-_0x2c8aaf['w']*0.12,_0x2c8aaf['y']+_0x2c8aaf['h']*0.45,_0x2c8aaf['w']*0.18),_0x1373de['drawCircle'](_0x2c8aaf['x']+_0x2c8aaf['w']*0.16,_0x2c8aaf['y']+_0x2c8aaf['h']*0.45,_0x2c8aaf['w']*0.2),_0x1373de[_0x121ae5(0x182)]();}var _0x1cf332=[{'x':0x6a,'y':_0x46603b+0x4e,'c':0xff7eb0},{'x':0xd6,'y':_0x46603b+0x56,'c':0x7be8b7},{'x':0x14c,'y':_0x46603b+0x5a,'c':0xfbbf24}];for(var _0x2d97b4=0x0;_0x2d97b4<_0x1cf332['length'];_0x2d97b4++){var _0x47f567=_0x1cf332[_0x2d97b4];_0x1373de['lineStyle'](0x1,0xfde68a,0.28),_0x1373de[_0x121ae5(0x160)](_0x47f567['x'],_0x47f567['y']),_0x1373de[_0x121ae5(0x11e)](_0x47f567['x'],_0x47f567['y']-0x14),_0x1373de['lineStyle'](0x0),_0x1373de['beginFill'](_0x47f567['c'],0.28),_0x1373de['drawCircle'](_0x47f567['x'],_0x47f567['y']-0x18,0xb),_0x1373de[_0x121ae5(0x182)](),_0x1373de['beginFill'](_0x47f567['c'],0.78),_0x1373de['drawCircle'](_0x47f567['x'],_0x47f567['y']-0x18,0x5),_0x1373de[_0x121ae5(0x182)]();}_0xa1a0e0[_0x121ae5(0xf0)]=0x0,this['battleGroup']['addChild'](_0xa1a0e0);var _0xfb45fc=new egret['Shape'](),_0x483387=_0xfb45fc['graphics'],_0x5208dd=Math['floor'](_0x30b95f*0.67),_0x4d0cba=_0x30b95f-_0x5208dd;_0x483387['beginFill'](0xf0628),_0x483387[_0x121ae5(0x1eb)](0x0,_0x5208dd,_0x58486c,_0x4d0cba),_0x483387[_0x121ae5(0x182)]();var _0x253d9c=Math['floor'](_0x30b95f*0.4);_0x483387['lineStyle'](0x1,0x8b6bd8,0.16),_0x483387['beginFill'](0x2a1a58,0.42),_0x483387['moveTo'](_0x58486c/0x2-0x3a,_0x253d9c),_0x483387['lineTo'](_0x58486c/0x2+0x3a,_0x253d9c),_0x483387['lineTo'](_0x58486c/0x2+0x74,_0x30b95f-0x30),_0x483387[_0x121ae5(0x11e)](_0x58486c/0x2-0x74,_0x30b95f-0x30),_0x483387['endFill']();for(var _0x24ee1b=0x0;_0x24ee1b<0x7;_0x24ee1b++){var _0x173591=_0x253d9c+_0x24ee1b*0x1c,_0xadfa66=_0x24ee1b*0x7;_0x483387['lineStyle'](0.8,0xc7a7ff,0.12),_0x483387[_0x121ae5(0x160)](_0x58486c/0x2-0x36-_0xadfa66,_0x173591),_0x483387['curveTo'](_0x58486c/0x2,_0x173591+0x8,_0x58486c/0x2+0x36+_0xadfa66,_0x173591),_0x483387[_0x121ae5(0x124)](0x0);}for(var _0x12c165=-0x2;_0x12c165<=0x2;_0x12c165++){_0x483387['lineStyle'](0.8,0x5b4bb0,0.12),_0x483387['moveTo'](_0x58486c/0x2+_0x12c165*0x18,_0x253d9c+0x8),_0x483387[_0x121ae5(0x11e)](_0x58486c/0x2+_0x12c165*0x2a,_0x30b95f-0x36),_0x483387['lineStyle'](0x0);}var _0x510c7f=0x3e,_0x57cfec=0x12;for(var _0x375b5e=0x0;_0x375b5e<0x3;_0x375b5e++){var _0x2b9bbe=_0x5208dd+_0x375b5e*_0x57cfec,_0x43bed2=_0x375b5e%0x2*(_0x510c7f/0x2);for(var _0x3651d6=-0x1;_0x3651d6<Math['ceil'](_0x58486c/_0x510c7f)+0x1;_0x3651d6++){var _0x2e1a09=_0x3651d6*_0x510c7f+_0x43bed2;_0x483387['lineStyle'](0.8,0x3b1f6e,0.7),_0x483387['drawRect'](_0x2e1a09+0x1,_0x2b9bbe+0x1,_0x510c7f-0x2,_0x57cfec-0x2),_0x483387['lineStyle'](0x0);}}var _0x751c76=[{'x1':0x1e,'x2':0x5a,'y':_0x5208dd+0x4,'color':0x7c3aed},{'x1':0xa0,'x2':0xf0,'y':_0x5208dd+0x8,'color':0xc026d3},{'x1':0x122,'x2':0x168,'y':_0x5208dd+0x3,'color':0x2563eb}];for(var _0x318e8a=0x0;_0x318e8a<_0x751c76['length'];_0x318e8a++){var _0x3a7e61=_0x751c76[_0x318e8a];_0x483387[_0x121ae5(0x124)](0x2,_0x3a7e61['color'],0.15),_0x483387[_0x121ae5(0x160)](_0x3a7e61['x1'],_0x3a7e61['y']),_0x483387['lineTo'](_0x3a7e61['x2'],_0x3a7e61['y']),_0x483387['lineStyle'](0x0),_0x483387['lineStyle'](0x1,_0x3a7e61['color'],0.35),_0x483387['moveTo'](_0x3a7e61['x1']+0x4,_0x3a7e61['y']),_0x483387[_0x121ae5(0x11e)](_0x3a7e61['x2']-0x4,_0x3a7e61['y']),_0x483387[_0x121ae5(0x124)](0x0),_0x483387['beginFill'](_0x3a7e61['color'],0.5),_0x483387['drawCircle']((_0x3a7e61['x1']+_0x3a7e61['x2'])/0x2,_0x3a7e61['y'],1.5),_0x483387[_0x121ae5(0x182)]();}_0x483387['lineStyle'](1.5,0x7c3aed,0.5),_0x483387[_0x121ae5(0x160)](0x0,_0x5208dd),_0x483387['lineTo'](_0x58486c,_0x5208dd),_0x483387['lineStyle'](0.8,0xc026d3,0.3),_0x483387[_0x121ae5(0x160)](0x0,_0x5208dd+0x1),_0x483387[_0x121ae5(0x11e)](_0x58486c,_0x5208dd+0x1),_0x483387[_0x121ae5(0x124)](0x0),_0xfb45fc['alpha']=0x0,this['battleGroup']['addChild'](_0xfb45fc);var _0x2be9b0=new egret['Shape'](),_0x56cbd2=_0x2be9b0['graphics'],_0x55ff16=[{'x':0xa,'y':_0x5208dd-0x2,'h':0xe,'w':0x6,'color':0x7c3aed},{'x':0x12,'y':_0x5208dd-0x6,'h':0x14,'w':0x5,'color':0xa855f7},{'x':0x1a,'y':_0x5208dd-0x3,'h':0xc,'w':0x5,'color':0x6d28d9}];for(var _0x2cc87f=0x0;_0x2cc87f<_0x55ff16['length'];_0x2cc87f++){var _0x9204f9=_0x55ff16[_0x2cc87f];_0x56cbd2['lineStyle'](0.8,0xffffff,0.4),_0x56cbd2['beginFill'](_0x9204f9[_0x121ae5(0x21e)],0.85),_0x56cbd2[_0x121ae5(0x160)](_0x9204f9['x'],_0x9204f9['y']),_0x56cbd2[_0x121ae5(0x11e)](_0x9204f9['x']-_0x9204f9['w']/0x2,_0x9204f9['y']+_0x9204f9['h']),_0x56cbd2[_0x121ae5(0x11e)](_0x9204f9['x']+_0x9204f9['w']/0x2,_0x9204f9['y']+_0x9204f9['h']),_0x56cbd2['endFill'](),_0x56cbd2['lineStyle'](0x0),_0x56cbd2['beginFill'](0xffffff,0.35),_0x56cbd2['moveTo'](_0x9204f9['x'],_0x9204f9['y']+0x2),_0x56cbd2[_0x121ae5(0x11e)](_0x9204f9['x']-0x1,_0x9204f9['y']+_0x9204f9['h']*0.5),_0x56cbd2[_0x121ae5(0x11e)](_0x9204f9['x']+0x1,_0x9204f9['y']+_0x9204f9['h']*0.5),_0x56cbd2[_0x121ae5(0x182)]();}var _0x3ef337=[{'x':_0x58486c-0xc,'y':_0x5208dd-0x4,'h':0x10,'w':0x6,'color':0x2563eb},{'x':_0x58486c-0x14,'y':_0x5208dd-0x8,'h':0x16,'w':0x5,'color':0x3b82f6},{'x':_0x58486c-0x1c,'y':_0x5208dd-0x3,'h':0xd,'w':0x5,'color':0x1d4ed8}];for(var _0x5deb7c=0x0;_0x5deb7c<_0x3ef337['length'];_0x5deb7c++){var _0x9204f9=_0x3ef337[_0x5deb7c];_0x56cbd2[_0x121ae5(0x124)](0.8,0xffffff,0.4),_0x56cbd2[_0x121ae5(0x199)](_0x9204f9['color'],0.85),_0x56cbd2['moveTo'](_0x9204f9['x'],_0x9204f9['y']),_0x56cbd2['lineTo'](_0x9204f9['x']-_0x9204f9['w']/0x2,_0x9204f9['y']+_0x9204f9['h']),_0x56cbd2['lineTo'](_0x9204f9['x']+_0x9204f9['w']/0x2,_0x9204f9['y']+_0x9204f9['h']),_0x56cbd2[_0x121ae5(0x182)](),_0x56cbd2[_0x121ae5(0x124)](0x0),_0x56cbd2[_0x121ae5(0x199)](0xffffff,0.35),_0x56cbd2[_0x121ae5(0x160)](_0x9204f9['x'],_0x9204f9['y']+0x2),_0x56cbd2['lineTo'](_0x9204f9['x']-0x1,_0x9204f9['y']+_0x9204f9['h']*0.5),_0x56cbd2['lineTo'](_0x9204f9['x']+0x1,_0x9204f9['y']+_0x9204f9['h']*0.5),_0x56cbd2[_0x121ae5(0x182)]();}var _0x2f8a2b=[{'x':0x37,'y':_0x5208dd,'color':0xec4899,'spotColor':0xfce7f3},{'x':_0x58486c-0x37,'y':_0x5208dd,'color':0x10b981,'spotColor':0xd1fae5}];for(var _0xa1b88a=0x0;_0xa1b88a<_0x2f8a2b['length'];_0xa1b88a++){var _0x58b72a=_0x2f8a2b[_0xa1b88a];_0x56cbd2['beginFill'](_0x58b72a['color'],0.12),_0x56cbd2[_0x121ae5(0x16f)](_0x58b72a['x'],_0x58b72a['y'],0xe),_0x56cbd2['endFill'](),_0x56cbd2[_0x121ae5(0x124)](0.8,0xffffff,0.3),_0x56cbd2['beginFill'](0xfde68a,0.8),_0x56cbd2['drawRect'](_0x58b72a['x']-0x3,_0x58b72a['y']-0xa,0x6,0xa),_0x56cbd2['endFill'](),_0x56cbd2['beginFill'](_0x58b72a['color'],0.9),_0x56cbd2[_0x121ae5(0x160)](_0x58b72a['x']-0xc,_0x58b72a['y']-0xa),_0x56cbd2['curveTo'](_0x58b72a['x'],_0x58b72a['y']-0x18,_0x58b72a['x']+0xc,_0x58b72a['y']-0xa),_0x56cbd2['endFill'](),_0x56cbd2['lineStyle'](0x0),_0x56cbd2[_0x121ae5(0x199)](_0x58b72a['spotColor'],0.9),_0x56cbd2['drawCircle'](_0x58b72a['x']-0x4,_0x58b72a['y']-0x10,0x2),_0x56cbd2['drawCircle'](_0x58b72a['x']+0x4,_0x58b72a['y']-0xe,1.5),_0x56cbd2['drawCircle'](_0x58b72a['x'],_0x58b72a['y']-0x14,1.2),_0x56cbd2[_0x121ae5(0x182)]();}_0x2be9b0[_0x121ae5(0xf0)]=0x0,this['battleGroup'][_0x121ae5(0xaa)](_0x2be9b0);var _0x5d11b3=new egret['Shape'](),_0x230f14=_0x5d11b3[_0x121ae5(0xdc)],_0x36f08b=0x1e+0x1c+0xa,_0x3a2101=0x2b,_0xbdda5f=_0x30b95f-_0x36f08b-_0x3a2101;_0x230f14['beginFill'](0x50316,0.22),_0x230f14['drawRoundRect'](0x2e,_0x36f08b,_0x58486c-0x5c,_0xbdda5f,0xe,0xe),_0x230f14[_0x121ae5(0x182)](),_0x230f14['beginFill'](0xfbbf24,0.045),_0x230f14['drawRoundRect'](0x2f,_0x36f08b+0x1,_0x58486c-0x5e,_0xbdda5f-0x2,0xe,0xe),_0x230f14['endFill'](),_0x230f14[_0x121ae5(0x124)](3.2,0xff7eb0,0.18),_0x230f14['drawRoundRect'](0x2f,_0x36f08b+0x1,_0x58486c-0x5e,_0xbdda5f-0x2,0xe,0xe),_0x230f14['lineStyle'](1.2,THEME[_0x121ae5(0x109)],0.7),_0x230f14[_0x121ae5(0xd1)](0x30,_0x36f08b+0x2,_0x58486c-0x60,_0xbdda5f-0x4,0xc,0xc),_0x230f14[_0x121ae5(0x124)](0.7,0xffffff,0.22),_0x230f14['drawRoundRect'](0x33,_0x36f08b+0x5,_0x58486c-0x66,_0xbdda5f-0xa,0xa,0xa),_0x230f14['lineStyle'](0.8,THEME[_0x121ae5(0x1df)],0.24),_0x230f14['moveTo'](0x38,_0x36f08b+Math['floor'](_0xbdda5f*0.58)),_0x230f14['lineTo'](_0x58486c-0x38,_0x36f08b+Math['floor'](_0xbdda5f*0.58)),_0x230f14['lineStyle'](0x0),_0x230f14['beginFill'](0xffffff,0.05),_0x230f14[_0x121ae5(0xd1)](0x36,_0x36f08b+0x8,_0x58486c-0x6c,0x1e,0xa,0xa),_0x230f14[_0x121ae5(0x182)](),_0x230f14['beginFill'](THEME[_0x121ae5(0x1aa)],0.95),this['drawStar'](_0x230f14,0x3c,_0x36f08b+0xc,3.5,1.6,0x5),this['drawStar'](_0x230f14,_0x58486c-0x3c,_0x36f08b+0xc,3.5,1.6,0x5),_0x230f14['endFill'](),_0x5d11b3[_0x121ae5(0xf0)]=0x0,this['battleGroup']['addChild'](_0x5d11b3);var _0x5caf3f=new eui['Image']();this['coverImageInBox'](_0x5caf3f,UI_ASSETS[_0x121ae5(0xf1)],_0x58486c,_0x30b95f,0x0,0x0),this['battleGroup']['addChild'](_0x5caf3f);var _0xf2fe7e=new eui['Image']();_0xf2fe7e['source']='assets/ui/battle-skin-controls.png',_0xf2fe7e['width']=_0x58486c,_0xf2fe7e[_0x121ae5(0x1da)]=0x3c,_0xf2fe7e['x']=0x0,_0xf2fe7e['y']=0x0,_0xf2fe7e['touchEnabled']=![],_0xf2fe7e['alpha']=0x0,this['battleGroup']['addChild'](_0xf2fe7e);var _0x1323ca=0x1e,_0xcba2cb=[{'icon':'📅','text':'签到','fn':function(){_0x47808c['openCheckin']();}},{'icon':'📋','text':'每日','fn':function(){_0x47808c['openDailyTasks']();}},{'icon':'📬','text':'邮件','fn':function(){_0x47808c['openMail']();}},{'icon':'📢','text':'公告','fn':function(){var _0x55b44b=_0x121ae5;_0x47808c[_0x55b44b(0x22e)]();}},{'icon':'🔄','text':'磨转','fn':function(){_0x47808c['openRebirth']();}},{'icon':'⚡','text':'能量','fn':function(){_0x47808c['openEnergyHelp']();}}],_0x4822b5=Math['floor'](_0x58486c/_0xcba2cb['length']);for(var _0x5e2705=0x0;_0x5e2705<_0xcba2cb[_0x121ae5(0x123)];_0x5e2705++){var _0x23d8c7=_0xcba2cb[_0x5e2705],_0x40557f=new eui['Group']();_0x40557f['width']=_0x4822b5,_0x40557f['height']=_0x1323ca,_0x40557f['x']=_0x5e2705*_0x4822b5,_0x40557f['y']=0x0,_0x40557f[_0x121ae5(0x18a)]=!![];var _0x5ee668=new eui[(_0x121ae5(0x1ff))]();_0x5ee668[_0x121ae5(0x99)]=_0x4822b5-0x4,_0x5ee668[_0x121ae5(0x1da)]=_0x1323ca-0x4,_0x5ee668['x']=0x2,_0x5ee668['y']=0x2,_0x5ee668['ellipseWidth']=0x8,_0x5ee668['ellipseHeight']=0x8,_0x5ee668[_0x121ae5(0xb8)]=0x1b1444,_0x5ee668['fillAlpha']=0.92,_0x5ee668['strokeColor']=THEME['strokeGold'],_0x5ee668['strokeWeight']=0.8,_0x5ee668['strokeAlpha']=0.45,_0x5ee668[_0x121ae5(0xf0)]=0x0,_0x40557f['addChild'](_0x5ee668);var _0x1c7b02=new eui['Rect']();_0x1c7b02['width']=_0x4822b5-0xc,_0x1c7b02['height']=0x1,_0x1c7b02['x']=0x6,_0x1c7b02['y']=0x4,_0x1c7b02[_0x121ae5(0xb8)]=0xffffff,_0x1c7b02['fillAlpha']=0.16,_0x1c7b02[_0x121ae5(0xf0)]=0x0,_0x40557f['addChild'](_0x1c7b02);var _0x39f723=new eui['Label']();_0x39f723['text']=_0x23d8c7['icon'],_0x39f723['size']=0xd,_0x39f723['x']=Math['floor']((_0x4822b5-0xd)/0x2)-0x2,_0x39f723['y']=0x3,_0x39f723['alpha']=0x0,_0x40557f['addChild'](_0x39f723);var _0x2dc6b0=new eui['Label']();_0x2dc6b0[_0x121ae5(0xa8)]=_0x23d8c7[_0x121ae5(0xa8)],_0x2dc6b0['size']=0x8,_0x2dc6b0['bold']=!![],_0x2dc6b0['textColor']=THEME['accentSoft'],_0x2dc6b0['width']=_0x4822b5,_0x2dc6b0[_0x121ae5(0x1da)]=0xa,_0x2dc6b0[_0x121ae5(0x107)]='center',_0x2dc6b0['x']=0x0,_0x2dc6b0['y']=0x12,_0x2dc6b0['alpha']=0x0,_0x40557f[_0x121ae5(0xaa)](_0x2dc6b0),function(_0xb3cbe9){var _0x9b2eaf=_0x121ae5;_0x40557f['addEventListener'](egret['TouchEvent'][_0x9b2eaf(0x224)],_0xb3cbe9,_0x47808c);}(_0x23d8c7['fn']),this['battleGroup']['addChild'](_0x40557f);}var _0xef7d2b=_0x1323ca+0x2,_0x41fdd3=0x1c,_0xfdfaaf=Math['floor'](_0x58486c/0x2)-0x4,_0x47ac90=new eui['Group']();_0x47ac90['width']=_0xfdfaaf,_0x47ac90['height']=_0x41fdd3,_0x47ac90['x']=0x2,_0x47ac90['y']=_0xef7d2b,_0x47ac90[_0x121ae5(0x18a)]=!![],this[_0x121ae5(0xfc)]=new eui['Rect'](),this['_bossBtnBg']['width']=_0xfdfaaf,this[_0x121ae5(0xfc)][_0x121ae5(0x1da)]=_0x41fdd3,this['_bossBtnBg']['ellipseWidth']=0xa,this['_bossBtnBg']['ellipseHeight']=0xa,this[_0x121ae5(0xfc)]['fillColor']=0x7a1520,this['_bossBtnBg']['strokeColor']=THEME[_0x121ae5(0x109)],this['_bossBtnBg'][_0x121ae5(0x126)]=1.2,this['_bossBtnBg']['strokeAlpha']=0.75,this[_0x121ae5(0xfc)][_0x121ae5(0xf0)]=0x0,_0x47ac90['addChild'](this['_bossBtnBg']);var _0x195024=new eui[(_0x121ae5(0x1ff))]();_0x195024['width']=_0xfdfaaf-0xe,_0x195024[_0x121ae5(0x1da)]=0x2,_0x195024['x']=0x7,_0x195024['y']=0x4,_0x195024['fillColor']=0xffffff,_0x195024['fillAlpha']=0.14,_0x195024['alpha']=0x0,_0x47ac90['addChild'](_0x195024);var _0x8b4a8c=new eui[(_0x121ae5(0x218))]();_0x8b4a8c['text']='💀',_0x8b4a8c['size']=0xe,_0x8b4a8c['x']=Math[_0x121ae5(0x1ee)](_0xfdfaaf/0x2)-0x1c,_0x8b4a8c['y']=0x6,_0x8b4a8c['alpha']=0x0,_0x47ac90['addChild'](_0x8b4a8c),this[_0x121ae5(0x201)]=new eui['Label'](),this['_bossBtnText'][_0x121ae5(0xa8)]='挑战BOSS',this[_0x121ae5(0x201)]['size']=0xb,this['_bossBtnText']['textColor']=0xffffff,this[_0x121ae5(0x201)][_0x121ae5(0x222)]=!![],this['_bossBtnText']['x']=Math[_0x121ae5(0x1ee)](_0xfdfaaf/0x2)-0xc,this['_bossBtnText']['y']=0x8,this[_0x121ae5(0x201)][_0x121ae5(0xf0)]=0x0,_0x47ac90[_0x121ae5(0xaa)](this['_bossBtnText']),_0x47ac90['addEventListener'](egret[_0x121ae5(0xed)]['TOUCH_TAP'],function(){var _0xdac116=_0x121ae5;_0x47808c[_0xdac116(0x206)]();},this),this[_0x121ae5(0x1e7)][_0x121ae5(0xaa)](_0x47ac90),this[_0x121ae5(0xb5)]=_0x47ac90,this['updateBossBtn']();var _0x2b1b0e=new eui[(_0x121ae5(0x217))]();_0x2b1b0e['width']=_0xfdfaaf,_0x2b1b0e['height']=_0x41fdd3,_0x2b1b0e['x']=_0x58486c/0x2+0x2,_0x2b1b0e['y']=_0xef7d2b,_0x2b1b0e[_0x121ae5(0x18a)]=!![];var _0x5749ad=new eui['Rect']();_0x5749ad['width']=_0xfdfaaf,_0x5749ad[_0x121ae5(0x1da)]=_0x41fdd3,_0x5749ad['ellipseWidth']=0xa,_0x5749ad['ellipseHeight']=0xa,_0x5749ad['fillColor']=0x173f35,_0x5749ad['strokeColor']=THEME['strokeGold'],_0x5749ad['strokeWeight']=0x1,_0x5749ad['strokeAlpha']=0.65,_0x5749ad['alpha']=0x0,_0x2b1b0e[_0x121ae5(0xaa)](_0x5749ad);var _0x53d61a=new eui['Rect']();_0x53d61a[_0x121ae5(0x99)]=_0xfdfaaf-0xe,_0x53d61a[_0x121ae5(0x1da)]=0x2,_0x53d61a['x']=0x7,_0x53d61a['y']=0x4,_0x53d61a['fillColor']=0xffffff,_0x53d61a[_0x121ae5(0x1ac)]=0.14,_0x53d61a[_0x121ae5(0xf0)]=0x0,_0x2b1b0e['addChild'](_0x53d61a);var _0x1fc668=new eui[(_0x121ae5(0x218))]();_0x1fc668['text']='📖',_0x1fc668['size']=0xe,_0x1fc668['x']=Math['floor'](_0xfdfaaf/0x2)-0x1c,_0x1fc668['y']=0x6,_0x1fc668['alpha']=0x0,_0x2b1b0e[_0x121ae5(0xaa)](_0x1fc668);var _0x208359=new eui['Label']();_0x208359['text']=_0x121ae5(0x158),_0x208359['size']=0xb,_0x208359['textColor']=0xffffff,_0x208359['bold']=!![],_0x208359['x']=Math['floor'](_0xfdfaaf/0x2)-0xc,_0x208359['y']=0x8,_0x208359[_0x121ae5(0xf0)]=0x0,_0x2b1b0e['addChild'](_0x208359),_0x2b1b0e['addEventListener'](egret['TouchEvent']['TOUCH_TAP'],function(){var _0x445851=_0x121ae5;_0x47808c[_0x445851(0x108)]();},this),this['battleGroup']['addChild'](_0x2b1b0e);var _0x504827=0x30,_0x403a6a=_0x1323ca+_0x41fdd3+0x6,_0x262cdb=_0x30b95f-_0x403a6a-0x2c,_0xba197b=Math[_0x121ae5(0x1ee)](_0x262cdb/0x4),_0x54b683=new eui['Group']();_0x54b683['x']=0x0,_0x54b683['y']=_0x403a6a,_0x54b683[_0x121ae5(0x99)]=_0x504827,_0x54b683['height']=_0x262cdb;var _0x42d0fe=new eui['Rect']();_0x42d0fe['width']=_0x504827-0x4,_0x42d0fe[_0x121ae5(0x1da)]=_0x262cdb,_0x42d0fe['x']=0x2,_0x42d0fe['y']=0x0,_0x42d0fe[_0x121ae5(0x165)]=0xe,_0x42d0fe['ellipseHeight']=0xe,_0x42d0fe['fillColor']=0x8051c,_0x42d0fe['fillAlpha']=0x0,_0x42d0fe['strokeColor']=THEME[_0x121ae5(0x109)],_0x42d0fe['strokeWeight']=0.7,_0x42d0fe[_0x121ae5(0x95)]=0x0,_0x54b683[_0x121ae5(0xaa)](_0x42d0fe);for(var _0x5e2705=0x0;_0x5e2705<0x4;_0x5e2705++){var _0x490215=_0x5e2705*_0xba197b+Math[_0x121ae5(0x1ee)]((_0xba197b-0x46)/0x2),_0x4176aa=new eui['Rect']();_0x4176aa[_0x121ae5(0x99)]=_0x504827-0x6,_0x4176aa['height']=0x46,_0x4176aa['x']=0x3,_0x4176aa['y']=_0x490215,_0x4176aa['ellipseWidth']=0xe,_0x4176aa['ellipseHeight']=0xe,_0x4176aa['fillColor']=0x1b1236,_0x4176aa['fillAlpha']=0x0,_0x4176aa[_0x121ae5(0x166)]=THEME['strokeGold'],_0x4176aa['strokeWeight']=0x1,_0x4176aa['strokeAlpha']=0x0,_0x54b683['addChild'](_0x4176aa);var _0x3f943e=new eui['Rect']();_0x3f943e[_0x121ae5(0x99)]=_0x504827-0x10,_0x3f943e['height']=0x1,_0x3f943e['x']=0x8,_0x3f943e['y']=_0x490215+0x5,_0x3f943e['fillColor']=0xffffff,_0x3f943e['fillAlpha']=0x0,_0x54b683['addChild'](_0x3f943e);var _0x58b6a9=this[_0x121ae5(0x12a)](_0x5e2705,0x0);_0x58b6a9['x']=Math['floor']((_0x504827-0x2c)/0x2),_0x58b6a9['y']=_0x5e2705*_0xba197b+Math['floor']((_0xba197b-0x38)/0x2),_0x54b683[_0x121ae5(0xaa)](_0x58b6a9);}this['leftSupGroup']=_0x54b683,this[_0x121ae5(0x1e7)]['addChild'](_0x54b683);var _0x16c329=new eui[(_0x121ae5(0x217))]();_0x16c329['x']=_0x58486c-_0x504827,_0x16c329['y']=_0x403a6a,_0x16c329['width']=_0x504827,_0x16c329['height']=_0x262cdb;var _0x5468c7=new eui['Rect']();_0x5468c7[_0x121ae5(0x99)]=_0x504827-0x4,_0x5468c7['height']=_0x262cdb,_0x5468c7['x']=0x2,_0x5468c7['y']=0x0,_0x5468c7[_0x121ae5(0x165)]=0xe,_0x5468c7['ellipseHeight']=0xe,_0x5468c7['fillColor']=0x8051c,_0x5468c7['fillAlpha']=0x0,_0x5468c7['strokeColor']=THEME[_0x121ae5(0x109)],_0x5468c7['strokeWeight']=0.7,_0x5468c7['strokeAlpha']=0x0,_0x16c329['addChild'](_0x5468c7);for(var _0x5e2705=0x4;_0x5e2705<0x8;_0x5e2705++){var _0x490215=(_0x5e2705-0x4)*_0xba197b+Math[_0x121ae5(0x1ee)]((_0xba197b-0x46)/0x2),_0x4176aa=new eui[(_0x121ae5(0x1ff))]();_0x4176aa[_0x121ae5(0x99)]=_0x504827-0x6,_0x4176aa['height']=0x46,_0x4176aa['x']=0x3,_0x4176aa['y']=_0x490215,_0x4176aa[_0x121ae5(0x165)]=0xe,_0x4176aa['ellipseHeight']=0xe,_0x4176aa[_0x121ae5(0xb8)]=0x1b1236,_0x4176aa['fillAlpha']=0x0,_0x4176aa['strokeColor']=THEME[_0x121ae5(0x109)],_0x4176aa[_0x121ae5(0x126)]=0x1,_0x4176aa['strokeAlpha']=0x0,_0x16c329['addChild'](_0x4176aa);var _0x3f943e=new eui['Rect']();_0x3f943e['width']=_0x504827-0x10,_0x3f943e['height']=0x1,_0x3f943e['x']=0x8,_0x3f943e['y']=_0x490215+0x5,_0x3f943e['fillColor']=0xffffff,_0x3f943e['fillAlpha']=0x0,_0x16c329['addChild'](_0x3f943e);var _0x58b6a9=this['createSupportView'](_0x5e2705,0x0);_0x58b6a9['x']=Math[_0x121ae5(0x1ee)]((_0x504827-0x2c)/0x2),_0x58b6a9['y']=(_0x5e2705-0x4)*_0xba197b+Math['floor']((_0xba197b-0x38)/0x2),_0x16c329[_0x121ae5(0xaa)](_0x58b6a9);}this[_0x121ae5(0x13c)]=_0x16c329,this[_0x121ae5(0x1e7)]['addChild'](_0x16c329);var _0x2c0f16=_0x504827,_0x469809=_0x58486c-_0x504827*0x2;this[_0x121ae5(0x177)]=_0x2c0f16,this['_centerW']=_0x469809,this[_0x121ae5(0x1ed)]=_0x403a6a,this[_0x121ae5(0x1c0)]=Math['floor'](_0x30b95f*0.36);var _0x1c1749=new eui['Group']();_0x1c1749['width']=0x48,_0x1c1749['height']=0x60,_0x1c1749['x']=_0x2c0f16+Math['floor']((_0x469809-0x48)/0x2),_0x1c1749['y']=Math[_0x121ae5(0x1ee)](_0x30b95f*0.64),this[_0x121ae5(0x215)]=_0x1c1749['y'];var _0x28e9b5=new egret['Shape'](),_0x1f7edb=_0x28e9b5['graphics'];_0x1f7edb['lineStyle'](1.5,THEME['accent'],0.7),_0x1f7edb['drawCircle'](0x0,0x0,0x1a),_0x1f7edb[_0x121ae5(0x124)](0x1,THEME['pink'],0.5),_0x1f7edb[_0x121ae5(0x16f)](0x0,0x0,0x14),_0x1f7edb['lineStyle'](0.8,THEME['accentSoft'],0.6);for(var _0xce31c6=0x0;_0xce31c6<0x6;_0xce31c6++){var _0x51fdaf=_0xce31c6/0x6*Math['PI']*0x2;_0x1f7edb['moveTo'](0x0,0x0),_0x1f7edb['lineTo'](0x18*Math['cos'](_0x51fdaf),0x18*Math[_0x121ae5(0x1d0)](_0x51fdaf));}_0x1f7edb['lineStyle'](0x0),_0x1f7edb['beginFill'](THEME['accent'],0.8);for(var _0xbe2837=0x0;_0xbe2837<0x4;_0xbe2837++){var _0x166349=_0xbe2837/0x4*Math['PI']*0x2+Math['PI']/0x4;this[_0x121ae5(0xc8)](_0x1f7edb,0x18*Math['cos'](_0x166349),0x18*Math['sin'](_0x166349),0x2,0x1,0x5);}_0x1f7edb['endFill'](),_0x28e9b5['x']=0x24,_0x28e9b5['y']=0x5c,_0x28e9b5['scaleY']=0.35,_0x1c1749['addChild'](_0x28e9b5),this['_magicCircle']=_0x28e9b5;var _0x2e4aca=new eui['Image']();this[_0x121ae5(0xac)](_0x2e4aca,UI_ASSETS['hero'],0x50,0x60,-0x4,-0x2),_0x1c1749['addChild'](_0x2e4aca);var _0x2d61e7=new egret['Shape'](),_0x4ec120=_0x2d61e7[_0x121ae5(0xdc)];_0x4ec120['lineStyle'](1.6,0x3a0764),_0x4ec120['beginFill'](0x6b21a8),_0x4ec120['moveTo'](0x16,0x2c),_0x4ec120['curveTo'](0x12,0x3c,0x10,0x4c),_0x4ec120['lineTo'](0x38,0x4c),_0x4ec120['curveTo'](0x36,0x3c,0x32,0x2c),_0x4ec120[_0x121ae5(0x182)](),_0x4ec120[_0x121ae5(0x124)](0x0),_0x4ec120[_0x121ae5(0x199)](0x8b3bc9,0.8),_0x4ec120['moveTo'](0x24,0x2c),_0x4ec120['curveTo'](0x2a,0x3c,0x2e,0x4c),_0x4ec120['lineTo'](0x38,0x4c),_0x4ec120['curveTo'](0x36,0x3c,0x32,0x2c),_0x4ec120[_0x121ae5(0x182)](),_0x4ec120['beginFill'](THEME['strokeGold']),_0x4ec120[_0x121ae5(0x1eb)](0x14,0x34,0x20,0x4),_0x4ec120['endFill'](),_0x4ec120['beginFill'](THEME['pink']),_0x4ec120[_0x121ae5(0x16f)](0x22,0x36,2.2),_0x4ec120['drawCircle'](0x26,0x36,2.2),_0x4ec120['endFill'](),_0x4ec120[_0x121ae5(0x199)](THEME['pink']),_0x4ec120['moveTo'](31.8,0x37),_0x4ec120[_0x121ae5(0x11e)](0x24,58.5),_0x4ec120['lineTo'](40.2,0x37),_0x4ec120['endFill'](),_0x4ec120['lineStyle'](1.5,0x3a0764),_0x4ec120[_0x121ae5(0x199)](0xfde68a),_0x4ec120[_0x121ae5(0x16f)](0x24,0x1c,0xe),_0x4ec120[_0x121ae5(0x182)](),_0x4ec120['lineStyle'](0x0),_0x4ec120[_0x121ae5(0x199)](0x2a1a5c),_0x4ec120['moveTo'](0x16,0x1a),_0x4ec120[_0x121ae5(0xd7)](0x18,0x12,0x1e,0x10),_0x4ec120['curveTo'](0x24,0x14,0x2a,0x10),_0x4ec120['curveTo'](0x30,0x12,0x32,0x1a),_0x4ec120[_0x121ae5(0xd7)](0x2e,0x16,0x24,0x18),_0x4ec120['curveTo'](0x1a,0x16,0x16,0x1a),_0x4ec120['endFill'](),_0x4ec120['beginFill'](THEME['accent']),_0x4ec120[_0x121ae5(0x16f)](0x24,0x8,0x5),_0x4ec120['endFill'](),_0x4ec120[_0x121ae5(0x199)](0x2a1a5c),_0x4ec120['drawCircle'](0x26,0x7,0x4),_0x4ec120[_0x121ae5(0x182)](),_0x4ec120['beginFill'](THEME['accentSoft']),this[_0x121ae5(0xc8)](_0x4ec120,0x1c,0x6,0x2,0x1,0x5),this['drawStar'](_0x4ec120,0x2d,0xa,1.5,0.8,0x5),_0x4ec120['endFill'](),_0x4ec120['beginFill'](0xffffff),_0x4ec120['drawEllipse'](0x1c,0x18,0x7,0x8),_0x4ec120['drawEllipse'](0x25,0x18,0x7,0x8),_0x4ec120[_0x121ae5(0x182)](),_0x4ec120[_0x121ae5(0x199)](0x4a3aa0),_0x4ec120['drawEllipse'](29.5,0x19,0x4,0x6),_0x4ec120['drawEllipse'](38.5,0x19,0x4,0x6),_0x4ec120['endFill'](),_0x4ec120[_0x121ae5(0x199)](0x1e1b4b),_0x4ec120['drawCircle'](31.5,0x1c,1.8),_0x4ec120['drawCircle'](40.5,0x1c,1.8),_0x4ec120['endFill'](),_0x4ec120[_0x121ae5(0x199)](0xffffff),_0x4ec120['drawCircle'](30.5,26.5,0x1),_0x4ec120['drawCircle'](39.5,26.5,0x1),_0x4ec120[_0x121ae5(0x182)](),_0x4ec120['beginFill'](THEME['pink'],0.5),_0x4ec120[_0x121ae5(0x12c)](0x19,0x20,0x4,0x2),_0x4ec120['drawEllipse'](0x2b,0x20,0x4,0x2),_0x4ec120[_0x121ae5(0x182)](),_0x4ec120['lineStyle'](1.2,0x92400e),_0x4ec120['moveTo'](0x21,0x23),_0x4ec120[_0x121ae5(0xd7)](0x24,0x26,0x27,0x23),_0x4ec120['lineStyle'](1.5,0x5c3a0a),_0x4ec120['beginFill'](0x92400e),_0x4ec120['drawRect'](0x3a,0x14,0x3,0x36),_0x4ec120['endFill'](),_0x4ec120['lineStyle'](0x0),_0x4ec120[_0x121ae5(0x199)](THEME['pink'],0.35),_0x4ec120['drawCircle'](59.5,0xe,0xb),_0x4ec120['endFill'](),_0x4ec120[_0x121ae5(0x199)](THEME['pink']),_0x4ec120[_0x121ae5(0x16f)](0x39,0xe,0x5),_0x4ec120['drawCircle'](0x3e,0xe,0x5),_0x4ec120['endFill'](),_0x4ec120[_0x121ae5(0x199)](THEME['pink']),_0x4ec120[_0x121ae5(0x160)](0x35,0x10),_0x4ec120[_0x121ae5(0x11e)](59.5,0x17),_0x4ec120['lineTo'](0x42,0x10),_0x4ec120['endFill'](),_0x4ec120[_0x121ae5(0x199)](0xffffff,0.7),_0x4ec120['drawCircle'](0x38,0xc,1.5),_0x4ec120['endFill'](),_0x2d61e7['alpha']=0x0,_0x1c1749[_0x121ae5(0xaa)](_0x2d61e7);var _0xbc5e23=new eui[(_0x121ae5(0x1ff))]();_0xbc5e23['width']=0x34,_0xbc5e23['height']=0xe,_0xbc5e23['ellipseWidth']=0x7,_0xbc5e23['ellipseHeight']=0x7,_0xbc5e23['fillColor']=THEME[_0x121ae5(0x169)],_0xbc5e23[_0x121ae5(0x1ac)]=0.85,_0xbc5e23['strokeColor']=THEME['strokeGold'],_0xbc5e23['strokeWeight']=0.5,_0xbc5e23['horizontalCenter']=0x0,_0xbc5e23[_0x121ae5(0x1bd)]=0x52,_0x1c1749['addChild'](_0xbc5e23);var _0x35365d=new eui[(_0x121ae5(0x218))]();_0x35365d[_0x121ae5(0xa8)]='星语法师',_0x35365d['size']=0xa,_0x35365d['bold']=!![],_0x35365d[_0x121ae5(0xd2)]=THEME['accentSoft'],_0x35365d['horizontalCenter']=0x0,_0x35365d['top']=0x53,_0x1c1749[_0x121ae5(0xaa)](_0x35365d),this['levelLabel']=new eui['Label'](),this[_0x121ae5(0x156)]['text']='Lv.'+this['mainLevel'],this[_0x121ae5(0x156)][_0x121ae5(0xa4)]=0xa,this[_0x121ae5(0x156)]['textColor']=THEME[_0x121ae5(0x1aa)],this['levelLabel']['bold']=!![],this[_0x121ae5(0x156)]['horizontalCenter']=0x0,this[_0x121ae5(0x156)]['top']=0x45,_0x1c1749['addChild'](this['levelLabel']),this['heroGroup']=_0x1c1749,this['battleGroup']['addChild'](_0x1c1749),egret['Tween']['get'](_0x28e9b5,{'loop':!![]})['to']({'rotation':0x168},0x2ee0),this['dpsLabel']=new eui['Label'](),this[_0x121ae5(0x236)][_0x121ae5(0xa8)]='攻击力:\x20'+this['fmt'](this[_0x121ae5(0x121)]()),this['dpsLabel'][_0x121ae5(0xa4)]=0xa,this['dpsLabel']['textColor']=THEME['textDim'],this['dpsLabel']['width']=_0x469809,this['dpsLabel'][_0x121ae5(0x1da)]=0xe,this['dpsLabel'][_0x121ae5(0x107)]='center',this[_0x121ae5(0x236)]['x']=_0x2c0f16,this[_0x121ae5(0x236)]['y']=_0x1c1749['y']+0x62,this['battleGroup']['addChild'](this['dpsLabel']);var _0x4731da=0x2c,_0x418772=0x7,_0x5aec14=_0x58486c-0x14,_0x45d19e=0xa,_0x3a18dc=new eui[(_0x121ae5(0x217))]();_0x3a18dc[_0x121ae5(0x99)]=_0x58486c,_0x3a18dc['height']=_0x59a548,_0x3a18dc['x']=0x0,_0x3a18dc['y']=_0x16b84f+_0x30b95f;var _0x1ca4cb=new eui[(_0x121ae5(0x1ff))]();_0x1ca4cb['percentWidth']=0x64,_0x1ca4cb['percentHeight']=0x64,_0x1ca4cb['fillColor']=0x50918,_0x1ca4cb['fillAlpha']=0x1,_0x1ca4cb['includeInLayout']=![],_0x3a18dc[_0x121ae5(0xaa)](_0x1ca4cb);var _0x5e048f=new eui['Rect']();_0x5e048f[_0x121ae5(0xcc)]=0x64,_0x5e048f['height']=0x1,_0x5e048f['top']=0x0,_0x5e048f['fillColor']=0x172647,_0x5e048f['fillAlpha']=0x1,_0x5e048f['includeInLayout']=![],_0x3a18dc[_0x121ae5(0xaa)](_0x5e048f);var _0x175175=new eui['Rect']();_0x175175[_0x121ae5(0x99)]=_0x5aec14,_0x175175[_0x121ae5(0x1da)]=_0x4731da,_0x175175['x']=_0x45d19e,_0x175175['y']=_0x418772,_0x175175[_0x121ae5(0x165)]=0xc,_0x175175['ellipseHeight']=0xc,_0x175175['fillColor']=0x8051c,_0x175175['fillAlpha']=0.56,_0x175175[_0x121ae5(0x166)]=THEME[_0x121ae5(0x109)],_0x175175['strokeWeight']=0.6,_0x175175[_0x121ae5(0x95)]=0.35,_0x3a18dc[_0x121ae5(0xaa)](_0x175175);var _0x3f5b7c=_0x5aec14-0x32;this['bossTimerBar']=new eui['Rect'](),this[_0x121ae5(0x16e)]['width']=_0x3f5b7c,this[_0x121ae5(0x16e)][_0x121ae5(0x1da)]=0x8,this[_0x121ae5(0x16e)]['fillColor']=0xe74c3c,this['bossTimerBar']['ellipseWidth']=0x4,this['bossTimerBar']['x']=_0x45d19e+0x28,this[_0x121ae5(0x16e)]['y']=_0x418772+0x6,this['bossTimerBar']['visible']=![],_0x3a18dc['addChild'](this['bossTimerBar']),this[_0x121ae5(0x12d)]=_0x3f5b7c,this['bossTimerLabel']=new eui['Label'](),this['bossTimerLabel']['text']='',this[_0x121ae5(0x179)]['size']=0xb,this[_0x121ae5(0x179)]['textColor']=0xff6666,this[_0x121ae5(0x179)]['bold']=!![],this[_0x121ae5(0x179)]['x']=_0x45d19e+0x6,this['bossTimerLabel']['y']=_0x418772+0x4,this['bossTimerLabel']['visible']=![],_0x3a18dc['addChild'](this[_0x121ae5(0x179)]),this['waveFillBg']=new eui['Rect'](),this[_0x121ae5(0xba)][_0x121ae5(0x99)]=_0x5aec14-0x60,this[_0x121ae5(0xba)]['height']=0x8,this['waveFillBg']['fillColor']=THEME['bgGlass'],this[_0x121ae5(0xba)]['ellipseWidth']=0x3,this['waveFillBg']['x']=_0x45d19e+0x8,this['waveFillBg']['y']=_0x418772+0xa,_0x3a18dc['addChild'](this['waveFillBg']);var _0x53b0b4=(this['wave']-0x1)%0xa+0x1;this['waveFill']=new eui['Rect'](),this['waveFill']['width']=_0x53b0b4/0xa*(_0x5aec14-0x60),this['waveFill']['height']=0x8,this['waveFill']['fillColor']=THEME['accent'],this[_0x121ae5(0x1b4)]['ellipseWidth']=0x3,this['waveFill']['x']=_0x45d19e+0x8,this['waveFill']['y']=_0x418772+0xa,_0x3a18dc['addChild'](this['waveFill']),this['_waveFillMaxWidth']=_0x5aec14-0x60;var _0x3413b7=0x78,_0x3128c8=new eui['Rect']();_0x3128c8['width']=_0x3413b7,_0x3128c8[_0x121ae5(0x1da)]=0xc,_0x3128c8['ellipseWidth']=0x6,_0x3128c8[_0x121ae5(0x175)]=0x6,_0x3128c8['fillColor']=THEME['bgGlass'],_0x3128c8['x']=_0x45d19e+0x8,_0x3128c8['y']=_0x418772+0x1a,_0x3a18dc[_0x121ae5(0xaa)](_0x3128c8),this['energyFill']=new eui[(_0x121ae5(0x1ff))](),this[_0x121ae5(0x1fb)]['width']=this[_0x121ae5(0x13f)]/CONFIG[_0x121ae5(0x17c)]*_0x3413b7,this[_0x121ae5(0x1fb)]['height']=0xc,this['energyFill']['ellipseWidth']=0x6,this['energyFill'][_0x121ae5(0x175)]=0x6,this['energyFill']['fillColor']=THEME['sky'],this['energyFill']['x']=_0x45d19e+0x8,this['energyFill']['y']=_0x418772+0x1a,_0x3a18dc['addChild'](this['energyFill']),this[_0x121ae5(0x22b)]=_0x3413b7,this[_0x121ae5(0x1c6)]=new eui['Label'](),this['energyLabel']['text']='⚡'+this['energy']+'/'+CONFIG[_0x121ae5(0x17c)],this[_0x121ae5(0x1c6)]['size']=0xb,this[_0x121ae5(0x1c6)][_0x121ae5(0xd2)]=THEME['sky'],this['energyLabel']['bold']=!![],this[_0x121ae5(0x1c6)]['x']=_0x45d19e+_0x3413b7+0xe,this['energyLabel']['y']=_0x418772+0x1a,_0x3a18dc[_0x121ae5(0xaa)](this['energyLabel']);var _0x33d84c=new eui[(_0x121ae5(0x217))]();_0x33d84c['width']=0x4e,_0x33d84c[_0x121ae5(0x1da)]=0x1e,_0x33d84c['x']=_0x58486c-0x58,_0x33d84c['y']=_0x418772+0x7,_0x33d84c[_0x121ae5(0x18a)]=!![],this['autoBtnBg']=new eui['Rect'](),this['autoBtnBg']['width']=0x4e,this['autoBtnBg'][_0x121ae5(0x1da)]=0x1e,this['autoBtnBg']['ellipseWidth']=0xf,this['autoBtnBg'][_0x121ae5(0x175)]=0xf,this[_0x121ae5(0x8e)]['fillColor']=this['autoAttackEnabled']?0x6b4a18:0x241746,this['autoBtnBg']['strokeColor']=THEME['strokeGold'],this['autoBtnBg']['strokeWeight']=1.2,this[_0x121ae5(0x8e)]['strokeAlpha']=0.78,_0x33d84c['addChild'](this['autoBtnBg']);var _0x5451b5=new eui['Rect']();_0x5451b5['width']=0x3c,_0x5451b5['height']=0x2,_0x5451b5['x']=0x9,_0x5451b5['y']=0x4,_0x5451b5['fillColor']=0xffffff,_0x5451b5[_0x121ae5(0x1ac)]=0.18,_0x33d84c['addChild'](_0x5451b5),this['autoBtnLabel']=new eui['Label'](),this['autoBtnLabel']['text']=this[_0x121ae5(0x18b)]?_0x121ae5(0xab):'↻\x20手动',this[_0x121ae5(0x114)][_0x121ae5(0xa4)]=0xc,this[_0x121ae5(0x114)][_0x121ae5(0x222)]=!![],this['autoBtnLabel']['textColor']=this['autoAttackEnabled']?THEME[_0x121ae5(0x186)]:THEME['textDim'],this['autoBtnLabel']['width']=0x4e,this['autoBtnLabel']['height']=0x1e,this['autoBtnLabel'][_0x121ae5(0x107)]='center',this['autoBtnLabel']['verticalAlign']=_0x121ae5(0x136),this['autoBtnLabel']['x']=0x0,this['autoBtnLabel']['y']=0x0,_0x33d84c['addChild'](this['autoBtnLabel']),_0x33d84c[_0x121ae5(0x19d)](egret['TouchEvent']['TOUCH_TAP'],this[_0x121ae5(0x1a6)],this),_0x3a18dc['addChild'](_0x33d84c),this['buffLabel']=new eui['Label'](),this['buffLabel'][_0x121ae5(0xa8)]=this[_0x121ae5(0x1e5)](),this[_0x121ae5(0x189)]['size']=0xb,this[_0x121ae5(0x189)]['textColor']=0xfbbf24,this['buffLabel'][_0x121ae5(0x1cc)]=0x5e,this['buffLabel']['y']=_0x418772+0x1a,_0x3a18dc['addChild'](this['buffLabel']),this['damageLayer']=new eui['Group'](),this['damageLayer']['width']=_0x58486c,this['damageLayer']['height']=_0x30b95f,this['damageLayer']['touchEnabled']=![],this['damageLayer'][_0x121ae5(0x178)]=![],this['battleGroup']['addChild'](this['damageLayer']),this['battleGroup'][_0x121ae5(0x19d)](egret['TouchEvent']['TOUCH_TAP'],this['onBattleTouch'],this),this[_0x121ae5(0x171)][_0x121ae5(0xaa)](this[_0x121ae5(0x1e7)]),this['main'][_0x121ae5(0xaa)](_0x3a18dc);var _0x47a1a4=new eui[(_0x121ae5(0x217))]();_0x47a1a4['width']=_0x58486c,_0x47a1a4['height']=_0x47aa61,_0x47a1a4['x']=0x0,_0x47a1a4['y']=_0x16b84f+_0x30b95f+_0x59a548;var _0x50ca84=new eui['HorizontalLayout']();_0x50ca84['horizontalAlign']='center',_0x50ca84['verticalAlign']=_0x121ae5(0x136),_0x50ca84[_0x121ae5(0x225)]=0x2,_0x50ca84['paddingLeft']=0x4,_0x50ca84[_0x121ae5(0x122)]=0x4,_0x50ca84[_0x121ae5(0xe0)]=Math['floor']((_0x47aa61-0x30)/0x2),_0x50ca84[_0x121ae5(0x1f0)]=Math['floor']((_0x47aa61-0x30)/0x2),_0x47a1a4[_0x121ae5(0xea)]=_0x50ca84;var _0x90eaeb=new eui[(_0x121ae5(0x1ff))]();_0x90eaeb['percentWidth']=0x64,_0x90eaeb['percentHeight']=0x64,_0x90eaeb['fillColor']=0x50918,_0x90eaeb['fillAlpha']=0x1,_0x90eaeb['includeInLayout']=![],_0x47a1a4[_0x121ae5(0x21a)](_0x90eaeb,0x0);var _0x3a3ac6=new eui[(_0x121ae5(0x1ff))]();_0x3a3ac6['percentWidth']=0x64,_0x3a3ac6[_0x121ae5(0x1da)]=0x2,_0x3a3ac6['top']=0x0,_0x3a3ac6['fillColor']=0xc1b34,_0x3a3ac6['fillAlpha']=0x1,_0x3a3ac6['includeInLayout']=![],_0x47a1a4['addChild'](_0x3a3ac6);var _0x2833f0=new eui['Image']();_0x2833f0['source']='assets/ui/battle-skin-skills-clean.png',_0x2833f0[_0x121ae5(0x99)]=_0x58486c,_0x2833f0[_0x121ae5(0x1da)]=_0x47aa61,_0x2833f0['x']=0x0,_0x2833f0['y']=0x0,_0x2833f0['includeInLayout']=![],_0x47a1a4[_0x121ae5(0xaa)](_0x2833f0);var _0x51451b=new eui['Rect']();_0x51451b['width']=_0x58486c-0xe,_0x51451b[_0x121ae5(0x1da)]=_0x47aa61-0x8,_0x51451b['x']=0x7,_0x51451b['y']=0x4,_0x51451b[_0x121ae5(0x165)]=0xd,_0x51451b[_0x121ae5(0x175)]=0xd,_0x51451b['fillColor']=0x60316,_0x51451b['fillAlpha']=0x0,_0x51451b['strokeColor']=THEME['strokeGold'],_0x51451b['strokeWeight']=0.8,_0x51451b['strokeAlpha']=0x0,_0x51451b['includeInLayout']=![],_0x47a1a4['addChild'](_0x51451b);var _0x515a00=new eui['Rect']();_0x515a00[_0x121ae5(0xcc)]=0x64,_0x515a00['height']=0x1,_0x515a00['top']=0x0,_0x515a00['fillColor']=THEME['strokeGold'],_0x515a00['fillAlpha']=0x0,_0x515a00[_0x121ae5(0x164)]=![],_0x47a1a4['addChild'](_0x515a00);for(var _0x5e2705=0x0;_0x5e2705<SKILLS['length'];_0x5e2705++){var _0x2df189=this['createSkillBtn'](_0x5e2705);this['skillBtns']['push'](_0x2df189),_0x47a1a4['addChild'](_0x2df189);}this['main'][_0x121ae5(0xaa)](_0x47a1a4);var _0x5abfc4=new eui[(_0x121ae5(0x217))]();_0x5abfc4['width']=_0x58486c,_0x5abfc4['height']=_0x2ace20,_0x5abfc4['x']=0x0,_0x5abfc4['y']=_0x16b84f+_0x30b95f+_0x59a548+_0x47aa61,_0x5abfc4['layout']=new eui['HorizontalLayout'](),_0x5abfc4[_0x121ae5(0xea)][_0x121ae5(0xf9)]='justify',_0x5abfc4['layout'][_0x121ae5(0x1b2)]=_0x121ae5(0x136),_0x5abfc4['paddingLeft']=0x8,_0x5abfc4[_0x121ae5(0x122)]=0x8;var _0x5ceb3d=new eui['Rect']();_0x5ceb3d['percentWidth']=0x64,_0x5ceb3d['percentHeight']=0x64,_0x5ceb3d[_0x121ae5(0xb8)]=0x6101e,_0x5ceb3d['fillAlpha']=0x1,_0x5ceb3d[_0x121ae5(0x164)]=![],_0x5abfc4['addChildAt'](_0x5ceb3d,0x0);var _0x1a9a88=new eui[(_0x121ae5(0x18f))]();_0x1a9a88[_0x121ae5(0x111)]='assets/ui/battle-skin-nav-clean.png',_0x1a9a88[_0x121ae5(0x99)]=_0x58486c,_0x1a9a88[_0x121ae5(0x1da)]=_0x2ace20,_0x1a9a88['x']=0x0,_0x1a9a88['y']=0x0,_0x1a9a88[_0x121ae5(0x164)]=![],_0x5abfc4['addChild'](_0x1a9a88);var _0x2a39b0=new eui['Rect']();_0x2a39b0[_0x121ae5(0x99)]=_0x58486c-0xc,_0x2a39b0['height']=_0x2ace20-0x8,_0x2a39b0['x']=0x6,_0x2a39b0['y']=0x4,_0x2a39b0[_0x121ae5(0x165)]=0xc,_0x2a39b0['ellipseHeight']=0xc,_0x2a39b0[_0x121ae5(0xb8)]=0x1a1035,_0x2a39b0['fillAlpha']=0x0,_0x2a39b0['strokeColor']=THEME[_0x121ae5(0x109)],_0x2a39b0[_0x121ae5(0x126)]=0.8,_0x2a39b0[_0x121ae5(0x95)]=0x0,_0x2a39b0[_0x121ae5(0x164)]=![],_0x5abfc4[_0x121ae5(0xaa)](_0x2a39b0);var _0x3e0be0=new eui['Rect']();_0x3e0be0[_0x121ae5(0xcc)]=0x64,_0x3e0be0['height']=0x1,_0x3e0be0['top']=0x0,_0x3e0be0[_0x121ae5(0xb8)]=THEME['strokeGold'],_0x3e0be0[_0x121ae5(0x1ac)]=0x0,_0x3e0be0['includeInLayout']=![],_0x5abfc4['addChild'](_0x3e0be0);var _0x23eeb9=[{'text':'升级','icon':'⬆️','fn':function(){_0x47808c['openUpgrade']();}},{'text':'图签','icon':'📖','fn':function(){var _0x202548=_0x121ae5;_0x47808c[_0x202548(0x108)]();}},{'text':'转盘','icon':'🎰','fn':function(){_0x47808c['openSpinWheel']();}},{'text':'超市','icon':'🛒','fn':function(){_0x47808c['openSupermarket']();}},{'text':'排行','icon':'🏆','fn':function(){var _0x11ab6c=_0x121ae5;_0x47808c[_0x11ab6c(0x20f)]();}},{'text':'商城','icon':'💎','fn':function(){var _0x5c5eb4=_0x121ae5;_0x47808c[_0x5c5eb4(0xa5)]();}}];for(var _0x5e2705=0x0;_0x5e2705<_0x23eeb9['length'];_0x5e2705++){var _0x39a815=this['createNavBtn'](_0x23eeb9[_0x5e2705]['text'],_0x23eeb9[_0x5e2705]['icon'],_0x23eeb9[_0x5e2705]['fn']);_0x5abfc4['addChild'](_0x39a815);}this[_0x121ae5(0x171)][_0x121ae5(0xaa)](_0x5abfc4),_0x335796['x']=0x0,_0x335796['y']=0x0,this['battleGroup']['x']=0x0,this['battleGroup']['y']=_0x16b84f,_0x3a18dc['x']=0x0,_0x3a18dc['y']=_0x16b84f+_0x30b95f,_0x47a1a4['x']=0x0,_0x47a1a4['y']=_0x16b84f+_0x30b95f+_0x59a548,_0x5abfc4['x']=0x0,_0x5abfc4['y']=_0x16b84f+_0x30b95f+_0x59a548+_0x47aa61,this['main']['setChildIndex'](_0x335796,this[_0x121ae5(0x171)]['numChildren']-0x1);},Game[a0_0x592342(0x129)]['createSideBtn']=function(_0x542572,_0x44db7e,_0x2c8da1,_0x428b2f){var _0x1748be=a0_0x592342,_0xa58a4a=new eui['Group']();_0xa58a4a['width']=0x1a,_0xa58a4a['height']=0x1a,_0xa58a4a['x']=_0x44db7e,_0xa58a4a['y']=_0x2c8da1;var _0x45e03d=new eui[(_0x1748be(0x1ff))]();_0x45e03d['width']=0x1a,_0x45e03d[_0x1748be(0x1da)]=0x1a,_0x45e03d['ellipseWidth']=0x8,_0x45e03d[_0x1748be(0x175)]=0x8,_0x45e03d[_0x1748be(0xb8)]=THEME['bgLite'],_0x45e03d['fillAlpha']=0.85,_0x45e03d['strokeColor']=THEME['strokeGold'],_0x45e03d[_0x1748be(0x126)]=0x1,_0x45e03d['strokeAlpha']=0.7,_0x45e03d['alpha']=0x0,_0xa58a4a['addChild'](_0x45e03d);var _0xffd37c=new eui['Label']();return _0xffd37c['text']=_0x542572,_0xffd37c['size']=0xa,_0xffd37c[_0x1748be(0xd2)]=THEME['accentSoft'],_0xffd37c[_0x1748be(0x222)]=!![],_0xffd37c['horizontalCenter']=0x0,_0xffd37c['verticalCenter']=0x0,_0xffd37c['alpha']=0x0,_0xa58a4a['addChild'](_0xffd37c),_0xa58a4a['touchEnabled']=!![],_0xa58a4a['addEventListener'](egret[_0x1748be(0xed)][_0x1748be(0x224)],_0x428b2f,this),_0xa58a4a;},Game['prototype']['createNavBtn']=function(_0x1d7e21,_0x4d7a43,_0x3d4065){var _0x4d52e8=a0_0x592342,_0x318852=new eui['Group']();_0x318852[_0x4d52e8(0x99)]=0x34,_0x318852[_0x4d52e8(0x1da)]=0x2a,_0x318852['touchEnabled']=!![],_0x318852[_0x4d52e8(0x19d)](egret[_0x4d52e8(0xed)]['TOUCH_TAP'],_0x3d4065,this);var _0x4b1676=new eui['Rect']();_0x4b1676['width']=0x30,_0x4b1676['height']=0x26,_0x4b1676['ellipseWidth']=0xa,_0x4b1676[_0x4d52e8(0x175)]=0xa,_0x4b1676['fillColor']=0x241746,_0x4b1676['fillAlpha']=0.92,_0x4b1676['strokeColor']=THEME['strokeGold'],_0x4b1676[_0x4d52e8(0x126)]=0.7,_0x4b1676[_0x4d52e8(0x95)]=0.38,_0x4b1676['horizontalCenter']=0x0,_0x4b1676['verticalCenter']=0x0,_0x4b1676[_0x4d52e8(0xf0)]=0x0,_0x318852[_0x4d52e8(0xaa)](_0x4b1676);var _0x21c731=new eui[(_0x4d52e8(0x1ff))]();_0x21c731[_0x4d52e8(0x99)]=0x24,_0x21c731['height']=0x1,_0x21c731['fillColor']=0xffffff,_0x21c731['fillAlpha']=0.16,_0x21c731[_0x4d52e8(0xe9)]=0x0,_0x21c731['top']=0x4,_0x21c731[_0x4d52e8(0xf0)]=0x0,_0x318852[_0x4d52e8(0xaa)](_0x21c731);var _0xb9ce9a=new eui['Label']();_0xb9ce9a['text']=_0x4d7a43,_0xb9ce9a['size']=0x11,_0xb9ce9a['horizontalCenter']=0x0,_0xb9ce9a[_0x4d52e8(0x1bd)]=0x5,_0xb9ce9a[_0x4d52e8(0xf0)]=0x0,_0x318852['addChild'](_0xb9ce9a);var _0xa2edf4=new eui[(_0x4d52e8(0x218))]();return _0xa2edf4[_0x4d52e8(0xa8)]=_0x1d7e21,_0xa2edf4['size']=0x9,_0xa2edf4[_0x4d52e8(0xd2)]=THEME[_0x4d52e8(0x1aa)],_0xa2edf4[_0x4d52e8(0x222)]=!![],_0xa2edf4['horizontalCenter']=0x0,_0xa2edf4[_0x4d52e8(0x1bd)]=0x1b,_0xa2edf4['alpha']=0x0,_0x318852[_0x4d52e8(0xaa)](_0xa2edf4),_0x318852;},Game['prototype']['createSkillBtn']=function(_0x1b8d33){var _0x3e856a=a0_0x592342,_0x2c6a79=SKILLS[_0x1b8d33],_0x37e880=this['mainLevel']>=_0x2c6a79['lv'],_0x37558b=new eui['Group']();_0x37558b['width']=0x2a,_0x37558b[_0x3e856a(0x1da)]=0x30;var _0xdab094=new eui['Rect']();_0xdab094['width']=0x28,_0xdab094['height']=0x2e,_0xdab094['x']=0x1,_0xdab094['y']=0x1,_0xdab094[_0x3e856a(0x165)]=0xc,_0xdab094[_0x3e856a(0x175)]=0xc,_0xdab094['fillColor']=_0x37e880?0x1a1238:0x100c22,_0xdab094['fillAlpha']=0.92,_0xdab094['strokeColor']=_0x37e880?THEME[_0x3e856a(0x109)]:0x4a4566,_0xdab094['strokeWeight']=0.8,_0xdab094[_0x3e856a(0x95)]=_0x37e880?0.45:0.35,_0xdab094['name']=_0x3e856a(0xe3),_0xdab094[_0x3e856a(0xf0)]=0x0,_0x37558b['addChild'](_0xdab094);var _0xf34c23=new eui['Rect']();_0xf34c23[_0x3e856a(0x99)]=0x24,_0xf34c23['height']=0x24,_0xf34c23['ellipseWidth']=0x15,_0xf34c23[_0x3e856a(0x175)]=0x15,_0xf34c23[_0x3e856a(0xb8)]=_0x37e880?_0x2c6a79['color']:0x3a355a,_0xf34c23['fillAlpha']=0.35,_0xf34c23['x']=0x3,_0xf34c23['y']=0x2,_0xf34c23['name']='halo',_0xf34c23[_0x3e856a(0xf0)]=0x0,_0x37558b[_0x3e856a(0xaa)](_0xf34c23);var _0x556c18=new eui['Rect']();_0x556c18['width']=0x1e,_0x556c18['height']=0x1e,_0x556c18[_0x3e856a(0x165)]=0xf,_0x556c18[_0x3e856a(0x175)]=0xf,_0x556c18[_0x3e856a(0xb8)]=_0x37e880?_0x2c6a79[_0x3e856a(0x21e)]:0x4a4566,_0x556c18['x']=0x6,_0x556c18['y']=0x5,_0x556c18[_0x3e856a(0x1f6)]='bg',_0x556c18[_0x3e856a(0xf0)]=0x0,_0x37558b['addChild'](_0x556c18);var _0x21b2c9=new eui['Rect']();_0x21b2c9['width']=0x1e,_0x21b2c9[_0x3e856a(0x1da)]=0x1e,_0x21b2c9['ellipseWidth']=0xf,_0x21b2c9['ellipseHeight']=0xf,_0x21b2c9['fillAlpha']=0x0,_0x21b2c9[_0x3e856a(0x166)]=_0x37e880?THEME['accentSoft']:0x6a628f,_0x21b2c9['strokeWeight']=1.5,_0x21b2c9['x']=0x6,_0x21b2c9['y']=0x5,_0x21b2c9['name']='border',_0x21b2c9[_0x3e856a(0xf0)]=0x0,_0x37558b[_0x3e856a(0xaa)](_0x21b2c9);var _0x3bd84e=new egret['Shape']();this['drawSkillIcon'](_0x3bd84e['graphics'],_0x2c6a79['icon'],_0x37e880),_0x3bd84e['x']=0x15,_0x3bd84e['y']=0x14,_0x3bd84e['name']='iconShape',_0x3bd84e[_0x3e856a(0xf0)]=0x0,_0x37558b['addChild'](_0x3bd84e);var _0x1b8a86=new eui['Label']();_0x1b8a86['text']='',_0x1b8a86['size']=0xb,_0x1b8a86['textColor']=THEME['textMain'],_0x1b8a86[_0x3e856a(0x222)]=!![],_0x1b8a86[_0x3e856a(0xe9)]=0x0,_0x1b8a86[_0x3e856a(0x1bd)]=0xc,_0x1b8a86['name']=_0x3e856a(0x18c),_0x1b8a86[_0x3e856a(0xc5)]=![],_0x37558b['addChild'](_0x1b8a86);var _0x273ca5=new eui[(_0x3e856a(0x218))]();_0x273ca5['text']=_0x37e880?_0x2c6a79['name']:'Lv'+_0x2c6a79['lv'],_0x273ca5['size']=0x9,_0x273ca5[_0x3e856a(0xd2)]=_0x37e880?THEME['textMain']:THEME['textMute'],_0x273ca5[_0x3e856a(0x222)]=!![],_0x273ca5[_0x3e856a(0x99)]=0x2a,_0x273ca5['height']=0xc,_0x273ca5[_0x3e856a(0x107)]=_0x3e856a(0x105),_0x273ca5['x']=0x0,_0x273ca5['y']=0x23,_0x273ca5['name']='lb',_0x273ca5[_0x3e856a(0xf0)]=0x0,_0x37558b['addChild'](_0x273ca5),_0x37558b['touchEnabled']=!![];var _0x2d301c=this;return _0x37558b['addEventListener'](egret['TouchEvent']['TOUCH_TAP'],function(){_0x2d301c['useSkill'](_0x1b8d33);},this),_0x37558b;},Game['prototype']['drawSkillIcon']=function(_0x55fd4f,_0x51dea5,_0x87b544){var _0x222a18=a0_0x592342,_0x2a85bf=_0x87b544?THEME[_0x222a18(0x234)]:0x8881b0,_0x1264f4=_0x87b544?THEME[_0x222a18(0x234)]:0xb8b0db;switch(_0x51dea5){case _0x222a18(0x1a5):_0x55fd4f[_0x222a18(0x124)](2.5,_0x2a85bf),_0x55fd4f[_0x222a18(0x160)](-0x8,0x6),_0x55fd4f[_0x222a18(0x11e)](0x8,-0x6),_0x55fd4f[_0x222a18(0x124)](1.5,_0x2a85bf,0.6),_0x55fd4f[_0x222a18(0x160)](0x4,-0x8),_0x55fd4f[_0x222a18(0x11e)](0x8,-0x6),_0x55fd4f[_0x222a18(0x11e)](0x6,-0x2);break;case'smash':_0x55fd4f[_0x222a18(0x124)](1.5,_0x2a85bf),_0x55fd4f['beginFill'](_0x1264f4),_0x55fd4f['drawRoundRect'](-0x8,-0x8,0x10,0x6,0x2,0x2),_0x55fd4f[_0x222a18(0x1eb)](-0x1,-0x2,0x2,0xa),_0x55fd4f['endFill']();break;case'triple':_0x55fd4f['lineStyle'](0x2,_0x2a85bf),_0x55fd4f['moveTo'](-0x9,0x6),_0x55fd4f['lineTo'](-0x4,-0x4),_0x55fd4f['moveTo'](-0x3,0x7),_0x55fd4f[_0x222a18(0x11e)](0x2,-0x3),_0x55fd4f['moveTo'](0x3,0x8),_0x55fd4f['lineTo'](0x8,-0x2);break;case'crit':_0x55fd4f['lineStyle'](1.5,_0x2a85bf),_0x55fd4f['beginFill'](_0x1264f4),_0x55fd4f[_0x222a18(0x160)](0x0,-0x9),_0x55fd4f[_0x222a18(0x11e)](0x8,0x0),_0x55fd4f['lineTo'](0x0,0x9),_0x55fd4f['lineTo'](-0x8,0x0),_0x55fd4f['endFill'](),_0x55fd4f[_0x222a18(0x124)](0x1,_0x2a85bf,0.7),_0x55fd4f['moveTo'](-0x8,0x0),_0x55fd4f['lineTo'](0x8,0x0),_0x55fd4f[_0x222a18(0x160)](0x0,-0x9),_0x55fd4f['lineTo'](0x0,0x9);break;case'whirl':_0x55fd4f['lineStyle'](0x2,_0x2a85bf),_0x55fd4f[_0x222a18(0x160)](0x8,0x0),_0x55fd4f['curveTo'](0x6,0x6,0x0,0x8),_0x55fd4f[_0x222a18(0x160)](0x0,-0x8),_0x55fd4f['curveTo'](0x6,-0x6,0x8,0x0),_0x55fd4f['moveTo'](-0x8,0x0),_0x55fd4f[_0x222a18(0xd7)](-0x6,-0x6,0x0,-0x8),_0x55fd4f['moveTo'](0x0,0x8),_0x55fd4f['curveTo'](-0x6,0x6,-0x8,0x0);break;case _0x222a18(0x8c):_0x55fd4f['lineStyle'](1.5,_0x2a85bf),_0x55fd4f[_0x222a18(0x199)](_0x1264f4),_0x55fd4f[_0x222a18(0x160)](-0x2,-0x9),_0x55fd4f['lineTo'](0x4,-0x2),_0x55fd4f['lineTo'](0x0,-0x1),_0x55fd4f['lineTo'](0x3,0x9),_0x55fd4f[_0x222a18(0x11e)](-0x4,0x2),_0x55fd4f['lineTo'](0x0,0x0),_0x55fd4f[_0x222a18(0x11e)](-0x4,-0x1),_0x55fd4f[_0x222a18(0x182)]();break;case'meteor':_0x55fd4f[_0x222a18(0x124)](1.5,_0x2a85bf),_0x55fd4f['beginFill'](_0x1264f4),this['drawStar'](_0x55fd4f,0x1,0x1,0x8,3.5,0x5),_0x55fd4f[_0x222a18(0x182)](),_0x55fd4f['lineStyle'](0x2,_0x2a85bf,0.7),_0x55fd4f[_0x222a18(0x160)](-0x8,-0x8),_0x55fd4f['lineTo'](-0x3,-0x3),_0x55fd4f['lineStyle'](1.2,_0x2a85bf,0.5),_0x55fd4f['moveTo'](-0x5,-0x8),_0x55fd4f['lineTo'](-0x1,-0x4),_0x55fd4f[_0x222a18(0x160)](-0x8,-0x5),_0x55fd4f[_0x222a18(0x11e)](-0x4,-0x1);break;default:_0x55fd4f[_0x222a18(0x199)](_0x1264f4),_0x55fd4f['drawCircle'](0x0,0x0,0x5),_0x55fd4f['endFill']();}},Game['prototype'][a0_0x592342(0x1e5)]=function(){var _0x5b600c=a0_0x592342,_0x2d81b0=[];for(var _0x54ae55=0x0;_0x54ae55<FOODS['length'];_0x54ae55++){var _0x98e094=this[_0x5b600c(0x1a9)][FOODS[_0x54ae55]['name']]||0x0;if(_0x98e094>0x0)_0x2d81b0['push'](FOODS[_0x54ae55]['icon']+_0x98e094);}return _0x2d81b0['join']('\x20');},Game[a0_0x592342(0x129)][a0_0x592342(0x1a6)]=function(_0x3a21d0){var _0x281ac2=a0_0x592342;if(_0x3a21d0&&_0x3a21d0[_0x281ac2(0x15e)])_0x3a21d0[_0x281ac2(0x15e)]();this['autoAttackEnabled']=!this['autoAttackEnabled'],this['updateAutoBtn'](),this['saveGame'](),this['showToast'](this['autoAttackEnabled']?_0x281ac2(0x1a4):'↻\x20自动战斗已关闭');},Game[a0_0x592342(0x129)]['updateAutoBtn']=function(){var _0x26af4b=a0_0x592342;this['autoBtnBg']&&(this[_0x26af4b(0x8e)]['fillColor']=this['autoAttackEnabled']?0x6b4a18:0x241746,this[_0x26af4b(0x8e)]['strokeAlpha']=this[_0x26af4b(0x18b)]?0.82:0.48),this[_0x26af4b(0x114)]&&(this[_0x26af4b(0x114)]['text']=this[_0x26af4b(0x18b)]?_0x26af4b(0xab):'↻\x20手动',this['autoBtnLabel']['textColor']=this[_0x26af4b(0x18b)]?THEME['accentSoft']:THEME[_0x26af4b(0x214)]);},Game['prototype'][a0_0x592342(0x8b)]=function(){var _0x43fb3c=a0_0x592342,_0x3757f5=this;document['addEventListener']('keydown',function(_0x37bfa8){_0x37bfa8['code']==='Space'&&(_0x37bfa8['preventDefault'](),_0x3757f5['battleAreaClick']());}),window[_0x43fb3c(0x19d)]('beforeunload',function(){_0x3757f5['saveGame']();});},Game['prototype'][a0_0x592342(0x10c)]=function(_0x49761e){var _0x5a08f8=a0_0x592342;if(this['_justHitMonster']){this[_0x5a08f8(0x14e)]=![];return;}this[_0x5a08f8(0x137)]();},Game[a0_0x592342(0x129)]['battleAreaClick']=function(){var _0xda7d6c=a0_0x592342;if(this[_0xda7d6c(0xfd)]['length']>0x0&&this['energy']>=0x1){this['sfxClick'](),this['energy']--,this[_0xda7d6c(0x1f1)][_0xda7d6c(0x17f)]++,this[_0xda7d6c(0xfa)]('click');var _0x2ee603=this['monsters'][0x0],_0x30dff9=0x0;for(var _0x14a3d9=0x1;_0x14a3d9<this['monsters']['length'];_0x14a3d9++){this[_0xda7d6c(0xfd)][_0x14a3d9]['hp']>_0x2ee603['hp']&&(_0x2ee603=this[_0xda7d6c(0xfd)][_0x14a3d9],_0x30dff9=_0x14a3d9);}this['heroAttackAnim'](_0x30dff9),this[_0xda7d6c(0x1dc)](_0x2ee603,CONFIG['mainDmg'](this['mainLevel'],this['rebirthGems']),_0x30dff9);}},Game[a0_0x592342(0x129)]['onMonsterTouch']=function(_0xe9db29){var _0x4e740d=a0_0x592342;this['_justHitMonster']=!![];var _0x360648=this[_0x4e740d(0xfd)][_0xe9db29];if(!_0x360648||_0x360648['hp']<=0x0||this[_0x4e740d(0x13f)]<0x1)return;this[_0x4e740d(0x21c)](),this[_0x4e740d(0x13f)]--,this[_0x4e740d(0x1f1)][_0x4e740d(0x17f)]++,this['checkDailyTasks']('click'),this['heroAttackAnim'](_0xe9db29),this[_0x4e740d(0x1dc)](_0x360648,CONFIG['mainDmg'](this['mainLevel'],this[_0x4e740d(0x12f)]),_0xe9db29);},Game['prototype']['doDamage']=function(_0x5b9436,_0x44fe60,_0x3733a7,_0x265a0d){var _0xa3b054=a0_0x592342;if(_0x265a0d===undefined)_0x265a0d=![];var _0x32fbfe=this['getBuffs']();_0x44fe60=Math['floor'](_0x44fe60*_0x32fbfe[_0xa3b054(0x149)]);!_0x265a0d&&Math['random']()<_0x32fbfe[_0xa3b054(0x212)]&&(_0x44fe60*=0x2,_0x265a0d=!![]);_0x5b9436['hp']-=_0x44fe60,this['showDamageText'](_0x44fe60,_0x265a0d,_0x3733a7);if(this['monsterViews'][_0x3733a7]){var _0x15f5cf=this[_0xa3b054(0x1e0)][_0x3733a7];egret['Tween'][_0xa3b054(0x22d)](_0x15f5cf)['to']({'alpha':0.3},0x32)['to']({'alpha':0x1},0x50);var _0x39846b=_0x15f5cf['x'];egret[_0xa3b054(0xec)][_0xa3b054(0x22d)](_0x15f5cf,{'override':![]})['to']({'x':_0x39846b+0x3},0x1e)['to']({'x':_0x39846b-0x3},0x1e)['to']({'x':_0x39846b},0x1e);}if(_0x5b9436['hp']<=0x0)this[_0xa3b054(0x1f8)](_0x5b9436,_0x3733a7);this[_0xa3b054(0x19f)]();},Game[a0_0x592342(0x129)]['showDamageText']=function(_0x337586,_0xc62524,_0x1db283){var _0x41b35c=a0_0x592342,_0x1ff9e5=new egret['TextField']();_0x1ff9e5['text']='-'+this[_0x41b35c(0x17d)](_0x337586)+(_0xc62524?'!':''),_0x1ff9e5['size']=_0xc62524?0x1a:0x14,_0x1ff9e5[_0x41b35c(0xd2)]=_0xc62524?THEME['accent']:THEME['pink'],_0x1ff9e5['bold']=!![];var _0x11294f=this[_0x41b35c(0xfd)][_0x41b35c(0x123)]||0x1,_0x1a2cbe=this['_centerX']||0x64,_0x52dced=this['_centerW']||0xaf,_0x572c26=_0x52dced/_0x11294f,_0x1b62b2=_0x1db283>=0x0?_0x1db283:0x0;_0x1ff9e5['x']=_0x1a2cbe+_0x572c26*_0x1b62b2+_0x572c26/0x2-0xf+(Math['random']()*0x10-0x8),_0x1ff9e5['y']=this[_0x41b35c(0x1ed)]+Math[_0x41b35c(0x1d7)]()*0x14,this['damageLayer']['addChild'](_0x1ff9e5),egret['Tween']['get'](_0x1ff9e5)['to']({'y':_0x1ff9e5['y']-0x32,'alpha':0x0},0x2bc)['call'](function(){var _0x26edc0=_0x41b35c;if(_0x1ff9e5['parent'])_0x1ff9e5['parent'][_0x26edc0(0xa1)](_0x1ff9e5);});},Game[a0_0x592342(0x129)][a0_0x592342(0x1f8)]=function(_0x3fff2c,_0x4c9183){var _0xfa2e31=a0_0x592342;if(_0x3fff2c['hp']>0x0)return;var _0x46bcd4=this[_0xfa2e31(0xfd)]['indexOf'](_0x3fff2c);if(_0x46bcd4===-0x1)return;var _0x335503=CONFIG[_0xfa2e31(0x10a)](this[_0xfa2e31(0x185)],_0x3fff2c['isBoss']);this[_0xfa2e31(0x19b)]+=_0x335503,this['energy']=Math['min'](CONFIG['maxEnergy'],this[_0xfa2e31(0x13f)]+(_0x3fff2c['isBoss']?0xa:0x2)),this['killCount']++,this['stats'][_0xfa2e31(0x15d)]++;_0x3fff2c['isBoss']&&(this['stats']['bossKills']++,this[_0xfa2e31(0x9d)]());if(this['gold']>this[_0xfa2e31(0x1f1)][_0xfa2e31(0x1e8)])this[_0xfa2e31(0x1f1)][_0xfa2e31(0x1e8)]=this['gold'];_0x3fff2c['type']&&_0x3fff2c[_0xfa2e31(0x167)]['shape']&&(!this[_0xfa2e31(0x1f7)][_0x3fff2c[_0xfa2e31(0x167)][_0xfa2e31(0xcb)]]&&(this[_0xfa2e31(0x1f7)][_0x3fff2c['type']['shape']]={'encountered':!![],'kills':0x0},this['showToast'](_0xfa2e31(0x1de)+_0x3fff2c[_0xfa2e31(0x167)][_0xfa2e31(0x1f6)]+'】')),this[_0xfa2e31(0x1f7)][_0x3fff2c[_0xfa2e31(0x167)]['shape']]['kills']++);this[_0xfa2e31(0xfa)](_0xfa2e31(0x229)),this['checkAchievements'](),this['monsters']['splice'](_0x46bcd4,0x1);if(this[_0xfa2e31(0xfd)]['length']===0x0)this[_0xfa2e31(0x15c)]();this['checkLevelUp']();},Game['prototype']['spawnWave']=function(){var _0x494480=a0_0x592342,_0x505c45=this['wave']%0xa===0x0,_0x17e13b;if(_0x505c45)_0x17e13b=0x1;else{if(this[_0x494480(0x185)]<=0x5)_0x17e13b=0x2;else this[_0x494480(0x185)]<=0xf?_0x17e13b=0x3:_0x17e13b=0x4;}var _0x18882e=CONFIG['monsterHp'](this[_0x494480(0x185)]);this[_0x494480(0xfd)]=[];var _0x4d6d44=Math['floor'](this['wave']/0xa-0x1)%BOSS_TYPES['length'],_0x37e6b1=BOSS_TYPES[Math[_0x494480(0x204)](0x0,_0x4d6d44)];for(var _0x2035b3=0x0;_0x2035b3<_0x17e13b;_0x2035b3++){var _0x48a995=_0x505c45?_0x37e6b1:MONSTER_TYPES[Math['floor'](Math[_0x494480(0x1d7)]()*MONSTER_TYPES[_0x494480(0x123)])];this['monsters']['push']({'hp':_0x505c45?_0x18882e*0x5:_0x18882e,'maxHp':_0x505c45?_0x18882e*0x5:_0x18882e,'isBoss':_0x505c45,'type':_0x48a995}),_0x48a995&&_0x48a995['shape']&&!this[_0x494480(0x1f7)][_0x48a995[_0x494480(0xcb)]]&&(this['monsterCodex'][_0x48a995['shape']]={'encountered':!![],'kills':0x0});}this['updateMonsterDisplay'](),this['updateBossBtn'](),this['stopBossTimer'](),_0x505c45?(this[_0x494480(0x10b)]=!![],this['bossTimer']=CONFIG[_0x494480(0x18e)],this[_0x494480(0x14f)](),this[_0x494480(0xd9)](),this['showToast']('💀\x20'+_0x37e6b1[_0x494480(0x1f6)]+'\x20出现！限时'+CONFIG['bossTimeLimit']+'秒！')):this[_0x494480(0x10b)]=![];},Game['prototype']['startBossTimer']=function(){var _0x49c56d=this;this['_bossTimerInterval']=setInterval(function(){var _0x39dca0=a0_0x4a14;_0x49c56d['bossTimer']-=0.1,_0x49c56d['bossTimer']<=0x0&&(_0x49c56d[_0x39dca0(0x20e)]=0x0,_0x49c56d[_0x39dca0(0x1bc)]()),_0x49c56d['updateBossTimerUI']();},0x64);},Game['prototype']['stopBossTimer']=function(){var _0x5890e9=a0_0x592342;this['_bossTimerInterval']&&(clearInterval(this[_0x5890e9(0x15a)]),this['_bossTimerInterval']=null),this[_0x5890e9(0x10b)]=![],this['bossTimer']=0x0,this['updateBossTimerUI']();},Game['prototype']['onBossFail']=function(){var _0xbef28=a0_0x592342;this[_0xbef28(0x1d6)](),this['showToast']('💀\x20BOSS挑战失败！从第1波重新开始');var _0x4bcfdb=Math[_0xbef28(0x1ee)]((this['wave']-0x1)/0xa)*0xa+0x1;this['wave']=_0x4bcfdb;var _0x3812c7=this;setTimeout(function(){var _0x46c513=_0xbef28;_0x3812c7['spawnWave'](),_0x3812c7[_0x46c513(0x19f)]();},0x3e8);},Game['prototype'][a0_0x592342(0x206)]=function(){var _0x3e2f77=a0_0x592342,_0x173e0d=(this['wave']-0x1)%0xa+0x1;if(this['wave']%0xa===0x0){this['showToast']('当前已是BOSS波！');return;}if(_0x173e0d<0x9){this['showToast'](_0x3e2f77(0x1d9)+_0x173e0d+'/9)');return;}this['skipToBoss']();},Game['prototype'][a0_0x592342(0xc2)]=function(){var _0x155f89=a0_0x592342,_0xad73e6=Math['floor']((this[_0x155f89(0x185)]-0x1)/0xa)*0xa;this['wave']=_0xad73e6+0xa,this['stopBossTimer'](),this['showToast']('💀\x20挑战BOSS！'),this['sfxHitBoss'](),this['spawnWave'](),this[_0x155f89(0x19f)](),this[_0x155f89(0xef)]();},Game[a0_0x592342(0x129)][a0_0x592342(0xef)]=function(){var _0x5c5e37=a0_0x592342;if(!this[_0x5c5e37(0xfc)]||!this['_bossBtnText'])return;var _0x408661=(this['wave']-0x1)%0xa+0x1,_0x2f48fd=this[_0x5c5e37(0x185)]%0xa===0x0,_0x1e3551=_0x408661>=0x9&&!_0x2f48fd;if(_0x2f48fd){this['_bossBtnBg']['fillColor']=0xe74c3c,this['_bossBtnText']['text']=_0x5c5e37(0x147),this[_0x5c5e37(0x201)]['textColor']=0xffffff;if(this[_0x5c5e37(0xb5)])this[_0x5c5e37(0xb5)]['alpha']=0x1;}else{if(_0x1e3551){this[_0x5c5e37(0xfc)]['fillColor']=0x9b2335,this['_bossBtnText']['text']='挑战BOSS',this['_bossBtnText'][_0x5c5e37(0xd2)]=0xffffff;if(this[_0x5c5e37(0xb5)])this['_bossBtnGroup'][_0x5c5e37(0xf0)]=0x1;}else{this[_0x5c5e37(0xfc)]['fillColor']=0x444444,this[_0x5c5e37(0x201)][_0x5c5e37(0xa8)]='挑战BOSS',this['_bossBtnText']['textColor']=0x888888;if(this[_0x5c5e37(0xb5)])this['_bossBtnGroup']['alpha']=0.6;}}},Game[a0_0x592342(0x129)]['updateBossTimerUI']=function(){var _0x49e570=a0_0x592342;if(!this['bossTimerBar'])return;if(this['bossActive']&&this[_0x49e570(0x20e)]>0x0){this['bossTimerBar']['visible']=!![];this[_0x49e570(0x179)]&&(this[_0x49e570(0x179)]['visible']=!![],this['bossTimerLabel'][_0x49e570(0xa8)]=this['bossTimer'][_0x49e570(0x237)](0x1)+'s');var _0x412c15=this[_0x49e570(0x20e)]/CONFIG[_0x49e570(0x18e)],_0x199d73=this['_bossBarMaxWidth']||0x118;this['bossTimerBar']['width']=Math['max'](0x0,_0x199d73*_0x412c15);if(_0x412c15>0.5){this[_0x49e570(0x16e)]['fillColor']=0x2ecc71;if(this['bossTimerLabel'])this['bossTimerLabel']['textColor']=0x2ecc71;}else{if(_0x412c15>0.25){this[_0x49e570(0x16e)][_0x49e570(0xb8)]=0xf39c12;if(this['bossTimerLabel'])this['bossTimerLabel']['textColor']=0xf39c12;}else{this['bossTimerBar'][_0x49e570(0xb8)]=0xe74c3c;if(this[_0x49e570(0x179)])this[_0x49e570(0x179)]['textColor']=0xe74c3c;}}}else{this['bossTimerBar'][_0x49e570(0xc5)]=![];if(this[_0x49e570(0x179)])this['bossTimerLabel'][_0x49e570(0xc5)]=![];}},Game[a0_0x592342(0x129)][a0_0x592342(0x15c)]=function(){var _0x27f346=a0_0x592342;this['stopBossTimer'](),this['wave']++,this[_0x27f346(0x228)]++;if(this['wave']>this['maxWaveReached'])this[_0x27f346(0x1a1)]=this['wave'];this[_0x27f346(0xfa)]('wave'),this['checkSupports'](),this['updateBossBtn']();var _0x3ad9fd=this;setTimeout(function(){_0x3ad9fd['spawnWave']();},0x12c);},Game['prototype'][a0_0x592342(0x116)]=function(){var _0x957676=a0_0x592342;if(this['killCount']>=CONFIG[_0x957676(0xa7)](this['mainLevel'])){this['killCount']=0x0,this['mainLevel']++,this['sfxLevelUp'](),this[_0x957676(0xf6)]('⬆️\x20主角升级！Lv.'+this[_0x957676(0x91)]+'\x20伤害:\x20'+this['fmt'](CONFIG['mainDmg'](this[_0x957676(0x91)],this['rebirthGems']))),this[_0x957676(0x1c4)]();for(var _0xb7982e=0x0;_0xb7982e<SKILLS[_0x957676(0x123)];_0xb7982e++){this['mainLevel']>=SKILLS[_0xb7982e]['lv']&&!this['skillUnlocked'][_0xb7982e]&&(this[_0x957676(0xc0)][_0xb7982e]=!![],this[_0x957676(0xa2)](),this['showToast']('🔓【'+SKILLS[_0xb7982e][_0x957676(0x1f6)]+_0x957676(0x104)));}}},Game['prototype']['flashSkillBtn']=function(_0x5afe50){var _0xa6a111=this['skillBtns'][_0x5afe50];if(!_0xa6a111)return;egret['Tween']['get'](_0xa6a111,{'loop':!![]})['to']({'scaleX':1.2,'scaleY':1.2},0xc8)['to']({'scaleX':0x1,'scaleY':0x1},0xc8);var _0x3772b0=this;setTimeout(function(){var _0x4d016b=a0_0x4a14;egret[_0x4d016b(0xec)]['removeTweens'](_0xa6a111),_0xa6a111[_0x4d016b(0x17e)]=0x1,_0xa6a111[_0x4d016b(0x1b8)]=0x1;},0xbb8);},Game[a0_0x592342(0x129)][a0_0x592342(0x90)]=function(){var _0x1eb487=a0_0x592342;for(var _0x3e8173=0x0;_0x3e8173<this['supports'][_0x1eb487(0x123)];_0x3e8173++){var _0x1fea63=this['supports'][_0x3e8173];!_0x1fea63[_0x1eb487(0x1e6)]&&this[_0x1eb487(0x228)]>=_0x1fea63[_0x1eb487(0x185)]&&(_0x1fea63[_0x1eb487(0x1e6)]=!![],this['showToast']('🌟【'+_0x1fea63['name']+'】加入队伍！'));}this['checkAchievements']();},Game['prototype'][a0_0x592342(0x1c9)]=function(){var _0x2ce0b8=a0_0x592342,_0x3ca68b=CONFIG[_0x2ce0b8(0x198)](this['mainLevel']);if(this['gold']<_0x3ca68b){this['showToast']('金币不足！');return;}this[_0x2ce0b8(0x19b)]-=_0x3ca68b,this['mainLevel']++,this[_0x2ce0b8(0x1fd)](),this[_0x2ce0b8(0xf6)]('⬆️\x20主角升级！Lv.'+this['mainLevel']+_0x2ce0b8(0x140)+this['fmt'](CONFIG['mainDmg'](this['mainLevel'],this['rebirthGems']))),this['checkLevelUpSkills'](),this[_0x2ce0b8(0x1c4)](),this['saveGame'](),this['updateUI'](),this['closePanel'](),this['openUpgrade']();},Game['prototype']['upgradeSupport']=function(_0x3835d5){var _0x394740=a0_0x592342,_0x271fac=this['supports'][_0x3835d5],_0x22fba4=CONFIG['supportCost'](_0x271fac['level']);if(this[_0x394740(0x19b)]<_0x22fba4){this[_0x394740(0xf6)](_0x394740(0xad));return;}this['gold']-=_0x22fba4,_0x271fac[_0x394740(0xbd)]++,this[_0x394740(0xf6)]('⬆️\x20'+_0x271fac['name']+'升级！Lv.'+_0x271fac['level']+_0x394740(0x22a)+this['fmt'](_0x271fac['dps']*_0x271fac['level'])),this['saveGame'](),this[_0x394740(0x19f)](),this['closePanel'](),this['openUpgrade']();},Game['prototype']['checkLevelUpSkills']=function(){var _0x3a8eb3=a0_0x592342;for(var _0x547dd7=0x0;_0x547dd7<SKILLS['length'];_0x547dd7++){this[_0x3a8eb3(0x91)]>=SKILLS[_0x547dd7]['lv']&&!this['skillUnlocked'][_0x547dd7]&&(this[_0x3a8eb3(0xc0)][_0x547dd7]=!![],this[_0x3a8eb3(0xa2)](),this['showToast']('🔓【'+SKILLS[_0x547dd7]['name']+'】解锁！'));}this['updateUI']();},Game[a0_0x592342(0x129)]['useSkill']=function(_0x3d617c){var _0x49c80c=a0_0x592342;if(!this[_0x49c80c(0xc0)][_0x3d617c]){this['showToast'](_0x49c80c(0x161));return;}if(this['skillCD'][_0x3d617c]>0x0){this['showToast']('冷却中！');return;}if(this['monsters']['length']===0x0){this['showToast'](_0x49c80c(0x1e3));return;}if(this['energy']<0x5){this['showToast']('能量不足！');return;}var _0x144f8e=SKILLS[_0x3d617c];this['sfxSkill'](),this['energy']-=0x5,this['skillCD'][_0x3d617c]=_0x144f8e['cd'];var _0x34574c=CONFIG[_0x49c80c(0x162)](this[_0x49c80c(0x91)],this['rebirthGems'])*_0x144f8e['dmg'];if(_0x144f8e['hits']===0x0){this['heroAttackAnim'](0x0);var _0x1d36e8=this;this[_0x49c80c(0xfd)][_0x49c80c(0x233)]()[_0x49c80c(0x209)](function(_0x10cd67,_0x39a338){_0x1d36e8['doDamage'](_0x10cd67,_0x34574c,_0x39a338,!![]);});}else for(var _0x26cbfa=0x0;_0x26cbfa<_0x144f8e['hits'];_0x26cbfa++){if(this['monsters']['length']===0x0)break;var _0x16f0cf=Math['floor'](Math['random']()*this['monsters'][_0x49c80c(0x123)]);this[_0x49c80c(0x1db)](_0x16f0cf);var _0xff057=this['monsters'][_0x16f0cf];if(_0xff057)this[_0x49c80c(0x1dc)](_0xff057,_0x34574c,_0x16f0cf,!![]);}},Game[a0_0x592342(0x129)]['updateWaveNumbers']=function(){var _0x2734d1=a0_0x592342;if(!this[_0x2734d1(0x8f)]||!this['_waveNumLbs'])return;if(this[_0x2734d1(0x8f)][_0x2734d1(0x123)]===0x0)return;var _0x688d4f=Math['max'](0x1,this['wave']-0x2);for(var _0x16ce78=0x0;_0x16ce78<this[_0x2734d1(0x8f)]['length'];_0x16ce78++){var _0xbbd67f=_0x688d4f+_0x16ce78,_0x16e262=_0xbbd67f===this['wave'];this[_0x2734d1(0x8f)][_0x16ce78]['fillColor']=_0x16e262?0xe74c3c:0x1a153f,this[_0x2734d1(0xd5)][_0x16ce78]['text']=''+_0xbbd67f;}},Game['prototype']['updateUI']=function(){var _0x4234e3=a0_0x592342;if(this['goldLabel'])this[_0x4234e3(0x20a)]['text']='💰\x20'+this[_0x4234e3(0x17d)](this['gold']);if(this['waveLabel'])this['waveLabel']['text']=this['waveText']();this[_0x4234e3(0x231)]();if(this[_0x4234e3(0x156)])this['levelLabel'][_0x4234e3(0xa8)]='Lv.'+this['mainLevel'];if(this['dpsLabel'])this['dpsLabel']['text']='DPS:\x20'+this['fmt'](this['totalDps']());if(this['energyLabel'])this['energyLabel']['text']='⚡'+this['energy']+'/'+CONFIG['maxEnergy'];if(this[_0x4234e3(0x1fb)]){var _0x8fe382=this[_0x4234e3(0x22b)]||0x64;this['energyFill'][_0x4234e3(0x99)]=Math[_0x4234e3(0x204)](0x0,this['energy']/CONFIG[_0x4234e3(0x17c)]*_0x8fe382);}if(this['waveFill']&&this['waveFillBg']){var _0x121384=(this[_0x4234e3(0x185)]-0x1)%0xa+0x1,_0x1a7da2=this['_waveFillMaxWidth']||this[_0x4234e3(0xba)]['width'];this[_0x4234e3(0x1b4)]['width']=_0x121384/0xa*_0x1a7da2;}if(this['buffLabel'])this[_0x4234e3(0x189)]['text']=this['renderBuffText']();if(this['gemsLabel'])this['gemsLabel'][_0x4234e3(0xa8)]=_0x4234e3(0x102)+this['rebirthGems'];this[_0x4234e3(0x152)]();if(this[_0x4234e3(0x1b5)]&&this['hpLabel']&&this[_0x4234e3(0xfd)][_0x4234e3(0x123)]>0x0){var _0xb8ccfa=0x0,_0xc06ffd=0x0;for(var _0x3833e5=0x0;_0x3833e5<this['monsters'][_0x4234e3(0x123)];_0x3833e5++){_0xb8ccfa+=Math['max'](0x0,this['monsters'][_0x3833e5]['hp']),_0xc06ffd+=this['monsters'][_0x3833e5][_0x4234e3(0x211)];}if(_0xc06ffd>0x0){var _0x16824d=_0xb8ccfa/_0xc06ffd,_0x1ba262=this['_hpMaxWidth']||0x8c;this['hpFill']['width']=Math['floor'](_0x1ba262*_0x16824d),this[_0x4234e3(0xbf)][_0x4234e3(0xa8)]=this['fmt'](_0xb8ccfa)+'\x20/\x20'+this['fmt'](_0xc06ffd);}}this['updateMonsterDisplay'](),this[_0x4234e3(0xd4)]();},Game['prototype']['updateMonsterDisplay']=function(){var _0x4aa290=a0_0x592342;for(var _0x3cf343=0x0;_0x3cf343<this['monsterViews'][_0x4aa290(0x123)];_0x3cf343++){var _0x55b6a2=this[_0x4aa290(0x1e0)][_0x3cf343];if(_0x55b6a2['parent'])_0x55b6a2['parent'][_0x4aa290(0xa1)](_0x55b6a2);}this['monsterViews']=[];var _0x405986=this[_0x4aa290(0xfd)][_0x4aa290(0x123)];if(_0x405986===0x0)return;for(var _0x3cf343=0x0;_0x3cf343<this[_0x4aa290(0xfd)]['length'];_0x3cf343++){var _0xcfb09e=this[_0x4aa290(0xfd)][_0x3cf343],_0x36e037=this['createMonsterView'](_0xcfb09e,_0x3cf343,_0x405986);this[_0x4aa290(0x1e0)][_0x4aa290(0x1d2)](_0x36e037),this['battleGroup']['addChild'](_0x36e037);}this['damageLayer']&&this['damageLayer']['parent']&&this['battleGroup'][_0x4aa290(0xf5)](this['damageLayer'],this[_0x4aa290(0x1e7)]['numChildren']-0x1);},Game['prototype']['createMonsterView']=function(_0x40d8fd,_0x28b2d6,_0x4fc639){var _0x15e183=a0_0x592342,_0x6ceff9=new eui['Group'](),_0x1bb701=this[_0x15e183(0x177)]||0x30,_0xff19cf=this['_centerW']||0x117,_0x1d254c=_0x40d8fd['isBoss']?0x50:0x30,_0x22fd99=[0x0,0x8,-0x6,0xa,-0x4,0x6,-0x8,0x4],_0x182381=_0x1d254c+(_0x22fd99[_0x28b2d6%_0x22fd99['length']]||0x0);if(_0x40d8fd[_0x15e183(0x1e2)])_0x182381=Math[_0x15e183(0x204)](0x48,Math['min'](0x5c,_0x182381));else _0x182381=Math['max'](0x24,Math['min'](0x3c,_0x182381));var _0x58e954=Math[_0x15e183(0x1ee)](_0xff19cf/_0x4fc639),_0x5d3b43=_0x1bb701+_0x58e954*_0x28b2d6+Math[_0x15e183(0x1ee)]((_0x58e954-_0x182381)/0x2),_0x2c358c=this['_monsterAreaY']+Math['floor']((this['_monsterAreaH']-_0x182381-0x28)/0x2);_0x6ceff9[_0x15e183(0x99)]=_0x182381,_0x6ceff9['height']=_0x182381+0x28,_0x6ceff9['x']=_0x5d3b43,_0x6ceff9['y']=_0x2c358c,_0x6ceff9['touchEnabled']=!![];var _0x2b1fdd=this;_0x6ceff9[_0x15e183(0x19d)](egret['TouchEvent'][_0x15e183(0x224)],function(){var _0x3836c4=_0x15e183;_0x2b1fdd[_0x3836c4(0x145)](_0x28b2d6);},this);var _0x26f8ed=_0x40d8fd['type']||MONSTER_TYPES[0x0],_0x2798ef=new eui['Image'](),_0x1eba7c=this[_0x15e183(0xdb)](_0x26f8ed,_0x40d8fd['isBoss']);this['fitImageToBox'](_0x2798ef,_0x1eba7c,_0x182381,_0x182381,0x0,0x0),_0x6ceff9['addChild'](_0x2798ef);var _0xc97a55=new egret['Shape']();this[_0x15e183(0x94)](_0xc97a55[_0x15e183(0xdc)],_0x26f8ed,_0x182381,_0x40d8fd['isBoss']),_0xc97a55['alpha']=0x0,_0x6ceff9['addChild'](_0xc97a55);var _0x1ea343=_0x40d8fd['isBoss']?'👑\x20'+_0x26f8ed['name']:_0x26f8ed['name'],_0x45eea1=Math['min'](_0x182381,_0x40d8fd['isBoss']?0x48:0x32),_0x15ecdf=_0x40d8fd[_0x15e183(0x1e2)]?0x10:0xe,_0x1ccf42=new eui[(_0x15e183(0x1ff))]();_0x1ccf42['width']=_0x45eea1,_0x1ccf42['height']=_0x15ecdf,_0x1ccf42[_0x15e183(0x165)]=_0x15ecdf,_0x1ccf42['ellipseHeight']=_0x15ecdf,_0x1ccf42['fillColor']=_0x40d8fd[_0x15e183(0x1e2)]?0x5a0a08:_0x26f8ed[_0x15e183(0xa9)],_0x1ccf42['fillAlpha']=0.92,_0x1ccf42[_0x15e183(0x166)]=_0x40d8fd[_0x15e183(0x1e2)]?THEME[_0x15e183(0x109)]:0xffffff,_0x1ccf42['strokeWeight']=_0x40d8fd[_0x15e183(0x1e2)]?1.5:0x1,_0x1ccf42['strokeAlpha']=_0x40d8fd['isBoss']?0.9:0.6,_0x1ccf42['x']=Math['floor']((_0x182381-_0x45eea1)/0x2),_0x1ccf42['y']=_0x182381+0x1,_0x6ceff9['addChild'](_0x1ccf42);var _0x36456d=new eui['Label']();_0x36456d[_0x15e183(0xa8)]=_0x1ea343,_0x36456d['size']=_0x40d8fd['isBoss']?0xa:0x9,_0x36456d['textColor']=0xffffff,_0x36456d[_0x15e183(0x222)]=!![],_0x36456d['width']=_0x45eea1,_0x36456d['height']=_0x15ecdf,_0x36456d['textAlign']='center',_0x36456d['x']=Math['floor']((_0x182381-_0x45eea1)/0x2),_0x36456d['y']=_0x182381+0x1,_0x6ceff9['addChild'](_0x36456d);var _0x4771eb=_0x182381+0x1+_0x15ecdf+0x2,_0x43040e=_0x40d8fd['isBoss']?0x6:0x4,_0xae254a=_0x182381-0x2,_0x180dde=new eui['Rect']();_0x180dde['width']=_0xae254a,_0x180dde[_0x15e183(0x1da)]=_0x43040e,_0x180dde[_0x15e183(0xb8)]=0x1a1a1a,_0x180dde[_0x15e183(0x165)]=_0x43040e,_0x180dde['ellipseHeight']=_0x43040e,_0x180dde['x']=0x1,_0x180dde['y']=_0x4771eb,_0x6ceff9[_0x15e183(0xaa)](_0x180dde);var _0x27db3a=Math['max'](0x0,_0x40d8fd['hp']/_0x40d8fd['maxHp']),_0x2edc0c=new eui[(_0x15e183(0x1ff))]();_0x2edc0c['width']=Math['max'](0x0,_0xae254a*_0x27db3a),_0x2edc0c['height']=_0x43040e,_0x2edc0c['fillColor']=_0x40d8fd['isBoss']?0xe74c3c:_0x27db3a>0.5?_0x26f8ed[_0x15e183(0x159)]:_0x27db3a>0.2?0xf39c12:0xe74c3c,_0x2edc0c[_0x15e183(0x165)]=_0x43040e,_0x2edc0c['ellipseHeight']=_0x43040e,_0x2edc0c['x']=0x1,_0x2edc0c['y']=_0x4771eb,_0x6ceff9['addChild'](_0x2edc0c);var _0x163856=new eui['Label']();_0x163856['text']=Math['max'](0x0,Math['floor'](_0x40d8fd['hp']))+'/'+_0x40d8fd['maxHp'],_0x163856['size']=0x8,_0x163856['textColor']=0xcccccc,_0x163856[_0x15e183(0x99)]=_0x182381,_0x163856['height']=0xa,_0x163856['textAlign']=_0x15e183(0x105),_0x163856['x']=0x0,_0x163856['y']=_0x4771eb+_0x43040e+0x1,_0x6ceff9['addChild'](_0x163856);var _0x5c55aa=_0x40d8fd['isBoss']?0x12:0xa+_0x28b2d6*0x4,_0x426c62=_0x40d8fd['isBoss']?0x708:0x384+_0x28b2d6*0xc8+Math['floor'](Math[_0x15e183(0x1d7)]()*0x12c),_0xc3e136=_0x28b2d6*0xb4,_0x335a24=_0x40d8fd['isBoss']?0x8:0x4,_0x3329ff=_0x40d8fd[_0x15e183(0x1e2)]?0x4b0:0x320+_0x28b2d6*0x96,_0x1f2f66=_0x6ceff9['x'],_0xedf51a=_0x6ceff9['y'];function _0x3802cc(){var _0x2d9762=_0x15e183;if(!_0x6ceff9[_0x2d9762(0x1d4)])return;egret['Tween']['get'](_0x6ceff9,{'loop':![]})['to']({'x':_0x1f2f66+_0x5c55aa},_0x426c62,egret[_0x2d9762(0xf8)]['sineInOut'])['to']({'x':_0x1f2f66-_0x5c55aa},_0x426c62*0x2,egret['Ease']['sineInOut'])['to']({'x':_0x1f2f66},_0x426c62,egret['Ease']['sineInOut'])['call'](_0x3802cc);}function _0x374d7c(){var _0x504ff1=_0x15e183;if(!_0x6ceff9[_0x504ff1(0x1d4)])return;egret['Tween']['get'](_0x6ceff9,{'loop':![]})['to']({'y':_0xedf51a-_0x335a24},_0x3329ff,egret['Ease']['sineInOut'])['to']({'y':_0xedf51a+_0x335a24},_0x3329ff*0x2,egret['Ease'][_0x504ff1(0x205)])['to']({'y':_0xedf51a},_0x3329ff,egret['Ease']['sineInOut'])['call'](_0x374d7c);}return setTimeout(_0x3802cc,_0xc3e136),setTimeout(_0x374d7c,_0xc3e136+Math[_0x15e183(0x1ee)](_0x3329ff/0x2)),_0x6ceff9;},Game['prototype'][a0_0x592342(0x94)]=function(_0x2a1fba,_0x4e758f,_0xf58bcf,_0x39da6d){var _0x4f6616=a0_0x592342,_0x4da336=_0xf58bcf/0x2,_0x32edf0=_0x4e758f['color'],_0x48c685=_0x4e758f['outline'],_0xdc1496=_0x4e758f[_0x4f6616(0x143)]||0xffffff,_0x543155=_0x4e758f['accent']||0xffffff;_0x39da6d&&(_0x2a1fba['lineStyle'](0x0),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0,0.18),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336,_0x4da336+0xa),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](_0x32edf0,0.28),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336,_0x4da336+0x4),_0x2a1fba['endFill']());switch(_0x4e758f['shape']){case'slime':_0x2a1fba[_0x4f6616(0x124)](0x2,_0x48c685),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['moveTo'](_0x4da336-_0x4da336*0.85,_0x4da336+_0x4da336*0.55),_0x2a1fba['curveTo'](_0x4da336-_0x4da336*0.95,_0x4da336-_0x4da336*0.4,_0x4da336,_0x4da336-_0x4da336*0.7),_0x2a1fba[_0x4f6616(0xd7)](_0x4da336+_0x4da336*0.95,_0x4da336-_0x4da336*0.4,_0x4da336+_0x4da336*0.85,_0x4da336+_0x4da336*0.55),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-_0x4da336*0.85,_0x4da336+_0x4da336*0.55),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](0xffffff,0.5),_0x2a1fba[_0x4f6616(0x12c)](_0x4da336-0xa,_0x4da336-_0x4da336*0.5,0xc,0x5),_0x2a1fba['endFill'](),drawEyesPair(_0x2a1fba,_0x4da336-0x7,_0x4da336-0x4,_0x4da336+0x7,_0x4da336-0x4,0x3,1.5),_0x2a1fba[_0x4f6616(0x124)](1.5,_0x48c685),_0x2a1fba['moveTo'](_0x4da336-0x4,_0x4da336+0x6),_0x2a1fba['curveTo'](_0x4da336,_0x4da336+0x9,_0x4da336+0x4,_0x4da336+0x6);break;case _0x4f6616(0x132):_0x2a1fba[_0x4f6616(0x124)](0x2,_0x48c685),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0),_0x2a1fba['drawEllipse'](_0x4da336-0xe,_0x4da336-_0x4da336*0.95,0x7,0x16),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](0xff9cc4),_0x2a1fba[_0x4f6616(0x12c)](_0x4da336-0xc,_0x4da336-_0x4da336*0.85,0x4,0x10),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['drawEllipse'](_0x4da336+0x7,_0x4da336-_0x4da336*0.95,0x7,0x16),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](0xff9cc4),_0x2a1fba[_0x4f6616(0x12c)](_0x4da336+0x9,_0x4da336-_0x4da336*0.85,0x4,0x10),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336+0x2,_0x4da336-0x4),_0x2a1fba['endFill'](),drawEyesPair(_0x2a1fba,_0x4da336-0x7,_0x4da336-0x2,_0x4da336+0x7,_0x4da336-0x2,0x3,1.5),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](0xe91e63),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336+0x5,0x2),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](1.5,_0x48c685),_0x2a1fba[_0x4f6616(0x160)](_0x4da336,_0x4da336+0x7),_0x2a1fba['lineTo'](_0x4da336,_0x4da336+0xa),_0x2a1fba['moveTo'](_0x4da336,_0x4da336+0xa),_0x2a1fba['lineTo'](_0x4da336-0x3,_0x4da336+0xc),_0x2a1fba['moveTo'](_0x4da336,_0x4da336+0xa),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x3,_0x4da336+0xc),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0xdc1496,0.45),_0x2a1fba['drawEllipse'](_0x4da336-0x6,_0x4da336-0x6,0x8,0x3),_0x2a1fba[_0x4f6616(0x182)]();break;case'bat':_0x2a1fba['lineStyle'](0x2,_0x48c685),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['moveTo'](_0x4da336-0x4,_0x4da336),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-_0x4da336*0.95,_0x4da336-0x8),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.75,_0x4da336-0x2),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.9,_0x4da336+0x6),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.55,_0x4da336+0x2),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x4,_0x4da336+0x6),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x4,_0x4da336),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['moveTo'](_0x4da336+0x4,_0x4da336),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+_0x4da336*0.95,_0x4da336-0x8),_0x2a1fba['lineTo'](_0x4da336+_0x4da336*0.75,_0x4da336-0x2),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+_0x4da336*0.9,_0x4da336+0x6),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+_0x4da336*0.55,_0x4da336+0x2),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x4,_0x4da336+0x6),_0x2a1fba['lineTo'](_0x4da336+0x4,_0x4da336),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336+0x2,0xa),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['moveTo'](_0x4da336-0x8,_0x4da336-0x8),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x5,_0x4da336-0xe),_0x2a1fba['lineTo'](_0x4da336-0x3,_0x4da336-0x7),_0x2a1fba[_0x4f6616(0x160)](_0x4da336+0x3,_0x4da336-0x7),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x5,_0x4da336-0xe),_0x2a1fba['lineTo'](_0x4da336+0x8,_0x4da336-0x8),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba[_0x4f6616(0x124)](0x0),_0x2a1fba['beginFill'](0xff3030),_0x2a1fba['drawCircle'](_0x4da336-0x4,_0x4da336,0x2),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336+0x4,_0x4da336,0x2),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](0xffffff),_0x2a1fba['moveTo'](_0x4da336-0x3,_0x4da336+0x6),_0x2a1fba['lineTo'](_0x4da336-0x2,_0x4da336+0xa),_0x2a1fba['lineTo'](_0x4da336-0x1,_0x4da336+0x6),_0x2a1fba[_0x4f6616(0x160)](_0x4da336+0x1,_0x4da336+0x6),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x2,_0x4da336+0xa),_0x2a1fba['lineTo'](_0x4da336+0x3,_0x4da336+0x6),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0xdc1496,0.3),_0x2a1fba[_0x4f6616(0x12c)](_0x4da336-_0x4da336*0.7,_0x4da336-0x6,0xa,0x3),_0x2a1fba[_0x4f6616(0x182)]();break;case _0x4f6616(0x130):var _0x3d57b6=0xa,_0x1427ca=_0x4da336-0x1,_0x1781de=_0x4da336-0xa;_0x2a1fba[_0x4f6616(0x124)](0x2,_0x48c685),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0),_0x2a1fba[_0x4f6616(0x160)](_0x4da336+_0x1781de,_0x4da336);for(var _0x19d5f6=0x0;_0x19d5f6<_0x3d57b6;_0x19d5f6++){var _0x46510a=(_0x19d5f6+0.5)/_0x3d57b6*Math['PI']*0x2,_0x42d5ba=(_0x19d5f6+0x1)/_0x3d57b6*Math['PI']*0x2;_0x2a1fba['lineTo'](_0x4da336+_0x1427ca*Math[_0x4f6616(0x1a7)](_0x46510a),_0x4da336+_0x1427ca*Math[_0x4f6616(0x1d0)](_0x46510a)),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+_0x1781de*Math[_0x4f6616(0x1a7)](_0x42d5ba),_0x4da336+_0x1781de*Math[_0x4f6616(0x1d0)](_0x42d5ba));}_0x2a1fba['endFill'](),drawEyesPair(_0x2a1fba,_0x4da336-0x5,_0x4da336-0x2,_0x4da336+0x5,_0x4da336-0x2,2.5,1.2),_0x2a1fba['lineStyle'](0x2,_0x48c685),_0x2a1fba['moveTo'](_0x4da336-0xa,_0x4da336-0x8),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x4,_0x4da336-0x6),_0x2a1fba['moveTo'](_0x4da336+0x4,_0x4da336-0x6),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0xa,_0x4da336-0x8),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0xdc1496,0.4),_0x2a1fba['drawEllipse'](_0x4da336-0x5,_0x4da336-0x8,0x8,0x3),_0x2a1fba['endFill']();break;case'ghost':_0x2a1fba['lineStyle'](0x2,_0x48c685),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0,0.9),_0x2a1fba['moveTo'](_0x4da336-_0x4da336*0.75,_0x4da336+_0x4da336*0.7),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.75,_0x4da336-0x4),_0x2a1fba[_0x4f6616(0xd7)](_0x4da336-_0x4da336*0.75,_0x4da336-_0x4da336*0.85,_0x4da336,_0x4da336-_0x4da336*0.85),_0x2a1fba['curveTo'](_0x4da336+_0x4da336*0.75,_0x4da336-_0x4da336*0.85,_0x4da336+_0x4da336*0.75,_0x4da336-0x4),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+_0x4da336*0.75,_0x4da336+_0x4da336*0.7),_0x2a1fba['lineTo'](_0x4da336+_0x4da336*0.45,_0x4da336+_0x4da336*0.5),_0x2a1fba['lineTo'](_0x4da336+_0x4da336*0.2,_0x4da336+_0x4da336*0.7),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.1,_0x4da336+_0x4da336*0.5),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-_0x4da336*0.35,_0x4da336+_0x4da336*0.7),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.6,_0x4da336+_0x4da336*0.5),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.75,_0x4da336+_0x4da336*0.7),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0x48c685),_0x2a1fba[_0x4f6616(0x12c)](_0x4da336-0xa,_0x4da336-0x8,0x6,0x9),_0x2a1fba['drawEllipse'](_0x4da336+0x4,_0x4da336-0x8,0x6,0x9),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](_0x48c685),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336+0x4,0x3),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba[_0x4f6616(0x124)](0x0),_0x2a1fba['beginFill'](_0xdc1496,0.5),_0x2a1fba['drawEllipse'](_0x4da336-0x6,_0x4da336-_0x4da336*0.7,0xa,0x4),_0x2a1fba['endFill']();break;case _0x4f6616(0x118):_0x2a1fba['lineStyle'](0x2,_0x48c685),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336-0x4,_0x4da336-0x4),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0),_0x2a1fba['drawRoundRect'](_0x4da336-0xa,_0x4da336+0x6,0x14,0xc,0x6,0x6),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x124)](0x0),_0x2a1fba[_0x4f6616(0x199)](_0x48c685),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336-0x7,_0x4da336-0x4,0x5),_0x2a1fba['drawCircle'](_0x4da336+0x7,_0x4da336-0x4,0x5),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](0xff3333,0.9),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336-0x7,_0x4da336-0x4,1.8),_0x2a1fba['drawCircle'](_0x4da336+0x7,_0x4da336-0x4,1.8),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](_0x48c685),_0x2a1fba['moveTo'](_0x4da336,_0x4da336+0x1),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x2,_0x4da336+0x5),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x2,_0x4da336+0x5),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0),_0x2a1fba['lineStyle'](0x1,_0x48c685),_0x2a1fba[_0x4f6616(0x1eb)](_0x4da336-0x8,_0x4da336+0xa,0x3,0x5),_0x2a1fba['drawRect'](_0x4da336-0x4,_0x4da336+0xa,0x3,0x5),_0x2a1fba['drawRect'](_0x4da336,_0x4da336+0xa,0x3,0x5),_0x2a1fba[_0x4f6616(0x1eb)](_0x4da336+0x4,_0x4da336+0xa,0x3,0x5),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0xdc1496,0.4),_0x2a1fba['drawEllipse'](_0x4da336-0x5,_0x4da336-0xe,0x8,0x3),_0x2a1fba['endFill']();break;case'dragon':_0x2a1fba[_0x4f6616(0x124)](0x0),_0x2a1fba[_0x4f6616(0x199)](0xff6b1a,0.3),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336,_0x4da336+0x4),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0xffb347,0.5),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336,_0x4da336-0x1),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](2.5,_0x48c685),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336+0x2,_0x4da336-0x6),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['drawEllipse'](_0x4da336-0xa,_0x4da336+0x6,0x14,0xe),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](_0x48c685),_0x2a1fba['moveTo'](_0x4da336-0xc,_0x4da336-_0x4da336*0.5),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x12,_0x4da336-_0x4da336*0.95),_0x2a1fba['lineTo'](_0x4da336-0x8,_0x4da336-_0x4da336*0.65),_0x2a1fba[_0x4f6616(0x160)](_0x4da336+0x8,_0x4da336-_0x4da336*0.65),_0x2a1fba['lineTo'](_0x4da336+0x12,_0x4da336-_0x4da336*0.95),_0x2a1fba['lineTo'](_0x4da336+0xc,_0x4da336-_0x4da336*0.5),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba[_0x4f6616(0x124)](1.5,_0x48c685),_0x2a1fba['beginFill'](0xfff59d),_0x2a1fba['drawCircle'](_0x4da336-0x8,_0x4da336-0x2,0x5),_0x2a1fba['drawCircle'](_0x4da336+0x8,_0x4da336-0x2,0x5),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x124)](0x0),_0x2a1fba[_0x4f6616(0x199)](0x0),_0x2a1fba[_0x4f6616(0x12c)](_0x4da336-0xa,_0x4da336-0x5,0x3,0x7),_0x2a1fba['drawEllipse'](_0x4da336+0x7,_0x4da336-0x5,0x3,0x7),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x48c685),_0x2a1fba['drawCircle'](_0x4da336-0x4,_0x4da336+0xa,1.5),_0x2a1fba['drawCircle'](_0x4da336+0x4,_0x4da336+0xa,1.5),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0xffffff),_0x2a1fba[_0x4f6616(0x124)](0x1,_0x48c685),_0x2a1fba[_0x4f6616(0x160)](_0x4da336-0x5,_0x4da336+0xf),_0x2a1fba['lineTo'](_0x4da336-0x4,_0x4da336+0x16),_0x2a1fba['lineTo'](_0x4da336-0x2,_0x4da336+0xf),_0x2a1fba['moveTo'](_0x4da336+0x2,_0x4da336+0xf),_0x2a1fba['lineTo'](_0x4da336+0x4,_0x4da336+0x16),_0x2a1fba['lineTo'](_0x4da336+0x5,_0x4da336+0xf),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x124)](0x0),_0x2a1fba['beginFill'](_0xdc1496,0.4),_0x2a1fba['drawEllipse'](_0x4da336-0x6,_0x4da336-0xa,0xa,0x4),_0x2a1fba['endFill']();break;case'shadow':_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0x32edf0,0.25),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336,_0x4da336+0x2),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](_0x32edf0,0.5),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336,_0x4da336-0x2),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](1.5,_0x48c685),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['moveTo'](_0x4da336-_0x4da336*0.7,_0x4da336),_0x2a1fba[_0x4f6616(0xd7)](_0x4da336-_0x4da336*0.6,_0x4da336-_0x4da336*0.85,_0x4da336,_0x4da336-_0x4da336*0.75),_0x2a1fba['curveTo'](_0x4da336+_0x4da336*0.6,_0x4da336-_0x4da336*0.85,_0x4da336+_0x4da336*0.7,_0x4da336),_0x2a1fba[_0x4f6616(0xd7)](_0x4da336+_0x4da336*0.8,_0x4da336+_0x4da336*0.5,_0x4da336+_0x4da336*0.3,_0x4da336+_0x4da336*0.75),_0x2a1fba['curveTo'](_0x4da336,_0x4da336+_0x4da336*0.9,_0x4da336-_0x4da336*0.3,_0x4da336+_0x4da336*0.75),_0x2a1fba[_0x4f6616(0xd7)](_0x4da336-_0x4da336*0.8,_0x4da336+_0x4da336*0.5,_0x4da336-_0x4da336*0.7,_0x4da336),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba[_0x4f6616(0x199)](0xff3030,0.35),_0x2a1fba['drawCircle'](_0x4da336-0x7,_0x4da336-0x4,0x5),_0x2a1fba['drawCircle'](_0x4da336+0x7,_0x4da336-0x4,0x5),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0xff0000),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336-0x7,_0x4da336-0x4,2.5),_0x2a1fba['drawCircle'](_0x4da336+0x7,_0x4da336-0x4,2.5),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba[_0x4f6616(0x199)](0xffffff),_0x2a1fba['drawCircle'](_0x4da336-0x7,_0x4da336-0x5,0.8),_0x2a1fba['drawCircle'](_0x4da336+0x7,_0x4da336-0x5,0.8),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0xdc1496,0.2),_0x2a1fba['drawEllipse'](_0x4da336-0x5,_0x4da336-0xa,0x8,0x3),_0x2a1fba['endFill']();break;default:if(_0x4e758f[_0x4f6616(0xcb)]==='boss_eye'){_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0x32edf0,0.3),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336,_0x4da336+0x6),_0x2a1fba['endFill']();for(var _0x5e4f4d=0x0;_0x5e4f4d<0x8;_0x5e4f4d++){var _0x1cc027=_0x5e4f4d/0x8*Math['PI']*0x2,_0x1b23b2=_0x4da336+(_0x4da336-0x4)*Math['cos'](_0x1cc027),_0x441ecd=_0x4da336+(_0x4da336-0x4)*Math['sin'](_0x1cc027),_0x2e6975=_0x4da336+(_0x4da336+0xe)*Math[_0x4f6616(0x1a7)](_0x1cc027),_0x4abf47=_0x4da336+(_0x4da336+0xe)*Math[_0x4f6616(0x1d0)](_0x1cc027);_0x2a1fba[_0x4f6616(0x124)](0x3,_0x48c685,0.8),_0x2a1fba[_0x4f6616(0x160)](_0x1b23b2,_0x441ecd),_0x2a1fba[_0x4f6616(0x11e)](_0x2e6975,_0x4abf47);}_0x2a1fba[_0x4f6616(0x124)](0x2,_0x48c685),_0x2a1fba['beginFill'](0xfff0f0),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336,_0x4da336-0x2),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336,_0x4da336*0.65),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x199)](0x0),_0x2a1fba['drawEllipse'](_0x4da336-0x5,_0x4da336-_0x4da336*0.55,0xa,_0x4da336*1.1),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba[_0x4f6616(0x199)](0xffffff,0.8),_0x2a1fba['drawEllipse'](_0x4da336-0x8,_0x4da336-_0x4da336*0.4,0x6,0x3),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0xffffff,0.5),_0x2a1fba['drawCircle'](_0x4da336+0x6,_0x4da336-0x4,0x2),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](0x1,0xff0000,0.5),_0x2a1fba['moveTo'](_0x4da336-0xe,_0x4da336-0x6),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x6,_0x4da336-0x2),_0x2a1fba['moveTo'](_0x4da336+0xe,_0x4da336+0x4),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x6,_0x4da336+0x1),_0x2a1fba['lineStyle'](0x0);}else{if(_0x4e758f['shape']==='boss_giant')_0x2a1fba['lineStyle'](2.5,_0x48c685),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba[_0x4f6616(0xd1)](_0x4da336-_0x4da336*0.7,_0x4da336-_0x4da336*0.5,_0x4da336*1.4,_0x4da336*1.3,0x6,0x6),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0xdc1496),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336-_0x4da336*0.35,_0x4da336*0.45),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](1.5,0x81d4fa),_0x2a1fba[_0x4f6616(0x199)](0xe1f5fe),_0x2a1fba['moveTo'](_0x4da336-0xe,_0x4da336-_0x4da336*0.6),_0x2a1fba['lineTo'](_0x4da336-0x16,_0x4da336-_0x4da336*1.1),_0x2a1fba['lineTo'](_0x4da336-0x8,_0x4da336-_0x4da336*0.7),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0xe1f5fe),_0x2a1fba[_0x4f6616(0x160)](_0x4da336+0xe,_0x4da336-_0x4da336*0.6),_0x2a1fba['lineTo'](_0x4da336+0x16,_0x4da336-_0x4da336*1.1),_0x2a1fba['lineTo'](_0x4da336+0x8,_0x4da336-_0x4da336*0.7),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](0x1,0x81d4fa,0.8),_0x2a1fba['beginFill'](0xb3e5fc,0.6),_0x2a1fba[_0x4f6616(0xd1)](_0x4da336-_0x4da336*0.6,_0x4da336-_0x4da336*0.1,_0x4da336*0.5,_0x4da336*0.6,0x3,0x3),_0x2a1fba['drawRoundRect'](_0x4da336+_0x4da336*0.1,_0x4da336-_0x4da336*0.1,_0x4da336*0.5,_0x4da336*0.6,0x3,0x3),_0x2a1fba['endFill'](),drawEyesPair(_0x2a1fba,_0x4da336-0x6,_0x4da336-_0x4da336*0.38,_0x4da336+0x6,_0x4da336-_0x4da336*0.38,0x4,0x2),_0x2a1fba['beginFill'](0x29b6f6),_0x2a1fba['drawCircle'](_0x4da336-0x6,_0x4da336-_0x4da336*0.38+0.5,0x2),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0x29b6f6),_0x2a1fba['drawCircle'](_0x4da336+0x6,_0x4da336-_0x4da336*0.38+0.5,0x2),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x124)](0x0),_0x2a1fba['beginFill'](0xffffff,0.5),_0x2a1fba['drawEllipse'](_0x4da336-0x8,_0x4da336-_0x4da336*0.7,0xa,0x3),_0x2a1fba['endFill']();else{if(_0x4e758f['shape']===_0x4f6616(0x180)){var _0x209727=[-0.3,-0.6,-0.9,-1.2];for(var _0x282bb7=0x0;_0x282bb7<0x4;_0x282bb7++){var _0x389563=_0x209727[_0x282bb7];_0x2a1fba['lineStyle'](2.5,_0x48c685),_0x2a1fba[_0x4f6616(0x160)](_0x4da336-0x8,_0x4da336),_0x2a1fba['lineTo'](_0x4da336-0x8-0x12*Math[_0x4f6616(0x1a7)](_0x389563),_0x4da336+0x12*Math['sin'](_0x389563)),_0x2a1fba['lineTo'](_0x4da336-0x8-0x1c*Math[_0x4f6616(0x1a7)](_0x389563+0.4),_0x4da336+0x1c*Math[_0x4f6616(0x1d0)](_0x389563+0.4)),_0x2a1fba['moveTo'](_0x4da336+0x8,_0x4da336),_0x2a1fba['lineTo'](_0x4da336+0x8+0x12*Math[_0x4f6616(0x1a7)](_0x389563),_0x4da336+0x12*Math['sin'](_0x389563)),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x8+0x1c*Math[_0x4f6616(0x1a7)](_0x389563+0.4),_0x4da336+0x1c*Math[_0x4f6616(0x1d0)](_0x389563+0.4));}_0x2a1fba['lineStyle'](0x2,_0x48c685),_0x2a1fba[_0x4f6616(0x199)](_0x32edf0),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336+0x4,_0x4da336*0.7),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0x6a1b9a),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336-0x8,_0x4da336*0.45),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba[_0x4f6616(0x124)](0x0);var _0x97eb22=[[-0x8,-0xc],[-0x4,-0xe],[0x4,-0xe],[0x8,-0xc],[-0x6,-0x9],[0x0,-0xa],[0x6,-0x9]];for(var _0x29854a=0x0;_0x29854a<_0x97eb22[_0x4f6616(0x123)];_0x29854a++){_0x2a1fba[_0x4f6616(0x199)](_0x543155),_0x2a1fba['drawCircle'](_0x4da336+_0x97eb22[_0x29854a][0x0],_0x4da336+_0x97eb22[_0x29854a][0x1],1.8),_0x2a1fba['endFill']();}_0x2a1fba['beginFill'](0x76ff03,0.8),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336+0xe,0x3),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0x76ff03,0.5),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336+0x12,1.5),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x199)](_0xdc1496,0.3),_0x2a1fba['drawEllipse'](_0x4da336-0x6,_0x4da336-0x2,0xa,0x4),_0x2a1fba['endFill']();}else{if(_0x4e758f[_0x4f6616(0xcb)]==='boss_demon')_0x2a1fba['lineStyle'](0x0),_0x2a1fba[_0x4f6616(0x199)](0xff6b1a,0.2),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336,_0x4da336,_0x4da336+0x8),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](0xff6b1a,0.7),_0x2a1fba['moveTo'](_0x4da336-0x6,_0x4da336-0x4),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-_0x4da336*1.1,_0x4da336-_0x4da336*0.8),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.8,_0x4da336+_0x4da336*0.3),_0x2a1fba['lineTo'](_0x4da336-0x4,_0x4da336+0x4),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x199)](0xff6b1a,0.7),_0x2a1fba[_0x4f6616(0x160)](_0x4da336+0x6,_0x4da336-0x4),_0x2a1fba['lineTo'](_0x4da336+_0x4da336*1.1,_0x4da336-_0x4da336*0.8),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+_0x4da336*0.8,_0x4da336+_0x4da336*0.3),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x4,_0x4da336+0x4),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](0x2,_0x48c685),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['drawRoundRect'](_0x4da336-0xc,_0x4da336-0x4,0x18,0x1c,0x4,0x4),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336-0xa,0xe),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x199)](_0x48c685),_0x2a1fba[_0x4f6616(0x160)](_0x4da336-0x8,_0x4da336-0x12),_0x2a1fba['lineTo'](_0x4da336-0xe,_0x4da336-0x20),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336-0x4,_0x4da336-0x14),_0x2a1fba['endFill'](),_0x2a1fba['moveTo'](_0x4da336+0x8,_0x4da336-0x12),_0x2a1fba['lineTo'](_0x4da336+0xe,_0x4da336-0x20),_0x2a1fba['lineTo'](_0x4da336+0x4,_0x4da336-0x14),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0x543155),_0x2a1fba['drawCircle'](_0x4da336-0x5,_0x4da336-0xc,3.5),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336+0x5,_0x4da336-0xc,3.5),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0x0),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336-0x5,_0x4da336-0xc,1.5),_0x2a1fba['drawCircle'](_0x4da336+0x5,_0x4da336-0xc,1.5),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](_0xdc1496,0.35),_0x2a1fba[_0x4f6616(0x12c)](_0x4da336-0x6,_0x4da336-0x14,0xa,0x4),_0x2a1fba['endFill']();else{if(_0x4e758f['shape']===_0x4f6616(0x1a0)){var _0x18725e=[0xff6f00,0xffa726,0x40c4ff,0xffd740];for(var _0x10ad62=0x0;_0x10ad62<0x5;_0x10ad62++){var _0x25da64=-Math['PI']*0.3+_0x10ad62*(Math['PI']*0.6/0x4);_0x2a1fba['lineStyle'](0x0),_0x2a1fba[_0x4f6616(0x199)](_0x18725e[_0x10ad62%_0x18725e['length']],0.8),_0x2a1fba['moveTo'](_0x4da336,_0x4da336+0x6),_0x2a1fba['lineTo'](_0x4da336+Math['cos'](_0x25da64)*(_0x4da336+0xa),_0x4da336+Math[_0x4f6616(0x1d0)](_0x25da64)*(_0x4da336+0xa)+0x6),_0x2a1fba['lineTo'](_0x4da336+Math[_0x4f6616(0x1a7)](_0x25da64+0.12)*(_0x4da336+0xa),_0x4da336+Math['sin'](_0x25da64+0.12)*(_0x4da336+0xa)+0x6),_0x2a1fba['endFill']();}_0x2a1fba['lineStyle'](1.5,0xff8f00),_0x2a1fba['beginFill'](_0x32edf0,0.9),_0x2a1fba[_0x4f6616(0x160)](_0x4da336-0x4,_0x4da336-0x4),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*1.15,_0x4da336-_0x4da336*0.6),_0x2a1fba['curveTo'](_0x4da336-_0x4da336*0.9,_0x4da336+_0x4da336*0.2,_0x4da336-0x4,_0x4da336+0x4),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](_0x32edf0,0.9),_0x2a1fba['moveTo'](_0x4da336+0x4,_0x4da336-0x4),_0x2a1fba['lineTo'](_0x4da336+_0x4da336*1.15,_0x4da336-_0x4da336*0.6),_0x2a1fba[_0x4f6616(0xd7)](_0x4da336+_0x4da336*0.9,_0x4da336+_0x4da336*0.2,_0x4da336+0x4,_0x4da336+0x4),_0x2a1fba['endFill'](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba[_0x4f6616(0x199)](_0xdc1496,0.5),_0x2a1fba['moveTo'](_0x4da336-0x4,_0x4da336-0x4),_0x2a1fba['lineTo'](_0x4da336-_0x4da336*0.9,_0x4da336-_0x4da336*0.5),_0x2a1fba[_0x4f6616(0xd7)](_0x4da336-_0x4da336*0.7,_0x4da336-_0x4da336*0.1,_0x4da336-0x4,_0x4da336),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](0x2,0xff8f00),_0x2a1fba[_0x4f6616(0x199)](_0xdc1496),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336-0x4,_0x4da336*0.38),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['lineStyle'](0x0),_0x2a1fba['beginFill'](_0x543155),_0x2a1fba['moveTo'](_0x4da336,_0x4da336-_0x4da336*0.7),_0x2a1fba['lineTo'](_0x4da336-0x4,_0x4da336-_0x4da336*0.42),_0x2a1fba['lineTo'](_0x4da336+0x4,_0x4da336-_0x4da336*0.42),_0x2a1fba[_0x4f6616(0x182)](),_0x2a1fba['beginFill'](0x40c4ff),_0x2a1fba[_0x4f6616(0x160)](_0x4da336-0x5,_0x4da336-_0x4da336*0.65),_0x2a1fba['lineTo'](_0x4da336-0x8,_0x4da336-_0x4da336*0.38),_0x2a1fba['lineTo'](_0x4da336-0x2,_0x4da336-_0x4da336*0.38),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0x40c4ff),_0x2a1fba['moveTo'](_0x4da336+0x5,_0x4da336-_0x4da336*0.65),_0x2a1fba[_0x4f6616(0x11e)](_0x4da336+0x8,_0x4da336-_0x4da336*0.38),_0x2a1fba['lineTo'](_0x4da336+0x2,_0x4da336-_0x4da336*0.38),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x199)](_0x543155),_0x2a1fba['drawCircle'](_0x4da336-0x4,_0x4da336-0x6,0x3),_0x2a1fba['drawCircle'](_0x4da336+0x4,_0x4da336-0x6,0x3),_0x2a1fba['endFill'](),_0x2a1fba[_0x4f6616(0x199)](0x0),_0x2a1fba['drawCircle'](_0x4da336-0x4,_0x4da336-0x6,1.2),_0x2a1fba[_0x4f6616(0x16f)](_0x4da336+0x4,_0x4da336-0x6,1.2),_0x2a1fba['endFill'](),_0x2a1fba['beginFill'](0xffffff,0.9),this[_0x4f6616(0xc8)](_0x2a1fba,_0x4da336-_0x4da336*0.85,_0x4da336-_0x4da336*0.5,2.5,0x1,0x5),this[_0x4f6616(0xc8)](_0x2a1fba,_0x4da336+_0x4da336*0.85,_0x4da336-_0x4da336*0.5,0x2,0x1,0x5),this[_0x4f6616(0xc8)](_0x2a1fba,_0x4da336,_0x4da336-_0x4da336*0.85,0x2,0x1,0x5),_0x2a1fba[_0x4f6616(0x182)]();}else _0x2a1fba['lineStyle'](0x2,_0x48c685),_0x2a1fba['beginFill'](_0x32edf0),_0x2a1fba['drawCircle'](_0x4da336,_0x4da336,_0x4da336-0x2),_0x2a1fba['endFill'](),drawEyesPair(_0x2a1fba,_0x4da336-0x6,_0x4da336-0x4,_0x4da336+0x6,_0x4da336-0x4,0x3,1.5);}}}}}},Game[a0_0x592342(0x129)]['_drawEyes']=function(_0x427d4e,_0x3aa666,_0x52f62f,_0x1cebdc,_0x37f3b0,_0x53913a,_0x2387bc){drawEyesPair(_0x427d4e,_0x3aa666,_0x52f62f,_0x1cebdc,_0x37f3b0,_0x53913a,_0x2387bc);},Game[a0_0x592342(0x129)]['updateSkillBtns']=function(){var _0xe11a3b=a0_0x592342;for(var _0x62a4a1=0x0;_0x62a4a1<this['skillBtns'][_0xe11a3b(0x123)];_0x62a4a1++){var _0x2307d2=this['skillBtns'][_0x62a4a1];if(!_0x2307d2)continue;var _0x5a1bc6=SKILLS[_0x62a4a1],_0x4c187e=this['mainLevel']>=_0x5a1bc6['lv'],_0x2b267c=this['skillCD'][_0x62a4a1]>0x0,_0x1cc8e8=_0x2307d2['getChildByName']('slot'),_0x4e093f=_0x2307d2['getChildByName']('bg'),_0x26a61d=_0x2307d2['getChildByName'](_0xe11a3b(0xb9)),_0x5d3355=_0x2307d2['getChildByName']('border'),_0x18c18e=_0x2307d2[_0xe11a3b(0x220)]('lb'),_0x35eef5=_0x2307d2['getChildByName']('cdLb'),_0x2f9d68=_0x2307d2[_0xe11a3b(0x220)](_0xe11a3b(0x170));_0x1cc8e8&&(_0x1cc8e8['fillColor']=_0x4c187e?0x1a1238:0x100c22,_0x1cc8e8['strokeColor']=_0x4c187e?THEME[_0xe11a3b(0x109)]:0x4a4566,_0x1cc8e8[_0xe11a3b(0x95)]=_0x4c187e?0.45:0.35);if(_0x4e093f)_0x4e093f[_0xe11a3b(0xb8)]=_0x2b267c?0x2a2440:_0x4c187e?_0x5a1bc6[_0xe11a3b(0x21e)]:0x4a4566;_0x26a61d&&(_0x26a61d['fillColor']=_0x4c187e?_0x5a1bc6['color']:0x3a355a,_0x26a61d['fillAlpha']=_0x2b267c?0.12:0.35);if(_0x5d3355)_0x5d3355['strokeColor']=_0x2b267c?0x6a628f:_0x4c187e?THEME['accentSoft']:0x6a628f;_0x18c18e&&(_0x18c18e['text']=_0x4c187e?_0x5a1bc6['name']:'Lv'+_0x5a1bc6['lv'],_0x18c18e['textColor']=_0x2b267c?THEME['textMute']:_0x4c187e?THEME[_0xe11a3b(0x234)]:THEME['textMute']);_0x35eef5&&(_0x2b267c?(_0x35eef5['text']=Math['ceil'](this['skillCD'][_0x62a4a1])+'',_0x35eef5['visible']=!![]):_0x35eef5[_0xe11a3b(0xc5)]=![]);if(_0x2f9d68)_0x2f9d68['visible']=!_0x2b267c;}},Game['prototype'][a0_0x592342(0x208)]=function(){var _0x383aa3=a0_0x592342;this['_panelOverlay']&&this['_panelOverlay'][_0x383aa3(0x1d4)]&&this[_0x383aa3(0xe2)][_0x383aa3(0x1d4)]['removeChild'](this['_panelOverlay']);var _0x630630=new eui['Group']();this['main']['stage']?(_0x630630[_0x383aa3(0x99)]=this['main']['stage']['stageWidth'],_0x630630[_0x383aa3(0x1da)]=this[_0x383aa3(0x171)]['stage']['stageHeight']):(_0x630630['width']=0x177,_0x630630['height']=0x29b);_0x630630['x']=0x0,_0x630630['y']=0x0,_0x630630['touchEnabled']=!![];var _0x2ddcae=new eui[(_0x383aa3(0x1ff))]();return _0x2ddcae[_0x383aa3(0xcc)]=0x64,_0x2ddcae[_0x383aa3(0xb1)]=0x64,_0x2ddcae['fillColor']=0x0,_0x2ddcae[_0x383aa3(0x1ac)]=0.5,_0x630630[_0x383aa3(0xaa)](_0x2ddcae),this['_panelOverlay']=_0x630630,this[_0x383aa3(0x171)]['stage']?this['main']['stage']['addChild'](_0x630630):this[_0x383aa3(0x171)][_0x383aa3(0xaa)](_0x630630),_0x630630;},Game[a0_0x592342(0x129)]['closePanel']=function(){var _0x4fc276=a0_0x592342;this[_0x4fc276(0xe2)]&&this['_panelOverlay']['parent']&&this['_panelOverlay']['parent']['removeChild'](this[_0x4fc276(0xe2)]),this['_panelOverlay']=null;},Game['prototype']['onStageResize']=function(){var _0x4c4142=a0_0x592342,_0x57b154=this[_0x4c4142(0x171)]&&this['main']['stage'];if(!_0x57b154)return;this['_stageW']=_0x57b154['stageWidth'],this[_0x4c4142(0xe2)]&&(this['_panelOverlay']['width']=_0x57b154[_0x4c4142(0x1b6)],this[_0x4c4142(0xe2)]['height']=_0x57b154['stageHeight']);},Game[a0_0x592342(0x129)][a0_0x592342(0x1ab)]=function(_0x45b8fb){var _0x2e8256=a0_0x592342,_0xefda6b=new eui['Group']();_0xefda6b[_0x2e8256(0x99)]=0x154,_0xefda6b['height']=0x190,_0xefda6b['horizontalCenter']=0x0,_0xefda6b[_0x2e8256(0x238)]=0x0;var _0x362ec3=new eui[(_0x2e8256(0x1ff))]();_0x362ec3[_0x2e8256(0xcc)]=0x64,_0x362ec3[_0x2e8256(0xb1)]=0x64,_0x362ec3['fillColor']=THEME['bgLite'],_0x362ec3[_0x2e8256(0x165)]=0xe,_0x362ec3['ellipseHeight']=0xe,_0x362ec3['strokeColor']=THEME[_0x2e8256(0x109)],_0x362ec3['strokeWeight']=1.5,_0x362ec3['strokeAlpha']=0.85,_0xefda6b[_0x2e8256(0xaa)](_0x362ec3);var _0x2f5902=new eui[(_0x2e8256(0x1ff))]();_0x2f5902['percentWidth']=0x64,_0x2f5902['height']=0x3,_0x2f5902[_0x2e8256(0x1bd)]=0x0,_0x2f5902[_0x2e8256(0xb8)]=THEME['accent'],_0x2f5902['fillAlpha']=0.55,_0xefda6b['addChild'](_0x2f5902),_0x45b8fb['addChild'](_0xefda6b);var _0x6ad25=new eui['Rect']();_0x6ad25['width']=0x18,_0x6ad25['height']=0x18,_0x6ad25[_0x2e8256(0x165)]=0xc,_0x6ad25[_0x2e8256(0x175)]=0xc,_0x6ad25['fillColor']=THEME[_0x2e8256(0x106)],_0x6ad25['strokeColor']=THEME['strokeGold'],_0x6ad25['strokeWeight']=0x1,_0x6ad25['strokeAlpha']=0.6,_0x6ad25[_0x2e8256(0x1cc)]=0xa,_0x6ad25[_0x2e8256(0x1bd)]=0x8,_0x6ad25['touchEnabled']=!![],_0xefda6b[_0x2e8256(0xaa)](_0x6ad25);var _0x28d3b8=new eui['Label']();_0x28d3b8['text']='×',_0x28d3b8['size']=0x12,_0x28d3b8['textColor']=THEME[_0x2e8256(0x186)],_0x28d3b8['bold']=!![],_0x28d3b8['right']=0x12,_0x28d3b8['top']=0x7,_0x28d3b8['touchEnabled']=!![];var _0x22c959=this;return _0x28d3b8['addEventListener'](egret['TouchEvent']['TOUCH_TAP'],function(){_0x22c959['closePanel']();},this),_0x6ad25['addEventListener'](egret['TouchEvent']['TOUCH_TAP'],function(){var _0x3267c2=_0x2e8256;_0x22c959[_0x3267c2(0x1bb)]();},this),_0xefda6b['addChild'](_0x28d3b8),_0xefda6b;},Game['prototype'][a0_0x592342(0x87)]=function(_0x226195,_0x5243ea,_0x3464c4,_0x5122ad,_0x230a23,_0x47952e,_0x15a600,_0x45041e,_0x1f50ad){var _0x20ea39=a0_0x592342,_0x5e4644=_0x230a23['split']('\x0a'),_0x24a439=_0x5e4644[_0x20ea39(0x123)]>0x1?0x38:0x2c,_0x3db9b4=new eui['Rect']();_0x3db9b4['width']=0x136,_0x3db9b4['height']=_0x24a439,_0x3db9b4['fillColor']=THEME[_0x20ea39(0x1b0)],_0x3db9b4['ellipseWidth']=0xa,_0x3db9b4['ellipseHeight']=0xa,_0x3db9b4[_0x20ea39(0x166)]=THEME['strokeSoft'],_0x3db9b4['strokeWeight']=0x1,_0x3db9b4['strokeAlpha']=0.5,_0x3db9b4['x']=0xf,_0x3db9b4['y']=_0x5243ea,_0x226195['addChild'](_0x3db9b4);var _0x5bbbfa=new eui['Rect']();_0x5bbbfa['width']=0x24,_0x5bbbfa[_0x20ea39(0x1da)]=0x24,_0x5bbbfa['ellipseWidth']=0x12,_0x5bbbfa['ellipseHeight']=0x12,_0x5bbbfa[_0x20ea39(0xb8)]=_0x5122ad,_0x5bbbfa['strokeColor']=THEME[_0x20ea39(0x186)],_0x5bbbfa['strokeWeight']=0x1,_0x5bbbfa['strokeAlpha']=0.7,_0x5bbbfa['x']=0x16,_0x5bbbfa['y']=_0x5243ea+(_0x24a439-0x24)/0x2,_0x226195['addChild'](_0x5bbbfa);var _0x5ebd0e=new eui[(_0x20ea39(0x218))]();_0x5ebd0e['text']=_0x3464c4,_0x5ebd0e['size']=0xb,_0x5ebd0e['textColor']=THEME[_0x20ea39(0x234)],_0x5ebd0e['bold']=!![],_0x5ebd0e[_0x20ea39(0x99)]=0x24,_0x5ebd0e[_0x20ea39(0x1da)]=0x24,_0x5ebd0e['x']=_0x5bbbfa['x'],_0x5ebd0e['y']=_0x5bbbfa['y'],_0x5ebd0e[_0x20ea39(0x107)]=_0x20ea39(0x105),_0x5ebd0e['verticalAlign']='middle',_0x226195['addChild'](_0x5ebd0e);var _0x458c3a=new eui['Label']();_0x458c3a['text']=_0x230a23,_0x458c3a['size']=0xb,_0x458c3a['textColor']=THEME['textMain'],_0x458c3a['x']=0x44,_0x458c3a['y']=_0x5243ea+0x5,_0x458c3a['width']=0xaa,_0x458c3a['lineSpacing']=0x3,_0x226195['addChild'](_0x458c3a);if(_0x47952e){var _0x7ecdd3=this['createButton'](_0x47952e,_0x15a600||THEME['accent'],0x44,0x1c,_0x45041e,this);_0x7ecdd3['x']=0xf5,_0x7ecdd3['y']=_0x5243ea+(_0x24a439-0x1c)/0x2;if(_0x1f50ad)_0x7ecdd3[_0x20ea39(0xf0)]=0.4;_0x226195['addChild'](_0x7ecdd3);}return _0x5243ea+_0x24a439+0x6;},Game['prototype']['openUpgrade']=function(){var _0x6e1459=a0_0x592342,_0x177e83=this['createPanelOverlay'](),_0x3c3954=this['addPanelContent'](_0x177e83),_0x368c36=new eui['Label']();_0x368c36[_0x6e1459(0xa8)]='⬆️\x20升级',_0x368c36['size']=0x12,_0x368c36['textColor']=0xffffff,_0x368c36['horizontalCenter']=0x0,_0x368c36['top']=0xe,_0x3c3954['addChild'](_0x368c36);var _0x2f0417=this,_0x4c9312=0x32,_0x537e15=CONFIG['upgradeCost'](this['mainLevel']),_0x3dc9f2=CONFIG[_0x6e1459(0x162)](this['mainLevel']+0x1,this['rebirthGems']);_0x4c9312=this['addPanelRow'](_0x3c3954,_0x4c9312,'主角',0x3498db,'主角\x20Lv.'+this['mainLevel']+'\x20\x20伤害:\x20'+this['fmt'](CONFIG[_0x6e1459(0x162)](this[_0x6e1459(0x91)],this[_0x6e1459(0x12f)]))+'\x0a→\x20Lv.'+(this['mainLevel']+0x1)+'\x20伤害:\x20'+this['fmt'](_0x3dc9f2)+'\x20\x20(+'+this['fmt'](_0x3dc9f2-CONFIG[_0x6e1459(0x162)](this['mainLevel'],this['rebirthGems']))+')',this[_0x6e1459(0x17d)](_0x537e15)+'金',0x27ae60,function(){var _0x43efc5=_0x6e1459;_0x2f0417[_0x43efc5(0x1c9)]();},this[_0x6e1459(0x19b)]<_0x537e15);var _0x5a10d6=new eui['Rect']();_0x5a10d6['width']=0x12c,_0x5a10d6['height']=0x8,_0x5a10d6[_0x6e1459(0xb8)]=0x140e36,_0x5a10d6['x']=0x14,_0x5a10d6['y']=_0x4c9312,_0x3c3954[_0x6e1459(0xaa)](_0x5a10d6);var _0xe4a0c6=new eui[(_0x6e1459(0x1ff))]();_0xe4a0c6['width']=0x12c*(this[_0x6e1459(0xd8)]/CONFIG['killsNeeded'](this[_0x6e1459(0x91)])),_0xe4a0c6['height']=0x8,_0xe4a0c6['fillColor']=0xd4a017,_0xe4a0c6['x']=0x14,_0xe4a0c6['y']=_0x4c9312,_0x3c3954[_0x6e1459(0xaa)](_0xe4a0c6),_0x4c9312+=0xe;var _0x40629c=new eui[(_0x6e1459(0x218))]();_0x40629c[_0x6e1459(0xa8)]='击杀进度:\x20'+this['killCount']+'/'+CONFIG['killsNeeded'](this['mainLevel']),_0x40629c[_0x6e1459(0xa4)]=0xb,_0x40629c[_0x6e1459(0xd2)]=0x888888,_0x40629c['x']=0x14,_0x40629c['y']=_0x4c9312,_0x3c3954['addChild'](_0x40629c),_0x4c9312+=0x18;for(var _0x144a5b=0x0;_0x144a5b<this[_0x6e1459(0x14a)]['length'];_0x144a5b++){var _0x2b9322=this['supports'][_0x144a5b];if(!_0x2b9322[_0x6e1459(0x1e6)])continue;if(_0x4c9312>0x15e){_0x3c3954[_0x6e1459(0x1da)]=_0x4c9312+0x14;break;}var _0x43bc4c=CONFIG[_0x6e1459(0x88)](_0x2b9322[_0x6e1459(0xbd)]),_0x18f293=_0x2b9322['dps']*(_0x2b9322[_0x6e1459(0xbd)]+0x1),_0x4241a6=_0x2b9322['dps']*_0x2b9322[_0x6e1459(0xbd)];(function(_0x2407f2,_0x5fec11,_0x11ed45,_0x4b0c8a,_0x28aff8){var _0x5698ee=_0x6e1459;_0x4c9312=_0x2f0417['addPanelRow'](_0x3c3954,_0x4c9312,_0x5fec11['name']['slice'](0x0,0x2),0x9b59b6,_0x5fec11['name']+'\x20Lv.'+_0x5fec11['level']+'\x20\x20DPS:\x20'+_0x2f0417['fmt'](_0x28aff8)+'\x0a→\x20Lv.'+(_0x5fec11['level']+0x1)+'\x20DPS:\x20'+_0x2f0417['fmt'](_0x4b0c8a)+'\x20\x20(+'+_0x2f0417['fmt'](_0x4b0c8a-_0x28aff8)+')',_0x2f0417[_0x5698ee(0x17d)](_0x11ed45)+'金',0x27ae60,function(){_0x2f0417['upgradeSupport'](_0x2407f2);},_0x2f0417[_0x5698ee(0x19b)]<_0x11ed45);}(_0x144a5b,_0x2b9322,_0x43bc4c,_0x18f293,_0x4241a6));}_0x3c3954['height']=_0x4c9312+0x10;},Game['prototype'][a0_0x592342(0xd6)]=function(){var _0x4f1f8d=a0_0x592342,_0x459764=this['createPanelOverlay'](),_0x4ef6fb=this[_0x4f1f8d(0x1ab)](_0x459764),_0x58a10a=new eui['Label']();_0x58a10a['text']='🛒\x20超市',_0x58a10a['size']=0x12,_0x58a10a['textColor']=0xffffff,_0x58a10a[_0x4f1f8d(0xe9)]=0x0,_0x58a10a['top']=0xe,_0x4ef6fb['addChild'](_0x58a10a);var _0x3cd153=this['getBuffs'](),_0x5d2034=new eui['Label']();_0x5d2034['text']='当前buff:\x20暴击'+Math[_0x4f1f8d(0x1ee)](_0x3cd153['critChance']*0x64)+'%\x20|\x20攻击×'+_0x3cd153['attackMult']['toFixed'](0x2),_0x5d2034['size']=0xb,_0x5d2034['textColor']=0x888888,_0x5d2034['x']=0xf,_0x5d2034['y']=0x2a,_0x4ef6fb['addChild'](_0x5d2034);var _0x4cea9e=this,_0x5ae255=0x40;for(var _0x3280b0=0x0;_0x3280b0<FOODS[_0x4f1f8d(0x123)];_0x3280b0++){var _0x15f973=FOODS[_0x3280b0],_0x394ca3=this['foods'][_0x15f973['name']]||0x0;(function(_0x425b59,_0x34de0f,_0x3c278d){var _0x1d5864=_0x4f1f8d;_0x5ae255=_0x4cea9e['addPanelRow'](_0x4ef6fb,_0x5ae255,_0x34de0f['icon'],0xe67e22,_0x34de0f['name']+'\x20×'+_0x3c278d+'\x0a'+_0x34de0f[_0x1d5864(0xfe)],_0x34de0f[_0x1d5864(0x13e)]+'金',0x27ae60,function(){_0x4cea9e['buyFood'](_0x425b59);},_0x4cea9e[_0x1d5864(0x19b)]<_0x34de0f['price']);}(_0x3280b0,_0x15f973,_0x394ca3));}_0x4ef6fb['height']=_0x5ae255+0x10;},Game['prototype']['buyFood']=function(_0x2d12bd){var _0x450aff=a0_0x592342,_0x3ed320=FOODS[_0x2d12bd];if(this['gold']<_0x3ed320['price']){this[_0x450aff(0xf6)]('金币不足！');return;}this['gold']-=_0x3ed320['price'],this['foods'][_0x3ed320['name']]=(this[_0x450aff(0x1a9)][_0x3ed320['name']]||0x0)+0x1,this['showToast'](_0x3ed320[_0x450aff(0x9a)]+'\x20购买'+_0x3ed320[_0x450aff(0x1f6)]+'成功！'),this[_0x450aff(0x19e)](),this[_0x450aff(0x19f)](),this[_0x450aff(0x1bb)](),this[_0x450aff(0xd6)]();},Game[a0_0x592342(0x129)]['openSpinWheel']=function(){var _0x433a23=a0_0x592342,_0x571ad5=new Date()['toDateString']();this['spinDate']!==_0x571ad5&&(this['freeSpins']=0x3,this['spinDate']=_0x571ad5);var _0x68e156=this[_0x433a23(0x208)](),_0x245944=this['addPanelContent'](_0x68e156);_0x245944['height']=0x1e0;var _0x1a3ba9=new eui['Label']();_0x1a3ba9['text']='🎡\x20转盘',_0x1a3ba9['size']=0x12,_0x1a3ba9[_0x433a23(0xd2)]=0xffffff,_0x1a3ba9['horizontalCenter']=0x0,_0x1a3ba9[_0x433a23(0x1bd)]=0xe,_0x245944['addChild'](_0x1a3ba9);var _0x358ca5=new eui['Label']();_0x358ca5[_0x433a23(0xa8)]=_0x433a23(0x14b)+this['freeSpins']+'/3\x20次',_0x358ca5['size']=0xc,_0x358ca5['textColor']=0xaaaaaa,_0x358ca5['horizontalCenter']=0x0,_0x358ca5[_0x433a23(0x1bd)]=0x28,_0x245944['addChild'](_0x358ca5);var _0x49482a=0xb4,_0x1e001b=[0xe74c3c,0x3498db,0x2ecc71,0xf39c12,0x9b59b6,0x1abc9c,0xe67e22,0x34495e],_0x181fd2=new eui['Group']();_0x181fd2['width']=_0x49482a,_0x181fd2['height']=_0x49482a,_0x181fd2[_0x433a23(0xe9)]=0x0,_0x181fd2[_0x433a23(0x1bd)]=0x41,_0x181fd2[_0x433a23(0x13b)]=_0x49482a/0x2,_0x181fd2['anchorOffsetY']=_0x49482a/0x2,_0x181fd2['x']=0xaa+_0x49482a/0x2,_0x181fd2['y']=0x41+_0x49482a/0x2;for(var _0x3ff44c=0x0;_0x3ff44c<0x8;_0x3ff44c++){var _0x39dbf5=new eui['Rect']();_0x39dbf5['width']=_0x49482a,_0x39dbf5[_0x433a23(0x1da)]=_0x49482a,_0x39dbf5['fillColor']=_0x1e001b[_0x3ff44c],_0x39dbf5[_0x433a23(0x165)]=_0x49482a,_0x39dbf5['ellipseHeight']=_0x49482a,_0x181fd2[_0x433a23(0xaa)](_0x39dbf5);var _0xa9bbc=new eui[(_0x433a23(0x218))]();_0xa9bbc[_0x433a23(0xa8)]=SPIN_PRIZES[_0x3ff44c]['text'],_0xa9bbc['size']=0xa,_0xa9bbc['textColor']=0xffffff;var _0x3f2ae5=(_0x3ff44c*0x2d+22.5)*Math['PI']/0xb4,_0x5d5da5=_0x49482a*0.32;_0xa9bbc['x']=_0x49482a/0x2+_0x5d5da5*Math['cos'](_0x3f2ae5)-0x14,_0xa9bbc['y']=_0x49482a/0x2+_0x5d5da5*Math['sin'](_0x3f2ae5)-0x6,_0xa9bbc[_0x433a23(0x99)]=0x28,_0xa9bbc['textAlign']='center',_0x181fd2[_0x433a23(0xaa)](_0xa9bbc);}_0x245944[_0x433a23(0xaa)](_0x181fd2);var _0x1b9830=new eui['Rect']();_0x1b9830[_0x433a23(0x99)]=0x24,_0x1b9830[_0x433a23(0x1da)]=0x24,_0x1b9830[_0x433a23(0x165)]=0x12,_0x1b9830[_0x433a23(0x175)]=0x12,_0x1b9830[_0x433a23(0xb8)]=0xffffff,_0x1b9830['horizontalCenter']=0x0,_0x1b9830['top']=0x41+_0x49482a/0x2-0x12,_0x245944['addChild'](_0x1b9830);var _0x1f2dd6=new eui['Label']();_0x1f2dd6[_0x433a23(0xa8)]='▼',_0x1f2dd6['size']=0x18,_0x1f2dd6['textColor']=0xffffff,_0x1f2dd6['horizontalCenter']=0x0,_0x1f2dd6[_0x433a23(0x1bd)]=0x37,_0x245944['addChild'](_0x1f2dd6);var _0x25a1ca=new eui['Label']();_0x25a1ca['text']='',_0x25a1ca['size']=0x10,_0x25a1ca['textColor']=0xffd700,_0x25a1ca[_0x433a23(0xe9)]=0x0,_0x25a1ca['top']=0x41+_0x49482a+0xf,_0x245944[_0x433a23(0xaa)](_0x25a1ca);var _0x2a0464=this,_0x3cc24f=this['createButton'](this['freeSpins']>0x0?'开始抽奖！':'今日次数已用完',this['freeSpins']>0x0?0xe74c3c:0x555555,0x78,0x24,function(){_0x2a0464['spin'](_0x181fd2,_0x25a1ca,_0x3cc24f,_0x358ca5);},this);_0x3cc24f['horizontalCenter']=0x0,_0x3cc24f['top']=0x41+_0x49482a+0x2d;if(this['freeSpins']<=0x0)_0x3cc24f['alpha']=0.4;_0x245944[_0x433a23(0xaa)](_0x3cc24f);},Game['prototype']['spin']=function(_0x9ec6cc,_0x3a28f2,_0x3e9167,_0x39ab76){var _0x36bba7=a0_0x592342;if(this['freeSpins']<=0x0)return;this['freeSpins']--,_0x3e9167['alpha']=0.4,_0x3e9167['touchEnabled']=![];var _0xa01e18=0x0;for(var _0x3e35f1=0x0;_0x3e35f1<SPIN_PRIZES[_0x36bba7(0x123)];_0x3e35f1++)_0xa01e18+=SPIN_PRIZES[_0x3e35f1][_0x36bba7(0xc1)];var _0x35c243=Math['random']()*_0xa01e18,_0x15bc13=SPIN_PRIZES[0x0];for(var _0x3e35f1=0x0;_0x3e35f1<SPIN_PRIZES['length'];_0x3e35f1++){_0x35c243-=SPIN_PRIZES[_0x3e35f1][_0x36bba7(0xc1)];if(_0x35c243<=0x0){_0x15bc13=SPIN_PRIZES[_0x3e35f1];break;}}var _0x6f21e2=0x5a0+Math['random']()*0x168,_0x5124cf=this;egret['Tween']['get'](_0x9ec6cc)['to']({'rotation':_0x6f21e2},0x5dc,egret['Ease']['quadOut'])['call'](function(){var _0x34002a=_0x36bba7;if(_0x15bc13[_0x34002a(0x167)]===_0x34002a(0x19b))_0x5124cf['gold']+=_0x15bc13[_0x34002a(0x112)];else{if(_0x15bc13[_0x34002a(0x167)]===_0x34002a(0x1ec))_0x5124cf[_0x34002a(0x1a9)][_0x15bc13['value']]=(_0x5124cf[_0x34002a(0x1a9)][_0x15bc13['value']]||0x0)+0x1;else _0x15bc13[_0x34002a(0x167)]==='energy'&&(_0x5124cf[_0x34002a(0x13f)]=Math[_0x34002a(0x1ef)](CONFIG['maxEnergy'],_0x5124cf[_0x34002a(0x13f)]+_0x15bc13['value']));}_0x3a28f2['text']='🎉\x20获得:\x20'+_0x15bc13['text'],_0x5124cf['showToast']('🎡\x20转盘奖励:\x20'+_0x15bc13['text']),_0x5124cf['saveGame'](),_0x5124cf['updateUI']();if(_0x39ab76)_0x39ab76['text']=_0x34002a(0x14b)+_0x5124cf['freeSpins']+_0x34002a(0x13d);if(_0x5124cf[_0x34002a(0x13a)]>0x0){_0x3e9167['alpha']=0x1,_0x3e9167['touchEnabled']=!![];var _0x4bc8e9=_0x3e9167[_0x34002a(0x84)](0x1);if(_0x4bc8e9)_0x4bc8e9['text']='再来一次\x20('+_0x5124cf['freeSpins']+')';}});},Game['prototype']['openLeaderboard']=function(){var _0x94dfe7=a0_0x592342,_0x4fc606=this['createPanelOverlay'](),_0x14aa89=this[_0x94dfe7(0x1ab)](_0x4fc606);_0x14aa89[_0x94dfe7(0x1da)]=0x186;var _0xb6c3b6=new eui[(_0x94dfe7(0x218))]();_0xb6c3b6['text']='🏆\x20排行榜',_0xb6c3b6['size']=0x12,_0xb6c3b6['textColor']=0xffffff,_0xb6c3b6['horizontalCenter']=0x0,_0xb6c3b6[_0x94dfe7(0x1bd)]=0xe,_0x14aa89[_0x94dfe7(0xaa)](_0xb6c3b6);var _0x511bdb=this['stats'],_0x23f634=Math[_0x94dfe7(0x1ee)](_0x511bdb[_0x94dfe7(0xcd)]/0xe10),_0x1e8217=Math['floor'](_0x511bdb['playTime']%0xe10/0x3c),_0x42c184=[['💰\x20最高金币',this[_0x94dfe7(0x17d)](_0x511bdb['totalGold'])],['🌊\x20最高波次','第\x20'+this[_0x94dfe7(0x1a1)]+'\x20波'],['💎\x20转生宝石',this['rebirthGems']+_0x94dfe7(0x9e)+(0x1+this['rebirthGems']*0.1)['toFixed'](0x1)+'伤害)'],['⚔️\x20总击杀数',this['fmt'](_0x511bdb[_0x94dfe7(0x15d)])],[_0x94dfe7(0x1af),this['fmt'](_0x511bdb['totalClicks'])],['⏱️\x20游戏时间',_0x23f634+'h\x20'+_0x1e8217+'m'],[_0x94dfe7(0x135),this['fmt'](this[_0x94dfe7(0x121)]())]];for(var _0x42e0dc=0x0;_0x42e0dc<_0x42c184['length'];_0x42e0dc++){var _0x5dacdf=new eui[(_0x94dfe7(0x1ff))]();_0x5dacdf[_0x94dfe7(0x99)]=0x136,_0x5dacdf[_0x94dfe7(0x1da)]=0x20,_0x5dacdf['fillColor']=0x1a153f,_0x5dacdf['x']=0xf,_0x5dacdf['y']=0x2d+_0x42e0dc*0x24,_0x14aa89['addChild'](_0x5dacdf);var _0x4397cb=new eui[(_0x94dfe7(0x218))]();_0x4397cb[_0x94dfe7(0xa8)]=_0x42c184[_0x42e0dc][0x0],_0x4397cb['size']=0xd,_0x4397cb['textColor']=0xcccccc,_0x4397cb['x']=0x19,_0x4397cb['y']=0x2d+_0x42e0dc*0x24+0x8,_0x14aa89['addChild'](_0x4397cb);var _0x2acce6=new eui['Label']();_0x2acce6['text']=_0x42c184[_0x42e0dc][0x1],_0x2acce6['size']=0xd,_0x2acce6['textColor']=0xffd700,_0x2acce6[_0x94dfe7(0x222)]=!![],_0x2acce6['x']=0xfa,_0x2acce6['y']=0x2d+_0x42e0dc*0x24+0x8,_0x14aa89[_0x94dfe7(0xaa)](_0x2acce6);}var _0x12044c=new eui['Label']();_0x12044c[_0x94dfe7(0xa8)]=_0x94dfe7(0xf7),_0x12044c['size']=0xa,_0x12044c['textColor']=0x555555,_0x12044c[_0x94dfe7(0xe9)]=0x0,_0x12044c['bottom']=0x10,_0x14aa89[_0x94dfe7(0xaa)](_0x12044c);},Game['prototype']['openShop']=function(){var _0x2fe048=a0_0x592342,_0x594765=this['createPanelOverlay'](),_0x2966c8=this[_0x2fe048(0x1ab)](_0x594765),_0x1de539=new eui[(_0x2fe048(0x218))]();_0x1de539['text']='🏪\x20商城',_0x1de539[_0x2fe048(0xa4)]=0x12,_0x1de539[_0x2fe048(0xd2)]=0xffffff,_0x1de539[_0x2fe048(0xe9)]=0x0,_0x1de539['top']=0xe,_0x2966c8[_0x2fe048(0xaa)](_0x1de539);var _0xd7b160=this,_0x18b77e=0x32;_0x18b77e=this['addPanelRow'](_0x2966c8,_0x18b77e,'⚡',0x3498db,'能量药水\x0a恢复50能量',_0x2fe048(0x1ba),0x27ae60,function(){_0xd7b160['shopBuy']('energy');},this[_0x2fe048(0x19b)]<0x32),_0x18b77e=this['addPanelRow'](_0x2966c8,_0x18b77e,'💤',0x9b59b6,_0x2fe048(0x1c1)+this[_0x2fe048(0xaf)]+'h)','500金',0x27ae60,function(){var _0xad2de9=_0x2fe048;_0xd7b160[_0xad2de9(0xe4)]('offline');},this['gold']<0x1f4||this[_0x2fe048(0xaf)]>=0x18),_0x18b77e=this['addPanelRow'](_0x2966c8,_0x18b77e,'📋',0xe67e22,'每日任务\x0a查看每日任务进度','查看',0x3498db,function(){var _0x149ed8=_0x2fe048;_0xd7b160['closePanel'](),_0xd7b160[_0x149ed8(0x11c)]();},![]),_0x18b77e=this['addPanelRow'](_0x2966c8,_0x18b77e,'🏆',0xf39c12,'成就系统\x0a已完成:\x20'+this[_0x2fe048(0x138)]['length']+'/'+ACHIEVEMENTS['length'],'查看',0x3498db,function(){var _0x2b5bc2=_0x2fe048;_0xd7b160['closePanel'](),_0xd7b160[_0x2b5bc2(0x203)]();},![]),_0x2966c8['height']=_0x18b77e+0x10;},Game['prototype']['openMail']=function(){var _0x38af4c=a0_0x592342,_0x549e75=this['createPanelOverlay'](),_0x435360=this['addPanelContent'](_0x549e75);_0x435360[_0x38af4c(0x1da)]=0x12c;var _0x31fc6b=new eui['Label']();_0x31fc6b['text']=_0x38af4c(0xc3),_0x31fc6b[_0x38af4c(0xa4)]=0x12,_0x31fc6b[_0x38af4c(0xd2)]=0xffffff,_0x31fc6b['horizontalCenter']=0x0,_0x31fc6b['top']=0xe,_0x435360['addChild'](_0x31fc6b);var _0x282597=[{'from':'系统','title':'欢迎来到打豆豆！','reward':'💰100金','claimed':![]},{'from':'系统','title':'新手礼包','reward':_0x38af4c(0x154),'claimed':![]},{'from':'GM','title':_0x38af4c(0xc4),'reward':_0x38af4c(0xde),'claimed':![]}],_0x1039f3=this,_0x111165=0x32;for(var _0x4a850f=0x0;_0x4a850f<_0x282597['length'];_0x4a850f++){var _0x1aafd5=_0x282597[_0x4a850f],_0x109d28=new eui['Rect']();_0x109d28[_0x38af4c(0x99)]=0x136,_0x109d28['height']=0x32,_0x109d28['fillColor']=0x1a153f,_0x109d28['ellipseWidth']=0x8,_0x109d28['ellipseHeight']=0x8,_0x109d28['x']=0xf,_0x109d28['y']=_0x111165,_0x435360[_0x38af4c(0xaa)](_0x109d28);var _0x52cdad=new eui[(_0x38af4c(0x218))]();_0x52cdad[_0x38af4c(0xa8)]='['+_0x1aafd5['from']+']',_0x52cdad['size']=0xa,_0x52cdad[_0x38af4c(0xd2)]=0xf39c12,_0x52cdad['x']=0x19,_0x52cdad['y']=_0x111165+0x6,_0x435360['addChild'](_0x52cdad);var _0x415380=new eui['Label']();_0x415380['text']=_0x1aafd5[_0x38af4c(0xe7)],_0x415380['size']=0xc,_0x415380['textColor']=0xffffff,_0x415380['x']=0x19,_0x415380['y']=_0x111165+0x16,_0x435360['addChild'](_0x415380);var _0x3f4ec1=new eui['Label']();_0x3f4ec1[_0x38af4c(0xa8)]=_0x1aafd5[_0x38af4c(0x9f)],_0x3f4ec1[_0x38af4c(0xa4)]=0xb,_0x3f4ec1['textColor']=0xffd700,_0x3f4ec1['x']=0xb4,_0x3f4ec1['y']=_0x111165+0xf,_0x435360['addChild'](_0x3f4ec1),function(_0x2d87f2,_0x199dfd){var _0x13cc21=_0x38af4c,_0x3cee17=_0x1039f3['createButton']('领取',0x27ae60,0x32,0x18,function(){_0x1039f3['showToast']('📧\x20已领取:\x20'+_0x199dfd['reward']);},_0x1039f3);_0x3cee17['x']=0xff,_0x3cee17['y']=_0x111165+0xd,_0x435360[_0x13cc21(0xaa)](_0x3cee17);}(_0x4a850f,_0x1aafd5),_0x111165+=0x38;}_0x435360['height']=_0x111165+0x10;},Game['prototype']['openAnnouncement']=function(){var _0x190909=a0_0x592342,_0x23ba2c=this['createPanelOverlay'](),_0x4837df=this[_0x190909(0x1ab)](_0x23ba2c);_0x4837df[_0x190909(0x1da)]=0x140;var _0x4382c4=new eui[(_0x190909(0x218))]();_0x4382c4['text']='📢\x20公告',_0x4382c4['size']=0x12,_0x4382c4[_0x190909(0xd2)]=0xffffff,_0x4382c4['horizontalCenter']=0x0,_0x4382c4['top']=0xe,_0x4837df[_0x190909(0xaa)](_0x4382c4);var _0x47b637=[{'tag':'热','color':0xe74c3c,'text':_0x190909(0x1fc)},{'tag':'新','color':0x3498db,'text':'新增8个辅助英雄，每个都有独特外形和武器！'},{'tag':'活','color':0x2ecc71,'text':_0x190909(0x190)},{'tag':'Tips','color':0xf39c12,'text':_0x190909(0x144)}],_0xa35920=0x32;for(var _0x329274=0x0;_0x329274<_0x47b637[_0x190909(0x123)];_0x329274++){var _0x1ce31b=_0x47b637[_0x329274],_0x318d8f=new eui[(_0x190909(0x1ff))]();_0x318d8f['width']=0x136,_0x318d8f[_0x190909(0x1da)]=0x32,_0x318d8f[_0x190909(0xb8)]=0x1a153f,_0x318d8f['ellipseWidth']=0x8,_0x318d8f['ellipseHeight']=0x8,_0x318d8f['x']=0xf,_0x318d8f['y']=_0xa35920,_0x4837df[_0x190909(0xaa)](_0x318d8f);var _0x5018da=new eui[(_0x190909(0x1ff))]();_0x5018da['width']=0x1c,_0x5018da['height']=0x10,_0x5018da['fillColor']=_0x1ce31b[_0x190909(0x21e)],_0x5018da['ellipseWidth']=0x4,_0x5018da['ellipseHeight']=0x4,_0x5018da['x']=0x16,_0x5018da['y']=_0xa35920+0x6,_0x4837df['addChild'](_0x5018da);var _0x5596b1=new eui[(_0x190909(0x218))]();_0x5596b1['text']=_0x1ce31b['tag'],_0x5596b1[_0x190909(0xa4)]=0x9,_0x5596b1['textColor']=0xffffff,_0x5596b1[_0x190909(0x222)]=!![],_0x5596b1['x']=0x1a,_0x5596b1['y']=_0xa35920+0x8,_0x4837df['addChild'](_0x5596b1);var _0x5bc679=new eui['Label']();_0x5bc679[_0x190909(0xa8)]=_0x1ce31b['text'],_0x5bc679['size']=0xb,_0x5bc679['textColor']=0xcccccc,_0x5bc679['x']=0x19,_0x5bc679['y']=_0xa35920+0x1a,_0x5bc679['width']=0x122,_0x4837df['addChild'](_0x5bc679),_0xa35920+=0x38;}_0x4837df['height']=_0xa35920+0x10;},Game['prototype']['openEnergyHelp']=function(){var _0x32e0d1=a0_0x592342,_0x1ffa43=this['createPanelOverlay'](),_0xd2da97=this['addPanelContent'](_0x1ffa43);_0xd2da97['height']=0x104;var _0x40baad=new eui[(_0x32e0d1(0x218))]();_0x40baad['text']='⚡\x20能量互助',_0x40baad['size']=0x12,_0x40baad[_0x32e0d1(0xd2)]=0xffffff,_0x40baad['horizontalCenter']=0x0,_0x40baad[_0x32e0d1(0x1bd)]=0xe,_0xd2da97['addChild'](_0x40baad);var _0x29fba9=new eui['Label']();_0x29fba9['text']='当前能量:\x20⚡'+this['energy']+'/'+CONFIG['maxEnergy']+'\x0a每秒恢复:\x20+'+CONFIG[_0x32e0d1(0x1f3)],_0x29fba9[_0x32e0d1(0xa4)]=0xd,_0x29fba9[_0x32e0d1(0xd2)]=0xcccccc,_0x29fba9['x']=0x19,_0x29fba9['top']=0x32,_0x29fba9['lineSpacing']=0x6,_0xd2da97['addChild'](_0x29fba9);var _0xe2a8e1=new eui['Label']();_0xe2a8e1[_0x32e0d1(0xa8)]='点击战斗区域消耗1能量\x0a使用技能消耗5能量\x0a能量会自动恢复，也可以在商城购买',_0xe2a8e1['size']=0xb,_0xe2a8e1[_0x32e0d1(0xd2)]=0x888888,_0xe2a8e1['x']=0x19,_0xe2a8e1['top']=0x64,_0xe2a8e1[_0x32e0d1(0x11d)]=0x4,_0xd2da97[_0x32e0d1(0xaa)](_0xe2a8e1);var _0x330e70=this,_0x3a582c=this[_0x32e0d1(0x1b7)]('购买能量药水\x20(+50⚡)',0x3498db,0xa0,0x24,function(){var _0x41cbdc=_0x32e0d1;if(_0x330e70['gold']<0x32){_0x330e70['showToast'](_0x41cbdc(0xad));return;}_0x330e70[_0x41cbdc(0x19b)]-=0x32,_0x330e70['energy']=Math['min'](CONFIG[_0x41cbdc(0x17c)],_0x330e70['energy']+0x32),_0x330e70[_0x41cbdc(0xf6)](_0x41cbdc(0x127)),_0x330e70[_0x41cbdc(0x19e)](),_0x330e70[_0x41cbdc(0x19f)](),_0x330e70['closePanel']();},this);_0x3a582c['horizontalCenter']=0x0,_0x3a582c['y']=0xaa,_0xd2da97['addChild'](_0x3a582c);},Game['prototype']['shopBuy']=function(_0x173115){var _0x3ff4bc=a0_0x592342;if(_0x173115===_0x3ff4bc(0x13f)){if(this[_0x3ff4bc(0x19b)]<0x32){this['showToast']('金币不足！');return;}this['gold']-=0x32,this[_0x3ff4bc(0x13f)]=Math['min'](CONFIG[_0x3ff4bc(0x17c)],this['energy']+0x32),this[_0x3ff4bc(0xf6)]('⚡\x20购买能量药水！+50能量');}else{if(_0x173115==='offline'){if(this['gold']<0x1f4){this['showToast']('金币不足！');return;}this[_0x3ff4bc(0x19b)]-=0x1f4,this['offlineCap']=Math['min'](0x18,this[_0x3ff4bc(0xaf)]+0x4),this[_0x3ff4bc(0xf6)]('💤\x20离线上限提升至'+this[_0x3ff4bc(0xaf)]+_0x3ff4bc(0x1ce));}}this[_0x3ff4bc(0x19e)](),this['updateUI'](),this['closePanel'](),this[_0x3ff4bc(0xa5)]();},Game[a0_0x592342(0x129)]['openRebirth']=function(){var _0x1ca2ce=a0_0x592342,_0x37c834=this['createPanelOverlay'](),_0x18770d=this['addPanelContent'](_0x37c834);_0x18770d[_0x1ca2ce(0x1da)]=0x17c;var _0x3e3d1b=new eui['Label']();_0x3e3d1b['text']='💎\x20转生',_0x3e3d1b['size']=0x12,_0x3e3d1b['textColor']=0xffffff,_0x3e3d1b['horizontalCenter']=0x0,_0x3e3d1b[_0x1ca2ce(0x1bd)]=0xe,_0x18770d[_0x1ca2ce(0xaa)](_0x3e3d1b);var _0xac8378=this,_0x2fd421=Math['floor'](this['maxWaveReached']/0xa),_0x4e6c8a=this['maxWaveReached']>=0x32,_0xf4765f=0x1+this['rebirthGems']*0.1,_0x546807=0x1+this['rebirthGems']*0.05,_0x2d14ef='当前转生宝石:\x20💎\x20'+this[_0x1ca2ce(0x12f)]+'\x0a'+'伤害加成:\x20×'+_0xf4765f['toFixed'](0x1)+'\x20\x20金币加成:\x20×'+_0x546807['toFixed'](0x1)+'\x0a'+'历史最高波次:\x20'+this[_0x1ca2ce(0x1a1)],_0x11a8f8=new eui[(_0x1ca2ce(0x218))]();_0x11a8f8['text']=_0x2d14ef,_0x11a8f8['size']=0xc,_0x11a8f8[_0x1ca2ce(0xd2)]=0xcccccc,_0x11a8f8['x']=0x14,_0x11a8f8[_0x1ca2ce(0x1bd)]=0x2d,_0x11a8f8['width']=0x136,_0x11a8f8['lineSpacing']=0x6,_0x18770d[_0x1ca2ce(0xaa)](_0x11a8f8);var _0x367bad=new eui['Rect']();_0x367bad['width']=0x136,_0x367bad['height']=0x50,_0x367bad['fillColor']=0x1a153f,_0x367bad[_0x1ca2ce(0x165)]=0x8,_0x367bad['x']=0xf,_0x367bad['y']=0x6e,_0x18770d['addChild'](_0x367bad);var _0x10b954=new eui[(_0x1ca2ce(0x218))]();_0x10b954['text']='转生收益预览',_0x10b954[_0x1ca2ce(0xa4)]=0xd,_0x10b954['textColor']=0xf39c12,_0x10b954['x']=0x19,_0x10b954['y']=0x74,_0x18770d['addChild'](_0x10b954);var _0x3f57b5=this['rebirthGems']+_0x2fd421,_0x152e53=0x1+_0x3f57b5*0.1,_0x1de878=0x1+_0x3f57b5*0.05,_0x190611=_0x1ca2ce(0x16a)+_0x2fd421+'\x20宝石\x20(累计:\x20'+_0x3f57b5+')\x0a'+_0x1ca2ce(0x110)+_0x152e53['toFixed'](0x1)+_0x1ca2ce(0x196)+_0x1de878['toFixed'](0x1),_0x4c4134=new eui['Label']();_0x4c4134[_0x1ca2ce(0xa8)]=_0x190611,_0x4c4134[_0x1ca2ce(0xa4)]=0xc,_0x4c4134[_0x1ca2ce(0xd2)]=0xffd700,_0x4c4134['x']=0x19,_0x4c4134['y']=0x8a,_0x4c4134['width']=0x122,_0x4c4134['lineSpacing']=0x4,_0x18770d['addChild'](_0x4c4134);var _0x4aef9b=new eui['Rect']();_0x4aef9b['width']=0x136,_0x4aef9b['height']=0x3c,_0x4aef9b[_0x1ca2ce(0xb8)]=0x2c1340,_0x4aef9b[_0x1ca2ce(0x165)]=0x8,_0x4aef9b['x']=0xf,_0x4aef9b['y']=0xc8,_0x18770d[_0x1ca2ce(0xaa)](_0x4aef9b);var _0x104ac7=new eui['Label']();_0x104ac7['text']='⚠️\x20转生代价:\x0a等级、波次、金币全部重置为初始值\x0a保留:\x20宝石、成就、辅助英雄解锁',_0x104ac7['size']=0xb,_0x104ac7['textColor']=0xe74c3c,_0x104ac7['x']=0x19,_0x104ac7['y']=0xd0,_0x104ac7[_0x1ca2ce(0x99)]=0x122,_0x104ac7['lineSpacing']=0x4,_0x18770d['addChild'](_0x104ac7);var _0x2490c8=new eui['Label']();_0x4e6c8a?(_0x2490c8['text']=_0x1ca2ce(0x187),_0x2490c8['textColor']=0x2ecc71):(_0x2490c8['text']='❌\x20条件不足：需要最高波次\x20≥\x2050\x20(当前:\x20'+this[_0x1ca2ce(0x1a1)]+')',_0x2490c8['textColor']=0xe74c3c);_0x2490c8[_0x1ca2ce(0xa4)]=0xc,_0x2490c8['x']=0x14,_0x2490c8['y']=0x113,_0x2490c8['width']=0x136,_0x18770d[_0x1ca2ce(0xaa)](_0x2490c8);var _0x1a04c7=this['createButton'](_0x4e6c8a?'确认转生\x20(+💎'+_0x2fd421+')':'无法转生',_0x4e6c8a?0x8e44ad:0x555555,0xa0,0x28,function(){if(_0x4e6c8a)_0xac8378['doRebirth'](_0x2fd421);},this);_0x1a04c7[_0x1ca2ce(0xe9)]=0x0,_0x1a04c7['y']=0x136;if(!_0x4e6c8a)_0x1a04c7['alpha']=0.4;_0x18770d['addChild'](_0x1a04c7);},Game[a0_0x592342(0x129)]['doRebirth']=function(_0x25aeac){var _0x295780=a0_0x592342;this[_0x295780(0x12f)]+=_0x25aeac,this['gold']=0x0,this['energy']=0x64,this[_0x295780(0x91)]=0x1,this['wave']=0x1,this['totalCleared']=0x0,this['killCount']=0x0,this[_0x295780(0x125)]=[0x0,0x0,0x0,0x0,0x0,0x0,0x0],this[_0x295780(0xc0)]=[!![],![],![],![],![],![],![]],this['supports']=SUPPORTS_DEF[_0x295780(0xd3)](function(_0x411011){var _0x27b1b7=_0x295780;return{'name':_0x411011['name'],'dps':_0x411011['dps'],'wave':_0x411011['wave'],'level':0x1,'unlocked':_0x411011[_0x27b1b7(0x185)]===0x0};}),this['monsters']=[],this[_0x295780(0x1a9)]={'棒棒糖':0x0,'牛奶':0x0,'烤肉':0x0},this[_0x295780(0x1d6)](),this['saveGame'](),this['closePanel'](),this['showToast']('💎\x20转生成功！获得\x20'+_0x25aeac+'\x20宝石'),this[_0x295780(0x19f)](),this[_0x295780(0x120)](),this[_0x295780(0x22f)]();},Game[a0_0x592342(0x129)]['checkDailyCheckin']=function(){var _0x413535=a0_0x592342,_0x193feb=new Date()['toDateString']();if(this['checkinDate']===_0x193feb)return;if(this[_0x413535(0x14d)]){var _0x53dfc6=new Date(this['checkinDate']),_0x16e3f5=Math['floor']((new Date(_0x193feb)-_0x53dfc6)/0x5265c00);if(_0x16e3f5>0x1)this['checkinDay']=0x0;}this['openCheckin'](!![]);},Game['prototype'][a0_0x592342(0x1e9)]=function(_0x285ffa){var _0xfc613e=a0_0x592342,_0x356eaf=new Date()['toDateString'](),_0xc82444=this['checkinDate']===_0x356eaf,_0x1c6e4c=_0xc82444?this['checkinDay']:this['checkinDay']%0x7,_0x471ab6=this['createPanelOverlay'](),_0x22ec07=this[_0xfc613e(0x1ab)](_0x471ab6);_0x22ec07['height']=0x168;var _0x3591b1=new eui['Label']();_0x3591b1['text']=_0xfc613e(0x142),_0x3591b1['size']=0x12,_0x3591b1[_0xfc613e(0xd2)]=0xffffff,_0x3591b1[_0xfc613e(0xe9)]=0x0,_0x3591b1['top']=0xe,_0x22ec07['addChild'](_0x3591b1);var _0x11108c=new eui[(_0xfc613e(0x218))]();_0x11108c[_0xfc613e(0xa8)]=_0xfc613e(0x1d3)+this['checkinDay']+'天',_0x11108c['size']=0xc,_0x11108c[_0xfc613e(0xd2)]=0xaaaaaa,_0x11108c['horizontalCenter']=0x0,_0x11108c[_0xfc613e(0x1bd)]=0x28,_0x22ec07['addChild'](_0x11108c);for(var _0xe5f2c6=0x0;_0xe5f2c6<CHECKIN_REWARDS['length'];_0xe5f2c6++){var _0xb17298=CHECKIN_REWARDS[_0xe5f2c6],_0x135379=_0xc82444?_0xe5f2c6<_0x1c6e4c:_0xe5f2c6<_0x1c6e4c,_0x29da81=!_0xc82444&&_0xe5f2c6===_0x1c6e4c,_0x410f2b=_0xe5f2c6%0x4,_0x59db44=Math['floor'](_0xe5f2c6/0x4),_0x290c2c=0x14+_0x410f2b*0x50,_0x187874=0x40+_0x59db44*0x5a,_0x4e010c=new eui['Rect']();_0x4e010c[_0xfc613e(0x99)]=0x48,_0x4e010c['height']=0x50,_0x4e010c[_0xfc613e(0x165)]=0x8,_0x4e010c['ellipseHeight']=0x8,_0x4e010c[_0xfc613e(0xb8)]=_0x29da81?0x2a3f5c:0x1a153f,_0x4e010c['x']=_0x290c2c,_0x4e010c['y']=_0x187874;_0x29da81&&(_0x4e010c[_0xfc613e(0x126)]=0x2,_0x4e010c['strokeColor']=0x2ecc71);_0x22ec07[_0xfc613e(0xaa)](_0x4e010c);var _0x17ee08=new eui['Label']();_0x17ee08[_0xfc613e(0xa8)]='第'+(_0xe5f2c6+0x1)+'天',_0x17ee08['size']=0xa,_0x17ee08[_0xfc613e(0xd2)]=0xaaaaaa,_0x17ee08['x']=_0x290c2c+0x4,_0x17ee08['y']=_0x187874+0x6,_0x22ec07['addChild'](_0x17ee08);var _0x538ee0=new eui[(_0xfc613e(0x218))]();_0x538ee0['text']='💰'+_0xb17298['gold']+(_0xb17298['bonus']?'\x20+\x20'+_0xb17298[_0xfc613e(0x1dd)][_0xfc613e(0x9a)]:''),_0x538ee0['size']=0xa,_0x538ee0['textColor']=0xffd700,_0x538ee0['x']=_0x290c2c+0x4,_0x538ee0['y']=_0x187874+0x1e,_0x22ec07[_0xfc613e(0xaa)](_0x538ee0);if(_0x135379){var _0x287158=new eui[(_0xfc613e(0x218))]();_0x287158['text']='✓',_0x287158[_0xfc613e(0xa4)]=0x12,_0x287158['textColor']=0x2ecc71,_0x287158['x']=_0x290c2c+0x34,_0x287158['y']=_0x187874+0x4,_0x22ec07[_0xfc613e(0xaa)](_0x287158);}}var _0x510486=this,_0x3521b8=this['createButton'](_0xc82444?'今日已签到':_0xfc613e(0xdd),_0xc82444?0x555555:0x27ae60,0x78,0x24,function(){var _0x4c6e45=_0xfc613e;_0x510486[_0x4c6e45(0x10f)]();},this);_0x3521b8[_0xfc613e(0xe9)]=0x0,_0x3521b8['bottom']=0x10;if(_0xc82444)_0x3521b8[_0xfc613e(0xf0)]=0.4;_0x22ec07[_0xfc613e(0xaa)](_0x3521b8);},Game['prototype'][a0_0x592342(0x10f)]=function(){var _0x270dba=a0_0x592342,_0x44ff4c=new Date()['toDateString']();if(this['checkinDate']===_0x44ff4c){this[_0x270dba(0xf6)]('今日已签到！');return;}var _0x509ccd=this['checkinDay']%0x7,_0x5aa579=CHECKIN_REWARDS[_0x509ccd];this['gold']+=_0x5aa579[_0x270dba(0x19b)],_0x5aa579[_0x270dba(0x1dd)]?(this['foods'][_0x5aa579[_0x270dba(0x1dd)]['name']]=(this[_0x270dba(0x1a9)][_0x5aa579['bonus']['name']]||0x0)+0x1,this['showToast']('📅\x20签到奖励:\x20'+_0x5aa579[_0x270dba(0x19b)]+_0x270dba(0xbb)+_0x5aa579['bonus'][_0x270dba(0x9a)]+'×1')):this[_0x270dba(0xf6)]('📅\x20签到奖励:\x20'+_0x5aa579[_0x270dba(0x19b)]+'金'),this['checkinDay']++,this['checkinDate']=_0x44ff4c,this['saveGame'](),this['updateUI'](),this['closePanel'](),this['openCheckin']();},Game['prototype']['resetDailyTasks']=function(){var _0x1ccb7d=a0_0x592342,_0x46b1c2=new Date()['toDateString']();this['dailyTaskDate']!==_0x46b1c2&&(this['dailyTaskDate']=_0x46b1c2,this[_0x1ccb7d(0x1bf)]=[![],![],![]],this[_0x1ccb7d(0x1f1)]['_dailyKills']=0x0,this[_0x1ccb7d(0x1f1)]['_dailyClicks']=0x0,this['stats']['_dailyWaves']=0x0);},Game['prototype'][a0_0x592342(0xfa)]=function(_0x1e4d7c){var _0x3763a3=a0_0x592342;this[_0x3763a3(0x15f)]();if(_0x1e4d7c==='kill')this['stats']['_dailyKills']=(this[_0x3763a3(0x1f1)]['_dailyKills']||0x0)+0x1;if(_0x1e4d7c==='click')this[_0x3763a3(0x1f1)][_0x3763a3(0x134)]=(this[_0x3763a3(0x1f1)]['_dailyClicks']||0x0)+0x1;if(_0x1e4d7c==='wave')this['stats']['_dailyWaves']=(this['stats']['_dailyWaves']||0x0)+0x1;for(var _0x499a65=0x0;_0x499a65<DAILY_TASKS['length'];_0x499a65++){var _0x96a27b=DAILY_TASKS[_0x499a65];!this[_0x3763a3(0x1bf)][_0x499a65]&&_0x96a27b[_0x3763a3(0x226)](this['stats'])>=_0x96a27b['target']&&(this['dailyTaskDone'][_0x499a65]=!![],this['showToast']('📋\x20任务完成:\x20'+_0x96a27b[_0x3763a3(0xfe)]+'！'));}},Game['prototype']['openDailyTasks']=function(){var _0x5c87f1=a0_0x592342;this['resetDailyTasks']();var _0x12b859=this[_0x5c87f1(0x208)](),_0x2c51ee=this[_0x5c87f1(0x1ab)](_0x12b859),_0x25966f=new eui['Label']();_0x25966f['text']=_0x5c87f1(0x1cf),_0x25966f['size']=0x12,_0x25966f[_0x5c87f1(0xd2)]=0xffffff,_0x25966f[_0x5c87f1(0xe9)]=0x0,_0x25966f['top']=0xe,_0x2c51ee['addChild'](_0x25966f);var _0x2fa6a8=this,_0x301093=0x32;for(var _0xd3c1b0=0x0;_0xd3c1b0<DAILY_TASKS['length'];_0xd3c1b0++){var _0x59265a=DAILY_TASKS[_0xd3c1b0],_0x570330=this['dailyTaskDone'][_0xd3c1b0],_0x2cf0c2=Math[_0x5c87f1(0x1ef)](_0x59265a['track'](this['stats']),_0x59265a['target']),_0x4fd8a6=_0x2cf0c2/_0x59265a[_0x5c87f1(0xae)],_0x4fe1ff=new eui[(_0x5c87f1(0x1ff))]();_0x4fe1ff['width']=0x136,_0x4fe1ff['height']=0x38,_0x4fe1ff['fillColor']=0x1a153f,_0x4fe1ff['ellipseWidth']=0x8,_0x4fe1ff[_0x5c87f1(0x175)]=0x8,_0x4fe1ff['x']=0xf,_0x4fe1ff['y']=_0x301093,_0x2c51ee['addChild'](_0x4fe1ff);var _0x200682=new eui['Rect']();_0x200682['width']=0x20,_0x200682['height']=0x20,_0x200682[_0x5c87f1(0x165)]=0x10,_0x200682['ellipseHeight']=0x10,_0x200682['fillColor']=_0x570330?0x2ecc71:0x3498db,_0x200682['x']=0x19,_0x200682['y']=_0x301093+0xc,_0x2c51ee[_0x5c87f1(0xaa)](_0x200682);var _0x348549=new eui['Label']();_0x348549[_0x5c87f1(0xa8)]=_0x570330?'✓':'📋',_0x348549[_0x5c87f1(0xa4)]=0xe,_0x348549['x']=_0x200682['x']+0x9,_0x348549['y']=_0x301093+0x14,_0x2c51ee['addChild'](_0x348549);var _0x405a36=new eui['Label']();_0x405a36['text']=_0x59265a['desc'],_0x405a36['size']=0xc,_0x405a36['textColor']=0xcccccc,_0x405a36['x']=0x44,_0x405a36['y']=_0x301093+0x6,_0x2c51ee['addChild'](_0x405a36);var _0x3b3d96=new eui['Rect']();_0x3b3d96['width']=0x96,_0x3b3d96[_0x5c87f1(0x1da)]=0x6,_0x3b3d96['fillColor']=0x140e36,_0x3b3d96['x']=0x44,_0x3b3d96['y']=_0x301093+0x1c,_0x2c51ee[_0x5c87f1(0xaa)](_0x3b3d96);var _0x1cde84=new eui['Rect']();_0x1cde84[_0x5c87f1(0x99)]=0x96*_0x4fd8a6,_0x1cde84[_0x5c87f1(0x1da)]=0x6,_0x1cde84['fillColor']=0x2ecc71,_0x1cde84['x']=0x44,_0x1cde84['y']=_0x301093+0x1c,_0x2c51ee['addChild'](_0x1cde84);var _0x2f0410=new eui['Label']();_0x2f0410['text']=_0x2cf0c2+'/'+_0x59265a['target'],_0x2f0410['size']=0xa,_0x2f0410['textColor']=0x888888,_0x2f0410['x']=0xe1,_0x2f0410['y']=_0x301093+0x1a,_0x2c51ee[_0x5c87f1(0xaa)](_0x2f0410),_0x570330&&function(_0x5163da){var _0x5ac280=_0x5c87f1,_0x31b7a6=_0x2fa6a8['createButton']('+'+DAILY_TASKS[_0x5163da][_0x5ac280(0x9f)]+'金',0x27ae60,0x3c,0x1a,function(){var _0xfbbcc=_0x5ac280;_0x2fa6a8[_0xfbbcc(0x173)](_0x5163da);},_0x2fa6a8);_0x31b7a6['x']=0xf5,_0x31b7a6['y']=_0x301093+0xf,_0x2c51ee['addChild'](_0x31b7a6);}(_0xd3c1b0),_0x301093+=0x3e;}_0x2c51ee['height']=_0x301093+0x10;},Game['prototype']['claimTask']=function(_0x4955b9){var _0x2f0dc5=a0_0x592342;if(!this[_0x2f0dc5(0x1bf)][_0x4955b9])return;var _0x18c5eb=DAILY_TASKS[_0x4955b9];this['gold']+=_0x18c5eb[_0x2f0dc5(0x9f)],this['showToast'](_0x2f0dc5(0x151)+_0x18c5eb['reward']+'金'),this[_0x2f0dc5(0x1bf)][_0x4955b9]=![],this[_0x2f0dc5(0x19e)](),this[_0x2f0dc5(0x19f)](),this['closePanel'](),this['openDailyTasks']();},Game['prototype']['checkAchievements']=function(){var _0x39af0e=a0_0x592342;for(var _0x1face5=0x0;_0x1face5<ACHIEVEMENTS[_0x39af0e(0x123)];_0x1face5++){var _0x2e8aa6=ACHIEVEMENTS[_0x1face5];if(this[_0x39af0e(0x138)][_0x39af0e(0x11b)](_0x2e8aa6['id'])>=0x0)continue;_0x2e8aa6['check'](this)&&(this['achievements'][_0x39af0e(0x1d2)](_0x2e8aa6['id']),this['gold']+=_0x2e8aa6[_0x39af0e(0x9f)],this[_0x39af0e(0xf6)]('🏆\x20成就达成:\x20'+_0x2e8aa6[_0x39af0e(0x1f6)]+'！+'+_0x2e8aa6[_0x39af0e(0x9f)]+'金'));}},Game['prototype']['openAchievements']=function(){var _0x11bdd9=a0_0x592342,_0x7c9b13=this['createPanelOverlay'](),_0x317a3e=this[_0x11bdd9(0x1ab)](_0x7c9b13);_0x317a3e['height']=Math['min'](0x1f4,0x46+ACHIEVEMENTS['length']*0x36);var _0x2910c2=new eui['Label']();_0x2910c2['text']='🏆\x20成就\x20('+this['achievements'][_0x11bdd9(0x123)]+'/'+ACHIEVEMENTS['length']+')',_0x2910c2['size']=0x12,_0x2910c2[_0x11bdd9(0xd2)]=0xffffff,_0x2910c2['horizontalCenter']=0x0,_0x2910c2['top']=0xe,_0x317a3e['addChild'](_0x2910c2);var _0x3a0c2f=0x2d;for(var _0x32243b=0x0;_0x32243b<ACHIEVEMENTS[_0x11bdd9(0x123)];_0x32243b++){var _0x1d2710=ACHIEVEMENTS[_0x32243b],_0x367c07=this['achievements']['indexOf'](_0x1d2710['id'])>=0x0,_0x1e3a43=new eui[(_0x11bdd9(0x1ff))]();_0x1e3a43[_0x11bdd9(0x99)]=0x136,_0x1e3a43[_0x11bdd9(0x1da)]=0x2c,_0x1e3a43['fillColor']=0x1a153f,_0x1e3a43['ellipseWidth']=0x8,_0x1e3a43[_0x11bdd9(0x175)]=0x8,_0x1e3a43['x']=0xf,_0x1e3a43['y']=_0x3a0c2f,_0x1e3a43['alpha']=_0x367c07?0x1:0.5,_0x317a3e[_0x11bdd9(0xaa)](_0x1e3a43);var _0x5a1bec=new eui['Rect']();_0x5a1bec[_0x11bdd9(0x99)]=0x20,_0x5a1bec['height']=0x20,_0x5a1bec[_0x11bdd9(0x165)]=0x10,_0x5a1bec['ellipseHeight']=0x10,_0x5a1bec[_0x11bdd9(0xb8)]=_0x367c07?0xf39c12:0x555555,_0x5a1bec['x']=0x19,_0x5a1bec['y']=_0x3a0c2f+0x6,_0x317a3e['addChild'](_0x5a1bec);var _0xc719a6=new eui['Label']();_0xc719a6['text']=_0x1d2710[_0x11bdd9(0x1f6)],_0xc719a6['size']=0xc,_0xc719a6['textColor']=_0x367c07?0xffffff:0x888888,_0xc719a6['x']=0x44,_0xc719a6['y']=_0x3a0c2f+0x6,_0x317a3e['addChild'](_0xc719a6);var _0x4e2783=new eui['Label']();_0x4e2783['text']=_0x1d2710['desc'],_0x4e2783['size']=0xa,_0x4e2783[_0x11bdd9(0xd2)]=0x888888,_0x4e2783['x']=0x44,_0x4e2783['y']=_0x3a0c2f+0x18,_0x317a3e[_0x11bdd9(0xaa)](_0x4e2783);var _0x25c335=new eui['Label']();_0x25c335['text']=_0x367c07?_0x11bdd9(0x176)+_0x1d2710[_0x11bdd9(0x9f)]+'金':'+'+_0x1d2710['reward']+'金',_0x25c335['size']=0xb,_0x25c335[_0x11bdd9(0xd2)]=_0x367c07?0xffd700:0x666666,_0x25c335['x']=0x104,_0x25c335['y']=_0x3a0c2f+0xe,_0x317a3e['addChild'](_0x25c335),_0x3a0c2f+=0x32;}},Game['prototype'][a0_0x592342(0x108)]=function(){var _0x2d83e7=a0_0x592342,_0x21cc20=this['createPanelOverlay'](),_0x252db5=this['addPanelContent'](_0x21cc20),_0x13ee88=0x0;for(var _0x5e0e66=0x0;_0x5e0e66<MONSTER_TYPES['length'];_0x5e0e66++){if(this['monsterCodex'][MONSTER_TYPES[_0x5e0e66]['shape']])_0x13ee88++;}var _0x44f990=0x0;for(var _0x5e0e66=0x0;_0x5e0e66<BOSS_TYPES['length'];_0x5e0e66++){if(this[_0x2d83e7(0x1f7)][BOSS_TYPES[_0x5e0e66]['shape']])_0x44f990++;}var _0x61f7f2=MONSTER_TYPES['length']+BOSS_TYPES['length'],_0x2cc504=new eui[(_0x2d83e7(0x218))]();_0x2cc504['text']=_0x2d83e7(0x1e1)+(_0x13ee88+_0x44f990)+'/'+_0x61f7f2+')',_0x2cc504[_0x2d83e7(0xa4)]=0xf,_0x2cc504['textColor']=THEME['accentSoft'],_0x2cc504['bold']=!![],_0x2cc504[_0x2d83e7(0xe9)]=0x0,_0x2cc504['top']=0xc,_0x252db5[_0x2d83e7(0xaa)](_0x2cc504);var _0x33b115=new eui['Label']();_0x33b115['text']='──\x20普通怪物\x20──',_0x33b115['size']=0xb,_0x33b115['textColor']=THEME['textDim'],_0x33b115['horizontalCenter']=0x0,_0x33b115['top']=0x22,_0x252db5['addChild'](_0x33b115);var _0x2dd503=0x2,_0x4b7038=0x94,_0x26081d=0x50,_0x3709e1=0x8,_0x5229f4=0x6,_0x6d087e=0xc,_0x8d0d=0x32,_0x343832=this;function _0x3866bb(_0x4ed21a,_0x2e802e,_0x179a79,_0x2e6a34){var _0x5648e3=_0x2d83e7,_0xe219f1=_0x343832[_0x5648e3(0x1f7)][_0x4ed21a[_0x5648e3(0xcb)]],_0xf3f359=!!_0xe219f1,_0x392e42=_0x2e802e%_0x2dd503,_0x1356cb=Math['floor'](_0x2e802e/_0x2dd503),_0x441a2c=_0x6d087e+_0x392e42*(_0x4b7038+_0x3709e1),_0x34df3b=_0x179a79+_0x1356cb*(_0x26081d+_0x5229f4),_0x1cb39d=new eui['Rect']();_0x1cb39d['width']=_0x4b7038,_0x1cb39d['height']=_0x26081d,_0x1cb39d['ellipseWidth']=0x8,_0x1cb39d[_0x5648e3(0x175)]=0x8,_0x1cb39d['fillColor']=_0xf3f359?_0x2e6a34?0x2a0a0a:0xe1a2a:0x1a1a1a,_0x1cb39d['strokeColor']=_0xf3f359?_0x2e6a34?0xff4444:_0x4ed21a['badge']:0x333333,_0x1cb39d['strokeWeight']=_0xf3f359?_0x2e6a34?0x2:1.5:0x1,_0x1cb39d['x']=_0x441a2c,_0x1cb39d['y']=_0x34df3b,_0x252db5['addChild'](_0x1cb39d);var _0x5a9ef8=new egret[(_0x5648e3(0x117))]();if(_0xf3f359)_0x343832[_0x5648e3(0x94)](_0x5a9ef8['graphics'],_0x4ed21a,0x2c,_0x2e6a34);else{var _0x34adb2=_0x5a9ef8[_0x5648e3(0xdc)];_0x34adb2['beginFill'](0x444444),_0x34adb2[_0x5648e3(0x16f)](0x16,0x16,0x12),_0x34adb2[_0x5648e3(0x182)](),_0x34adb2['beginFill'](0x222222),_0x34adb2['drawCircle'](0x16,0x16,0xd),_0x34adb2[_0x5648e3(0x182)](),_0x34adb2['lineStyle'](0x2,0x666666),_0x34adb2['moveTo'](0x12,0x12),_0x34adb2[_0x5648e3(0x11e)](0x1a,0x1a),_0x34adb2[_0x5648e3(0x160)](0x1a,0x12),_0x34adb2['lineTo'](0x12,0x1a);}_0x5a9ef8['x']=_0x441a2c+0x4,_0x5a9ef8['y']=_0x34df3b+0x12,_0x252db5[_0x5648e3(0xaa)](_0x5a9ef8);var _0x1366d7=new eui[(_0x5648e3(0x218))]();_0x1366d7[_0x5648e3(0xa8)]=_0xf3f359?_0x2e6a34?'👑\x20'+_0x4ed21a['name']:_0x4ed21a['name']:'???',_0x1366d7['size']=0xc,_0x1366d7[_0x5648e3(0x222)]=!![],_0x1366d7['textColor']=_0xf3f359?_0x2e6a34?0xff8888:0xffffff:0x555555,_0x1366d7['x']=_0x441a2c+0x34,_0x1366d7['y']=_0x34df3b+0x6,_0x252db5['addChild'](_0x1366d7);var _0x5c96bc=new eui['Label']();_0x5c96bc['text']=_0xf3f359?'波次:\x20'+(_0x4ed21a[_0x5648e3(0x185)]||(_0x2e6a34?_0x5648e3(0x146):'?')):'未发现',_0x5c96bc['size']=0x9,_0x5c96bc['textColor']=_0xf3f359?THEME[_0x5648e3(0x1aa)]:0x444444,_0x5c96bc['x']=_0x441a2c+0x34,_0x5c96bc['y']=_0x34df3b+0x18,_0x252db5['addChild'](_0x5c96bc);var _0x4427c4=new eui['Label']();_0x4427c4['text']=_0xf3f359?_0x5648e3(0x10e)+(_0xe219f1[_0x5648e3(0x1a2)]||0x0):'',_0x4427c4[_0x5648e3(0xa4)]=0x9,_0x4427c4[_0x5648e3(0xd2)]=0x888888,_0x4427c4['x']=_0x441a2c+0x34,_0x4427c4['y']=_0x34df3b+0x26,_0x252db5['addChild'](_0x4427c4);if(_0xf3f359&&_0x4ed21a['desc']){var _0x4a33c4=new eui['Label']();_0x4a33c4['text']=_0x4ed21a[_0x5648e3(0xfe)],_0x4a33c4['size']=0x8,_0x4a33c4['textColor']=THEME['textDim'],_0x4a33c4[_0x5648e3(0x99)]=_0x4b7038-0x38,_0x4a33c4['wordWrap']=!![],_0x4a33c4['x']=_0x441a2c+0x34,_0x4a33c4['y']=_0x34df3b+0x34,_0x252db5[_0x5648e3(0xaa)](_0x4a33c4);}if(_0x2e6a34&&_0xf3f359){var _0x105b40=new eui['Rect']();_0x105b40['width']=0x1e,_0x105b40['height']=0xd,_0x105b40['ellipseWidth']=0x6,_0x105b40['ellipseHeight']=0x6,_0x105b40['fillColor']=0x7a0000,_0x105b40['x']=_0x441a2c+_0x4b7038-0x22,_0x105b40['y']=_0x34df3b+0x4,_0x252db5[_0x5648e3(0xaa)](_0x105b40);var _0x2d532f=new eui['Label']();_0x2d532f[_0x5648e3(0xa8)]='BOSS',_0x2d532f[_0x5648e3(0xa4)]=0x8,_0x2d532f['bold']=!![],_0x2d532f['textColor']=0xff8888,_0x2d532f['x']=_0x441a2c+_0x4b7038-0x20,_0x2d532f['y']=_0x34df3b+0x5,_0x252db5['addChild'](_0x2d532f);}}for(var _0x5e0e66=0x0;_0x5e0e66<MONSTER_TYPES['length'];_0x5e0e66++){_0x3866bb(MONSTER_TYPES[_0x5e0e66],_0x5e0e66,_0x8d0d,![]);}var _0x5650f3=Math['ceil'](MONSTER_TYPES['length']/_0x2dd503),_0x1048fd=_0x8d0d+_0x5650f3*(_0x26081d+_0x5229f4)+0xa,_0x341e7e=new eui['Label']();_0x341e7e['text']='──\x20BOSS\x20图签\x20──',_0x341e7e['size']=0xb,_0x341e7e['textColor']=0xff8888,_0x341e7e['horizontalCenter']=0x0,_0x341e7e['y']=_0x1048fd,_0x252db5[_0x2d83e7(0xaa)](_0x341e7e);for(var _0x5e0e66=0x0;_0x5e0e66<BOSS_TYPES['length'];_0x5e0e66++){_0x3866bb(BOSS_TYPES[_0x5e0e66],_0x5e0e66,_0x1048fd+0x12,!![]);}var _0x690461=Math[_0x2d83e7(0xe1)](BOSS_TYPES['length']/_0x2dd503),_0x2b7a62=_0x1048fd+0x12+_0x690461*(_0x26081d+_0x5229f4)+0xa,_0x1d7d49=this['createButton']('关闭',THEME['bgLite'],0x64,0x20,function(){if(_0x21cc20['parent'])_0x21cc20['parent']['removeChild'](_0x21cc20);},this);_0x1d7d49['horizontalCenter']=0x0,_0x1d7d49['y']=_0x2b7a62,_0x252db5['addChild'](_0x1d7d49);},Game[a0_0x592342(0x129)][a0_0x592342(0x92)]=function(){var _0x337aa5=a0_0x592342;try{var _0x2c4b66=parseInt(localStorage['getItem']('gujiyouxi_egret_time')||'0');if(!_0x2c4b66)return;var _0x20098d=Date['now'](),_0x245f83=Math['floor']((_0x20098d-_0x2c4b66)/0x3e8);if(_0x245f83<0x3c)return;var _0x8cd816=this['offlineCap']*0xe10,_0x6e0c6c=Math['min'](_0x245f83,_0x8cd816),_0x1a1ab0=this['totalDps'](),_0x2fa452=Math[_0x337aa5(0x1ee)](_0x1a1ab0*0.1*_0x6e0c6c);if(_0x2fa452<=0x0)return;this['gold']+=_0x2fa452;var _0x16a457=Math['floor'](_0x6e0c6c/0xe10),_0x38fad5=Math[_0x337aa5(0x1ee)](_0x6e0c6c%0xe10/0x3c),_0xd52698=_0x16a457>0x0?_0x16a457+'小时'+_0x38fad5+'分钟':_0x38fad5+'分钟',_0x52a7e9=this;setTimeout(function(){var _0x1cfa81=_0x337aa5,_0xff88c4=_0x52a7e9[_0x1cfa81(0x208)](),_0x866ce7=new eui[(_0x1cfa81(0x217))]();_0x866ce7['width']=0x12c,_0x866ce7[_0x1cfa81(0x1da)]=0xdc,_0x866ce7['horizontalCenter']=0x0,_0x866ce7['verticalCenter']=0x0;var _0x2947c3=new eui[(_0x1cfa81(0x1ff))]();_0x2947c3['percentWidth']=0x64,_0x2947c3['percentHeight']=0x64,_0x2947c3['fillColor']=0x2a1f5c,_0x2947c3['ellipseWidth']=0xc,_0x2947c3['ellipseHeight']=0xc,_0x866ce7['addChild'](_0x2947c3);var _0x105db9=new eui['Label']();_0x105db9[_0x1cfa81(0xa8)]=_0x1cfa81(0x194),_0x105db9['size']=0x12,_0x105db9['textColor']=0xffffff,_0x105db9['horizontalCenter']=0x0,_0x105db9['top']=0x14,_0x866ce7['addChild'](_0x105db9);var _0x437a4a=new eui['Label']();_0x437a4a['text']=_0x1cfa81(0x16c)+_0xd52698,_0x437a4a['size']=0xc,_0x437a4a[_0x1cfa81(0xd2)]=0xaaaaaa,_0x437a4a[_0x1cfa81(0xe9)]=0x0,_0x437a4a[_0x1cfa81(0x1bd)]=0x37,_0x866ce7[_0x1cfa81(0xaa)](_0x437a4a);var _0x47703c=new eui[(_0x1cfa81(0x218))]();_0x47703c[_0x1cfa81(0xa8)]='+'+_0x52a7e9[_0x1cfa81(0x17d)](_0x2fa452)+'\x20💰',_0x47703c[_0x1cfa81(0xa4)]=0x18,_0x47703c['textColor']=0xffd700,_0x47703c[_0x1cfa81(0xe9)]=0x0,_0x47703c[_0x1cfa81(0x1bd)]=0x55,_0x866ce7[_0x1cfa81(0xaa)](_0x47703c);var _0x5dd5fd=new eui[(_0x1cfa81(0x218))]();_0x5dd5fd['text']=_0x1cfa81(0x93)+_0x52a7e9[_0x1cfa81(0x17d)](_0x1a1ab0)+'\x20×\x2010%\x20×\x20'+_0x6e0c6c+'s',_0x5dd5fd['size']=0xb,_0x5dd5fd[_0x1cfa81(0xd2)]=0x666666,_0x5dd5fd['horizontalCenter']=0x0,_0x5dd5fd[_0x1cfa81(0x1bd)]=0x82,_0x866ce7['addChild'](_0x5dd5fd);var _0x118f20=_0x52a7e9['createButton']('📺\x20看广告\x20×2',0x27ae60,0x96,0x24,function(){var _0x81a3df=_0x1cfa81;_0x52a7e9['gold']+=_0x2fa452,_0x47703c['text']='+'+_0x52a7e9['fmt'](_0x2fa452*0x2)+'\x20💰\x20(×2)',_0x118f20['alpha']=0.4,_0x118f20['touchEnabled']=![];var _0x1681b4=_0x118f20['getChildAt'](0x1);if(_0x1681b4)_0x1681b4[_0x81a3df(0xa8)]='✓\x20已翻倍';_0x52a7e9[_0x81a3df(0xf6)](_0x81a3df(0xd0)),_0x52a7e9[_0x81a3df(0x19f)]();},_0x52a7e9);_0x118f20['horizontalCenter']=0x0,_0x118f20[_0x1cfa81(0x1bd)]=0xa0,_0x866ce7[_0x1cfa81(0xaa)](_0x118f20);var _0x467277=_0x52a7e9['createButton']('收下',0xe74c3c,0x64,0x24,function(){_0x52a7e9['closePanel']();},_0x52a7e9);_0x467277['horizontalCenter']=0x0,_0x467277['top']=0xd2,_0x866ce7['height']=0x104,_0x866ce7[_0x1cfa81(0xaa)](_0x467277),_0xff88c4[_0x1cfa81(0xaa)](_0x866ce7);},0x1f4);}catch(_0x3092b4){}},Game[a0_0x592342(0x129)]['initSound']=function(){var _0x1533da=a0_0x592342;this[_0x1533da(0xe6)]=localStorage['getItem'](_0x1533da(0x9c))==='1',this['_audioCtx']=null;var _0x38e9d2=this,_0x31b44c=function(){var _0xf3a841=_0x1533da;if(!_0x38e9d2[_0xf3a841(0x1d8)])try{var _0x19ff8f=window[_0xf3a841(0xa3)]||window['webkitAudioContext'];if(_0x19ff8f)_0x38e9d2['_audioCtx']=new _0x19ff8f();}catch(_0x1fba9c){_0x38e9d2[_0xf3a841(0x1d8)]=null;}_0x38e9d2['_audioCtx']&&_0x38e9d2['_audioCtx']['state']===_0xf3a841(0x1ea)&&_0x38e9d2['_audioCtx']['resume'](),document['removeEventListener']('touchstart',_0x31b44c),document['removeEventListener'](_0xf3a841(0x133),_0x31b44c),document['removeEventListener']('keydown',_0x31b44c);};document[_0x1533da(0x19d)]('touchstart',_0x31b44c),document['addEventListener']('mousedown',_0x31b44c),document['addEventListener']('keydown',_0x31b44c);},Game['prototype']['_beep']=function(_0x57599f){var _0x48264c=a0_0x592342;if(this[_0x48264c(0xe6)])return;var _0x1eb49d=this[_0x48264c(0x1d8)];if(!_0x1eb49d)return;try{var _0x2abdfb=_0x1eb49d[_0x48264c(0x1ae)](),_0x341ad5=_0x1eb49d['createGain']();_0x2abdfb['type']=_0x57599f['type']||_0x48264c(0xe5);var _0x354db4=_0x57599f['freq']||0x1b8,_0x58732a=_0x57599f[_0x48264c(0x139)]||_0x354db4,_0xd44d6f=_0x1eb49d['currentTime'],_0x17fc0d=_0x57599f['duration']||0.12;_0x2abdfb[_0x48264c(0xa0)]['setValueAtTime'](_0x354db4,_0xd44d6f);_0x58732a!==_0x354db4&&_0x2abdfb[_0x48264c(0xa0)][_0x48264c(0xb7)](Math[_0x48264c(0x204)](0x1,_0x58732a),_0xd44d6f+_0x17fc0d);var _0x23ea5d=_0x57599f['volume']||0.15;_0x341ad5['gain']['setValueAtTime'](0x0,_0xd44d6f),_0x341ad5['gain'][_0x48264c(0x1c7)](_0x23ea5d,_0xd44d6f+0.005),_0x341ad5[_0x48264c(0x172)]['exponentialRampToValueAtTime'](0.0001,_0xd44d6f+_0x17fc0d),_0x2abdfb[_0x48264c(0x174)](_0x341ad5),_0x341ad5['connect'](_0x1eb49d[_0x48264c(0x21d)]),_0x2abdfb[_0x48264c(0x128)](_0xd44d6f),_0x2abdfb[_0x48264c(0x17b)](_0xd44d6f+_0x17fc0d+0.02);}catch(_0x177e89){}},Game[a0_0x592342(0x129)]['sfxClick']=function(){this['_beep']({'type':'square','freq':0x370,'freqEnd':0x294,'duration':0.06,'volume':0.08});},Game[a0_0x592342(0x129)][a0_0x592342(0x9d)]=function(){var _0x4ab46d=a0_0x592342;this['_beep']({'type':_0x4ab46d(0xce),'freq':0x8c,'freqEnd':0x3c,'duration':0.35,'volume':0.2});var _0x36726b=this;setTimeout(function(){var _0x319763=_0x4ab46d;_0x36726b[_0x319763(0x157)]({'type':_0x319763(0xdf),'freq':0x208,'freqEnd':0x104,'duration':0.22,'volume':0.15});},0x3c);},Game[a0_0x592342(0x129)][a0_0x592342(0x1fd)]=function(){var _0x2a9f2e=a0_0x592342,_0x583ae3=this;this[_0x2a9f2e(0x157)]({'type':'triangle','freq':0x20b,'duration':0.1,'volume':0.13}),setTimeout(function(){var _0x15ea30=_0x2a9f2e;_0x583ae3[_0x15ea30(0x157)]({'type':_0x15ea30(0xdf),'freq':0x293,'duration':0.1,'volume':0.13});},0x5a),setTimeout(function(){_0x583ae3['_beep']({'type':'triangle','freq':0x310,'duration':0.18,'volume':0.15});},0xb4);},Game['prototype']['sfxSkill']=function(){var _0x3f6b25=a0_0x592342;this[_0x3f6b25(0x157)]({'type':_0x3f6b25(0xce),'freq':0x294,'freqEnd':0xdc,'duration':0.18,'volume':0.14});},Game['prototype'][a0_0x592342(0xa2)]=function(){this['_beep']({'type':'sine','freq':0x1b8,'freqEnd':0x4b0,'duration':0.22,'volume':0.14});},Game['prototype'][a0_0x592342(0x1f4)]=function(){var _0x1c8893=a0_0x592342;this['soundMuted']=!this['soundMuted'],localStorage[_0x1c8893(0xeb)]('gujiyouxi_mute',this['soundMuted']?'1':'0'),this['updateMuteBtn']();if(!this['soundMuted'])this[_0x1c8893(0x21c)]();this['showToast'](this[_0x1c8893(0xe6)]?'🔇\x20已静音':_0x1c8893(0x1be));},Game['prototype'][a0_0x592342(0x1c8)]=function(){var _0x4e0c63=a0_0x592342;if(this[_0x4e0c63(0x221)])this[_0x4e0c63(0x221)][_0x4e0c63(0xa8)]=this['soundMuted']?'🔇':'🔊';},Game['prototype']['showToast']=function(_0x5bc847){var _0x472378=a0_0x592342,_0x4c657e=new eui['Label']();_0x4c657e['text']=_0x5bc847,_0x4c657e[_0x472378(0xa4)]=0xe,_0x4c657e[_0x472378(0xd2)]=0xffffff,_0x4c657e['horizontalCenter']=0x0,_0x4c657e['top']=0x3c,_0x4c657e[_0x472378(0xc7)]=!![],_0x4c657e[_0x472378(0x131)]=0x0,_0x4c657e['alpha']=0.85,_0x4c657e['paddingLeft']=0x10,_0x4c657e['paddingRight']=0x10,_0x4c657e[_0x472378(0xe0)]=0x8,_0x4c657e['paddingBottom']=0x8,this[_0x472378(0x171)][_0x472378(0xaa)](_0x4c657e),egret[_0x472378(0xec)][_0x472378(0x22d)](_0x4c657e)['wait'](0x640)['to']({'alpha':0x0,'y':_0x4c657e['y']-0x14},0x190)['call'](function(){var _0x2a9bd6=_0x472378;if(_0x4c657e['parent'])_0x4c657e[_0x2a9bd6(0x1d4)]['removeChild'](_0x4c657e);});},Game['prototype']['startLoop']=function(){var _0x468d21=this;setInterval(function(){var _0x2a45e3=a0_0x4a14;_0x468d21['stats']['playTime']++,_0x468d21[_0x2a45e3(0x13f)]=Math['min'](CONFIG[_0x2a45e3(0x17c)],_0x468d21['energy']+CONFIG['energyRecovery']);for(var _0x2e093a=0x0;_0x2e093a<_0x468d21['skillCD']['length'];_0x2e093a++){if(_0x468d21['skillCD'][_0x2e093a]>0x0)_0x468d21[_0x2a45e3(0x125)][_0x2e093a]--;}_0x468d21['updateUI']();},0x3e8),setInterval(function(){var _0x50dca9=a0_0x4a14;if(!_0x468d21[_0x50dca9(0x18b)])return;if(_0x468d21['monsters']['length']===0x0)return;var _0x262306=_0x468d21['monsters'][_0x50dca9(0xb4)](function(_0x4f47ca){return _0x4f47ca['hp']>0x0;});if(_0x262306['length']===0x0)return;var _0x21a8e4=_0x262306[0x0];for(var _0x40b03a=0x1;_0x40b03a<_0x262306['length'];_0x40b03a++){_0x262306[_0x40b03a]['hp']>_0x21a8e4['hp']&&(_0x21a8e4=_0x262306[_0x40b03a]);}var _0x36d3c5=_0x468d21[_0x50dca9(0xfd)]['indexOf'](_0x21a8e4);if(_0x36d3c5===-0x1||_0x21a8e4['hp']<=0x0)return;_0x468d21['heroAttackAnim'](_0x36d3c5),_0x468d21[_0x50dca9(0x1dc)](_0x21a8e4,CONFIG['mainDmg'](_0x468d21['mainLevel'],_0x468d21[_0x50dca9(0x12f)]),_0x36d3c5),_0x468d21[_0x50dca9(0xee)]();},0x3e8);for(var _0x2994bf=0x0;_0x2994bf<_0x468d21['supports']['length'];_0x2994bf++){(function(_0x54bc37){var _0x1fb5e4=SUPPORTS_DEF[_0x54bc37],_0x45821f=_0x54bc37*0xc8+Math['random']()*0x12c;setTimeout(function(){setInterval(function(){var _0x7315bc=a0_0x4a14,_0x41c593=_0x468d21[_0x7315bc(0x14a)][_0x54bc37];if(!_0x41c593['unlocked']||_0x468d21[_0x7315bc(0xfd)][_0x7315bc(0x123)]===0x0)return;var _0x306673=_0x468d21[_0x7315bc(0xfd)]['filter'](function(_0x3373ac){return _0x3373ac['hp']>0x0;});if(_0x306673['length']===0x0)return;var _0x30f91b=_0x468d21['getBuffs'](),_0x57e4ed=_0x306673[0x0];for(var _0x49c650=0x1;_0x49c650<_0x306673[_0x7315bc(0x123)];_0x49c650++){if(_0x306673[_0x49c650]['hp']>_0x57e4ed['hp'])_0x57e4ed=_0x306673[_0x49c650];}var _0x35b54b=_0x468d21[_0x7315bc(0xfd)][_0x7315bc(0x11b)](_0x57e4ed),_0xddb011=Math['floor'](_0x41c593['dps']*_0x41c593[_0x7315bc(0xbd)]*0.8*_0x30f91b['supportMult']);if(_0xddb011<=0x0)return;_0x57e4ed['hp']-=_0xddb011,_0x468d21['supportAttackAnim'](_0x54bc37,_0x35b54b,_0xddb011),_0x57e4ed['hp']<=0x0&&_0x468d21[_0x7315bc(0x1f8)](_0x57e4ed,_0x35b54b),_0x468d21['updateMonsterDisplay']();},_0x1fb5e4['atkInterval']);},_0x45821f);}(_0x2994bf));}setInterval(function(){_0x468d21['saveGame']();},0x3a98);},Game['prototype'][a0_0x592342(0x19e)]=function(){var _0x4f0ef5=a0_0x592342;try{localStorage['setItem']('gujiyouxi_egret',JSON['stringify']({'gold':this['gold'],'energy':this['energy'],'mainLevel':this['mainLevel'],'wave':this['wave'],'totalCleared':this['totalCleared'],'killCount':this['killCount'],'skillCD':this['skillCD'],'skillUnlocked':this['skillUnlocked'],'supports':this['supports'][_0x4f0ef5(0xd3)](function(_0x52b8b8){var _0x2dfe65=_0x4f0ef5;return{'level':_0x52b8b8[_0x2dfe65(0xbd)],'unlocked':_0x52b8b8['unlocked']};}),'foods':this[_0x4f0ef5(0x1a9)],'freeSpins':this[_0x4f0ef5(0x13a)],'spinDate':this[_0x4f0ef5(0x20b)],'stats':this['stats'],'checkinDay':this['checkinDay'],'checkinDate':this['checkinDate'],'dailyTaskDate':this[_0x4f0ef5(0xca)],'dailyTaskDone':this[_0x4f0ef5(0x1bf)],'achievements':this['achievements'],'offlineCap':this[_0x4f0ef5(0xaf)],'autoAttackEnabled':this['autoAttackEnabled'],'rebirthGems':this['rebirthGems'],'maxWaveReached':this[_0x4f0ef5(0x1a1)],'monsterCodex':this['monsterCodex'],'avatarIdx':this['avatarIdx']||0x0,'playerName':this[_0x4f0ef5(0x9b)]||'玩家'})),localStorage['setItem'](_0x4f0ef5(0x21f),Date['now']()['toString']());}catch(_0xe0e17f){}},Game['prototype'][a0_0x592342(0x216)]=function(){var _0x34b325=a0_0x592342;try{var _0x4ec3a8=JSON['parse'](localStorage[_0x34b325(0x1cb)]('gujiyouxi_egret'));if(!_0x4ec3a8)return;this['gold']=_0x4ec3a8[_0x34b325(0x19b)]||0x0,this['energy']=_0x4ec3a8['energy']||0x64,this['mainLevel']=_0x4ec3a8[_0x34b325(0x91)]||0x1,this['wave']=_0x4ec3a8['wave']||0x1,this['totalCleared']=_0x4ec3a8['totalCleared']||0x0,this['killCount']=_0x4ec3a8['killCount']||0x0,this['skillCD']=_0x4ec3a8['skillCD']||[0x0,0x0,0x0,0x0,0x0,0x0,0x0],this['skillUnlocked']=_0x4ec3a8[_0x34b325(0xc0)]||[!![],![],![],![],![],![],![]];if(_0x4ec3a8[_0x34b325(0x14a)])for(var _0x4e7e40=0x0;_0x4e7e40<_0x4ec3a8['supports'][_0x34b325(0x123)];_0x4e7e40++){this[_0x34b325(0x14a)][_0x4e7e40]&&(this[_0x34b325(0x14a)][_0x4e7e40][_0x34b325(0xbd)]=_0x4ec3a8['supports'][_0x4e7e40]['level'],this['supports'][_0x4e7e40]['unlocked']=_0x4ec3a8['supports'][_0x4e7e40][_0x34b325(0x1e6)]);}if(_0x4ec3a8[_0x34b325(0x1a9)])this[_0x34b325(0x1a9)]={'棒棒糖':_0x4ec3a8[_0x34b325(0x1a9)]['棒棒糖']||0x0,'牛奶':_0x4ec3a8['foods']['牛奶']||0x0,'烤肉':_0x4ec3a8[_0x34b325(0x1a9)]['烤肉']||0x0};if(_0x4ec3a8[_0x34b325(0x13a)]!==undefined)this['freeSpins']=_0x4ec3a8['freeSpins'];if(_0x4ec3a8[_0x34b325(0x20b)])this['spinDate']=_0x4ec3a8['spinDate'];if(_0x4ec3a8['stats'])for(var _0x1e0c70 in _0x4ec3a8[_0x34b325(0x1f1)]){if(_0x4ec3a8[_0x34b325(0x1f1)]['hasOwnProperty'](_0x1e0c70))this[_0x34b325(0x1f1)][_0x1e0c70]=_0x4ec3a8['stats'][_0x1e0c70];}if(_0x4ec3a8['checkinDay']!==undefined)this[_0x34b325(0x1b1)]=_0x4ec3a8['checkinDay'];if(_0x4ec3a8[_0x34b325(0x14d)])this[_0x34b325(0x14d)]=_0x4ec3a8[_0x34b325(0x14d)];if(_0x4ec3a8['dailyTaskDate'])this['dailyTaskDate']=_0x4ec3a8['dailyTaskDate'];if(_0x4ec3a8['dailyTaskDone'])this['dailyTaskDone']=_0x4ec3a8['dailyTaskDone'];if(_0x4ec3a8['achievements'])this['achievements']=_0x4ec3a8[_0x34b325(0x138)];if(_0x4ec3a8[_0x34b325(0xaf)])this['offlineCap']=_0x4ec3a8[_0x34b325(0xaf)];if(_0x4ec3a8[_0x34b325(0x18b)]!==undefined)this['autoAttackEnabled']=_0x4ec3a8['autoAttackEnabled'];if(_0x4ec3a8['rebirthGems'])this['rebirthGems']=_0x4ec3a8['rebirthGems'];if(_0x4ec3a8['maxWaveReached'])this['maxWaveReached']=_0x4ec3a8[_0x34b325(0x1a1)];if(_0x4ec3a8['monsterCodex'])this[_0x34b325(0x1f7)]=_0x4ec3a8['monsterCodex'];_0x4ec3a8['round']&&_0x4ec3a8['round']>0x1&&!_0x4ec3a8['maxWaveReached']&&(this['maxWaveReached']=(_0x4ec3a8[_0x34b325(0xc6)]-0x1)*0xa+(_0x4ec3a8[_0x34b325(0x185)]||0x1));if(_0x4ec3a8['avatarIdx']!==undefined)this['avatarIdx']=_0x4ec3a8[_0x34b325(0x141)];if(_0x4ec3a8['playerName'])this[_0x34b325(0x9b)]=_0x4ec3a8[_0x34b325(0x9b)];}catch(_0x2eb554){}},Game[a0_0x592342(0x129)]['openAvatarPicker']=function(){var _0x4f22e4=a0_0x592342,_0x12214c=[0x8b4513,0x3498db,0x27ae60,0xe74c3c,0x9b59b6,0xe67e22],_0x5497e5=['🧙','🐼','🦊','🐯','🐸','🐺'],_0x38c56f=['法师','熊猫','狐狸','老虎','青蛙','狼'],_0x50b7ab=this['createPanelOverlay'](),_0xedb966=new eui['Group']();_0xedb966['width']=0x140,_0xedb966['height']=0x104,_0xedb966['horizontalCenter']=0x0,_0xedb966[_0x4f22e4(0x238)]=0x0;var _0x387e6d=new eui[(_0x4f22e4(0x1ff))]();_0x387e6d['percentWidth']=0x64,_0x387e6d[_0x4f22e4(0xb1)]=0x64,_0x387e6d[_0x4f22e4(0xb8)]=0x2a1f5c,_0x387e6d[_0x4f22e4(0x165)]=0xc,_0x387e6d[_0x4f22e4(0x175)]=0xc,_0xedb966[_0x4f22e4(0xaa)](_0x387e6d);var _0x2cd908=new eui['Label']();_0x2cd908[_0x4f22e4(0xa8)]='选择头像',_0x2cd908['size']=0x10,_0x2cd908[_0x4f22e4(0xd2)]=0xffffff,_0x2cd908['bold']=!![],_0x2cd908['horizontalCenter']=0x0,_0x2cd908['top']=0xe,_0xedb966[_0x4f22e4(0xaa)](_0x2cd908);var _0x5a7417=new eui['Label']();_0x5a7417['text']='×',_0x5a7417[_0x4f22e4(0xa4)]=0x18,_0x5a7417[_0x4f22e4(0xd2)]=0xffffff,_0x5a7417['right']=0xc,_0x5a7417[_0x4f22e4(0x1bd)]=0x8,_0x5a7417[_0x4f22e4(0x18a)]=!![];var _0x23c89d=this;_0x5a7417[_0x4f22e4(0x19d)](egret[_0x4f22e4(0xed)]['TOUCH_TAP'],function(){var _0x23f934=_0x4f22e4;_0x23c89d[_0x23f934(0x1bb)]();},this),_0xedb966[_0x4f22e4(0xaa)](_0x5a7417);var _0x388b1c=0x3,_0x4e2dea=0x50,_0x1171d1=0x5a,_0x1f5ba3=0xa,_0x293198=(0x140-_0x388b1c*_0x4e2dea-(_0x388b1c-0x1)*_0x1f5ba3)/0x2,_0x5789ba=0x32;for(var _0x3c7ccf=0x0;_0x3c7ccf<_0x5497e5['length'];_0x3c7ccf++){(function(_0x564599){var _0x4f2c52=_0x4f22e4,_0x50a7b7=_0x564599%_0x388b1c,_0x111eae=Math['floor'](_0x564599/_0x388b1c),_0xaaa6d7=_0x293198+_0x50a7b7*(_0x4e2dea+_0x1f5ba3),_0x2a3870=_0x5789ba+_0x111eae*(_0x1171d1+_0x1f5ba3),_0x125a54=new eui['Group']();_0x125a54[_0x4f2c52(0x99)]=_0x4e2dea,_0x125a54[_0x4f2c52(0x1da)]=_0x1171d1,_0x125a54['x']=_0xaaa6d7,_0x125a54['y']=_0x2a3870,_0x125a54[_0x4f2c52(0x18a)]=!![];var _0x3a2801=new eui['Rect']();_0x3a2801['width']=_0x4e2dea,_0x3a2801['height']=_0x1171d1,_0x3a2801['ellipseWidth']=0xa,_0x3a2801['ellipseHeight']=0xa,_0x3a2801['fillColor']=0x1a153f,_0x3a2801['strokeColor']=_0x23c89d[_0x4f2c52(0x141)]===_0x564599?0xfbbf24:0x333333,_0x3a2801['strokeWeight']=_0x23c89d['avatarIdx']===_0x564599?0x2:0x1,_0x3a2801['percentWidth']=0x64,_0x3a2801[_0x4f2c52(0xb1)]=0x64,_0x125a54[_0x4f2c52(0xaa)](_0x3a2801);var _0x35700c=new eui['Rect']();_0x35700c['width']=0x2c,_0x35700c[_0x4f2c52(0x1da)]=0x2c,_0x35700c['ellipseWidth']=0x16,_0x35700c[_0x4f2c52(0x175)]=0x16,_0x35700c[_0x4f2c52(0xb8)]=_0x12214c[_0x564599],_0x35700c['horizontalCenter']=0x0,_0x35700c['top']=0x8,_0x125a54[_0x4f2c52(0xaa)](_0x35700c);var _0x5010e9=new eui['Label']();_0x5010e9['text']=_0x5497e5[_0x564599],_0x5010e9['size']=0x14,_0x5010e9[_0x4f2c52(0xe9)]=0x0,_0x5010e9[_0x4f2c52(0x1bd)]=0x12,_0x125a54['addChild'](_0x5010e9);var _0x378b64=new eui[(_0x4f2c52(0x218))]();_0x378b64['text']=_0x38c56f[_0x564599],_0x378b64['size']=0xb,_0x378b64[_0x4f2c52(0xd2)]=0xcccccc,_0x378b64[_0x4f2c52(0xe9)]=0x0,_0x378b64['top']=0x38,_0x125a54['addChild'](_0x378b64),_0x125a54['addEventListener'](egret[_0x4f2c52(0xed)][_0x4f2c52(0x224)],function(){var _0x18f615=_0x4f2c52;_0x23c89d[_0x18f615(0x141)]=_0x564599;if(_0x23c89d[_0x18f615(0x86)])_0x23c89d['_avatarBg']['fillColor']=_0x12214c[_0x564599];if(_0x23c89d['_avatarIcon'])_0x23c89d[_0x18f615(0x8a)][_0x18f615(0xa8)]=_0x5497e5[_0x564599];_0x23c89d['saveGame'](),_0x23c89d['closePanel'](),_0x23c89d['showToast'](_0x18f615(0xc9)+_0x38c56f[_0x564599]);},_0x23c89d),_0xedb966[_0x4f2c52(0xaa)](_0x125a54);}(_0x3c7ccf));}_0x50b7ab[_0x4f22e4(0xaa)](_0xedb966);},Game['prototype'][a0_0x592342(0x202)]=function(){var _0xbe176a=a0_0x592342,_0x4389bd=this[_0xbe176a(0x208)](),_0x8654e2=new eui['Group']();_0x8654e2['width']=0x12c,_0x8654e2[_0xbe176a(0x1da)]=0xdc,_0x8654e2[_0xbe176a(0xe9)]=0x0,_0x8654e2[_0xbe176a(0x238)]=0x0;var _0xe38c6e=new eui['Rect']();_0xe38c6e[_0xbe176a(0xcc)]=0x64,_0xe38c6e['percentHeight']=0x64,_0xe38c6e['fillColor']=0x2a1f5c,_0xe38c6e[_0xbe176a(0x165)]=0xc,_0xe38c6e[_0xbe176a(0x175)]=0xc,_0x8654e2['addChild'](_0xe38c6e);var _0x1d4c5d=new eui['Label']();_0x1d4c5d['text']='修改昵称',_0x1d4c5d['size']=0x10,_0x1d4c5d['textColor']=0xffffff,_0x1d4c5d['bold']=!![],_0x1d4c5d['horizontalCenter']=0x0,_0x1d4c5d['top']=0x10,_0x8654e2['addChild'](_0x1d4c5d);var _0x22fc13=new eui['Label']();_0x22fc13['text']='×',_0x22fc13['size']=0x18,_0x22fc13['textColor']=0xffffff,_0x22fc13['right']=0xc,_0x22fc13['top']=0x8,_0x22fc13['touchEnabled']=!![];var _0x4aec8a=this;_0x22fc13[_0xbe176a(0x19d)](egret[_0xbe176a(0xed)]['TOUCH_TAP'],function(){var _0x5a219e=_0xbe176a;_0x4aec8a[_0x5a219e(0x1bb)]();},this),_0x8654e2['addChild'](_0x22fc13);var _0x1a80c6=new eui[(_0xbe176a(0x218))]();_0x1a80c6[_0xbe176a(0xa8)]=_0xbe176a(0x1f5)+(this['playerName']||'玩家'),_0x1a80c6['size']=0xc,_0x1a80c6[_0xbe176a(0xd2)]=0xaaaaaa,_0x1a80c6['horizontalCenter']=0x0,_0x1a80c6['top']=0x34,_0x8654e2['addChild'](_0x1a80c6);var _0x10377c=new eui['Label']();_0x10377c['text']=_0xbe176a(0x191),_0x10377c['size']=0xb,_0x10377c[_0xbe176a(0xd2)]=0x888888,_0x10377c['horizontalCenter']=0x0,_0x10377c['top']=0x50,_0x10377c[_0xbe176a(0x11d)]=0x4,_0x8654e2['addChild'](_0x10377c);var _0x474134=['勇者',_0xbe176a(0x155),'打豆人','无敌怪','豆豆侠'];for(var _0x4c93e1=0x0;_0x4c93e1<_0x474134['length'];_0x4c93e1++){(function(_0x34274c,_0x183837){var _0x102849=_0xbe176a,_0x16f00d=_0x183837%0x3,_0x32461=Math['floor'](_0x183837/0x3),_0x37bb5a=_0x4aec8a[_0x102849(0x1b7)](_0x34274c,0x4a2d6b,0x46,0x1a,function(){var _0x38eec3=_0x102849;_0x4aec8a['playerName']=_0x34274c;if(_0x4aec8a[_0x38eec3(0x119)])_0x4aec8a['_nameLb']['text']=_0x34274c+'\x20✏️';_0x4aec8a['saveGame'](),_0x4aec8a[_0x38eec3(0x1bb)](),_0x4aec8a['showToast']('✅\x20昵称已改为：'+_0x34274c);},_0x4aec8a);_0x37bb5a['x']=0x1e+_0x16f00d*0x52,_0x37bb5a['y']=0x78+_0x32461*0x22,_0x8654e2[_0x102849(0xaa)](_0x37bb5a);}(_0x474134[_0x4c93e1],_0x4c93e1));}var _0x5a5989=_0x4aec8a['createButton'](_0xbe176a(0x22c),0x27ae60,0x78,0x22,function(){var _0x3e62a1=_0xbe176a,_0xb37eaf=window['prompt']('请输入新昵称（最多8个字符）：',_0x4aec8a['playerName']||'玩家');if(_0xb37eaf&&_0xb37eaf[_0x3e62a1(0x192)]()){var _0x2953e6=_0xb37eaf[_0x3e62a1(0x192)]()['slice'](0x0,0x8);_0x4aec8a['playerName']=_0x2953e6;if(_0x4aec8a['_nameLb'])_0x4aec8a[_0x3e62a1(0x119)]['text']=_0x2953e6+'\x20✏️';_0x4aec8a[_0x3e62a1(0x19e)](),_0x4aec8a['closePanel'](),_0x4aec8a['showToast'](_0x3e62a1(0xb0)+_0x2953e6);}},_0x4aec8a);_0x5a5989['horizontalCenter']=0x0,_0x5a5989[_0xbe176a(0x1bd)]=0xa8,_0x8654e2['addChild'](_0x5a5989),_0x4389bd['addChild'](_0x8654e2);},Game['prototype']['showBossFlash']=function(){var _0x3c0fbe=a0_0x592342;if(!this[_0x3c0fbe(0x171)][_0x3c0fbe(0x183)])return;var _0x414637=this[_0x3c0fbe(0x171)][_0x3c0fbe(0x183)][_0x3c0fbe(0x1b6)],_0x159496=this['main']['stage']['stageHeight'],_0x18e72c=new eui[(_0x3c0fbe(0x217))]();_0x18e72c['width']=_0x414637,_0x18e72c['height']=_0x159496,_0x18e72c['x']=0x0,_0x18e72c['y']=0x0,_0x18e72c[_0x3c0fbe(0x18a)]=![];var _0xf9c234=new eui['Rect']();_0xf9c234[_0x3c0fbe(0xcc)]=0x64,_0xf9c234['percentHeight']=0x64,_0xf9c234[_0x3c0fbe(0xb8)]=0xe74c3c,_0xf9c234['fillAlpha']=0x0,_0x18e72c[_0x3c0fbe(0xaa)](_0xf9c234);var _0x58ef28=new eui['Label']();_0x58ef28[_0x3c0fbe(0xa8)]=_0x3c0fbe(0xe8),_0x58ef28['size']=0x20,_0x58ef28['textColor']=0xffffff,_0x58ef28['bold']=!![],_0x58ef28[_0x3c0fbe(0xf0)]=0x0,_0x58ef28['horizontalCenter']=0x0,_0x58ef28['verticalCenter']=0x0,_0x18e72c['addChild'](_0x58ef28),this[_0x3c0fbe(0x171)][_0x3c0fbe(0x183)]['addChild'](_0x18e72c),egret['Tween']['get'](_0xf9c234)['to']({'fillAlpha':0.45},0x78)['to']({'fillAlpha':0.05},0x96)['to']({'fillAlpha':0.35},0x64)['to']({'fillAlpha':0x0},0xc8)['call'](function(){var _0x1bcf91=_0x3c0fbe;if(_0x18e72c['parent'])_0x18e72c['parent'][_0x1bcf91(0xa1)](_0x18e72c);}),egret['Tween']['get'](_0x58ef28)['to']({'alpha':0x1},0x78)['wait'](0x12c)['to']({'alpha':0x0,'y':(_0x58ef28['y']||0x0)-0x1e},0xfa);},Game['prototype']['refreshSupportViews']=function(){var _0x3377d4=a0_0x592342,_0x334db4=0x30,_0x37aa2b=this['_battleH']||0x190,_0x1c08ca=0x1e+0x1c+0x6,_0x5a08a5=_0x37aa2b-_0x1c08ca-0x2c,_0x18550b=Math['floor'](_0x5a08a5/0x4);if(this['leftSupGroup']){while(this['leftSupGroup']['numChildren']>0x0){this[_0x3377d4(0x223)]['removeChildAt'](0x0);}var _0x14bbaf=new eui[(_0x3377d4(0x1ff))]();_0x14bbaf['width']=_0x334db4-0x4,_0x14bbaf['height']=_0x5a08a5,_0x14bbaf['x']=0x2,_0x14bbaf['y']=0x0,_0x14bbaf['ellipseWidth']=0xe,_0x14bbaf['ellipseHeight']=0xe,_0x14bbaf[_0x3377d4(0xb8)]=0x8051c,_0x14bbaf[_0x3377d4(0x1ac)]=0x0,_0x14bbaf['strokeColor']=THEME[_0x3377d4(0x109)],_0x14bbaf['strokeWeight']=0.7,_0x14bbaf[_0x3377d4(0x95)]=0x0,this['leftSupGroup']['addChild'](_0x14bbaf);for(var _0x563745=0x0;_0x563745<0x4;_0x563745++){var _0x28e189=_0x563745*_0x18550b+Math['floor']((_0x18550b-0x46)/0x2),_0x2d92fe=new eui[(_0x3377d4(0x1ff))]();_0x2d92fe['width']=_0x334db4-0x6,_0x2d92fe['height']=0x46,_0x2d92fe['x']=0x3,_0x2d92fe['y']=_0x28e189,_0x2d92fe['ellipseWidth']=0xe,_0x2d92fe['ellipseHeight']=0xe,_0x2d92fe['fillColor']=0x1b1236,_0x2d92fe['fillAlpha']=0x0,_0x2d92fe['strokeColor']=THEME['strokeGold'],_0x2d92fe['strokeWeight']=0x1,_0x2d92fe[_0x3377d4(0x95)]=0x0,this['leftSupGroup']['addChild'](_0x2d92fe);var _0x1864f5=new eui[(_0x3377d4(0x1ff))]();_0x1864f5[_0x3377d4(0x99)]=_0x334db4-0x10,_0x1864f5[_0x3377d4(0x1da)]=0x1,_0x1864f5['x']=0x8,_0x1864f5['y']=_0x28e189+0x5,_0x1864f5['fillColor']=0xffffff,_0x1864f5['fillAlpha']=0x0,this[_0x3377d4(0x223)][_0x3377d4(0xaa)](_0x1864f5);var _0x3e28d4=this[_0x3377d4(0x12a)](_0x563745,0x0);_0x3e28d4['x']=Math['floor']((_0x334db4-0x2c)/0x2),_0x3e28d4['y']=_0x563745*_0x18550b+Math[_0x3377d4(0x1ee)]((_0x18550b-0x38)/0x2),this[_0x3377d4(0x223)]['addChild'](_0x3e28d4);}}if(this[_0x3377d4(0x13c)]){while(this[_0x3377d4(0x13c)]['numChildren']>0x0){this[_0x3377d4(0x13c)][_0x3377d4(0xa6)](0x0);}var _0x514e8d=new eui[(_0x3377d4(0x1ff))]();_0x514e8d['width']=_0x334db4-0x4,_0x514e8d['height']=_0x5a08a5,_0x514e8d['x']=0x2,_0x514e8d['y']=0x0,_0x514e8d['ellipseWidth']=0xe,_0x514e8d['ellipseHeight']=0xe,_0x514e8d['fillColor']=0x8051c,_0x514e8d[_0x3377d4(0x1ac)]=0x0,_0x514e8d['strokeColor']=THEME[_0x3377d4(0x109)],_0x514e8d[_0x3377d4(0x126)]=0.7,_0x514e8d[_0x3377d4(0x95)]=0x0,this['rightSupGroup'][_0x3377d4(0xaa)](_0x514e8d);for(var _0x563745=0x4;_0x563745<0x8;_0x563745++){var _0x28e189=(_0x563745-0x4)*_0x18550b+Math['floor']((_0x18550b-0x46)/0x2),_0x2d92fe=new eui['Rect']();_0x2d92fe['width']=_0x334db4-0x6,_0x2d92fe['height']=0x46,_0x2d92fe['x']=0x3,_0x2d92fe['y']=_0x28e189,_0x2d92fe[_0x3377d4(0x165)]=0xe,_0x2d92fe[_0x3377d4(0x175)]=0xe,_0x2d92fe['fillColor']=0x1b1236,_0x2d92fe['fillAlpha']=0x0,_0x2d92fe['strokeColor']=THEME['strokeGold'],_0x2d92fe['strokeWeight']=0x1,_0x2d92fe['strokeAlpha']=0x0,this['rightSupGroup'][_0x3377d4(0xaa)](_0x2d92fe);var _0x1864f5=new eui['Rect']();_0x1864f5['width']=_0x334db4-0x10,_0x1864f5[_0x3377d4(0x1da)]=0x1,_0x1864f5['x']=0x8,_0x1864f5['y']=_0x28e189+0x5,_0x1864f5[_0x3377d4(0xb8)]=0xffffff,_0x1864f5[_0x3377d4(0x1ac)]=0x0,this[_0x3377d4(0x13c)]['addChild'](_0x1864f5);var _0x3e28d4=this['createSupportView'](_0x563745,0x0);_0x3e28d4['x']=Math[_0x3377d4(0x1ee)]((_0x334db4-0x2c)/0x2),_0x3e28d4['y']=(_0x563745-0x4)*_0x18550b+Math['floor']((_0x18550b-0x38)/0x2),this[_0x3377d4(0x13c)][_0x3377d4(0xaa)](_0x3e28d4);}}};
+﻿// ==================== 吃饭睡觉打豆豆 - Egret引擎版 ====================
+//
+// 视觉系统："星夜糖果屋"（Starry Candy Cottage）
+// --------------------------------------------------------------
+// 主题：深夜空魔法绘本 × 放置点击 RPG。所有界面色彩从 THEME 统一取值，
+// 避免各模块各自写颜色常量导致风格碎裂。修改整站风格只需动 THEME。
+// --------------------------------------------------------------
+
+// 全局工具函数：绘制一对眼睛（必须在所有绘制代码之前定义）
+function drawEyesPair(g, x1, y1, x2, y2, r, pr) {
+  g.lineStyle(0);
+  g.beginFill(0xffffff);
+  g.drawCircle(x1, y1, r);
+  g.drawCircle(x2, y2, r);
+  g.endFill();
+  g.beginFill(0x000000);
+  g.drawCircle(x1, y1 + 0.5, pr);
+  g.drawCircle(x2, y2 + 0.5, pr);
+  g.endFill();
+  g.beginFill(0xffffff);
+  g.drawCircle(x1 - pr * 0.5, y1 - pr * 0.5, pr * 0.5);
+  g.drawCircle(x2 - pr * 0.5, y2 - pr * 0.5, pr * 0.5);
+  g.endFill();
+}
+
+var THEME = {
+  // 背景层（从深到浅）
+  bgDeep:   0x0a0820,
+  bgMid:    0x1a1340,
+  bgLite:   0x2a1f5c,
+  bgRow:    0x1a153f,
+  bgGlass:  0x140e36,
+  // 边框
+  strokeGold: 0xf5c842,
+  strokeSoft: 0x4a3a8c,
+  // 主色
+  accent:     0xfbbf24,
+  accentSoft: 0xfde68a,
+  pink:       0xff7eb0,
+  mint:       0x7be8b7,
+  sky:        0x5ec8ff,
+  lavender:   0xc7a7ff,
+  // 状态色
+  ok:      0x2ecc71,
+  warn:    0xf39c12,
+  danger:  0xef4444,
+  // 文字
+  textMain: 0xffffff,
+  textDim:  0xb8b0db,
+  textMute: 0x6a628f,
+  textGold: 0xfbbf24
+};
+
+var UI_ASSETS = {
+  battleBackground: 'assets/image2-backgrounds/sky-ruins-v1/battle-sky-ruins-375x423.png',
+  hero: 'assets/image2-character-sheets/v3/hero-mage-v3.png',
+  monsterSlime: 'assets/image2-monsters/v1/monster-slime-v1.png',
+  monsterRabbit: 'assets/image2-monsters/v1/monster-rabbit-v1.png',
+  monsterBat: 'assets/image2-monsters/v1/monster-bat-v1.png',
+  monsterSpike: 'assets/image2-monsters/v1/monster-spike-v1.png',
+  monsterGhost: 'assets/image2-monsters/v1/monster-ghost-v1.png',
+  monsterSkull: 'assets/image2-monsters/v1/monster-skull-v1.png',
+  monsterDragon: 'assets/image2-monsters/v1/monster-dragon-v1.png',
+  monsterShadow: 'assets/image2-monsters/v1/monster-shadow-v1.png',
+  bossEye: 'assets/image2-monsters/v1/boss-eye-v1.png',
+  bossIceGiant: 'assets/image2-monsters/v1/boss-ice-giant-v1.png',
+  bossSpider: 'assets/image2-monsters/v1/boss-spider-v1.png',
+  bossDemon: 'assets/image2-monsters/v1/boss-demon-v1.png',
+  bossPhoenix: 'assets/image2-monsters/v1/boss-phoenix-v1.png',
+  supportCandy: 'assets/image2-character-sheets/v3/support-candy-v3.png',
+  supportMarshmallow: 'assets/image2-character-sheets/v3/support-marshmallow-v3.png',
+  supportMeatball: 'assets/image2-character-sheets/v3/support-meatball-v3.png',
+  supportPudding: 'assets/image2-character-sheets/v3/support-pudding-v3.png',
+  supportCone: 'assets/image2-character-sheets/v3/support-cone-v3.png',
+  supportMochi: 'assets/image2-character-sheets/v3/support-mochi-v3.png',
+  supportPopsicle: 'assets/image2-character-sheets/v3/support-popsicle-v3.png',
+  supportCake: 'assets/image2-character-sheets/v3/support-cake-v3.png',
+  supportCandyR: 'assets/image2-character-sheets/v3/support-candy-v3.png',
+  supportLocked: 'assets/ui/sprites/support-locked.png',
+  topCheckin: 'assets/image2-white-assets/layout-v2/top-checkin-white.png',
+  topDailyTask: 'assets/image2-white-assets/layout-v2/top-daily-task-white.png',
+  topMail: 'assets/image2-white-assets/layout-v2/top-mail-white.png',
+  skillLightWand: 'assets/image2-white-assets/layout-v2/skill-light-wand-white.png',
+  skillHeavySlash: 'assets/image2-white-assets/layout-v2/skill-heavy-slash-white.png',
+  skillIceCombo: 'assets/image2-white-assets/layout-v2/skill-ice-combo-white.png',
+  skillSkullCritical: 'assets/image2-white-assets/layout-v2/skill-skull-critical-white.png',
+  skillGreenWhirlwind: 'assets/image2-white-assets/layout-v2/skill-green-whirlwind-white.png',
+  skillThunderbolt: 'assets/image2-white-assets/layout-v2/skill-thunderbolt-white.png',
+  skillStarMeteor: 'assets/image2-white-assets/layout-v2/skill-star-meteor-white.png',
+  navUpgrade: 'assets/image2-white-assets/layout-v2/nav-upgrade-white.png',
+  navCodex: 'assets/image2-white-assets/layout-v2/nav-codex-white.png',
+  navSpinWheel: 'assets/image2-white-assets/layout-v2/nav-spin-wheel-white.png',
+  navSupermarket: 'assets/image2-white-assets/layout-v2/nav-supermarket-white.png',
+  navRanking: 'assets/image2-white-assets/layout-v2/nav-ranking-white.png',
+  navShop: 'assets/image2-white-assets/layout-v2/nav-shop-white.png'
+};
+
+var UI_ASSET_SIZES = {};
+UI_ASSET_SIZES[UI_ASSETS.battleBackground] = { w: 375, h: 423 };
+UI_ASSET_SIZES[UI_ASSETS.hero] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.monsterSlime] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.monsterRabbit] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.monsterBat] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.monsterSpike] = { w: 315, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.monsterGhost] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.monsterSkull] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.monsterDragon] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.monsterShadow] = { w: 315, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.bossEye] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.bossIceGiant] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.bossSpider] = { w: 313, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.bossDemon] = { w: 315, h: 313 };
+UI_ASSET_SIZES[UI_ASSETS.bossPhoenix] = { w: 313, h: 315 };
+UI_ASSET_SIZES[UI_ASSETS.supportCandy] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportMarshmallow] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportMeatball] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportPudding] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportCone] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportMochi] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportPopsicle] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportCake] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportCandyR] = { w: 418, h: 418 };
+UI_ASSET_SIZES[UI_ASSETS.supportLocked] = { w: 44, h: 56 };
+UI_ASSET_SIZES[UI_ASSETS.topCheckin] = { w: 248, h: 120 };
+UI_ASSET_SIZES[UI_ASSETS.topDailyTask] = { w: 248, h: 120 };
+UI_ASSET_SIZES[UI_ASSETS.topMail] = { w: 248, h: 120 };
+UI_ASSET_SIZES[UI_ASSETS.skillLightWand] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.skillHeavySlash] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.skillIceCombo] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.skillSkullCritical] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.skillGreenWhirlwind] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.skillThunderbolt] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.skillStarMeteor] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.navUpgrade] = { w: 232, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.navCodex] = { w: 232, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.navSpinWheel] = { w: 232, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.navSupermarket] = { w: 232, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.navRanking] = { w: 232, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.navShop] = { w: 232, h: 192 };
+
+var SKILL_ICON_ASSETS = [
+  UI_ASSETS.skillLightWand,
+  UI_ASSETS.skillHeavySlash,
+  UI_ASSETS.skillIceCombo,
+  UI_ASSETS.skillSkullCritical,
+  UI_ASSETS.skillGreenWhirlwind,
+  UI_ASSETS.skillThunderbolt,
+  UI_ASSETS.skillStarMeteor
+];
+
+var NAV_ICON_ASSETS = {
+  upgrade: UI_ASSETS.navUpgrade,
+  codex: UI_ASSETS.navCodex,
+  spin: UI_ASSETS.navSpinWheel,
+  market: UI_ASSETS.navSupermarket,
+  rank: UI_ASSETS.navRanking,
+  shop: UI_ASSETS.navShop
+};
+
+var SUPPORT_IMAGE_ASSETS = [
+  UI_ASSETS.supportCandy,
+  UI_ASSETS.supportMarshmallow,
+  UI_ASSETS.supportMeatball,
+  UI_ASSETS.supportPudding,
+  UI_ASSETS.supportCone,
+  UI_ASSETS.supportMochi,
+  UI_ASSETS.supportPopsicle,
+  UI_ASSETS.supportCake
+];
+
+var MONSTER_IMAGE_ASSETS = {
+  slime: UI_ASSETS.monsterSlime,
+  rabbit: UI_ASSETS.monsterRabbit,
+  bat: UI_ASSETS.monsterBat,
+  spike: UI_ASSETS.monsterSpike,
+  ghost: UI_ASSETS.monsterGhost,
+  skull: UI_ASSETS.monsterSkull,
+  dragon: UI_ASSETS.monsterDragon,
+  shadow: UI_ASSETS.monsterShadow,
+  boss_eye: UI_ASSETS.bossEye,
+  boss_giant: UI_ASSETS.bossIceGiant,
+  boss_spider: UI_ASSETS.bossSpider,
+  boss_demon: UI_ASSETS.bossDemon,
+  boss_phoenix: UI_ASSETS.bossPhoenix
+};
+
+var CONFIG = {
+  maxEnergy: 100,
+  energyRecovery: 2,
+  bossTimeLimit: 10,  // BOSS限时（秒）
+  monsterHp: function(wave) { return Math.floor(100 * Math.pow(wave, 1.25)); },
+  goldReward: function(wave, isBoss) { return Math.floor(5 * Math.pow(wave, 1.1) * (isBoss ? 5 : 1)); },
+  mainDmg: function(level, gems) {
+    var mult = 1 + (gems || 0) * 0.1;
+    return Math.floor(80 * Math.pow(level, 1.35) * mult);
+  },
+  upgradeCost: function(level) { return Math.floor(30 * Math.pow(1.4, level - 1)); },
+  supportCost: function(level) { return Math.floor(20 * Math.pow(1.35, level - 1)); },
+  killsNeeded: function(level) { return level * 4 + 4; }
+};
+
+// 技能定义
+//   name   显示名
+//   cd     冷却时间（秒）
+//   dmg    伤害倍率
+//   hits   命中次数；0 = 全屏 AOE
+//   lv     解锁等级
+//   color  技能按钮主色
+//   icon   drawSkillIcon 消费的形状 key
+//   glow   辉光色
+var SKILLS = [
+  { name: '轻击', cd: 0,  dmg: 1,   hits: 1, lv: 1,  color: 0x5ec8ff, icon: 'slash',   glow: 0xa8e0ff },
+  { name: '破岳', cd: 5,  dmg: 2,   hits: 1, lv: 3,  color: 0xef4444, icon: 'smash',   glow: 0xffb5b5 },
+  { name: '连斩', cd: 8,  dmg: 0.8, hits: 3, lv: 5,  color: 0xfbbf24, icon: 'triple',  glow: 0xfff1b0 },
+  { name: '裂光', cd: 12, dmg: 4,   hits: 1, lv: 8,  color: 0xc7a7ff, icon: 'crit',    glow: 0xe7d4ff },
+  { name: '糖风', cd: 18, dmg: 2.5, hits: 0, lv: 12, color: 0x7be8b7, icon: 'whirl',   glow: 0xc5f5dd },
+  { name: '雷霆', cd: 30, dmg: 6,   hits: 1, lv: 18, color: 0xffd166, icon: 'thunder', glow: 0xffe8a5 },
+  { name: '星陨', cd: 60, dmg: 12,  hits: 1, lv: 25, color: 0xff7eb0, icon: 'meteor',  glow: 0xffcfe2 }
+];
+
+// 怪物类型定义（三层光影风格）
+//   highlight 浅色高光 / accent 点缀色（牙爪等）
+var MONSTER_TYPES = [
+  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, highlight: 0xa8ffcf, outline: 0x1e5f38, hpColor: 0x2ecc71, badge: 0x1e5f38, accent: 0xfff59d, wave: 1   },
+  { name: '兔兔',   shape: 'rabbit', color: 0xffc9d9, highlight: 0xffe9f2, outline: 0xb83d6a, hpColor: 0xff69b4, badge: 0xb83d6a, accent: 0xe91e63, wave: 5   },
+  { name: '蝙蝠',   shape: 'bat',    color: 0x7e3cb8, highlight: 0xbd85e2, outline: 0x32124a, hpColor: 0x9b59b6, badge: 0x32124a, accent: 0xff3030, wave: 10  },
+  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, highlight: 0xff8a7a, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10, accent: 0xfff59d, wave: 20  },
+  { name: '幽灵',   shape: 'ghost',  color: 0xe8f1ff, highlight: 0xffffff, outline: 0x4a3a6c, hpColor: 0xa0afc8, badge: 0x4a3a6c, accent: 0x5ec8ff, wave: 35  },
+  { name: '骷髅',   shape: 'skull',  color: 0xf0ebe0, highlight: 0xffffff, outline: 0x2c2640, hpColor: 0xbdc3c7, badge: 0x2c2640, accent: 0xff3333, wave: 50  },
+  { name: '火龙',   shape: 'dragon', color: 0xe67e22, highlight: 0xffbe76, outline: 0x7a2d06, hpColor: 0xf39c12, badge: 0x7a2d06, accent: 0xff4500, wave: 80  },
+  { name: '暗影',   shape: 'shadow', color: 0x1a1030, highlight: 0x4b3a7a, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000, accent: 0xff0000, wave: 120 }
+];
+
+// BOSS 专属形象（每10波出现一次）
+var BOSS_TYPES = [
+  { name: '魔眼王',   shape: 'boss_eye',     color: 0x8b0000, highlight: 0xff6666, outline: 0x3a0000, hpColor: 0xe74c3c, badge: 0x5a0a08, accent: 0xff0000 },
+  { name: '冰霜巨人', shape: 'boss_giant',   color: 0x4fc3f7, highlight: 0xe1f5fe, outline: 0x0277bd, hpColor: 0x29b6f6, badge: 0x01579b, accent: 0xffffff },
+  { name: '深渊蜘蛛', shape: 'boss_spider',  color: 0x4a148c, highlight: 0xce93d8, outline: 0x1a0030, hpColor: 0xab47bc, badge: 0x2d0050, accent: 0x00e5ff },
+  { name: '炎魔将军', shape: 'boss_demon',   color: 0xb71c1c, highlight: 0xff8a65, outline: 0x4a0000, hpColor: 0xef5350, badge: 0x7f0000, accent: 0xffeb3b },
+  { name: '星界凤凰', shape: 'boss_phoenix', color: 0xff6f00, highlight: 0xffe082, outline: 0x7f3300, hpColor: 0xffa726, badge: 0x5d2600, accent: 0x40c4ff }
+];
+
+// 辅助角色（糖果精灵队）
+//   role     物理 phys / 法术 magic（决定攻击动画）
+//   shape    createSupportView + bullet 绘制 key
+var SUPPORTS_DEF = [
+  { name: '糖糖',   dps: 15,  wave: 0,   atkInterval: 1200, color: 0xff7eb0, shape: 'candy',       role: 'phys',  symbol: '糖糖'   },
+  { name: '棉花糖', dps: 28,  wave: 5,   atkInterval: 1500, color: 0xf8c4d9, shape: 'marshmallow', role: 'magic', symbol: '棉花糖' },
+  { name: '肉丸',   dps: 45,  wave: 15,  atkInterval: 1000, color: 0xd96a31, shape: 'meatball',    role: 'phys',  symbol: '肉丸'   },
+  { name: '布丁',   dps: 75,  wave: 30,  atkInterval: 1800, color: 0xf5c842, shape: 'pudding',     role: 'phys',  symbol: '布丁'   },
+  { name: '蛋筒',   dps: 120, wave: 50,  atkInterval: 900,  color: 0xff9933, shape: 'cone',        role: 'phys',  symbol: '蛋筒'   },
+  { name: '麻薯',   dps: 200, wave: 80,  atkInterval: 1400, color: 0xc7a7ff, shape: 'mochi',       role: 'magic', symbol: '麻薯'   },
+  { name: '月棒冰', dps: 350, wave: 120, atkInterval: 1100, color: 0x7be8b7, shape: 'popsicle',    role: 'magic', symbol: '月棒冰' },
+  { name: '草莓酱', dps: 600, wave: 180, atkInterval: 1600, color: 0xff5577, shape: 'cake',        role: 'magic', symbol: '草莓酱' }
+];
+
+var FOODS = [
+  { name: '棒棒糖', icon: '🍭', price: 100, desc: '暴击+10%，攻速+10%' },
+  { name: '牛奶',   icon: '🥛', price: 200, desc: '攻击+15%' },
+  { name: '烤肉',   icon: '🍖', price: 500, desc: '全属性+20%' }
+];
+
+var SPIN_PRIZES = [
+  { text: '50金',   type: 'gold', value: 50,   weight: 30 },
+  { text: '100金',  type: 'gold', value: 100,  weight: 25 },
+  { text: '200金',  type: 'gold', value: 200,  weight: 15 },
+  { text: '500金',  type: 'gold', value: 500,  weight: 8 },
+  { text: '🍭×1', type: 'food', value: '棒棒糖', weight: 8 },
+  { text: '🥛×1', type: 'food', value: '牛奶', weight: 6 },
+  { text: '20能量', type: 'energy', value: 20, weight: 5 },
+  { text: '1000金', type: 'gold', value: 1000, weight: 3 }
+];
+
+var CHECKIN_REWARDS = [
+  { gold: 100, bonus: null },
+  { gold: 200, bonus: null },
+  { gold: 300, bonus: { name: '棒棒糖', icon: '🍭' } },
+  { gold: 400, bonus: null },
+  { gold: 500, bonus: { name: '牛奶', icon: '🥛' } },
+  { gold: 600, bonus: null },
+  { gold: 1000, bonus: { name: '烤肉', icon: '🍖' } }
+];
+
+var DAILY_TASKS = [
+  { id: 'kills', desc: '击杀50只怪物', target: 50, reward: 200, track: function(s) { return s._dailyKills || 0; } },
+  { id: 'clicks', desc: '点击200次', target: 200, reward: 150, track: function(s) { return s._dailyClicks || 0; } },
+  { id: 'waves', desc: '通关5波', target: 5, reward: 300, track: function(s) { return s._dailyWaves || 0; } }
+];
+
+var ACHIEVEMENTS = [
+  { id: 'w10',       icon: '🌊', name: '初出茅庐',   desc: '到达第10波',      reward: 300,   check: function(g) { return g.maxWaveReached >= 10; } },
+  { id: 'w50',       icon: '🌊', name: '乘风破浪',   desc: '到达第50波',      reward: 3000,  check: function(g) { return g.maxWaveReached >= 50; } },
+  { id: 'w100',      icon: '🌊', name: '波涛汹涌',   desc: '到达第100波',     reward: 10000, check: function(g) { return g.maxWaveReached >= 100; } },
+  { id: 'w200',      icon: '🌊', name: '无尽征途',   desc: '到达第200波',     reward: 50000, check: function(g) { return g.maxWaveReached >= 200; } },
+  { id: 'kill1000',  icon: '⚔️', name: '怪物克星',   desc: '击杀1000只怪物',  reward: 2000,  check: function(g) { return g.stats.totalKills >= 1000; } },
+  { id: 'kill10000', icon: '⚔️', name: '杀戮之王',   desc: '击杀10000只怪物', reward: 10000, check: function(g) { return g.stats.totalKills >= 10000; } },
+  { id: 'lv10',      icon: '⬆️', name: '实力不凡',   desc: '主角达到10级',    reward: 500,   check: function(g) { return g.mainLevel >= 10; } },
+  { id: 'lv30',      icon: '⬆️', name: '登峰造极',   desc: '主角达到30级',    reward: 5000,  check: function(g) { return g.mainLevel >= 30; } },
+  { id: 'rebirth1',  icon: '💎', name: '初次转生',   desc: '完成首次转生',    reward: 2000,  check: function(g) { return g.rebirthGems > 0; } },
+  { id: 'rebirth10', icon: '💎', name: '转生大师',   desc: '累计获得50宝石',  reward: 20000, check: function(g) { return g.rebirthGems >= 50; } },
+  { id: 'allskills', icon: '🔓', name: '技能大师',   desc: '解锁所有技能',     reward: 5000,  check: function(g) { return g.skillUnlocked.every(function(u){return u;}); } },
+  { id: 'allsupport',icon: '👥', name: '满编战队',   desc: '解锁所有队友',     reward: 10000, check: function(g) { return g.supports.every(function(s){return s.unlocked;}); } },
+  { id: 'boss1',     icon: '💀', name: 'BOSS终结者', desc: '击杀1个BOSS',     reward: 500,   check: function(g) { return g.stats.bossKills >= 1; } },
+  { id: 'boss50',    icon: '💀', name: 'BOSS猎人',   desc: '击杀50个BOSS',    reward: 15000, check: function(g) { return g.stats.bossKills >= 50; } }
+];
+
+// ==================== Main 入口类 ====================
+function Main() {
+  eui.UILayer.call(this);
+  this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
+}
+Main.prototype = Object.create(eui.UILayer.prototype);
+Main.prototype.constructor = Main;
+
+Main.prototype.onAdd = function() {
+  this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
+  this.game = new Game(this);
+};
+
+// ==================== Game 类 ====================
+function Game(main) {
+  this.main = main;
+
+  // --- 游戏状态 ---
+  this.gold = 0;
+  this.energy = 100;
+  this.mainLevel = 1;
+  this.wave = 1;
+  this.totalCleared = 0;
+  this.killCount = 0;
+  this.skillCD = [0,0,0,0,0,0,0];
+  this.skillUnlocked = [true,false,false,false,false,false,false];
+  this.supports = SUPPORTS_DEF.map(function(s) {
+    return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: s.wave === 0 };
+  });
+  this.monsters = [];
+  this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
+  this.freeSpins = 3;
+  this.spinDate = new Date().toDateString();
+  this.stats = { totalKills: 0, totalGold: 0, totalClicks: 0, playTime: 0, bossKills: 0 };
+  this.achievements = [];
+  this.checkinDay = 0;
+  this.checkinDate = '';
+  this.dailyTaskDate = '';
+  this.dailyTaskDone = [false, false, false];
+  this.offlineCap = 8;
+  this.autoAttackEnabled = true;
+
+  // --- 转生系统 ---
+  this.rebirthGems = 0;
+  this.maxWaveReached = 0;
+
+  // --- 图签系统（怪物图鉴收集） ---
+  this.monsterCodex = {}; // { 'slime': { encountered: true, kills: 数量 }, ... }
+
+  // --- 玩家个性化 ---
+  this.avatarIdx = 0;       // 头像索引（0-5）
+  this.playerName = '玩家'; // 玩家昵称
+
+  // --- BOSS计时器 ---
+  this.bossActive = false;
+  this.bossTimer = 0;
+  this._bossTimerInterval = null;
+
+  // --- UI引用 ---
+  this.goldLabel = null;
+  this.waveLabel = null;
+  this.levelLabel = null;
+  this.dpsLabel = null;
+  this.energyLabel = null;
+  this.waveFill = null;
+  this.buffLabel = null;
+  this.gemsLabel = null;
+  this.bossTimerBg = null;
+  this.bossTimerBar = null;
+  this.autoBtnBg = null;
+  this.autoBtnLabel = null;
+  this.monsterViews = [];
+  this.skillBtns = [];
+  this.damageLayer = null;
+  this.battleGroup = null;
+  this._panelOverlay = null;
+  this._justHitMonster = false;
+
+  this.loadGame();
+  this.initSound();
+  this.buildUI();
+  this.spawnWave();
+  this.bindEvents();
+  this.startLoop();
+  this.checkOfflineReward();
+  var self = this;
+  setTimeout(function() { self.checkDailyCheckin(); }, 1200);
+
+  // 监听舞台尺寸变化（设备旋转 / 地址栏伸缩 / 窗口拖拽）
+  // fixedWidth 模式下宽度恒为 375，主要需要让全屏覆盖层跟随新高度
+  if (this.main.stage) {
+    this.main.stage.addEventListener(egret.Event.RESIZE, this.onStageResize, this);
+  }
+}
+
+// ==================== 工具方法 ====================
+
+Game.prototype.fmt = function(n) {
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+  return n + '';
+};
+
+Game.prototype.waveText = function() {
+  return '第 ' + this.wave + ' 波' + (this.wave % 10 === 0 ? ' 💀BOSS' : '');
+};
+
+Game.prototype.totalDps = function() {
+  var base = CONFIG.mainDmg(this.mainLevel, this.rebirthGems);
+  var supMult = 1 + this.rebirthGems * 0.08;
+  var sup = 0;
+  for (var i = 0; i < this.supports.length; i++) {
+    if (this.supports[i].unlocked) sup += this.supports[i].dps * this.supports[i].level;
+  }
+  return base + Math.floor(sup * supMult);
+};
+
+Game.prototype.getBuffs = function() {
+  var l = this.foods['棒棒糖'] || 0;
+  var m = this.foods['牛奶'] || 0;
+  var r = this.foods['烤肉'] || 0;
+  return {
+    critChance: 0.1 + l * 0.1,
+    attackMult: (1 + m * 0.15) * (1 + r * 0.2),
+    speedMult: (1 + l * 0.1) * (1 + r * 0.2),
+    supportMult: 1 + r * 0.2
+  };
+};
+
+Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
+  var g = new eui.Group();
+  g.width = w; g.height = h;
+  var bg = new eui.Rect();
+  bg.width = w; bg.height = h; bg.fillColor = color;
+  bg.ellipseWidth = 8; bg.ellipseHeight = 8;
+  bg.percentWidth = 100; bg.percentHeight = 100;
+  bg.strokeColor = THEME.accentSoft; bg.strokeWeight = 1; bg.strokeAlpha = 0.55;
+  g.addChild(bg);
+  var lb = new eui.Label();
+  lb.text = text; lb.size = 12; lb.textColor = 0xffffff; lb.bold = true;
+  lb.horizontalCenter = 0; lb.verticalCenter = 0;
+  g.addChild(lb);
+  g.touchEnabled = true;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, handler, ctx);
+  return g;
+};
+
+Game.prototype.fitImageToBox = function(img, source, boxW, boxH, x, y) {
+  var meta = UI_ASSET_SIZES[source] || { w: boxW, h: boxH };
+  var scale = Math.min(boxW / meta.w, boxH / meta.h);
+  var w = Math.max(1, Math.round(meta.w * scale));
+  var h = Math.max(1, Math.round(meta.h * scale));
+  img.source = source;
+  img.width = w;
+  img.height = h;
+  img.x = (x || 0) + Math.round((boxW - w) / 2);
+  img.y = (y || 0) + Math.round((boxH - h) / 2);
+  img.touchEnabled = false;
+  return img;
+};
+
+Game.prototype.coverImageInBox = function(img, source, boxW, boxH, x, y) {
+  var meta = UI_ASSET_SIZES[source] || { w: boxW, h: boxH };
+  var scale = Math.max(boxW / meta.w, boxH / meta.h);
+  var w = Math.max(1, Math.round(meta.w * scale));
+  var h = Math.max(1, Math.round(meta.h * scale));
+  img.source = source;
+  img.width = w;
+  img.height = h;
+  img.x = (x || 0) + Math.round((boxW - w) / 2);
+  img.y = (y || 0) + Math.round((boxH - h) / 2);
+  img.touchEnabled = false;
+  return img;
+};
+
+Game.prototype.monsterSpriteSource = function(mType, isBoss) {
+  var shape = mType && mType.shape;
+  return MONSTER_IMAGE_ASSETS[shape] || UI_ASSETS.monsterSlime;
+};
+
+// ==================== 角色外观绘制 ====================
+//
+// 统一风格：底座阴影 + 主体 + 描边 + 高光 + 眼睛（_drawEyes）
+//
+Game.prototype.createSupportView = function(idx, yPos) {
+  var s = this.supports[idx];
+  var def = SUPPORTS_DEF[idx];
+  var sc = new eui.Group(); sc.width = 48; sc.height = 64;
+  sc.name = 'support-' + idx;
+  if (yPos !== undefined && yPos !== 0) sc.y = yPos;
+
+  var shadow = new eui.Rect();
+  shadow.width = 34; shadow.height = 7;
+  shadow.x = 7; shadow.y = 43;
+  shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
+  shadow.fillColor = 0x000000; shadow.fillAlpha = s.unlocked ? 0.24 : 0.16;
+  sc.addChild(shadow);
+
+  var sprite = new eui.Image();
+  var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
+  this.fitImageToBox(sprite, source, 46, 50, 1, 0);
+  sprite.alpha = s.unlocked ? 1 : 0.45;
+  sc.addChild(sprite);
+
+  var roleDot = new eui.Rect();
+  roleDot.width = 9; roleDot.height = 9;
+  roleDot.x = 34; roleDot.y = 7;
+  roleDot.ellipseWidth = 9; roleDot.ellipseHeight = 9;
+  roleDot.fillColor = s.unlocked ? def.color : 0x5b547a;
+  roleDot.strokeColor = 0xffffff; roleDot.strokeWeight = 0.8; roleDot.strokeAlpha = 0.7;
+  sc.addChild(roleDot);
+
+  var nameBg = new eui.Rect();
+  nameBg.width = 42; nameBg.height = 13;
+  nameBg.x = 3; nameBg.y = 49;
+  nameBg.ellipseWidth = 7; nameBg.ellipseHeight = 7;
+  nameBg.fillColor = s.unlocked ? 0x17103b : 0x100c22;
+  nameBg.fillAlpha = 0.78;
+  nameBg.strokeColor = s.unlocked ? THEME.strokeGold : 0x4a4566;
+  nameBg.strokeWeight = 0.6; nameBg.strokeAlpha = s.unlocked ? 0.52 : 0.35;
+  sc.addChild(nameBg);
+
+  var lb = new eui.Label();
+  lb.text = s.unlocked ? def.symbol.slice(0, 2) : 'W' + def.wave;
+  lb.size = 8; lb.bold = true;
+  lb.textColor = s.unlocked ? THEME.accentSoft : THEME.textMute;
+  lb.width = 42; lb.height = 12;
+  lb.x = 3; lb.y = 51;
+  lb.textAlign = 'center';
+  sc.addChild(lb);
+  return sc;
+
+  var shape = new egret.Shape();
+  var g = shape.graphics;
+  var cx = 22, cy = 22;  // 绘制中心
+
+  if (!s.unlocked) {
+    // 未解锁：灰色剪影 + 锁
+    g.beginFill(0x000000, 0.18);
+    g.drawEllipse(cx - 12, cy + 12, 24, 5);
+    g.endFill();
+    g.lineStyle(1.5, 0x3a355a);
+    g.beginFill(0x4a4566);
+    g.drawCircle(cx, cy, 13);
+    g.endFill();
+    g.lineStyle(0);
+    g.beginFill(0xb8b0db);
+    g.drawRoundRect(cx - 5, cy - 1, 10, 9, 2, 2);
+    g.endFill();
+    g.lineStyle(1.6, 0xb8b0db);
+    g.moveTo(cx - 3, cy - 1); g.lineTo(cx - 3, cy - 4);
+    g.curveTo(cx - 3, cy - 7, cx, cy - 7);
+    g.curveTo(cx + 3, cy - 7, cx + 3, cy - 4);
+    g.lineTo(cx + 3, cy - 1);
+    g.lineStyle(0);
+    shape.x = 0; shape.y = 0;
+    sc.addChild(shape);
+
+    var lockNameBg = new eui.Rect();
+    lockNameBg.width = 44; lockNameBg.height = 13;
+    lockNameBg.ellipseWidth = 6; lockNameBg.ellipseHeight = 6;
+    lockNameBg.fillColor = THEME.bgMid; lockNameBg.fillAlpha = 0.85;
+    lockNameBg.horizontalCenter = 0; lockNameBg.top = 40;
+    sc.addChild(lockNameBg);
+    var lockLb = new eui.Label();
+    lockLb.text = 'W' + def.wave; lockLb.size = 9; lockLb.bold = true;
+    lockLb.textColor = 0x8881b0;
+    lockLb.horizontalCenter = 0; lockLb.top = 41;
+    sc.addChild(lockLb);
+    return sc;
+  }
+
+  // === 底座阴影 ===
+  g.beginFill(0x000000, 0.22);
+  g.drawEllipse(cx - 13, cy + 13, 26, 5);
+  g.endFill();
+
+  // === 糖果精灵本体（按 shape 独立造型）===
+  switch (def.shape) {
+    case 'candy':
+      // 糖果宝宝：圆球 + 两侧纸包扭结 + 条纹
+      g.lineStyle(1.2, 0xc94f7a);
+      g.beginFill(0xff9ec8);
+      g.moveTo(cx - 18, cy); g.lineTo(cx - 10, cy - 6); g.lineTo(cx - 10, cy + 6); g.endFill();
+      g.beginFill(0xff9ec8);
+      g.moveTo(cx + 18, cy); g.lineTo(cx + 10, cy - 6); g.lineTo(cx + 10, cy + 6); g.endFill();
+      g.lineStyle(1.5, 0xb83d6a);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy, 11); g.endFill();
+      g.lineStyle(1.8, 0xffffff, 0.7);
+      g.moveTo(cx - 6, cy - 7); g.lineTo(cx - 7, cy + 7);
+      g.moveTo(cx + 6, cy - 7); g.lineTo(cx + 7, cy + 7);
+      g.lineStyle(0);
+      drawEyesPair(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
+      break;
+
+    case 'marshmallow':
+      g.lineStyle(1.5, 0xb83d6a);
+      g.beginFill(def.color);
+      g.drawCircle(cx - 6, cy + 2, 8);
+      g.drawCircle(cx + 6, cy + 2, 8);
+      g.drawCircle(cx, cy - 4, 9);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffffff, 0.55);
+      g.drawEllipse(cx - 3, cy - 10, 7, 3);
+      g.endFill();
+      g.beginFill(0xff5599, 0.55);
+      g.drawCircle(cx - 6, cy + 2, 2);
+      g.drawCircle(cx + 6, cy + 2, 2);
+      g.endFill();
+      drawEyesPair(g, cx - 3, cy - 2, cx + 3, cy - 2, 2, 1);
+      g.lineStyle(1.2, 0xb83d6a);
+      g.moveTo(cx - 2, cy + 2); g.curveTo(cx, cy + 4, cx + 2, cy + 2);
+      break;
+
+    case 'meatball':
+      g.lineStyle(0);
+      g.beginFill(0x8b6914);
+      g.drawRect(cx + 10, cy - 14, 2, 30);
+      g.endFill();
+      g.lineStyle(1.5, 0x5a2808);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy + 3, 10);
+      g.drawCircle(cx - 7, cy - 6, 6);
+      g.drawCircle(cx + 6, cy - 8, 5);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffd28a, 0.6);
+      g.drawEllipse(cx - 4, cy - 2, 5, 2);
+      g.endFill();
+      drawEyesPair(g, cx - 3, cy + 1, cx + 3, cy + 1, 2, 1);
+      break;
+
+    case 'pudding':
+      g.lineStyle(1.5, 0x8b6914);
+      g.beginFill(def.color);
+      g.moveTo(cx - 12, cy + 10);
+      g.lineTo(cx + 12, cy + 10);
+      g.lineTo(cx + 9, cy - 4);
+      g.lineTo(cx - 9, cy - 4);
+      g.endFill();
+      g.beginFill(0xa05a14);
+      g.drawEllipse(cx - 9, cy - 7, 18, 6);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xe74c3c);
+      g.drawCircle(cx, cy - 10, 3);
+      g.endFill();
+      g.beginFill(0x5a7d3d);
+      g.drawRect(cx - 1, cy - 14, 2, 3);
+      g.endFill();
+      drawEyesPair(g, cx - 3, cy + 2, cx + 3, cy + 2, 2, 1);
+      break;
+
+    case 'cone':
+      g.lineStyle(1.5, 0x8b6914);
+      g.beginFill(0xd49a5a);
+      g.moveTo(cx - 10, cy - 2);
+      g.lineTo(cx + 10, cy - 2);
+      g.lineTo(cx, cy + 14);
+      g.endFill();
+      g.lineStyle(0.6, 0x8b6914);
+      g.moveTo(cx - 7, cy + 1); g.lineTo(cx + 7, cy + 1);
+      g.moveTo(cx - 5, cy + 5); g.lineTo(cx + 5, cy + 5);
+      g.lineStyle(1.5, 0xc25a10);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy - 7, 8);
+      g.endFill();
+      g.beginFill(0xffffff);
+      g.drawCircle(cx, cy - 12, 6);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffffff, 0.55);
+      g.drawEllipse(cx - 2, cy - 14, 4, 2);
+      g.endFill();
+      drawEyesPair(g, cx - 3, cy - 7, cx + 3, cy - 7, 2, 1);
+      break;
+
+    case 'mochi':
+      g.lineStyle(1.5, 0x5d3a8c);
+      g.beginFill(def.color);
+      g.drawEllipse(cx - 12, cy - 8, 24, 24);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0x5a9a40, 0.55);
+      g.drawEllipse(cx - 8, cy - 8, 16, 4);
+      g.endFill();
+      g.beginFill(0xffffff, 0.5);
+      g.drawEllipse(cx - 6, cy - 4, 6, 2);
+      g.endFill();
+      drawEyesPair(g, cx - 4, cy + 1, cx + 4, cy + 1, 2, 1);
+      g.beginFill(0xff5577, 0.8);
+      g.drawCircle(cx, cy + 7, 1.5);
+      g.endFill();
+      break;
+
+    case 'popsicle':
+      g.lineStyle(0);
+      g.beginFill(0x8b6914);
+      g.drawRoundRect(cx - 2, cy + 2, 4, 14, 1, 1);
+      g.endFill();
+      g.lineStyle(1.5, 0x2a7d5e);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy - 2, 11);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0x1a0a2e);
+      g.drawCircle(cx + 4, cy - 4, 9);
+      g.endFill();
+      g.beginFill(0xfbbf24);
+      this.drawStar(g, cx - 5, cy - 6, 2, 1, 5);
+      this.drawStar(g, cx - 7, cy + 1, 1.5, 0.7, 5);
+      g.endFill();
+      break;
+
+    case 'cake':
+      g.lineStyle(1.2, 0x8b3d5e);
+      g.beginFill(0xfde8c4);
+      g.drawRoundRect(cx - 12, cy + 4, 24, 10, 2, 2);
+      g.endFill();
+      g.beginFill(def.color);
+      g.drawRoundRect(cx - 10, cy - 4, 20, 10, 2, 2);
+      g.endFill();
+      g.beginFill(0xffffff);
+      g.drawRoundRect(cx - 8, cy - 11, 16, 9, 2, 2);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0xffffff);
+      g.drawCircle(cx - 5, cy - 13, 2);
+      g.drawCircle(cx, cy - 13, 2);
+      g.drawCircle(cx + 5, cy - 13, 2);
+      g.endFill();
+      g.beginFill(0xe74c3c);
+      g.moveTo(cx, cy - 18);
+      g.lineTo(cx - 3, cy - 14);
+      g.lineTo(cx + 3, cy - 14);
+      g.endFill();
+      g.beginFill(0xfff59d);
+      g.drawCircle(cx - 1, cy - 15, 0.5);
+      g.drawCircle(cx + 1, cy - 16, 0.5);
+      g.endFill();
+      drawEyesPair(g, cx - 3, cy, cx + 3, cy, 1.8, 0.9);
+      break;
+
+    default:
+      g.lineStyle(1.5, 0x333333);
+      g.beginFill(def.color);
+      g.drawCircle(cx, cy, 13);
+      g.endFill();
+      drawEyesPair(g, cx - 4, cy - 2, cx + 4, cy - 2, 3, 1.5);
+  }
+
+  shape.x = 0; shape.y = 0;
+  sc.addChild(shape);
+
+  // 名字标签（金边胶囊，44px 宽）
+  var nameBg = new eui.Rect();
+  nameBg.width = 44; nameBg.height = 13;
+  nameBg.ellipseWidth = 6; nameBg.ellipseHeight = 6;
+  nameBg.fillColor = THEME.bgMid; nameBg.fillAlpha = 0.92;
+  nameBg.strokeColor = THEME.strokeGold; nameBg.strokeWeight = 0.5;
+  nameBg.horizontalCenter = 0; nameBg.top = 40;
+  sc.addChild(nameBg);
+  var sl = new eui.Label();
+  sl.text = def.symbol.length > 2 ? def.symbol.slice(0, 2) : def.symbol;
+  sl.size = 9; sl.bold = true;
+  sl.textColor = THEME.textMain;
+  sl.horizontalCenter = 0; sl.top = 41;
+  sc.addChild(sl);
+  return sc;
+};
+
+Game.prototype.drawStar = function(g, cx, cy, outerR, innerR, points) {
+  var step = Math.PI / points;
+  g.moveTo(cx, cy - outerR);
+  for (var i = 0; i < 2 * points; i++) {
+    var r = (i % 2 === 0) ? outerR : innerR;
+    var angle = -Math.PI / 2 + (i + 1) * step;
+    g.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
+  }
+};
+
+Game.prototype.getMonsterCenter = function(idx) {
+  var mv = this.monsterViews && this.monsterViews[idx];
+  if (mv && mv.parent) {
+    return {
+      x: mv.x + mv.width / 2,
+      y: mv.y + Math.min(mv.height * 0.48, (mv._spriteSize || mv.height) * 0.55)
+    };
+  }
+  var w = this.monsters.length || 1;
+  var cx = this._centerX || 55;
+  var cw = this._centerW || 265;
+  return {
+    x: cx + cw * ((idx >= 0 ? idx : 0) + 0.5) / w,
+    y: this._monsterAreaY + this._monsterAreaH / 2
+  };
+};
+
+// ==================== 攻击动画系统 ====================
+
+// 主角攻击动画（法师前摇 + 追踪魔法弹 + 命中闪光）
+Game.prototype.heroAttackAnim = function(targetIdx) {
+  if (!this.heroGroup) return;
+  var origY = this._heroBaseY;
+  var origX = this.heroGroup.x;
+  // 停止之前的动画，防止叠加
+  egret.Tween.removeTweens(this.heroGroup);
+  this.heroGroup.x = origX;
+  this.heroGroup.y = origY;
+  this.heroGroup.scaleX = 1;
+  this.heroGroup.scaleY = 1;
+
+  var cx = this._centerX || 55;
+  var cw = this._centerW || 265;
+  var startX = cx + cw / 2;
+  var startY = origY + 36;
+  var targetPos = this.getMonsterCenter(targetIdx);
+  var endX = targetPos.x;
+  var endY = targetPos.y;
+  var angle = Math.atan2(endY - startY, endX - startX);
+
+  // 主角只做轻微施法前摇，不再夸张冲刺。
+  egret.Tween.get(this.heroGroup)
+    .to({ y: origY - 5, scaleX: 0.96, scaleY: 1.04 }, 70, egret.Ease.quadOut)
+    .to({ y: origY + 2, scaleX: 1.04, scaleY: 0.98 }, 70, egret.Ease.quadInOut)
+    .to({ y: origY, scaleX: 1, scaleY: 1 }, 90, egret.Ease.quadOut);
+
+  var castRing = new egret.Shape();
+  castRing.graphics.lineStyle(2, THEME.accentSoft, 0.75);
+  castRing.graphics.drawCircle(0, 0, 15);
+  castRing.graphics.lineStyle(1, THEME.pink, 0.65);
+  castRing.graphics.drawCircle(0, 0, 9);
+  castRing.x = startX;
+  castRing.y = startY;
+  castRing.scaleX = 0.35;
+  castRing.scaleY = 0.35;
+  castRing.alpha = 0.9;
+  this.damageLayer.addChild(castRing);
+  egret.Tween.get(castRing)
+    .to({ scaleX: 1.3, scaleY: 1.3, alpha: 0 }, 220, egret.Ease.quadOut)
+    .call(function() { if (castRing.parent) castRing.parent.removeChild(castRing); });
+
+  var bolt = new egret.Shape();
+  var bg = bolt.graphics;
+  bg.lineStyle(3, 0xffffff, 0.92);
+  bg.moveTo(-18, 0);
+  bg.lineTo(-4, 0);
+  bg.lineStyle(6, THEME.sky, 0.42);
+  bg.moveTo(-14, 0);
+  bg.lineTo(-2, 0);
+  bg.lineStyle(0);
+  bg.beginFill(THEME.accentSoft, 0.96);
+  bg.drawCircle(3, 0, 6);
+  bg.endFill();
+  bg.beginFill(THEME.pink, 0.58);
+  bg.drawCircle(3, 0, 11);
+  bg.endFill();
+  bolt.x = startX;
+  bolt.y = startY;
+  bolt.rotation = angle * 180 / Math.PI;
+  bolt.scaleX = 0.75;
+  bolt.scaleY = 0.75;
+  this.damageLayer.addChild(bolt);
+  egret.Tween.get(bolt)
+    .to({ x: endX, y: endY, scaleX: 1.05, scaleY: 1.05 }, 190, egret.Ease.sineOut)
+    .to({ alpha: 0 }, 50)
+    .call(function() { if (bolt.parent) bolt.parent.removeChild(bolt); });
+
+  var impact = new egret.Shape();
+  var ig = impact.graphics;
+  ig.lineStyle(2, THEME.accentSoft, 0.9);
+  this.drawStar(ig, 0, 0, 18, 7, 6);
+  ig.lineStyle(0);
+  ig.beginFill(0xffffff, 0.68);
+  ig.drawCircle(0, 0, 6);
+  ig.endFill();
+  impact.x = endX;
+  impact.y = endY;
+  impact.scaleX = 0.2;
+  impact.scaleY = 0.2;
+  impact.alpha = 0;
+  this.damageLayer.addChild(impact);
+  egret.Tween.get(impact)
+    .wait(150)
+    .to({ scaleX: 1, scaleY: 1, alpha: 1 }, 70, egret.Ease.quadOut)
+    .to({ scaleX: 1.45, scaleY: 1.45, alpha: 0 }, 150, egret.Ease.quadIn)
+    .call(function() { if (impact.parent) impact.parent.removeChild(impact); });
+};
+
+// 辅助英雄攻击动画（缩放 + 不同形状飞弹）
+// 辅助英雄攻击动画（物理系前冲挥砍 / 法术系施法光环+飞弹）
+Game.prototype.supportAttackAnim = function(supportIdx, targetIdx, dmg) {
+  var group = supportIdx < 4 ? this.leftSupGroup : this.rightSupGroup;
+  if (!group) return;
+  var localIdx = supportIdx < 4 ? supportIdx : (supportIdx - 4);
+  var sc = group.getChildByName ? group.getChildByName('support-' + supportIdx) : null;
+  sc = sc || group.getChildAt(localIdx + 1) || group.getChildAt(localIdx);
+  var def = SUPPORTS_DEF[supportIdx];
+  var color = def.color;
+  var sw = this._stageW || 375;
+  var bh = this._battleH || 400;
+  var slot = this._supportSlots && this._supportSlots[supportIdx];
+  var startX = slot ? slot.x : (supportIdx < 4 ? 31 : (sw - 31));
+  var startY = slot ? slot.y : (Math.floor(bh * 0.35) + localIdx * 46 + 24);
+  var targetPos = this.getMonsterCenter(targetIdx);
+  var endX = targetPos.x;
+  var endY = targetPos.y;
+  var self = this;
+  // 物理 / 法术
+  var isMagic = def.role === 'magic';
+
+  if (sc) {
+    if (isMagic) {
+      egret.Tween.get(sc).to({ scaleX: 1.2, scaleY: 1.2 }, 80).to({ scaleX: 1, scaleY: 1 }, 100);
+      var ring = new egret.Shape();
+      ring.graphics.lineStyle(2, color, 0.7);
+      ring.graphics.drawCircle(0, 0, 12);
+      ring.graphics.endFill();
+      ring.x = startX; ring.y = startY;
+      ring.scaleX = 0.3; ring.scaleY = 0.3; ring.alpha = 0.8;
+      this.damageLayer.addChild(ring);
+      egret.Tween.get(ring).to({ scaleX: 1.5, scaleY: 1.5, alpha: 0 }, 250).call(function() {
+        if (ring.parent) ring.parent.removeChild(ring);
+      });
+    } else {
+      var origX = sc.x;
+      var dir = supportIdx < 4 ? 1 : -1;
+      egret.Tween.get(sc).to({ x: origX + dir * 8 }, 50).to({ x: origX }, 80);
+    }
+  }
+
+  // 飞弹（形状匹配糖果精灵风格）
+  var bullet = new egret.Shape();
+  var bg = bullet.graphics;
+  bg.beginFill(color);
+  var sz = 5;
+  switch (def.shape) {
+    case 'candy':
+      bg.drawCircle(0, 0, sz); bg.endFill();
+      bg.lineStyle(1, 0xffffff, 0.8);
+      bg.moveTo(-sz, 0); bg.lineTo(sz, 0); bg.lineStyle(0); break;
+    case 'marshmallow':
+      bg.drawCircle(-sz*0.5, 0, sz*0.7); bg.drawCircle(sz*0.5, 0, sz*0.7); bg.drawCircle(0, -sz*0.5, sz*0.7); break;
+    case 'meatball':
+      bg.drawCircle(0, 0, sz); bg.endFill();
+      bg.beginFill(0xffd28a, 0.5); bg.drawEllipse(-sz*0.6, -sz*0.6, sz, sz*0.5); break;
+    case 'pudding':
+      bg.moveTo(-sz, sz*0.6); bg.lineTo(sz, sz*0.6); bg.lineTo(sz*0.7, -sz*0.6); bg.lineTo(-sz*0.7, -sz*0.6); break;
+    case 'cone':
+      bg.moveTo(0, sz); bg.lineTo(sz, -sz*0.2); bg.lineTo(-sz, -sz*0.2); bg.endFill();
+      bg.beginFill(0xffffff); bg.drawCircle(0, -sz*0.5, sz*0.6); break;
+    case 'mochi':
+      this.drawStar(bg, 0, 0, sz, sz*0.45, 5); break;
+    case 'popsicle':
+      bg.drawCircle(0, 0, sz); bg.endFill();
+      bg.beginFill(0x1a0a2e); bg.drawCircle(sz*0.4, -sz*0.2, sz*0.7); break;
+    case 'cake':
+      bg.drawCircle(-sz*0.4, -sz*0.4, sz*0.6); bg.drawCircle(sz*0.4, -sz*0.4, sz*0.6); bg.endFill();
+      bg.beginFill(color);
+      bg.moveTo(-sz, 0); bg.lineTo(0, sz); bg.lineTo(sz, 0); break;
+    default:
+      bg.drawCircle(0, 0, sz);
+  }
+  bg.endFill();
+  bullet.x = startX; bullet.y = startY;
+  bullet.rotation = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+  this.damageLayer.addChild(bullet);
+
+  egret.Tween.get(bullet)
+    .to({ x: endX, y: endY }, isMagic ? 250 : 150)
+    .call(function() {
+      if (bullet.parent) bullet.parent.removeChild(bullet);
+      var txt = new egret.TextField();
+      txt.text = '-' + self.fmt(dmg);
+      txt.size = 13; txt.textColor = color; txt.bold = true;
+      txt.x = endX + (Math.random() * 16 - 8);
+      txt.y = endY - 15;
+      self.damageLayer.addChild(txt);
+      egret.Tween.get(txt).to({ y: txt.y - 30, alpha: 0 }, 500).call(function() {
+        if (txt.parent) txt.parent.removeChild(txt);
+      });
+    });
+};
+
+// ==================== UI 构建 ====================
+
+Game.prototype.buildUI = function() {
+  // fixedWidth 模式下 stageWidth 固定为 contentWidth（375），但优先读取真实值以适配未来调整
+  var stageW = (this.main.stage && this.main.stage.stageWidth) ? this.main.stage.stageWidth : 375;
+  var self = this;
+
+  // 主容器使用绝对定位。战斗层背景较大，不能依赖 EUI 布局异步校准，
+  // 否则某些浏览器首帧会把战斗层盖到顶部栏上。
+  this.main.layout = null;
+
+  var TOP_H = 84;    // 顶部栏高度（含HP条）
+  var STATUS_BAR_H = 58; // 战斗底部状态条，属于 UI，不属于背景图
+  var SKILL_H = 52;  // 技能栏高度
+  var NAV_H = 50;    // 底部导航高度
+  var stageH = this.main.stage ? this.main.stage.stageHeight : 667;
+  var BATTLE_H = Math.max(300, stageH - TOP_H - STATUS_BAR_H - SKILL_H - NAV_H);
+  this._stageW = stageW;
+  this._battleH = BATTLE_H;
+
+  // ===== 顶部栏 =====
+  var topBar = new eui.Group();
+  topBar.width = stageW; topBar.height = TOP_H;
+  topBar.x = 0; topBar.y = 0;
+  var topBgShape = new egret.Shape();
+  var tg = topBgShape.graphics;
+  tg.beginFill(0x08051c);
+  tg.drawRect(0, 0, stageW, TOP_H);
+  tg.endFill();
+  tg.beginFill(0x17103b, 0.96);
+  tg.drawRoundRect(6, 3, stageW - 12, TOP_H - 8, 10, 10);
+  tg.endFill();
+  tg.beginFill(0x2a1f5c, 0.55);
+  tg.drawRoundRect(8, 5, stageW - 16, 28, 9, 9);
+  tg.endFill();
+  tg.lineStyle(1.2, THEME.strokeGold, 0.72);
+  tg.drawRoundRect(6.5, 3.5, stageW - 13, TOP_H - 9, 10, 10);
+  tg.lineStyle(0);
+  tg.beginFill(THEME.accent, 0.18);
+  tg.drawRect(16, 33, stageW - 32, 1);
+  tg.endFill();
+  topBar.addChild(topBgShape);
+  var topSkin = new eui.Image();
+  topSkin.source = 'assets/ui/battle-skin-top-clean.png';
+  topSkin.width = stageW; topSkin.height = TOP_H;
+  topSkin.x = 0; topSkin.y = 0;
+  topSkin.alpha = 0;
+  topBar.addChild(topSkin);
+  var topUnderline = new eui.Rect();
+  topUnderline.percentWidth = 100; topUnderline.height = 2;
+  topUnderline.bottom = 0; topUnderline.fillColor = THEME.strokeGold; topUnderline.fillAlpha = 0;
+  topBar.addChild(topUnderline);
+
+  // --- Row1 左：头像（36x36，可点击切换，无 VIP 徽章）---
+  // 头像颜色调色板（6 种）
+  var AVATAR_COLORS = [0x8b4513, 0x3498db, 0x27ae60, 0xe74c3c, 0x9b59b6, 0xe67e22];
+  var AVATAR_ICONS  = ['🧙','🐼','🦊','🐯','🐸','🐺'];
+  var avatarGroup = new eui.Group();
+  avatarGroup.width = 44; avatarGroup.height = 44;
+  avatarGroup.x = 8; avatarGroup.y = 10;
+  avatarGroup.touchEnabled = true;
+  var avatarFrame = new eui.Rect();
+  avatarFrame.width = 44; avatarFrame.height = 44; avatarFrame.ellipseWidth = 12; avatarFrame.ellipseHeight = 12;
+  avatarFrame.fillColor = 0x0a0820; avatarFrame.strokeColor = THEME.strokeGold;
+  avatarFrame.strokeWeight = 1.3; avatarFrame.strokeAlpha = 0.9;
+  avatarGroup.addChild(avatarFrame);
+  var avatarBg = new eui.Rect();
+  avatarBg.width = 36; avatarBg.height = 36; avatarBg.ellipseWidth = 10; avatarBg.ellipseHeight = 10;
+  avatarBg.fillColor = AVATAR_COLORS[this.avatarIdx || 0];
+  avatarBg.x = 4; avatarBg.y = 4;
+  avatarGroup.addChild(avatarBg);
+  var avatarHero = new eui.Image();
+  this.fitImageToBox(avatarHero, UI_ASSETS.hero, 34, 34, 5, 5);
+  avatarGroup.addChild(avatarHero);
+  var avatarIcon = new eui.Label();
+  avatarIcon.text = AVATAR_ICONS[this.avatarIdx || 0];
+  avatarIcon.size = 18; avatarIcon.horizontalCenter = 0; avatarIcon.verticalCenter = 0;
+  avatarIcon.alpha = 0;
+  avatarGroup.addChild(avatarIcon);
+  // 点击头像打开选择面板
+  avatarGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openAvatarPicker(); }, this);
+  this._avatarBg   = avatarBg;
+  this._avatarIcon = avatarIcon;
+  topBar.addChild(avatarGroup);
+
+  // --- Row1 中：昵称（可点击修改）+ 波次 ---
+  var nameLb = new eui.Label();
+  nameLb.text = (this.playerName || '玩家') + ' ✏️';
+  nameLb.size = 13; nameLb.textColor = THEME.textMain; nameLb.bold = true;
+  nameLb.x = 58; nameLb.y = 12; nameLb.touchEnabled = true;
+  nameLb.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openNameEditor(); }, this);
+  topBar.addChild(nameLb);
+  this._nameLb = nameLb;
+  this.waveLabel = new eui.Label();
+  this.waveLabel.text = this.waveText(); this.waveLabel.size = 11; this.waveLabel.textColor = 0xfbbf24;
+  this.waveLabel.x = 58; this.waveLabel.y = 32;
+  topBar.addChild(this.waveLabel);
+
+  // --- Row1 右：金币 / 钻石 / 成就（右对齐，避免重叠） ---
+  var goldPill = new eui.Rect();
+  goldPill.width = 86; goldPill.height = 20; goldPill.ellipseWidth = 10; goldPill.ellipseHeight = 10;
+  goldPill.fillColor = 0x2a1a10; goldPill.fillAlpha = 0.9;
+  goldPill.strokeColor = THEME.accent; goldPill.strokeWeight = 0.8; goldPill.strokeAlpha = 0.65;
+  goldPill.alpha = 0;
+  goldPill.right = 8; goldPill.y = 7;
+  topBar.addChild(goldPill);
+  this.goldLabel = new eui.Label();
+  this.goldLabel.text = '💰 ' + this.fmt(this.gold);
+  this.goldLabel.size = 12; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
+  this.goldLabel.width = 92; this.goldLabel.textAlign = 'right';
+  this.goldLabel.right = 12; this.goldLabel.y = 12;
+  topBar.addChild(this.goldLabel);
+
+  var gemPill = new eui.Rect();
+  gemPill.width = 54; gemPill.height = 18; gemPill.ellipseWidth = 9; gemPill.ellipseHeight = 9;
+  gemPill.fillColor = 0x16113a; gemPill.fillAlpha = 0.9;
+  gemPill.strokeColor = THEME.lavender; gemPill.strokeWeight = 0.8; gemPill.strokeAlpha = 0.55;
+  gemPill.alpha = 0;
+  gemPill.right = 8; gemPill.y = 31;
+  topBar.addChild(gemPill);
+  this.gemsLabel = new eui.Label();
+  this.gemsLabel.text = '💎 ' + this.rebirthGems;
+  this.gemsLabel.size = 11; this.gemsLabel.textColor = 0xb28dd6; this.gemsLabel.bold = true;
+  this.gemsLabel.width = 56; this.gemsLabel.textAlign = 'right';
+  this.gemsLabel.right = 12; this.gemsLabel.y = 37;
+  topBar.addChild(this.gemsLabel);
+
+  // 成就按钮：放在 Row1 中段和右段之间
+  var achBtn = new eui.Label();
+  achBtn.text = '🏆 ' + this.achievements.length;
+  achBtn.size = 12; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true; achBtn.bold = true;
+  achBtn.right = 82; achBtn.y = 37;
+  achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
+  topBar.addChild(achBtn);
+
+  // 静音切换按钮
+  this.muteLabel = new eui.Label();
+  this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
+  this.muteLabel.size = 14; this.muteLabel.touchEnabled = true;
+  this.muteLabel.right = 130; this.muteLabel.y = 36;
+  this.muteLabel.alpha = 0;
+  this.muteLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.toggleMute, this);
+  topBar.addChild(this.muteLabel);
+
+  // 保留 updateWaveNumbers 的引用，避免其他地方调用时崩溃
+  this._waveNumBgs = [];
+  this._waveNumLbs = [];
+
+  // --- Row2：怪物 HP 汇总条（满宽） ---
+  var HP_X = 58, HP_Y = 54, HP_W = stageW - 126, HP_H = 13;
+  var hpBg = new eui.Rect();
+  hpBg.width = HP_W; hpBg.height = HP_H; hpBg.ellipseWidth = 8; hpBg.ellipseHeight = 8;
+  hpBg.fillColor = 0x090616; hpBg.strokeColor = THEME.strokeGold; hpBg.strokeWeight = 0.7; hpBg.strokeAlpha = 0.55;
+  hpBg.x = HP_X; hpBg.y = HP_Y;
+  topBar.addChild(hpBg);
+  this.hpFill = new eui.Rect();
+  this.hpFill.width = HP_W; this.hpFill.height = HP_H;
+  this.hpFill.ellipseWidth = 8; this.hpFill.ellipseHeight = 8;
+  this.hpFill.fillColor = THEME.mint; this.hpFill.x = HP_X; this.hpFill.y = HP_Y;
+  topBar.addChild(this.hpFill);
+  this._hpMaxWidth = HP_W; // 供 updateUI 用，替换硬编码 140
+  // HP 文字居中叠在条上
+  this.hpLabel = new eui.Label();
+  this.hpLabel.text = '100 / 100'; this.hpLabel.size = 10; this.hpLabel.textColor = 0xffffff;
+  this.hpLabel.bold = true;
+  this.hpLabel.horizontalCenter = 0; this.hpLabel.y = HP_Y + 2;
+  topBar.addChild(this.hpLabel);
+
+  this.main.addChild(topBar);
+
+  // ===== 战斗区域 =====
+  this.battleGroup = new eui.Group();
+  this.battleGroup.width = stageW; this.battleGroup.height = BATTLE_H;
+  this.battleGroup.x = 0; this.battleGroup.y = TOP_H;
+  this.battleGroup.touchEnabled = true;
+  if (egret.Rectangle) {
+    this.battleGroup.scrollRect = new egret.Rectangle(0, 0, stageW, BATTLE_H);
+  }
+
+  // ============================================================
+  // 魔幻场景背景
+  // 层次（从后到前）：
+  //   1. 深空底色（三段渐变色块）
+  //   2. 远山轮廓（紫色山脉剪影）
+  //   3. 魔法光柱（从地面射向天空）
+  //   4. 星云 / 光晕（大圆形半透明）
+  //   5. 星点（大小不一，多颗）
+  //   6. 月亮（弦月，带光晕）
+  //   7. 地面（魔法石板地，带裂缝发光）
+  //   8. 地面装饰（蘑菇、水晶石）
+  // ============================================================
+  var bg = new egret.Shape();
+  var bgG = bg.graphics;
+
+  // --- 1. 深空底色（三段）---
+  bgG.beginFill(0x04021a);
+  bgG.drawRect(0, 0, stageW, Math.floor(BATTLE_H * 0.55));
+  bgG.endFill();
+  bgG.beginFill(0x0d0730);
+  bgG.drawRect(0, Math.floor(BATTLE_H * 0.55), stageW, Math.floor(BATTLE_H * 0.12));
+  bgG.endFill();
+  bgG.beginFill(0x160b3a);
+  bgG.drawRect(0, Math.floor(BATTLE_H * 0.67), stageW, Math.ceil(BATTLE_H * 0.33));
+  bgG.endFill();
+
+  // --- 2. 远山剪影（三层，深→浅）---
+  // 最远层（最暗）
+  bgG.lineStyle(0);
+  bgG.beginFill(0x0e0630, 0.9);
+  bgG.moveTo(0, Math.floor(BATTLE_H * 0.62));
+  bgG.curveTo(40,  Math.floor(BATTLE_H * 0.38), 90,  Math.floor(BATTLE_H * 0.44));
+  bgG.curveTo(130, Math.floor(BATTLE_H * 0.30), 160, Math.floor(BATTLE_H * 0.40));
+  bgG.curveTo(200, Math.floor(BATTLE_H * 0.22), 230, Math.floor(BATTLE_H * 0.36));
+  bgG.curveTo(270, Math.floor(BATTLE_H * 0.28), 310, Math.floor(BATTLE_H * 0.42));
+  bgG.curveTo(345, Math.floor(BATTLE_H * 0.34), stageW, Math.floor(BATTLE_H * 0.48));
+  bgG.lineTo(stageW, Math.floor(BATTLE_H * 0.62));
+  bgG.endFill();
+  // 中层
+  bgG.beginFill(0x1a0d45, 0.85);
+  bgG.moveTo(0, Math.floor(BATTLE_H * 0.65));
+  bgG.curveTo(50,  Math.floor(BATTLE_H * 0.48), 100, Math.floor(BATTLE_H * 0.54));
+  bgG.curveTo(145, Math.floor(BATTLE_H * 0.40), 185, Math.floor(BATTLE_H * 0.50));
+  bgG.curveTo(225, Math.floor(BATTLE_H * 0.44), 260, Math.floor(BATTLE_H * 0.52));
+  bgG.curveTo(305, Math.floor(BATTLE_H * 0.42), stageW, Math.floor(BATTLE_H * 0.56));
+  bgG.lineTo(stageW, Math.floor(BATTLE_H * 0.65));
+  bgG.endFill();
+  // 近层（最亮）
+  bgG.beginFill(0x22104e, 0.9);
+  bgG.moveTo(0, Math.floor(BATTLE_H * 0.68));
+  bgG.curveTo(60,  Math.floor(BATTLE_H * 0.56), 110, Math.floor(BATTLE_H * 0.60));
+  bgG.curveTo(155, Math.floor(BATTLE_H * 0.50), 188, Math.floor(BATTLE_H * 0.58));
+  bgG.curveTo(230, Math.floor(BATTLE_H * 0.52), 280, Math.floor(BATTLE_H * 0.60));
+  bgG.curveTo(330, Math.floor(BATTLE_H * 0.54), stageW, Math.floor(BATTLE_H * 0.62));
+  bgG.lineTo(stageW, Math.floor(BATTLE_H * 0.68));
+  bgG.endFill();
+
+  // --- 3. 魔法光柱（3根，从地面向上渐隐）---
+  var pillarData = [
+    { x: 80,  w: 18, color: 0x7c3aed, alpha: 0.18 },
+    { x: 188, w: 28, color: 0xc026d3, alpha: 0.22 },
+    { x: 295, w: 16, color: 0x2563eb, alpha: 0.16 }
+  ];
+  for (var pi = 0; pi < pillarData.length; pi++) {
+    var pd = pillarData[pi];
+    // 宽光柱（底部不透明→顶部透明，用多层矩形模拟）
+    for (var li = 0; li < 8; li++) {
+      var ly = Math.floor(BATTLE_H * (0.67 - li * 0.08));
+      var lh = Math.floor(BATTLE_H * 0.09);
+      var la = pd.alpha * (1 - li / 8);
+      bgG.beginFill(pd.color, la);
+      bgG.drawRect(pd.x - pd.w / 2, ly, pd.w, lh + 2);
+      bgG.endFill();
+    }
+    // 中心亮线
+    bgG.beginFill(0xffffff, 0.12);
+    bgG.drawRect(pd.x - 1, 0, 2, Math.floor(BATTLE_H * 0.67));
+    bgG.endFill();
+  }
+
+  // --- 4. 星云光晕（大圆形半透明）---
+  var nebulaData = [
+    { x: 60,  y: 60,  r: 55, color: 0x4c1d95, alpha: 0.25 },
+    { x: 200, y: 40,  r: 70, color: 0x831843, alpha: 0.20 },
+    { x: 320, y: 80,  r: 50, color: 0x1e3a8a, alpha: 0.22 },
+    { x: 140, y: 110, r: 40, color: 0x5b21b6, alpha: 0.18 }
+  ];
+  for (var ni = 0; ni < nebulaData.length; ni++) {
+    var nd = nebulaData[ni];
+    bgG.beginFill(nd.color, nd.alpha);
+    bgG.drawCircle(nd.x, nd.y, nd.r);
+    bgG.endFill();
+    bgG.beginFill(nd.color, nd.alpha * 0.5);
+    bgG.drawCircle(nd.x, nd.y, nd.r * 1.6);
+    bgG.endFill();
+  }
+
+  // --- 5. 星点（大小不一）---
+  var starData = [
+    [30,12,1.8],[68,8,1.2],[110,22,2.2],[155,6,1.0],[195,18,1.6],
+    [240,10,1.4],[285,24,2.0],[330,14,1.2],[355,8,1.8],[15,45,1.0],
+    [88,38,1.6],[145,50,1.2],[210,32,2.0],[265,44,1.4],[310,36,1.8],
+    [50,70,1.0],[130,62,1.6],[220,68,1.2],[300,58,2.0],[360,72,1.4],
+    [75,90,1.2],[170,82,1.8],[250,94,1.0],[340,86,1.6],[20,100,1.4]
+  ];
+  for (var sti = 0; sti < starData.length; sti++) {
+    var sd = starData[sti];
+    // 外光晕
+    bgG.beginFill(0xfde68a, 0.15);
+    bgG.drawCircle(sd[0], sd[1], sd[2] * 2.5);
+    bgG.endFill();
+    // 星核
+    bgG.beginFill(0xffffff, 0.9);
+    bgG.drawCircle(sd[0], sd[1], sd[2]);
+    bgG.endFill();
+  }
+  // 十字星芒（4颗大星）
+  var bigStars = [[110,22],[195,18],[285,24],[50,70]];
+  for (var bsi = 0; bsi < bigStars.length; bsi++) {
+    var bx = bigStars[bsi][0], by = bigStars[bsi][1];
+    bgG.lineStyle(0.8, 0xfde68a, 0.6);
+    bgG.moveTo(bx - 6, by); bgG.lineTo(bx + 6, by);
+    bgG.moveTo(bx, by - 6); bgG.lineTo(bx, by + 6);
+    bgG.lineStyle(0);
+  }
+
+  // --- 6. 弦月（右上角，带光晕）---
+  var moonX = stageW - 52, moonY = 38, moonR = 22;
+  // 外光晕（三层）
+  bgG.beginFill(0xfde68a, 0.06); bgG.drawCircle(moonX, moonY, moonR * 3.5); bgG.endFill();
+  bgG.beginFill(0xfde68a, 0.12); bgG.drawCircle(moonX, moonY, moonR * 2.2); bgG.endFill();
+  bgG.beginFill(0xfde68a, 0.22); bgG.drawCircle(moonX, moonY, moonR * 1.4); bgG.endFill();
+  // 月面
+  bgG.beginFill(0xfef3c7);
+  bgG.drawCircle(moonX, moonY, moonR);
+  bgG.endFill();
+  // 遮罩（弦月缺口）
+  bgG.beginFill(0x04021a);
+  bgG.drawCircle(moonX + 10, moonY - 4, moonR - 2);
+  bgG.endFill();
+  // 月面纹理（淡色环形）
+  bgG.lineStyle(0.8, 0xfbbf24, 0.3);
+  bgG.drawCircle(moonX - 4, moonY + 2, 6);
+  bgG.lineStyle(0);
+
+  // --- 6.5 星夜糖果屋剪影（概念稿的关键氛围：远景有可爱的发光屋群）---
+  var houseY = Math.floor(BATTLE_H * 0.34);
+  var houses = [
+    { x: 72,  y: houseY + 18, w: 42, h: 52, roof: 0x5b21b6, wall: 0x2a1858, light: 0xffd166 },
+    { x: 136, y: houseY + 4,  w: 52, h: 64, roof: 0x7c3aed, wall: 0x321b68, light: 0xffe7a3 },
+    { x: 248, y: houseY + 10, w: 56, h: 66, roof: 0x4c1d95, wall: 0x261450, light: 0xffc66d },
+    { x: 308, y: houseY + 28, w: 38, h: 44, roof: 0x831843, wall: 0x301340, light: 0xffe7a3 }
+  ];
+  for (var hi2 = 0; hi2 < houses.length; hi2++) {
+    var hd = houses[hi2];
+    // 软光晕
+    bgG.beginFill(hd.light, 0.06);
+    bgG.drawCircle(hd.x, hd.y + hd.h * 0.45, hd.w);
+    bgG.endFill();
+    // 糖果屋主体
+    bgG.lineStyle(1, 0x6d4db8, 0.35);
+    bgG.beginFill(hd.wall, 0.82);
+    bgG.drawRoundRect(hd.x - hd.w / 2, hd.y, hd.w, hd.h, 12, 12);
+    bgG.endFill();
+    // 奶油屋顶
+    bgG.lineStyle(1, 0xffb7e5, 0.35);
+    bgG.beginFill(hd.roof, 0.92);
+    bgG.moveTo(hd.x - hd.w * 0.62, hd.y + 10);
+    bgG.curveTo(hd.x - hd.w * 0.25, hd.y - 20, hd.x, hd.y - 8);
+    bgG.curveTo(hd.x + hd.w * 0.28, hd.y - 25, hd.x + hd.w * 0.62, hd.y + 10);
+    bgG.lineTo(hd.x + hd.w * 0.5, hd.y + 18);
+    bgG.lineTo(hd.x - hd.w * 0.5, hd.y + 18);
+    bgG.endFill();
+    // 发光窗户
+    bgG.lineStyle(0);
+    bgG.beginFill(hd.light, 0.88);
+    bgG.drawRoundRect(hd.x - hd.w * 0.22, hd.y + hd.h * 0.35, hd.w * 0.18, hd.h * 0.22, 5, 5);
+    bgG.drawRoundRect(hd.x + hd.w * 0.06, hd.y + hd.h * 0.33, hd.w * 0.20, hd.h * 0.24, 5, 5);
+    bgG.endFill();
+    bgG.beginFill(0xffffff, 0.18);
+    bgG.drawCircle(hd.x - hd.w * 0.12, hd.y + hd.h * 0.45, hd.w * 0.18);
+    bgG.drawCircle(hd.x + hd.w * 0.16, hd.y + hd.h * 0.45, hd.w * 0.2);
+    bgG.endFill();
+  }
+  // 糖果路灯和棒棒糖剪影
+  var candyLights = [
+    { x: 106, y: houseY + 78, c: 0xff7eb0 },
+    { x: 214, y: houseY + 86, c: 0x7be8b7 },
+    { x: 332, y: houseY + 90, c: 0xfbbf24 }
+  ];
+  for (var cli = 0; cli < candyLights.length; cli++) {
+    var cl = candyLights[cli];
+    bgG.lineStyle(1, 0xfde68a, 0.28);
+    bgG.moveTo(cl.x, cl.y); bgG.lineTo(cl.x, cl.y - 20);
+    bgG.lineStyle(0);
+    bgG.beginFill(cl.c, 0.28); bgG.drawCircle(cl.x, cl.y - 24, 11); bgG.endFill();
+    bgG.beginFill(cl.c, 0.78); bgG.drawCircle(cl.x, cl.y - 24, 5); bgG.endFill();
+  }
+
+  bg.alpha = 0;
+  this.battleGroup.addChild(bg);
+
+  // --- 7. 地面（魔法石板）---
+  var ground = new egret.Shape();
+  var gg = ground.graphics;
+  var groundY = Math.floor(BATTLE_H * 0.67);
+  var groundH = BATTLE_H - groundY;
+  // 地面底色
+  gg.beginFill(0x0f0628);
+  gg.drawRect(0, groundY, stageW, groundH);
+  gg.endFill();
+  // 透视石板小路（从怪物区延伸到主角脚下，呼应概念稿）
+  var pathTop = Math.floor(BATTLE_H * 0.40);
+  gg.lineStyle(1, 0x8b6bd8, 0.16);
+  gg.beginFill(0x2a1a58, 0.42);
+  gg.moveTo(stageW / 2 - 58, pathTop);
+  gg.lineTo(stageW / 2 + 58, pathTop);
+  gg.lineTo(stageW / 2 + 116, BATTLE_H - 48);
+  gg.lineTo(stageW / 2 - 116, BATTLE_H - 48);
+  gg.endFill();
+  for (var pr = 0; pr < 7; pr++) {
+    var py = pathTop + pr * 28;
+    var widen = pr * 7;
+    gg.lineStyle(0.8, 0xc7a7ff, 0.12);
+    gg.moveTo(stageW / 2 - 54 - widen, py);
+    gg.curveTo(stageW / 2, py + 8, stageW / 2 + 54 + widen, py);
+    gg.lineStyle(0);
+  }
+  for (var pc = -2; pc <= 2; pc++) {
+    gg.lineStyle(0.8, 0x5b4bb0, 0.12);
+    gg.moveTo(stageW / 2 + pc * 24, pathTop + 8);
+    gg.lineTo(stageW / 2 + pc * 42, BATTLE_H - 54);
+    gg.lineStyle(0);
+  }
+  // 石板纹（横向分格）
+  var slabW = 62, slabH = 18;
+  for (var row = 0; row < 3; row++) {
+    var gy = groundY + row * slabH;
+    var offset = (row % 2) * (slabW / 2);
+    for (var col = -1; col < Math.ceil(stageW / slabW) + 1; col++) {
+      var gx = col * slabW + offset;
+      gg.lineStyle(0.8, 0x3b1f6e, 0.7);
+      gg.drawRect(gx + 1, gy + 1, slabW - 2, slabH - 2);
+      gg.lineStyle(0);
+    }
+  }
+  // 地面裂缝发光（3条）
+  var crackData = [
+    { x1: 30,  x2: 90,  y: groundY + 4,  color: 0x7c3aed },
+    { x1: 160, x2: 240, y: groundY + 8,  color: 0xc026d3 },
+    { x1: 290, x2: 360, y: groundY + 3,  color: 0x2563eb }
+  ];
+  for (var ci = 0; ci < crackData.length; ci++) {
+    var cd = crackData[ci];
+    gg.lineStyle(2, cd.color, 0.15); gg.moveTo(cd.x1, cd.y); gg.lineTo(cd.x2, cd.y); gg.lineStyle(0);
+    gg.lineStyle(1, cd.color, 0.35); gg.moveTo(cd.x1 + 4, cd.y); gg.lineTo(cd.x2 - 4, cd.y); gg.lineStyle(0);
+    gg.beginFill(cd.color, 0.5); gg.drawCircle((cd.x1 + cd.x2) / 2, cd.y, 1.5); gg.endFill();
+  }
+  // 地面边缘发光线
+  gg.lineStyle(1.5, 0x7c3aed, 0.5);
+  gg.moveTo(0, groundY); gg.lineTo(stageW, groundY);
+  gg.lineStyle(0.8, 0xc026d3, 0.3);
+  gg.moveTo(0, groundY + 1); gg.lineTo(stageW, groundY + 1);
+  gg.lineStyle(0);
+  ground.alpha = 0;
+  this.battleGroup.addChild(ground);
+
+  // --- 8. 地面装饰（水晶石 + 蘑菇）---
+  var deco = new egret.Shape();
+  var dg = deco.graphics;
+  // 水晶石（左侧）
+  var crystalData = [
+    { x: 10, y: groundY - 2,  h: 14, w: 6,  color: 0x7c3aed },
+    { x: 18, y: groundY - 6,  h: 20, w: 5,  color: 0xa855f7 },
+    { x: 26, y: groundY - 3,  h: 12, w: 5,  color: 0x6d28d9 }
+  ];
+  for (var ki = 0; ki < crystalData.length; ki++) {
+    var kd = crystalData[ki];
+    dg.lineStyle(0.8, 0xffffff, 0.4);
+    dg.beginFill(kd.color, 0.85);
+    dg.moveTo(kd.x, kd.y);
+    dg.lineTo(kd.x - kd.w / 2, kd.y + kd.h);
+    dg.lineTo(kd.x + kd.w / 2, kd.y + kd.h);
+    dg.endFill();
+    // 高光
+    dg.lineStyle(0);
+    dg.beginFill(0xffffff, 0.35);
+    dg.moveTo(kd.x, kd.y + 2);
+    dg.lineTo(kd.x - 1, kd.y + kd.h * 0.5);
+    dg.lineTo(kd.x + 1, kd.y + kd.h * 0.5);
+    dg.endFill();
+  }
+  // 水晶石（右侧）
+  var crystalR = [
+    { x: stageW - 12, y: groundY - 4,  h: 16, w: 6,  color: 0x2563eb },
+    { x: stageW - 20, y: groundY - 8,  h: 22, w: 5,  color: 0x3b82f6 },
+    { x: stageW - 28, y: groundY - 3,  h: 13, w: 5,  color: 0x1d4ed8 }
+  ];
+  for (var kri = 0; kri < crystalR.length; kri++) {
+    var kd = crystalR[kri];
+    dg.lineStyle(0.8, 0xffffff, 0.4);
+    dg.beginFill(kd.color, 0.85);
+    dg.moveTo(kd.x, kd.y);
+    dg.lineTo(kd.x - kd.w / 2, kd.y + kd.h);
+    dg.lineTo(kd.x + kd.w / 2, kd.y + kd.h);
+    dg.endFill();
+    dg.lineStyle(0);
+    dg.beginFill(0xffffff, 0.35);
+    dg.moveTo(kd.x, kd.y + 2);
+    dg.lineTo(kd.x - 1, kd.y + kd.h * 0.5);
+    dg.lineTo(kd.x + 1, kd.y + kd.h * 0.5);
+    dg.endFill();
+  }
+  // 发光蘑菇（中央左右各一）
+  var mushData = [
+    { x: 55,  y: groundY, color: 0xec4899, spotColor: 0xfce7f3 },
+    { x: stageW - 55, y: groundY, color: 0x10b981, spotColor: 0xd1fae5 }
+  ];
+  for (var mi2 = 0; mi2 < mushData.length; mi2++) {
+    var md = mushData[mi2];
+    // 光晕
+    dg.beginFill(md.color, 0.12); dg.drawCircle(md.x, md.y, 14); dg.endFill();
+    // 菌柄
+    dg.lineStyle(0.8, 0xffffff, 0.3);
+    dg.beginFill(0xfde68a, 0.8);
+    dg.drawRect(md.x - 3, md.y - 10, 6, 10);
+    dg.endFill();
+    // 菌盖
+    dg.beginFill(md.color, 0.9);
+    dg.moveTo(md.x - 12, md.y - 10);
+    dg.curveTo(md.x, md.y - 24, md.x + 12, md.y - 10);
+    dg.endFill();
+    // 白点
+    dg.lineStyle(0);
+    dg.beginFill(md.spotColor, 0.9);
+    dg.drawCircle(md.x - 4, md.y - 16, 2);
+    dg.drawCircle(md.x + 4, md.y - 14, 1.5);
+    dg.drawCircle(md.x, md.y - 20, 1.2);
+    dg.endFill();
+  }
+  deco.alpha = 0;
+  this.battleGroup.addChild(deco);
+
+  // --- 9. 前景舞台框：保留星夜氛围，同时把可战斗区域收束成清晰舞台 ---
+  var stageFrame = new egret.Shape();
+  var sf = stageFrame.graphics;
+  var stageTop = 30 + 28 + 10;
+  var stageBottomPad = 43;
+  var stageFrameH = BATTLE_H - stageTop - stageBottomPad;
+  sf.beginFill(0x050316, 0.22);
+  sf.drawRoundRect(46, stageTop, stageW - 92, stageFrameH, 14, 14);
+  sf.endFill();
+  sf.beginFill(0xfbbf24, 0.045);
+  sf.drawRoundRect(47, stageTop + 1, stageW - 94, stageFrameH - 2, 14, 14);
+  sf.endFill();
+  sf.lineStyle(3.2, 0xff7eb0, 0.18);
+  sf.drawRoundRect(47, stageTop + 1, stageW - 94, stageFrameH - 2, 14, 14);
+  sf.lineStyle(1.2, THEME.strokeGold, 0.7);
+  sf.drawRoundRect(48, stageTop + 2, stageW - 96, stageFrameH - 4, 12, 12);
+  sf.lineStyle(0.7, 0xffffff, 0.22);
+  sf.drawRoundRect(51, stageTop + 5, stageW - 102, stageFrameH - 10, 10, 10);
+  sf.lineStyle(0.8, THEME.lavender, 0.24);
+  sf.moveTo(56, stageTop + Math.floor(stageFrameH * 0.58));
+  sf.lineTo(stageW - 56, stageTop + Math.floor(stageFrameH * 0.58));
+  sf.lineStyle(0);
+  sf.beginFill(0xffffff, 0.05);
+  sf.drawRoundRect(54, stageTop + 8, stageW - 108, 30, 10, 10);
+  sf.endFill();
+  sf.beginFill(THEME.accent, 0.95);
+  this.drawStar(sf, 60, stageTop + 12, 3.5, 1.6, 5);
+  this.drawStar(sf, stageW - 60, stageTop + 12, 3.5, 1.6, 5);
+  sf.endFill();
+  stageFrame.alpha = 0;
+  this.battleGroup.addChild(stageFrame);
+
+  // 位图视觉层：使用分层素材里的全屏战斗背景，按战斗区 cover 适配。
+  var fieldSkin = new eui.Image();
+  this.coverImageInBox(fieldSkin, UI_ASSETS.battleBackground, stageW, BATTLE_H, 0, 0);
+  this.battleGroup.addChild(fieldSkin);
+  var controlsSkin = new eui.Image();
+  controlsSkin.source = 'assets/ui/battle-skin-controls.png';
+  controlsSkin.width = stageW; controlsSkin.height = 60;
+  controlsSkin.x = 0; controlsSkin.y = 0;
+  controlsSkin.touchEnabled = false;
+  controlsSkin.alpha = 0;
+  this.battleGroup.addChild(controlsSkin);
+
+  // =========================================================
+  // 战斗区布局分区（375px 宽）
+  //
+  //   第一行(y:0~30)   满宽横排6个图标按钮（签到/每日/邮件/公告/磨转/能量）
+  //   第二行(y:30~60)  满宽横排：BOSS挑战 + 图签（各占一半，居中）
+  //   左辅助列  x:0~52   上下4个精灵（单列，scale=0.7放大）
+  //   中央区    x:52~323 宽271（怪物 + 主角）
+  //   右辅助列  x:323~375 上下4个精灵
+  // =========================================================
+
+  // ① 第一行：功能横排（6个图标按钮）
+  var TOP_BTN_H = 30;
+  var topBtnDefs = [
+    { icon: '📅', asset: UI_ASSETS.topCheckin, text: '签到', fn: function() { self.openCheckin(); } },
+    { icon: '📋', asset: UI_ASSETS.topDailyTask, text: '每日', fn: function() { self.openDailyTasks(); } },
+    { icon: '📬', asset: UI_ASSETS.topMail, text: '邮件', fn: function() { self.openMail(); } },
+    { icon: '📢', text: '公告', fn: function() { self.openAnnouncement(); } },
+    { icon: '🔄', text: '磨转', fn: function() { self.openRebirth(); } },
+    { icon: '⚡', text: '能量', fn: function() { self.openEnergyHelp(); } }
+  ];
+  var topBtnW = Math.floor(stageW / topBtnDefs.length);
+  for (var i = 0; i < topBtnDefs.length; i++) {
+    var tbd = topBtnDefs[i];
+    var tbg = new eui.Group();
+    tbg.width = topBtnW; tbg.height = TOP_BTN_H;
+    tbg.x = i * topBtnW; tbg.y = 0;
+    tbg.touchEnabled = true;
+    var tbbg = new eui.Rect();
+    tbbg.width = topBtnW - 4; tbbg.height = TOP_BTN_H - 4;
+    tbbg.x = 2; tbbg.y = 2;
+    tbbg.ellipseWidth = 8; tbbg.ellipseHeight = 8;
+    tbbg.fillColor = 0x1b1444; tbbg.fillAlpha = 0.92;
+    tbbg.strokeColor = THEME.strokeGold; tbbg.strokeWeight = 0.8; tbbg.strokeAlpha = 0.45;
+    tbg.addChild(tbbg);
+    var tbGlow = new eui.Rect();
+    tbGlow.width = topBtnW - 12; tbGlow.height = 1;
+    tbGlow.x = 6; tbGlow.y = 4; tbGlow.fillColor = 0xffffff; tbGlow.fillAlpha = 0.16;
+    tbg.addChild(tbGlow);
+    if (tbd.asset) {
+      var tbImg = new eui.Image();
+      this.fitImageToBox(tbImg, tbd.asset, topBtnW - 10, TOP_BTN_H - 8, 5, 2);
+      tbg.addChild(tbImg);
+    } else {
+      var tbIcon = new eui.Label();
+      tbIcon.text = tbd.icon; tbIcon.size = 13;
+      tbIcon.x = Math.floor((topBtnW - 13) / 2) - 2; tbIcon.y = 3;
+      tbg.addChild(tbIcon);
+    }
+    var tbLb = new eui.Label();
+    tbLb.text = tbd.text; tbLb.size = 8; tbLb.bold = true;
+    tbLb.textColor = THEME.accentSoft;
+    tbLb.width = topBtnW; tbLb.height = 10; tbLb.textAlign = 'center';
+    tbLb.x = 0; tbLb.y = 18;
+    tbg.addChild(tbLb);
+    (function(fn) {
+      tbg.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, self);
+    })(tbd.fn);
+    this.battleGroup.addChild(tbg);
+  }
+
+  // ② 第二行：BOSS挑战 + 图签（各占一半，横排居中）
+  var ROW2_Y = TOP_BTN_H + 2;
+  var ROW2_H = 28;
+  var ROW2_BTN_W = Math.floor(stageW / 2) - 4;
+  // BOSS按钮（左半）
+  var bossBtnGroup = new eui.Group();
+  bossBtnGroup.width = ROW2_BTN_W; bossBtnGroup.height = ROW2_H;
+  bossBtnGroup.x = 2; bossBtnGroup.y = ROW2_Y;
+  bossBtnGroup.touchEnabled = true;
+  this._bossBtnBg = new eui.Rect();
+  this._bossBtnBg.width = ROW2_BTN_W; this._bossBtnBg.height = ROW2_H;
+  this._bossBtnBg.ellipseWidth = 10; this._bossBtnBg.ellipseHeight = 10;
+  this._bossBtnBg.fillColor = 0x7a1520;
+  this._bossBtnBg.strokeColor = THEME.strokeGold; this._bossBtnBg.strokeWeight = 1.2; this._bossBtnBg.strokeAlpha = 0.75;
+  bossBtnGroup.addChild(this._bossBtnBg);
+  var bossBtnGloss = new eui.Rect();
+  bossBtnGloss.width = ROW2_BTN_W - 14; bossBtnGloss.height = 2;
+  bossBtnGloss.x = 7; bossBtnGloss.y = 4; bossBtnGloss.fillColor = 0xffffff; bossBtnGloss.fillAlpha = 0.14;
+  bossBtnGroup.addChild(bossBtnGloss);
+  var bossIconLb = new eui.Label();
+  bossIconLb.text = '💀'; bossIconLb.size = 14;
+  bossIconLb.x = Math.floor(ROW2_BTN_W / 2) - 28; bossIconLb.y = 6;
+  bossBtnGroup.addChild(bossIconLb);
+  this._bossBtnText = new eui.Label();
+  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 11;
+  this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
+  this._bossBtnText.x = Math.floor(ROW2_BTN_W / 2) - 12; this._bossBtnText.y = 8;
+  bossBtnGroup.addChild(this._bossBtnText);
+  bossBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.challengeBoss();
+  }, this);
+  this.battleGroup.addChild(bossBtnGroup);
+  this._bossBtnGroup = bossBtnGroup;
+  this.updateBossBtn();
+
+  // 图签按钮（右半）
+  var codexBtnGroup = new eui.Group();
+  codexBtnGroup.width = ROW2_BTN_W; codexBtnGroup.height = ROW2_H;
+  codexBtnGroup.x = stageW / 2 + 2; codexBtnGroup.y = ROW2_Y;
+  codexBtnGroup.touchEnabled = true;
+  var codexBtnBg = new eui.Rect();
+  codexBtnBg.width = ROW2_BTN_W; codexBtnBg.height = ROW2_H;
+  codexBtnBg.ellipseWidth = 10; codexBtnBg.ellipseHeight = 10;
+  codexBtnBg.fillColor = 0x173f35;
+  codexBtnBg.strokeColor = THEME.strokeGold; codexBtnBg.strokeWeight = 1; codexBtnBg.strokeAlpha = 0.65;
+  codexBtnGroup.addChild(codexBtnBg);
+  var codexBtnGloss = new eui.Rect();
+  codexBtnGloss.width = ROW2_BTN_W - 14; codexBtnGloss.height = 2;
+  codexBtnGloss.x = 7; codexBtnGloss.y = 4; codexBtnGloss.fillColor = 0xffffff; codexBtnGloss.fillAlpha = 0.14;
+  codexBtnGroup.addChild(codexBtnGloss);
+  var codexIconLb = new eui.Label();
+  codexIconLb.text = '📖'; codexIconLb.size = 14;
+  codexIconLb.x = Math.floor(ROW2_BTN_W / 2) - 28; codexIconLb.y = 6;
+  codexBtnGroup.addChild(codexIconLb);
+  var codexBtnText = new eui.Label();
+  codexBtnText.text = '怪物图签'; codexBtnText.size = 11;
+  codexBtnText.textColor = 0xffffff; codexBtnText.bold = true;
+  codexBtnText.x = Math.floor(ROW2_BTN_W / 2) - 12; codexBtnText.y = 8;
+  codexBtnGroup.addChild(codexBtnText);
+  codexBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.openMonsterCodex();
+  }, this);
+  this.battleGroup.addChild(codexBtnGroup);
+
+  // ③ 辅助/锁定位：按概念图放回战斗舞台两侧，中央只留给怪物和主角。
+  var SUP_COL_W = 48;
+  var SUP_AREA_Y = TOP_BTN_H + ROW2_H + 42;
+  var SUP_AREA_H = BATTLE_H - SUP_AREA_Y - 42;
+  var SUP_SLOT_H = Math.floor(SUP_AREA_H / 4);
+  this._supportSlots = [];
+  var leftSup = new eui.Group();
+  leftSup.x = 3; leftSup.y = SUP_AREA_Y;
+  leftSup.width = SUP_COL_W; leftSup.height = SUP_AREA_H;
+  for (var i = 0; i < 4; i++) {
+    var slotY = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 48) / 2);
+    var slot = this.createSupportSlot(i, true);
+    slot.x = 2;
+    slot.y = slotY;
+    leftSup.addChild(slot);
+    this._supportSlots[i] = { x: leftSup.x + slot.x + 20, y: leftSup.y + slot.y + 24 };
+  }
+  this.leftSupGroup = leftSup;
+  this.battleGroup.addChild(leftSup);
+
+  var rightSup = new eui.Group();
+  rightSup.x = stageW - SUP_COL_W - 3; rightSup.y = SUP_AREA_Y;
+  rightSup.width = SUP_COL_W; rightSup.height = SUP_AREA_H;
+  for (var i = 4; i < 8; i++) {
+    var slotY = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 48) / 2);
+    var slot = this.createSupportSlot(i, false);
+    slot.x = 4;
+    slot.y = slotY;
+    rightSup.addChild(slot);
+    this._supportSlots[i] = { x: rightSup.x + slot.x + 20, y: rightSup.y + slot.y + 24 };
+  }
+  this.rightSupGroup = rightSup;
+  this.battleGroup.addChild(rightSup);
+
+  // ⑤ 中央区
+  var CENTER_X = SUP_COL_W + 4;
+  var CENTER_W = stageW - (SUP_COL_W + 4) * 2;
+  this._centerX = CENTER_X;
+  this._centerW = CENTER_W;
+
+  // --- 怪物区域 ---
+  this._monsterAreaY = TOP_BTN_H + ROW2_H + 56;
+  this._monsterAreaH = Math.floor(BATTLE_H * 0.27);
+
+  // --- 主角（居中，靠下，地面线上方）---
+  var heroGroup = new eui.Group();
+  heroGroup.width = 88; heroGroup.height = 110;
+  heroGroup.x = CENTER_X + Math.floor((CENTER_W - 88) / 2);
+  heroGroup.y = Math.floor(BATTLE_H * 0.66);
+  this._heroBaseY = heroGroup.y;
+
+  // 脚下魔法阵（旋转层）
+  var magicCircle = new egret.Shape();
+  var mcG = magicCircle.graphics;
+  mcG.lineStyle(1.5, THEME.accent, 0.7);
+  mcG.drawCircle(0, 0, 26);
+  mcG.lineStyle(1, THEME.pink, 0.5);
+  mcG.drawCircle(0, 0, 20);
+  mcG.lineStyle(0.8, THEME.accentSoft, 0.6);
+  for (var mi = 0; mi < 6; mi++) {
+    var mangle = (mi / 6) * Math.PI * 2;
+    mcG.moveTo(0, 0);
+    mcG.lineTo(24 * Math.cos(mangle), 24 * Math.sin(mangle));
+  }
+  mcG.lineStyle(0);
+  mcG.beginFill(THEME.accent, 0.8);
+  for (var si = 0; si < 4; si++) {
+    var sangle = (si / 4) * Math.PI * 2 + Math.PI / 4;
+    this.drawStar(mcG, 24 * Math.cos(sangle), 24 * Math.sin(sangle), 2, 1, 5);
+  }
+  mcG.endFill();
+  magicCircle.x = 44;
+  magicCircle.y = 101;
+  magicCircle.scaleY = 0.35;
+  heroGroup.addChild(magicCircle);
+  this._magicCircle = magicCircle;
+
+  // 主角本体位图：从 image2 概念稿裁切，替代旧的矢量角色外观。
+  var heroSprite = new eui.Image();
+  this.fitImageToBox(heroSprite, UI_ASSETS.hero, 90, 90, -1, 5);
+  heroGroup.addChild(heroSprite);
+
+  // 旧矢量主角保留为代码兜底，但在战斗页隐藏，避免和位图叠影。
+  var heroShape = new egret.Shape();
+  var hg = heroShape.graphics;
+  // 袍子（紫渐变）
+  hg.lineStyle(1.6, 0x3a0764);
+  hg.beginFill(0x6b21a8);
+  hg.moveTo(22, 44);
+  hg.curveTo(18, 60, 16, 76);
+  hg.lineTo(56, 76);
+  hg.curveTo(54, 60, 50, 44);
+  hg.endFill();
+  hg.lineStyle(0);
+  hg.beginFill(0x8b3bc9, 0.8);
+  hg.moveTo(36, 44);
+  hg.curveTo(42, 60, 46, 76);
+  hg.lineTo(56, 76);
+  hg.curveTo(54, 60, 50, 44);
+  hg.endFill();
+  // 金腰带 + 心形扣
+  hg.beginFill(THEME.strokeGold);
+  hg.drawRect(20, 52, 32, 4);
+  hg.endFill();
+  hg.beginFill(THEME.pink);
+  hg.drawCircle(34, 54, 2.2);
+  hg.drawCircle(38, 54, 2.2);
+  hg.endFill();
+  hg.beginFill(THEME.pink);
+  hg.moveTo(31.8, 55); hg.lineTo(36, 58.5); hg.lineTo(40.2, 55);
+  hg.endFill();
+  // 头
+  hg.lineStyle(1.5, 0x3a0764);
+  hg.beginFill(0xfde68a);
+  hg.drawCircle(36, 28, 14);
+  hg.endFill();
+  // 头发（刘海）
+  hg.lineStyle(0);
+  hg.beginFill(0x2a1a5c);
+  hg.moveTo(22, 26);
+  hg.curveTo(24, 18, 30, 16);
+  hg.curveTo(36, 20, 42, 16);
+  hg.curveTo(48, 18, 50, 26);
+  hg.curveTo(46, 22, 36, 24);
+  hg.curveTo(26, 22, 22, 26);
+  hg.endFill();
+  // 月冠
+  hg.beginFill(THEME.accent);
+  hg.drawCircle(36, 8, 5);
+  hg.endFill();
+  hg.beginFill(0x2a1a5c);
+  hg.drawCircle(38, 7, 4);
+  hg.endFill();
+  hg.beginFill(THEME.accentSoft);
+  this.drawStar(hg, 28, 6, 2, 1, 5);
+  this.drawStar(hg, 45, 10, 1.5, 0.8, 5);
+  hg.endFill();
+  // 眼
+  hg.beginFill(0xffffff);
+  hg.drawEllipse(28, 24, 7, 8);
+  hg.drawEllipse(37, 24, 7, 8);
+  hg.endFill();
+  hg.beginFill(0x4a3aa0);
+  hg.drawEllipse(29.5, 25, 4, 6);
+  hg.drawEllipse(38.5, 25, 4, 6);
+  hg.endFill();
+  hg.beginFill(0x1e1b4b);
+  hg.drawCircle(31.5, 28, 1.8);
+  hg.drawCircle(40.5, 28, 1.8);
+  hg.endFill();
+  hg.beginFill(0xffffff);
+  hg.drawCircle(30.5, 26.5, 1);
+  hg.drawCircle(39.5, 26.5, 1);
+  hg.endFill();
+  // 腮红
+  hg.beginFill(THEME.pink, 0.5);
+  hg.drawEllipse(25, 32, 4, 2);
+  hg.drawEllipse(43, 32, 4, 2);
+  hg.endFill();
+  // 嘴
+  hg.lineStyle(1.2, 0x92400e);
+  hg.moveTo(33, 35);
+  hg.curveTo(36, 38, 39, 35);
+  // 法杖
+  hg.lineStyle(1.5, 0x5c3a0a);
+  hg.beginFill(0x92400e);
+  hg.drawRect(58, 20, 3, 54);
+  hg.endFill();
+  // 心形宝珠（光晕 + 实心）
+  hg.lineStyle(0);
+  hg.beginFill(THEME.pink, 0.35);
+  hg.drawCircle(59.5, 14, 11);
+  hg.endFill();
+  hg.beginFill(THEME.pink);
+  hg.drawCircle(57, 14, 5);
+  hg.drawCircle(62, 14, 5);
+  hg.endFill();
+  hg.beginFill(THEME.pink);
+  hg.moveTo(53, 16); hg.lineTo(59.5, 23); hg.lineTo(66, 16);
+  hg.endFill();
+  hg.beginFill(0xffffff, 0.7);
+  hg.drawCircle(56, 12, 1.5);
+  hg.endFill();
+  heroShape.alpha = 0;
+  heroGroup.addChild(heroShape);
+
+  // 名字标签
+  var heroNameBg = new eui.Rect();
+  heroNameBg.width = 52; heroNameBg.height = 14;
+  heroNameBg.ellipseWidth = 7; heroNameBg.ellipseHeight = 7;
+  heroNameBg.fillColor = THEME.bgMid; heroNameBg.fillAlpha = 0.85;
+  heroNameBg.strokeColor = THEME.strokeGold; heroNameBg.strokeWeight = 0.5;
+  heroNameBg.horizontalCenter = 0; heroNameBg.top = 92;
+  heroGroup.addChild(heroNameBg);
+  var heroName = new eui.Label();
+  heroName.text = '星语法师'; heroName.size = 10; heroName.bold = true;
+  heroName.textColor = THEME.accentSoft; heroName.horizontalCenter = 0; heroName.top = 93;
+  heroGroup.addChild(heroName);
+  this.levelLabel = new eui.Label();
+  this.levelLabel.text = 'Lv.' + this.mainLevel; this.levelLabel.size = 10;
+  this.levelLabel.textColor = THEME.accent; this.levelLabel.bold = true;
+  this.levelLabel.horizontalCenter = 0; this.levelLabel.top = 79;
+  heroGroup.addChild(this.levelLabel);
+  this.heroGroup = heroGroup;
+  this.battleGroup.addChild(heroGroup);
+
+  // 魔法阵自转（循环）
+  egret.Tween.get(magicCircle, { loop: true }).to({ rotation: 360 }, 12000);
+
+  // --- 攻击力显示（主角名字下方，居中）---
+  this.dpsLabel = new eui.Label();
+  this.dpsLabel.text = '攻击力: ' + this.fmt(this.totalDps());
+  this.dpsLabel.size = 10; this.dpsLabel.textColor = THEME.textDim;
+  this.dpsLabel.width = CENTER_W; this.dpsLabel.height = 14;
+  this.dpsLabel.textAlign = 'center';
+  this.dpsLabel.x = CENTER_X; this.dpsLabel.y = heroGroup.y + 108;
+  this.battleGroup.addChild(this.dpsLabel);
+
+  // --- 底部状态区（独立 UI 层，不占用战斗背景，避免压住技能栏） ---
+  // 这里只保留普通战斗状态；BOSS 倒计时并入顶部总血条区域。
+  var STATUS_H = 50;
+  var statusY = 4;
+  var STATUS_W = stageW - 20;
+  var STATUS_X = 10;
+  var statusBar = new eui.Group();
+  statusBar.width = stageW; statusBar.height = STATUS_BAR_H;
+  statusBar.x = 0; statusBar.y = TOP_H + BATTLE_H;
+  var statusBarBg = new eui.Rect();
+  statusBarBg.percentWidth = 100; statusBarBg.percentHeight = 100;
+  statusBarBg.fillColor = 0x050918; statusBarBg.fillAlpha = 1;
+  statusBarBg.includeInLayout = false;
+  statusBar.addChild(statusBarBg);
+  var statusDivider = new eui.Rect();
+  statusDivider.percentWidth = 100; statusDivider.height = 1;
+  statusDivider.top = 0; statusDivider.fillColor = 0x172647; statusDivider.fillAlpha = 1;
+  statusDivider.includeInLayout = false;
+  statusBar.addChild(statusDivider);
+
+  var statusPanel = new eui.Rect();
+  statusPanel.width = STATUS_W; statusPanel.height = STATUS_H;
+  statusPanel.x = STATUS_X; statusPanel.y = statusY;
+  statusPanel.ellipseWidth = 12; statusPanel.ellipseHeight = 12;
+  statusPanel.fillColor = 0x08051c; statusPanel.fillAlpha = 0.56;
+  statusPanel.strokeColor = THEME.strokeGold; statusPanel.strokeWeight = 0.6; statusPanel.strokeAlpha = 0.35;
+  statusBar.addChild(statusPanel);
+
+  this._bossBarMaxWidth = this._hpMaxWidth || (stageW - 126);
+  this.bossTimerLabel = new eui.Label();
+  this.bossTimerLabel.text = ''; this.bossTimerLabel.size = 1; this.bossTimerLabel.textColor = 0xff6666;
+  this.bossTimerLabel.bold = true; this.bossTimerLabel.alpha = 0;
+  this.bossTimerLabel.visible = false;
+  statusBar.addChild(this.bossTimerLabel);
+
+  // Row B: 当前轮次（1-10波）进度条
+  this.waveFillBg = new eui.Rect();
+  this.waveFillBg.width = STATUS_W - 16; this.waveFillBg.height = 8;
+  this.waveFillBg.fillColor = THEME.bgGlass; this.waveFillBg.ellipseWidth = 3;
+  this.waveFillBg.x = STATUS_X + 8; this.waveFillBg.y = statusY + 10;
+  statusBar.addChild(this.waveFillBg);
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  this.waveFill = new eui.Rect();
+  this.waveFill.width = (waveInCycle / 10) * (STATUS_W - 16);
+  this.waveFill.height = 8; this.waveFill.fillColor = THEME.accent; this.waveFill.ellipseWidth = 3;
+  this.waveFill.x = STATUS_X + 8; this.waveFill.y = statusY + 10;
+  statusBar.addChild(this.waveFill);
+  this._waveFillMaxWidth = STATUS_W - 16; // 供 updateUI 使用
+
+  // Row C: 能量条（左, 120px）+ DPS(中) + Buff(右)
+  var ENERGY_W = 150;
+  var energyBarBg = new eui.Rect();
+  energyBarBg.width = ENERGY_W; energyBarBg.height = 12;
+  energyBarBg.ellipseWidth = 6; energyBarBg.ellipseHeight = 6;
+  energyBarBg.fillColor = THEME.bgGlass;
+  energyBarBg.x = STATUS_X + 8; energyBarBg.y = statusY + 30;
+  statusBar.addChild(energyBarBg);
+  this.energyFill = new eui.Rect();
+  this.energyFill.width = (this.energy / CONFIG.maxEnergy) * ENERGY_W;
+  this.energyFill.height = 12;
+  this.energyFill.ellipseWidth = 6; this.energyFill.ellipseHeight = 6;
+  this.energyFill.fillColor = THEME.sky;
+  this.energyFill.x = STATUS_X + 8; this.energyFill.y = statusY + 30;
+  statusBar.addChild(this.energyFill);
+  this._energyMaxWidth = ENERGY_W; // 供 updateUI 使用（替换硬编码 100）
+  // 能量文字：紧跟在条右边，不再压在条上
+  this.energyLabel = new eui.Label();
+  this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
+  this.energyLabel.size = 11; this.energyLabel.textColor = THEME.sky; this.energyLabel.bold = true;
+  this.energyLabel.x = STATUS_X + ENERGY_W + 14; this.energyLabel.y = statusY + 30;
+  statusBar.addChild(this.energyLabel);
+
+  // Buff 文本（右侧）：去掉自动/手动按钮后，这里给状态信息更多横向空间。
+  this.buffLabel = new eui.Label();
+  this.buffLabel.text = this.renderBuffText();
+  this.buffLabel.size = 11; this.buffLabel.textColor = 0xfbbf24;
+  this.buffLabel.right = 16; this.buffLabel.y = statusY + 30;
+  statusBar.addChild(this.buffLabel);
+
+  // 伤害飘字层（不可触摸）
+  this.damageLayer = new eui.Group();
+  this.damageLayer.width = stageW; this.damageLayer.height = BATTLE_H;
+  this.damageLayer.touchEnabled = false;
+  this.damageLayer.touchChildren = false;
+  this.battleGroup.addChild(this.damageLayer);
+
+  this.battleGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBattleTouch, this);
+  this.main.addChild(this.battleGroup);
+  this.main.addChild(statusBar);
+
+  // ===== 技能栏 =====
+  var skillBar = new eui.Group();
+  skillBar.width = stageW; skillBar.height = SKILL_H;
+  skillBar.x = 0; skillBar.y = TOP_H + BATTLE_H + STATUS_BAR_H;
+  var skillLayout = new eui.HorizontalLayout();
+  skillLayout.horizontalAlign = 'center';
+  skillLayout.verticalAlign = 'middle';
+  skillLayout.gap = 4;
+  skillLayout.paddingLeft = 8;
+  skillLayout.paddingRight = 8;
+  skillLayout.paddingTop = 2;
+  skillLayout.paddingBottom = 2;
+  skillBar.layout = skillLayout;
+  var skillBg = new eui.Rect();
+  skillBg.percentWidth = 100; skillBg.percentHeight = 100; skillBg.fillColor = 0x050918;
+  skillBg.fillAlpha = 1;
+  skillBg.includeInLayout = false;
+  skillBar.addChildAt(skillBg, 0);
+  var skillDivider = new eui.Rect();
+  skillDivider.percentWidth = 100; skillDivider.height = 2;
+  skillDivider.top = 0; skillDivider.fillColor = 0x0c1b34; skillDivider.fillAlpha = 1;
+  skillDivider.includeInLayout = false;
+  skillBar.addChild(skillDivider);
+  var skillSkin = new eui.Image();
+  skillSkin.source = 'assets/ui/battle-skin-skills-clean.png';
+  skillSkin.width = stageW; skillSkin.height = SKILL_H;
+  skillSkin.x = 0; skillSkin.y = 0;
+  skillSkin.alpha = 0;
+  skillSkin.includeInLayout = false;
+  skillBar.addChild(skillSkin);
+  var skillShelf = new eui.Rect();
+  skillShelf.width = stageW - 14; skillShelf.height = SKILL_H - 8;
+  skillShelf.x = 7; skillShelf.y = 4;
+  skillShelf.ellipseWidth = 13; skillShelf.ellipseHeight = 13;
+  skillShelf.fillColor = 0x060316; skillShelf.fillAlpha = 0;
+  skillShelf.strokeColor = THEME.strokeGold; skillShelf.strokeWeight = 0.8; skillShelf.strokeAlpha = 0;
+  skillShelf.includeInLayout = false;
+  skillBar.addChild(skillShelf);
+  var skillTopLine = new eui.Rect();
+  skillTopLine.percentWidth = 100; skillTopLine.height = 1;
+  skillTopLine.top = 0; skillTopLine.fillColor = THEME.strokeGold; skillTopLine.fillAlpha = 0;
+  skillTopLine.includeInLayout = false;
+  skillBar.addChild(skillTopLine);
+
+  for (var i = 0; i < SKILLS.length; i++) {
+    var btn = this.createSkillBtn(i);
+    this.skillBtns.push(btn);
+    skillBar.addChild(btn);
+  }
+  this.main.addChild(skillBar);
+
+  // ===== 底部导航 =====
+  var navBar = new eui.Group();
+  navBar.width = stageW; navBar.height = NAV_H;
+  navBar.x = 0; navBar.y = TOP_H + BATTLE_H + STATUS_BAR_H + SKILL_H;
+  navBar.layout = new eui.HorizontalLayout();
+  navBar.layout.horizontalAlign = 'justify';
+  navBar.layout.verticalAlign = 'middle';
+  navBar.paddingLeft = 8; navBar.paddingRight = 8;
+  var navBg = new eui.Rect();
+  navBg.percentWidth = 100; navBg.percentHeight = 100; navBg.fillColor = 0x06101e;
+  navBg.fillAlpha = 1;
+  navBg.includeInLayout = false;
+  navBar.addChildAt(navBg, 0);
+  var navSkin = new eui.Image();
+  navSkin.source = 'assets/ui/battle-skin-nav-clean.png';
+  navSkin.width = stageW; navSkin.height = NAV_H;
+  navSkin.x = 0; navSkin.y = 0;
+  navSkin.alpha = 0;
+  navSkin.includeInLayout = false;
+  navBar.addChild(navSkin);
+  var navShelf = new eui.Rect();
+  navShelf.width = stageW - 12; navShelf.height = NAV_H - 8;
+  navShelf.x = 6; navShelf.y = 4;
+  navShelf.ellipseWidth = 12; navShelf.ellipseHeight = 12;
+  navShelf.fillColor = 0x1a1035; navShelf.fillAlpha = 0;
+  navShelf.strokeColor = THEME.strokeGold; navShelf.strokeWeight = 0.8; navShelf.strokeAlpha = 0;
+  navShelf.includeInLayout = false;
+  navBar.addChild(navShelf);
+  var navTopLine = new eui.Rect();
+  navTopLine.percentWidth = 100; navTopLine.height = 1;
+  navTopLine.top = 0; navTopLine.fillColor = THEME.strokeGold; navTopLine.fillAlpha = 0;
+  navTopLine.includeInLayout = false;
+  navBar.addChild(navTopLine);
+
+  var navItems = [
+    { text: '升级', icon: 'upgrade', fn: function() { self.openUpgrade(); } },
+    { text: '图签', icon: 'codex', fn: function() { self.openMonsterCodex(); } },
+    { text: '转盘', icon: 'spin', fn: function() { self.openSpinWheel(); } },
+    { text: '超市', icon: 'market', fn: function() { self.openSupermarket(); } },
+    { text: '排行', icon: 'rank', fn: function() { self.openLeaderboard(); } },
+    { text: '商城', icon: 'shop', fn: function() { self.openShop(); } }
+  ];
+  for (var i = 0; i < navItems.length; i++) {
+    var nb = this.createNavBtn(navItems[i].text, navItems[i].icon, navItems[i].fn);
+    navBar.addChild(nb);
+  }
+  this.main.addChild(navBar);
+
+  // 顶部栏必须压在战斗背景之上，避免缓存旧资源或首帧布局时被背景层盖掉。
+  topBar.x = 0; topBar.y = 0;
+  this.battleGroup.x = 0; this.battleGroup.y = TOP_H;
+  statusBar.x = 0; statusBar.y = TOP_H + BATTLE_H;
+  skillBar.x = 0; skillBar.y = TOP_H + BATTLE_H + STATUS_BAR_H;
+  navBar.x = 0; navBar.y = TOP_H + BATTLE_H + STATUS_BAR_H + SKILL_H;
+  this.main.setChildIndex(topBar, this.main.numChildren - 1);
+};
+
+// 创建战斗区左/右侧圆角按钮（小方块+文字）
+Game.prototype.createSideBtn = function(text, x, y, fn) {
+  var g = new eui.Group();
+  g.width = 26; g.height = 26; g.x = x; g.y = y;
+  var bg = new eui.Rect();
+  bg.width = 26; bg.height = 26; bg.ellipseWidth = 8; bg.ellipseHeight = 8;
+  bg.fillColor = THEME.bgLite; bg.fillAlpha = 0.85;
+  bg.strokeColor = THEME.strokeGold; bg.strokeWeight = 1; bg.strokeAlpha = 0.7;
+  bg.alpha = 0;
+  g.addChild(bg);
+  var lb = new eui.Label();
+  lb.text = text; lb.size = 10; lb.textColor = THEME.accentSoft; lb.bold = true;
+  lb.horizontalCenter = 0; lb.verticalCenter = 0;
+  lb.alpha = 0;
+  g.addChild(lb);
+  g.touchEnabled = true;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, this);
+  return g;
+};
+
+Game.prototype.createSupportSlot = function(idx, faceRight) {
+  var s = this.supports[idx];
+  var def = SUPPORTS_DEF[idx];
+  var g = new eui.Group();
+  g.width = 40; g.height = 48;
+  g.name = 'support-' + idx;
+  var shadow = new eui.Rect();
+  shadow.width = 28; shadow.height = 6;
+  shadow.x = 6; shadow.y = 32;
+  shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
+  shadow.fillColor = 0x000000; shadow.fillAlpha = s.unlocked ? 0.26 : 0.16;
+  g.addChild(shadow);
+
+  var sprite = new eui.Image();
+  var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
+  this.fitImageToBox(sprite, source, 42, 42, -1, -2);
+  sprite.alpha = s.unlocked ? 1 : 0.48;
+  g.addChild(sprite);
+
+  var lbBg = new eui.Rect();
+  lbBg.width = 34; lbBg.height = 10;
+  lbBg.x = 3; lbBg.y = 37;
+  lbBg.ellipseWidth = 6; lbBg.ellipseHeight = 6;
+  lbBg.fillColor = 0x050918; lbBg.fillAlpha = 0.66;
+  g.addChild(lbBg);
+  var lb = new eui.Label();
+  lb.text = s.unlocked ? def.symbol.slice(0, 2) : 'W' + def.wave;
+  lb.size = 8; lb.bold = true;
+  lb.textColor = s.unlocked ? THEME.accentSoft : THEME.textMute;
+  lb.width = 40; lb.height = 10;
+  lb.textAlign = 'center';
+  lb.x = 0; lb.y = 38;
+  g.addChild(lb);
+  return g;
+};
+
+// 创建导航按钮（图标+文字）
+Game.prototype.createNavBtn = function(text, icon, fn) {
+  var g = new eui.Group();
+  g.width = 58; g.height = 48;
+  g.touchEnabled = true;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, this);
+  var bg = new eui.Rect();
+  bg.width = 54; bg.height = 44;
+  bg.ellipseWidth = 10; bg.ellipseHeight = 10;
+  bg.fillColor = 0x120b2a; bg.fillAlpha = 0.96;
+  bg.strokeColor = THEME.strokeGold; bg.strokeWeight = 1; bg.strokeAlpha = 0.56;
+  bg.horizontalCenter = 0; bg.verticalCenter = 0;
+  g.addChild(bg);
+  var navAsset = NAV_ICON_ASSETS[icon];
+  if (navAsset) {
+    var navImg = new eui.Image();
+    this.fitImageToBox(navImg, navAsset, 52, 42, 3, 2);
+    navImg.name = 'navIconImage';
+    g.addChild(navImg);
+  } else {
+    var iconShape = new egret.Shape();
+    this.drawNavIcon(iconShape.graphics, icon, THEME.accentSoft);
+    iconShape.x = 29;
+    iconShape.y = 18;
+    iconShape.name = 'navIcon';
+    g.addChild(iconShape);
+  }
+  var labelBg = new eui.Rect();
+  labelBg.width = 50; labelBg.height = 13;
+  labelBg.x = 4; labelBg.y = 32;
+  labelBg.ellipseWidth = 6; labelBg.ellipseHeight = 6;
+  labelBg.fillColor = 0x050918; labelBg.fillAlpha = 0.72;
+  labelBg.name = 'labelBg';
+  g.addChild(labelBg);
+  var textLb = new eui.Label();
+  textLb.text = text; textLb.size = 10; textLb.textColor = THEME.accent; textLb.bold = true;
+  textLb.width = 58; textLb.height = 12;
+  textLb.textAlign = 'center';
+  textLb.horizontalCenter = 0;
+  textLb.top = 33;
+  g.addChild(textLb);
+  return g;
+};
+
+Game.prototype.createSkillBtn = function(idx) {
+  var s = SKILLS[idx];
+  var unlocked = this.mainLevel >= s.lv;
+  var g = new eui.Group();
+  g.width = 47; g.height = 48;
+  var slot = new eui.Rect();
+  slot.width = 45; slot.height = 46;
+  slot.x = 1; slot.y = 1;
+  slot.ellipseWidth = 10; slot.ellipseHeight = 10;
+  slot.fillColor = unlocked ? 0x120b2a : 0x0c1024;
+  slot.fillAlpha = 0.96;
+  slot.strokeColor = unlocked ? THEME.strokeGold : 0x4a4566;
+  slot.strokeWeight = 1; slot.strokeAlpha = unlocked ? 0.58 : 0.38;
+  slot.name = 'slot';
+  g.addChild(slot);
+  var halo = new eui.Rect();
+  halo.width = 32; halo.height = 32;
+  halo.ellipseWidth = 16; halo.ellipseHeight = 16;
+  halo.fillColor = unlocked ? s.color : 0x3a355a;
+  halo.fillAlpha = 0.22;
+  halo.x = 7; halo.y = 3;
+  halo.name = 'halo';
+  halo.visible = false;
+  g.addChild(halo);
+  var bg = new eui.Rect();
+  bg.width = 28; bg.height = 28; bg.ellipseWidth = 14; bg.ellipseHeight = 14;
+  bg.fillColor = unlocked ? s.color : 0x4a4566;
+  bg.x = 9; bg.y = 5;
+  bg.name = 'bg'; bg.visible = false; g.addChild(bg);
+  var border = new eui.Rect();
+  border.width = 28; border.height = 28; border.ellipseWidth = 14; border.ellipseHeight = 14;
+  border.fillAlpha = 0;
+  border.strokeColor = unlocked ? THEME.accentSoft : 0x6a628f;
+  border.strokeWeight = 1.3;
+  border.x = 9; border.y = 5;
+  border.name = 'border'; border.visible = false; g.addChild(border);
+  var skillAsset = SKILL_ICON_ASSETS[idx];
+  if (skillAsset) {
+    var skillImg = new eui.Image();
+    this.fitImageToBox(skillImg, skillAsset, 43, 44, 2, 1);
+    skillImg.name = 'iconImage';
+    skillImg.alpha = unlocked ? 1 : 0.42;
+    g.addChild(skillImg);
+  } else {
+    var iconShape = new egret.Shape();
+    this.drawSkillIcon(iconShape.graphics, s.icon, unlocked);
+    iconShape.x = 23; iconShape.y = 19;
+    iconShape.name = 'iconShape';
+    g.addChild(iconShape);
+  }
+  var cdLb = new eui.Label();
+  cdLb.text = ''; cdLb.size = 12; cdLb.textColor = THEME.textMain; cdLb.bold = true;
+  cdLb.horizontalCenter = 0; cdLb.top = 12;
+  cdLb.name = 'cdLb';
+  cdLb.visible = false;
+  g.addChild(cdLb);
+  var labelBg = new eui.Rect();
+  labelBg.width = 43; labelBg.height = 13;
+  labelBg.x = 2; labelBg.y = 34;
+  labelBg.ellipseWidth = 6; labelBg.ellipseHeight = 6;
+  labelBg.fillColor = 0x050918; labelBg.fillAlpha = 0.74;
+  labelBg.name = 'labelBg';
+  g.addChild(labelBg);
+  var lb = new eui.Label();
+  lb.text = unlocked ? s.name : 'Lv' + s.lv;
+  lb.size = 9; lb.textColor = unlocked ? THEME.accentSoft : THEME.textMute;
+  lb.bold = true;
+  lb.width = 47; lb.height = 12;
+  lb.textAlign = 'center';
+  lb.x = 0; lb.y = 35;
+  lb.name = 'lb';
+  g.addChild(lb);
+
+  g.touchEnabled = true;
+  var self = this;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.useSkill(idx); }, this);
+  return g;
+};
+
+Game.prototype.drawNavIcon = function(g, key, color) {
+  var c = color || THEME.accentSoft;
+  g.lineStyle(2, c, 1);
+  g.beginFill(c, 0.12);
+  switch (key) {
+    case 'upgrade':
+      g.moveTo(0, -11); g.lineTo(10, -1); g.lineTo(4, -1); g.lineTo(4, 10);
+      g.lineTo(-4, 10); g.lineTo(-4, -1); g.lineTo(-10, -1); g.lineTo(0, -11);
+      g.endFill();
+      break;
+    case 'codex':
+      g.drawRoundRect(-10, -10, 20, 20, 3, 3);
+      g.moveTo(0, -10); g.lineTo(0, 10);
+      g.moveTo(-7, -5); g.lineTo(-3, -5);
+      g.moveTo(3, -5); g.lineTo(7, -5);
+      g.moveTo(-7, 1); g.lineTo(-3, 1);
+      g.moveTo(3, 1); g.lineTo(7, 1);
+      g.endFill();
+      break;
+    case 'spin':
+      g.drawCircle(0, 0, 11);
+      g.moveTo(0, 0); g.lineTo(0, -10);
+      g.moveTo(0, 0); g.lineTo(9, 4);
+      g.moveTo(0, 0); g.lineTo(-8, 6);
+      g.endFill();
+      break;
+    case 'market':
+      g.drawRoundRect(-10, -3, 20, 12, 2, 2);
+      g.moveTo(-8, -3); g.lineTo(-6, -10); g.lineTo(6, -10); g.lineTo(8, -3);
+      g.moveTo(-5, 10); g.lineTo(-5, 12);
+      g.moveTo(5, 10); g.lineTo(5, 12);
+      g.endFill();
+      break;
+    case 'rank':
+      g.drawRect(-8, -1, 4, 11);
+      g.drawRect(-2, -8, 4, 18);
+      g.drawRect(4, -4, 4, 14);
+      g.endFill();
+      break;
+    case 'shop':
+      g.drawRoundRect(-9, -5, 18, 14, 3, 3);
+      g.moveTo(-6, -5); g.lineTo(-6, -10);
+      g.curveTo(-6, -14, 0, -14);
+      g.curveTo(6, -14, 6, -10);
+      g.lineTo(6, -5);
+      g.endFill();
+      break;
+    default:
+      g.drawCircle(0, 0, 9);
+      g.endFill();
+  }
+};
+
+Game.prototype.drawSupportMiniIcon = function(g, def, unlocked) {
+  var cx = 20, cy = 22;
+  var c = unlocked ? def.color : 0x5b547a;
+  var ol = unlocked ? 0xffffff : 0x2a2446;
+  g.lineStyle(1.2, ol, unlocked ? 0.58 : 0.35);
+
+  if (!unlocked) {
+    g.beginFill(0x4a4566, 0.72);
+    g.drawCircle(cx, cy, 12);
+    g.endFill();
+    g.lineStyle(1.5, 0xb8b0db, 0.8);
+    g.drawRoundRect(cx - 6, cy - 2, 12, 10, 3, 3);
+    g.moveTo(cx - 4, cy - 2);
+    g.lineTo(cx - 4, cy - 6);
+    g.curveTo(cx - 4, cy - 10, cx, cy - 10);
+    g.curveTo(cx + 4, cy - 10, cx + 4, cy - 6);
+    g.lineTo(cx + 4, cy - 2);
+    g.lineStyle(0);
+    return;
+  }
+
+  switch (def.shape) {
+    case 'candy':
+      g.beginFill(0xff9ec8, 0.95);
+      g.moveTo(cx - 18, cy); g.lineTo(cx - 10, cy - 7); g.lineTo(cx - 10, cy + 7); g.endFill();
+      g.beginFill(0xff9ec8, 0.95);
+      g.moveTo(cx + 18, cy); g.lineTo(cx + 10, cy - 7); g.lineTo(cx + 10, cy + 7); g.endFill();
+      g.beginFill(c); g.drawCircle(cx, cy, 11); g.endFill();
+      break;
+    case 'marshmallow':
+      g.beginFill(c);
+      g.drawCircle(cx - 6, cy + 2, 8);
+      g.drawCircle(cx + 6, cy + 2, 8);
+      g.drawCircle(cx, cy - 5, 9);
+      g.endFill();
+      break;
+    case 'meatball':
+      g.lineStyle(1.4, 0x5a2808, 0.7);
+      g.beginFill(c);
+      g.drawCircle(cx, cy + 3, 10);
+      g.drawCircle(cx - 7, cy - 6, 6);
+      g.drawCircle(cx + 6, cy - 8, 5);
+      g.endFill();
+      break;
+    case 'pudding':
+      g.beginFill(c);
+      g.moveTo(cx - 12, cy + 10); g.lineTo(cx + 12, cy + 10); g.lineTo(cx + 9, cy - 5); g.lineTo(cx - 9, cy - 5); g.endFill();
+      g.beginFill(0xa05a14); g.drawEllipse(cx - 9, cy - 8, 18, 6); g.endFill();
+      break;
+    case 'cone':
+      g.beginFill(0xd49a5a);
+      g.moveTo(cx - 10, cy - 2); g.lineTo(cx + 10, cy - 2); g.lineTo(cx, cy + 14); g.endFill();
+      g.beginFill(c); g.drawCircle(cx, cy - 8, 8); g.endFill();
+      break;
+    case 'mochi':
+      g.beginFill(c);
+      g.drawRoundRect(cx - 13, cy - 9, 26, 20, 10, 10);
+      g.endFill();
+      break;
+    case 'popsicle':
+      g.beginFill(c);
+      g.drawRoundRect(cx - 8, cy - 14, 16, 26, 8, 8);
+      g.endFill();
+      g.beginFill(0xd49a5a); g.drawRect(cx - 2, cy + 10, 4, 8); g.endFill();
+      break;
+    case 'cake':
+      g.beginFill(c);
+      g.drawRoundRect(cx - 12, cy - 8, 24, 18, 6, 6);
+      g.endFill();
+      g.beginFill(0xffffff, 0.85);
+      g.drawRoundRect(cx - 10, cy - 12, 20, 8, 5, 5);
+      g.endFill();
+      break;
+    default:
+      g.beginFill(c); g.drawCircle(cx, cy, 11); g.endFill();
+  }
+
+  g.lineStyle(0);
+  g.beginFill(0xffffff, 0.62);
+  g.drawEllipse(cx - 6, cy - 8, 7, 3);
+  g.endFill();
+  drawEyesPair(g, cx - 4, cy - 1, cx + 4, cy - 1, 1.6, 0.8);
+};
+
+/**
+ * 绘制技能矢量图标（位于 (0,0) 中心）。
+ */
+Game.prototype.drawSkillIcon = function(g, key, enabled) {
+  var line = enabled ? THEME.textMain : 0x8881b0;
+  var fill = enabled ? THEME.textMain : 0xb8b0db;
+  switch (key) {
+    case 'slash':
+      g.lineStyle(2.5, line);
+      g.moveTo(-8, 6); g.lineTo(8, -6);
+      g.lineStyle(1.5, line, 0.6);
+      g.moveTo(4, -8); g.lineTo(8, -6); g.lineTo(6, -2);
+      break;
+    case 'smash':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      g.drawRoundRect(-8, -8, 16, 6, 2, 2);
+      g.drawRect(-1, -2, 2, 10);
+      g.endFill();
+      break;
+    case 'triple':
+      g.lineStyle(2, line);
+      g.moveTo(-9, 6); g.lineTo(-4, -4);
+      g.moveTo(-3, 7); g.lineTo(2, -3);
+      g.moveTo(3, 8); g.lineTo(8, -2);
+      break;
+    case 'crit':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      g.moveTo(0, -9); g.lineTo(8, 0); g.lineTo(0, 9); g.lineTo(-8, 0);
+      g.endFill();
+      g.lineStyle(1, line, 0.7);
+      g.moveTo(-8, 0); g.lineTo(8, 0);
+      g.moveTo(0, -9); g.lineTo(0, 9);
+      break;
+    case 'whirl':
+      g.lineStyle(2, line);
+      g.moveTo(8, 0); g.curveTo(6, 6, 0, 8);
+      g.moveTo(0, -8); g.curveTo(6, -6, 8, 0);
+      g.moveTo(-8, 0); g.curveTo(-6, -6, 0, -8);
+      g.moveTo(0, 8); g.curveTo(-6, 6, -8, 0);
+      break;
+    case 'thunder':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      g.moveTo(-2, -9); g.lineTo(4, -2); g.lineTo(0, -1);
+      g.lineTo(3, 9); g.lineTo(-4, 2); g.lineTo(0, 0);
+      g.lineTo(-4, -1);
+      g.endFill();
+      break;
+    case 'meteor':
+      g.lineStyle(1.5, line);
+      g.beginFill(fill);
+      this.drawStar(g, 1, 1, 8, 3.5, 5);
+      g.endFill();
+      g.lineStyle(2, line, 0.7);
+      g.moveTo(-8, -8); g.lineTo(-3, -3);
+      g.lineStyle(1.2, line, 0.5);
+      g.moveTo(-5, -8); g.lineTo(-1, -4);
+      g.moveTo(-8, -5); g.lineTo(-4, -1);
+      break;
+    default:
+      g.beginFill(fill);
+      g.drawCircle(0, 0, 5);
+      g.endFill();
+  }
+};
+
+Game.prototype.renderBuffText = function() {
+  var parts = [];
+  for (var i = 0; i < FOODS.length; i++) {
+    var count = this.foods[FOODS[i].name] || 0;
+    if (count > 0) parts.push(FOODS[i].icon + count);
+  }
+  return parts.join(' ');
+};
+
+Game.prototype.toggleAutoAttack = function(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  this.autoAttackEnabled = !this.autoAttackEnabled;
+  this.updateAutoBtn();
+  this.saveGame();
+  this.showToast(this.autoAttackEnabled ? '↻ 自动战斗已开启' : '↻ 自动战斗已关闭');
+};
+
+Game.prototype.updateAutoBtn = function() {
+  if (this.autoBtnBg) {
+    this.autoBtnBg.fillColor = this.autoAttackEnabled ? 0x6b4a18 : 0x241746;
+    this.autoBtnBg.strokeAlpha = this.autoAttackEnabled ? 0.82 : 0.48;
+  }
+  if (this.autoBtnLabel) {
+    this.autoBtnLabel.text = this.autoAttackEnabled ? '↻ 自动' : '↻ 手动';
+    this.autoBtnLabel.textColor = this.autoAttackEnabled ? THEME.accentSoft : THEME.textDim;
+  }
+};
+
+// ==================== 事件 ====================
+
+Game.prototype.bindEvents = function() {
+  var self = this;
+  document.addEventListener('keydown', function(e) {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      self.battleAreaClick();
+    }
+  });
+  window.addEventListener('beforeunload', function() { self.saveGame(); });
+};
+
+Game.prototype.onBattleTouch = function(e) {
+  if (this._justHitMonster) { this._justHitMonster = false; return; }
+  this.battleAreaClick();
+};
+
+Game.prototype.battleAreaClick = function() {
+  if (this.monsters.length > 0 && this.energy >= 1) {
+    this.sfxClick();
+    this.energy--;
+    this.stats.totalClicks++;
+    this.checkDailyTasks('click');
+    var target = this.monsters[0];
+    var tIdx = 0;
+    for (var i = 1; i < this.monsters.length; i++) {
+      if (this.monsters[i].hp > target.hp) { target = this.monsters[i]; tIdx = i; }
+    }
+    this.heroAttackAnim(tIdx);
+    this.doDamage(target, CONFIG.mainDmg(this.mainLevel, this.rebirthGems), tIdx);
+  }
+};
+
+Game.prototype.onMonsterTouch = function(idx) {
+  this._justHitMonster = true;
+  var m = this.monsters[idx];
+  if (!m || m.hp <= 0 || this.energy < 1) return;
+  this.sfxClick();
+  this.energy--;
+  this.stats.totalClicks++;
+  this.checkDailyTasks('click');
+  this.heroAttackAnim(idx);
+  this.doDamage(m, CONFIG.mainDmg(this.mainLevel, this.rebirthGems), idx);
+};
+
+// ==================== 战斗逻辑 ====================
+
+Game.prototype.doDamage = function(m, dmg, idx, isCrit) {
+  if (isCrit === undefined) isCrit = false;
+  var buffs = this.getBuffs();
+  dmg = Math.floor(dmg * buffs.attackMult);
+  if (!isCrit && Math.random() < buffs.critChance) { dmg *= 2; isCrit = true; }
+  m.hp -= dmg;
+  this.showDamageText(dmg, isCrit, idx);
+  // 怪物受击闪烁效果
+  if (this.monsterViews[idx]) {
+    var mv = this.monsterViews[idx];
+    egret.Tween.get(mv).to({ alpha: 0.3 }, 50).to({ alpha: 1 }, 80);
+    var hitSprite = mv._sprite || mv;
+    var origX = hitSprite.x;
+    egret.Tween.get(hitSprite, { override: false })
+      .to({ x: origX + 3 }, 30)
+      .to({ x: origX - 3 }, 30)
+      .to({ x: origX }, 30);
+  }
+  if (m.hp <= 0) {
+    this.onKill(m, idx);
+  } else {
+    this.updateMonsterHealthView(idx);
+  }
+  this.updateUI();
+};
+
+Game.prototype.showDamageText = function(dmg, isCrit, idx) {
+  var txt = new egret.TextField();
+  txt.text = '-' + this.fmt(dmg) + (isCrit ? '!' : '');
+  txt.size = isCrit ? 26 : 20;
+  txt.textColor = isCrit ? THEME.accent : THEME.pink;
+  txt.bold = true;
+  var pos = this.getMonsterCenter(idx);
+  txt.x = pos.x - 18 + (Math.random() * 16 - 8);
+  txt.y = pos.y - 26 + Math.random() * 10;
+  this.damageLayer.addChild(txt);
+  egret.Tween.get(txt).to({ y: txt.y - 50, alpha: 0 }, 700).call(function() {
+    if (txt.parent) txt.parent.removeChild(txt);
+  });
+};
+
+Game.prototype.onKill = function(m, idx) {
+  if (m.hp > 0) return;
+  var realIdx = this.monsters.indexOf(m);
+  if (realIdx === -1) return;
+  var reward = CONFIG.goldReward(this.wave, m.isBoss);
+  this.gold += reward;
+  this.energy = Math.min(CONFIG.maxEnergy, this.energy + (m.isBoss ? 10 : 2));
+  this.killCount++;
+  this.stats.totalKills++;
+  if (m.isBoss) {
+    this.stats.bossKills++;
+    this.sfxHitBoss();
+  }
+  if (this.gold > this.stats.totalGold) this.stats.totalGold = this.gold;
+
+  // 图签系统：记录击杀
+  if (m.type && m.type.shape) {
+    if (!this.monsterCodex[m.type.shape]) {
+      this.monsterCodex[m.type.shape] = { encountered: true, kills: 0 };
+      this.showToast('📖 新图签！发现【' + m.type.name + '】');
+    }
+    this.monsterCodex[m.type.shape].kills++;
+  }
+
+  this.checkDailyTasks('kill');
+  this.checkAchievements();
+  this.monsters.splice(realIdx, 1);
+  if (this.monsters.length === 0) {
+    this.nextWave();
+  } else {
+    this.updateMonsterDisplay();
+  }
+  this.checkLevelUp();
+};
+
+// ==================== 波次 ====================
+
+Game.prototype.spawnWave = function() {
+  var isBoss = this.wave % 10 === 0;
+  var count;
+  if (isBoss) {
+    count = 1;
+  } else if (this.wave <= 5) {
+    count = 2;
+  } else if (this.wave <= 15) {
+    count = 3;
+  } else {
+    count = 4;
+  }
+  var hp = CONFIG.monsterHp(this.wave);
+  this.monsters = [];
+  var spawnXPool = [0.18, 0.38, 0.62, 0.82];
+  for (var sp = spawnXPool.length - 1; sp > 0; sp--) {
+    var swapIdx = Math.floor(Math.random() * (sp + 1));
+    var tmpX = spawnXPool[sp];
+    spawnXPool[sp] = spawnXPool[swapIdx];
+    spawnXPool[swapIdx] = tmpX;
+  }
+  // BOSS用专属形象（按波次循环选取）
+  var bossIdx = Math.floor(this.wave / 10 - 1) % BOSS_TYPES.length;
+  var bossType = BOSS_TYPES[Math.max(0, bossIdx)];
+  for (var i = 0; i < count; i++) {
+    var mType = isBoss ? bossType : MONSTER_TYPES[Math.floor(Math.random() * MONSTER_TYPES.length)];
+    var spawnX = isBoss ? 0.5 : spawnXPool[i % spawnXPool.length] + (Math.random() * 0.08 - 0.04);
+    var spawnY = isBoss ? 0.42 : 0.28 + Math.random() * 0.42;
+    this.monsters.push({
+      hp: isBoss ? hp * 5 : hp,
+      maxHp: isBoss ? hp * 5 : hp,
+      isBoss: isBoss,
+      type: mType,
+      spawnX: Math.max(0.12, Math.min(0.88, spawnX)),
+      spawnY: Math.max(0.18, Math.min(0.82, spawnY)),
+      sizeJitter: isBoss ? Math.floor(Math.random() * 9) - 4 : Math.floor(Math.random() * 9) - 4,
+      moveRange: isBoss ? 26 : 14 + Math.floor(Math.random() * 18),
+      moveDur: isBoss ? 1900 + Math.floor(Math.random() * 500) : 1200 + Math.floor(Math.random() * 1100),
+      floatRange: isBoss ? 7 : 3 + Math.floor(Math.random() * 4),
+      phase: Math.floor(Math.random() * 500)
+    });
+    // 图签：标记遇到
+    if (mType && mType.shape && !this.monsterCodex[mType.shape]) {
+      this.monsterCodex[mType.shape] = { encountered: true, kills: 0 };
+    }
+  }
+  this.updateMonsterDisplay();
+  this.updateBossBtn();
+
+  // BOSS计时器
+  this.stopBossTimer();
+  if (isBoss) {
+    this.bossActive = true;
+    this.bossTimer = CONFIG.bossTimeLimit;
+    this.startBossTimer();
+    this.showBossFlash();
+    this.showToast('💀 ' + bossType.name + ' 出现！限时' + CONFIG.bossTimeLimit + '秒！');
+  } else {
+    this.bossActive = false;
+  }
+};
+
+Game.prototype.startBossTimer = function() {
+  var self = this;
+  this._bossTimerInterval = setInterval(function() {
+    self.bossTimer -= 0.1;
+    if (self.bossTimer <= 0) {
+      self.bossTimer = 0;
+      self.onBossFail();
+    }
+    self.updateBossTimerUI();
+  }, 100);
+};
+
+Game.prototype.stopBossTimer = function() {
+  if (this._bossTimerInterval) {
+    clearInterval(this._bossTimerInterval);
+    this._bossTimerInterval = null;
+  }
+  this.bossActive = false;
+  this.bossTimer = 0;
+  this.updateBossTimerUI();
+};
+
+Game.prototype.onBossFail = function() {
+  this.stopBossTimer();
+  this.showToast('💀 BOSS挑战失败！从第1波重新开始');
+  // 失败后波次重置到当前轮次的第1波
+  var cycleStart = Math.floor((this.wave - 1) / 10) * 10 + 1;
+  this.wave = cycleStart;
+  var self = this;
+  setTimeout(function() { self.spawnWave(); self.updateUI(); }, 1000);
+};
+
+// ==================== 挑战BOSS按钮逻辑 ====================
+
+Game.prototype.challengeBoss = function() {
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  if (this.wave % 10 === 0) {
+    this.showToast('当前已是BOSS波！');
+    return;
+  }
+  if (waveInCycle < 9) {
+    // 条件不满足时提示（按钮本身已灰色）
+    this.showToast('⚠️ 需通过第9波后才能挑战BOSS (' + waveInCycle + '/9)');
+    return;
+  }
+  // 满足条件：跳到BOSS波
+  this.skipToBoss();
+};
+
+// 直接跳到BOSS波
+Game.prototype.skipToBoss = function() {
+  // 跳到当前轮次的第10波
+  var cycleStart = Math.floor((this.wave - 1) / 10) * 10;
+  this.wave = cycleStart + 10;
+  this.stopBossTimer();
+  this.showToast('💀 挑战BOSS！');
+  this.sfxHitBoss();
+  this.spawnWave();
+  this.updateUI();
+  this.updateBossBtn();
+};
+
+// 更新BOSS按钮状态
+Game.prototype.updateBossBtn = function() {
+  if (!this._bossBtnBg || !this._bossBtnText) return;
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  var isBossWave = this.wave % 10 === 0;
+  var canChallenge = (waveInCycle >= 9 && !isBossWave); // 第9波及以上可挑战
+
+  if (isBossWave) {
+    this._bossBtnBg.fillColor = 0xe74c3c;
+    this._bossBtnText.text = '💀战斗中';
+    this._bossBtnText.textColor = 0xffffff;
+    if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
+  } else if (canChallenge) {
+    this._bossBtnBg.fillColor = 0x9b2335;
+    this._bossBtnText.text = '挑战BOSS';
+    this._bossBtnText.textColor = 0xffffff;
+    if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
+  } else {
+    this._bossBtnBg.fillColor = 0x444444;
+    this._bossBtnText.text = '挑战BOSS';
+    this._bossBtnText.textColor = 0x888888;
+    if (this._bossBtnGroup) this._bossBtnGroup.alpha = 0.6;
+  }
+};
+
+Game.prototype.updateBossTimerUI = function() {
+  if (!this.hpFill || !this.hpLabel) return;
+  if (this.bossTimerBg) this.bossTimerBg.visible = false;
+  if (this.bossTimerBar) this.bossTimerBar.visible = false;
+  if (this.bossTimerLabel) this.bossTimerLabel.visible = false;
+  if (this.bossActive && this.bossTimer > 0) {
+    var pct = this.bossTimer / CONFIG.bossTimeLimit;
+    var bMax = this._hpMaxWidth || this._bossBarMaxWidth || 140;
+    this.hpFill.width = Math.max(0, bMax * pct);
+    this.hpLabel.text = 'BOSS限时 ' + this.bossTimer.toFixed(1) + 's';
+    if (pct > 0.5) {
+      this.hpFill.fillColor = 0x2ecc71;
+    } else if (pct > 0.25) {
+      this.hpFill.fillColor = 0xf39c12;
+    } else {
+      this.hpFill.fillColor = 0xe74c3c;
+    }
+  }
+};
+
+Game.prototype.nextWave = function() {
+  // BOSS击杀成功，停止计时器
+  this.stopBossTimer();
+  this.wave++;
+  this.totalCleared++;
+  if (this.wave > this.maxWaveReached) this.maxWaveReached = this.wave;
+  this.checkDailyTasks('wave');
+  this.checkSupports();
+  this.updateBossBtn();
+  var self = this;
+  setTimeout(function() { self.spawnWave(); }, 300);
+};
+
+// ==================== 升级 ====================
+
+Game.prototype.checkLevelUp = function() {
+  if (this.killCount >= CONFIG.killsNeeded(this.mainLevel)) {
+    this.killCount = 0;
+    this.mainLevel++;
+    this.sfxLevelUp();
+    this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
+    this.checkAchievements();
+    for (var i = 0; i < SKILLS.length; i++) {
+      if (this.mainLevel >= SKILLS[i].lv && !this.skillUnlocked[i]) {
+        this.skillUnlocked[i] = true;
+        this.sfxUnlock();
+        this.showToast('🔓【' + SKILLS[i].name + '】解锁！');
+      }
+    }
+  }
+};
+
+Game.prototype.flashSkillBtn = function(idx) {
+  var btn = this.skillBtns[idx];
+  if (!btn) return;
+  egret.Tween.get(btn, { loop: true })
+    .to({ scaleX: 1.2, scaleY: 1.2 }, 200)
+    .to({ scaleX: 1, scaleY: 1 }, 200);
+  var self = this;
+  setTimeout(function() {
+    egret.Tween.removeTweens(btn);
+    btn.scaleX = 1; btn.scaleY = 1;
+  }, 3000);
+};
+
+Game.prototype.checkSupports = function() {
+  for (var i = 0; i < this.supports.length; i++) {
+    var s = this.supports[i];
+    if (!s.unlocked && this.totalCleared >= s.wave) {
+      s.unlocked = true;
+      this.showToast('🌟【' + s.name + '】加入队伍！');
+    }
+  }
+  this.checkAchievements();
+};
+
+Game.prototype.upgradeMain = function() {
+  var cost = CONFIG.upgradeCost(this.mainLevel);
+  if (this.gold < cost) { this.showToast('金币不足！'); return; }
+  this.gold -= cost;
+  this.mainLevel++;
+  this.sfxLevelUp();
+  this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
+  this.checkLevelUpSkills();
+  this.checkAchievements();
+  this.saveGame();
+  this.updateUI();
+  // 刷新升级面板，显示最新数据
+  this.closePanel();
+  this.openUpgrade();
+};
+
+Game.prototype.upgradeSupport = function(idx) {
+  var s = this.supports[idx];
+  var cost = CONFIG.supportCost(s.level);
+  if (this.gold < cost) { this.showToast('金币不足！'); return; }
+  this.gold -= cost;
+  s.level++;
+  this.showToast('⬆️ ' + s.name + '升级！Lv.' + s.level + ' DPS: ' + this.fmt(s.dps * s.level));
+  this.saveGame();
+  this.updateUI();
+  // 刷新升级面板
+  this.closePanel();
+  this.openUpgrade();
+};
+
+Game.prototype.checkLevelUpSkills = function() {
+  for (var i = 0; i < SKILLS.length; i++) {
+    if (this.mainLevel >= SKILLS[i].lv && !this.skillUnlocked[i]) {
+      this.skillUnlocked[i] = true;
+      this.sfxUnlock();
+      this.showToast('🔓【' + SKILLS[i].name + '】解锁！');
+    }
+  }
+  this.updateUI();
+};
+
+// ==================== 技能 ====================
+
+Game.prototype.useSkill = function(idx) {
+  if (!this.skillUnlocked[idx]) { this.showToast('技能未解锁！'); return; }
+  if (this.skillCD[idx] > 0) { this.showToast('冷却中！'); return; }
+  if (this.monsters.length === 0) { this.showToast('没有怪物！'); return; }
+  if (this.energy < 5) { this.showToast('能量不足！'); return; }
+  var s = SKILLS[idx];
+  this.sfxSkill();
+  this.energy -= 5;
+  this.skillCD[idx] = s.cd;
+  var dmg = CONFIG.mainDmg(this.mainLevel, this.rebirthGems) * s.dmg;
+  if (s.hits === 0) {
+    // 全体技能，主角向中间冲刺
+    this.heroAttackAnim(0);
+    var self = this;
+    this.monsters.slice().forEach(function(m, i) { self.doDamage(m, dmg, i, true); });
+  } else {
+    for (var i = 0; i < s.hits; i++) {
+      if (this.monsters.length === 0) break;
+      var mi = Math.floor(Math.random() * this.monsters.length);
+      this.heroAttackAnim(mi);
+      var m = this.monsters[mi];
+      if (m) this.doDamage(m, dmg, mi, true);
+    }
+  }
+};
+
+// ==================== UI 更新 ====================
+
+Game.prototype.updateWaveNumbers = function() {
+  if (!this._waveNumBgs || !this._waveNumLbs) return;
+  if (this._waveNumBgs.length === 0) return;
+  var waveNumStart = Math.max(1, this.wave - 2);
+  for (var i = 0; i < this._waveNumBgs.length; i++) {
+    var num = waveNumStart + i;
+    var isCurrent = (num === this.wave);
+    this._waveNumBgs[i].fillColor = isCurrent ? 0xe74c3c : 0x1a153f;
+    this._waveNumLbs[i].text = '' + num;
+  }
+};
+
+Game.prototype.updateUI = function() {
+  if (this.goldLabel) this.goldLabel.text = '💰 ' + this.fmt(this.gold);
+  if (this.waveLabel) this.waveLabel.text = this.waveText();
+  this.updateWaveNumbers();
+  if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
+  if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
+  if (this.energyLabel) this.energyLabel.text = '⚡' + this.energy + '/' + CONFIG.maxEnergy;
+  if (this.energyFill) {
+    var eMax = this._energyMaxWidth || 100;
+    this.energyFill.width = Math.max(0, (this.energy / CONFIG.maxEnergy) * eMax);
+  }
+  if (this.waveFill && this.waveFillBg) {
+    var waveInCycle = ((this.wave - 1) % 10) + 1;
+    var wMax = this._waveFillMaxWidth || this.waveFillBg.width;
+    this.waveFill.width = (waveInCycle / 10) * wMax;
+  }
+  if (this.buffLabel) this.buffLabel.text = this.renderBuffText();
+  if (this.gemsLabel) this.gemsLabel.text = '💎 ' + this.rebirthGems;
+  // 更新HP条
+  if (this.hpFill && this.hpLabel && this.monsters.length > 0) {
+    var hpMax = this._hpMaxWidth || 140;
+    if (this.bossActive && this.bossTimer > 0) {
+      var timerPct = Math.max(0, Math.min(1, this.bossTimer / CONFIG.bossTimeLimit));
+      this.hpFill.width = Math.floor(hpMax * timerPct);
+      this.hpFill.fillColor = timerPct > 0.5 ? 0x2ecc71 : (timerPct > 0.25 ? 0xf39c12 : 0xe74c3c);
+      this.hpLabel.text = 'BOSS限时 ' + this.bossTimer.toFixed(1) + 's';
+      this.hpLabel.textColor = 0xffffff;
+    } else {
+      var totalHp = 0;
+      var maxHp = 0;
+      for (var i = 0; i < this.monsters.length; i++) {
+        totalHp += Math.max(0, this.monsters[i].hp);
+        maxHp += this.monsters[i].maxHp;
+      }
+      if (maxHp > 0) {
+        var hpPct = totalHp / maxHp;
+        this.hpFill.width = Math.floor(hpMax * hpPct);
+        this.hpFill.fillColor = THEME.mint;
+        this.hpLabel.text = this.fmt(totalHp) + ' / ' + this.fmt(maxHp);
+        this.hpLabel.textColor = 0xffffff;
+      }
+    }
+  }
+  this.updateSkillBtns();
+};
+
+Game.prototype.updateMonsterDisplay = function() {
+  // 清除旧的怪物显示
+  for (var i = 0; i < this.monsterViews.length; i++) {
+    var v = this.monsterViews[i];
+    if (v.parent) v.parent.removeChild(v);
+  }
+  this.monsterViews = [];
+
+  var w = this.monsters.length;
+  if (w === 0) return;
+  for (var i = 0; i < this.monsters.length; i++) {
+    var m = this.monsters[i];
+    var mv = this.createMonsterView(m, i, w);
+    this.monsterViews.push(mv);
+    this.battleGroup.addChild(mv);
+  }
+  // 确保伤害层在最上面
+  if (this.damageLayer && this.damageLayer.parent) {
+    this.battleGroup.setChildIndex(this.damageLayer, this.battleGroup.numChildren - 1);
+  }
+};
+
+Game.prototype.updateMonsterHealthView = function(idx) {
+  var m = this.monsters[idx];
+  var mv = this.monsterViews[idx];
+  if (!m || !mv) return;
+  var pct = Math.max(0, Math.min(1, m.hp / m.maxHp));
+  if (mv._hpFill) {
+    mv._hpFill.width = Math.max(0, (mv._hpMaxWidth || mv._hpFill.width) * pct);
+    var mType = m.type || MONSTER_TYPES[0];
+    mv._hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
+  }
+  if (mv._hpText) {
+    mv._hpText.text = Math.max(0, Math.floor(m.hp)) + '/' + m.maxHp;
+  }
+};
+
+Game.prototype.createMonsterView = function(m, idx, total) {
+  var g = new eui.Group();
+  var cx = this._centerX || 48;
+  var cw = this._centerW || 279;
+
+  // 每只怪物大小不同：基础尺寸 + 按 idx 的随机偏移
+  var baseSz = m.isBoss ? 84 : 54;
+  var sizeVariants = [0, 8, -6, 10, -4, 6, -8, 4]; // 每个位置的大小偏移
+  var sz = baseSz + (m.sizeJitter !== undefined ? m.sizeJitter : (sizeVariants[idx % sizeVariants.length] || 0));
+  if (m.isBoss) sz = Math.max(78, Math.min(96, sz));
+  else sz = Math.max(44, Math.min(64, sz));
+  var mType = m.type || MONSTER_TYPES[0];
+
+  // 怪物在中央战斗区随机出生，保留足够边界给来回走动。
+  var centerMinX = 18;
+  var centerMaxX = cw - 18;
+  var spawnX = m.spawnX !== undefined ? m.spawnX : ((idx + 0.5) / Math.max(1, total));
+  var spawnY = m.spawnY !== undefined ? m.spawnY : 0.45;
+  var labelText = m.isBoss ? mType.name : mType.name;
+  var badgeW = m.isBoss ? 82 : 62;
+  badgeW = Math.max(badgeW, m.isBoss ? 62 : 46);
+  var visualW = Math.max(sz, badgeW);
+  var labelBlockH = m.isBoss ? 42 : 38;
+  var desiredCenterX = cx + centerMinX + (centerMaxX - centerMinX) * spawnX;
+  var baseX = Math.round(desiredCenterX - visualW / 2);
+  var minX = cx + 2;
+  var maxX = cx + cw - visualW - 2;
+  baseX = Math.max(minX, Math.min(maxX, baseX));
+  var areaUsableH = Math.max(1, this._monsterAreaH - sz - labelBlockH);
+  var baseY = this._monsterAreaY + Math.round(areaUsableH * spawnY);
+
+  g.width = visualW; g.height = sz + labelBlockH;
+  g.x = baseX;
+  g.y = baseY;
+  g.touchEnabled = true;
+  var self = this;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.onMonsterTouch(idx); }, this);
+
+  var monsterSprite = new eui.Image();
+  var monsterSource = this.monsterSpriteSource(mType, m.isBoss);
+  var spriteX = Math.floor((visualW - sz) / 2);
+  this.fitImageToBox(monsterSprite, monsterSource, sz, sz, spriteX, 0);
+  g._sprite = monsterSprite;
+  g._spriteSize = sz;
+  g.addChild(monsterSprite);
+
+  // 旧矢量怪物保留为兜底和图签绘制能力，战斗页使用真实 PNG。
+  var body = new egret.Shape();
+  this.drawMonsterShape(body.graphics, mType, sz, m.isBoss);
+  body.alpha = 0;
+  g.addChild(body);
+
+  // --- 名字图签（胶囊徽章）---
+  var badgeH = m.isBoss ? 18 : 16;
+  var badgeY = sz + 2;
+  var badge = new eui.Rect();
+  badge.width = badgeW; badge.height = badgeH;
+  badge.ellipseWidth = badgeH; badge.ellipseHeight = badgeH;
+  badge.fillColor = m.isBoss ? 0x5a0a08 : mType.badge;
+  badge.fillAlpha = 0.92;
+  badge.strokeColor = m.isBoss ? THEME.strokeGold : 0xffffff;
+  badge.strokeWeight = m.isBoss ? 1.5 : 1;
+  badge.strokeAlpha = m.isBoss ? 0.9 : 0.6;
+  badge.x = Math.floor((visualW - badgeW) / 2); badge.y = badgeY;
+  g.addChild(badge);
+  var nameLabel = new eui.Label();
+  nameLabel.text = labelText;
+  nameLabel.size = m.isBoss ? 10 : 9;
+  nameLabel.textColor = 0xffffff; nameLabel.bold = true;
+  nameLabel.width = badgeW; nameLabel.height = badgeH;
+  nameLabel.textAlign = 'center';
+  nameLabel.verticalAlign = 'middle';
+  nameLabel.x = Math.floor((visualW - badgeW) / 2); nameLabel.y = badgeY;
+  g.addChild(nameLabel);
+
+  // --- 血条 ---
+  var hpY = badgeY + badgeH + 2;
+  var hpH = m.isBoss ? 6 : 4;
+  var hpW = badgeW - 4;
+  var hpBg = new eui.Rect();
+  hpBg.width = hpW; hpBg.height = hpH;
+  hpBg.fillColor = 0x1a1a1a; hpBg.ellipseWidth = hpH; hpBg.ellipseHeight = hpH;
+  hpBg.x = Math.floor((visualW - hpW) / 2); hpBg.y = hpY;
+  g.addChild(hpBg);
+  var pct = Math.max(0, m.hp / m.maxHp);
+  var hpFill = new eui.Rect();
+  hpFill.width = Math.max(0, hpW * pct); hpFill.height = hpH;
+  hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
+  hpFill.ellipseWidth = hpH; hpFill.ellipseHeight = hpH;
+  hpFill.x = hpBg.x; hpFill.y = hpY;
+  g.addChild(hpFill);
+  g._hpFill = hpFill;
+  g._hpMaxWidth = hpW;
+
+  // --- 血量文字 ---
+  var hpText = new eui.Label();
+  hpText.text = Math.max(0, Math.floor(m.hp)) + '/' + m.maxHp;
+  hpText.size = 8; hpText.textColor = 0xcccccc;
+  hpText.width = visualW; hpText.height = 10; hpText.textAlign = 'center';
+  hpText.verticalAlign = 'middle';
+  hpText.x = 0; hpText.y = hpY + hpH + 1;
+  g.addChild(hpText);
+  g._hpText = hpText;
+
+  // === 走动动画 ===
+  var moveRange = m.moveRange || (m.isBoss ? 18 : (10 + idx * 4));
+  var moveDur   = m.moveDur || (m.isBoss ? 1800 : (900 + idx * 200 + Math.floor(Math.random() * 300)));
+  var moveDelay = (m.phase || 0) + idx * 120;
+  var floatRange = m.floatRange || (m.isBoss ? 8 : 4);
+  var floatDur   = m.isBoss ? 1300 : (850 + idx * 160);
+
+  var startX = g.x;
+  var startY2 = g.y;
+  var minWalkX = cx + 2;
+  var maxWalkX = cx + cw - visualW - 2;
+  var leftRange = Math.max(0, startX - minWalkX);
+  var rightRange = Math.max(0, maxWalkX - startX);
+  var walkLeft = Math.min(moveRange, leftRange);
+  var walkRight = Math.min(moveRange, rightRange);
+  if (walkLeft < 4 && walkRight < 4) {
+    walkLeft = 0;
+    walkRight = 0;
+  }
+
+  function startWalk() {
+    if (!g.parent) return;
+    egret.Tween.get(g, { loop: false })
+      .to({ x: startX + walkRight }, moveDur, egret.Ease.sineInOut)
+      .to({ x: startX - walkLeft }, moveDur * 2, egret.Ease.sineInOut)
+      .to({ x: startX }, moveDur, egret.Ease.sineInOut)
+      .call(startWalk);
+  }
+  function startFloat() {
+    if (!g.parent) return;
+    egret.Tween.get(g, { loop: false })
+      .to({ y: startY2 - floatRange }, floatDur, egret.Ease.sineInOut)
+      .to({ y: startY2 + floatRange }, floatDur * 2, egret.Ease.sineInOut)
+      .to({ y: startY2 }, floatDur, egret.Ease.sineInOut)
+      .call(startFloat);
+  }
+
+  setTimeout(startWalk, moveDelay);
+  setTimeout(startFloat, moveDelay + Math.floor(floatDur / 2));
+
+  return g;
+};
+
+/**
+ * 所有怪物形状在此统一绘制。
+ * 通用约定：
+ *   - 先 lineStyle 设描边，beginFill 填充主色；复杂形状可多次 begin/end
+ *   - 最后统一画眼睛（白底黑瞳 + 白色高光点）让所有怪物视觉风格一致
+ * sz     = 怪物整体外接正方形边长（小怪 56，BOSS 76）
+ * isBoss = BOSS 会画得更威严（加角、加獠牙等）
+ */
+Game.prototype.drawMonsterShape = function(g, mType, sz, isBoss) {
+  var half = sz / 2;
+  var c = mType.color;
+  var ol = mType.outline;
+  var hi = mType.highlight || 0xffffff;
+  var ac = mType.accent || 0xffffff;
+
+  // BOSS 专属：外层脉冲光晕（两圈半透明）
+  if (isBoss) {
+    g.lineStyle(0);
+    g.beginFill(c, 0.18);
+    g.drawCircle(half, half, half + 10);
+    g.endFill();
+    g.beginFill(c, 0.28);
+    g.drawCircle(half, half, half + 4);
+    g.endFill();
+  }
+
+  switch (mType.shape) {
+    case 'slime':
+      // 半球形史莱姆，底部扁平，头顶高光
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.moveTo(half - half * 0.85, half + half * 0.55);
+      g.curveTo(half - half * 0.95, half - half * 0.4, half, half - half * 0.7);
+      g.curveTo(half + half * 0.95, half - half * 0.4, half + half * 0.85, half + half * 0.55);
+      g.lineTo(half - half * 0.85, half + half * 0.55);
+      g.endFill();
+      // 头顶高光
+      g.lineStyle(0);
+      g.beginFill(0xffffff, 0.5);
+      g.drawEllipse(half - 10, half - half * 0.5, 12, 5);
+      g.endFill();
+      // 眼睛（偏上）
+      drawEyesPair(g, half - 7, half - 4, half + 7, half - 4, 3, 1.5);
+      // 嘴（小弯线）
+      g.lineStyle(1.5, ol);
+      g.moveTo(half - 4, half + 6);
+      g.curveTo(half, half + 9, half + 4, half + 6);
+      break;
+
+    case 'rabbit':
+      // 兔子：两只长耳朵 + 圆脸 + 三瓣嘴
+      g.lineStyle(2, ol);
+      // 左耳
+      g.beginFill(c);
+      g.drawEllipse(half - 14, half - half * 0.95, 7, 22);
+      g.endFill();
+      g.beginFill(0xff9cc4);
+      g.drawEllipse(half - 12, half - half * 0.85, 4, 16);
+      g.endFill();
+      // 右耳
+      g.beginFill(c);
+      g.drawEllipse(half + 7, half - half * 0.95, 7, 22);
+      g.endFill();
+      g.beginFill(0xff9cc4);
+      g.drawEllipse(half + 9, half - half * 0.85, 4, 16);
+      g.endFill();
+      // 头
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, half - 4);
+      g.endFill();
+      // 眼睛
+      drawEyesPair(g, half - 7, half - 2, half + 7, half - 2, 3, 1.5);
+      // 粉色鼻子
+      g.lineStyle(0);
+      g.beginFill(0xe91e63);
+      g.drawCircle(half, half + 5, 2);
+      g.endFill();
+      // 三瓣嘴
+      g.lineStyle(1.5, ol);
+      g.moveTo(half, half + 7);
+      g.lineTo(half, half + 10);
+      g.moveTo(half, half + 10);
+      g.lineTo(half - 3, half + 12);
+      g.moveTo(half, half + 10);
+      g.lineTo(half + 3, half + 12);
+      // 兔子脸部高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.45);
+      g.drawEllipse(half - 6, half - 6, 8, 3);
+      g.endFill();
+      break;
+
+    case 'bat':
+      // 蝙蝠：大翅膀 + 圆身 + 小尖耳
+      g.lineStyle(2, ol);
+      // 左翅（两段式）
+      g.beginFill(c);
+      g.moveTo(half - 4, half);
+      g.lineTo(half - half * 0.95, half - 8);
+      g.lineTo(half - half * 0.75, half - 2);
+      g.lineTo(half - half * 0.9, half + 6);
+      g.lineTo(half - half * 0.55, half + 2);
+      g.lineTo(half - 4, half + 6);
+      g.lineTo(half - 4, half);
+      g.endFill();
+      // 右翅
+      g.beginFill(c);
+      g.moveTo(half + 4, half);
+      g.lineTo(half + half * 0.95, half - 8);
+      g.lineTo(half + half * 0.75, half - 2);
+      g.lineTo(half + half * 0.9, half + 6);
+      g.lineTo(half + half * 0.55, half + 2);
+      g.lineTo(half + 4, half + 6);
+      g.lineTo(half + 4, half);
+      g.endFill();
+      // 身体
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, 10);
+      g.endFill();
+      // 尖耳
+      g.beginFill(c);
+      g.moveTo(half - 8, half - 8);
+      g.lineTo(half - 5, half - 14);
+      g.lineTo(half - 3, half - 7);
+      g.moveTo(half + 3, half - 7);
+      g.lineTo(half + 5, half - 14);
+      g.lineTo(half + 8, half - 8);
+      g.endFill();
+      // 红眼
+      g.lineStyle(0);
+      g.beginFill(0xff3030);
+      g.drawCircle(half - 4, half, 2);
+      g.drawCircle(half + 4, half, 2);
+      g.endFill();
+      // 獠牙
+      g.beginFill(0xffffff);
+      g.moveTo(half - 3, half + 6);
+      g.lineTo(half - 2, half + 10);
+      g.lineTo(half - 1, half + 6);
+      g.moveTo(half + 1, half + 6);
+      g.lineTo(half + 2, half + 10);
+      g.lineTo(half + 3, half + 6);
+      g.endFill();
+      // 翅膀高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.3);
+      g.drawEllipse(half - half*0.7, half - 6, 10, 3);
+      g.endFill();
+      break;
+
+    case 'spike':
+      // 刺球：圆身 + 向外放射的三角刺
+      var spikes = 10, outerR = half - 1, innerR = half - 10;
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.moveTo(half + innerR, half);
+      for (var i = 0; i < spikes; i++) {
+        var a1 = ((i + 0.5) / spikes) * Math.PI * 2;
+        var a2 = ((i + 1) / spikes) * Math.PI * 2;
+        g.lineTo(half + outerR * Math.cos(a1), half + outerR * Math.sin(a1));
+        g.lineTo(half + innerR * Math.cos(a2), half + innerR * Math.sin(a2));
+      }
+      g.endFill();
+      // 眼睛
+      drawEyesPair(g, half - 5, half - 2, half + 5, half - 2, 2.5, 1.2);
+      // 怒眉（斜线）
+      g.lineStyle(2, ol);
+      g.moveTo(half - 10, half - 8);
+      g.lineTo(half - 4, half - 6);
+      g.moveTo(half + 4, half - 6);
+      g.lineTo(half + 10, half - 8);
+      // 刺球中心高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.4);
+      g.drawEllipse(half - 5, half - 8, 8, 3);
+      g.endFill();
+      break;
+
+    case 'ghost':
+      // 幽灵：圆头 + 波浪下摆 + 空洞眼睛
+      g.lineStyle(2, ol);
+      g.beginFill(c, 0.9);
+      // 从左下开始顺时针画圆顶 + 波浪下摆
+      g.moveTo(half - half * 0.75, half + half * 0.7);
+      g.lineTo(half - half * 0.75, half - 4);
+      g.curveTo(half - half * 0.75, half - half * 0.85, half, half - half * 0.85);
+      g.curveTo(half + half * 0.75, half - half * 0.85, half + half * 0.75, half - 4);
+      g.lineTo(half + half * 0.75, half + half * 0.7);
+      // 三个波浪齿
+      g.lineTo(half + half * 0.45, half + half * 0.5);
+      g.lineTo(half + half * 0.2, half + half * 0.7);
+      g.lineTo(half - half * 0.1, half + half * 0.5);
+      g.lineTo(half - half * 0.35, half + half * 0.7);
+      g.lineTo(half - half * 0.6, half + half * 0.5);
+      g.lineTo(half - half * 0.75, half + half * 0.7);
+      g.endFill();
+      // 空洞眼睛（黑色椭圆）
+      g.lineStyle(0);
+      g.beginFill(ol);
+      g.drawEllipse(half - 10, half - 8, 6, 9);
+      g.drawEllipse(half + 4, half - 8, 6, 9);
+      g.endFill();
+      // 小圆嘴
+      g.beginFill(ol);
+      g.drawCircle(half, half + 4, 3);
+      g.endFill();
+      // 幽灵顶部高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.5);
+      g.drawEllipse(half - 6, half - half*0.7, 10, 4);
+      g.endFill();
+      break;
+
+    case 'skull':
+      // 骷髅：圆颅 + 黑眼洞 + 牙齿栏栅
+      g.lineStyle(2, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half - 4, half - 4);
+      g.endFill();
+      // 下巴突出
+      g.beginFill(c);
+      g.drawRoundRect(half - 10, half + 6, 20, 12, 6, 6);
+      g.endFill();
+      // 眼洞（大黑圆）
+      g.lineStyle(0);
+      g.beginFill(ol);
+      g.drawCircle(half - 7, half - 4, 5);
+      g.drawCircle(half + 7, half - 4, 5);
+      g.endFill();
+      // 眼洞内红色邪光
+      g.beginFill(0xff3333, 0.9);
+      g.drawCircle(half - 7, half - 4, 1.8);
+      g.drawCircle(half + 7, half - 4, 1.8);
+      g.endFill();
+      // 鼻洞
+      g.beginFill(ol);
+      g.moveTo(half, half + 1);
+      g.lineTo(half - 2, half + 5);
+      g.lineTo(half + 2, half + 5);
+      g.endFill();
+      // 牙齿（小矩形）
+      g.beginFill(c);
+      g.lineStyle(1, ol);
+      g.drawRect(half - 8, half + 10, 3, 5);
+      g.drawRect(half - 4, half + 10, 3, 5);
+      g.drawRect(half,    half + 10, 3, 5);
+      g.drawRect(half + 4, half + 10, 3, 5);
+      g.endFill();
+      // 骷髅颅顶高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.4);
+      g.drawEllipse(half - 5, half - 14, 8, 3);
+      g.endFill();
+      break;
+
+    case 'dragon':
+      // 火龙 BOSS：带角 + 龙脸 + 獠牙 + 火焰背景
+      // 火焰光晕
+      g.lineStyle(0);
+      g.beginFill(0xff6b1a, 0.3);
+      g.drawCircle(half, half, half + 4);
+      g.endFill();
+      g.beginFill(0xffb347, 0.5);
+      g.drawCircle(half, half, half - 1);
+      g.endFill();
+      // 头部
+      g.lineStyle(2.5, ol);
+      g.beginFill(c);
+      g.drawCircle(half, half + 2, half - 6);
+      g.endFill();
+      // 吻部（椭圆向下突出）
+      g.beginFill(c);
+      g.drawEllipse(half - 10, half + 6, 20, 14);
+      g.endFill();
+      // 左右龙角（深色三角）
+      g.beginFill(ol);
+      g.moveTo(half - 12, half - half * 0.5);
+      g.lineTo(half - 18, half - half * 0.95);
+      g.lineTo(half - 8, half - half * 0.65);
+      g.moveTo(half + 8, half - half * 0.65);
+      g.lineTo(half + 18, half - half * 0.95);
+      g.lineTo(half + 12, half - half * 0.5);
+      g.endFill();
+      // 眼睛（黄底黑瞳）
+      g.lineStyle(1.5, ol);
+      g.beginFill(0xfff59d);
+      g.drawCircle(half - 8, half - 2, 5);
+      g.drawCircle(half + 8, half - 2, 5);
+      g.endFill();
+      g.lineStyle(0);
+      g.beginFill(0x000000);
+      g.drawEllipse(half - 10, half - 5, 3, 7);
+      g.drawEllipse(half + 7, half - 5, 3, 7);
+      g.endFill();
+      // 鼻孔
+      g.beginFill(ol);
+      g.drawCircle(half - 4, half + 10, 1.5);
+      g.drawCircle(half + 4, half + 10, 1.5);
+      g.endFill();
+      // 獠牙
+      g.beginFill(0xffffff);
+      g.lineStyle(1, ol);
+      g.moveTo(half - 5, half + 15);
+      g.lineTo(half - 4, half + 22);
+      g.lineTo(half - 2, half + 15);
+      g.moveTo(half + 2, half + 15);
+      g.lineTo(half + 4, half + 22);
+      g.lineTo(half + 5, half + 15);
+      g.endFill();
+      // 龙头高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.4);
+      g.drawEllipse(half - 6, half - 10, 10, 4);
+      g.endFill();
+      break;
+
+    case 'shadow':
+      // 暗影：模糊黑影 + 悬浮 + 红眼
+      // 外层模糊（多层半透明扩散）
+      g.lineStyle(0);
+      g.beginFill(c, 0.25);
+      g.drawCircle(half, half, half + 2);
+      g.endFill();
+      g.beginFill(c, 0.5);
+      g.drawCircle(half, half, half - 2);
+      g.endFill();
+      // 实心主体（形状不规则）
+      g.lineStyle(1.5, ol);
+      g.beginFill(c);
+      g.moveTo(half - half * 0.7, half);
+      g.curveTo(half - half * 0.6, half - half * 0.85, half, half - half * 0.75);
+      g.curveTo(half + half * 0.6, half - half * 0.85, half + half * 0.7, half);
+      g.curveTo(half + half * 0.8, half + half * 0.5, half + half * 0.3, half + half * 0.75);
+      g.curveTo(half, half + half * 0.9, half - half * 0.3, half + half * 0.75);
+      g.curveTo(half - half * 0.8, half + half * 0.5, half - half * 0.7, half);
+      g.endFill();
+      // 发光红眼（带外圈光晕）
+      g.lineStyle(0);
+      g.beginFill(0xff3030, 0.35);
+      g.drawCircle(half - 7, half - 4, 5);
+      g.drawCircle(half + 7, half - 4, 5);
+      g.endFill();
+      g.beginFill(0xff0000);
+      g.drawCircle(half - 7, half - 4, 2.5);
+      g.drawCircle(half + 7, half - 4, 2.5);
+      g.endFill();
+      g.beginFill(0xffffff);
+      g.drawCircle(half - 7, half - 5, 0.8);
+      g.drawCircle(half + 7, half - 5, 0.8);
+      g.endFill();
+      // 暗影内核高光
+      g.lineStyle(0);
+      g.beginFill(hi, 0.2);
+      g.drawEllipse(half - 5, half - 10, 8, 3);
+      g.endFill();
+      break;
+
+    default:
+      // ── BOSS 专属形象 ──────────────────────────────────────
+      if (mType.shape === 'boss_eye') {
+        // 魔眼王：巨大眼球 + 多条触手 + 竖瞳
+        g.lineStyle(0);
+        g.beginFill(c, 0.3); g.drawCircle(half, half, half + 6); g.endFill();
+        // 触手（8条）
+        for (var ti = 0; ti < 8; ti++) {
+          var ta = (ti / 8) * Math.PI * 2;
+          var tx1 = half + (half - 4) * Math.cos(ta);
+          var ty1 = half + (half - 4) * Math.sin(ta);
+          var tx2 = half + (half + 14) * Math.cos(ta);
+          var ty2 = half + (half + 14) * Math.sin(ta);
+          g.lineStyle(3, ol, 0.8);
+          g.moveTo(tx1, ty1); g.lineTo(tx2, ty2);
+        }
+        g.lineStyle(2, ol);
+        g.beginFill(0xfff0f0); g.drawCircle(half, half, half - 2); g.endFill();
+        // 虹膜
+        g.beginFill(c); g.drawCircle(half, half, half * 0.65); g.endFill();
+        // 竖瞳
+        g.beginFill(0x000000); g.drawEllipse(half - 5, half - half * 0.55, 10, half * 1.1); g.endFill();
+        // 高光
+        g.beginFill(0xffffff, 0.8); g.drawEllipse(half - 8, half - half * 0.4, 6, 3); g.endFill();
+        g.beginFill(0xffffff, 0.5); g.drawCircle(half + 6, half - 4, 2); g.endFill();
+        // 血丝
+        g.lineStyle(1, 0xff0000, 0.5);
+        g.moveTo(half - 14, half - 6); g.lineTo(half - 6, half - 2);
+        g.moveTo(half + 14, half + 4); g.lineTo(half + 6, half + 1);
+        g.lineStyle(0);
+      } else if (mType.shape === 'boss_giant') {
+        // 冰霜巨人：方形身躯 + 冰晶甲 + 大角
+        g.lineStyle(2.5, ol);
+        g.beginFill(c);
+        g.drawRoundRect(half - half * 0.7, half - half * 0.5, half * 1.4, half * 1.3, 6, 6);
+        g.endFill();
+        // 头
+        g.beginFill(hi);
+        g.drawCircle(half, half - half * 0.35, half * 0.45);
+        g.endFill();
+        // 冰角（左右各一）
+        g.lineStyle(1.5, 0x81d4fa);
+        g.beginFill(0xe1f5fe);
+        g.moveTo(half - 14, half - half * 0.6);
+        g.lineTo(half - 22, half - half * 1.1);
+        g.lineTo(half - 8, half - half * 0.7);
+        g.endFill();
+        g.beginFill(0xe1f5fe);
+        g.moveTo(half + 14, half - half * 0.6);
+        g.lineTo(half + 22, half - half * 1.1);
+        g.lineTo(half + 8, half - half * 0.7);
+        g.endFill();
+        // 冰晶甲片
+        g.lineStyle(1, 0x81d4fa, 0.8);
+        g.beginFill(0xb3e5fc, 0.6);
+        g.drawRoundRect(half - half * 0.6, half - half * 0.1, half * 0.5, half * 0.6, 3, 3);
+        g.drawRoundRect(half + half * 0.1, half - half * 0.1, half * 0.5, half * 0.6, 3, 3);
+        g.endFill();
+        drawEyesPair(g, half - 6, half - half * 0.38, half + 6, half - half * 0.38, 4, 2);
+        // 眼睛改为冰蓝色
+        g.beginFill(0x29b6f6); g.drawCircle(half - 6, half - half * 0.38 + 0.5, 2); g.endFill();
+        g.beginFill(0x29b6f6); g.drawCircle(half + 6, half - half * 0.38 + 0.5, 2); g.endFill();
+        // 高光
+        g.lineStyle(0); g.beginFill(0xffffff, 0.5); g.drawEllipse(half - 8, half - half * 0.7, 10, 3); g.endFill();
+      } else if (mType.shape === 'boss_spider') {
+        // 深渊蜘蛛：圆腹 + 8条腿 + 多眼
+        // 腿（8条，左右各4）
+        var legAngles = [-0.3, -0.6, -0.9, -1.2];
+        for (var li2 = 0; li2 < 4; li2++) {
+          var la = legAngles[li2];
+          g.lineStyle(2.5, ol);
+          // 左腿
+          g.moveTo(half - 8, half);
+          g.lineTo(half - 8 - 18 * Math.cos(la), half + 18 * Math.sin(la));
+          g.lineTo(half - 8 - 28 * Math.cos(la + 0.4), half + 28 * Math.sin(la + 0.4));
+          // 右腿
+          g.moveTo(half + 8, half);
+          g.lineTo(half + 8 + 18 * Math.cos(la), half + 18 * Math.sin(la));
+          g.lineTo(half + 8 + 28 * Math.cos(la + 0.4), half + 28 * Math.sin(la + 0.4));
+        }
+        // 腹部
+        g.lineStyle(2, ol);
+        g.beginFill(c); g.drawCircle(half, half + 4, half * 0.7); g.endFill();
+        // 头胸
+        g.beginFill(0x6a1b9a); g.drawCircle(half, half - 8, half * 0.45); g.endFill();
+        // 8只眼睛（2排）
+        g.lineStyle(0);
+        var eyePos = [[-8,-12],[-4,-14],[4,-14],[8,-12],[-6,-9],[0,-10],[6,-9]];
+        for (var ei = 0; ei < eyePos.length; ei++) {
+          g.beginFill(ac); g.drawCircle(half + eyePos[ei][0], half + eyePos[ei][1], 1.8); g.endFill();
+        }
+        // 毒液滴
+        g.beginFill(0x76ff03, 0.8); g.drawCircle(half, half + 14, 3); g.endFill();
+        g.beginFill(0x76ff03, 0.5); g.drawCircle(half, half + 18, 1.5); g.endFill();
+        // 高光
+        g.beginFill(hi, 0.3); g.drawEllipse(half - 6, half - 2, 10, 4); g.endFill();
+      } else if (mType.shape === 'boss_demon') {
+        // 炎魔将军：人形 + 双角 + 火焰翅膀
+        // 火焰光晕
+        g.lineStyle(0);
+        g.beginFill(0xff6b1a, 0.2); g.drawCircle(half, half, half + 8); g.endFill();
+        // 翅膀（左右火焰）
+        g.beginFill(0xff6b1a, 0.7);
+        g.moveTo(half - 6, half - 4);
+        g.lineTo(half - half * 1.1, half - half * 0.8);
+        g.lineTo(half - half * 0.8, half + half * 0.3);
+        g.lineTo(half - 4, half + 4);
+        g.endFill();
+        g.beginFill(0xff6b1a, 0.7);
+        g.moveTo(half + 6, half - 4);
+        g.lineTo(half + half * 1.1, half - half * 0.8);
+        g.lineTo(half + half * 0.8, half + half * 0.3);
+        g.lineTo(half + 4, half + 4);
+        g.endFill();
+        // 身体
+        g.lineStyle(2, ol);
+        g.beginFill(c);
+        g.drawRoundRect(half - 12, half - 4, 24, 28, 4, 4);
+        g.endFill();
+        // 头
+        g.beginFill(c); g.drawCircle(half, half - 10, 14); g.endFill();
+        // 双角
+        g.beginFill(ol);
+        g.moveTo(half - 8, half - 18); g.lineTo(half - 14, half - 32); g.lineTo(half - 4, half - 20); g.endFill();
+        g.moveTo(half + 8, half - 18); g.lineTo(half + 14, half - 32); g.lineTo(half + 4, half - 20); g.endFill();
+        // 眼（发光黄色）
+        g.lineStyle(0);
+        g.beginFill(ac); g.drawCircle(half - 5, half - 12, 3.5); g.drawCircle(half + 5, half - 12, 3.5); g.endFill();
+        g.beginFill(0x000000); g.drawCircle(half - 5, half - 12, 1.5); g.drawCircle(half + 5, half - 12, 1.5); g.endFill();
+        // 高光
+        g.beginFill(hi, 0.35); g.drawEllipse(half - 6, half - 20, 10, 4); g.endFill();
+      } else if (mType.shape === 'boss_phoenix') {
+        // 星界凤凰：展翅 + 尾羽 + 星光
+        // 尾羽（下方扇形）
+        var tailColors = [0xff6f00, 0xffa726, 0x40c4ff, 0xffd740];
+        for (var tfi = 0; tfi < 5; tfi++) {
+          var tfa = -Math.PI * 0.3 + tfi * (Math.PI * 0.6 / 4);
+          g.lineStyle(0);
+          g.beginFill(tailColors[tfi % tailColors.length], 0.8);
+          g.moveTo(half, half + 6);
+          g.lineTo(half + Math.cos(tfa) * (half + 10), half + Math.sin(tfa) * (half + 10) + 6);
+          g.lineTo(half + Math.cos(tfa + 0.12) * (half + 10), half + Math.sin(tfa + 0.12) * (half + 10) + 6);
+          g.endFill();
+        }
+        // 翅膀
+        g.lineStyle(1.5, 0xff8f00);
+        g.beginFill(c, 0.9);
+        g.moveTo(half - 4, half - 4);
+        g.lineTo(half - half * 1.15, half - half * 0.6);
+        g.curveTo(half - half * 0.9, half + half * 0.2, half - 4, half + 4);
+        g.endFill();
+        g.beginFill(c, 0.9);
+        g.moveTo(half + 4, half - 4);
+        g.lineTo(half + half * 1.15, half - half * 0.6);
+        g.curveTo(half + half * 0.9, half + half * 0.2, half + 4, half + 4);
+        g.endFill();
+        // 翅膀高光
+        g.lineStyle(0); g.beginFill(hi, 0.5);
+        g.moveTo(half - 4, half - 4); g.lineTo(half - half * 0.9, half - half * 0.5);
+        g.curveTo(half - half * 0.7, half - half * 0.1, half - 4, half); g.endFill();
+        // 身体
+        g.lineStyle(2, 0xff8f00);
+        g.beginFill(hi); g.drawCircle(half, half - 4, half * 0.38); g.endFill();
+        // 冠羽
+        g.lineStyle(0);
+        g.beginFill(ac); g.moveTo(half, half - half * 0.7); g.lineTo(half - 4, half - half * 0.42); g.lineTo(half + 4, half - half * 0.42); g.endFill();
+        g.beginFill(0x40c4ff); g.moveTo(half - 5, half - half * 0.65); g.lineTo(half - 8, half - half * 0.38); g.lineTo(half - 2, half - half * 0.38); g.endFill();
+        g.beginFill(0x40c4ff); g.moveTo(half + 5, half - half * 0.65); g.lineTo(half + 8, half - half * 0.38); g.lineTo(half + 2, half - half * 0.38); g.endFill();
+        // 眼
+        g.beginFill(ac); g.drawCircle(half - 4, half - 6, 3); g.drawCircle(half + 4, half - 6, 3); g.endFill();
+        g.beginFill(0x000000); g.drawCircle(half - 4, half - 6, 1.2); g.drawCircle(half + 4, half - 6, 1.2); g.endFill();
+        // 星光粒子
+        g.beginFill(0xffffff, 0.9);
+        this.drawStar(g, half - half * 0.85, half - half * 0.5, 2.5, 1, 5);
+        this.drawStar(g, half + half * 0.85, half - half * 0.5, 2, 1, 5);
+        this.drawStar(g, half, half - half * 0.85, 2, 1, 5);
+        g.endFill();
+      } else {
+        // 通用 fallback
+        g.lineStyle(2, ol);
+        g.beginFill(c); g.drawCircle(half, half, half - 2); g.endFill();
+        drawEyesPair(g, half - 6, half - 4, half + 6, half - 4, 3, 1.5);
+      }
+  } // end switch
+}; // end drawMonsterShape
+
+/**
+ * 统一绘制一对眼睛（白底 + 黑瞳 + 高光）。
+ */
+Game.prototype._drawEyes = function(g, x1, y1, x2, y2, r, pr) {
+  drawEyesPair(g, x1, y1, x2, y2, r, pr);
+};
+
+Game.prototype.updateSkillBtns = function() {
+  for (var i = 0; i < this.skillBtns.length; i++) {
+    var btn = this.skillBtns[i];
+    if (!btn) continue;
+    var s = SKILLS[i];
+    var unlocked = this.mainLevel >= s.lv;
+    var cd = this.skillCD[i] > 0;
+    var slot = btn.getChildByName('slot');
+    var bg = btn.getChildByName('bg');
+    var halo = btn.getChildByName('halo');
+    var border = btn.getChildByName('border');
+    var lb = btn.getChildByName('lb');
+    var cdLb = btn.getChildByName('cdLb');
+    var icon = btn.getChildByName('iconShape');
+    var iconImage = btn.getChildByName('iconImage');
+    if (slot) {
+      slot.fillColor = unlocked ? 0x120b2a : 0x0c1024;
+      slot.strokeColor = unlocked ? THEME.strokeGold : 0x4a4566;
+      slot.strokeAlpha = unlocked ? 0.58 : 0.38;
+    }
+    if (bg) bg.fillColor = cd ? 0x2a2440 : (unlocked ? s.color : 0x4a4566);
+    if (halo) {
+      halo.fillColor = unlocked ? s.color : 0x3a355a;
+      halo.fillAlpha = cd ? 0.1 : 0.22;
+    }
+    if (border) border.strokeColor = cd ? 0x6a628f : (unlocked ? THEME.accentSoft : 0x6a628f);
+    if (lb) {
+      lb.text = unlocked ? s.name : 'Lv' + s.lv;
+      lb.textColor = cd ? THEME.textMute : (unlocked ? THEME.accentSoft : THEME.textMute);
+    }
+    if (cdLb) {
+      if (cd) { cdLb.text = Math.ceil(this.skillCD[i]) + ''; cdLb.visible = true; }
+      else { cdLb.visible = false; }
+    }
+    if (icon) icon.visible = !cd;
+    if (iconImage) {
+      iconImage.visible = !cd;
+      iconImage.alpha = unlocked ? 1 : 0.42;
+    }
+  }
+};
+
+// ==================== 面板系统 ====================
+
+Game.prototype.createPanelOverlay = function() {
+  if (this._panelOverlay && this._panelOverlay.parent) {
+    this._panelOverlay.parent.removeChild(this._panelOverlay);
+  }
+  var overlay = new eui.Group();
+  // 铺满整个舞台（包括动态调整后的尺寸），避免旋转 / 地址栏伸缩后出现裸露区域
+  if (this.main.stage) {
+    overlay.width = this.main.stage.stageWidth;
+    overlay.height = this.main.stage.stageHeight;
+  } else {
+    overlay.width = 375;
+    overlay.height = 667;
+  }
+  overlay.x = 0; overlay.y = 0;
+  overlay.touchEnabled = true;
+  var dim = new eui.Rect();
+  dim.percentWidth = 100; dim.percentHeight = 100;
+  dim.fillColor = 0x000000; dim.fillAlpha = 0.5;
+  overlay.addChild(dim);
+  this._panelOverlay = overlay;
+  // 加到 stage 上，不受布局影响
+  if (this.main.stage) {
+    this.main.stage.addChild(overlay);
+  } else {
+    this.main.addChild(overlay);
+  }
+  return overlay;
+};
+
+Game.prototype.closePanel = function() {
+  if (this._panelOverlay && this._panelOverlay.parent) {
+    this._panelOverlay.parent.removeChild(this._panelOverlay);
+  }
+  this._panelOverlay = null;
+};
+
+// 舞台尺寸变化时同步内部缓存 + 已开面板的覆盖层尺寸
+Game.prototype.onStageResize = function() {
+  var stage = this.main && this.main.stage;
+  if (!stage) return;
+  this._stageW = stage.stageWidth;
+  // 仅更新当前活跃的全屏遮罩尺寸，避免 UI 主体因状态问题全量重建
+  if (this._panelOverlay) {
+    this._panelOverlay.width = stage.stageWidth;
+    this._panelOverlay.height = stage.stageHeight;
+  }
+};
+
+Game.prototype.addPanelContent = function(overlay) {
+  var panel = new eui.Group();
+  panel.width = 340; panel.height = 400;
+  panel.horizontalCenter = 0; panel.verticalCenter = 0;
+  // 深紫底 + 金边
+  var panelBg = new eui.Rect();
+  panelBg.percentWidth = 100; panelBg.percentHeight = 100;
+  panelBg.fillColor = THEME.bgLite; panelBg.ellipseWidth = 14; panelBg.ellipseHeight = 14;
+  panelBg.strokeColor = THEME.strokeGold; panelBg.strokeWeight = 1.5; panelBg.strokeAlpha = 0.85;
+  panel.addChild(panelBg);
+  // 顶部金色光条
+  var topGlow = new eui.Rect();
+  topGlow.percentWidth = 100; topGlow.height = 3;
+  topGlow.top = 0; topGlow.fillColor = THEME.accent; topGlow.fillAlpha = 0.55;
+  panel.addChild(topGlow);
+  overlay.addChild(panel);
+
+  // 关闭按钮（圆底）
+  var closeBtnBg = new eui.Rect();
+  closeBtnBg.width = 24; closeBtnBg.height = 24;
+  closeBtnBg.ellipseWidth = 12; closeBtnBg.ellipseHeight = 12;
+  closeBtnBg.fillColor = THEME.bgDeep;
+  closeBtnBg.strokeColor = THEME.strokeGold; closeBtnBg.strokeWeight = 1; closeBtnBg.strokeAlpha = 0.6;
+  closeBtnBg.right = 10; closeBtnBg.top = 8;
+  closeBtnBg.touchEnabled = true;
+  panel.addChild(closeBtnBg);
+  var closeBtn = new eui.Label();
+  closeBtn.text = '×'; closeBtn.size = 18; closeBtn.textColor = THEME.accentSoft; closeBtn.bold = true;
+  closeBtn.right = 18; closeBtn.top = 7; closeBtn.touchEnabled = true;
+  var self = this;
+  closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
+  closeBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
+  panel.addChild(closeBtn);
+
+  return panel;
+};
+
+Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, btnText, btnColor, handler, disabled) {
+  var lines = infoText.split('\n');
+  var rowH = lines.length > 1 ? 56 : 44;
+  var rowBg = new eui.Rect();
+  rowBg.width = 310; rowBg.height = rowH; rowBg.fillColor = THEME.bgRow;
+  rowBg.ellipseWidth = 10; rowBg.ellipseHeight = 10;
+  rowBg.strokeColor = THEME.strokeSoft; rowBg.strokeWeight = 1; rowBg.strokeAlpha = 0.5;
+  rowBg.x = 15; rowBg.y = y;
+  panel.addChild(rowBg);
+
+  var iconBg = new eui.Rect();
+  iconBg.width = 36; iconBg.height = 36; iconBg.ellipseWidth = 18; iconBg.ellipseHeight = 18;
+  iconBg.fillColor = iconColor;
+  iconBg.strokeColor = THEME.accentSoft; iconBg.strokeWeight = 1; iconBg.strokeAlpha = 0.7;
+  iconBg.x = 22; iconBg.y = y + (rowH - 36) / 2;
+  panel.addChild(iconBg);
+
+  var iconLb = new eui.Label();
+  iconLb.text = iconText; iconLb.size = 11; iconLb.textColor = THEME.textMain; iconLb.bold = true;
+  iconLb.width = 36; iconLb.height = 36;
+  iconLb.x = iconBg.x; iconLb.y = iconBg.y;
+  iconLb.textAlign = 'center'; iconLb.verticalAlign = 'middle';
+  panel.addChild(iconLb);
+
+  var infoLb = new eui.Label();
+  infoLb.text = infoText; infoLb.size = 11; infoLb.textColor = THEME.textMain;
+  infoLb.x = 68; infoLb.y = y + 5; infoLb.width = 170; infoLb.lineSpacing = 3;
+  panel.addChild(infoLb);
+
+  if (btnText) {
+    var btn = this.createButton(btnText, btnColor || THEME.accent, 68, 28, handler, this);
+    btn.x = 245; btn.y = y + (rowH - 28) / 2;
+    if (disabled) btn.alpha = 0.4;
+    panel.addChild(btn);
+  }
+
+  return y + rowH + 6;
+};
+
+// ==================== 升级面板 ====================
+
+Game.prototype.openUpgrade = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+
+  var title = new eui.Label();
+  title.text = '⬆️ 升级'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var self = this;
+  var y = 50;
+
+  // 主角（显示当前 + 下一级预览）
+  var mainCost = CONFIG.upgradeCost(this.mainLevel);
+  var mainNextDmg = CONFIG.mainDmg(this.mainLevel + 1, this.rebirthGems);
+  y = this.addPanelRow(panel, y, '主角', 0x3498db,
+    '主角 Lv.' + this.mainLevel + '  伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) +
+    '\n→ Lv.' + (this.mainLevel + 1) + ' 伤害: ' + this.fmt(mainNextDmg) + '  (+' + this.fmt(mainNextDmg - CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) + ')',
+    this.fmt(mainCost) + '金',
+    0x27ae60,
+    function() { self.upgradeMain(); },
+    this.gold < mainCost
+  );
+
+  // 进度条
+  var progBg = new eui.Rect();
+  progBg.width = 300; progBg.height = 8; progBg.fillColor = 0x140e36;
+  progBg.x = 20; progBg.y = y;
+  panel.addChild(progBg);
+  var progFill = new eui.Rect();
+  progFill.width = 300 * (this.killCount / CONFIG.killsNeeded(this.mainLevel));
+  progFill.height = 8; progFill.fillColor = 0xd4a017;
+  progFill.x = 20; progFill.y = y;
+  panel.addChild(progFill);
+  y += 14;
+  var progText = new eui.Label();
+  progText.text = '击杀进度: ' + this.killCount + '/' + CONFIG.killsNeeded(this.mainLevel);
+  progText.size = 11; progText.textColor = 0x888888; progText.x = 20; progText.y = y;
+  panel.addChild(progText);
+  y += 24;
+
+  // 已解锁辅助角色（显示当前 + 下一级预览）
+  for (var i = 0; i < this.supports.length; i++) {
+    var s = this.supports[i];
+    if (!s.unlocked) continue;
+    if (y > 350) { panel.height = y + 20; break; }
+    var cost = CONFIG.supportCost(s.level);
+    var nextDps = s.dps * (s.level + 1);
+    var curDps = s.dps * s.level;
+    (function(si, sup, c, n, cur) {
+      y = self.addPanelRow(panel, y, sup.name.slice(0,2), 0x9b59b6,
+        sup.name + ' Lv.' + sup.level + '  DPS: ' + self.fmt(cur) +
+        '\n→ Lv.' + (sup.level + 1) + ' DPS: ' + self.fmt(n) + '  (+' + self.fmt(n - cur) + ')',
+        self.fmt(c) + '金', 0x27ae60,
+        function() { self.upgradeSupport(si); },
+        self.gold < c
+      );
+    })(i, s, cost, nextDps, curDps);
+  }
+  panel.height = y + 16;
+};
+
+// ==================== 超市面板 ====================
+
+Game.prototype.openSupermarket = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+
+  var title = new eui.Label();
+  title.text = '🛒 超市'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var buffs = this.getBuffs();
+  var buffText = new eui.Label();
+  buffText.text = '当前buff: 暴击' + Math.floor(buffs.critChance*100) + '% | 攻击×' + buffs.attackMult.toFixed(2);
+  buffText.size = 11; buffText.textColor = 0x888888; buffText.x = 15; buffText.y = 42;
+  panel.addChild(buffText);
+
+  var self = this;
+  var y = 64;
+  for (var i = 0; i < FOODS.length; i++) {
+    var f = FOODS[i];
+    var count = this.foods[f.name] || 0;
+    (function(fi, food, c) {
+      y = self.addPanelRow(panel, y, food.icon, 0xe67e22,
+        food.name + ' ×' + c + '\n' + food.desc,
+        food.price + '金', 0x27ae60,
+        function() { self.buyFood(fi); },
+        self.gold < food.price
+      );
+    })(i, f, count);
+  }
+  panel.height = y + 16;
+};
+
+Game.prototype.buyFood = function(idx) {
+  var f = FOODS[idx];
+  if (this.gold < f.price) { this.showToast('金币不足！'); return; }
+  this.gold -= f.price;
+  this.foods[f.name] = (this.foods[f.name] || 0) + 1;
+  this.showToast(f.icon + ' 购买' + f.name + '成功！');
+  this.saveGame();
+  this.updateUI();
+  this.closePanel();
+  this.openSupermarket();
+};
+
+// ==================== 转盘面板 ====================
+
+Game.prototype.openSpinWheel = function() {
+  var today = new Date().toDateString();
+  if (this.spinDate !== today) { this.freeSpins = 3; this.spinDate = today; }
+
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 480;
+
+  var title = new eui.Label();
+  title.text = '🎡 转盘'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var info = new eui.Label();
+  info.text = '今日免费: ' + this.freeSpins + '/3 次'; info.size = 12; info.textColor = 0xaaaaaa;
+  info.horizontalCenter = 0; info.top = 40;
+  panel.addChild(info);
+
+  // 转盘外圈
+  var wheelSize = 180;
+  var colors = [0xe74c3c, 0x3498db, 0x2ecc71, 0xf39c12, 0x9b59b6, 0x1abc9c, 0xe67e22, 0x34495e];
+  var wheel = new eui.Group();
+  wheel.width = wheelSize; wheel.height = wheelSize;
+  wheel.horizontalCenter = 0; wheel.top = 65;
+  wheel.anchorOffsetX = wheelSize / 2; wheel.anchorOffsetY = wheelSize / 2;
+  wheel.x = 170 + wheelSize / 2; wheel.y = 65 + wheelSize / 2;
+
+  for (var i = 0; i < 8; i++) {
+    var seg = new eui.Rect();
+    seg.width = wheelSize; seg.height = wheelSize;
+    seg.fillColor = colors[i]; seg.ellipseWidth = wheelSize; seg.ellipseHeight = wheelSize;
+    wheel.addChild(seg);
+    var segLabel = new eui.Label();
+    segLabel.text = SPIN_PRIZES[i].text; segLabel.size = 10; segLabel.textColor = 0xffffff;
+    var angle = (i * 45 + 22.5) * Math.PI / 180;
+    var r = wheelSize * 0.32;
+    segLabel.x = wheelSize / 2 + r * Math.cos(angle) - 20;
+    segLabel.y = wheelSize / 2 + r * Math.sin(angle) - 6;
+    segLabel.width = 40; segLabel.textAlign = 'center';
+    wheel.addChild(segLabel);
+  }
+  panel.addChild(wheel);
+
+  // 中心圆
+  var centerCircle = new eui.Rect();
+  centerCircle.width = 36; centerCircle.height = 36;
+  centerCircle.ellipseWidth = 18; centerCircle.ellipseHeight = 18;
+  centerCircle.fillColor = 0xffffff;
+  centerCircle.horizontalCenter = 0; centerCircle.top = 65 + wheelSize / 2 - 18;
+  panel.addChild(centerCircle);
+
+  // 指针
+  var pointer = new eui.Label();
+  pointer.text = '▼'; pointer.size = 24; pointer.textColor = 0xffffff;
+  pointer.horizontalCenter = 0; pointer.top = 55;
+  panel.addChild(pointer);
+
+  // 结果文字
+  var resultLabel = new eui.Label();
+  resultLabel.text = ''; resultLabel.size = 16; resultLabel.textColor = 0xffd700;
+  resultLabel.horizontalCenter = 0; resultLabel.top = 65 + wheelSize + 15;
+  panel.addChild(resultLabel);
+
+  // 抽奖按钮
+  var self = this;
+  var spinBtn = this.createButton(
+    this.freeSpins > 0 ? '开始抽奖！' : '今日次数已用完',
+    this.freeSpins > 0 ? 0xe74c3c : 0x555555,
+    120, 36,
+    function() { self.spin(wheel, resultLabel, spinBtn, info); },
+    this
+  );
+  spinBtn.horizontalCenter = 0; spinBtn.top = 65 + wheelSize + 45;
+  if (this.freeSpins <= 0) spinBtn.alpha = 0.4;
+  panel.addChild(spinBtn);
+};
+
+Game.prototype.spin = function(wheel, resultLabel, spinBtn, infoLabel) {
+  if (this.freeSpins <= 0) return;
+  this.freeSpins--;
+  spinBtn.alpha = 0.4;
+  spinBtn.touchEnabled = false;
+
+  // 加权随机
+  var totalWeight = 0;
+  for (var i = 0; i < SPIN_PRIZES.length; i++) totalWeight += SPIN_PRIZES[i].weight;
+  var r = Math.random() * totalWeight;
+  var prize = SPIN_PRIZES[0];
+  for (var i = 0; i < SPIN_PRIZES.length; i++) {
+    r -= SPIN_PRIZES[i].weight;
+    if (r <= 0) { prize = SPIN_PRIZES[i]; break; }
+  }
+
+  // 转盘旋转动画
+  var targetRotation = 1440 + Math.random() * 360;
+  var self = this;
+  egret.Tween.get(wheel).to({ rotation: targetRotation }, 1500, egret.Ease.quadOut).call(function() {
+    if (prize.type === 'gold') {
+      self.gold += prize.value;
+    } else if (prize.type === 'food') {
+      self.foods[prize.value] = (self.foods[prize.value] || 0) + 1;
+    } else if (prize.type === 'energy') {
+      self.energy = Math.min(CONFIG.maxEnergy, self.energy + prize.value);
+    }
+    resultLabel.text = '🎉 获得: ' + prize.text;
+    self.showToast('🎡 转盘奖励: ' + prize.text);
+    self.saveGame();
+    self.updateUI();
+    if (infoLabel) infoLabel.text = '今日免费: ' + self.freeSpins + '/3 次';
+    if (self.freeSpins > 0) {
+      spinBtn.alpha = 1; spinBtn.touchEnabled = true;
+      var btnLb = spinBtn.getChildAt(1);
+      if (btnLb) btnLb.text = '再来一次 (' + self.freeSpins + ')';
+    }
+  });
+};
+
+// ==================== 排行榜 ====================
+
+Game.prototype.openLeaderboard = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 390;
+
+  var title = new eui.Label();
+  title.text = '🏆 排行榜'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var s = this.stats;
+  var playH = Math.floor(s.playTime / 3600);
+  var playM = Math.floor((s.playTime % 3600) / 60);
+  var rows = [
+    ['💰 最高金币', this.fmt(s.totalGold)],
+    ['🌊 最高波次', '第 ' + this.maxWaveReached + ' 波'],
+    ['💎 转生宝石', this.rebirthGems + ' (×' + (1 + this.rebirthGems * 0.1).toFixed(1) + '伤害)'],
+    ['⚔️ 总击杀数', this.fmt(s.totalKills)],
+    ['👆 总点击数', this.fmt(s.totalClicks)],
+    ['⏱️ 游戏时间', playH + 'h ' + playM + 'm'],
+    ['💪 总DPS', this.fmt(this.totalDps())]
+  ];
+
+  for (var i = 0; i < rows.length; i++) {
+    var rowBg = new eui.Rect();
+    rowBg.width = 310; rowBg.height = 32; rowBg.fillColor = 0x1a153f;
+    rowBg.x = 15; rowBg.y = 45 + i * 36;
+    panel.addChild(rowBg);
+
+    var label = new eui.Label();
+    label.text = rows[i][0]; label.size = 13; label.textColor = 0xcccccc;
+    label.x = 25; label.y = 45 + i * 36 + 8;
+    panel.addChild(label);
+
+    var val = new eui.Label();
+    val.text = rows[i][1]; val.size = 13; val.textColor = 0xffd700; val.bold = true;
+    val.x = 250; val.y = 45 + i * 36 + 8;
+    panel.addChild(val);
+  }
+
+  var note = new eui.Label();
+  note.text = '（排行榜数据为本地记录）'; note.size = 10; note.textColor = 0x555555;
+  note.horizontalCenter = 0; note.bottom = 16;
+  panel.addChild(note);
+};
+
+// ==================== 商城 ====================
+
+Game.prototype.openShop = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+
+  var title = new eui.Label();
+  title.text = '🏪 商城'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var self = this;
+  var y = 50;
+
+  // 能量药水
+  y = this.addPanelRow(panel, y, '⚡', 0x3498db,
+    '能量药水\n恢复50能量',
+    '50金', 0x27ae60,
+    function() { self.shopBuy('energy'); },
+    this.gold < 50
+  );
+
+  // 离线扩展包
+  y = this.addPanelRow(panel, y, '💤', 0x9b59b6,
+    '离线扩展包\n离线上限+4h (当前' + this.offlineCap + 'h)',
+    '500金', 0x27ae60,
+    function() { self.shopBuy('offline'); },
+    this.gold < 500 || this.offlineCap >= 24
+  );
+
+  // 每日任务
+  y = this.addPanelRow(panel, y, '📋', 0xe67e22,
+    '每日任务\n查看每日任务进度',
+    '查看', 0x3498db,
+    function() { self.closePanel(); self.openDailyTasks(); },
+    false
+  );
+
+  // 成就
+  y = this.addPanelRow(panel, y, '🏆', 0xf39c12,
+    '成就系统\n已完成: ' + this.achievements.length + '/' + ACHIEVEMENTS.length,
+    '查看', 0x3498db,
+    function() { self.closePanel(); self.openAchievements(); },
+    false
+  );
+
+  panel.height = y + 16;
+};
+
+// ==================== 邮件系统 ====================
+
+Game.prototype.openMail = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 300;
+
+  var title = new eui.Label();
+  title.text = '📧 邮件'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var mails = [
+    { from: '系统', title: '欢迎来到打豆豆！', reward: '💰100金', claimed: false },
+    { from: '系统', title: '新手礼包', reward: '⚡20能量', claimed: false },
+    { from: 'GM', title: '感谢支持！', reward: '🍭×1', claimed: false }
+  ];
+
+  var self = this;
+  var y = 50;
+  for (var i = 0; i < mails.length; i++) {
+    var m = mails[i];
+    var rowBg = new eui.Rect();
+    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x1a153f;
+    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+    rowBg.x = 15; rowBg.y = y;
+    panel.addChild(rowBg);
+
+    var fromLb = new eui.Label();
+    fromLb.text = '[' + m.from + ']'; fromLb.size = 10; fromLb.textColor = 0xf39c12;
+    fromLb.x = 25; fromLb.y = y + 6;
+    panel.addChild(fromLb);
+
+    var titleLb = new eui.Label();
+    titleLb.text = m.title; titleLb.size = 12; titleLb.textColor = 0xffffff;
+    titleLb.x = 25; titleLb.y = y + 22;
+    panel.addChild(titleLb);
+
+    var rewardLb = new eui.Label();
+    rewardLb.text = m.reward; rewardLb.size = 11; rewardLb.textColor = 0xffd700;
+    rewardLb.x = 180; rewardLb.y = y + 15;
+    panel.addChild(rewardLb);
+
+    (function(idx, mail) {
+      var claimBtn = self.createButton('领取', 0x27ae60, 50, 24, function() {
+        self.showToast('📧 已领取: ' + mail.reward);
+      }, self);
+      claimBtn.x = 255; claimBtn.y = y + 13;
+      panel.addChild(claimBtn);
+    })(i, m);
+
+    y += 56;
+  }
+  panel.height = y + 16;
+};
+
+// ==================== 公告系统 ====================
+
+Game.prototype.openAnnouncement = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 320;
+
+  var title = new eui.Label();
+  title.text = '📢 公告'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var anns = [
+    { tag: '热', color: 0xe74c3c, text: 'v2.0版本上线！新增转生系统和成就系统！' },
+    { tag: '新', color: 0x3498db, text: '新增8个辅助英雄，每个都有独特外形和武器！' },
+    { tag: '活', color: 0x2ecc71, text: '每日签到领好礼，连续7天获得烤肉奖励！' },
+    { tag: 'Tips', color: 0xf39c12, text: '升级辅助英雄可以大幅提升DPS，别忘了给他们升级！' }
+  ];
+
+  var y = 50;
+  for (var i = 0; i < anns.length; i++) {
+    var a = anns[i];
+    var rowBg = new eui.Rect();
+    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x1a153f;
+    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+    rowBg.x = 15; rowBg.y = y;
+    panel.addChild(rowBg);
+
+    var tagBg = new eui.Rect();
+    tagBg.width = 28; tagBg.height = 16; tagBg.fillColor = a.color;
+    tagBg.ellipseWidth = 4; tagBg.ellipseHeight = 4;
+    tagBg.x = 22; tagBg.y = y + 6;
+    panel.addChild(tagBg);
+
+    var tagLb = new eui.Label();
+    tagLb.text = a.tag; tagLb.size = 9; tagLb.textColor = 0xffffff; tagLb.bold = true;
+    tagLb.x = 26; tagLb.y = y + 8;
+    panel.addChild(tagLb);
+
+    var textLb = new eui.Label();
+    textLb.text = a.text; textLb.size = 11; textLb.textColor = 0xcccccc;
+    textLb.x = 25; textLb.y = y + 26; textLb.width = 290;
+    panel.addChild(textLb);
+
+    y += 56;
+  }
+  panel.height = y + 16;
+};
+
+// ==================== 能量互助 ====================
+
+Game.prototype.openEnergyHelp = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 260;
+
+  var title = new eui.Label();
+  title.text = '⚡ 能量互助'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var info = new eui.Label();
+  info.text = '当前能量: ⚡' + this.energy + '/' + CONFIG.maxEnergy + '\n每秒恢复: +' + CONFIG.energyRecovery;
+  info.size = 13; info.textColor = 0xcccccc;
+  info.x = 25; info.top = 50; info.lineSpacing = 6;
+  panel.addChild(info);
+
+  var tip = new eui.Label();
+  tip.text = '点击战斗区域消耗1能量\n使用技能消耗5能量\n能量会自动恢复，也可以在商城购买';
+  tip.size = 11; tip.textColor = 0x888888;
+  tip.x = 25; tip.top = 100; tip.lineSpacing = 4;
+  panel.addChild(tip);
+
+  var self = this;
+  var buyBtn = this.createButton('购买能量药水 (+50⚡)', 0x3498db, 160, 36,
+    function() {
+      if (self.gold < 50) { self.showToast('金币不足！'); return; }
+      self.gold -= 50;
+      self.energy = Math.min(CONFIG.maxEnergy, self.energy + 50);
+      self.showToast('⚡ +50能量！');
+      self.saveGame();
+      self.updateUI();
+      self.closePanel();
+    }, this
+  );
+  buyBtn.horizontalCenter = 0; buyBtn.y = 170;
+  panel.addChild(buyBtn);
+};
+
+Game.prototype.shopBuy = function(type) {
+  if (type === 'energy') {
+    if (this.gold < 50) { this.showToast('金币不足！'); return; }
+    this.gold -= 50;
+    this.energy = Math.min(CONFIG.maxEnergy, this.energy + 50);
+    this.showToast('⚡ 购买能量药水！+50能量');
+  } else if (type === 'offline') {
+    if (this.gold < 500) { this.showToast('金币不足！'); return; }
+    this.gold -= 500;
+    this.offlineCap = Math.min(24, this.offlineCap + 4);
+    this.showToast('💤 离线上限提升至' + this.offlineCap + '小时！');
+  }
+  this.saveGame();
+  this.updateUI();
+  this.closePanel();
+  this.openShop();
+};
+
+// ==================== 转生系统 ====================
+
+Game.prototype.openRebirth = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 380;
+
+  var title = new eui.Label();
+  title.text = '💎 转生'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var self = this;
+  var gemsGain = Math.floor(this.maxWaveReached / 10);
+  var canRebirth = this.maxWaveReached >= 50;
+  var dmgMult = 1 + this.rebirthGems * 0.1;
+  var goldMult = 1 + this.rebirthGems * 0.05;
+
+  // 当前状态
+  var infoText = '当前转生宝石: 💎 ' + this.rebirthGems + '\n' +
+    '伤害加成: ×' + dmgMult.toFixed(1) + '  金币加成: ×' + goldMult.toFixed(1) + '\n' +
+    '历史最高波次: ' + this.maxWaveReached;
+  var info = new eui.Label();
+  info.text = infoText; info.size = 12; info.textColor = 0xcccccc;
+  info.x = 20; info.top = 45; info.width = 310; info.lineSpacing = 6;
+  panel.addChild(info);
+
+  // 转生收益预览
+  var previewBg = new eui.Rect();
+  previewBg.width = 310; previewBg.height = 80; previewBg.fillColor = 0x1a153f;
+  previewBg.ellipseWidth = 8; previewBg.x = 15; previewBg.y = 110;
+  panel.addChild(previewBg);
+
+  var previewTitle = new eui.Label();
+  previewTitle.text = '转生收益预览'; previewTitle.size = 13; previewTitle.textColor = 0xf39c12;
+  previewTitle.x = 25; previewTitle.y = 116;
+  panel.addChild(previewTitle);
+
+  var newGems = this.rebirthGems + gemsGain;
+  var newDmgMult = 1 + newGems * 0.1;
+  var newGoldMult = 1 + newGems * 0.05;
+  var previewText = '获得 💎 ' + gemsGain + ' 宝石 (累计: ' + newGems + ')\n' +
+    '伤害加成: ×' + newDmgMult.toFixed(1) + '  金币加成: ×' + newGoldMult.toFixed(1);
+  var preview = new eui.Label();
+  preview.text = previewText; preview.size = 12; preview.textColor = 0xffd700;
+  preview.x = 25; preview.y = 138; preview.width = 290; preview.lineSpacing = 4;
+  panel.addChild(preview);
+
+  // 转生代价说明
+  var costBg = new eui.Rect();
+  costBg.width = 310; costBg.height = 60; costBg.fillColor = 0x2c1340;
+  costBg.ellipseWidth = 8; costBg.x = 15; costBg.y = 200;
+  panel.addChild(costBg);
+
+  var costText = new eui.Label();
+  costText.text = '⚠️ 转生代价:\n等级、波次、金币全部重置为初始值\n保留: 宝石、成就、辅助英雄解锁';
+  costText.size = 11; costText.textColor = 0xe74c3c;
+  costText.x = 25; costText.y = 208; costText.width = 290; costText.lineSpacing = 4;
+  panel.addChild(costText);
+
+  // 转生条件提示
+  var condText = new eui.Label();
+  if (canRebirth) {
+    condText.text = '✅ 条件满足：最高波次 ≥ 50';
+    condText.textColor = 0x2ecc71;
+  } else {
+    condText.text = '❌ 条件不足：需要最高波次 ≥ 50 (当前: ' + this.maxWaveReached + ')';
+    condText.textColor = 0xe74c3c;
+  }
+  condText.size = 12; condText.x = 20; condText.y = 275; condText.width = 310;
+  panel.addChild(condText);
+
+  // 转生按钮
+  var btn = this.createButton(
+    canRebirth ? '确认转生 (+💎' + gemsGain + ')' : '无法转生',
+    canRebirth ? 0x8e44ad : 0x555555,
+    160, 40,
+    function() {
+      if (canRebirth) self.doRebirth(gemsGain);
+    },
+    this
+  );
+  btn.horizontalCenter = 0; btn.y = 310;
+  if (!canRebirth) btn.alpha = 0.4;
+  panel.addChild(btn);
+};
+
+Game.prototype.doRebirth = function(gemsGain) {
+  // 增加宝石
+  this.rebirthGems += gemsGain;
+  // 重置游戏状态
+  this.gold = 0;
+  this.energy = 100;
+  this.mainLevel = 1;
+  this.wave = 1;
+  this.totalCleared = 0;
+  this.killCount = 0;
+  this.skillCD = [0,0,0,0,0,0,0];
+  this.skillUnlocked = [true,false,false,false,false,false,false];
+  this.supports = SUPPORTS_DEF.map(function(s) {
+    return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: s.wave === 0 };
+  });
+  this.monsters = [];
+  this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
+  this.stopBossTimer();
+  // 保留: rebirthGems, maxWaveReached, achievements, stats
+
+  this.saveGame();
+  this.closePanel();
+  this.showToast('💎 转生成功！获得 ' + gemsGain + ' 宝石');
+  this.updateUI();
+  this.refreshSupportViews(); // 刷新左右辅助角色外观（已重置为未解锁状态）
+  this.spawnWave();
+};
+
+// ==================== 签到系统 ====================
+
+Game.prototype.checkDailyCheckin = function() {
+  var today = new Date().toDateString();
+  if (this.checkinDate === today) return;
+  if (this.checkinDate) {
+    var lastDate = new Date(this.checkinDate);
+    var diff = Math.floor((new Date(today) - lastDate) / 86400000);
+    if (diff > 1) this.checkinDay = 0;
+  }
+  this.openCheckin(true);
+};
+
+Game.prototype.openCheckin = function(auto) {
+  var today = new Date().toDateString();
+  var alreadyChecked = this.checkinDate === today;
+  var day = alreadyChecked ? this.checkinDay : (this.checkinDay % 7);
+
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = 360;
+
+  var title = new eui.Label();
+  title.text = '📅 每日签到'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var contText = new eui.Label();
+  contText.text = '连续签到: ' + this.checkinDay + '天'; contText.size = 12; contText.textColor = 0xaaaaaa;
+  contText.horizontalCenter = 0; contText.top = 40;
+  panel.addChild(contText);
+
+  for (var i = 0; i < CHECKIN_REWARDS.length; i++) {
+    var r = CHECKIN_REWARDS[i];
+    var done = alreadyChecked ? i < day : i < day;
+    var isToday = !alreadyChecked && i === day;
+    var col = i % 4; var row = Math.floor(i / 4);
+    var cx = 20 + col * 80; var cy = 64 + row * 90;
+
+    var itemBg = new eui.Rect();
+    itemBg.width = 72; itemBg.height = 80; itemBg.ellipseWidth = 8; itemBg.ellipseHeight = 8;
+    itemBg.fillColor = isToday ? 0x2a3f5c : 0x1a153f;
+    itemBg.x = cx; itemBg.y = cy;
+    if (isToday) { itemBg.strokeWeight = 2; itemBg.strokeColor = 0x2ecc71; }
+    panel.addChild(itemBg);
+
+    var dayLb = new eui.Label();
+    dayLb.text = '第' + (i+1) + '天'; dayLb.size = 10; dayLb.textColor = 0xaaaaaa;
+    dayLb.x = cx + 4; dayLb.y = cy + 6;
+    panel.addChild(dayLb);
+
+    var rewardLb = new eui.Label();
+    rewardLb.text = '💰' + r.gold + (r.bonus ? ' + ' + r.bonus.icon : '');
+    rewardLb.size = 10; rewardLb.textColor = 0xffd700;
+    rewardLb.x = cx + 4; rewardLb.y = cy + 30;
+    panel.addChild(rewardLb);
+
+    if (done) {
+      var check = new eui.Label();
+      check.text = '✓'; check.size = 18; check.textColor = 0x2ecc71;
+      check.x = cx + 52; check.y = cy + 4;
+      panel.addChild(check);
+    }
+  }
+
+  var self = this;
+  var signBtn = this.createButton(
+    alreadyChecked ? '今日已签到' : '签到领取',
+    alreadyChecked ? 0x555555 : 0x27ae60,
+    120, 36,
+    function() { self.doCheckin(); },
+    this
+  );
+  signBtn.horizontalCenter = 0; signBtn.bottom = 16;
+  if (alreadyChecked) signBtn.alpha = 0.4;
+  panel.addChild(signBtn);
+};
+
+Game.prototype.doCheckin = function() {
+  var today = new Date().toDateString();
+  if (this.checkinDate === today) { this.showToast('今日已签到！'); return; }
+  var day = this.checkinDay % 7;
+  var reward = CHECKIN_REWARDS[day];
+  this.gold += reward.gold;
+  if (reward.bonus) {
+    this.foods[reward.bonus.name] = (this.foods[reward.bonus.name] || 0) + 1;
+    this.showToast('📅 签到奖励: ' + reward.gold + '金 + ' + reward.bonus.icon + '×1');
+  } else {
+    this.showToast('📅 签到奖励: ' + reward.gold + '金');
+  }
+  this.checkinDay++;
+  this.checkinDate = today;
+  this.saveGame();
+  this.updateUI();
+  this.closePanel();
+  this.openCheckin();
+};
+
+// ==================== 每日任务 ====================
+
+Game.prototype.resetDailyTasks = function() {
+  var today = new Date().toDateString();
+  if (this.dailyTaskDate !== today) {
+    this.dailyTaskDate = today;
+    this.dailyTaskDone = [false, false, false];
+    this.stats._dailyKills = 0;
+    this.stats._dailyClicks = 0;
+    this.stats._dailyWaves = 0;
+  }
+};
+
+Game.prototype.checkDailyTasks = function(type) {
+  this.resetDailyTasks();
+  if (type === 'kill') this.stats._dailyKills = (this.stats._dailyKills || 0) + 1;
+  if (type === 'click') this.stats._dailyClicks = (this.stats._dailyClicks || 0) + 1;
+  if (type === 'wave') this.stats._dailyWaves = (this.stats._dailyWaves || 0) + 1;
+  for (var i = 0; i < DAILY_TASKS.length; i++) {
+    var t = DAILY_TASKS[i];
+    if (!this.dailyTaskDone[i] && t.track(this.stats) >= t.target) {
+      this.dailyTaskDone[i] = true;
+      this.showToast('📋 任务完成: ' + t.desc + '！');
+    }
+  }
+};
+
+Game.prototype.openDailyTasks = function() {
+  this.resetDailyTasks();
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+
+  var title = new eui.Label();
+  title.text = '📋 每日任务'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var self = this;
+  var y = 50;
+
+  for (var i = 0; i < DAILY_TASKS.length; i++) {
+    var t = DAILY_TASKS[i];
+    var done = this.dailyTaskDone[i];
+    var progress = Math.min(t.track(this.stats), t.target);
+    var pct = progress / t.target;
+
+    var rowBg = new eui.Rect();
+    rowBg.width = 310; rowBg.height = 56; rowBg.fillColor = 0x1a153f;
+    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+    rowBg.x = 15; rowBg.y = y;
+    panel.addChild(rowBg);
+
+    var iconBg = new eui.Rect();
+    iconBg.width = 32; iconBg.height = 32; iconBg.ellipseWidth = 16; iconBg.ellipseHeight = 16;
+    iconBg.fillColor = done ? 0x2ecc71 : 0x3498db;
+    iconBg.x = 25; iconBg.y = y + 12;
+    panel.addChild(iconBg);
+
+    var iconLb = new eui.Label();
+    iconLb.text = done ? '✓' : '📋'; iconLb.size = 14;
+    iconLb.x = iconBg.x + 9; iconLb.y = y + 20;
+    panel.addChild(iconLb);
+
+    var descLb = new eui.Label();
+    descLb.text = t.desc; descLb.size = 12; descLb.textColor = 0xcccccc;
+    descLb.x = 68; descLb.y = y + 6;
+    panel.addChild(descLb);
+
+    var progBg = new eui.Rect();
+    progBg.width = 150; progBg.height = 6; progBg.fillColor = 0x140e36;
+    progBg.x = 68; progBg.y = y + 28;
+    panel.addChild(progBg);
+
+    var progFill = new eui.Rect();
+    progFill.width = 150 * pct; progFill.height = 6; progFill.fillColor = 0x2ecc71;
+    progFill.x = 68; progFill.y = y + 28;
+    panel.addChild(progFill);
+
+    var progText = new eui.Label();
+    progText.text = progress + '/' + t.target; progText.size = 10; progText.textColor = 0x888888;
+    progText.x = 225; progText.y = y + 26;
+    panel.addChild(progText);
+
+    if (done) {
+      (function(idx) {
+        var claimBtn = self.createButton('+' + DAILY_TASKS[idx].reward + '金', 0x27ae60, 60, 26,
+          function() { self.claimTask(idx); }, self);
+        claimBtn.x = 245; claimBtn.y = y + 15;
+        panel.addChild(claimBtn);
+      })(i);
+    }
+
+    y += 62;
+  }
+  panel.height = y + 16;
+};
+
+Game.prototype.claimTask = function(idx) {
+  if (!this.dailyTaskDone[idx]) return;
+  var t = DAILY_TASKS[idx];
+  this.gold += t.reward;
+  this.showToast('📋 领取奖励: ' + t.reward + '金');
+  this.dailyTaskDone[idx] = false;
+  this.saveGame();
+  this.updateUI();
+  this.closePanel();
+  this.openDailyTasks();
+};
+
+// ==================== 成就系统 ====================
+
+Game.prototype.checkAchievements = function() {
+  for (var i = 0; i < ACHIEVEMENTS.length; i++) {
+    var a = ACHIEVEMENTS[i];
+    if (this.achievements.indexOf(a.id) >= 0) continue;
+    if (a.check(this)) {
+      this.achievements.push(a.id);
+      this.gold += a.reward;
+      this.showToast('🏆 成就达成: ' + a.name + '！+' + a.reward + '金');
+    }
+  }
+};
+
+Game.prototype.openAchievements = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  panel.height = Math.min(500, 70 + ACHIEVEMENTS.length * 54);
+
+  var title = new eui.Label();
+  title.text = '🏆 成就 (' + this.achievements.length + '/' + ACHIEVEMENTS.length + ')';
+  title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  var y = 45;
+  for (var i = 0; i < ACHIEVEMENTS.length; i++) {
+    var a = ACHIEVEMENTS[i];
+    var completed = this.achievements.indexOf(a.id) >= 0;
+
+    var rowBg = new eui.Rect();
+    rowBg.width = 310; rowBg.height = 44; rowBg.fillColor = 0x1a153f;
+    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+    rowBg.x = 15; rowBg.y = y;
+    rowBg.alpha = completed ? 1 : 0.5;
+    panel.addChild(rowBg);
+
+    var iconBg = new eui.Rect();
+    iconBg.width = 32; iconBg.height = 32; iconBg.ellipseWidth = 16; iconBg.ellipseHeight = 16;
+    iconBg.fillColor = completed ? 0xf39c12 : 0x555555;
+    iconBg.x = 25; iconBg.y = y + 6;
+    panel.addChild(iconBg);
+
+    var nameLb = new eui.Label();
+    nameLb.text = a.name; nameLb.size = 12; nameLb.textColor = completed ? 0xffffff : 0x888888;
+    nameLb.x = 68; nameLb.y = y + 6;
+    panel.addChild(nameLb);
+
+    var descLb = new eui.Label();
+    descLb.text = a.desc; descLb.size = 10; descLb.textColor = 0x888888;
+    descLb.x = 68; descLb.y = y + 24;
+    panel.addChild(descLb);
+
+    var rewardLb = new eui.Label();
+    rewardLb.text = completed ? '✓ +' + a.reward + '金' : '+' + a.reward + '金';
+    rewardLb.size = 11; rewardLb.textColor = completed ? 0xffd700 : 0x666666;
+    rewardLb.x = 260; rewardLb.y = y + 14;
+    panel.addChild(rewardLb);
+
+    y += 50;
+  }
+};
+
+// ==================== 图签系统（怪物图鉴） ====================
+
+Game.prototype.openMonsterCodex = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+
+  var discovered = 0;
+  for (var i = 0; i < MONSTER_TYPES.length; i++) {
+    if (this.monsterCodex[MONSTER_TYPES[i].shape]) discovered++;
+  }
+  var bossDiscovered = 0;
+  for (var i = 0; i < BOSS_TYPES.length; i++) {
+    if (this.monsterCodex[BOSS_TYPES[i].shape]) bossDiscovered++;
+  }
+  var total = MONSTER_TYPES.length + BOSS_TYPES.length;
+
+  var title = new eui.Label();
+  title.text = '📖 怪物图签 (' + (discovered + bossDiscovered) + '/' + total + ')';
+  title.size = 15; title.textColor = THEME.accentSoft; title.bold = true;
+  title.horizontalCenter = 0; title.top = 12;
+  panel.addChild(title);
+
+  // 分栏标题
+  var secNormal = new eui.Label();
+  secNormal.text = '── 普通怪物 ──';
+  secNormal.size = 11; secNormal.textColor = THEME.textDim;
+  secNormal.horizontalCenter = 0; secNormal.top = 34;
+  panel.addChild(secNormal);
+
+  var COLS = 2;
+  var CARD_W = 148; var CARD_H = 80;
+  var GAP_X = 8; var GAP_Y = 6;
+  var START_X = 12; var START_Y = 50;
+  var self = this;
+
+  // 渲染一张图签卡片
+  function renderCard(mt, cardIdx, startY, isBossType) {
+    var codexEntry = self.monsterCodex[mt.shape];
+    var found = !!codexEntry;
+    var col = cardIdx % COLS; var row = Math.floor(cardIdx / COLS);
+    var cx2 = START_X + col * (CARD_W + GAP_X);
+    var cy2 = startY + row * (CARD_H + GAP_Y);
+
+    // 卡片背景
+    var cardBg = new eui.Rect();
+    cardBg.width = CARD_W; cardBg.height = CARD_H;
+    cardBg.ellipseWidth = 8; cardBg.ellipseHeight = 8;
+    cardBg.fillColor = found ? (isBossType ? 0x2a0a0a : 0x0e1a2a) : 0x1a1a1a;
+    cardBg.strokeColor = found ? (isBossType ? 0xff4444 : mt.badge) : 0x333333;
+    cardBg.strokeWeight = found ? (isBossType ? 2 : 1.5) : 1;
+    cardBg.x = cx2; cardBg.y = cy2;
+    panel.addChild(cardBg);
+
+    // 怪物缩略图
+    var thumb = new egret.Shape();
+    if (found) {
+      self.drawMonsterShape(thumb.graphics, mt, 44, isBossType);
+    } else {
+      var tg = thumb.graphics;
+      tg.beginFill(0x444444); tg.drawCircle(22, 22, 18); tg.endFill();
+      tg.beginFill(0x222222); tg.drawCircle(22, 22, 13); tg.endFill();
+      tg.lineStyle(2, 0x666666);
+      tg.moveTo(18, 18); tg.lineTo(26, 26);
+      tg.moveTo(26, 18); tg.lineTo(18, 26);
+    }
+    thumb.x = cx2 + 4; thumb.y = cy2 + 18;
+    panel.addChild(thumb);
+
+    // 名字
+    var nameLb2 = new eui.Label();
+    nameLb2.text = found ? (isBossType ? '👑 ' + mt.name : mt.name) : '???';
+    nameLb2.size = 12; nameLb2.bold = true;
+    nameLb2.textColor = found ? (isBossType ? 0xff8888 : 0xffffff) : 0x555555;
+    nameLb2.x = cx2 + 52; nameLb2.y = cy2 + 6;
+    panel.addChild(nameLb2);
+
+    // 出现波次
+    var waveLb = new eui.Label();
+    waveLb.text = found ? '波次: ' + (mt.wave || (isBossType ? '每10波' : '?')) : '未发现';
+    waveLb.size = 9; waveLb.textColor = found ? THEME.accent : 0x444444;
+    waveLb.x = cx2 + 52; waveLb.y = cy2 + 24;
+    panel.addChild(waveLb);
+
+    // 击杀数
+    var killLb2 = new eui.Label();
+    killLb2.text = found ? '击杀: ' + (codexEntry.kills || 0) : '';
+    killLb2.size = 9; killLb2.textColor = 0x888888;
+    killLb2.x = cx2 + 52; killLb2.y = cy2 + 38;
+    panel.addChild(killLb2);
+
+    // 描述（截断到卡片宽度）
+    if (found && mt.desc) {
+      var descLb = new eui.Label();
+      descLb.text = mt.desc;
+      descLb.size = 8; descLb.textColor = THEME.textDim;
+      descLb.width = CARD_W - 56; descLb.wordWrap = true;
+      descLb.x = cx2 + 52; descLb.y = cy2 + 52;
+      panel.addChild(descLb);
+    }
+
+    // BOSS 标记
+    if (isBossType && found) {
+      var bossBadge = new eui.Rect();
+      bossBadge.width = 30; bossBadge.height = 13;
+      bossBadge.ellipseWidth = 6; bossBadge.ellipseHeight = 6;
+      bossBadge.fillColor = 0x7a0000; bossBadge.x = cx2 + CARD_W - 34; bossBadge.y = cy2 + 4;
+      panel.addChild(bossBadge);
+      var bossTag = new eui.Label();
+      bossTag.text = 'BOSS'; bossTag.size = 8; bossTag.bold = true;
+      bossTag.textColor = 0xff8888; bossTag.x = cx2 + CARD_W - 32; bossTag.y = cy2 + 5;
+      panel.addChild(bossTag);
+    }
+  } // end renderCard
+
+  // 普通怪物
+  for (var i = 0; i < MONSTER_TYPES.length; i++) {
+    renderCard(MONSTER_TYPES[i], i, START_Y, false);
+  }
+
+  // BOSS 分栏标题
+  var normalRows = Math.ceil(MONSTER_TYPES.length / COLS);
+  var bossSectionY = START_Y + normalRows * (CARD_H + GAP_Y) + 10;
+  var secBoss = new eui.Label();
+  secBoss.text = '── BOSS 图签 ──';
+  secBoss.size = 11; secBoss.textColor = 0xff8888;
+  secBoss.horizontalCenter = 0; secBoss.y = bossSectionY;
+  panel.addChild(secBoss);
+
+  // BOSS 怪物
+  for (var i = 0; i < BOSS_TYPES.length; i++) {
+    renderCard(BOSS_TYPES[i], i, bossSectionY + 18, true);
+  }
+
+  // 关闭按钮
+  var bossRows = Math.ceil(BOSS_TYPES.length / COLS);
+  var closeY = bossSectionY + 18 + bossRows * (CARD_H + GAP_Y) + 10;
+  var closeBtn = this.createButton('关闭', THEME.bgLite, 100, 32, function() {
+    if (overlay.parent) overlay.parent.removeChild(overlay);
+  }, this);
+  closeBtn.horizontalCenter = 0; closeBtn.y = closeY;
+  panel.addChild(closeBtn);
+};
+
+// ==================== 离线收益 ====================
+
+Game.prototype.checkOfflineReward = function() {
+  try {
+    var lastTime = parseInt(localStorage.getItem('gujiyouxi_egret_time') || '0');
+    if (!lastTime) return;
+    var now = Date.now();
+    var elapsed = Math.floor((now - lastTime) / 1000);
+    if (elapsed < 60) return;
+    var maxOffline = this.offlineCap * 3600;
+    var seconds = Math.min(elapsed, maxOffline);
+    var dps = this.totalDps();
+    var reward = Math.floor(dps * 0.1 * seconds);
+    if (reward <= 0) return;
+    this.gold += reward;
+    var hours = Math.floor(seconds / 3600);
+    var mins = Math.floor((seconds % 3600) / 60);
+    var timeStr = hours > 0 ? hours + '小时' + mins + '分钟' : mins + '分钟';
+
+    var self = this;
+    setTimeout(function() {
+      var overlay = self.createPanelOverlay();
+      var panel = new eui.Group();
+      panel.width = 300; panel.height = 220;
+      panel.horizontalCenter = 0; panel.verticalCenter = 0;
+      var pBg = new eui.Rect();
+      pBg.percentWidth = 100; pBg.percentHeight = 100;
+      pBg.fillColor = 0x2a1f5c; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+      panel.addChild(pBg);
+
+      var t1 = new eui.Label();
+      t1.text = '💤 离线收益'; t1.size = 18; t1.textColor = 0xffffff;
+      t1.horizontalCenter = 0; t1.top = 20;
+      panel.addChild(t1);
+
+      var t2 = new eui.Label();
+      t2.text = '你离开了 ' + timeStr; t2.size = 12; t2.textColor = 0xaaaaaa;
+      t2.horizontalCenter = 0; t2.top = 55;
+      panel.addChild(t2);
+
+      var t3 = new eui.Label();
+      t3.text = '+' + self.fmt(reward) + ' 💰'; t3.size = 24; t3.textColor = 0xffd700;
+      t3.horizontalCenter = 0; t3.top = 85;
+      panel.addChild(t3);
+
+      var t4 = new eui.Label();
+      t4.text = 'DPS: ' + self.fmt(dps) + ' × 10% × ' + seconds + 's';
+      t4.size = 11; t4.textColor = 0x666666;
+      t4.horizontalCenter = 0; t4.top = 130;
+      panel.addChild(t4);
+
+      // 「×2 看广告」按钮（占位：模拟广告已看，直接翻倍）
+      var adBtn = self.createButton('📺 看广告 ×2', 0x27ae60, 150, 36, function() {
+        // 实际接入广告 SDK 时替换此处逻辑
+        self.gold += reward; // 再加一次，等效 ×2
+        t3.text = '+' + self.fmt(reward * 2) + ' 💰 (×2)';
+        adBtn.alpha = 0.4; adBtn.touchEnabled = false;
+        var adLb = adBtn.getChildAt(1);
+        if (adLb) adLb.text = '✓ 已翻倍';
+        self.showToast('💰 收益已翻倍！');
+        self.updateUI();
+      }, self);
+      adBtn.horizontalCenter = 0; adBtn.top = 160;
+      panel.addChild(adBtn);
+
+      var btn = self.createButton('收下', 0xe74c3c, 100, 36, function() { self.closePanel(); }, self);
+      btn.horizontalCenter = 0; btn.top = 210;
+      panel.height = 260;
+      panel.addChild(btn);
+
+      overlay.addChild(panel);
+    }, 500);
+  } catch(e) {}
+};
+
+// ==================== 音效系统（Web Audio 程序合成，无需外部文件） ====================
+
+Game.prototype.initSound = function() {
+  this.soundMuted = (localStorage.getItem('gujiyouxi_mute') === '1');
+  this._audioCtx = null;
+  // 首次用户交互时再创建 AudioContext（浏览器自动播放策略要求）
+  var self = this;
+  var unlock = function() {
+    if (!self._audioCtx) {
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) self._audioCtx = new AC();
+      } catch(e) { self._audioCtx = null; }
+    }
+    if (self._audioCtx && self._audioCtx.state === 'suspended') {
+      self._audioCtx.resume();
+    }
+    document.removeEventListener('touchstart', unlock);
+    document.removeEventListener('mousedown', unlock);
+    document.removeEventListener('keydown', unlock);
+  };
+  document.addEventListener('touchstart', unlock);
+  document.addEventListener('mousedown', unlock);
+  document.addEventListener('keydown', unlock);
+};
+
+// 内部：播放一个 envelope 包络的 oscillator
+Game.prototype._beep = function(opts) {
+  if (this.soundMuted) return;
+  var ctx = this._audioCtx;
+  if (!ctx) return;
+  try {
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = opts.type || 'sine';
+    var freq = opts.freq || 440;
+    var freqEnd = opts.freqEnd || freq;
+    var now = ctx.currentTime;
+    var dur = opts.duration || 0.12;
+    osc.frequency.setValueAtTime(freq, now);
+    if (freqEnd !== freq) {
+      osc.frequency.exponentialRampToValueAtTime(Math.max(1, freqEnd), now + dur);
+    }
+    var vol = opts.volume || 0.15;
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(vol, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + dur + 0.02);
+  } catch(e) {}
+};
+
+// --- 对外音效 + 静音切换 ---
+Game.prototype.sfxClick = function() {
+  this._beep({ type: 'square', freq: 880, freqEnd: 660, duration: 0.06, volume: 0.08 });
+};
+Game.prototype.sfxHitBoss = function() {
+  this._beep({ type: 'sawtooth', freq: 140, freqEnd: 60, duration: 0.35, volume: 0.2 });
+  var self = this;
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 520, freqEnd: 260, duration: 0.22, volume: 0.15 }); }, 60);
+};
+Game.prototype.sfxLevelUp = function() {
+  var self = this;
+  this._beep({ type: 'triangle', freq: 523, duration: 0.1, volume: 0.13 });
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 659, duration: 0.1, volume: 0.13 }); }, 90);
+  setTimeout(function() { self._beep({ type: 'triangle', freq: 784, duration: 0.18, volume: 0.15 }); }, 180);
+};
+Game.prototype.sfxSkill = function() {
+  this._beep({ type: 'sawtooth', freq: 660, freqEnd: 220, duration: 0.18, volume: 0.14 });
+};
+Game.prototype.sfxUnlock = function() {
+  this._beep({ type: 'sine', freq: 440, freqEnd: 1200, duration: 0.22, volume: 0.14 });
+};
+
+Game.prototype.toggleMute = function() {
+  this.soundMuted = !this.soundMuted;
+  localStorage.setItem('gujiyouxi_mute', this.soundMuted ? '1' : '0');
+  this.updateMuteBtn();
+  if (!this.soundMuted) this.sfxClick();
+  this.showToast(this.soundMuted ? '🔇 已静音' : '🔊 已开启音效');
+};
+
+Game.prototype.updateMuteBtn = function() {
+  if (this.muteLabel) this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
+};
+
+// ==================== Toast ====================
+
+Game.prototype.showToast = function(msg) {
+  var el = new eui.Label();
+  el.text = msg; el.size = 14; el.textColor = 0xffffff;
+  el.horizontalCenter = 0; el.top = 60;
+  el.background = true; el.backgroundColor = 0x000000; el.alpha = 0.85;
+  el.paddingLeft = 16; el.paddingRight = 16; el.paddingTop = 8; el.paddingBottom = 8;
+  this.main.addChild(el);
+  egret.Tween.get(el)
+    .wait(1600)
+    .to({ alpha: 0, y: el.y - 20 }, 400)
+    .call(function() { if (el.parent) el.parent.removeChild(el); });
+};
+
+// ==================== 游戏主循环 ====================
+
+Game.prototype.startLoop = function() {
+  var self = this;
+
+  // 每秒：能量恢复 + 技能CD + 游戏时间
+  setInterval(function() {
+    self.stats.playTime++;
+    self.energy = Math.min(CONFIG.maxEnergy, self.energy + CONFIG.energyRecovery);
+    for (var i = 0; i < self.skillCD.length; i++) {
+      if (self.skillCD[i] > 0) self.skillCD[i]--;
+    }
+    self.updateUI();
+  }, 1000);
+
+  // 主角自动攻击（每秒1次，不消耗能量）
+  setInterval(function() {
+    if (self.monsters.length === 0) return;
+    // 只攻击 hp > 0 的怪物，避免已被辅助角色击杀后重复触发 onKill
+    var aliveMonsters = self.monsters.filter(function(m) { return m.hp > 0; });
+    if (aliveMonsters.length === 0) return;
+    // 选血量最高目标（与点击逻辑一致）
+    var target = aliveMonsters[0];
+    for (var j = 1; j < aliveMonsters.length; j++) {
+      if (aliveMonsters[j].hp > target.hp) { target = aliveMonsters[j]; }
+    }
+    var tIdx = self.monsters.indexOf(target);
+    if (tIdx === -1 || target.hp <= 0) return; // 二次保险：获取 indexOf 后再确认
+    self.heroAttackAnim(tIdx);
+    self.doDamage(target, CONFIG.mainDmg(self.mainLevel, self.rebirthGems), tIdx);
+  }, 1000);
+
+  // 辅助角色独立攻击（每个角色不同间隔，错开时间）
+  for (var si = 0; si < self.supports.length; si++) {
+    (function(idx) {
+      var def = SUPPORTS_DEF[idx];
+      // 初始延迟错开，避免同时攻击
+      var initDelay = idx * 200 + Math.random() * 300;
+      setTimeout(function() {
+        setInterval(function() {
+          var s = self.supports[idx];
+          if (!s.unlocked || self.monsters.length === 0) return;
+          var aliveMonsters = self.monsters.filter(function(m) { return m.hp > 0; });
+          if (aliveMonsters.length === 0) return;
+          var buffs = self.getBuffs();
+          var target = aliveMonsters[0];
+          for (var j = 1; j < aliveMonsters.length; j++) {
+            if (aliveMonsters[j].hp > target.hp) target = aliveMonsters[j];
+          }
+          var targetIdx = self.monsters.indexOf(target);
+          var dmg = Math.floor(s.dps * s.level * 0.8 * buffs.supportMult);
+          if (dmg <= 0) return;
+          target.hp -= dmg;
+          self.supportAttackAnim(idx, targetIdx, dmg);
+          if (target.hp <= 0) {
+            self.onKill(target, targetIdx);
+          } else {
+            self.updateMonsterHealthView(targetIdx);
+          }
+          self.updateUI();
+        }, def.atkInterval);
+      }, initDelay);
+    })(si);
+  }
+
+  // 每15秒自动存档
+  setInterval(function() { self.saveGame(); }, 15000);
+};
+
+// ==================== 存档 ====================
+
+Game.prototype.saveGame = function() {
+  try {
+    localStorage.setItem('gujiyouxi_egret', JSON.stringify({
+      gold: this.gold, energy: this.energy, mainLevel: this.mainLevel,
+      wave: this.wave, totalCleared: this.totalCleared,
+      killCount: this.killCount, skillCD: this.skillCD, skillUnlocked: this.skillUnlocked,
+      supports: this.supports.map(function(s) { return { level: s.level, unlocked: s.unlocked }; }),
+      foods: this.foods, freeSpins: this.freeSpins, spinDate: this.spinDate,
+      stats: this.stats, checkinDay: this.checkinDay, checkinDate: this.checkinDate,
+      dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone,
+      achievements: this.achievements, offlineCap: this.offlineCap,
+      autoAttackEnabled: this.autoAttackEnabled,
+      rebirthGems: this.rebirthGems, maxWaveReached: this.maxWaveReached,
+      monsterCodex: this.monsterCodex,
+      avatarIdx: this.avatarIdx || 0,
+      playerName: this.playerName || '玩家'
+    }));
+    localStorage.setItem('gujiyouxi_egret_time', Date.now().toString());
+  } catch(e) {}
+};
+
+Game.prototype.loadGame = function() {
+  try {
+    var d = JSON.parse(localStorage.getItem('gujiyouxi_egret'));
+    if (!d) return;
+    this.gold = d.gold || 0;
+    this.energy = d.energy || 100;
+    this.mainLevel = d.mainLevel || 1;
+    this.wave = d.wave || 1;
+    this.totalCleared = d.totalCleared || 0;
+    this.killCount = d.killCount || 0;
+    this.skillCD = d.skillCD || [0,0,0,0,0,0,0];
+    this.skillUnlocked = d.skillUnlocked || [true, false, false, false, false, false, false];
+    if (d.supports) {
+      for (var i = 0; i < d.supports.length; i++) {
+        if (this.supports[i]) {
+          this.supports[i].level = d.supports[i].level;
+          this.supports[i].unlocked = d.supports[i].unlocked;
+        }
+      }
+    }
+    if (d.foods) this.foods = { '棒棒糖': d.foods['棒棒糖']||0, '牛奶': d.foods['牛奶']||0, '烤肉': d.foods['烤肉']||0 };
+    if (d.freeSpins !== undefined) this.freeSpins = d.freeSpins;
+    if (d.spinDate) this.spinDate = d.spinDate;
+    if (d.stats) {
+      for (var k in d.stats) { if (d.stats.hasOwnProperty(k)) this.stats[k] = d.stats[k]; }
+    }
+    if (d.checkinDay !== undefined) this.checkinDay = d.checkinDay;
+    if (d.checkinDate) this.checkinDate = d.checkinDate;
+    if (d.dailyTaskDate) this.dailyTaskDate = d.dailyTaskDate;
+    if (d.dailyTaskDone) this.dailyTaskDone = d.dailyTaskDone;
+    if (d.achievements) this.achievements = d.achievements;
+    if (d.offlineCap) this.offlineCap = d.offlineCap;
+    if (d.autoAttackEnabled !== undefined) this.autoAttackEnabled = d.autoAttackEnabled;
+    if (d.rebirthGems) this.rebirthGems = d.rebirthGems;
+    if (d.maxWaveReached) this.maxWaveReached = d.maxWaveReached;
+    if (d.monsterCodex) this.monsterCodex = d.monsterCodex;
+    // 兼容旧存档的 round 字段
+    if (d.round && d.round > 1 && !d.maxWaveReached) {
+      this.maxWaveReached = (d.round - 1) * 10 + (d.wave || 1);
+    }
+    // 新增字段：头像索引、玩家昵称、邀请/关注奖励领取标记
+    if (d.avatarIdx !== undefined) this.avatarIdx = d.avatarIdx;
+    if (d.playerName) this.playerName = d.playerName;
+  } catch(e) {}
+};
+
+
+// ==================== 头像选择器 ====================
+
+Game.prototype.openAvatarPicker = function() {
+  var AVATAR_COLORS = [0x8b4513, 0x3498db, 0x27ae60, 0xe74c3c, 0x9b59b6, 0xe67e22];
+  var AVATAR_ICONS  = ['🧙','🐼','🦊','🐯','🐸','🐺'];
+  var AVATAR_NAMES  = ['法师','熊猫','狐狸','老虎','青蛙','狼'];
+
+  var overlay = this.createPanelOverlay();
+  var panel = new eui.Group();
+  panel.width = 320; panel.height = 260;
+  panel.horizontalCenter = 0; panel.verticalCenter = 0;
+  var pBg = new eui.Rect();
+  pBg.percentWidth = 100; pBg.percentHeight = 100;
+  pBg.fillColor = 0x2a1f5c; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+  panel.addChild(pBg);
+
+  var title = new eui.Label();
+  title.text = '选择头像'; title.size = 16; title.textColor = 0xffffff; title.bold = true;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+
+  // 关闭按钮
+  var closeBtn = new eui.Label();
+  closeBtn.text = '×'; closeBtn.size = 24; closeBtn.textColor = 0xffffff;
+  closeBtn.right = 12; closeBtn.top = 8; closeBtn.touchEnabled = true;
+  var self = this;
+  closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
+  panel.addChild(closeBtn);
+
+  // 3列 × 2行 头像格子
+  var COLS = 3, CELL_W = 80, CELL_H = 90, GAP = 10;
+  var START_X = (320 - COLS * CELL_W - (COLS - 1) * GAP) / 2;
+  var START_Y = 50;
+
+  for (var i = 0; i < AVATAR_ICONS.length; i++) {
+    (function(idx) {
+      var col = idx % COLS, row = Math.floor(idx / COLS);
+      var cx = START_X + col * (CELL_W + GAP);
+      var cy = START_Y + row * (CELL_H + GAP);
+
+      var cell = new eui.Group();
+      cell.width = CELL_W; cell.height = CELL_H;
+      cell.x = cx; cell.y = cy;
+      cell.touchEnabled = true;
+
+      // 选中高亮边框
+      var border = new eui.Rect();
+      border.width = CELL_W; border.height = CELL_H;
+      border.ellipseWidth = 10; border.ellipseHeight = 10;
+      border.fillColor = 0x1a153f;
+      border.strokeColor = (self.avatarIdx === idx) ? 0xfbbf24 : 0x333333;
+      border.strokeWeight = (self.avatarIdx === idx) ? 2 : 1;
+      border.percentWidth = 100; border.percentHeight = 100;
+      cell.addChild(border);
+
+      // 头像圆形底色
+      var iconBg = new eui.Rect();
+      iconBg.width = 44; iconBg.height = 44;
+      iconBg.ellipseWidth = 22; iconBg.ellipseHeight = 22;
+      iconBg.fillColor = AVATAR_COLORS[idx];
+      iconBg.horizontalCenter = 0; iconBg.top = 8;
+      cell.addChild(iconBg);
+
+      var iconLb = new eui.Label();
+      iconLb.text = AVATAR_ICONS[idx]; iconLb.size = 20;
+      iconLb.horizontalCenter = 0; iconLb.top = 18;
+      cell.addChild(iconLb);
+
+      var nameLb2 = new eui.Label();
+      nameLb2.text = AVATAR_NAMES[idx]; nameLb2.size = 11;
+      nameLb2.textColor = 0xcccccc;
+      nameLb2.horizontalCenter = 0; nameLb2.top = 56;
+      cell.addChild(nameLb2);
+
+      cell.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+        self.avatarIdx = idx;
+        // 刷新顶部头像显示
+        if (self._avatarBg)   self._avatarBg.fillColor = AVATAR_COLORS[idx];
+        if (self._avatarIcon) self._avatarIcon.text = AVATAR_ICONS[idx];
+        self.saveGame();
+        self.closePanel();
+        self.showToast('✅ 头像已更换为' + AVATAR_NAMES[idx]);
+      }, self);
+
+      panel.addChild(cell);
+    })(i);
+  }
+
+  overlay.addChild(panel);
+};
+
+// ==================== 昵称编辑器 ====================
+
+Game.prototype.openNameEditor = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = new eui.Group();
+  panel.width = 300; panel.height = 220;
+  panel.horizontalCenter = 0; panel.verticalCenter = 0;
+  var pBg = new eui.Rect();
+  pBg.percentWidth = 100; pBg.percentHeight = 100;
+  pBg.fillColor = 0x2a1f5c; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+  panel.addChild(pBg);
+
+  var title = new eui.Label();
+  title.text = '修改昵称'; title.size = 16; title.textColor = 0xffffff; title.bold = true;
+  title.horizontalCenter = 0; title.top = 16;
+  panel.addChild(title);
+
+  var closeBtn = new eui.Label();
+  closeBtn.text = '×'; closeBtn.size = 24; closeBtn.textColor = 0xffffff;
+  closeBtn.right = 12; closeBtn.top = 8; closeBtn.touchEnabled = true;
+  var self = this;
+  closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
+  panel.addChild(closeBtn);
+
+  var hint = new eui.Label();
+  hint.text = '当前昵称：' + (this.playerName || '玩家');
+  hint.size = 12; hint.textColor = 0xaaaaaa;
+  hint.horizontalCenter = 0; hint.top = 52;
+  panel.addChild(hint);
+
+  var tip = new eui.Label();
+  tip.text = '点击下方按钮，在弹出框中输入新昵称\n（最多8个字符）';
+  tip.size = 11; tip.textColor = 0x888888;
+  tip.horizontalCenter = 0; tip.top = 80; tip.lineSpacing = 4;
+  panel.addChild(tip);
+
+  // 快选昵称按钮
+  var presets = ['勇者', '法师王', '打豆人', '无敌怪', '豆豆侠'];
+  for (var i = 0; i < presets.length; i++) {
+    (function(name, idx) {
+      var col = idx % 3, row = Math.floor(idx / 3);
+      var pb = self.createButton(name, 0x4a2d6b, 70, 26, function() {
+        self.playerName = name;
+        if (self._nameLb) self._nameLb.text = name + ' ✏️';
+        self.saveGame();
+        self.closePanel();
+        self.showToast('✅ 昵称已改为：' + name);
+      }, self);
+      pb.x = 30 + col * 82; pb.y = 120 + row * 34;
+      panel.addChild(pb);
+    })(presets[i], i);
+  }
+
+  // 手动输入按钮（调用 prompt）
+  var inputBtn = self.createButton('✏️ 手动输入', 0x27ae60, 120, 34, function() {
+    // Egret 环境中通过 prompt 获取输入
+    var newName = window.prompt('请输入新昵称（最多8个字符）：', self.playerName || '玩家');
+    if (newName && newName.trim()) {
+      var trimmed = newName.trim().slice(0, 8);
+      self.playerName = trimmed;
+      if (self._nameLb) self._nameLb.text = trimmed + ' ✏️';
+      self.saveGame();
+      self.closePanel();
+      self.showToast('✅ 昵称已改为：' + trimmed);
+    }
+  }, self);
+  inputBtn.horizontalCenter = 0; inputBtn.top = 168;
+  panel.addChild(inputBtn);
+
+  overlay.addChild(panel);
+};
+
+// ==================== BOSS 全屏闪烁动效 ====================
+
+Game.prototype.showBossFlash = function() {
+  if (!this.main.stage) return;
+  var sw = this.main.stage.stageWidth;
+  var sh = this.main.stage.stageHeight;
+  var flash = new eui.Group();
+  flash.width = sw; flash.height = sh;
+  flash.x = 0; flash.y = 0;
+  flash.touchEnabled = false;
+  var flashBg = new eui.Rect();
+  flashBg.percentWidth = 100; flashBg.percentHeight = 100;
+  flashBg.fillColor = 0xe74c3c; flashBg.fillAlpha = 0;
+  flash.addChild(flashBg);
+  // 「BOSS！」文字
+  var bossLb = new eui.Label();
+  bossLb.text = '💀 BOSS 出现！'; bossLb.size = 32; bossLb.textColor = 0xffffff;
+  bossLb.bold = true; bossLb.alpha = 0;
+  bossLb.horizontalCenter = 0; bossLb.verticalCenter = 0;
+  flash.addChild(bossLb);
+  this.main.stage.addChild(flash);
+
+  // 闪烁 2 次后消失
+  egret.Tween.get(flashBg)
+    .to({ fillAlpha: 0.45 }, 120)
+    .to({ fillAlpha: 0.05 }, 150)
+    .to({ fillAlpha: 0.35 }, 100)
+    .to({ fillAlpha: 0 }, 200)
+    .call(function() { if (flash.parent) flash.parent.removeChild(flash); });
+  egret.Tween.get(bossLb)
+    .to({ alpha: 1 }, 120)
+    .wait(300)
+    .to({ alpha: 0, y: (bossLb.y || 0) - 30 }, 250);
+};
+
+// ==================== 辅助角色 UI 刷新 ====================
+
+Game.prototype.refreshSupportViews = function() {
+  var battleH = this._battleH || 400;
+  var stageW = this._stageW || 375;
+  var topBtnH = 30;
+  var row2H = 28;
+  var supColW = 48;
+  var areaY = topBtnH + row2H + 42;
+  var areaH = battleH - areaY - 42;
+  var slotH = Math.floor(areaH / 4);
+  this._supportSlots = [];
+  if (this.leftSupGroup) {
+    this.leftSupGroup.x = 3;
+    this.leftSupGroup.y = areaY;
+    this.leftSupGroup.width = supColW;
+    this.leftSupGroup.height = areaH;
+    while (this.leftSupGroup.numChildren > 0) {
+      this.leftSupGroup.removeChildAt(0);
+    }
+    for (var i = 0; i < 4; i++) {
+      var slotY = i * slotH + Math.floor((slotH - 48) / 2);
+      var slot = this.createSupportSlot(i, true);
+      slot.x = 2; slot.y = slotY;
+      this.leftSupGroup.addChild(slot);
+      this._supportSlots[i] = { x: this.leftSupGroup.x + slot.x + 20, y: this.leftSupGroup.y + slot.y + 24 };
+    }
+  }
+  if (this.rightSupGroup) {
+    this.rightSupGroup.x = stageW - supColW - 3;
+    this.rightSupGroup.y = areaY;
+    this.rightSupGroup.width = supColW;
+    this.rightSupGroup.height = areaH;
+    while (this.rightSupGroup.numChildren > 0) {
+      this.rightSupGroup.removeChildAt(0);
+    }
+    for (var i = 4; i < 8; i++) {
+      var slotY = (i - 4) * slotH + Math.floor((slotH - 48) / 2);
+      var slot = this.createSupportSlot(i, false);
+      slot.x = 4; slot.y = slotY;
+      this.rightSupGroup.addChild(slot);
+      this._supportSlots[i] = { x: this.rightSupGroup.x + slot.x + 20, y: this.rightSupGroup.y + slot.y + 24 };
+    }
+  }
+};
