@@ -218,7 +218,7 @@ var BATTLE_SCENES = [
 var CONFIG = {
   maxEnergy: 100,
   energyRecovery: 1,
-  energyRecoveryInterval: 2,
+  energyRecoveryInterval: 1,
   attackEnergyCost: 2,
   skillEnergyCost: 0,
   killEnergyReward: 0,
@@ -336,7 +336,7 @@ var ACHIEVEMENTS = [
   { id: 'rebirth1',  icon: '💎', name: '初次转生',   desc: '完成首次转生',    reward: 2000,  check: function(g) { return g.rebirthGems > 0; } },
   { id: 'rebirth10', icon: '💎', name: '转生大师',   desc: '累计获得50宝石',  reward: 20000, check: function(g) { return g.rebirthGems >= 50; } },
   { id: 'allskills', icon: '🔓', name: '技能大师',   desc: '解锁所有技能',     reward: 5000,  check: function(g) { return g.skillUnlocked.every(function(u){return u;}); } },
-  { id: 'allsupport',icon: '👥', name: '满编战队',   desc: '解锁所有队友',     reward: 10000, check: function(g) { return g.supports.every(function(s){return s.unlocked;}); } },
+  { id: 'allsupport',icon: '👥', name: '满编战队',   desc: '解锁所有队友',     reward: 10000, check: function(g) { return g.supports.every(function(s, idx){return g.isSupportActive(idx);}); } },
   { id: 'boss1',     icon: '💀', name: 'BOSS终结者', desc: '击杀1个BOSS',     reward: 500,   check: function(g) { return g.stats.bossKills >= 1; } },
   { id: 'boss50',    icon: '💀', name: 'BOSS猎人',   desc: '击杀50个BOSS',    reward: 15000, check: function(g) { return g.stats.bossKills >= 50; } }
 ];
@@ -460,9 +460,28 @@ Game.prototype.totalDps = function() {
   var supMult = 1 + this.rebirthGems * 0.08;
   var sup = 0;
   for (var i = 0; i < this.supports.length; i++) {
-    if (this.supports[i].unlocked) sup += this.supports[i].dps * this.supports[i].level;
+    if (this.isSupportActive(i)) sup += this.supports[i].dps * this.supports[i].level;
   }
   return base + Math.floor(sup * supMult);
+};
+
+Game.prototype.isSupportActive = function(idx) {
+  var s = this.supports[idx];
+  var def = SUPPORTS_DEF[idx];
+  if (!s || !def) return false;
+  return !!s.unlocked && this.totalCleared >= def.wave;
+};
+
+Game.prototype.repairSupportUnlocks = function() {
+  for (var i = 0; i < this.supports.length; i++) {
+    var def = SUPPORTS_DEF[i];
+    if (!def) continue;
+    if (def.wave === 0) {
+      this.supports[i].unlocked = true;
+    } else if (this.totalCleared < def.wave) {
+      this.supports[i].unlocked = false;
+    }
+  }
 };
 
 Game.prototype.getBuffs = function() {
@@ -584,6 +603,7 @@ Game.prototype.monsterSpriteSource = function(mType, isBoss) {
 Game.prototype.createSupportView = function(idx, yPos) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
+  var active = this.isSupportActive(idx);
   var sc = new eui.Group(); sc.width = 70; sc.height = 88;
   sc.name = 'support-' + idx;
   if (yPos !== undefined && yPos !== 0) sc.y = yPos;
@@ -592,20 +612,20 @@ Game.prototype.createSupportView = function(idx, yPos) {
   shadow.width = 48; shadow.height = 9;
   shadow.x = 11; shadow.y = 64;
   shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
-  shadow.fillColor = 0x000000; shadow.fillAlpha = s.unlocked ? 0.24 : 0.16;
+  shadow.fillColor = 0x000000; shadow.fillAlpha = active ? 0.24 : 0.16;
   sc.addChild(shadow);
 
   var sprite = new eui.Image();
   var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
   this.fitImageToBox(sprite, source, 68, 74, 1, 0);
-  sprite.alpha = s.unlocked ? 1 : 0.45;
+  sprite.alpha = active ? 1 : 0.45;
   sc.addChild(sprite);
 
   var roleDot = new eui.Rect();
   roleDot.width = 11; roleDot.height = 11;
   roleDot.x = 52; roleDot.y = 9;
   roleDot.ellipseWidth = 9; roleDot.ellipseHeight = 9;
-  roleDot.fillColor = s.unlocked ? def.color : 0x5b547a;
+  roleDot.fillColor = active ? def.color : 0x5b547a;
   roleDot.strokeColor = 0xffffff; roleDot.strokeWeight = 0.8; roleDot.strokeAlpha = 0.7;
   sc.addChild(roleDot);
 
@@ -613,16 +633,16 @@ Game.prototype.createSupportView = function(idx, yPos) {
   nameBg.width = 58; nameBg.height = 15;
   nameBg.x = 6; nameBg.y = 69;
   nameBg.ellipseWidth = 7; nameBg.ellipseHeight = 7;
-  nameBg.fillColor = s.unlocked ? 0x17103b : 0x100c22;
+  nameBg.fillColor = active ? 0x17103b : 0x100c22;
   nameBg.fillAlpha = 0.78;
-  nameBg.strokeColor = s.unlocked ? THEME.strokeGold : 0x4a4566;
-  nameBg.strokeWeight = 0.6; nameBg.strokeAlpha = s.unlocked ? 0.52 : 0.35;
+  nameBg.strokeColor = active ? THEME.strokeGold : 0x4a4566;
+  nameBg.strokeWeight = 0.6; nameBg.strokeAlpha = active ? 0.52 : 0.35;
   sc.addChild(nameBg);
 
   var lb = new eui.Label();
-  lb.text = s.unlocked ? def.symbol.slice(0, 2) : 'W' + def.wave;
+  lb.text = active ? def.symbol.slice(0, 2) : 'W' + def.wave;
   lb.size = 9; lb.bold = true;
-  lb.textColor = s.unlocked ? THEME.accentSoft : THEME.textMute;
+  lb.textColor = active ? THEME.accentSoft : THEME.textMute;
   lb.width = 58; lb.height = 13;
   lb.x = 6; lb.y = 72;
   lb.textAlign = 'center';
@@ -2270,6 +2290,7 @@ Game.prototype.createSideBtn = function(text, x, y, fn) {
 Game.prototype.createSupportSlot = function(idx, faceRight) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
+  var active = this.isSupportActive(idx);
   var g = new eui.Group();
   g.width = 70; g.height = 88;
   g.name = 'support-' + idx;
@@ -2277,13 +2298,13 @@ Game.prototype.createSupportSlot = function(idx, faceRight) {
   shadow.width = 50; shadow.height = 9;
   shadow.x = 10; shadow.y = 63;
   shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
-  shadow.fillColor = 0x000000; shadow.fillAlpha = s.unlocked ? 0.26 : 0.16;
+  shadow.fillColor = 0x000000; shadow.fillAlpha = active ? 0.26 : 0.16;
   g.addChild(shadow);
 
   var sprite = new eui.Image();
   var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
   this.fitImageToBox(sprite, source, 68, 74, 1, 0);
-  sprite.alpha = s.unlocked ? 1 : 0.48;
+  sprite.alpha = active ? 1 : 0.48;
   g.addChild(sprite);
 
   var lbBg = new eui.Rect();
@@ -2293,9 +2314,9 @@ Game.prototype.createSupportSlot = function(idx, faceRight) {
   lbBg.fillColor = 0x050918; lbBg.fillAlpha = 0.66;
   g.addChild(lbBg);
   var lb = new eui.Label();
-  lb.text = s.unlocked ? def.symbol.slice(0, 2) : 'W' + def.wave;
+  lb.text = active ? def.symbol.slice(0, 2) : 'W' + def.wave;
   lb.size = 9; lb.bold = true;
-  lb.textColor = s.unlocked ? THEME.accentSoft : THEME.textMute;
+  lb.textColor = active ? THEME.accentSoft : THEME.textMute;
   lb.width = 58; lb.height = 13;
   lb.textAlign = 'center';
   lb.x = 6; lb.y = 72;
@@ -3025,9 +3046,11 @@ Game.prototype.flashSkillBtn = function(idx) {
 };
 
 Game.prototype.checkSupports = function() {
+  this.repairSupportUnlocks();
   for (var i = 0; i < this.supports.length; i++) {
     var s = this.supports[i];
-    if (!s.unlocked && this.totalCleared >= s.wave) {
+    var def = SUPPORTS_DEF[i];
+    if (!s.unlocked && def && this.totalCleared >= def.wave) {
       s.unlocked = true;
       this.showToast('🌟【' + s.name + '】加入队伍！');
     }
@@ -3053,6 +3076,7 @@ Game.prototype.upgradeMain = function() {
 
 Game.prototype.upgradeSupport = function(idx) {
   var s = this.supports[idx];
+  if (!this.isSupportActive(idx)) { this.showToast('队友尚未激活！'); return; }
   var cost = CONFIG.supportCost(s.level);
   if (this.gold < cost) { this.showToast('金币不足！'); return; }
   this.gold -= cost;
@@ -3994,7 +4018,7 @@ Game.prototype.createPanelOverlay = function() {
   overlay.touchEnabled = true;
   var dim = new eui.Rect();
   dim.percentWidth = 100; dim.percentHeight = 100;
-  dim.fillColor = 0x000000; dim.fillAlpha = 0.5;
+  dim.fillColor = 0x03020a; dim.fillAlpha = 0.68;
   overlay.addChild(dim);
   this._panelOverlay = overlay;
   // 加到 stage 上，不受布局影响
@@ -4027,33 +4051,59 @@ Game.prototype.onStageResize = function() {
 
 Game.prototype.addPanelContent = function(overlay) {
   var panel = new eui.Group();
-  panel.width = 340; panel.height = 400;
+  var stageW = overlay.width || 375;
+  var stageH = overlay.height || 667;
+  panel.width = Math.min(348, stageW - 22);
+  panel.height = Math.min(500, stageH - 72);
   panel.horizontalCenter = 0; panel.verticalCenter = 0;
-  // 深紫底 + 金边
+  panel._contentX = 16;
+  panel._contentW = panel.width - 32;
+
   var panelBg = new eui.Rect();
   panelBg.percentWidth = 100; panelBg.percentHeight = 100;
-  panelBg.fillColor = THEME.bgLite; panelBg.ellipseWidth = 14; panelBg.ellipseHeight = 14;
-  panelBg.strokeColor = THEME.strokeGold; panelBg.strokeWeight = 1.5; panelBg.strokeAlpha = 0.85;
+  panelBg.fillColor = 0x140d32; panelBg.ellipseWidth = 14; panelBg.ellipseHeight = 14;
+  panelBg.strokeColor = THEME.strokeGold; panelBg.strokeWeight = 1.5; panelBg.strokeAlpha = 0.9;
   panel.addChild(panelBg);
-  // 顶部金色光条
+
+  var innerStroke = new eui.Rect();
+  innerStroke.width = panel.width - 8; innerStroke.percentHeight = 100;
+  innerStroke.x = 4; innerStroke.y = 4;
+  innerStroke.ellipseWidth = 12; innerStroke.ellipseHeight = 12;
+  innerStroke.fillAlpha = 0;
+  innerStroke.strokeColor = 0xffffff; innerStroke.strokeWeight = 0.7; innerStroke.strokeAlpha = 0.1;
+  panel.addChild(innerStroke);
+
+  var headerBg = new eui.Rect();
+  headerBg.percentWidth = 100; headerBg.height = 42;
+  headerBg.fillColor = 0x21154c; headerBg.fillAlpha = 0.98;
+  headerBg.ellipseWidth = 14; headerBg.ellipseHeight = 14;
+  panel.addChild(headerBg);
+
+  var headerMask = new eui.Rect();
+  headerMask.percentWidth = 100; headerMask.height = 13;
+  headerMask.y = 29; headerMask.fillColor = 0x21154c;
+  panel.addChild(headerMask);
+
   var topGlow = new eui.Rect();
   topGlow.percentWidth = 100; topGlow.height = 3;
   topGlow.top = 0; topGlow.fillColor = THEME.accent; topGlow.fillAlpha = 0.55;
   panel.addChild(topGlow);
   overlay.addChild(panel);
 
-  // 关闭按钮（圆底）
   var closeBtnBg = new eui.Rect();
-  closeBtnBg.width = 24; closeBtnBg.height = 24;
-  closeBtnBg.ellipseWidth = 12; closeBtnBg.ellipseHeight = 12;
-  closeBtnBg.fillColor = THEME.bgDeep;
-  closeBtnBg.strokeColor = THEME.strokeGold; closeBtnBg.strokeWeight = 1; closeBtnBg.strokeAlpha = 0.6;
-  closeBtnBg.right = 10; closeBtnBg.top = 8;
+  closeBtnBg.width = 28; closeBtnBg.height = 28;
+  closeBtnBg.ellipseWidth = 14; closeBtnBg.ellipseHeight = 14;
+  closeBtnBg.fillColor = 0x0b0820;
+  closeBtnBg.strokeColor = THEME.strokeGold; closeBtnBg.strokeWeight = 1; closeBtnBg.strokeAlpha = 0.72;
+  closeBtnBg.right = 10; closeBtnBg.top = 7;
   closeBtnBg.touchEnabled = true;
   panel.addChild(closeBtnBg);
   var closeBtn = new eui.Label();
-  closeBtn.text = '×'; closeBtn.size = 18; closeBtn.textColor = THEME.accentSoft; closeBtn.bold = true;
-  closeBtn.right = 18; closeBtn.top = 7; closeBtn.touchEnabled = true;
+  closeBtn.text = '×'; closeBtn.size = 19; closeBtn.textColor = THEME.accentSoft; closeBtn.bold = true;
+  closeBtn.width = 28; closeBtn.height = 28;
+  closeBtn.right = 10; closeBtn.top = 7;
+  closeBtn.textAlign = 'center'; closeBtn.verticalAlign = 'middle';
+  closeBtn.touchEnabled = true;
   var self = this;
   closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
   closeBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
@@ -4064,41 +4114,60 @@ Game.prototype.addPanelContent = function(overlay) {
 
 Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, btnText, btnColor, handler, disabled) {
   var lines = infoText.split('\n');
-  var rowH = lines.length > 1 ? 56 : 44;
+  var rowH = Math.max(48, lines.length > 1 ? 60 : 48);
+  var rowX = panel._contentX || 16;
+  var rowW = panel._contentW || (panel.width - rowX * 2);
   var rowBg = new eui.Rect();
-  rowBg.width = 310; rowBg.height = rowH; rowBg.fillColor = THEME.bgRow;
+  rowBg.width = rowW; rowBg.height = rowH; rowBg.fillColor = THEME.bgRow;
   rowBg.ellipseWidth = 10; rowBg.ellipseHeight = 10;
-  rowBg.strokeColor = THEME.strokeSoft; rowBg.strokeWeight = 1; rowBg.strokeAlpha = 0.5;
-  rowBg.x = 15; rowBg.y = y;
+  rowBg.strokeColor = THEME.strokeSoft; rowBg.strokeWeight = 1; rowBg.strokeAlpha = 0.46;
+  rowBg.x = rowX; rowBg.y = y;
   panel.addChild(rowBg);
 
   var iconBg = new eui.Rect();
-  iconBg.width = 36; iconBg.height = 36; iconBg.ellipseWidth = 18; iconBg.ellipseHeight = 18;
+  iconBg.width = 34; iconBg.height = 34; iconBg.ellipseWidth = 17; iconBg.ellipseHeight = 17;
   iconBg.fillColor = iconColor;
   iconBg.strokeColor = THEME.accentSoft; iconBg.strokeWeight = 1; iconBg.strokeAlpha = 0.7;
-  iconBg.x = 22; iconBg.y = y + (rowH - 36) / 2;
+  iconBg.x = rowX + 8; iconBg.y = y + (rowH - 34) / 2;
   panel.addChild(iconBg);
 
   var iconLb = new eui.Label();
-  iconLb.text = iconText; iconLb.size = 11; iconLb.textColor = THEME.textMain; iconLb.bold = true;
-  iconLb.width = 36; iconLb.height = 36;
+  iconLb.text = iconText; iconLb.size = iconText.length > 2 ? 9 : 11; iconLb.textColor = THEME.textMain; iconLb.bold = true;
+  iconLb.width = 34; iconLb.height = 34;
   iconLb.x = iconBg.x; iconLb.y = iconBg.y;
   iconLb.textAlign = 'center'; iconLb.verticalAlign = 'middle';
   panel.addChild(iconLb);
 
   var infoLb = new eui.Label();
   infoLb.text = infoText; infoLb.size = 11; infoLb.textColor = THEME.textMain;
-  infoLb.x = 68; infoLb.y = y + 5; infoLb.width = 170; infoLb.lineSpacing = 3;
+  infoLb.x = rowX + 52; infoLb.y = y + 7;
+  infoLb.width = btnText ? rowW - 132 : rowW - 62;
+  infoLb.lineSpacing = 4;
+  infoLb.wordWrap = true;
   panel.addChild(infoLb);
 
   if (btnText) {
-    var btn = this.createButton(btnText, btnColor || THEME.accent, 68, 28, handler, this);
-    btn.x = 245; btn.y = y + (rowH - 28) / 2;
+    var btnW = btnText.length > 5 ? 78 : 68;
+    var btn = this.createButton(btnText, btnColor || THEME.accent, btnW, 28, handler, this);
+    btn.x = rowX + rowW - btnW - 8; btn.y = y + (rowH - 28) / 2;
     if (disabled) btn.alpha = 0.4;
     panel.addChild(btn);
   }
 
   return y + rowH + 6;
+};
+
+Game.prototype.createPanelScrollContent = function(panel, top, bottom) {
+  var scroller = new eui.Scroller();
+  scroller.x = panel._contentX || 16;
+  scroller.y = top;
+  scroller.width = panel._contentW || (panel.width - 32);
+  scroller.height = Math.max(80, panel.height - top - (bottom || 14));
+  var content = new eui.Group();
+  content.width = scroller.width;
+  scroller.viewport = content;
+  panel.addChild(scroller);
+  return content;
 };
 
 // ==================== 升级面板 ====================
@@ -4113,7 +4182,7 @@ Game.prototype.openUpgrade = function() {
   panel.addChild(title);
 
   var self = this;
-  var y = 50;
+  var y = 54;
 
   // 主角（显示当前 + 下一级预览）
   var mainCost = CONFIG.upgradeCost(this.mainLevel);
@@ -4129,25 +4198,25 @@ Game.prototype.openUpgrade = function() {
 
   // 进度条
   var progBg = new eui.Rect();
-  progBg.width = 300; progBg.height = 8; progBg.fillColor = 0x140e36;
-  progBg.x = 20; progBg.y = y;
+  progBg.width = panel._contentW; progBg.height = 8; progBg.fillColor = 0x140e36;
+  progBg.x = panel._contentX; progBg.y = y;
   panel.addChild(progBg);
   var progFill = new eui.Rect();
-  progFill.width = 300 * (this.killCount / CONFIG.killsNeeded(this.mainLevel));
+  progFill.width = panel._contentW * (this.killCount / CONFIG.killsNeeded(this.mainLevel));
   progFill.height = 8; progFill.fillColor = 0xd4a017;
-  progFill.x = 20; progFill.y = y;
+  progFill.x = panel._contentX; progFill.y = y;
   panel.addChild(progFill);
   y += 14;
   var progText = new eui.Label();
   progText.text = '击杀进度: ' + this.killCount + '/' + CONFIG.killsNeeded(this.mainLevel);
-  progText.size = 11; progText.textColor = 0x888888; progText.x = 20; progText.y = y;
+  progText.size = 11; progText.textColor = 0x888888; progText.x = panel._contentX; progText.y = y;
   panel.addChild(progText);
   y += 24;
 
   // 已解锁辅助角色（显示当前 + 下一级预览）
   for (var i = 0; i < this.supports.length; i++) {
     var s = this.supports[i];
-    if (!s.unlocked) continue;
+    if (!this.isSupportActive(i)) continue;
     if (y > 350) { panel.height = y + 20; break; }
     var cost = CONFIG.supportCost(s.level);
     var nextDps = s.dps * (s.level + 1);
@@ -4179,11 +4248,11 @@ Game.prototype.openSupermarket = function() {
   var buffs = this.getBuffs();
   var buffText = new eui.Label();
   buffText.text = '当前buff: 暴击' + Math.floor(buffs.critChance*100) + '% | 攻击×' + buffs.attackMult.toFixed(2);
-  buffText.size = 11; buffText.textColor = 0x888888; buffText.x = 15; buffText.y = 42;
+  buffText.size = 11; buffText.textColor = 0x888888; buffText.x = panel._contentX; buffText.y = 46;
   panel.addChild(buffText);
 
   var self = this;
-  var y = 64;
+  var y = 68;
   for (var i = 0; i < FOODS.length; i++) {
     var f = FOODS[i];
     var count = this.foods[f.name] || 0;
@@ -4238,7 +4307,7 @@ Game.prototype.openSpinWheel = function() {
   wheel.width = wheelSize; wheel.height = wheelSize;
   wheel.horizontalCenter = 0; wheel.top = 65;
   wheel.anchorOffsetX = wheelSize / 2; wheel.anchorOffsetY = wheelSize / 2;
-  wheel.x = 170 + wheelSize / 2; wheel.y = 65 + wheelSize / 2;
+  wheel.x = Math.floor(panel.width / 2) + wheelSize / 2; wheel.y = 65 + wheelSize / 2;
 
   for (var i = 0; i < 8; i++) {
     var seg = new eui.Rect();
@@ -4335,7 +4404,7 @@ Game.prototype.spin = function(wheel, resultLabel, spinBtn, infoLabel) {
 Game.prototype.openLeaderboard = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 390;
+  panel.height = 380;
 
   var title = new eui.Label();
   title.text = '🏆 排行榜'; title.size = 18; title.textColor = 0xffffff;
@@ -4357,18 +4426,22 @@ Game.prototype.openLeaderboard = function() {
 
   for (var i = 0; i < rows.length; i++) {
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 32; rowBg.fillColor = 0x1a153f;
-    rowBg.x = 15; rowBg.y = 45 + i * 36;
+    rowBg.width = panel._contentW; rowBg.height = 34; rowBg.fillColor = 0x1a153f;
+    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
+    rowBg.x = panel._contentX; rowBg.y = 50 + i * 38;
     panel.addChild(rowBg);
 
     var label = new eui.Label();
     label.text = rows[i][0]; label.size = 13; label.textColor = 0xcccccc;
-    label.x = 25; label.y = 45 + i * 36 + 8;
+    label.x = panel._contentX + 10; label.y = 50 + i * 38 + 9;
+    label.width = 120;
     panel.addChild(label);
 
     var val = new eui.Label();
     val.text = rows[i][1]; val.size = 13; val.textColor = 0xffd700; val.bold = true;
-    val.x = 250; val.y = 45 + i * 36 + 8;
+    val.x = panel._contentX + 132; val.y = 50 + i * 38 + 9;
+    val.width = panel._contentW - 142;
+    val.textAlign = 'right';
     panel.addChild(val);
   }
 
@@ -4432,7 +4505,7 @@ Game.prototype.openShop = function() {
 Game.prototype.openMail = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 300;
+  panel.height = 292;
 
   var title = new eui.Label();
   title.text = '📧 邮件'; title.size = 18; title.textColor = 0xffffff;
@@ -4446,35 +4519,37 @@ Game.prototype.openMail = function() {
   ];
 
   var self = this;
-  var y = 50;
+  var y = 54;
   for (var i = 0; i < mails.length; i++) {
     var m = mails[i];
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x1a153f;
+    rowBg.width = panel._contentW; rowBg.height = 52; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
-    rowBg.x = 15; rowBg.y = y;
+    rowBg.x = panel._contentX; rowBg.y = y;
     panel.addChild(rowBg);
 
     var fromLb = new eui.Label();
     fromLb.text = '[' + m.from + ']'; fromLb.size = 10; fromLb.textColor = 0xf39c12;
-    fromLb.x = 25; fromLb.y = y + 6;
+    fromLb.x = panel._contentX + 10; fromLb.y = y + 7;
     panel.addChild(fromLb);
 
     var titleLb = new eui.Label();
     titleLb.text = m.title; titleLb.size = 12; titleLb.textColor = 0xffffff;
-    titleLb.x = 25; titleLb.y = y + 22;
+    titleLb.x = panel._contentX + 10; titleLb.y = y + 24;
+    titleLb.width = 138;
     panel.addChild(titleLb);
 
     var rewardLb = new eui.Label();
     rewardLb.text = m.reward; rewardLb.size = 11; rewardLb.textColor = 0xffd700;
-    rewardLb.x = 180; rewardLb.y = y + 15;
+    rewardLb.x = panel._contentX + 160; rewardLb.y = y + 18;
+    rewardLb.width = 62; rewardLb.textAlign = 'right';
     panel.addChild(rewardLb);
 
     (function(idx, mail) {
       var claimBtn = self.createButton('领取', 0x27ae60, 50, 24, function() {
         self.showToast('📧 已领取: ' + mail.reward);
       }, self);
-      claimBtn.x = 255; claimBtn.y = y + 13;
+      claimBtn.x = panel._contentX + panel._contentW - 60; claimBtn.y = y + 14;
       panel.addChild(claimBtn);
     })(i, m);
 
@@ -4488,7 +4563,7 @@ Game.prototype.openMail = function() {
 Game.prototype.openAnnouncement = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 320;
+  panel.height = 336;
 
   var title = new eui.Label();
   title.text = '📢 公告'; title.size = 18; title.textColor = 0xffffff;
@@ -4502,32 +4577,34 @@ Game.prototype.openAnnouncement = function() {
     { tag: 'Tips', color: 0xf39c12, text: '升级辅助英雄可以大幅提升DPS，别忘了给他们升级！' }
   ];
 
-  var y = 50;
+  var y = 54;
   for (var i = 0; i < anns.length; i++) {
     var a = anns[i];
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 50; rowBg.fillColor = 0x1a153f;
+    rowBg.width = panel._contentW; rowBg.height = 54; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
-    rowBg.x = 15; rowBg.y = y;
+    rowBg.x = panel._contentX; rowBg.y = y;
     panel.addChild(rowBg);
 
     var tagBg = new eui.Rect();
     tagBg.width = 28; tagBg.height = 16; tagBg.fillColor = a.color;
     tagBg.ellipseWidth = 4; tagBg.ellipseHeight = 4;
-    tagBg.x = 22; tagBg.y = y + 6;
+    tagBg.x = panel._contentX + 8; tagBg.y = y + 8;
     panel.addChild(tagBg);
 
     var tagLb = new eui.Label();
     tagLb.text = a.tag; tagLb.size = 9; tagLb.textColor = 0xffffff; tagLb.bold = true;
-    tagLb.x = 26; tagLb.y = y + 8;
+    tagLb.x = panel._contentX + 12; tagLb.y = y + 10;
     panel.addChild(tagLb);
 
     var textLb = new eui.Label();
     textLb.text = a.text; textLb.size = 11; textLb.textColor = 0xcccccc;
-    textLb.x = 25; textLb.y = y + 26; textLb.width = 290;
+    textLb.x = panel._contentX + 44; textLb.y = y + 9;
+    textLb.width = panel._contentW - 54;
+    textLb.wordWrap = true; textLb.lineSpacing = 3;
     panel.addChild(textLb);
 
-    y += 56;
+    y += 60;
   }
   panel.height = y + 16;
 };
@@ -4537,7 +4614,7 @@ Game.prototype.openAnnouncement = function() {
 Game.prototype.openEnergyHelp = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 260;
+  panel.height = 284;
 
   var title = new eui.Label();
   title.text = '⚡ 能量互助'; title.size = 18; title.textColor = 0xffffff;
@@ -4546,15 +4623,16 @@ Game.prototype.openEnergyHelp = function() {
 
   var info = new eui.Label();
   info.text = '当前能量: ⚡' + Math.floor(this.energy) + '/' + CONFIG.maxEnergy +
-    '\n每' + CONFIG.energyRecoveryInterval + '秒恢复: +' + CONFIG.energyRecovery;
+    '\n每秒恢复: +' + CONFIG.energyRecovery;
   info.size = 13; info.textColor = 0xcccccc;
-  info.x = 25; info.top = 50; info.lineSpacing = 6;
+  info.x = panel._contentX; info.top = 54; info.width = panel._contentW; info.lineSpacing = 6;
   panel.addChild(info);
 
   var tip = new eui.Label();
-  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n技能不消耗能量，只受冷却限制\n能量每2秒恢复，也可以在商城购买';
+  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n技能不消耗能量，只受冷却限制\n能量每秒恢复，也可以在商城购买';
   tip.size = 11; tip.textColor = 0x888888;
-  tip.x = 25; tip.top = 100; tip.lineSpacing = 4;
+  tip.x = panel._contentX; tip.top = 108; tip.width = panel._contentW; tip.lineSpacing = 5;
+  tip.wordWrap = true;
   panel.addChild(tip);
 
   var self = this;
@@ -4569,7 +4647,7 @@ Game.prototype.openEnergyHelp = function() {
       self.closePanel();
     }, this
   );
-  buyBtn.horizontalCenter = 0; buyBtn.y = 170;
+  buyBtn.horizontalCenter = 0; buyBtn.y = 192;
   panel.addChild(buyBtn);
 };
 
@@ -4596,7 +4674,7 @@ Game.prototype.shopBuy = function(type) {
 Game.prototype.openRebirth = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 380;
+  panel.height = 390;
 
   var title = new eui.Label();
   title.text = '💎 转生'; title.size = 18; title.textColor = 0xffffff;
@@ -4615,18 +4693,18 @@ Game.prototype.openRebirth = function() {
     '历史最高波次: ' + this.maxWaveReached;
   var info = new eui.Label();
   info.text = infoText; info.size = 12; info.textColor = 0xcccccc;
-  info.x = 20; info.top = 45; info.width = 310; info.lineSpacing = 6;
+  info.x = panel._contentX; info.top = 52; info.width = panel._contentW; info.lineSpacing = 6;
   panel.addChild(info);
 
   // 转生收益预览
   var previewBg = new eui.Rect();
-  previewBg.width = 310; previewBg.height = 80; previewBg.fillColor = 0x1a153f;
-  previewBg.ellipseWidth = 8; previewBg.x = 15; previewBg.y = 110;
+  previewBg.width = panel._contentW; previewBg.height = 80; previewBg.fillColor = 0x1a153f;
+  previewBg.ellipseWidth = 8; previewBg.x = panel._contentX; previewBg.y = 118;
   panel.addChild(previewBg);
 
   var previewTitle = new eui.Label();
   previewTitle.text = '转生收益预览'; previewTitle.size = 13; previewTitle.textColor = 0xf39c12;
-  previewTitle.x = 25; previewTitle.y = 116;
+  previewTitle.x = panel._contentX + 10; previewTitle.y = 125;
   panel.addChild(previewTitle);
 
   var newGems = this.rebirthGems + gemsGain;
@@ -4636,19 +4714,19 @@ Game.prototype.openRebirth = function() {
     '伤害加成: ×' + newDmgMult.toFixed(1) + '  金币加成: ×' + newGoldMult.toFixed(1);
   var preview = new eui.Label();
   preview.text = previewText; preview.size = 12; preview.textColor = 0xffd700;
-  preview.x = 25; preview.y = 138; preview.width = 290; preview.lineSpacing = 4;
+  preview.x = panel._contentX + 10; preview.y = 148; preview.width = panel._contentW - 20; preview.lineSpacing = 4;
   panel.addChild(preview);
 
   // 转生代价说明
   var costBg = new eui.Rect();
-  costBg.width = 310; costBg.height = 60; costBg.fillColor = 0x2c1340;
-  costBg.ellipseWidth = 8; costBg.x = 15; costBg.y = 200;
+  costBg.width = panel._contentW; costBg.height = 62; costBg.fillColor = 0x2c1340;
+  costBg.ellipseWidth = 8; costBg.x = panel._contentX; costBg.y = 208;
   panel.addChild(costBg);
 
   var costText = new eui.Label();
   costText.text = '⚠️ 转生代价:\n等级、波次、金币全部重置为初始值\n保留: 宝石、成就、辅助英雄解锁';
   costText.size = 11; costText.textColor = 0xe74c3c;
-  costText.x = 25; costText.y = 208; costText.width = 290; costText.lineSpacing = 4;
+  costText.x = panel._contentX + 10; costText.y = 217; costText.width = panel._contentW - 20; costText.lineSpacing = 4;
   panel.addChild(costText);
 
   // 转生条件提示
@@ -4660,7 +4738,7 @@ Game.prototype.openRebirth = function() {
     condText.text = '❌ 条件不足：需要最高波次 ≥ 50 (当前: ' + this.maxWaveReached + ')';
     condText.textColor = 0xe74c3c;
   }
-  condText.size = 12; condText.x = 20; condText.y = 275; condText.width = 310;
+  condText.size = 12; condText.x = panel._contentX; condText.y = 286; condText.width = panel._contentW;
   panel.addChild(condText);
 
   // 转生按钮
@@ -4673,7 +4751,7 @@ Game.prototype.openRebirth = function() {
     },
     this
   );
-  btn.horizontalCenter = 0; btn.y = 310;
+  btn.horizontalCenter = 0; btn.y = 324;
   if (!canRebirth) btn.alpha = 0.4;
   panel.addChild(btn);
 };
@@ -4726,7 +4804,7 @@ Game.prototype.openCheckin = function(auto) {
 
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 360;
+  panel.height = 366;
 
   var title = new eui.Label();
   title.text = '📅 每日签到'; title.size = 18; title.textColor = 0xffffff;
@@ -4735,18 +4813,22 @@ Game.prototype.openCheckin = function(auto) {
 
   var contText = new eui.Label();
   contText.text = '连续签到: ' + this.checkinDay + '天'; contText.size = 12; contText.textColor = 0xaaaaaa;
-  contText.horizontalCenter = 0; contText.top = 40;
+  contText.horizontalCenter = 0; contText.top = 45;
   panel.addChild(contText);
 
+  var cardW = 72;
+  var cardH = 78;
+  var gapX = Math.floor((panel._contentW - cardW * 4) / 3);
+  var startX = panel._contentX;
   for (var i = 0; i < CHECKIN_REWARDS.length; i++) {
     var r = CHECKIN_REWARDS[i];
     var done = alreadyChecked ? i < day : i < day;
     var isToday = !alreadyChecked && i === day;
     var col = i % 4; var row = Math.floor(i / 4);
-    var cx = 20 + col * 80; var cy = 64 + row * 90;
+    var cx = startX + col * (cardW + gapX); var cy = 70 + row * 88;
 
     var itemBg = new eui.Rect();
-    itemBg.width = 72; itemBg.height = 80; itemBg.ellipseWidth = 8; itemBg.ellipseHeight = 8;
+    itemBg.width = cardW; itemBg.height = cardH; itemBg.ellipseWidth = 8; itemBg.ellipseHeight = 8;
     itemBg.fillColor = isToday ? 0x2a3f5c : 0x1a153f;
     itemBg.x = cx; itemBg.y = cy;
     if (isToday) { itemBg.strokeWeight = 2; itemBg.strokeColor = 0x2ecc71; }
@@ -4761,6 +4843,7 @@ Game.prototype.openCheckin = function(auto) {
     rewardLb.text = '💰' + r.gold + (r.bonus ? ' + ' + r.bonus.icon : '');
     rewardLb.size = 10; rewardLb.textColor = 0xffd700;
     rewardLb.x = cx + 4; rewardLb.y = cy + 30;
+    rewardLb.width = cardW - 8; rewardLb.textAlign = 'center';
     panel.addChild(rewardLb);
 
     if (done) {
@@ -4835,6 +4918,7 @@ Game.prototype.openDailyTasks = function() {
   this.resetDailyTasks();
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
+  panel.height = 282;
 
   var title = new eui.Label();
   title.text = '📋 每日任务'; title.size = 18; title.textColor = 0xffffff;
@@ -4842,7 +4926,7 @@ Game.prototype.openDailyTasks = function() {
   panel.addChild(title);
 
   var self = this;
-  var y = 50;
+  var y = 54;
 
   for (var i = 0; i < DAILY_TASKS.length; i++) {
     var t = DAILY_TASKS[i];
@@ -4851,15 +4935,15 @@ Game.prototype.openDailyTasks = function() {
     var pct = progress / t.target;
 
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 56; rowBg.fillColor = 0x1a153f;
+    rowBg.width = panel._contentW; rowBg.height = 58; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
-    rowBg.x = 15; rowBg.y = y;
+    rowBg.x = panel._contentX; rowBg.y = y;
     panel.addChild(rowBg);
 
     var iconBg = new eui.Rect();
     iconBg.width = 32; iconBg.height = 32; iconBg.ellipseWidth = 16; iconBg.ellipseHeight = 16;
     iconBg.fillColor = done ? 0x2ecc71 : 0x3498db;
-    iconBg.x = 25; iconBg.y = y + 12;
+    iconBg.x = panel._contentX + 8; iconBg.y = y + 13;
     panel.addChild(iconBg);
 
     var iconLb = new eui.Label();
@@ -4869,29 +4953,31 @@ Game.prototype.openDailyTasks = function() {
 
     var descLb = new eui.Label();
     descLb.text = t.desc; descLb.size = 12; descLb.textColor = 0xcccccc;
-    descLb.x = 68; descLb.y = y + 6;
+    descLb.x = panel._contentX + 50; descLb.y = y + 8;
+    descLb.width = panel._contentW - 128;
     panel.addChild(descLb);
 
     var progBg = new eui.Rect();
-    progBg.width = 150; progBg.height = 6; progBg.fillColor = 0x140e36;
-    progBg.x = 68; progBg.y = y + 28;
+    progBg.width = 140; progBg.height = 6; progBg.fillColor = 0x140e36;
+    progBg.x = panel._contentX + 50; progBg.y = y + 31;
     panel.addChild(progBg);
 
     var progFill = new eui.Rect();
-    progFill.width = 150 * pct; progFill.height = 6; progFill.fillColor = 0x2ecc71;
-    progFill.x = 68; progFill.y = y + 28;
+    progFill.width = 140 * pct; progFill.height = 6; progFill.fillColor = 0x2ecc71;
+    progFill.x = panel._contentX + 50; progFill.y = y + 31;
     panel.addChild(progFill);
 
     var progText = new eui.Label();
     progText.text = progress + '/' + t.target; progText.size = 10; progText.textColor = 0x888888;
-    progText.x = 225; progText.y = y + 26;
+    progText.x = panel._contentX + 196; progText.y = y + 28;
+    progText.width = 44; progText.textAlign = 'right';
     panel.addChild(progText);
 
     if (done) {
       (function(idx) {
         var claimBtn = self.createButton('+' + DAILY_TASKS[idx].reward + '金', 0x27ae60, 60, 26,
           function() { self.claimTask(idx); }, self);
-        claimBtn.x = 245; claimBtn.y = y + 15;
+        claimBtn.x = panel._contentX + panel._contentW - 70; claimBtn.y = y + 16;
         panel.addChild(claimBtn);
       })(i);
     }
@@ -4930,7 +5016,7 @@ Game.prototype.checkAchievements = function() {
 Game.prototype.openAchievements = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = Math.min(500, 70 + ACHIEVEMENTS.length * 54);
+  panel.height = Math.min(500, (overlay.height || 667) - 74);
 
   var title = new eui.Label();
   title.text = '🏆 成就 (' + this.achievements.length + '/' + ACHIEVEMENTS.length + ')';
@@ -4938,39 +5024,44 @@ Game.prototype.openAchievements = function() {
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
-  var y = 45;
+  var list = this.createPanelScrollContent(panel, 50, 14);
+  var listW = panel._contentW;
+  var y = 0;
   for (var i = 0; i < ACHIEVEMENTS.length; i++) {
     var a = ACHIEVEMENTS[i];
     var completed = this.achievements.indexOf(a.id) >= 0;
 
     var rowBg = new eui.Rect();
-    rowBg.width = 310; rowBg.height = 44; rowBg.fillColor = 0x1a153f;
+    rowBg.width = listW; rowBg.height = 44; rowBg.fillColor = 0x1a153f;
     rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
-    rowBg.x = 15; rowBg.y = y;
+    rowBg.x = 0; rowBg.y = y;
     rowBg.alpha = completed ? 1 : 0.5;
-    panel.addChild(rowBg);
+    list.addChild(rowBg);
 
     var iconBg = new eui.Rect();
     iconBg.width = 32; iconBg.height = 32; iconBg.ellipseWidth = 16; iconBg.ellipseHeight = 16;
     iconBg.fillColor = completed ? 0xf39c12 : 0x555555;
-    iconBg.x = 25; iconBg.y = y + 6;
-    panel.addChild(iconBg);
+    iconBg.x = 8; iconBg.y = y + 6;
+    list.addChild(iconBg);
 
     var nameLb = new eui.Label();
     nameLb.text = a.name; nameLb.size = 12; nameLb.textColor = completed ? 0xffffff : 0x888888;
-    nameLb.x = 68; nameLb.y = y + 6;
-    panel.addChild(nameLb);
+    nameLb.x = 50; nameLb.y = y + 6;
+    nameLb.width = listW - 126;
+    list.addChild(nameLb);
 
     var descLb = new eui.Label();
     descLb.text = a.desc; descLb.size = 10; descLb.textColor = 0x888888;
-    descLb.x = 68; descLb.y = y + 24;
-    panel.addChild(descLb);
+    descLb.x = 50; descLb.y = y + 24;
+    descLb.width = listW - 126;
+    list.addChild(descLb);
 
     var rewardLb = new eui.Label();
     rewardLb.text = completed ? '✓ +' + a.reward + '金' : '+' + a.reward + '金';
     rewardLb.size = 11; rewardLb.textColor = completed ? 0xffd700 : 0x666666;
-    rewardLb.x = 260; rewardLb.y = y + 14;
-    panel.addChild(rewardLb);
+    rewardLb.x = listW - 76; rewardLb.y = y + 14;
+    rewardLb.width = 66; rewardLb.textAlign = 'right';
+    list.addChild(rewardLb);
 
     y += 50;
   }
@@ -4981,6 +5072,7 @@ Game.prototype.openAchievements = function() {
 Game.prototype.openMonsterCodex = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
+  panel.height = Math.min(500, (overlay.height || 667) - 74);
 
   var discovered = 0;
   for (var i = 0; i < MONSTER_TYPES.length; i++) {
@@ -4998,17 +5090,22 @@ Game.prototype.openMonsterCodex = function() {
   title.horizontalCenter = 0; title.top = 12;
   panel.addChild(title);
 
+  var list = this.createPanelScrollContent(panel, 44, 14);
+  var listW = panel._contentW;
+
   // 分栏标题
   var secNormal = new eui.Label();
   secNormal.text = '── 普通怪物 ──';
   secNormal.size = 11; secNormal.textColor = THEME.textDim;
   secNormal.horizontalCenter = 0; secNormal.top = 34;
-  panel.addChild(secNormal);
+  secNormal.y = 0; secNormal.width = listW; secNormal.textAlign = 'center';
+  list.addChild(secNormal);
 
   var COLS = 2;
-  var CARD_W = 148; var CARD_H = 80;
   var GAP_X = 8; var GAP_Y = 6;
-  var START_X = 12; var START_Y = 50;
+  var CARD_W = Math.floor((panel._contentW - GAP_X) / 2);
+  var CARD_H = 78;
+  var START_X = 0; var START_Y = 18;
   var self = this;
 
   // 渲染一张图签卡片
@@ -5027,7 +5124,7 @@ Game.prototype.openMonsterCodex = function() {
     cardBg.strokeColor = found ? (isBossType ? 0xff4444 : mt.badge) : 0x333333;
     cardBg.strokeWeight = found ? (isBossType ? 2 : 1.5) : 1;
     cardBg.x = cx2; cardBg.y = cy2;
-    panel.addChild(cardBg);
+    list.addChild(cardBg);
 
     // 怪物缩略图
     var thumb = new egret.Shape();
@@ -5042,7 +5139,7 @@ Game.prototype.openMonsterCodex = function() {
       tg.moveTo(26, 18); tg.lineTo(18, 26);
     }
     thumb.x = cx2 + 4; thumb.y = cy2 + 18;
-    panel.addChild(thumb);
+    list.addChild(thumb);
 
     // 名字
     var nameLb2 = new eui.Label();
@@ -5050,30 +5147,33 @@ Game.prototype.openMonsterCodex = function() {
     nameLb2.size = 12; nameLb2.bold = true;
     nameLb2.textColor = found ? (isBossType ? 0xff8888 : 0xffffff) : 0x555555;
     nameLb2.x = cx2 + 52; nameLb2.y = cy2 + 6;
-    panel.addChild(nameLb2);
+    nameLb2.width = CARD_W - 58;
+    list.addChild(nameLb2);
 
     // 出现波次
     var waveLb = new eui.Label();
     waveLb.text = found ? '波次: ' + (mt.wave || (isBossType ? '每10波' : '?')) : '未发现';
     waveLb.size = 9; waveLb.textColor = found ? THEME.accent : 0x444444;
     waveLb.x = cx2 + 52; waveLb.y = cy2 + 24;
-    panel.addChild(waveLb);
+    waveLb.width = CARD_W - 58;
+    list.addChild(waveLb);
 
     // 击杀数
     var killLb2 = new eui.Label();
     killLb2.text = found ? '击杀: ' + (codexEntry.kills || 0) : '';
     killLb2.size = 9; killLb2.textColor = 0x888888;
     killLb2.x = cx2 + 52; killLb2.y = cy2 + 38;
-    panel.addChild(killLb2);
+    killLb2.width = CARD_W - 58;
+    list.addChild(killLb2);
 
     // 描述（截断到卡片宽度）
     if (found && mt.desc) {
       var descLb = new eui.Label();
       descLb.text = mt.desc;
       descLb.size = 8; descLb.textColor = THEME.textDim;
-      descLb.width = CARD_W - 56; descLb.wordWrap = true;
+      descLb.width = CARD_W - 58; descLb.wordWrap = true;
       descLb.x = cx2 + 52; descLb.y = cy2 + 52;
-      panel.addChild(descLb);
+      list.addChild(descLb);
     }
 
     // BOSS 标记
@@ -5081,12 +5181,12 @@ Game.prototype.openMonsterCodex = function() {
       var bossBadge = new eui.Rect();
       bossBadge.width = 30; bossBadge.height = 13;
       bossBadge.ellipseWidth = 6; bossBadge.ellipseHeight = 6;
-      bossBadge.fillColor = 0x7a0000; bossBadge.x = cx2 + CARD_W - 34; bossBadge.y = cy2 + 4;
-      panel.addChild(bossBadge);
+      bossBadge.fillColor = 0x7a0000; bossBadge.x = cx2 + CARD_W - 36; bossBadge.y = cy2 + 4;
+      list.addChild(bossBadge);
       var bossTag = new eui.Label();
       bossTag.text = 'BOSS'; bossTag.size = 8; bossTag.bold = true;
-      bossTag.textColor = 0xff8888; bossTag.x = cx2 + CARD_W - 32; bossTag.y = cy2 + 5;
-      panel.addChild(bossTag);
+      bossTag.textColor = 0xff8888; bossTag.x = cx2 + CARD_W - 34; bossTag.y = cy2 + 5;
+      list.addChild(bossTag);
     }
   } // end renderCard
 
@@ -5101,8 +5201,8 @@ Game.prototype.openMonsterCodex = function() {
   var secBoss = new eui.Label();
   secBoss.text = '── BOSS 图签 ──';
   secBoss.size = 11; secBoss.textColor = 0xff8888;
-  secBoss.horizontalCenter = 0; secBoss.y = bossSectionY;
-  panel.addChild(secBoss);
+  secBoss.x = 0; secBoss.width = listW; secBoss.textAlign = 'center'; secBoss.y = bossSectionY;
+  list.addChild(secBoss);
 
   // BOSS 怪物
   for (var i = 0; i < BOSS_TYPES.length; i++) {
@@ -5115,8 +5215,8 @@ Game.prototype.openMonsterCodex = function() {
   var closeBtn = this.createButton('关闭', THEME.bgLite, 100, 32, function() {
     if (overlay.parent) overlay.parent.removeChild(overlay);
   }, this);
-  closeBtn.horizontalCenter = 0; closeBtn.y = closeY;
-  panel.addChild(closeBtn);
+  closeBtn.x = Math.floor((listW - 100) / 2); closeBtn.y = closeY;
+  list.addChild(closeBtn);
 };
 
 // ==================== 离线收益 ====================
@@ -5347,7 +5447,7 @@ Game.prototype.startLoop = function() {
       setTimeout(function() {
         setInterval(function() {
           var s = self.supports[idx];
-          if (!s.unlocked || self.monsters.length === 0) return;
+          if (!self.isSupportActive(idx) || self.monsters.length === 0) return;
           var aliveMonsters = self.monsters.filter(function(m) { return m.hp > 0; });
           if (aliveMonsters.length === 0) return;
           var buffs = self.getBuffs();
@@ -5418,6 +5518,7 @@ Game.prototype.loadGame = function() {
         }
       }
     }
+    this.repairSupportUnlocks();
     if (d.foods) this.foods = { '棒棒糖': d.foods['棒棒糖']||0, '牛奶': d.foods['牛奶']||0, '烤肉': d.foods['烤肉']||0 };
     if (d.freeSpins !== undefined) this.freeSpins = d.freeSpins;
     if (d.spinDate) this.spinDate = d.spinDate;
