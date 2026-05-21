@@ -83,6 +83,14 @@ var UI_ASSETS = {
   topCheckin: 'assets/image2-white-assets/layout-v2/top-checkin-white.png',
   topDailyTask: 'assets/image2-white-assets/layout-v2/top-daily-task-white.png',
   topMail: 'assets/image2-white-assets/layout-v2/top-mail-white.png',
+  hudBoss: 'assets/image2-white-assets/top-hud-v1/top-boss-white.png',
+  hudCodex: 'assets/image2-white-assets/top-hud-v1/top-codex-white.png',
+  hudCheckin: 'assets/image2-white-assets/top-hud-v1/top-checkin-white.png',
+  hudDailyTask: 'assets/image2-white-assets/top-hud-v1/top-daily-task-white.png',
+  hudMail: 'assets/image2-white-assets/top-hud-v1/top-mail-white.png',
+  hudAnnouncement: 'assets/image2-white-assets/top-hud-v1/top-announcement-white.png',
+  hudRebirth: 'assets/image2-white-assets/top-hud-v1/top-rebirth-white.png',
+  hudEnergy: 'assets/image2-white-assets/top-hud-v1/top-energy-white.png',
   skillLightWand: 'assets/image2-white-assets/layout-v2/skill-light-wand-white.png',
   skillHeavySlash: 'assets/image2-white-assets/layout-v2/skill-heavy-slash-white.png',
   skillIceCombo: 'assets/image2-white-assets/layout-v2/skill-ice-combo-white.png',
@@ -130,6 +138,14 @@ UI_ASSET_SIZES[UI_ASSETS.supportLocked] = { w: 44, h: 56 };
 UI_ASSET_SIZES[UI_ASSETS.topCheckin] = { w: 248, h: 120 };
 UI_ASSET_SIZES[UI_ASSETS.topDailyTask] = { w: 248, h: 120 };
 UI_ASSET_SIZES[UI_ASSETS.topMail] = { w: 248, h: 120 };
+UI_ASSET_SIZES[UI_ASSETS.hudBoss] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.hudCodex] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.hudCheckin] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.hudDailyTask] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.hudMail] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.hudAnnouncement] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.hudRebirth] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.hudEnergy] = { w: 1254, h: 1254 };
 UI_ASSET_SIZES[UI_ASSETS.skillLightWand] = { w: 188, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.skillHeavySlash] = { w: 188, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.skillIceCombo] = { w: 188, h: 192 };
@@ -540,34 +556,34 @@ Game.prototype.monsterSpriteSource = function(mType, isBoss) {
 Game.prototype.createSupportView = function(idx, yPos) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
-  var sc = new eui.Group(); sc.width = 48; sc.height = 64;
+  var sc = new eui.Group(); sc.width = 70; sc.height = 88;
   sc.name = 'support-' + idx;
   if (yPos !== undefined && yPos !== 0) sc.y = yPos;
 
   var shadow = new eui.Rect();
-  shadow.width = 34; shadow.height = 7;
-  shadow.x = 7; shadow.y = 43;
+  shadow.width = 48; shadow.height = 9;
+  shadow.x = 11; shadow.y = 64;
   shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
   shadow.fillColor = 0x000000; shadow.fillAlpha = s.unlocked ? 0.24 : 0.16;
   sc.addChild(shadow);
 
   var sprite = new eui.Image();
   var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
-  this.fitImageToBox(sprite, source, 46, 50, 1, 0);
+  this.fitImageToBox(sprite, source, 68, 74, 1, 0);
   sprite.alpha = s.unlocked ? 1 : 0.45;
   sc.addChild(sprite);
 
   var roleDot = new eui.Rect();
-  roleDot.width = 9; roleDot.height = 9;
-  roleDot.x = 34; roleDot.y = 7;
+  roleDot.width = 11; roleDot.height = 11;
+  roleDot.x = 52; roleDot.y = 9;
   roleDot.ellipseWidth = 9; roleDot.ellipseHeight = 9;
   roleDot.fillColor = s.unlocked ? def.color : 0x5b547a;
   roleDot.strokeColor = 0xffffff; roleDot.strokeWeight = 0.8; roleDot.strokeAlpha = 0.7;
   sc.addChild(roleDot);
 
   var nameBg = new eui.Rect();
-  nameBg.width = 42; nameBg.height = 13;
-  nameBg.x = 3; nameBg.y = 49;
+  nameBg.width = 58; nameBg.height = 15;
+  nameBg.x = 6; nameBg.y = 69;
   nameBg.ellipseWidth = 7; nameBg.ellipseHeight = 7;
   nameBg.fillColor = s.unlocked ? 0x17103b : 0x100c22;
   nameBg.fillAlpha = 0.78;
@@ -577,10 +593,10 @@ Game.prototype.createSupportView = function(idx, yPos) {
 
   var lb = new eui.Label();
   lb.text = s.unlocked ? def.symbol.slice(0, 2) : 'W' + def.wave;
-  lb.size = 8; lb.bold = true;
+  lb.size = 9; lb.bold = true;
   lb.textColor = s.unlocked ? THEME.accentSoft : THEME.textMute;
-  lb.width = 42; lb.height = 12;
-  lb.x = 3; lb.y = 51;
+  lb.width = 58; lb.height = 13;
+  lb.x = 6; lb.y = 72;
   lb.textAlign = 'center';
   sc.addChild(lb);
   return sc;
@@ -1050,7 +1066,7 @@ Game.prototype.buildUI = function() {
   // 否则某些浏览器首帧会把战斗层盖到顶部栏上。
   this.main.layout = null;
 
-  var TOP_H = 84;    // 顶部栏高度（含HP条）
+  var TOP_H = 132;   // 顶部HUD高度：玩家信息 + 血条 + 战斗入口
   var STATUS_BAR_H = 58; // 战斗底部状态条，属于 UI，不属于背景图
   var SKILL_H = 52;  // 技能栏高度
   var NAV_H = 50;    // 底部导航高度
@@ -1068,17 +1084,17 @@ Game.prototype.buildUI = function() {
   tg.beginFill(0x08051c);
   tg.drawRect(0, 0, stageW, TOP_H);
   tg.endFill();
-  tg.beginFill(0x17103b, 0.96);
-  tg.drawRoundRect(6, 3, stageW - 12, TOP_H - 8, 10, 10);
+  tg.beginFill(0x17103b, 0.98);
+  tg.drawRoundRect(6, 4, stageW - 12, TOP_H - 10, 12, 12);
   tg.endFill();
-  tg.beginFill(0x2a1f5c, 0.55);
-  tg.drawRoundRect(8, 5, stageW - 16, 28, 9, 9);
+  tg.beginFill(0x2a1f5c, 0.6);
+  tg.drawRoundRect(9, 7, stageW - 18, 54, 10, 10);
   tg.endFill();
   tg.lineStyle(1.2, THEME.strokeGold, 0.72);
-  tg.drawRoundRect(6.5, 3.5, stageW - 13, TOP_H - 9, 10, 10);
+  tg.drawRoundRect(6.5, 4.5, stageW - 13, TOP_H - 11, 12, 12);
   tg.lineStyle(0);
   tg.beginFill(THEME.accent, 0.18);
-  tg.drawRect(16, 33, stageW - 32, 1);
+  tg.drawRect(16, 68, stageW - 32, 1);
   tg.endFill();
   topBar.addChild(topBgShape);
   var topSkin = new eui.Image();
@@ -1092,27 +1108,41 @@ Game.prototype.buildUI = function() {
   topUnderline.bottom = 0; topUnderline.fillColor = THEME.strokeGold; topUnderline.fillAlpha = 0;
   topBar.addChild(topUnderline);
 
-  // --- Row1 左：头像（36x36，可点击切换，无 VIP 徽章）---
+  // --- Row1 左：头像与身份 ---
   // 头像颜色调色板（6 种）
   var AVATAR_COLORS = [0x8b4513, 0x3498db, 0x27ae60, 0xe74c3c, 0x9b59b6, 0xe67e22];
   var AVATAR_ICONS  = ['🧙','🐼','🦊','🐯','🐸','🐺'];
   var avatarGroup = new eui.Group();
-  avatarGroup.width = 44; avatarGroup.height = 44;
-  avatarGroup.x = 8; avatarGroup.y = 10;
+  avatarGroup.width = 56; avatarGroup.height = 56;
+  avatarGroup.x = 10; avatarGroup.y = 8;
   avatarGroup.touchEnabled = true;
+  var avatarGlow = new eui.Rect();
+  avatarGlow.width = 56; avatarGlow.height = 56; avatarGlow.ellipseWidth = 16; avatarGlow.ellipseHeight = 16;
+  avatarGlow.fillColor = 0xfbbf24; avatarGlow.fillAlpha = 0.08;
+  avatarGroup.addChild(avatarGlow);
   var avatarFrame = new eui.Rect();
-  avatarFrame.width = 44; avatarFrame.height = 44; avatarFrame.ellipseWidth = 12; avatarFrame.ellipseHeight = 12;
+  avatarFrame.width = 52; avatarFrame.height = 52; avatarFrame.ellipseWidth = 14; avatarFrame.ellipseHeight = 14;
+  avatarFrame.x = 2; avatarFrame.y = 2;
   avatarFrame.fillColor = 0x0a0820; avatarFrame.strokeColor = THEME.strokeGold;
-  avatarFrame.strokeWeight = 1.3; avatarFrame.strokeAlpha = 0.9;
+  avatarFrame.strokeWeight = 1.5; avatarFrame.strokeAlpha = 0.92;
   avatarGroup.addChild(avatarFrame);
   var avatarBg = new eui.Rect();
-  avatarBg.width = 36; avatarBg.height = 36; avatarBg.ellipseWidth = 10; avatarBg.ellipseHeight = 10;
+  avatarBg.width = 44; avatarBg.height = 44; avatarBg.ellipseWidth = 12; avatarBg.ellipseHeight = 12;
   avatarBg.fillColor = AVATAR_COLORS[this.avatarIdx || 0];
-  avatarBg.x = 4; avatarBg.y = 4;
+  avatarBg.x = 6; avatarBg.y = 6;
   avatarGroup.addChild(avatarBg);
   var avatarHero = new eui.Image();
-  this.fitImageToBox(avatarHero, UI_ASSETS.hero, 34, 34, 5, 5);
+  this.fitImageToBox(avatarHero, UI_ASSETS.hero, 44, 44, 6, 5);
   avatarGroup.addChild(avatarHero);
+  var avatarEditBg = new eui.Rect();
+  avatarEditBg.width = 16; avatarEditBg.height = 16; avatarEditBg.ellipseWidth = 8; avatarEditBg.ellipseHeight = 8;
+  avatarEditBg.fillColor = 0x0d0926; avatarEditBg.strokeColor = THEME.strokeGold; avatarEditBg.strokeWeight = 0.8;
+  avatarEditBg.x = 38; avatarEditBg.y = 38;
+  avatarGroup.addChild(avatarEditBg);
+  var avatarEdit = new eui.Label();
+  avatarEdit.text = '✎'; avatarEdit.size = 10; avatarEdit.textColor = THEME.accentSoft; avatarEdit.bold = true;
+  avatarEdit.x = 42; avatarEdit.y = 40;
+  avatarGroup.addChild(avatarEdit);
   var avatarIcon = new eui.Label();
   avatarIcon.text = AVATAR_ICONS[this.avatarIdx || 0];
   avatarIcon.size = 18; avatarIcon.horizontalCenter = 0; avatarIcon.verticalCenter = 0;
@@ -1125,61 +1155,96 @@ Game.prototype.buildUI = function() {
   topBar.addChild(avatarGroup);
 
   // --- Row1 中：昵称（可点击修改）+ 波次 ---
+  var namePlate = new eui.Rect();
+  namePlate.width = 128; namePlate.height = 25;
+  namePlate.x = 72; namePlate.y = 10;
+  namePlate.ellipseWidth = 10; namePlate.ellipseHeight = 10;
+  namePlate.fillColor = 0x0d0926; namePlate.fillAlpha = 0.72;
+  namePlate.strokeColor = 0xffffff; namePlate.strokeAlpha = 0.08; namePlate.strokeWeight = 0.8;
+  topBar.addChild(namePlate);
   var nameLb = new eui.Label();
-  nameLb.text = (this.playerName || '玩家') + ' ✏️';
+  nameLb.text = (this.playerName || '玩家') + ' ✎';
   nameLb.size = 13; nameLb.textColor = THEME.textMain; nameLb.bold = true;
-  nameLb.x = 58; nameLb.y = 12; nameLb.touchEnabled = true;
+  nameLb.width = 118; nameLb.height = 18;
+  nameLb.x = 79; nameLb.y = 14; nameLb.touchEnabled = true;
   nameLb.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openNameEditor(); }, this);
   topBar.addChild(nameLb);
   this._nameLb = nameLb;
+  var wavePlate = new eui.Rect();
+  wavePlate.width = 128; wavePlate.height = 21;
+  wavePlate.x = 72; wavePlate.y = 39;
+  wavePlate.ellipseWidth = 9; wavePlate.ellipseHeight = 9;
+  wavePlate.fillColor = 0x1f174a; wavePlate.fillAlpha = 0.78;
+  wavePlate.strokeColor = THEME.strokeGold; wavePlate.strokeAlpha = 0.28; wavePlate.strokeWeight = 0.7;
+  topBar.addChild(wavePlate);
   this.waveLabel = new eui.Label();
   this.waveLabel.text = this.waveText(); this.waveLabel.size = 11; this.waveLabel.textColor = 0xfbbf24;
-  this.waveLabel.x = 58; this.waveLabel.y = 32;
+  this.waveLabel.width = 118; this.waveLabel.height = 14;
+  this.waveLabel.x = 79; this.waveLabel.y = 43;
   topBar.addChild(this.waveLabel);
 
-  // --- Row1 右：金币 / 钻石 / 成就（右对齐，避免重叠） ---
+  // --- Row1 右：资源与系统状态 ---
+  var resPanel = new eui.Rect();
+  resPanel.width = 160; resPanel.height = 52;
+  resPanel.x = stageW - 170; resPanel.y = 8;
+  resPanel.ellipseWidth = 12; resPanel.ellipseHeight = 12;
+  resPanel.fillColor = 0x0d0926; resPanel.fillAlpha = 0.78;
+  resPanel.strokeColor = THEME.strokeGold; resPanel.strokeWeight = 0.7; resPanel.strokeAlpha = 0.36;
+  topBar.addChild(resPanel);
   var goldPill = new eui.Rect();
-  goldPill.width = 86; goldPill.height = 20; goldPill.ellipseWidth = 10; goldPill.ellipseHeight = 10;
+  goldPill.width = 148; goldPill.height = 20; goldPill.ellipseWidth = 10; goldPill.ellipseHeight = 10;
   goldPill.fillColor = 0x2a1a10; goldPill.fillAlpha = 0.9;
   goldPill.strokeColor = THEME.accent; goldPill.strokeWeight = 0.8; goldPill.strokeAlpha = 0.65;
-  goldPill.alpha = 0;
-  goldPill.right = 8; goldPill.y = 7;
+  goldPill.x = stageW - 164; goldPill.y = 12;
   topBar.addChild(goldPill);
   this.goldLabel = new eui.Label();
   this.goldLabel.text = '💰 ' + this.fmt(this.gold);
   this.goldLabel.size = 12; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
-  this.goldLabel.width = 92; this.goldLabel.textAlign = 'right';
-  this.goldLabel.right = 12; this.goldLabel.y = 12;
+  this.goldLabel.width = 138; this.goldLabel.height = 15; this.goldLabel.textAlign = 'right';
+  this.goldLabel.x = stageW - 159; this.goldLabel.y = 15;
   topBar.addChild(this.goldLabel);
 
   var gemPill = new eui.Rect();
-  gemPill.width = 54; gemPill.height = 18; gemPill.ellipseWidth = 9; gemPill.ellipseHeight = 9;
+  gemPill.width = 58; gemPill.height = 18; gemPill.ellipseWidth = 9; gemPill.ellipseHeight = 9;
   gemPill.fillColor = 0x16113a; gemPill.fillAlpha = 0.9;
   gemPill.strokeColor = THEME.lavender; gemPill.strokeWeight = 0.8; gemPill.strokeAlpha = 0.55;
-  gemPill.alpha = 0;
-  gemPill.right = 8; gemPill.y = 31;
+  gemPill.x = stageW - 164; gemPill.y = 36;
   topBar.addChild(gemPill);
   this.gemsLabel = new eui.Label();
   this.gemsLabel.text = '💎 ' + this.rebirthGems;
   this.gemsLabel.size = 11; this.gemsLabel.textColor = 0xb28dd6; this.gemsLabel.bold = true;
-  this.gemsLabel.width = 56; this.gemsLabel.textAlign = 'right';
-  this.gemsLabel.right = 12; this.gemsLabel.y = 37;
+  this.gemsLabel.width = 54; this.gemsLabel.height = 14; this.gemsLabel.textAlign = 'center';
+  this.gemsLabel.x = stageW - 162; this.gemsLabel.y = 39;
   topBar.addChild(this.gemsLabel);
 
-  // 成就按钮：放在 Row1 中段和右段之间
+  // 成就按钮
+  var achPill = new eui.Rect();
+  achPill.width = 42; achPill.height = 18; achPill.ellipseWidth = 9; achPill.ellipseHeight = 9;
+  achPill.fillColor = 0x24160a; achPill.fillAlpha = 0.9;
+  achPill.strokeColor = THEME.accent; achPill.strokeWeight = 0.7; achPill.strokeAlpha = 0.5;
+  achPill.x = stageW - 101; achPill.y = 36;
+  topBar.addChild(achPill);
   var achBtn = new eui.Label();
   achBtn.text = '🏆 ' + this.achievements.length;
   achBtn.size = 12; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true; achBtn.bold = true;
-  achBtn.right = 82; achBtn.y = 37;
+  achBtn.width = 42; achBtn.height = 14; achBtn.textAlign = 'center';
+  achBtn.x = stageW - 101; achBtn.y = 39;
   achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
   topBar.addChild(achBtn);
 
   // 静音切换按钮
+  var mutePill = new eui.Rect();
+  mutePill.width = 32; mutePill.height = 18; mutePill.ellipseWidth = 9; mutePill.ellipseHeight = 9;
+  mutePill.fillColor = 0x16113a; mutePill.fillAlpha = 0.92;
+  mutePill.strokeColor = 0xffffff; mutePill.strokeWeight = 0.7; mutePill.strokeAlpha = 0.16;
+  mutePill.x = stageW - 55; mutePill.y = 36;
+  topBar.addChild(mutePill);
   this.muteLabel = new eui.Label();
   this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
   this.muteLabel.size = 14; this.muteLabel.touchEnabled = true;
-  this.muteLabel.right = 130; this.muteLabel.y = 36;
-  this.muteLabel.alpha = 0;
+  this.muteLabel.width = 32; this.muteLabel.height = 16; this.muteLabel.textAlign = 'center';
+  this.muteLabel.x = stageW - 55; this.muteLabel.y = 37;
+  this.muteLabel.alpha = 0.92;
   this.muteLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.toggleMute, this);
   topBar.addChild(this.muteLabel);
 
@@ -1188,10 +1253,10 @@ Game.prototype.buildUI = function() {
   this._waveNumLbs = [];
 
   // --- Row2：怪物 HP 汇总条（满宽） ---
-  var HP_X = 58, HP_Y = 54, HP_W = stageW - 126, HP_H = 13;
+  var HP_X = 12, HP_Y = 72, HP_W = stageW - 24, HP_H = 12;
   var hpBg = new eui.Rect();
   hpBg.width = HP_W; hpBg.height = HP_H; hpBg.ellipseWidth = 8; hpBg.ellipseHeight = 8;
-  hpBg.fillColor = 0x090616; hpBg.strokeColor = THEME.strokeGold; hpBg.strokeWeight = 0.7; hpBg.strokeAlpha = 0.55;
+  hpBg.fillColor = 0x090616; hpBg.strokeColor = THEME.strokeGold; hpBg.strokeWeight = 0.8; hpBg.strokeAlpha = 0.5;
   hpBg.x = HP_X; hpBg.y = HP_Y;
   topBar.addChild(hpBg);
   this.hpFill = new eui.Rect();
@@ -1204,8 +1269,116 @@ Game.prototype.buildUI = function() {
   this.hpLabel = new eui.Label();
   this.hpLabel.text = '100 / 100'; this.hpLabel.size = 10; this.hpLabel.textColor = 0xffffff;
   this.hpLabel.bold = true;
-  this.hpLabel.horizontalCenter = 0; this.hpLabel.y = HP_Y + 2;
+  this.hpLabel.width = HP_W; this.hpLabel.height = 13; this.hpLabel.textAlign = 'center';
+  this.hpLabel.x = HP_X; this.hpLabel.y = HP_Y + 1;
   topBar.addChild(this.hpLabel);
+
+  // --- Row3：战斗入口区。把原本压在背景上的按钮收进顶部HUD，场景区域保持干净。---
+  var ACTION_Y = 91;
+  var ACTION_H = 32;
+  var actionPanel = new eui.Rect();
+  actionPanel.x = 8; actionPanel.y = ACTION_Y - 3;
+  actionPanel.width = stageW - 16; actionPanel.height = ACTION_H + 6;
+  actionPanel.ellipseWidth = 12; actionPanel.ellipseHeight = 12;
+  actionPanel.fillColor = 0x0d0926; actionPanel.fillAlpha = 0.92;
+  actionPanel.strokeColor = THEME.strokeGold; actionPanel.strokeWeight = 0.8; actionPanel.strokeAlpha = 0.5;
+  topBar.addChild(actionPanel);
+
+  var bossBtnGroup = new eui.Group();
+  bossBtnGroup.width = 106; bossBtnGroup.height = ACTION_H;
+  bossBtnGroup.x = 12; bossBtnGroup.y = ACTION_Y;
+  bossBtnGroup.touchEnabled = true;
+  this._bossBtnBg = new eui.Rect();
+  this._bossBtnBg.width = bossBtnGroup.width; this._bossBtnBg.height = ACTION_H;
+  this._bossBtnBg.ellipseWidth = 12; this._bossBtnBg.ellipseHeight = 12;
+  this._bossBtnBg.fillColor = 0x7a1520;
+  this._bossBtnBg.strokeColor = THEME.strokeGold; this._bossBtnBg.strokeWeight = 1; this._bossBtnBg.strokeAlpha = 0.72;
+  bossBtnGroup.addChild(this._bossBtnBg);
+  var bossIconImg = new eui.Image();
+  this.fitImageToBox(bossIconImg, UI_ASSETS.hudBoss, 28, 28, 5, 2);
+  bossBtnGroup.addChild(bossIconImg);
+  this._bossBtnText = new eui.Label();
+  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 11;
+  this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
+  this._bossBtnText.width = 70; this._bossBtnText.height = 16;
+  this._bossBtnText.x = 32; this._bossBtnText.y = 6;
+  bossBtnGroup.addChild(this._bossBtnText);
+  this._bossBtnHint = new eui.Label();
+  this._bossBtnHint.text = '第9波开启'; this._bossBtnHint.size = 8;
+  this._bossBtnHint.textColor = 0xffd7a3;
+  this._bossBtnHint.width = 70; this._bossBtnHint.height = 12;
+  this._bossBtnHint.x = 32; this._bossBtnHint.y = 20;
+  bossBtnGroup.addChild(this._bossBtnHint);
+  bossBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.challengeBoss();
+  }, this);
+  topBar.addChild(bossBtnGroup);
+  this._bossBtnGroup = bossBtnGroup;
+
+  var codexBtnGroup = new eui.Group();
+  codexBtnGroup.width = 76; codexBtnGroup.height = ACTION_H;
+  codexBtnGroup.x = 124; codexBtnGroup.y = ACTION_Y;
+  codexBtnGroup.touchEnabled = true;
+  var codexBtnBg = new eui.Rect();
+  codexBtnBg.width = codexBtnGroup.width; codexBtnBg.height = ACTION_H;
+  codexBtnBg.ellipseWidth = 12; codexBtnBg.ellipseHeight = 12;
+  codexBtnBg.fillColor = 0x173f35;
+  codexBtnBg.strokeColor = THEME.strokeGold; codexBtnBg.strokeWeight = 0.9; codexBtnBg.strokeAlpha = 0.58;
+  codexBtnGroup.addChild(codexBtnBg);
+  var codexIconImg = new eui.Image();
+  this.fitImageToBox(codexIconImg, UI_ASSETS.hudCodex, 26, 26, 4, 3);
+  codexBtnGroup.addChild(codexIconImg);
+  var codexBtnText = new eui.Label();
+  codexBtnText.text = '图鉴'; codexBtnText.size = 12;
+  codexBtnText.textColor = 0xffffff; codexBtnText.bold = true;
+  codexBtnText.x = 31; codexBtnText.y = 6;
+  codexBtnGroup.addChild(codexBtnText);
+  var codexBtnHint = new eui.Label();
+  codexBtnHint.text = '怪物'; codexBtnHint.size = 8; codexBtnHint.textColor = 0xa7f3d0;
+  codexBtnHint.x = 32; codexBtnHint.y = 20;
+  codexBtnGroup.addChild(codexBtnHint);
+  codexBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.openMonsterCodex();
+  }, this);
+  topBar.addChild(codexBtnGroup);
+
+  var quickDefs = [
+    { asset: UI_ASSETS.hudCheckin, text: '签', fn: function() { self.openCheckin(); } },
+    { asset: UI_ASSETS.hudDailyTask, text: '日', fn: function() { self.openDailyTasks(); } },
+    { asset: UI_ASSETS.hudMail, text: '邮', fn: function() { self.openMail(); } },
+    { asset: UI_ASSETS.hudAnnouncement, text: '告', fn: function() { self.openAnnouncement(); } },
+    { asset: UI_ASSETS.hudRebirth, text: '转', fn: function() { self.openRebirth(); } },
+    { asset: UI_ASSETS.hudEnergy, text: '能', fn: function() { self.openEnergyHelp(); } }
+  ];
+  var quickX = 206;
+  var quickW = 26;
+  for (var qi = 0; qi < quickDefs.length; qi++) {
+    var qd = quickDefs[qi];
+    var qg = new eui.Group();
+    qg.width = quickW; qg.height = ACTION_H;
+    qg.x = quickX + qi * 27; qg.y = ACTION_Y;
+    qg.touchEnabled = true;
+    var qbg = new eui.Rect();
+    qbg.width = quickW; qbg.height = ACTION_H;
+    qbg.ellipseWidth = 10; qbg.ellipseHeight = 10;
+    qbg.fillColor = 0x1b1444; qbg.fillAlpha = 0.96;
+    qbg.strokeColor = THEME.strokeGold; qbg.strokeWeight = 0.7; qbg.strokeAlpha = 0.4;
+    qg.addChild(qbg);
+    var qiImg = new eui.Image();
+    this.fitImageToBox(qiImg, qd.asset, 21, 21, 2.5, 1);
+    qg.addChild(qiImg);
+    var qtLb = new eui.Label();
+    qtLb.text = qd.text; qtLb.size = 8; qtLb.bold = true;
+    qtLb.textColor = THEME.accentSoft;
+    qtLb.width = quickW; qtLb.height = 10;
+    qtLb.textAlign = 'center'; qtLb.x = 0; qtLb.y = 21;
+    qg.addChild(qtLb);
+    (function(fn) {
+      qg.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, self);
+    })(qd.fn);
+    topBar.addChild(qg);
+  }
+  this.updateBossBtn();
 
   this.main.addChild(topBar);
 
@@ -1607,146 +1780,28 @@ Game.prototype.buildUI = function() {
   controlsSkin.alpha = 0;
   this.battleGroup.addChild(controlsSkin);
 
-  // =========================================================
-  // 战斗区布局分区（375px 宽）
-  //
-  //   第一行(y:0~30)   满宽横排6个图标按钮（签到/每日/邮件/公告/磨转/能量）
-  //   第二行(y:30~60)  满宽横排：BOSS挑战 + 图签（各占一半，居中）
-  //   左辅助列  x:0~52   上下4个精灵（单列，scale=0.7放大）
-  //   中央区    x:52~323 宽271（怪物 + 主角）
-  //   右辅助列  x:323~375 上下4个精灵
-  // =========================================================
-
-  // ① 第一行：功能横排（6个图标按钮）
-  var TOP_BTN_H = 30;
-  var topBtnDefs = [
-    { icon: '📅', asset: UI_ASSETS.topCheckin, text: '签到', fn: function() { self.openCheckin(); } },
-    { icon: '📋', asset: UI_ASSETS.topDailyTask, text: '每日', fn: function() { self.openDailyTasks(); } },
-    { icon: '📬', asset: UI_ASSETS.topMail, text: '邮件', fn: function() { self.openMail(); } },
-    { icon: '📢', text: '公告', fn: function() { self.openAnnouncement(); } },
-    { icon: '🔄', text: '磨转', fn: function() { self.openRebirth(); } },
-    { icon: '⚡', text: '能量', fn: function() { self.openEnergyHelp(); } }
-  ];
-  var topBtnW = Math.floor(stageW / topBtnDefs.length);
-  for (var i = 0; i < topBtnDefs.length; i++) {
-    var tbd = topBtnDefs[i];
-    var tbg = new eui.Group();
-    tbg.width = topBtnW; tbg.height = TOP_BTN_H;
-    tbg.x = i * topBtnW; tbg.y = 0;
-    tbg.touchEnabled = true;
-    var tbbg = new eui.Rect();
-    tbbg.width = topBtnW - 4; tbbg.height = TOP_BTN_H - 4;
-    tbbg.x = 2; tbbg.y = 2;
-    tbbg.ellipseWidth = 8; tbbg.ellipseHeight = 8;
-    tbbg.fillColor = 0x1b1444; tbbg.fillAlpha = 0.92;
-    tbbg.strokeColor = THEME.strokeGold; tbbg.strokeWeight = 0.8; tbbg.strokeAlpha = 0.45;
-    tbg.addChild(tbbg);
-    var tbGlow = new eui.Rect();
-    tbGlow.width = topBtnW - 12; tbGlow.height = 1;
-    tbGlow.x = 6; tbGlow.y = 4; tbGlow.fillColor = 0xffffff; tbGlow.fillAlpha = 0.16;
-    tbg.addChild(tbGlow);
-    if (tbd.asset) {
-      var tbImg = new eui.Image();
-      this.fitImageToBox(tbImg, tbd.asset, topBtnW - 10, TOP_BTN_H - 8, 5, 2);
-      tbg.addChild(tbImg);
-    } else {
-      var tbIcon = new eui.Label();
-      tbIcon.text = tbd.icon; tbIcon.size = 13;
-      tbIcon.x = Math.floor((topBtnW - 13) / 2) - 2; tbIcon.y = 3;
-      tbg.addChild(tbIcon);
-    }
-    var tbLb = new eui.Label();
-    tbLb.text = tbd.text; tbLb.size = 8; tbLb.bold = true;
-    tbLb.textColor = THEME.accentSoft;
-    tbLb.width = topBtnW; tbLb.height = 10; tbLb.textAlign = 'center';
-    tbLb.x = 0; tbLb.y = 18;
-    tbg.addChild(tbLb);
-    (function(fn) {
-      tbg.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, self);
-    })(tbd.fn);
-    this.battleGroup.addChild(tbg);
-  }
-
-  // ② 第二行：BOSS挑战 + 图签（各占一半，横排居中）
-  var ROW2_Y = TOP_BTN_H + 2;
-  var ROW2_H = 28;
-  var ROW2_BTN_W = Math.floor(stageW / 2) - 4;
-  // BOSS按钮（左半）
-  var bossBtnGroup = new eui.Group();
-  bossBtnGroup.width = ROW2_BTN_W; bossBtnGroup.height = ROW2_H;
-  bossBtnGroup.x = 2; bossBtnGroup.y = ROW2_Y;
-  bossBtnGroup.touchEnabled = true;
-  this._bossBtnBg = new eui.Rect();
-  this._bossBtnBg.width = ROW2_BTN_W; this._bossBtnBg.height = ROW2_H;
-  this._bossBtnBg.ellipseWidth = 10; this._bossBtnBg.ellipseHeight = 10;
-  this._bossBtnBg.fillColor = 0x7a1520;
-  this._bossBtnBg.strokeColor = THEME.strokeGold; this._bossBtnBg.strokeWeight = 1.2; this._bossBtnBg.strokeAlpha = 0.75;
-  bossBtnGroup.addChild(this._bossBtnBg);
-  var bossBtnGloss = new eui.Rect();
-  bossBtnGloss.width = ROW2_BTN_W - 14; bossBtnGloss.height = 2;
-  bossBtnGloss.x = 7; bossBtnGloss.y = 4; bossBtnGloss.fillColor = 0xffffff; bossBtnGloss.fillAlpha = 0.14;
-  bossBtnGroup.addChild(bossBtnGloss);
-  var bossIconLb = new eui.Label();
-  bossIconLb.text = '💀'; bossIconLb.size = 14;
-  bossIconLb.x = Math.floor(ROW2_BTN_W / 2) - 28; bossIconLb.y = 6;
-  bossBtnGroup.addChild(bossIconLb);
-  this._bossBtnText = new eui.Label();
-  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 11;
-  this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
-  this._bossBtnText.x = Math.floor(ROW2_BTN_W / 2) - 12; this._bossBtnText.y = 8;
-  bossBtnGroup.addChild(this._bossBtnText);
-  bossBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
-    self.challengeBoss();
-  }, this);
-  this.battleGroup.addChild(bossBtnGroup);
-  this._bossBtnGroup = bossBtnGroup;
-  this.updateBossBtn();
-
-  // 图签按钮（右半）
-  var codexBtnGroup = new eui.Group();
-  codexBtnGroup.width = ROW2_BTN_W; codexBtnGroup.height = ROW2_H;
-  codexBtnGroup.x = stageW / 2 + 2; codexBtnGroup.y = ROW2_Y;
-  codexBtnGroup.touchEnabled = true;
-  var codexBtnBg = new eui.Rect();
-  codexBtnBg.width = ROW2_BTN_W; codexBtnBg.height = ROW2_H;
-  codexBtnBg.ellipseWidth = 10; codexBtnBg.ellipseHeight = 10;
-  codexBtnBg.fillColor = 0x173f35;
-  codexBtnBg.strokeColor = THEME.strokeGold; codexBtnBg.strokeWeight = 1; codexBtnBg.strokeAlpha = 0.65;
-  codexBtnGroup.addChild(codexBtnBg);
-  var codexBtnGloss = new eui.Rect();
-  codexBtnGloss.width = ROW2_BTN_W - 14; codexBtnGloss.height = 2;
-  codexBtnGloss.x = 7; codexBtnGloss.y = 4; codexBtnGloss.fillColor = 0xffffff; codexBtnGloss.fillAlpha = 0.14;
-  codexBtnGroup.addChild(codexBtnGloss);
-  var codexIconLb = new eui.Label();
-  codexIconLb.text = '📖'; codexIconLb.size = 14;
-  codexIconLb.x = Math.floor(ROW2_BTN_W / 2) - 28; codexIconLb.y = 6;
-  codexBtnGroup.addChild(codexIconLb);
-  var codexBtnText = new eui.Label();
-  codexBtnText.text = '怪物图签'; codexBtnText.size = 11;
-  codexBtnText.textColor = 0xffffff; codexBtnText.bold = true;
-  codexBtnText.x = Math.floor(ROW2_BTN_W / 2) - 12; codexBtnText.y = 8;
-  codexBtnGroup.addChild(codexBtnText);
-  codexBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
-    self.openMonsterCodex();
-  }, this);
-  this.battleGroup.addChild(codexBtnGroup);
+  // 顶部功能入口已经移入HUD，战斗区从这里开始只保留角色、怪物和场景。
+  var TOP_BTN_H = 0;
+  var ROW2_H = 0;
 
   // ③ 辅助/锁定位：按概念图放回战斗舞台两侧，中央只留给怪物和主角。
-  var SUP_COL_W = 48;
-  var SUP_AREA_Y = TOP_BTN_H + ROW2_H + 42;
-  var SUP_AREA_H = BATTLE_H - SUP_AREA_Y - 42;
+  var SUP_COL_W = 68;
+  var SUPPORT_SLOT_W = 70;
+  var SUPPORT_SLOT_H = 88;
+  var SUP_AREA_Y = TOP_BTN_H + ROW2_H + 28;
+  var SUP_AREA_H = BATTLE_H - SUP_AREA_Y - 36;
   var SUP_SLOT_H = Math.floor(SUP_AREA_H / 4);
   this._supportSlots = [];
   var leftSup = new eui.Group();
   leftSup.x = 3; leftSup.y = SUP_AREA_Y;
   leftSup.width = SUP_COL_W; leftSup.height = SUP_AREA_H;
   for (var i = 0; i < 4; i++) {
-    var slotY = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 48) / 2);
+    var slotY = i * SUP_SLOT_H + Math.floor((SUP_SLOT_H - SUPPORT_SLOT_H) / 2);
     var slot = this.createSupportSlot(i, true);
-    slot.x = 2;
+    slot.x = -1;
     slot.y = slotY;
     leftSup.addChild(slot);
-    this._supportSlots[i] = { x: leftSup.x + slot.x + 20, y: leftSup.y + slot.y + 24 };
+    this._supportSlots[i] = { x: leftSup.x + slot.x + SUPPORT_SLOT_W / 2, y: leftSup.y + slot.y + SUPPORT_SLOT_H / 2 };
   }
   this.leftSupGroup = leftSup;
   this.battleGroup.addChild(leftSup);
@@ -1755,12 +1810,12 @@ Game.prototype.buildUI = function() {
   rightSup.x = stageW - SUP_COL_W - 3; rightSup.y = SUP_AREA_Y;
   rightSup.width = SUP_COL_W; rightSup.height = SUP_AREA_H;
   for (var i = 4; i < 8; i++) {
-    var slotY = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - 48) / 2);
+    var slotY = (i - 4) * SUP_SLOT_H + Math.floor((SUP_SLOT_H - SUPPORT_SLOT_H) / 2);
     var slot = this.createSupportSlot(i, false);
-    slot.x = 4;
+    slot.x = -1;
     slot.y = slotY;
     rightSup.addChild(slot);
-    this._supportSlots[i] = { x: rightSup.x + slot.x + 20, y: rightSup.y + slot.y + 24 };
+    this._supportSlots[i] = { x: rightSup.x + slot.x + SUPPORT_SLOT_W / 2, y: rightSup.y + slot.y + SUPPORT_SLOT_H / 2 };
   }
   this.rightSupGroup = rightSup;
   this.battleGroup.addChild(rightSup);
@@ -2171,34 +2226,34 @@ Game.prototype.createSupportSlot = function(idx, faceRight) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
   var g = new eui.Group();
-  g.width = 40; g.height = 48;
+  g.width = 70; g.height = 88;
   g.name = 'support-' + idx;
   var shadow = new eui.Rect();
-  shadow.width = 28; shadow.height = 6;
-  shadow.x = 6; shadow.y = 32;
+  shadow.width = 50; shadow.height = 9;
+  shadow.x = 10; shadow.y = 63;
   shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
   shadow.fillColor = 0x000000; shadow.fillAlpha = s.unlocked ? 0.26 : 0.16;
   g.addChild(shadow);
 
   var sprite = new eui.Image();
   var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
-  this.fitImageToBox(sprite, source, 42, 42, -1, -2);
+  this.fitImageToBox(sprite, source, 68, 74, 1, 0);
   sprite.alpha = s.unlocked ? 1 : 0.48;
   g.addChild(sprite);
 
   var lbBg = new eui.Rect();
-  lbBg.width = 34; lbBg.height = 10;
-  lbBg.x = 3; lbBg.y = 37;
+  lbBg.width = 58; lbBg.height = 15;
+  lbBg.x = 6; lbBg.y = 69;
   lbBg.ellipseWidth = 6; lbBg.ellipseHeight = 6;
   lbBg.fillColor = 0x050918; lbBg.fillAlpha = 0.66;
   g.addChild(lbBg);
   var lb = new eui.Label();
   lb.text = s.unlocked ? def.symbol.slice(0, 2) : 'W' + def.wave;
-  lb.size = 8; lb.bold = true;
+  lb.size = 9; lb.bold = true;
   lb.textColor = s.unlocked ? THEME.accentSoft : THEME.textMute;
-  lb.width = 40; lb.height = 10;
+  lb.width = 58; lb.height = 13;
   lb.textAlign = 'center';
-  lb.x = 0; lb.y = 38;
+  lb.x = 6; lb.y = 72;
   g.addChild(lb);
   return g;
 };
@@ -2822,18 +2877,30 @@ Game.prototype.updateBossBtn = function() {
 
   if (isBossWave) {
     this._bossBtnBg.fillColor = 0xe74c3c;
-    this._bossBtnText.text = '💀战斗中';
+    this._bossBtnText.text = 'BOSS战';
     this._bossBtnText.textColor = 0xffffff;
+    if (this._bossBtnHint) {
+      this._bossBtnHint.text = '限时击杀';
+      this._bossBtnHint.textColor = 0xffe4e6;
+    }
     if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
   } else if (canChallenge) {
     this._bossBtnBg.fillColor = 0x9b2335;
     this._bossBtnText.text = '挑战BOSS';
     this._bossBtnText.textColor = 0xffffff;
+    if (this._bossBtnHint) {
+      this._bossBtnHint.text = '可挑战';
+      this._bossBtnHint.textColor = 0xffd7a3;
+    }
     if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
   } else {
     this._bossBtnBg.fillColor = 0x444444;
     this._bossBtnText.text = '挑战BOSS';
     this._bossBtnText.textColor = 0x888888;
+    if (this._bossBtnHint) {
+      this._bossBtnHint.text = waveInCycle + '/9 开启';
+      this._bossBtnHint.textColor = 0xaaaaaa;
+    }
     if (this._bossBtnGroup) this._bossBtnGroup.alpha = 0.6;
   }
 };
@@ -5491,11 +5558,13 @@ Game.prototype.showBossFlash = function() {
 Game.prototype.refreshSupportViews = function() {
   var battleH = this._battleH || 400;
   var stageW = this._stageW || 375;
-  var topBtnH = 30;
-  var row2H = 28;
-  var supColW = 48;
-  var areaY = topBtnH + row2H + 42;
-  var areaH = battleH - areaY - 42;
+  var topBtnH = 0;
+  var row2H = 0;
+  var supColW = 68;
+  var supportSlotW = 70;
+  var supportSlotH = 88;
+  var areaY = topBtnH + row2H + 28;
+  var areaH = battleH - areaY - 36;
   var slotH = Math.floor(areaH / 4);
   this._supportSlots = [];
   if (this.leftSupGroup) {
@@ -5507,11 +5576,11 @@ Game.prototype.refreshSupportViews = function() {
       this.leftSupGroup.removeChildAt(0);
     }
     for (var i = 0; i < 4; i++) {
-      var slotY = i * slotH + Math.floor((slotH - 48) / 2);
+      var slotY = i * slotH + Math.floor((slotH - supportSlotH) / 2);
       var slot = this.createSupportSlot(i, true);
-      slot.x = 2; slot.y = slotY;
+      slot.x = -1; slot.y = slotY;
       this.leftSupGroup.addChild(slot);
-      this._supportSlots[i] = { x: this.leftSupGroup.x + slot.x + 20, y: this.leftSupGroup.y + slot.y + 24 };
+      this._supportSlots[i] = { x: this.leftSupGroup.x + slot.x + supportSlotW / 2, y: this.leftSupGroup.y + slot.y + supportSlotH / 2 };
     }
   }
   if (this.rightSupGroup) {
@@ -5523,11 +5592,11 @@ Game.prototype.refreshSupportViews = function() {
       this.rightSupGroup.removeChildAt(0);
     }
     for (var i = 4; i < 8; i++) {
-      var slotY = (i - 4) * slotH + Math.floor((slotH - 48) / 2);
+      var slotY = (i - 4) * slotH + Math.floor((slotH - supportSlotH) / 2);
       var slot = this.createSupportSlot(i, false);
-      slot.x = 4; slot.y = slotY;
+      slot.x = -1; slot.y = slotY;
       this.rightSupGroup.addChild(slot);
-      this._supportSlots[i] = { x: this.rightSupGroup.x + slot.x + 20, y: this.rightSupGroup.y + slot.y + 24 };
+      this._supportSlots[i] = { x: this.rightSupGroup.x + slot.x + supportSlotW / 2, y: this.rightSupGroup.y + slot.y + supportSlotH / 2 };
     }
   }
 };
