@@ -91,6 +91,7 @@ var UI_ASSETS = {
   hudAnnouncement: 'assets/image2-white-assets/top-hud-v1/top-announcement-white.png',
   hudRebirth: 'assets/image2-white-assets/top-hud-v1/top-rebirth-white.png',
   hudEnergy: 'assets/image2-white-assets/top-hud-v1/top-energy-white.png',
+  brandDmax: 'assets/image2-brand/dmax-v1/dmax-title-badge-compact-runtime.png',
   skillLightWand: 'assets/image2-white-assets/layout-v2/skill-light-wand-white.png',
   skillHeavySlash: 'assets/image2-white-assets/layout-v2/skill-heavy-slash-white.png',
   skillIceCombo: 'assets/image2-white-assets/layout-v2/skill-ice-combo-white.png',
@@ -146,6 +147,7 @@ UI_ASSET_SIZES[UI_ASSETS.hudMail] = { w: 1254, h: 1254 };
 UI_ASSET_SIZES[UI_ASSETS.hudAnnouncement] = { w: 1254, h: 1254 };
 UI_ASSET_SIZES[UI_ASSETS.hudRebirth] = { w: 1254, h: 1254 };
 UI_ASSET_SIZES[UI_ASSETS.hudEnergy] = { w: 1254, h: 1254 };
+UI_ASSET_SIZES[UI_ASSETS.brandDmax] = { w: 1148, h: 730 };
 UI_ASSET_SIZES[UI_ASSETS.skillLightWand] = { w: 188, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.skillHeavySlash] = { w: 188, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.skillIceCombo] = { w: 188, h: 192 };
@@ -216,9 +218,9 @@ var BATTLE_SCENES = [
 var CONFIG = {
   maxEnergy: 100,
   energyRecovery: 1,
-  energyRecoveryInterval: 5,
+  energyRecoveryInterval: 2,
   attackEnergyCost: 2,
-  skillEnergyCost: 8,
+  skillEnergyCost: 0,
   killEnergyReward: 0,
   bossKillEnergyReward: 6,
   energyPotionValue: 30,
@@ -244,13 +246,13 @@ var CONFIG = {
 //   icon   drawSkillIcon 消费的形状 key
 //   glow   辉光色
 var SKILLS = [
-  { name: '轻击', cd: 0,  dmg: 1,   hits: 1, lv: 1,  color: 0x5ec8ff, icon: 'slash',   glow: 0xa8e0ff },
-  { name: '破岳', cd: 5,  dmg: 2,   hits: 1, lv: 3,  color: 0xef4444, icon: 'smash',   glow: 0xffb5b5 },
-  { name: '连斩', cd: 8,  dmg: 0.8, hits: 3, lv: 5,  color: 0xfbbf24, icon: 'triple',  glow: 0xfff1b0 },
-  { name: '裂光', cd: 12, dmg: 4,   hits: 1, lv: 8,  color: 0xc7a7ff, icon: 'crit',    glow: 0xe7d4ff },
-  { name: '糖风', cd: 18, dmg: 2.5, hits: 0, lv: 12, color: 0x7be8b7, icon: 'whirl',   glow: 0xc5f5dd },
-  { name: '雷霆', cd: 30, dmg: 6,   hits: 1, lv: 18, color: 0xffd166, icon: 'thunder', glow: 0xffe8a5 },
-  { name: '星陨', cd: 60, dmg: 12,  hits: 1, lv: 25, color: 0xff7eb0, icon: 'meteor',  glow: 0xffcfe2 }
+  { name: '轻击', cd: 4,  dmg: 1.2,  hits: 1, lv: 1,  effect: 'single',    color: 0x5ec8ff, icon: 'slash',   glow: 0xa8e0ff },
+  { name: '破岳', cd: 14, dmg: 3.2,  hits: 1, lv: 3,  effect: 'boss',      color: 0xef4444, icon: 'smash',   glow: 0xffb5b5 },
+  { name: '连斩', cd: 18, dmg: 0.85, hits: 5, lv: 5,  effect: 'multi',     color: 0xfbbf24, icon: 'triple',  glow: 0xfff1b0 },
+  { name: '裂光', cd: 24, dmg: 2.4,  hits: 1, lv: 8,  effect: 'critBuff',  color: 0xc7a7ff, icon: 'crit',    glow: 0xe7d4ff },
+  { name: '糖风', cd: 30, dmg: 1.5,  hits: 0, lv: 12, effect: 'aoe',       color: 0x7be8b7, icon: 'whirl',   glow: 0xc5f5dd },
+  { name: '雷霆', cd: 40, dmg: 1.2,  hits: 0, lv: 18, effect: 'speedBuff', color: 0xffd166, icon: 'thunder', glow: 0xffe8a5 },
+  { name: '星陨', cd: 70, dmg: 5.2,  hits: 0, lv: 25, effect: 'meteor',    color: 0xff7eb0, icon: 'meteor',  glow: 0xffcfe2 }
 ];
 
 // 怪物类型定义（三层光影风格）
@@ -365,6 +367,7 @@ function Game(main) {
   this.killCount = 0;
   this.skillCD = [0,0,0,0,0,0,0];
   this.skillUnlocked = [true,false,false,false,false,false,false];
+  this.skillBuffs = { attackTime: 0, attackMult: 1, speedTime: 0, speedMult: 1, critTime: 0, critBonus: 0 };
   this.supports = SUPPORTS_DEF.map(function(s) {
     return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: s.wave === 0 };
   });
@@ -448,6 +451,10 @@ Game.prototype.waveText = function() {
   return '第 ' + this.wave + ' 波' + (this.wave % 10 === 0 ? ' 💀BOSS' : '');
 };
 
+Game.prototype.compactWaveText = function() {
+  return this.wave + (this.wave % 10 === 0 ? 'B' : '波');
+};
+
 Game.prototype.totalDps = function() {
   var base = CONFIG.mainDmg(this.mainLevel, this.rebirthGems);
   var supMult = 1 + this.rebirthGems * 0.08;
@@ -462,12 +469,33 @@ Game.prototype.getBuffs = function() {
   var l = this.foods['棒棒糖'] || 0;
   var m = this.foods['牛奶'] || 0;
   var r = this.foods['烤肉'] || 0;
+  var sb = this.skillBuffs || {};
+  var skillAttack = sb.attackTime > 0 ? (sb.attackMult || 1) : 1;
+  var skillSpeed = sb.speedTime > 0 ? (sb.speedMult || 1) : 1;
+  var skillCrit = sb.critTime > 0 ? (sb.critBonus || 0) : 0;
   return {
-    critChance: 0.1 + l * 0.1,
-    attackMult: (1 + m * 0.15) * (1 + r * 0.2),
-    speedMult: (1 + l * 0.1) * (1 + r * 0.2),
+    critChance: Math.min(0.85, 0.1 + l * 0.1 + skillCrit),
+    attackMult: (1 + m * 0.15) * (1 + r * 0.2) * skillAttack,
+    speedMult: (1 + l * 0.1) * (1 + r * 0.2) * skillSpeed,
     supportMult: 1 + r * 0.2
   };
+};
+
+Game.prototype.tickSkillBuffs = function() {
+  if (!this.skillBuffs) this.skillBuffs = { attackTime: 0, attackMult: 1, speedTime: 0, speedMult: 1, critTime: 0, critBonus: 0 };
+  if (this.skillBuffs.attackTime > 0) this.skillBuffs.attackTime--;
+  if (this.skillBuffs.speedTime > 0) this.skillBuffs.speedTime--;
+  if (this.skillBuffs.critTime > 0) this.skillBuffs.critTime--;
+};
+
+Game.prototype.findPriorityTargetIndex = function() {
+  var targetIdx = -1;
+  for (var i = 0; i < this.monsters.length; i++) {
+    var m = this.monsters[i];
+    if (!m || m.hp <= 0) continue;
+    if (targetIdx < 0 || m.hp > this.monsters[targetIdx].hp) targetIdx = i;
+  }
+  return targetIdx;
 };
 
 Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
@@ -1154,96 +1182,113 @@ Game.prototype.buildUI = function() {
   this._avatarIcon = avatarIcon;
   topBar.addChild(avatarGroup);
 
+  // --- Row1 中央：品牌铭牌 ---
+  var brandGroup = new eui.Group();
+  brandGroup.width = 112; brandGroup.height = 50;
+  brandGroup.x = Math.floor((stageW - brandGroup.width) / 2);
+  brandGroup.y = 7;
+  brandGroup.touchEnabled = false;
+  var brandGlow = new eui.Rect();
+  brandGlow.width = 104; brandGlow.height = 30;
+  brandGlow.x = 5; brandGlow.y = 13;
+  brandGlow.ellipseWidth = 16; brandGlow.ellipseHeight = 16;
+  brandGlow.fillColor = 0xfbbf24; brandGlow.fillAlpha = 0.08;
+  brandGroup.addChild(brandGlow);
+  var brandImg = new eui.Image();
+  this.fitImageToBox(brandImg, UI_ASSETS.brandDmax, 112, 50, 0, 0);
+  brandGroup.addChild(brandImg);
+  topBar.addChild(brandGroup);
+
   // --- Row1 中：昵称（可点击修改）+ 波次 ---
   var namePlate = new eui.Rect();
-  namePlate.width = 128; namePlate.height = 25;
-  namePlate.x = 72; namePlate.y = 10;
+  namePlate.width = 48; namePlate.height = 25;
+  namePlate.x = 70; namePlate.y = 10;
   namePlate.ellipseWidth = 10; namePlate.ellipseHeight = 10;
   namePlate.fillColor = 0x0d0926; namePlate.fillAlpha = 0.72;
   namePlate.strokeColor = 0xffffff; namePlate.strokeAlpha = 0.08; namePlate.strokeWeight = 0.8;
   topBar.addChild(namePlate);
   var nameLb = new eui.Label();
   nameLb.text = (this.playerName || '玩家') + ' ✎';
-  nameLb.size = 13; nameLb.textColor = THEME.textMain; nameLb.bold = true;
-  nameLb.width = 118; nameLb.height = 18;
-  nameLb.x = 79; nameLb.y = 14; nameLb.touchEnabled = true;
+  nameLb.size = 11; nameLb.textColor = THEME.textMain; nameLb.bold = true;
+  nameLb.width = 40; nameLb.height = 18; nameLb.textAlign = 'center';
+  nameLb.x = 74; nameLb.y = 14; nameLb.touchEnabled = true;
   nameLb.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openNameEditor(); }, this);
   topBar.addChild(nameLb);
   this._nameLb = nameLb;
   var wavePlate = new eui.Rect();
-  wavePlate.width = 128; wavePlate.height = 21;
-  wavePlate.x = 72; wavePlate.y = 39;
+  wavePlate.width = 48; wavePlate.height = 21;
+  wavePlate.x = 70; wavePlate.y = 39;
   wavePlate.ellipseWidth = 9; wavePlate.ellipseHeight = 9;
   wavePlate.fillColor = 0x1f174a; wavePlate.fillAlpha = 0.78;
   wavePlate.strokeColor = THEME.strokeGold; wavePlate.strokeAlpha = 0.28; wavePlate.strokeWeight = 0.7;
   topBar.addChild(wavePlate);
   this.waveLabel = new eui.Label();
-  this.waveLabel.text = this.waveText(); this.waveLabel.size = 11; this.waveLabel.textColor = 0xfbbf24;
-  this.waveLabel.width = 118; this.waveLabel.height = 14;
-  this.waveLabel.x = 79; this.waveLabel.y = 43;
+  this.waveLabel.text = this.compactWaveText(); this.waveLabel.size = 9; this.waveLabel.textColor = 0xfbbf24;
+  this.waveLabel.width = 44; this.waveLabel.height = 14; this.waveLabel.textAlign = 'center';
+  this.waveLabel.x = 72; this.waveLabel.y = 43;
   topBar.addChild(this.waveLabel);
 
   // --- Row1 右：资源与系统状态 ---
   var resPanel = new eui.Rect();
-  resPanel.width = 160; resPanel.height = 52;
-  resPanel.x = stageW - 170; resPanel.y = 8;
+  resPanel.width = 119; resPanel.height = 52;
+  resPanel.x = stageW - 129; resPanel.y = 8;
   resPanel.ellipseWidth = 12; resPanel.ellipseHeight = 12;
   resPanel.fillColor = 0x0d0926; resPanel.fillAlpha = 0.78;
   resPanel.strokeColor = THEME.strokeGold; resPanel.strokeWeight = 0.7; resPanel.strokeAlpha = 0.36;
   topBar.addChild(resPanel);
   var goldPill = new eui.Rect();
-  goldPill.width = 148; goldPill.height = 20; goldPill.ellipseWidth = 10; goldPill.ellipseHeight = 10;
+  goldPill.width = 107; goldPill.height = 20; goldPill.ellipseWidth = 10; goldPill.ellipseHeight = 10;
   goldPill.fillColor = 0x2a1a10; goldPill.fillAlpha = 0.9;
   goldPill.strokeColor = THEME.accent; goldPill.strokeWeight = 0.8; goldPill.strokeAlpha = 0.65;
-  goldPill.x = stageW - 164; goldPill.y = 12;
+  goldPill.x = stageW - 123; goldPill.y = 12;
   topBar.addChild(goldPill);
   this.goldLabel = new eui.Label();
   this.goldLabel.text = '💰 ' + this.fmt(this.gold);
-  this.goldLabel.size = 12; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
-  this.goldLabel.width = 138; this.goldLabel.height = 15; this.goldLabel.textAlign = 'right';
-  this.goldLabel.x = stageW - 159; this.goldLabel.y = 15;
+  this.goldLabel.size = 11; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
+  this.goldLabel.width = 99; this.goldLabel.height = 15; this.goldLabel.textAlign = 'right';
+  this.goldLabel.x = stageW - 119; this.goldLabel.y = 15;
   topBar.addChild(this.goldLabel);
 
   var gemPill = new eui.Rect();
-  gemPill.width = 58; gemPill.height = 18; gemPill.ellipseWidth = 9; gemPill.ellipseHeight = 9;
+  gemPill.width = 36; gemPill.height = 18; gemPill.ellipseWidth = 9; gemPill.ellipseHeight = 9;
   gemPill.fillColor = 0x16113a; gemPill.fillAlpha = 0.9;
   gemPill.strokeColor = THEME.lavender; gemPill.strokeWeight = 0.8; gemPill.strokeAlpha = 0.55;
-  gemPill.x = stageW - 164; gemPill.y = 36;
+  gemPill.x = stageW - 123; gemPill.y = 36;
   topBar.addChild(gemPill);
   this.gemsLabel = new eui.Label();
   this.gemsLabel.text = '💎 ' + this.rebirthGems;
-  this.gemsLabel.size = 11; this.gemsLabel.textColor = 0xb28dd6; this.gemsLabel.bold = true;
-  this.gemsLabel.width = 54; this.gemsLabel.height = 14; this.gemsLabel.textAlign = 'center';
-  this.gemsLabel.x = stageW - 162; this.gemsLabel.y = 39;
+  this.gemsLabel.size = 10; this.gemsLabel.textColor = 0xb28dd6; this.gemsLabel.bold = true;
+  this.gemsLabel.width = 34; this.gemsLabel.height = 14; this.gemsLabel.textAlign = 'center';
+  this.gemsLabel.x = stageW - 122; this.gemsLabel.y = 39;
   topBar.addChild(this.gemsLabel);
 
   // 成就按钮
   var achPill = new eui.Rect();
-  achPill.width = 42; achPill.height = 18; achPill.ellipseWidth = 9; achPill.ellipseHeight = 9;
+  achPill.width = 34; achPill.height = 18; achPill.ellipseWidth = 9; achPill.ellipseHeight = 9;
   achPill.fillColor = 0x24160a; achPill.fillAlpha = 0.9;
   achPill.strokeColor = THEME.accent; achPill.strokeWeight = 0.7; achPill.strokeAlpha = 0.5;
-  achPill.x = stageW - 101; achPill.y = 36;
+  achPill.x = stageW - 83; achPill.y = 36;
   topBar.addChild(achPill);
   var achBtn = new eui.Label();
   achBtn.text = '🏆 ' + this.achievements.length;
-  achBtn.size = 12; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true; achBtn.bold = true;
-  achBtn.width = 42; achBtn.height = 14; achBtn.textAlign = 'center';
-  achBtn.x = stageW - 101; achBtn.y = 39;
+  achBtn.size = 10; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true; achBtn.bold = true;
+  achBtn.width = 34; achBtn.height = 14; achBtn.textAlign = 'center';
+  achBtn.x = stageW - 83; achBtn.y = 39;
   achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
   topBar.addChild(achBtn);
 
   // 静音切换按钮
   var mutePill = new eui.Rect();
-  mutePill.width = 32; mutePill.height = 18; mutePill.ellipseWidth = 9; mutePill.ellipseHeight = 9;
+  mutePill.width = 28; mutePill.height = 18; mutePill.ellipseWidth = 9; mutePill.ellipseHeight = 9;
   mutePill.fillColor = 0x16113a; mutePill.fillAlpha = 0.92;
   mutePill.strokeColor = 0xffffff; mutePill.strokeWeight = 0.7; mutePill.strokeAlpha = 0.16;
-  mutePill.x = stageW - 55; mutePill.y = 36;
+  mutePill.x = stageW - 45; mutePill.y = 36;
   topBar.addChild(mutePill);
   this.muteLabel = new eui.Label();
   this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
-  this.muteLabel.size = 14; this.muteLabel.touchEnabled = true;
-  this.muteLabel.width = 32; this.muteLabel.height = 16; this.muteLabel.textAlign = 'center';
-  this.muteLabel.x = stageW - 55; this.muteLabel.y = 37;
+  this.muteLabel.size = 13; this.muteLabel.touchEnabled = true;
+  this.muteLabel.width = 28; this.muteLabel.height = 16; this.muteLabel.textAlign = 'center';
+  this.muteLabel.x = stageW - 45; this.muteLabel.y = 37;
   this.muteLabel.alpha = 0.92;
   this.muteLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.toggleMute, this);
   topBar.addChild(this.muteLabel);
@@ -2592,6 +2637,10 @@ Game.prototype.renderBuffText = function() {
     var count = this.foods[FOODS[i].name] || 0;
     if (count > 0) parts.push(FOODS[i].icon + count);
   }
+  var sb = this.skillBuffs || {};
+  if (sb.attackTime > 0) parts.push('攻+' + sb.attackTime + 's');
+  if (sb.speedTime > 0) parts.push('速+' + sb.speedTime + 's');
+  if (sb.critTime > 0) parts.push('暴+' + sb.critTime + 's');
   return parts.join(' ');
 };
 
@@ -3033,26 +3082,61 @@ Game.prototype.useSkill = function(idx) {
   if (!this.skillUnlocked[idx]) { this.showToast('技能未解锁！'); return; }
   if (this.skillCD[idx] > 0) { this.showToast('冷却中！'); return; }
   if (this.monsters.length === 0) { this.showToast('没有怪物！'); return; }
-  if (this.energy < CONFIG.skillEnergyCost) { this.showToast('能量不足！'); return; }
   var s = SKILLS[idx];
   this.sfxSkill();
-  this.energy -= CONFIG.skillEnergyCost;
   this.skillCD[idx] = s.cd;
   var dmg = CONFIG.mainDmg(this.mainLevel, this.rebirthGems) * s.dmg;
-  if (s.hits === 0) {
-    // 全体技能，主角向中间冲刺
-    this.heroAttackAnim(0);
-    var self = this;
-    this.monsters.slice().forEach(function(m, i) { self.doDamage(m, dmg, i, true); });
-  } else {
+  var self = this;
+  var targetIdx = this.findPriorityTargetIndex();
+  if (targetIdx < 0) { this.showToast('没有怪物！'); return; }
+
+  if (s.effect === 'aoe' || s.effect === 'meteor' || s.effect === 'speedBuff') {
+    this.heroAttackAnim(targetIdx);
+    var targets = this.monsters.slice();
+    targets.forEach(function(m) {
+      var liveIdx = self.monsters.indexOf(m);
+      if (liveIdx < 0 || !m || m.hp <= 0) return;
+      var aoeDmg = dmg;
+      if (s.effect === 'meteor' && m.isBoss) aoeDmg *= 1.35;
+      self.doDamage(m, aoeDmg, liveIdx, s.effect === 'meteor');
+    });
+    if (s.effect === 'speedBuff') {
+      this.skillBuffs.speedTime = 10;
+      this.skillBuffs.speedMult = 1.75;
+      this.showToast('⚡ 雷霆：攻速提升10秒');
+    } else if (s.effect === 'meteor') {
+      this.showToast('☄ 星陨：全屏爆发');
+    } else {
+      this.showToast('🌪 糖风：范围伤害');
+    }
+  } else if (s.effect === 'multi') {
     for (var i = 0; i < s.hits; i++) {
       if (this.monsters.length === 0) break;
-      var mi = Math.floor(Math.random() * this.monsters.length);
+      var alive = [];
+      for (var a = 0; a < this.monsters.length; a++) {
+        if (this.monsters[a] && this.monsters[a].hp > 0) alive.push(a);
+      }
+      if (alive.length === 0) break;
+      var mi = alive[Math.floor(Math.random() * alive.length)];
       this.heroAttackAnim(mi);
       var m = this.monsters[mi];
-      if (m) this.doDamage(m, dmg, mi, true);
+      if (m) this.doDamage(m, dmg, mi, false);
     }
+    this.showToast('⚔ 连斩：多段攻击');
+  } else {
+    var target = this.monsters[targetIdx];
+    if (!target) return;
+    if (s.effect === 'boss' && target.isBoss) dmg *= 2.15;
+    if (s.effect === 'critBuff') {
+      this.skillBuffs.critTime = 10;
+      this.skillBuffs.critBonus = 0.25;
+      dmg *= 1.8;
+      this.showToast('✦ 裂光：暴击提升10秒');
+    }
+    this.heroAttackAnim(targetIdx);
+    this.doDamage(target, dmg, targetIdx, s.effect === 'critBuff' || s.effect === 'boss');
   }
+  this.updateUI();
 };
 
 // ==================== UI 更新 ====================
@@ -3071,7 +3155,7 @@ Game.prototype.updateWaveNumbers = function() {
 
 Game.prototype.updateUI = function() {
   if (this.goldLabel) this.goldLabel.text = '💰 ' + this.fmt(this.gold);
-  if (this.waveLabel) this.waveLabel.text = this.waveText();
+  if (this.waveLabel) this.waveLabel.text = this.compactWaveText();
   this.updateWaveNumbers();
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
@@ -4468,8 +4552,7 @@ Game.prototype.openEnergyHelp = function() {
   panel.addChild(info);
 
   var tip = new eui.Label();
-  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n使用技能消耗' +
-    CONFIG.skillEnergyCost + '能量\n能量会缓慢自动恢复，也可以在商城购买';
+  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n技能不消耗能量，只受冷却限制\n能量每2秒恢复，也可以在商城购买';
   tip.size = 11; tip.textColor = 0x888888;
   tip.x = 25; tip.top = 100; tip.lineSpacing = 4;
   panel.addChild(tip);
@@ -5228,6 +5311,7 @@ Game.prototype.startLoop = function() {
     for (var i = 0; i < self.skillCD.length; i++) {
       if (self.skillCD[i] > 0) self.skillCD[i]--;
     }
+    self.tickSkillBuffs();
     self.updateUI();
   }, 1000);
 
@@ -5245,7 +5329,13 @@ Game.prototype.startLoop = function() {
     var tIdx = self.monsters.indexOf(target);
     if (tIdx === -1 || target.hp <= 0) return; // 二次保险：获取 indexOf 后再确认
     self.heroAttackAnim(tIdx);
-    self.doDamage(target, CONFIG.mainDmg(self.mainLevel, self.rebirthGems), tIdx);
+    var buffs = self.getBuffs();
+    var baseDmg = CONFIG.mainDmg(self.mainLevel, self.rebirthGems);
+    self.doDamage(target, baseDmg, tIdx);
+    var extraChance = Math.max(0, Math.min(1, buffs.speedMult - 1));
+    if (target.hp > 0 && extraChance > 0 && Math.random() < extraChance) {
+      self.doDamage(target, baseDmg, tIdx);
+    }
   }, 1000);
 
   // 辅助角色独立攻击（每个角色不同间隔，错开时间）
