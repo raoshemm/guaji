@@ -80,6 +80,7 @@ var UI_ASSETS = {
   supportCake: 'assets/image2-character-sheets/v3/support-cake-v3.png',
   supportCandyR: 'assets/image2-character-sheets/v3/support-candy-v3.png',
   supportLocked: 'assets/ui/sprites/support-locked.png',
+  supportHidden: 'assets/image2-character-sheets/hidden/support-hidden-silhouette-white-v1.png',
   topCheckin: 'assets/image2-white-assets/layout-v2/top-checkin-white.png',
   topDailyTask: 'assets/image2-white-assets/layout-v2/top-daily-task-white.png',
   topMail: 'assets/image2-white-assets/layout-v2/top-mail-white.png',
@@ -136,6 +137,7 @@ UI_ASSET_SIZES[UI_ASSETS.supportPopsicle] = { w: 418, h: 418 };
 UI_ASSET_SIZES[UI_ASSETS.supportCake] = { w: 418, h: 418 };
 UI_ASSET_SIZES[UI_ASSETS.supportCandyR] = { w: 418, h: 418 };
 UI_ASSET_SIZES[UI_ASSETS.supportLocked] = { w: 44, h: 56 };
+UI_ASSET_SIZES[UI_ASSETS.supportHidden] = { w: 1254, h: 1254 };
 UI_ASSET_SIZES[UI_ASSETS.topCheckin] = { w: 248, h: 120 };
 UI_ASSET_SIZES[UI_ASSETS.topDailyTask] = { w: 248, h: 120 };
 UI_ASSET_SIZES[UI_ASSETS.topMail] = { w: 248, h: 120 };
@@ -231,8 +233,9 @@ var CONFIG = {
     var mult = 1 + (gems || 0) * 0.1;
     return Math.floor(80 * Math.pow(level, 1.35) * mult);
   },
-  upgradeCost: function(level) { return Math.floor(30 * Math.pow(1.4, level - 1)); },
-  supportCost: function(level) { return Math.floor(20 * Math.pow(1.35, level - 1)); },
+  upgradeCost: function(level) { return Math.floor(80 * Math.pow(level, 2.05) + 500 * level); },
+  supportRecruitCost: function(idx) { return Math.floor(300 * Math.pow(2.35, idx)); },
+  supportCost: function(level) { return Math.floor(35 * Math.pow(level, 2) + 80 * level); },
   killsNeeded: function(level) { return level * 4 + 4; }
 };
 
@@ -281,14 +284,14 @@ var BOSS_TYPES = [
 //   role     物理 phys / 法术 magic（决定攻击动画）
 //   shape    createSupportView + bullet 绘制 key
 var SUPPORTS_DEF = [
-  { name: '糖糖',   dps: 15,  wave: 0,   atkInterval: 1200, color: 0xff7eb0, shape: 'candy',       role: 'phys',  symbol: '糖糖'   },
-  { name: '棉花糖', dps: 28,  wave: 5,   atkInterval: 1500, color: 0xf8c4d9, shape: 'marshmallow', role: 'magic', symbol: '棉花糖' },
-  { name: '肉丸',   dps: 45,  wave: 15,  atkInterval: 1000, color: 0xd96a31, shape: 'meatball',    role: 'phys',  symbol: '肉丸'   },
-  { name: '布丁',   dps: 75,  wave: 30,  atkInterval: 1800, color: 0xf5c842, shape: 'pudding',     role: 'phys',  symbol: '布丁'   },
-  { name: '蛋筒',   dps: 120, wave: 50,  atkInterval: 900,  color: 0xff9933, shape: 'cone',        role: 'phys',  symbol: '蛋筒'   },
-  { name: '麻薯',   dps: 200, wave: 80,  atkInterval: 1400, color: 0xc7a7ff, shape: 'mochi',       role: 'magic', symbol: '麻薯'   },
-  { name: '月棒冰', dps: 350, wave: 120, atkInterval: 1100, color: 0x7be8b7, shape: 'popsicle',    role: 'magic', symbol: '月棒冰' },
-  { name: '草莓酱', dps: 600, wave: 180, atkInterval: 1600, color: 0xff5577, shape: 'cake',        role: 'magic', symbol: '草莓酱' }
+  { name: '糖糖',   dps: 15,  wave: 0,   recruitLv: 1,   atkInterval: 1200, color: 0xff7eb0, shape: 'candy',       role: 'phys',  symbol: '糖糖'   },
+  { name: '棉花糖', dps: 28,  wave: 5,   recruitLv: 8,   atkInterval: 1500, color: 0xf8c4d9, shape: 'marshmallow', role: 'magic', symbol: '棉花糖' },
+  { name: '肉丸',   dps: 45,  wave: 15,  recruitLv: 16,  atkInterval: 1000, color: 0xd96a31, shape: 'meatball',    role: 'phys',  symbol: '肉丸'   },
+  { name: '布丁',   dps: 75,  wave: 30,  recruitLv: 28,  atkInterval: 1800, color: 0xf5c842, shape: 'pudding',     role: 'phys',  symbol: '布丁'   },
+  { name: '蛋筒',   dps: 120, wave: 50,  recruitLv: 42,  atkInterval: 900,  color: 0xff9933, shape: 'cone',        role: 'phys',  symbol: '蛋筒'   },
+  { name: '麻薯',   dps: 200, wave: 80,  recruitLv: 60,  atkInterval: 1400, color: 0xc7a7ff, shape: 'mochi',       role: 'magic', symbol: '麻薯'   },
+  { name: '月棒冰', dps: 350, wave: 120, recruitLv: 82,  atkInterval: 1100, color: 0x7be8b7, shape: 'popsicle',    role: 'magic', symbol: '月棒冰' },
+  { name: '草莓酱', dps: 600, wave: 180, recruitLv: 110, atkInterval: 1600, color: 0xff5577, shape: 'cake',        role: 'magic', symbol: '草莓酱' }
 ];
 
 var FOODS = [
@@ -369,8 +372,9 @@ function Game(main) {
   this.skillUnlocked = [true,false,false,false,false,false,false];
   this.skillBuffs = { attackTime: 0, attackMult: 1, speedTime: 0, speedMult: 1, critTime: 0, critBonus: 0 };
   this.supports = SUPPORTS_DEF.map(function(s) {
-    return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: s.wave === 0 };
+    return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: false, notified: false };
   });
+  this.supportShopVersion = 3;
   this.monsters = [];
   this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
   this.freeSpins = 3;
@@ -408,6 +412,7 @@ function Game(main) {
   this.dpsLabel = null;
   this.energyLabel = null;
   this.goalLabel = null;
+  this.exploreLabel = null;
   this.waveFill = null;
   this.buffLabel = null;
   this.gemsLabel = null;
@@ -457,6 +462,12 @@ Game.prototype.compactWaveText = function() {
   return this.wave + (this.wave % 10 === 0 ? 'B' : '波');
 };
 
+Game.prototype.getExploreText = function() {
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  if (this.wave % 10 === 0) return '探索 第' + this.wave + '波 · BOSS战';
+  return '探索 第' + this.wave + '波 · 距BOSS ' + (10 - waveInCycle) + '波';
+};
+
 Game.prototype.totalDps = function() {
   var base = CONFIG.mainDmg(this.mainLevel, this.rebirthGems);
   var supMult = 1 + this.rebirthGems * 0.08;
@@ -471,16 +482,20 @@ Game.prototype.isSupportActive = function(idx) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
   if (!s || !def) return false;
-  return !!s.unlocked && this.totalCleared >= def.wave;
+  return !!s.unlocked && this.isSupportAvailable(idx);
+};
+
+Game.prototype.isSupportAvailable = function(idx) {
+  var def = SUPPORTS_DEF[idx];
+  if (!def) return false;
+  return this.mainLevel >= (def.recruitLv || 1);
 };
 
 Game.prototype.repairSupportUnlocks = function() {
   for (var i = 0; i < this.supports.length; i++) {
     var def = SUPPORTS_DEF[i];
     if (!def) continue;
-    if (def.wave === 0) {
-      this.supports[i].unlocked = true;
-    } else if (this.totalCleared < def.wave) {
+    if (!this.isSupportAvailable(i)) {
       this.supports[i].unlocked = false;
     }
   }
@@ -643,6 +658,18 @@ Game.prototype.monsterSpriteSource = function(mType, isBoss) {
   return MONSTER_IMAGE_ASSETS[shape] || UI_ASSETS.monsterSlime;
 };
 
+Game.prototype.createMysterySupportSprite = function(idx, available) {
+  var g = new eui.Group();
+  g.width = 70; g.height = 88;
+
+  var sprite = new eui.Image();
+  this.fitImageToBox(sprite, UI_ASSETS.supportHidden, 62, 62, 4, 3);
+  sprite.alpha = available ? 1 : 0.78;
+  g.addChild(sprite);
+
+  return g;
+};
+
 // ==================== 角色外观绘制 ====================
 //
 // 统一风格：底座阴影 + 主体 + 描边 + 高光 + 眼睛（_drawEyes）
@@ -651,28 +678,26 @@ Game.prototype.createSupportView = function(idx, yPos) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
   var active = this.isSupportActive(idx);
+  var available = this.isSupportAvailable(idx);
   var sc = new eui.Group(); sc.width = 70; sc.height = 88;
   sc.name = 'support-' + idx;
   if (yPos !== undefined && yPos !== 0) sc.y = yPos;
 
-  var shadow = new eui.Rect();
-  shadow.width = 48; shadow.height = 9;
-  shadow.x = 11; shadow.y = 64;
-  shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
-  shadow.fillColor = 0x000000; shadow.fillAlpha = active ? 0.24 : 0.16;
-  sc.addChild(shadow);
-
-  var sprite = new eui.Image();
-  var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
-  this.fitImageToBox(sprite, source, 68, 74, 1, 0);
-  sprite.alpha = active ? 1 : 0.45;
-  sc.addChild(sprite);
+  if (active) {
+    var sprite = new eui.Image();
+    var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
+    this.fitImageToBox(sprite, source, 68, 74, 1, 0);
+    sprite.alpha = 1;
+    sc.addChild(sprite);
+  } else {
+    sc.addChild(this.createMysterySupportSprite(idx, available));
+  }
 
   var roleDot = new eui.Rect();
   roleDot.width = 11; roleDot.height = 11;
   roleDot.x = 52; roleDot.y = 9;
   roleDot.ellipseWidth = 9; roleDot.ellipseHeight = 9;
-  roleDot.fillColor = active ? def.color : 0x5b547a;
+  roleDot.fillColor = active ? def.color : (available ? 0x7a4a1d : 0x2d2944);
   roleDot.strokeColor = 0xffffff; roleDot.strokeWeight = 0.8; roleDot.strokeAlpha = 0.7;
   sc.addChild(roleDot);
 
@@ -687,7 +712,7 @@ Game.prototype.createSupportView = function(idx, yPos) {
   sc.addChild(nameBg);
 
   var lb = new eui.Label();
-  lb.text = active ? def.symbol.slice(0, 2) : 'W' + def.wave;
+  lb.text = active ? def.symbol.slice(0, 2) : (available ? '招募' : '???');
   lb.size = 9; lb.bold = true;
   lb.textColor = active ? THEME.accentSoft : THEME.textMute;
   lb.width = 58; lb.height = 13;
@@ -1266,9 +1291,9 @@ Game.prototype.buildUI = function() {
   brandGroup.addChild(brandImg);
   topBar.addChild(brandGroup);
 
-  // --- Row1 中：昵称（可点击修改）+ 波次 ---
+  // --- Row1 中：昵称（可点击修改）+ 玩家等级 ---
   var namePlate = new eui.Rect();
-  namePlate.width = 48; namePlate.height = 25;
+  namePlate.width = 52; namePlate.height = 25;
   namePlate.x = 70; namePlate.y = 10;
   namePlate.ellipseWidth = 10; namePlate.ellipseHeight = 10;
   namePlate.fillColor = 0x0d0926; namePlate.fillAlpha = 0.72;
@@ -1277,21 +1302,21 @@ Game.prototype.buildUI = function() {
   var nameLb = new eui.Label();
   nameLb.text = (this.playerName || '玩家') + ' ✎';
   nameLb.size = 11; nameLb.textColor = THEME.textMain; nameLb.bold = true;
-  nameLb.width = 40; nameLb.height = 18; nameLb.textAlign = 'center';
+  nameLb.width = 44; nameLb.height = 18; nameLb.textAlign = 'center';
   nameLb.x = 74; nameLb.y = 14; nameLb.touchEnabled = true;
   nameLb.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openNameEditor(); }, this);
   topBar.addChild(nameLb);
   this._nameLb = nameLb;
   var wavePlate = new eui.Rect();
-  wavePlate.width = 48; wavePlate.height = 21;
+  wavePlate.width = 52; wavePlate.height = 21;
   wavePlate.x = 70; wavePlate.y = 39;
   wavePlate.ellipseWidth = 9; wavePlate.ellipseHeight = 9;
   wavePlate.fillColor = 0x1f174a; wavePlate.fillAlpha = 0.78;
   wavePlate.strokeColor = THEME.strokeGold; wavePlate.strokeAlpha = 0.28; wavePlate.strokeWeight = 0.7;
   topBar.addChild(wavePlate);
   this.waveLabel = new eui.Label();
-  this.waveLabel.text = this.compactWaveText(); this.waveLabel.size = 9; this.waveLabel.textColor = 0xfbbf24;
-  this.waveLabel.width = 44; this.waveLabel.height = 14; this.waveLabel.textAlign = 'center';
+  this.waveLabel.text = 'Lv.' + this.mainLevel; this.waveLabel.size = 10; this.waveLabel.textColor = 0xfbbf24;
+  this.waveLabel.width = 48; this.waveLabel.height = 14; this.waveLabel.textAlign = 'center';
   this.waveLabel.x = 72; this.waveLabel.y = 43;
   topBar.addChild(this.waveLabel);
 
@@ -2092,7 +2117,7 @@ Game.prototype.buildUI = function() {
 
   // --- 底部状态区（独立 UI 层，不占用战斗背景，避免压住技能栏） ---
   // 这里只保留普通战斗状态；BOSS 倒计时并入顶部总血条区域。
-  var STATUS_H = 50;
+  var STATUS_H = 52;
   var statusY = 4;
   var STATUS_W = stageW - 20;
   var STATUS_X = 10;
@@ -2125,25 +2150,34 @@ Game.prototype.buildUI = function() {
   this.bossTimerLabel.visible = false;
   statusBar.addChild(this.bossTimerLabel);
 
+  this.exploreLabel = new eui.Label();
+  this.exploreLabel.text = this.getExploreText();
+  this.exploreLabel.size = 12; this.exploreLabel.bold = true;
+  this.exploreLabel.textColor = 0xfbbf24;
+  this.exploreLabel.x = STATUS_X + 10; this.exploreLabel.y = statusY + 5;
+  this.exploreLabel.width = STATUS_W - 20; this.exploreLabel.height = 14;
+  this.exploreLabel.textAlign = 'center';
+  statusBar.addChild(this.exploreLabel);
+
   // Row B: 当前轮次（1-10波）进度条
   this.waveFillBg = new eui.Rect();
   this.waveFillBg.width = STATUS_W - 16; this.waveFillBg.height = 8;
   this.waveFillBg.fillColor = THEME.bgGlass; this.waveFillBg.ellipseWidth = 3;
-  this.waveFillBg.x = STATUS_X + 8; this.waveFillBg.y = statusY + 10;
+  this.waveFillBg.x = STATUS_X + 8; this.waveFillBg.y = statusY + 20;
   statusBar.addChild(this.waveFillBg);
   var waveInCycle = ((this.wave - 1) % 10) + 1;
   this.waveFill = new eui.Rect();
   this.waveFill.width = (waveInCycle / 10) * (STATUS_W - 16);
   this.waveFill.height = 8; this.waveFill.fillColor = THEME.accent; this.waveFill.ellipseWidth = 3;
-  this.waveFill.x = STATUS_X + 8; this.waveFill.y = statusY + 10;
+  this.waveFill.x = STATUS_X + 8; this.waveFill.y = statusY + 20;
   statusBar.addChild(this.waveFill);
   this._waveFillMaxWidth = STATUS_W - 16; // 供 updateUI 使用
 
   this.goalLabel = new eui.Label();
   this.goalLabel.text = this.getNextGoal().text;
-  this.goalLabel.size = 10; this.goalLabel.textColor = THEME.accentSoft; this.goalLabel.bold = true;
-  this.goalLabel.x = STATUS_X + 10; this.goalLabel.y = statusY + 19;
-  this.goalLabel.width = STATUS_W - 20; this.goalLabel.height = 12;
+  this.goalLabel.size = 9; this.goalLabel.textColor = THEME.accentSoft; this.goalLabel.bold = true;
+  this.goalLabel.x = STATUS_X + 10; this.goalLabel.y = statusY + 31;
+  this.goalLabel.width = 142; this.goalLabel.height = 11;
   this.goalLabel.textAlign = 'left';
   this.goalLabel.touchEnabled = true;
   this.goalLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.handleGoalTap(); }, this);
@@ -2155,28 +2189,28 @@ Game.prototype.buildUI = function() {
   energyBarBg.width = ENERGY_W; energyBarBg.height = 12;
   energyBarBg.ellipseWidth = 6; energyBarBg.ellipseHeight = 6;
   energyBarBg.fillColor = THEME.bgGlass;
-  energyBarBg.x = STATUS_X + 8; energyBarBg.y = statusY + 30;
+  energyBarBg.x = STATUS_X + 8; energyBarBg.y = statusY + 40;
   statusBar.addChild(energyBarBg);
   this.energyFill = new eui.Rect();
   this.energyFill.width = (this.energy / this.getMaxEnergy()) * ENERGY_W;
   this.energyFill.height = 12;
   this.energyFill.ellipseWidth = 6; this.energyFill.ellipseHeight = 6;
   this.energyFill.fillColor = THEME.sky;
-  this.energyFill.x = STATUS_X + 8; this.energyFill.y = statusY + 30;
+  this.energyFill.x = STATUS_X + 8; this.energyFill.y = statusY + 40;
   statusBar.addChild(this.energyFill);
   this._energyMaxWidth = ENERGY_W; // 供 updateUI 使用（替换硬编码 100）
   // 能量文字：紧跟在条右边，不再压在条上
   this.energyLabel = new eui.Label();
   this.energyLabel.text = '⚡' + Math.floor(this.energy) + '/' + this.getMaxEnergy();
   this.energyLabel.size = 11; this.energyLabel.textColor = THEME.sky; this.energyLabel.bold = true;
-  this.energyLabel.x = STATUS_X + ENERGY_W + 14; this.energyLabel.y = statusY + 30;
+  this.energyLabel.x = STATUS_X + ENERGY_W + 14; this.energyLabel.y = statusY + 40;
   statusBar.addChild(this.energyLabel);
 
   // Buff 文本（右侧）：去掉自动/手动按钮后，这里给状态信息更多横向空间。
   this.buffLabel = new eui.Label();
   this.buffLabel.text = this.renderBuffText();
   this.buffLabel.size = 11; this.buffLabel.textColor = 0xfbbf24;
-  this.buffLabel.right = 16; this.buffLabel.y = statusY + 30;
+  this.buffLabel.right = 16; this.buffLabel.y = statusY + 40;
   statusBar.addChild(this.buffLabel);
 
   // 伤害飘字层（不可触摸）
@@ -2322,21 +2356,19 @@ Game.prototype.createSupportSlot = function(idx, faceRight) {
   var s = this.supports[idx];
   var def = SUPPORTS_DEF[idx];
   var active = this.isSupportActive(idx);
+  var available = this.isSupportAvailable(idx);
   var g = new eui.Group();
   g.width = 70; g.height = 88;
   g.name = 'support-' + idx;
-  var shadow = new eui.Rect();
-  shadow.width = 50; shadow.height = 9;
-  shadow.x = 10; shadow.y = 63;
-  shadow.ellipseWidth = 7; shadow.ellipseHeight = 7;
-  shadow.fillColor = 0x000000; shadow.fillAlpha = active ? 0.26 : 0.16;
-  g.addChild(shadow);
-
-  var sprite = new eui.Image();
-  var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
-  this.fitImageToBox(sprite, source, 68, 74, 1, 0);
-  sprite.alpha = active ? 1 : 0.48;
-  g.addChild(sprite);
+  if (active) {
+    var sprite = new eui.Image();
+    var source = SUPPORT_IMAGE_ASSETS[idx] || UI_ASSETS.supportCandy;
+    this.fitImageToBox(sprite, source, 68, 74, 1, 0);
+    sprite.alpha = 1;
+    g.addChild(sprite);
+  } else {
+    g.addChild(this.createMysterySupportSprite(idx, available));
+  }
 
   var lbBg = new eui.Rect();
   lbBg.width = 58; lbBg.height = 15;
@@ -2345,7 +2377,7 @@ Game.prototype.createSupportSlot = function(idx, faceRight) {
   lbBg.fillColor = 0x050918; lbBg.fillAlpha = 0.66;
   g.addChild(lbBg);
   var lb = new eui.Label();
-  lb.text = active ? def.symbol.slice(0, 2) : 'W' + def.wave;
+  lb.text = active ? def.symbol.slice(0, 2) : (available ? '招募' : '???');
   lb.size = 9; lb.bold = true;
   lb.textColor = active ? THEME.accentSoft : THEME.textMute;
   lb.width = 58; lb.height = 13;
@@ -2717,6 +2749,11 @@ Game.prototype.getNextGoal = function() {
       return { text: '目标：升级队友，增加挂机输出', action: 'upgrade' };
     }
   }
+  for (var r = 0; r < this.supports.length; r++) {
+    if (this.isSupportAvailable(r) && !this.supports[r].unlocked) {
+      return { text: '目标：招募' + this.supports[r].name + '，开启队友输出', action: 'upgrade' };
+    }
+  }
   for (var k = 0; k < SKILLS.length; k++) {
     if (!this.skillUnlocked[k]) {
       return { text: '目标：主角Lv.' + SKILLS[k].lv + '解锁' + SKILLS[k].name, action: 'upgrade' };
@@ -2724,10 +2761,10 @@ Game.prototype.getNextGoal = function() {
   }
   var nextSupport = null;
   for (var j = 0; j < SUPPORTS_DEF.length; j++) {
-    if (!this.isSupportActive(j)) { nextSupport = SUPPORTS_DEF[j]; break; }
+    if (!this.isSupportAvailable(j)) { nextSupport = SUPPORTS_DEF[j]; break; }
   }
   if (nextSupport) {
-    return { text: '目标：通关到' + nextSupport.wave + '波解锁' + nextSupport.name, action: 'battle' };
+    return { text: '目标：主角Lv.' + nextSupport.recruitLv + '解锁神秘队友', action: 'upgrade' };
   }
   return { text: '目标：继续刷怪攒金币，准备下一轮BOSS', action: 'battle' };
 };
@@ -3231,9 +3268,9 @@ Game.prototype.checkSupports = function() {
   for (var i = 0; i < this.supports.length; i++) {
     var s = this.supports[i];
     var def = SUPPORTS_DEF[i];
-    if (!s.unlocked && def && this.totalCleared >= def.wave) {
-      s.unlocked = true;
-      this.showToast('🌟【' + s.name + '】加入队伍！');
+    if (!s.unlocked && !s.notified && def && this.isSupportAvailable(i)) {
+      s.notified = true;
+      this.showToast('🌟【' + s.name + '】可招募！去升级面板购买');
     }
   }
   this.checkAchievements();
@@ -3266,6 +3303,26 @@ Game.prototype.upgradeSupport = function(idx) {
   this.saveGame();
   this.updateUI();
   // 刷新升级面板
+  this.closePanel();
+  this.openUpgrade();
+};
+
+Game.prototype.recruitSupport = function(idx) {
+  var s = this.supports[idx];
+  var def = SUPPORTS_DEF[idx];
+  if (!s || !def) return;
+  if (!this.isSupportAvailable(idx)) { this.showToast('尚未达到招募条件！'); return; }
+  if (s.unlocked) { this.showToast(s.name + '已加入队伍'); return; }
+  var cost = CONFIG.supportRecruitCost(idx);
+  if (this.gold < cost) { this.showToast('金币不足！'); return; }
+  this.gold -= cost;
+  s.unlocked = true;
+  s.notified = true;
+  this.showToast('🌟 招募成功：【' + s.name + '】加入队伍！');
+  this.refreshSupportViews();
+  this.checkAchievements();
+  this.saveGame();
+  this.updateUI();
   this.closePanel();
   this.openUpgrade();
 };
@@ -3360,10 +3417,11 @@ Game.prototype.updateWaveNumbers = function() {
 
 Game.prototype.updateUI = function() {
   if (this.goldLabel) this.goldLabel.text = '💰 ' + this.fmt(this.gold);
-  if (this.waveLabel) this.waveLabel.text = this.compactWaveText();
+  if (this.waveLabel) this.waveLabel.text = 'Lv.' + this.mainLevel;
   this.updateWaveNumbers();
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
+  if (this.exploreLabel) this.exploreLabel.text = this.getExploreText();
   if (this.goalLabel) {
     var goal = this.getNextGoal();
     this.goalLabel.text = goal.text;
@@ -4301,8 +4359,8 @@ Game.prototype.addPanelContent = function(overlay) {
 Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, btnText, btnColor, handler, disabled) {
   var lines = infoText.split('\n');
   var rowH = Math.max(48, lines.length > 1 ? 60 : 48);
-  var rowX = panel._contentX || 16;
-  var rowW = panel._contentW || (panel.width - rowX * 2);
+  var rowX = panel._contentX !== undefined ? panel._contentX : 16;
+  var rowW = panel._contentW !== undefined ? panel._contentW : (panel.width - rowX * 2);
   var rowBg = new eui.Rect();
   rowBg.width = rowW; rowBg.height = rowH; rowBg.fillColor = THEME.bgRow;
   rowBg.ellipseWidth = 10; rowBg.ellipseHeight = 10;
@@ -4345,9 +4403,9 @@ Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, b
 
 Game.prototype.createPanelScrollContent = function(panel, top, bottom) {
   var scroller = new eui.Scroller();
-  scroller.x = panel._contentX || 16;
+  scroller.x = panel._contentX !== undefined ? panel._contentX : 16;
   scroller.y = top;
-  scroller.width = panel._contentW || (panel.width - 32);
+  scroller.width = panel._contentW !== undefined ? panel._contentW : (panel.width - 32);
   scroller.height = Math.max(80, panel.height - top - (bottom || 14));
   var content = new eui.Group();
   content.width = scroller.width;
@@ -4399,16 +4457,47 @@ Game.prototype.openUpgrade = function() {
   panel.addChild(progText);
   y += 24;
 
-  // 已解锁辅助角色（显示当前 + 下一级预览）
+  var sectionTitle = new eui.Label();
+  sectionTitle.text = '辅助英雄（滑动查看全部）';
+  sectionTitle.size = 13; sectionTitle.bold = true;
+  sectionTitle.textColor = THEME.accentSoft;
+  sectionTitle.x = panel._contentX; sectionTitle.y = y;
+  panel.addChild(sectionTitle);
+  y += 20;
+
+  // 辅助角色：全部展示；达到条件后先招募，已招募后才可升级和出战。
+  var supportList = this.createPanelScrollContent(panel, y, 14);
+  supportList._contentX = 0;
+  supportList._contentW = panel._contentW;
+  var rowY = 0;
   for (var i = 0; i < this.supports.length; i++) {
     var s = this.supports[i];
-    if (!this.isSupportActive(i)) continue;
-    if (y > 350) { panel.height = y + 20; break; }
+    if (!this.isSupportActive(i)) {
+      if (this.isSupportAvailable(i)) {
+        var recruitCost = CONFIG.supportRecruitCost(i);
+        (function(si, sup, c) {
+          rowY = self.addPanelRow(supportList, rowY, sup.name.slice(0,2), 0x7a4a1d,
+            sup.name + ' 可招募\nDPS: ' + self.fmt(sup.dps) + '  招募后开始自动攻击',
+            self.fmt(c) + '金', 0x27ae60,
+            function() { self.recruitSupport(si); },
+            self.gold < c
+          );
+        })(i, s, recruitCost);
+      } else {
+        rowY = this.addPanelRow(supportList, rowY, '?', 0x4a4566,
+          '神秘队友 #' + (i + 1) + ' 未发现\n主角Lv.' + SUPPORTS_DEF[i].recruitLv + '后可招募',
+          '', 0x555555,
+          function() {},
+          true
+        );
+      }
+      continue;
+    }
     var cost = CONFIG.supportCost(s.level);
     var nextDps = s.dps * (s.level + 1);
     var curDps = s.dps * s.level;
     (function(si, sup, c, n, cur) {
-      y = self.addPanelRow(panel, y, sup.name.slice(0,2), 0x9b59b6,
+      rowY = self.addPanelRow(supportList, rowY, sup.name.slice(0,2), 0x9b59b6,
         sup.name + ' Lv.' + sup.level + '  DPS: ' + self.fmt(cur) +
         '\n→ Lv.' + (sup.level + 1) + ' DPS: ' + self.fmt(n) + '  (+' + self.fmt(n - cur) + ')',
         self.fmt(c) + '金', 0x27ae60,
@@ -4417,7 +4506,7 @@ Game.prototype.openUpgrade = function() {
       );
     })(i, s, cost, nextDps, curDps);
   }
-  panel.height = y + 16;
+  supportList.height = rowY;
 };
 
 // ==================== 超市面板 ====================
@@ -4956,7 +5045,7 @@ Game.prototype.doRebirth = function(gemsGain) {
   this.skillCD = [0,0,0,0,0,0,0];
   this.skillUnlocked = [true,false,false,false,false,false,false];
   this.supports = SUPPORTS_DEF.map(function(s) {
-    return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: s.wave === 0 };
+    return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: false, notified: false };
   });
   this.monsters = [];
   this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
@@ -5272,18 +5361,46 @@ Game.prototype.openMonsterCodex = function() {
   var total = MONSTER_TYPES.length + BOSS_TYPES.length;
 
   var title = new eui.Label();
-  title.text = '📖 怪物图签 (' + (discovered + bossDiscovered) + '/' + total + ')';
+  title.text = '📖 图签收藏 (' + (discovered + bossDiscovered) + '/' + total + ')';
   title.size = 15; title.textColor = THEME.accentSoft; title.bold = true;
   title.horizontalCenter = 0; title.top = 12;
   panel.addChild(title);
 
-  var list = this.createPanelScrollContent(panel, 44, 14);
+  var normalBadge = new eui.Rect();
+  normalBadge.width = Math.floor((panel._contentW - 8) / 2); normalBadge.height = 28;
+  normalBadge.x = panel._contentX; normalBadge.y = 44;
+  normalBadge.ellipseWidth = 8; normalBadge.ellipseHeight = 8;
+  normalBadge.fillColor = 0x0e1a2a; normalBadge.strokeColor = THEME.sky;
+  normalBadge.strokeWeight = 1; normalBadge.strokeAlpha = 0.55;
+  panel.addChild(normalBadge);
+  var normalBadgeLb = new eui.Label();
+  normalBadgeLb.text = '普通怪物 ' + discovered + '/' + MONSTER_TYPES.length;
+  normalBadgeLb.size = 11; normalBadgeLb.bold = true; normalBadgeLb.textColor = THEME.sky;
+  normalBadgeLb.width = normalBadge.width; normalBadgeLb.height = 16;
+  normalBadgeLb.x = normalBadge.x; normalBadgeLb.y = normalBadge.y + 7; normalBadgeLb.textAlign = 'center';
+  panel.addChild(normalBadgeLb);
+
+  var bossBadgeTop = new eui.Rect();
+  bossBadgeTop.width = normalBadge.width; bossBadgeTop.height = 28;
+  bossBadgeTop.x = panel._contentX + normalBadge.width + 8; bossBadgeTop.y = 44;
+  bossBadgeTop.ellipseWidth = 8; bossBadgeTop.ellipseHeight = 8;
+  bossBadgeTop.fillColor = 0x2a0a0a; bossBadgeTop.strokeColor = 0xff6666;
+  bossBadgeTop.strokeWeight = 1; bossBadgeTop.strokeAlpha = 0.65;
+  panel.addChild(bossBadgeTop);
+  var bossBadgeLb = new eui.Label();
+  bossBadgeLb.text = 'BOSS ' + bossDiscovered + '/' + BOSS_TYPES.length;
+  bossBadgeLb.size = 11; bossBadgeLb.bold = true; bossBadgeLb.textColor = 0xff8888;
+  bossBadgeLb.width = bossBadgeTop.width; bossBadgeLb.height = 16;
+  bossBadgeLb.x = bossBadgeTop.x; bossBadgeLb.y = bossBadgeTop.y + 7; bossBadgeLb.textAlign = 'center';
+  panel.addChild(bossBadgeLb);
+
+  var list = this.createPanelScrollContent(panel, 80, 14);
   var listW = panel._contentW;
 
   // 分栏标题
   var secNormal = new eui.Label();
-  secNormal.text = '── 普通怪物 ──';
-  secNormal.size = 11; secNormal.textColor = THEME.textDim;
+  secNormal.text = '普通怪物';
+  secNormal.size = 12; secNormal.bold = true; secNormal.textColor = THEME.sky;
   secNormal.horizontalCenter = 0; secNormal.top = 34;
   secNormal.y = 0; secNormal.width = listW; secNormal.textAlign = 'center';
   list.addChild(secNormal);
@@ -5386,8 +5503,8 @@ Game.prototype.openMonsterCodex = function() {
   var normalRows = Math.ceil(MONSTER_TYPES.length / COLS);
   var bossSectionY = START_Y + normalRows * (CARD_H + GAP_Y) + 10;
   var secBoss = new eui.Label();
-  secBoss.text = '── BOSS 图签 ──';
-  secBoss.size = 11; secBoss.textColor = 0xff8888;
+  secBoss.text = 'BOSS 图签';
+  secBoss.size = 12; secBoss.bold = true; secBoss.textColor = 0xff8888;
   secBoss.x = 0; secBoss.width = listW; secBoss.textAlign = 'center'; secBoss.y = bossSectionY;
   list.addChild(secBoss);
 
@@ -5670,11 +5787,12 @@ Game.prototype.saveGame = function() {
       gold: this.gold, energy: this.energy, mainLevel: this.mainLevel,
       wave: this.wave, totalCleared: this.totalCleared,
       killCount: this.killCount, skillCD: this.skillCD, skillUnlocked: this.skillUnlocked,
-      supports: this.supports.map(function(s) { return { level: s.level, unlocked: s.unlocked }; }),
+      supports: this.supports.map(function(s) { return { level: s.level, unlocked: s.unlocked, notified: !!s.notified }; }),
       foods: this.foods, freeSpins: this.freeSpins, spinDate: this.spinDate,
       stats: this.stats, checkinDay: this.checkinDay, checkinDate: this.checkinDate,
       dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone,
       achievements: this.achievements, bossRewards: this.bossRewards,
+      supportShopVersion: this.supportShopVersion,
       offlineCap: this.offlineCap,
       autoAttackEnabled: this.autoAttackEnabled,
       rebirthGems: this.rebirthGems, maxWaveReached: this.maxWaveReached,
@@ -5703,8 +5821,18 @@ Game.prototype.loadGame = function() {
         if (this.supports[i]) {
           this.supports[i].level = d.supports[i].level;
           this.supports[i].unlocked = d.supports[i].unlocked;
+          this.supports[i].notified = !!d.supports[i].notified;
         }
       }
+    }
+    if (d.supportShopVersion !== 3) {
+      for (var si = 0; si < this.supports.length; si++) {
+        this.supports[si].unlocked = false;
+        this.supports[si].notified = false;
+      }
+      this.supportShopVersion = 3;
+    } else {
+      this.supportShopVersion = d.supportShopVersion;
     }
     this.repairSupportUnlocks();
     if (d.foods) this.foods = { '棒棒糖': d.foods['棒棒糖']||0, '牛奶': d.foods['牛奶']||0, '烤肉': d.foods['烤肉']||0 };
