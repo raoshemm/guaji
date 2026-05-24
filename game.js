@@ -113,6 +113,10 @@ var UI_ASSETS = {
   navShop: assetUrl('assets/image2-white-assets/layout-v2/nav-shop-white.png')
 };
 
+if (typeof window !== 'undefined') {
+  window.DMAX_PRELOAD_ASSETS = Object.keys(UI_ASSETS).map(function(key) { return UI_ASSETS[key]; });
+}
+
 var UI_ASSET_SIZES = {};
 UI_ASSET_SIZES[UI_ASSETS.battleBackground] = { w: 375, h: 423 };
 UI_ASSET_SIZES[UI_ASSETS.battleForest] = { w: 375, h: 423 };

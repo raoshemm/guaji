@@ -95,7 +95,7 @@
   <script>
     var statusEl = document.getElementById('status');
     var container = document.getElementById('game-container');
-    var BUILD_VERSION = 'gameplay-20260524-boss-counter-1';
+    var BUILD_VERSION = 'gameplay-20260524-asset-preload-1';
     window.DMAX_GAME_VERSION = BUILD_VERSION;
     var scripts = [
       'lib/egret/egret.min.js',
@@ -131,37 +131,81 @@
       } catch (e) { /* 忽略，下次 resize 会再尝试 */ }
     }
 
+    function preloadGameImages(done) {
+      var assets = (window.DMAX_PRELOAD_ASSETS || []).filter(Boolean);
+      if (!assets.length || typeof Image === 'undefined') { done(); return; }
+      var total = assets.length;
+      var doneCount = 0;
+      var index = 0;
+      var active = 0;
+      var finished = false;
+      var concurrency = 6;
+      var timeout = setTimeout(function() {
+        if (finished) return;
+        finished = true;
+        statusEl.textContent += '\n素材较多，先进入游戏...';
+        done();
+      }, 7000);
+
+      function finishOne() {
+        doneCount++;
+        active--;
+        statusEl.textContent = '素材预加载 ' + doneCount + '/' + total;
+        if (doneCount >= total && !finished) {
+          finished = true;
+          clearTimeout(timeout);
+          done();
+          return;
+        }
+        pump();
+      }
+
+      function pump() {
+        while (!finished && active < concurrency && index < total) {
+          var img = new Image();
+          active++;
+          img.onload = finishOne;
+          img.onerror = finishOne;
+          img.src = assets[index++];
+        }
+      }
+
+      pump();
+    }
+
     function loadScript(idx) {
       if (idx >= scripts.length) {
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
-        try {
-          // 先把初始高度写到 data-content-height，再调 runEgret。
-          // runEgret 内部会完成必要的 bootstrap 并自动构造 WebPlayer。
-          container.setAttribute('data-content-height', String(computeContentHeight()));
-          egret.runEgret({
-            renderMode: 'canvas',
-            audioType: 0
-          });
+        preloadGameImages(function() {
+          try {
+            // 先把初始高度写到 data-content-height，再调 runEgret。
+            // runEgret 内部会完成必要的 bootstrap 并自动构造 WebPlayer。
+            container.setAttribute('data-content-height', String(computeContentHeight()));
+            egret.runEgret({
+              renderMode: 'canvas',
+              audioType: 0
+            });
 
-          // 防抖，避免 iOS 地址栏抖动时频繁触发
-          var resizeTimer = null;
-          function debouncedResize() {
-            if (resizeTimer) clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() { resizeTimer = null; handleResize(); }, 120);
-          }
-          window.addEventListener('resize', debouncedResize);
-          window.addEventListener('orientationchange', function() {
-            setTimeout(handleResize, 300);
-          });
-          if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', debouncedResize);
-          }
+            // 防抖，避免 iOS 地址栏抖动时频繁触发
+            var resizeTimer = null;
+            function debouncedResize() {
+              if (resizeTimer) clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(function() { resizeTimer = null; handleResize(); }, 120);
+            }
+            window.addEventListener('resize', debouncedResize);
+            window.addEventListener('orientationchange', function() {
+              setTimeout(handleResize, 300);
+            });
+            if (window.visualViewport) {
+              window.visualViewport.addEventListener('resize', debouncedResize);
+            }
 
-          statusEl.textContent += '\n启动成功!';
-          setTimeout(function() { statusEl.style.display = 'none'; }, 350);
-        } catch(e) {
-          statusEl.textContent += '\n[ERR] ' + e.message;
-        }
+            statusEl.textContent += '\n启动成功!';
+            setTimeout(function() { statusEl.style.display = 'none'; }, 350);
+          } catch(e) {
+            statusEl.textContent += '\n[ERR] ' + e.message;
+          }
+        });
         return;
       }
       var s = document.createElement('script');
