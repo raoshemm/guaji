@@ -51,61 +51,66 @@ var THEME = {
   textGold: 0xfbbf24
 };
 
+var ASSET_VERSION = (typeof BUILD_VERSION !== 'undefined' ? BUILD_VERSION : 'dev');
+function assetUrl(path) {
+  return path + '?v=' + ASSET_VERSION;
+}
+
 var UI_ASSETS = {
-  battleBackground: 'assets/image2-backgrounds/sky-ruins-v1/battle-sky-ruins-375x423.png',
-  battleForest: 'assets/image2-backgrounds/scene-cycle-v1/battle-forest-375x423.png',
-  battleCrystal: 'assets/image2-backgrounds/scene-cycle-v1/battle-crystal-375x423.png',
-  battleTemple: 'assets/image2-backgrounds/scene-cycle-v1/battle-temple-375x423.png',
-  hero: 'assets/image2-character-sheets/v3/hero-mage-v3.png',
-  monsterSlime: 'assets/image2-monsters/v1/monster-slime-v1.png',
-  monsterRabbit: 'assets/image2-monsters/v1/monster-rabbit-v1.png',
-  monsterBat: 'assets/image2-monsters/v1/monster-bat-v1.png',
-  monsterSpike: 'assets/image2-monsters/v1/monster-spike-v1.png',
-  monsterGhost: 'assets/image2-monsters/v1/monster-ghost-v1.png',
-  monsterSkull: 'assets/image2-monsters/v1/monster-skull-v1.png',
-  monsterDragon: 'assets/image2-monsters/v1/monster-dragon-v1.png',
-  monsterShadow: 'assets/image2-monsters/v1/monster-shadow-v1.png',
-  bossEye: 'assets/image2-monsters/v1/boss-eye-v1.png',
-  bossIceGiant: 'assets/image2-monsters/v1/boss-ice-giant-v1.png',
-  bossSpider: 'assets/image2-monsters/v1/boss-spider-v1.png',
-  bossDemon: 'assets/image2-monsters/v1/boss-demon-v1.png',
-  bossPhoenix: 'assets/image2-monsters/v1/boss-phoenix-v1.png',
-  supportCandy: 'assets/image2-character-sheets/v3/support-candy-v3.png',
-  supportMarshmallow: 'assets/image2-character-sheets/v3/support-marshmallow-v3.png',
-  supportMeatball: 'assets/image2-character-sheets/v3/support-meatball-v3.png',
-  supportPudding: 'assets/image2-character-sheets/v3/support-pudding-v3.png',
-  supportCone: 'assets/image2-character-sheets/v3/support-cone-v3.png',
-  supportMochi: 'assets/image2-character-sheets/v3/support-mochi-v3.png',
-  supportPopsicle: 'assets/image2-character-sheets/v3/support-popsicle-v3.png',
-  supportCake: 'assets/image2-character-sheets/v3/support-cake-v3.png',
-  supportCandyR: 'assets/image2-character-sheets/v3/support-candy-v3.png',
-  supportLocked: 'assets/ui/sprites/support-locked.png',
-  supportHidden: 'assets/image2-character-sheets/hidden/support-hidden-silhouette-white-v1.png',
-  topCheckin: 'assets/image2-white-assets/layout-v2/top-checkin-white.png',
-  topDailyTask: 'assets/image2-white-assets/layout-v2/top-daily-task-white.png',
-  topMail: 'assets/image2-white-assets/layout-v2/top-mail-white.png',
-  hudBoss: 'assets/image2-white-assets/top-hud-v1/top-boss-white.png',
-  hudCodex: 'assets/image2-white-assets/top-hud-v1/top-codex-white.png',
-  hudCheckin: 'assets/image2-white-assets/top-hud-v1/top-checkin-white.png',
-  hudDailyTask: 'assets/image2-white-assets/top-hud-v1/top-daily-task-white.png',
-  hudMail: 'assets/image2-white-assets/top-hud-v1/top-mail-white.png',
-  hudAnnouncement: 'assets/image2-white-assets/top-hud-v1/top-announcement-white.png',
-  hudRebirth: 'assets/image2-white-assets/top-hud-v1/top-rebirth-white.png',
-  hudEnergy: 'assets/image2-white-assets/top-hud-v1/top-energy-white.png',
-  brandDmax: 'assets/image2-brand/dmax-v1/dmax-title-badge-compact-runtime.png',
-  skillLightWand: 'assets/image2-white-assets/layout-v2/skill-light-wand-white.png',
-  skillHeavySlash: 'assets/image2-white-assets/layout-v2/skill-heavy-slash-white.png',
-  skillIceCombo: 'assets/image2-white-assets/layout-v2/skill-ice-combo-white.png',
-  skillSkullCritical: 'assets/image2-white-assets/layout-v2/skill-skull-critical-white.png',
-  skillGreenWhirlwind: 'assets/image2-white-assets/layout-v2/skill-green-whirlwind-white.png',
-  skillThunderbolt: 'assets/image2-white-assets/layout-v2/skill-thunderbolt-white.png',
-  skillStarMeteor: 'assets/image2-white-assets/layout-v2/skill-star-meteor-white.png',
-  navUpgrade: 'assets/image2-white-assets/layout-v2/nav-upgrade-white.png',
-  navCodex: 'assets/image2-white-assets/layout-v2/nav-codex-white.png',
-  navSpinWheel: 'assets/image2-white-assets/layout-v2/nav-spin-wheel-white.png',
-  navSupermarket: 'assets/image2-white-assets/layout-v2/nav-supermarket-white.png',
-  navRanking: 'assets/image2-white-assets/layout-v2/nav-ranking-white.png',
-  navShop: 'assets/image2-white-assets/layout-v2/nav-shop-white.png'
+  battleBackground: assetUrl('assets/image2-backgrounds/sky-ruins-v1/battle-sky-ruins-375x423.png'),
+  battleForest: assetUrl('assets/image2-backgrounds/scene-cycle-v1/battle-forest-375x423.png'),
+  battleCrystal: assetUrl('assets/image2-backgrounds/scene-cycle-v1/battle-crystal-375x423.png'),
+  battleTemple: assetUrl('assets/image2-backgrounds/scene-cycle-v1/battle-temple-375x423.png'),
+  hero: assetUrl('assets/image2-character-sheets/v3/hero-mage-v3.png'),
+  monsterSlime: assetUrl('assets/image2-monsters/v1/monster-slime-v1.png'),
+  monsterRabbit: assetUrl('assets/image2-monsters/v1/monster-rabbit-v1.png'),
+  monsterBat: assetUrl('assets/image2-monsters/v1/monster-bat-v1.png'),
+  monsterSpike: assetUrl('assets/image2-monsters/v1/monster-spike-v1.png'),
+  monsterGhost: assetUrl('assets/image2-monsters/v1/monster-ghost-v1.png'),
+  monsterSkull: assetUrl('assets/image2-monsters/v1/monster-skull-v1.png'),
+  monsterDragon: assetUrl('assets/image2-monsters/v1/monster-dragon-v1.png'),
+  monsterShadow: assetUrl('assets/image2-monsters/v1/monster-shadow-v1.png'),
+  bossEye: assetUrl('assets/image2-monsters/v1/boss-eye-v1.png'),
+  bossIceGiant: assetUrl('assets/image2-monsters/v1/boss-ice-giant-v1.png'),
+  bossSpider: assetUrl('assets/image2-monsters/v1/boss-spider-v1.png'),
+  bossDemon: assetUrl('assets/image2-monsters/v1/boss-demon-v1.png'),
+  bossPhoenix: assetUrl('assets/image2-monsters/v1/boss-phoenix-v1.png'),
+  supportCandy: assetUrl('assets/image2-character-sheets/v3/support-candy-v3.png'),
+  supportMarshmallow: assetUrl('assets/image2-character-sheets/v3/support-marshmallow-v3.png'),
+  supportMeatball: assetUrl('assets/image2-character-sheets/v3/support-meatball-v3.png'),
+  supportPudding: assetUrl('assets/image2-character-sheets/v3/support-pudding-v3.png'),
+  supportCone: assetUrl('assets/image2-character-sheets/v3/support-cone-v3.png'),
+  supportMochi: assetUrl('assets/image2-character-sheets/v3/support-mochi-v3.png'),
+  supportPopsicle: assetUrl('assets/image2-character-sheets/v3/support-popsicle-v3.png'),
+  supportCake: assetUrl('assets/image2-character-sheets/v3/support-cake-v3.png'),
+  supportCandyR: assetUrl('assets/image2-character-sheets/v3/support-candy-v3.png'),
+  supportLocked: assetUrl('assets/ui/sprites/support-locked.png'),
+  supportHidden: assetUrl('assets/image2-character-sheets/hidden/support-hidden-silhouette-white-v1.png'),
+  topCheckin: assetUrl('assets/image2-white-assets/layout-v2/top-checkin-white.png'),
+  topDailyTask: assetUrl('assets/image2-white-assets/layout-v2/top-daily-task-white.png'),
+  topMail: assetUrl('assets/image2-white-assets/layout-v2/top-mail-white.png'),
+  hudBoss: assetUrl('assets/image2-white-assets/top-hud-v1/top-boss-white.png'),
+  hudCodex: assetUrl('assets/image2-white-assets/top-hud-v1/top-codex-white.png'),
+  hudCheckin: assetUrl('assets/image2-white-assets/top-hud-v1/top-checkin-white.png'),
+  hudDailyTask: assetUrl('assets/image2-white-assets/top-hud-v1/top-daily-task-white.png'),
+  hudMail: assetUrl('assets/image2-white-assets/top-hud-v1/top-mail-white.png'),
+  hudAnnouncement: assetUrl('assets/image2-white-assets/top-hud-v1/top-announcement-white.png'),
+  hudRebirth: assetUrl('assets/image2-white-assets/top-hud-v1/top-rebirth-white.png'),
+  hudEnergy: assetUrl('assets/image2-white-assets/top-hud-v1/top-energy-white.png'),
+  brandDmax: assetUrl('assets/image2-brand/dmax-v1/dmax-title-badge-compact-runtime.png'),
+  skillLightWand: assetUrl('assets/image2-white-assets/layout-v2/skill-light-wand-white.png'),
+  skillHeavySlash: assetUrl('assets/image2-white-assets/layout-v2/skill-heavy-slash-white.png'),
+  skillIceCombo: assetUrl('assets/image2-white-assets/layout-v2/skill-ice-combo-white.png'),
+  skillSkullCritical: assetUrl('assets/image2-white-assets/layout-v2/skill-skull-critical-white.png'),
+  skillGreenWhirlwind: assetUrl('assets/image2-white-assets/layout-v2/skill-green-whirlwind-white.png'),
+  skillThunderbolt: assetUrl('assets/image2-white-assets/layout-v2/skill-thunderbolt-white.png'),
+  skillStarMeteor: assetUrl('assets/image2-white-assets/layout-v2/skill-star-meteor-white.png'),
+  navUpgrade: assetUrl('assets/image2-white-assets/layout-v2/nav-upgrade-white.png'),
+  navCodex: assetUrl('assets/image2-white-assets/layout-v2/nav-codex-white.png'),
+  navSpinWheel: assetUrl('assets/image2-white-assets/layout-v2/nav-spin-wheel-white.png'),
+  navSupermarket: assetUrl('assets/image2-white-assets/layout-v2/nav-supermarket-white.png'),
+  navRanking: assetUrl('assets/image2-white-assets/layout-v2/nav-ranking-white.png'),
+  navShop: assetUrl('assets/image2-white-assets/layout-v2/nav-shop-white.png')
 };
 
 var UI_ASSET_SIZES = {};
@@ -1218,7 +1223,7 @@ Game.prototype.buildUI = function() {
   tg.endFill();
   topBar.addChild(topBgShape);
   var topSkin = new eui.Image();
-  topSkin.source = 'assets/ui/battle-skin-top-clean.png';
+  topSkin.source = assetUrl('assets/ui/battle-skin-top-clean.png');
   topSkin.width = stageW; topSkin.height = TOP_H;
   topSkin.x = 0; topSkin.y = 0;
   topSkin.alpha = 0;
@@ -1884,7 +1889,7 @@ Game.prototype.buildUI = function() {
   this.updateBattleScene(false);
   this.battleGroup.addChild(fieldSkin);
   var controlsSkin = new eui.Image();
-  controlsSkin.source = 'assets/ui/battle-skin-controls.png';
+  controlsSkin.source = assetUrl('assets/ui/battle-skin-controls.png');
   controlsSkin.width = stageW; controlsSkin.height = 60;
   controlsSkin.x = 0; controlsSkin.y = 0;
   controlsSkin.touchEnabled = false;
@@ -2248,7 +2253,7 @@ Game.prototype.buildUI = function() {
   skillDivider.includeInLayout = false;
   skillBar.addChild(skillDivider);
   var skillSkin = new eui.Image();
-  skillSkin.source = 'assets/ui/battle-skin-skills-clean.png';
+  skillSkin.source = assetUrl('assets/ui/battle-skin-skills-clean.png');
   skillSkin.width = stageW; skillSkin.height = SKILL_H;
   skillSkin.x = 0; skillSkin.y = 0;
   skillSkin.alpha = 0;
@@ -2289,7 +2294,7 @@ Game.prototype.buildUI = function() {
   navBg.includeInLayout = false;
   navBar.addChildAt(navBg, 0);
   var navSkin = new eui.Image();
-  navSkin.source = 'assets/ui/battle-skin-nav-clean.png';
+  navSkin.source = assetUrl('assets/ui/battle-skin-nav-clean.png');
   navSkin.width = stageW; navSkin.height = NAV_H;
   navSkin.x = 0; navSkin.y = 0;
   navSkin.alpha = 0;
