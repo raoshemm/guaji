@@ -579,6 +579,17 @@ Game.prototype.getDamageTypeName = function(type) {
   return '普通';
 };
 
+Game.prototype.getBossStrategy = function(bossType) {
+  if (!bossType) return '观察BOSS蓄力，保留一个技能用于打断。';
+  var weak = this.getDamageTypeName(bossType.weakness);
+  if (bossType.shape === 'boss_eye') return '弱点：' + weak + '。抗暴击，优先用破岳和连斩稳定输出，蓄力时立刻放技能打断。';
+  if (bossType.shape === 'boss_giant') return '弱点：' + weak + '。物防很高，多用裂光、糖风、雷霆、星陨打穿重甲。';
+  if (bossType.shape === 'boss_spider') return '弱点：' + weak + '。蛛网会扣能量和时间，保留轻击或破岳打断蓄力。';
+  if (bossType.shape === 'boss_demon') return '弱点：' + weak + '。法抗高且会灼烧能量，先保证生命和能量再挑战。';
+  if (bossType.shape === 'boss_phoenix') return '弱点：' + weak + '。低血会涅槃，留星陨或高爆发技能做斩杀。';
+  return '弱点：' + weak + '。观察蓄力，保留技能打断。';
+};
+
 Game.prototype.getResistanceMultiplier = function(m, damageType, isCrit) {
   if (!m || damageType === 'true') return 1;
   var type = damageType || 'phys';
@@ -3266,9 +3277,59 @@ Game.prototype.takePlayerDamage = function(raw, label) {
   var dmg = Math.max(1, Math.floor(raw * 100 / (100 + def)));
   this.playerHp = Math.max(0, this.playerHp - dmg);
   if (label) this.showToast(label + ' -' + this.fmt(dmg) + '生命');
+  this.showPlayerDamageText(dmg);
+  this.shakeBattle(4);
   this.sfxHurt();
   if (this.playerHp <= 0) this.onPlayerDefeated();
   else this.updateUI();
+};
+
+Game.prototype.showPlayerDamageText = function(dmg) {
+  if (!this.damageLayer || !this.heroGroup) return;
+  var txt = new egret.TextField();
+  txt.text = '-❤' + this.fmt(dmg);
+  txt.size = 18; txt.textColor = 0xff6b6b; txt.bold = true;
+  txt.x = this.heroGroup.x + 30 + (Math.random() * 12 - 6);
+  txt.y = this.heroGroup.y + 20;
+  this.damageLayer.addChild(txt);
+  egret.Tween.get(txt).to({ y: txt.y - 34, alpha: 0 }, 650).call(function() {
+    if (txt.parent) txt.parent.removeChild(txt);
+  });
+};
+
+Game.prototype.shakeBattle = function(power) {
+  if (!this.battleGroup) return;
+  var baseX = 0;
+  egret.Tween.removeTweens(this.battleGroup);
+  this.battleGroup.x = baseX;
+  egret.Tween.get(this.battleGroup)
+    .to({ x: baseX - power }, 35)
+    .to({ x: baseX + power }, 55)
+    .to({ x: baseX - Math.floor(power / 2) }, 45)
+    .to({ x: baseX }, 45);
+};
+
+Game.prototype.monsterAttackAnim = function(idx) {
+  var mv = this.monsterViews && this.monsterViews[idx];
+  if (!mv || !this.heroGroup || !this.damageLayer) return;
+  var start = this.getMonsterCenter(idx);
+  var endX = this.heroGroup.x + this.heroGroup.width / 2;
+  var endY = this.heroGroup.y + 42;
+  var orb = new egret.Shape();
+  var color = (this.monsters[idx] && this.monsters[idx].isBoss) ? 0xff4444 : 0xffb84d;
+  orb.graphics.beginFill(color, 0.92);
+  orb.graphics.drawCircle(0, 0, 5);
+  orb.graphics.endFill();
+  orb.graphics.lineStyle(1, 0xffffff, 0.45);
+  orb.graphics.drawCircle(0, 0, 7);
+  orb.x = start.x; orb.y = start.y;
+  this.damageLayer.addChild(orb);
+  egret.Tween.get(mv, { override: false })
+    .to({ y: mv.y - 4 }, 80)
+    .to({ y: mv.y }, 120);
+  egret.Tween.get(orb)
+    .to({ x: endX, y: endY, scaleX: 1.4, scaleY: 1.4 }, 260, egret.Ease.quadIn)
+    .call(function() { if (orb.parent) orb.parent.removeChild(orb); });
 };
 
 Game.prototype.processMonsterAttacks = function() {
@@ -3280,6 +3341,7 @@ Game.prototype.processMonsterAttacks = function() {
     var m = this.monsters[i];
     if (!m || m.hp <= 0) continue;
     total += this.getMonsterAttack(m);
+    this.monsterAttackAnim(i);
     if (m.trait === 'burn') burn = true;
     if (m.trait === 'web') web = true;
   }
@@ -3551,6 +3613,15 @@ Game.prototype.getBossCounterLabel = function() {
 Game.prototype.pulseBossCounterWarning = function() {
   var mv = this.monsterViews && this.monsterViews[0];
   if (!mv) return;
+  var tip = new egret.TextField();
+  tip.text = '释放任意技能打断';
+  tip.size = 16; tip.bold = true; tip.textColor = 0xfff1a8;
+  var pos = this.getMonsterCenter(0);
+  tip.x = pos.x - 64; tip.y = pos.y - 58;
+  if (this.damageLayer) this.damageLayer.addChild(tip);
+  egret.Tween.get(tip).to({ y: tip.y - 18, alpha: 0 }, 900).call(function() {
+    if (tip.parent) tip.parent.removeChild(tip);
+  });
   egret.Tween.get(mv, { override: false })
     .to({ scaleX: mv.scaleX * 1.08, scaleY: mv.scaleY * 1.08 }, 150)
     .to({ scaleX: mv.scaleX, scaleY: mv.scaleY }, 150)
@@ -3657,29 +3728,39 @@ Game.prototype.openBossPrepPanel = function(power) {
   panel.addChild(title);
 
   var progress = this.getProgressInfoForWave(power.wave);
+  var bossIdx = Math.floor(power.wave / 10 - 1) % BOSS_TYPES.length;
+  var bossType = BOSS_TYPES[Math.max(0, bossIdx)] || BOSS_TYPES[0];
   var ratioPct = Math.floor(Math.min(1.2, power.ratio) * 100);
   var info = new eui.Label();
   info.text = this.getProgressTitle(power.wave) + ' · BOSS ' + progress.chapterBoss + '/' + BOSSES_PER_CHAPTER +
     '\n当前战力 ' + this.fmt(power.current) + ' / 推荐 ' + this.fmt(power.recommended) + '（' + ratioPct + '%）' +
-    '\n' + this.getBossPowerAdvice(power);
+    '\n' + this.getBossPowerAdvice(power) +
+    '\n' + bossType.name + '：' + this.getDamageTypeName(bossType.weakness) + '弱  物防' + bossType.armor + ' / 法抗' + bossType.resist;
   info.size = 12; info.textColor = 0xcccccc;
   info.x = panel._contentX; info.y = 56; info.width = panel._contentW; info.lineSpacing = 6;
   info.wordWrap = true;
   panel.addChild(info);
 
+  var strategy = new eui.Label();
+  strategy.text = this.getBossStrategy(bossType);
+  strategy.size = 10; strategy.textColor = 0xffd7a3;
+  strategy.x = panel._contentX; strategy.y = 114; strategy.width = panel._contentW;
+  strategy.wordWrap = true; strategy.lineSpacing = 3;
+  panel.addChild(strategy);
+
   var pbg = new eui.Rect();
   pbg.width = panel._contentW; pbg.height = 8; pbg.fillColor = 0x140e36;
-  pbg.x = panel._contentX; pbg.y = 128; pbg.ellipseWidth = 6; pbg.ellipseHeight = 6;
+  pbg.x = panel._contentX; pbg.y = 148; pbg.ellipseWidth = 6; pbg.ellipseHeight = 6;
   panel.addChild(pbg);
   var pfill = new eui.Rect();
   pfill.width = Math.floor(panel._contentW * Math.max(0.05, Math.min(1, power.ratio)));
   pfill.height = 8;
   pfill.fillColor = power.ratio >= 1 ? THEME.ok : (power.ratio >= 0.82 ? THEME.warn : THEME.danger);
-  pfill.x = panel._contentX; pfill.y = 128; pfill.ellipseWidth = 6; pfill.ellipseHeight = 6;
+  pfill.x = panel._contentX; pfill.y = 148; pfill.ellipseWidth = 6; pfill.ellipseHeight = 6;
   panel.addChild(pfill);
 
   var self = this;
-  var y = 152;
+  var y = 172;
   y = this.addPanelRow(panel, y, '升', 0x3498db, '强化成长\n主角、队友会直接提高通过率', '去升级', 0x27ae60, function() {
     self.closePanel(); self.openUpgrade();
   }, false);
