@@ -513,6 +513,7 @@ function Game(main) {
   this.bossTimer = 0;
   this._bossTimerInterval = null;
   this.bossCounter = null;
+  this.bossRetryLock = null;
   this.pendingBossReward = null;
 
   // --- UI引用 ---
@@ -741,6 +742,34 @@ Game.prototype.getBossPowerInfo = function(bossWave) {
   };
 };
 
+Game.prototype.setBossRetryLock = function(failedBossWave) {
+  if (!failedBossWave || failedBossWave % 10 !== 0) return;
+  this.bossRetryLock = {
+    bossWave: failedBossWave,
+    ready: true
+  };
+};
+
+Game.prototype.getBossRetryLock = function() {
+  return null;
+};
+
+Game.prototype.getBossRetryReady = function() {
+  var lock = this.bossRetryLock;
+  if (!lock || !lock.bossWave) return null;
+  if (this.getNextBossWave() !== lock.bossWave) {
+    this.bossRetryLock = null;
+    return null;
+  }
+  return lock;
+};
+
+Game.prototype.advanceBossRetryLock = function(clearedWave) {
+  var lock = this.getBossRetryReady();
+  if (!lock || clearedWave % 10 !== 0) return;
+  this.bossRetryLock = null;
+};
+
 Game.prototype.getBossPowerAdvice = function(info, hpPct) {
   info = info || this.getBossPowerInfo();
   var mainCost = CONFIG.upgradeCost(this.mainLevel);
@@ -895,8 +924,7 @@ Game.prototype.upgradeEquipment = function(idx) {
   this.showToast(def.name + '升至' + this.equipmentLevels[idx] + '阶');
   this.saveGame();
   this.updateUI();
-  this.closePanel();
-  this.openUpgrade('equipment');
+  this.refreshUpgradePanel('equipment');
 };
 
 Game.prototype.ensureRebirthTalents = function() {
@@ -3673,9 +3701,11 @@ Game.prototype.processMonsterAttacks = function() {
 };
 
 Game.prototype.onPlayerDefeated = function() {
+  var failedBossWave = this.wave % 10 === 0 ? this.wave : 0;
   this.stopBossTimer();
   var retreatWave = Math.floor((Math.max(1, this.wave) - 1) / 10) * 10 + 1;
   this.wave = Math.max(1, retreatWave);
+  if (failedBossWave) this.setBossRetryLock(failedBossWave);
   this.energy = Math.max(0, this.energy - 20);
   this.playerHp = Math.floor(this.getMaxPlayerHp() * 0.65);
   this.bossCounter = null;
@@ -3961,10 +3991,12 @@ Game.prototype.onBossFail = function() {
   var hpPct = boss && boss.maxHp ? Math.max(0, boss.hp / boss.maxHp) : 1;
   var failedWave = this.wave;
   this.stopBossTimer();
+  this.setBossRetryLock(failedWave);
   this.showToast('💀 BOSS挑战失败！从第1波重新开始');
   // 失败后波次重置到当前轮次的第1波
   var cycleStart = Math.floor((this.wave - 1) / 10) * 10 + 1;
   this.wave = cycleStart;
+  this.updateBossBtn();
   var self = this;
   setTimeout(function() {
     self.spawnWave();
@@ -4023,13 +4055,18 @@ Game.prototype.openBossFailPanel = function(hpPct, bossWave) {
 
 // ==================== 挑战BOSS按钮逻辑 ====================
 
+Game.prototype.canChallengeBossNow = function() {
+  var waveInCycle = ((this.wave - 1) % 10) + 1;
+  return this.wave % 10 !== 0 && (waveInCycle >= 9 || !!this.getBossRetryReady());
+};
+
 Game.prototype.challengeBoss = function() {
   var waveInCycle = ((this.wave - 1) % 10) + 1;
   if (this.wave % 10 === 0) {
     this.showToast('当前已是BOSS波！');
     return;
   }
-  if (waveInCycle < 9) {
+  if (!this.canChallengeBossNow()) {
     // 条件不满足时提示（按钮本身已灰色）
     this.showToast('⚠️ 需通过第9波后才能挑战BOSS (' + waveInCycle + '/9)');
     return;
@@ -4108,6 +4145,12 @@ Game.prototype.openBossPrepPanel = function(power) {
 
 // 直接跳到BOSS波
 Game.prototype.skipToBoss = function() {
+  if (!this.canChallengeBossNow()) {
+    var waveInCycle = ((this.wave - 1) % 10) + 1;
+    this.showToast('⚠️ 当前进度不足，需推进到第9波后挑战 (' + waveInCycle + '/9)');
+    this.updateBossBtn();
+    return;
+  }
   // 跳到当前轮次的第10波
   var cycleStart = Math.floor((this.wave - 1) / 10) * 10;
   this.wave = cycleStart + 10;
@@ -4124,9 +4167,23 @@ Game.prototype.updateBossBtn = function() {
   if (!this._bossBtnBg || !this._bossBtnText) return;
   var waveInCycle = ((this.wave - 1) % 10) + 1;
   var isBossWave = this.wave % 10 === 0;
-  var canChallenge = (waveInCycle >= 9 && !isBossWave); // 第9波及以上可挑战
+  var retryReady = this.getBossRetryReady();
+  var canChallenge = this.canChallengeBossNow(); // 第9波及以上可挑战
 
-  if (isBossWave) {
+  if (retryReady) {
+    this._bossBtnBg.fillColor = 0x9b2335;
+    this._bossBtnText.text = '挑战BOSS';
+    this._bossBtnText.textColor = 0xffffff;
+    if (this._bossBtnHint) {
+      this._bossBtnHint.text = '可再战';
+      this._bossBtnHint.textColor = 0xffd7a3;
+    }
+    if (this._bossBtnGroup) {
+      this._bossBtnGroup.alpha = 1;
+      this._bossBtnGroup.touchEnabled = true;
+      this._bossBtnGroup.touchChildren = true;
+    }
+  } else if (isBossWave) {
     this._bossBtnBg.fillColor = 0xe74c3c;
     this._bossBtnText.text = 'BOSS战';
     this._bossBtnText.textColor = 0xffffff;
@@ -4135,6 +4192,10 @@ Game.prototype.updateBossBtn = function() {
       this._bossBtnHint.textColor = 0xffe4e6;
     }
     if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
+    if (this._bossBtnGroup) {
+      this._bossBtnGroup.touchEnabled = false;
+      this._bossBtnGroup.touchChildren = false;
+    }
   } else if (canChallenge) {
     var power = this.getBossPowerInfo(this.getNextBossWave());
     this._bossBtnBg.fillColor = 0x9b2335;
@@ -4145,6 +4206,10 @@ Game.prototype.updateBossBtn = function() {
       this._bossBtnHint.textColor = power.ratio >= 0.96 ? 0xffd7a3 : 0xff8888;
     }
     if (this._bossBtnGroup) this._bossBtnGroup.alpha = 1;
+    if (this._bossBtnGroup) {
+      this._bossBtnGroup.touchEnabled = true;
+      this._bossBtnGroup.touchChildren = true;
+    }
   } else {
     this._bossBtnBg.fillColor = 0x444444;
     this._bossBtnText.text = '挑战BOSS';
@@ -4154,6 +4219,10 @@ Game.prototype.updateBossBtn = function() {
       this._bossBtnHint.textColor = 0xaaaaaa;
     }
     if (this._bossBtnGroup) this._bossBtnGroup.alpha = 0.6;
+    if (this._bossBtnGroup) {
+      this._bossBtnGroup.touchEnabled = false;
+      this._bossBtnGroup.touchChildren = false;
+    }
   }
 };
 
@@ -4180,10 +4249,12 @@ Game.prototype.updateBossTimerUI = function() {
 Game.prototype.nextWave = function() {
   // BOSS击杀成功，停止计时器
   var wasBoss = this.wave % 10 === 0;
+  var clearedWave = this.wave;
   var bossStage = wasBoss ? Math.floor(this.wave / 10) : 0;
   var rewardInfo = wasBoss ? this.claimBossStageReward(bossStage) : null;
   this.stopBossTimer();
   this.wave++;
+  this.advanceBossRetryLock(clearedWave);
   this.totalCleared++;
   if (this.wave > this.maxWaveReached) this.maxWaveReached = this.wave;
   if (wasBoss) {
@@ -4315,21 +4386,7 @@ Game.prototype.checkSupports = function() {
 };
 
 Game.prototype.upgradeMain = function() {
-  var cost = CONFIG.upgradeCost(this.mainLevel);
-  if (this.gold < cost) { this.showToast('金币不足！'); return; }
-  this.gold -= cost;
-  this.mainLevel++;
-  this.playerHp = Math.min(this.getMaxPlayerHp(), this.playerHp + Math.floor(this.getMaxPlayerHp() * 0.25));
-  this.sfxLevelUp();
-  this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
-  this.notifyLevelMail();
-  this.checkLevelUpSkills();
-  this.checkAchievements();
-  this.saveGame();
-  this.updateUI();
-  // 刷新升级面板，显示最新数据
-  this.closePanel();
-  this.openUpgrade();
+  this.upgradeMainBatch(1);
 };
 
 Game.prototype.notifyLevelMail = function() {
@@ -4352,9 +4409,7 @@ Game.prototype.upgradeSupport = function(idx) {
   this.showToast('⬆️ ' + s.name + '升级！Lv.' + s.level + ' DPS: ' + this.fmt(s.dps * s.level));
   this.saveGame();
   this.updateUI();
-  // 刷新升级面板
-  this.closePanel();
-  this.openUpgrade();
+  this.refreshUpgradePanel('supports');
 };
 
 Game.prototype.upgradeSkill = function(idx) {
@@ -4369,8 +4424,7 @@ Game.prototype.upgradeSkill = function(idx) {
   this.showToast('✨ ' + SKILLS[idx].name + '强化！Lv.' + this.skillLevels[idx]);
   this.saveGame();
   this.updateUI();
-  this.closePanel();
-  this.openUpgrade();
+  this.refreshUpgradePanel('skills');
 };
 
 Game.prototype.recruitSupport = function(idx) {
@@ -4389,8 +4443,7 @@ Game.prototype.recruitSupport = function(idx) {
   this.checkAchievements();
   this.saveGame();
   this.updateUI();
-  this.closePanel();
-  this.openUpgrade();
+  this.refreshUpgradePanel('supports');
 };
 
 Game.prototype.checkLevelUpSkills = function() {
@@ -5364,6 +5417,7 @@ Game.prototype.closePanel = function() {
     this._panelOverlay.parent.removeChild(this._panelOverlay);
   }
   this._panelOverlay = null;
+  this._upgradeScroller = null;
 };
 
 // 舞台尺寸变化时同步内部缓存 + 已开面板的覆盖层尺寸
@@ -5500,6 +5554,7 @@ Game.prototype.createPanelScrollContent = function(panel, top, bottom) {
   content.width = scroller.width;
   scroller.viewport = content;
   panel.addChild(scroller);
+  content._scroller = scroller;
   return content;
 };
 
@@ -5551,6 +5606,54 @@ Game.prototype.addUpgradeCard = function(parent, x, y, w, iconText, iconColor, t
   return h;
 };
 
+Game.prototype.captureUpgradeScroll = function() {
+  if (this._upgradeScroller && this._upgradeScroller.viewport) {
+    this._upgradeScrollV = this._upgradeScroller.viewport.scrollV || 0;
+  }
+};
+
+Game.prototype.refreshUpgradePanel = function(tabName) {
+  this.captureUpgradeScroll();
+  this.closePanel();
+  this.openUpgrade(tabName || this.upgradePanelTab);
+};
+
+Game.prototype.getAffordableMainLevels = function(limit) {
+  var gold = this.gold;
+  var level = this.mainLevel;
+  var count = 0;
+  while (count < limit) {
+    var cost = CONFIG.upgradeCost(level);
+    if (gold < cost) break;
+    gold -= cost;
+    level++;
+    count++;
+  }
+  return count;
+};
+
+Game.prototype.upgradeMainBatch = function(limit) {
+  limit = Math.max(1, Math.floor(limit || 1));
+  var bought = 0;
+  while (bought < limit) {
+    var cost = CONFIG.upgradeCost(this.mainLevel);
+    if (this.gold < cost) break;
+    this.gold -= cost;
+    this.mainLevel++;
+    bought++;
+    this.notifyLevelMail();
+  }
+  if (bought <= 0) { this.showToast('金币不足！'); return; }
+  this.playerHp = Math.min(this.getMaxPlayerHp(), this.playerHp + Math.floor(this.getMaxPlayerHp() * Math.min(0.8, 0.18 + bought * 0.04)));
+  this.sfxLevelUp();
+  this.showToast('⬆️ 主角连升' + bought + '级！当前Lv.' + this.mainLevel);
+  this.checkLevelUpSkills();
+  this.checkAchievements();
+  this.saveGame();
+  this.updateUI();
+  this.refreshUpgradePanel('skills');
+};
+
 // ==================== 升级面板 ====================
 
 Game.prototype.openUpgrade = function(tabName) {
@@ -5558,6 +5661,7 @@ Game.prototype.openUpgrade = function(tabName) {
   if (!this.upgradePanelTab) this.upgradePanelTab = 'skills';
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
+  var restoreScroll = this._upgradeScrollV || 0;
 
   var title = new eui.Label();
   title.text = '⬆️ 升级'; title.size = 18; title.textColor = 0xffffff;
@@ -5570,6 +5674,7 @@ Game.prototype.openUpgrade = function(tabName) {
   // 主角（显示当前 + 下一级预览）
   var mainCost = CONFIG.upgradeCost(this.mainLevel);
   var mainNextDmg = CONFIG.mainDmg(this.mainLevel + 1, this.rebirthGems);
+  var mainRowStart = y;
   y = this.addPanelRow(panel, y, '主角', 0x3498db,
     '主角 Lv.' + this.mainLevel + '  伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) +
     '\n生命 ' + this.fmt(this.getMaxPlayerHp()) + ' 防御 ' + this.getPlayerDefense() + ' → 伤害+' + this.fmt(mainNextDmg - CONFIG.mainDmg(this.mainLevel, this.rebirthGems)),
@@ -5578,6 +5683,22 @@ Game.prototype.openUpgrade = function(tabName) {
     function() { self.upgradeMain(); },
     this.gold < mainCost
   );
+  var batch10 = this.getAffordableMainLevels(10);
+  var batch100 = this.getAffordableMainLevels(100);
+  if (batch10 >= 10 || batch100 >= 100) {
+    var batchY = mainRowStart + 64;
+    if (batch10 >= 10) {
+      var up10 = this.createButton('+10级', 0x2d8f62, 58, 22, function() { self.upgradeMainBatch(10); }, this);
+      up10.x = panel._contentX + panel._contentW - 132; up10.y = batchY;
+      panel.addChild(up10);
+    }
+    if (batch100 >= 100) {
+      var up100 = this.createButton('+100级', 0xd99022, 66, 22, function() { self.upgradeMainBatch(100); }, this);
+      up100.x = panel._contentX + panel._contentW - 68; up100.y = batchY;
+      panel.addChild(up100);
+    }
+    y += 26;
+  }
 
   // 进度条
   var progBg = new eui.Rect();
@@ -5598,18 +5719,21 @@ Game.prototype.openUpgrade = function(tabName) {
 
   var tabW = Math.floor((panel._contentW - 16) / 3);
   var skillsTab = this.createButton('技能强化', this.upgradePanelTab === 'skills' ? 0x3498db : 0x30245f, tabW, 30, function() {
+    self._upgradeScrollV = 0;
     self.closePanel();
     self.openUpgrade('skills');
   }, this);
   skillsTab.x = panel._contentX; skillsTab.y = y;
   panel.addChild(skillsTab);
   var supportTab = this.createButton('辅助英雄', this.upgradePanelTab === 'supports' ? 0x9b59b6 : 0x30245f, tabW, 30, function() {
+    self._upgradeScrollV = 0;
     self.closePanel();
     self.openUpgrade('supports');
   }, this);
   supportTab.x = panel._contentX + tabW + 8; supportTab.y = y;
   panel.addChild(supportTab);
   var equipTab = this.createButton('装备锻造', this.upgradePanelTab === 'equipment' ? 0xe67e22 : 0x30245f, tabW, 30, function() {
+    self._upgradeScrollV = 0;
     self.closePanel();
     self.openUpgrade('equipment');
   }, this);
@@ -5618,6 +5742,7 @@ Game.prototype.openUpgrade = function(tabName) {
   y += 40;
 
   var contentList = this.createPanelScrollContent(panel, y, 14);
+  this._upgradeScroller = contentList._scroller;
   contentList._contentX = 0;
   contentList._contentW = panel._contentW;
   var rowY = 0;
@@ -5776,6 +5901,10 @@ Game.prototype.openUpgrade = function(tabName) {
     rowY = coreY + 76;
   }
   contentList.height = Math.max(rowY, Math.ceil(cardCount / 2) * (cardH + cardGap)) + 4;
+  if (this._upgradeScroller && this._upgradeScroller.viewport && restoreScroll > 0) {
+    var maxScroll = Math.max(0, contentList.height - this._upgradeScroller.height);
+    this._upgradeScroller.viewport.scrollV = Math.min(restoreScroll, maxScroll);
+  }
 };
 
 // ==================== 超市面板 ====================
@@ -7484,6 +7613,7 @@ Game.prototype.saveGame = function() {
       rebirthTalents: this.rebirthTalents,
       lastRebirthBossStage: this.lastRebirthBossStage || 0,
       rebirthCount: this.rebirthCount || 0,
+      bossRetryLock: this.bossRetryLock,
       monsterCodex: this.monsterCodex,
       avatarIdx: this.avatarIdx || 0,
       playerName: this.playerName || '玩家'
@@ -7565,6 +7695,7 @@ Game.prototype.loadGame = function() {
     if (d.maxWaveReached) this.maxWaveReached = d.maxWaveReached;
     if (d.lastRebirthBossStage !== undefined) this.lastRebirthBossStage = d.lastRebirthBossStage;
     if (d.rebirthCount !== undefined) this.rebirthCount = d.rebirthCount;
+    if (d.bossRetryLock) this.bossRetryLock = d.bossRetryLock;
     if (d.monsterCodex) this.monsterCodex = d.monsterCodex;
     // 兼容旧存档的 round 字段
     if (d.round && d.round > 1 && !d.maxWaveReached) {
