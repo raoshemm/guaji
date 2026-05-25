@@ -240,10 +240,16 @@ var CONFIG = {
   bossKillEnergyReward: 6,
   energyPotionValue: 30,
   bossTimeLimit: 10,  // BOSS限时（秒）
-  monsterHp: function(wave) { return Math.floor(100 * Math.pow(wave, 1.25)); },
-  goldReward: function(wave, isBoss) { return Math.floor(5 * Math.pow(wave, 1.1) * (isBoss ? 5 : 1)); },
+  playerHp: function(level, gems) { return Math.floor(520 + 72 * Math.pow(level, 1.25) * CONFIG.rebirthDamageMult(gems) * 0.55); },
+  playerDefense: function(level, gems) { return Math.floor(8 + level * 0.9 + Math.log(1 + Math.max(0, gems || 0)) * 7); },
+  monsterAtk: function(wave, isBoss) { return Math.floor((10 + 1.25 * Math.pow(wave, 0.92)) * (isBoss ? 2.65 : 1)); },
+  monsterHp: function(wave) { return Math.floor(120 * Math.pow(wave, 1.36) * (1 + Math.floor((wave - 1) / 50) * 0.08)); },
+  bossHpMult: function(wave) { return 7 + Math.min(4, Math.floor(Math.max(0, wave - 10) / 100)); },
+  goldReward: function(wave, isBoss) { return Math.floor(6 * Math.pow(wave, 1.06) * (isBoss ? 6 : 1)); },
+  rebirthDamageMult: function(gems) { return 1 + Math.log(1 + Math.max(0, gems || 0)) * 0.35; },
+  rebirthSupportMult: function(gems) { return 1 + Math.log(1 + Math.max(0, gems || 0)) * 0.22; },
   mainDmg: function(level, gems) {
-    var mult = 1 + (gems || 0) * 0.1;
+    var mult = CONFIG.rebirthDamageMult(gems);
     return Math.floor(80 * Math.pow(level, 1.35) * mult);
   },
   upgradeCost: function(level) { return Math.floor(80 * Math.pow(level, 2.05) + 500 * level); },
@@ -263,35 +269,35 @@ var CONFIG = {
 //   icon   drawSkillIcon 消费的形状 key
 //   glow   辉光色
 var SKILLS = [
-  { name: '轻击', cd: 4,  dmg: 1.2,  hits: 1, lv: 1,  effect: 'single',    color: 0x5ec8ff, icon: 'slash',   glow: 0xa8e0ff },
-  { name: '破岳', cd: 14, dmg: 3.2,  hits: 1, lv: 3,  effect: 'boss',      color: 0xef4444, icon: 'smash',   glow: 0xffb5b5 },
-  { name: '连斩', cd: 18, dmg: 0.85, hits: 5, lv: 5,  effect: 'multi',     color: 0xfbbf24, icon: 'triple',  glow: 0xfff1b0 },
-  { name: '裂光', cd: 24, dmg: 2.4,  hits: 1, lv: 8,  effect: 'critBuff',  color: 0xc7a7ff, icon: 'crit',    glow: 0xe7d4ff },
-  { name: '糖风', cd: 30, dmg: 1.5,  hits: 0, lv: 12, effect: 'aoe',       color: 0x7be8b7, icon: 'whirl',   glow: 0xc5f5dd },
-  { name: '雷霆', cd: 40, dmg: 1.2,  hits: 0, lv: 18, effect: 'speedBuff', color: 0xffd166, icon: 'thunder', glow: 0xffe8a5 },
-  { name: '星陨', cd: 70, dmg: 5.2,  hits: 0, lv: 25, effect: 'meteor',    color: 0xff7eb0, icon: 'meteor',  glow: 0xffcfe2 }
+  { name: '轻击', cd: 4,  dmg: 1.2,  hits: 1, lv: 1,  type: 'phys',  effect: 'single',    color: 0x5ec8ff, icon: 'slash',   glow: 0xa8e0ff },
+  { name: '破岳', cd: 14, dmg: 3.2,  hits: 1, lv: 3,  type: 'phys',  effect: 'boss',      color: 0xef4444, icon: 'smash',   glow: 0xffb5b5 },
+  { name: '连斩', cd: 18, dmg: 0.85, hits: 5, lv: 5,  type: 'phys',  effect: 'multi',     color: 0xfbbf24, icon: 'triple',  glow: 0xfff1b0 },
+  { name: '裂光', cd: 24, dmg: 2.4,  hits: 1, lv: 8,  type: 'magic', effect: 'critBuff',  color: 0xc7a7ff, icon: 'crit',    glow: 0xe7d4ff },
+  { name: '糖风', cd: 30, dmg: 1.5,  hits: 0, lv: 12, type: 'magic', effect: 'aoe',       color: 0x7be8b7, icon: 'whirl',   glow: 0xc5f5dd },
+  { name: '雷霆', cd: 40, dmg: 1.2,  hits: 0, lv: 18, type: 'magic', effect: 'speedBuff', color: 0xffd166, icon: 'thunder', glow: 0xffe8a5 },
+  { name: '星陨', cd: 70, dmg: 5.2,  hits: 0, lv: 25, type: 'true',  effect: 'meteor',    color: 0xff7eb0, icon: 'meteor',  glow: 0xffcfe2 }
 ];
 
 // 怪物类型定义（三层光影风格）
 //   highlight 浅色高光 / accent 点缀色（牙爪等）
 var MONSTER_TYPES = [
-  { name: '史莱姆', shape: 'slime',  color: 0x2ecc71, highlight: 0xa8ffcf, outline: 0x1e5f38, hpColor: 0x2ecc71, badge: 0x1e5f38, accent: 0xfff59d, wave: 1   },
-  { name: '兔兔',   shape: 'rabbit', color: 0xffc9d9, highlight: 0xffe9f2, outline: 0xb83d6a, hpColor: 0xff69b4, badge: 0xb83d6a, accent: 0xe91e63, wave: 5   },
-  { name: '蝙蝠',   shape: 'bat',    color: 0x7e3cb8, highlight: 0xbd85e2, outline: 0x32124a, hpColor: 0x9b59b6, badge: 0x32124a, accent: 0xff3030, wave: 10  },
-  { name: '刺球',   shape: 'spike',  color: 0xe74c3c, highlight: 0xff8a7a, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10, accent: 0xfff59d, wave: 20  },
-  { name: '幽灵',   shape: 'ghost',  color: 0xe8f1ff, highlight: 0xffffff, outline: 0x4a3a6c, hpColor: 0xa0afc8, badge: 0x4a3a6c, accent: 0x5ec8ff, wave: 35  },
-  { name: '骷髅',   shape: 'skull',  color: 0xf0ebe0, highlight: 0xffffff, outline: 0x2c2640, hpColor: 0xbdc3c7, badge: 0x2c2640, accent: 0xff3333, wave: 50  },
-  { name: '火龙',   shape: 'dragon', color: 0xe67e22, highlight: 0xffbe76, outline: 0x7a2d06, hpColor: 0xf39c12, badge: 0x7a2d06, accent: 0xff4500, wave: 80  },
-  { name: '暗影',   shape: 'shadow', color: 0x1a1030, highlight: 0x4b3a7a, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000, accent: 0xff0000, wave: 120 }
+  { name: '史莱姆', shape: 'slime',  armor: 5,  resist: 5,  weakness: 'phys',  trait: 'soft',      traitName: '柔软', color: 0x2ecc71, highlight: 0xa8ffcf, outline: 0x1e5f38, hpColor: 0x2ecc71, badge: 0x1e5f38, accent: 0xfff59d, wave: 1   },
+  { name: '兔兔',   shape: 'rabbit', armor: 10, resist: 12, weakness: 'magic', trait: 'dodge',     traitName: '灵巧', color: 0xffc9d9, highlight: 0xffe9f2, outline: 0xb83d6a, hpColor: 0xff69b4, badge: 0xb83d6a, accent: 0xe91e63, wave: 5   },
+  { name: '蝙蝠',   shape: 'bat',    armor: 8,  resist: 35, weakness: 'phys',  trait: 'magicWall', traitName: '法抗', color: 0x7e3cb8, highlight: 0xbd85e2, outline: 0x32124a, hpColor: 0x9b59b6, badge: 0x32124a, accent: 0xff3030, wave: 10  },
+  { name: '刺球',   shape: 'spike',  armor: 42, resist: 8,  weakness: 'magic', trait: 'spiked',    traitName: '硬壳', color: 0xe74c3c, highlight: 0xff8a7a, outline: 0x7a1a10, hpColor: 0xe74c3c, badge: 0x7a1a10, accent: 0xfff59d, wave: 20  },
+  { name: '幽灵',   shape: 'ghost',  armor: 55, resist: 14, weakness: 'magic', trait: 'ethereal',  traitName: '虚体', color: 0xe8f1ff, highlight: 0xffffff, outline: 0x4a3a6c, hpColor: 0xa0afc8, badge: 0x4a3a6c, accent: 0x5ec8ff, wave: 35  },
+  { name: '骷髅',   shape: 'skull',  armor: 24, resist: 28, weakness: 'true',  trait: 'antiCrit',  traitName: '抗暴', color: 0xf0ebe0, highlight: 0xffffff, outline: 0x2c2640, hpColor: 0xbdc3c7, badge: 0x2c2640, accent: 0xff3333, wave: 50  },
+  { name: '火龙',   shape: 'dragon', armor: 30, resist: 45, weakness: 'phys',  trait: 'burn',      traitName: '灼烧', color: 0xe67e22, highlight: 0xffbe76, outline: 0x7a2d06, hpColor: 0xf39c12, badge: 0x7a2d06, accent: 0xff4500, wave: 80  },
+  { name: '暗影',   shape: 'shadow', armor: 36, resist: 36, weakness: 'true',  trait: 'shield',    traitName: '暗盾', color: 0x1a1030, highlight: 0x4b3a7a, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000, accent: 0xff0000, wave: 120 }
 ];
 
 // BOSS 专属形象（每10波出现一次）
 var BOSS_TYPES = [
-  { name: '魔眼王',   shape: 'boss_eye',     color: 0x8b0000, highlight: 0xff6666, outline: 0x3a0000, hpColor: 0xe74c3c, badge: 0x5a0a08, accent: 0xff0000 },
-  { name: '冰霜巨人', shape: 'boss_giant',   color: 0x4fc3f7, highlight: 0xe1f5fe, outline: 0x0277bd, hpColor: 0x29b6f6, badge: 0x01579b, accent: 0xffffff },
-  { name: '深渊蜘蛛', shape: 'boss_spider',  color: 0x4a148c, highlight: 0xce93d8, outline: 0x1a0030, hpColor: 0xab47bc, badge: 0x2d0050, accent: 0x00e5ff },
-  { name: '炎魔将军', shape: 'boss_demon',   color: 0xb71c1c, highlight: 0xff8a65, outline: 0x4a0000, hpColor: 0xef5350, badge: 0x7f0000, accent: 0xffeb3b },
-  { name: '星界凤凰', shape: 'boss_phoenix', color: 0xff6f00, highlight: 0xffe082, outline: 0x7f3300, hpColor: 0xffa726, badge: 0x5d2600, accent: 0x40c4ff }
+  { name: '魔眼王',   shape: 'boss_eye',     armor: 30, resist: 24, weakness: 'phys',  trait: 'antiCrit', traitName: '凝视', color: 0x8b0000, highlight: 0xff6666, outline: 0x3a0000, hpColor: 0xe74c3c, badge: 0x5a0a08, accent: 0xff0000 },
+  { name: '冰霜巨人', shape: 'boss_giant',   armor: 65, resist: 18, weakness: 'magic', trait: 'frost',    traitName: '重甲', color: 0x4fc3f7, highlight: 0xe1f5fe, outline: 0x0277bd, hpColor: 0x29b6f6, badge: 0x01579b, accent: 0xffffff },
+  { name: '深渊蜘蛛', shape: 'boss_spider',  armor: 34, resist: 42, weakness: 'phys',  trait: 'web',      traitName: '蛛网', color: 0x4a148c, highlight: 0xce93d8, outline: 0x1a0030, hpColor: 0xab47bc, badge: 0x2d0050, accent: 0x00e5ff },
+  { name: '炎魔将军', shape: 'boss_demon',   armor: 38, resist: 60, weakness: 'phys',  trait: 'burn',     traitName: '灼烧', color: 0xb71c1c, highlight: 0xff8a65, outline: 0x4a0000, hpColor: 0xef5350, badge: 0x7f0000, accent: 0xffeb3b },
+  { name: '星界凤凰', shape: 'boss_phoenix', armor: 44, resist: 44, weakness: 'true',  trait: 'rebirth',  traitName: '涅槃', color: 0xff6f00, highlight: 0xffe082, outline: 0x7f3300, hpColor: 0xffa726, badge: 0x5d2600, accent: 0x40c4ff }
 ];
 
 // 辅助角色（糖果精灵队）
@@ -309,19 +315,21 @@ var SUPPORTS_DEF = [
 ];
 
 var FOODS = [
-  { name: '棒棒糖', icon: '🍭', price: 100, desc: '暴击+10%，攻速+10%' },
-  { name: '牛奶',   icon: '🥛', price: 200, desc: '攻击+15%' },
-  { name: '烤肉',   icon: '🍖', price: 500, desc: '全属性+20%' }
+  { name: '星芒戒指', icon: '✦', price: 2, max: 5, desc: '永久暴击+2%/级，适合爆发技能' },
+  { name: '月蚀护符', icon: '☾', price: 3, max: 5, desc: '永久攻击+4%/级，不替代升级' },
+  { name: '疾风靴',   icon: '↯', price: 3, max: 5, desc: '永久攻速+3%/级，提高清怪手感' },
+  { name: '守护晶核', icon: '◆', price: 4, max: 5, desc: '永久辅助伤害+4%/级，强化队伍' },
+  { name: '龙鳞护甲', icon: '▣', price: 4, max: 5, desc: '永久生命+6%/级，防御+4/级' }
 ];
 
 var SPIN_PRIZES = [
   { id: 'gold_s', text: '金币补给', type: 'goldScale', value: 1.2, weight: 28, rarity: '普通', color: 0xf39c12 },
   { id: 'gold_m', text: '金币宝箱', type: 'goldScale', value: 2.5, weight: 22, rarity: '普通', color: 0xfbbf24 },
   { id: 'energy', text: '能量药水', type: 'energy', value: 35, weight: 16, rarity: '普通', color: 0x5ec8ff },
-  { id: 'candy', text: '棒棒糖', type: 'food', value: '棒棒糖', weight: 10, rarity: '优秀', color: 0xff7eb0 },
-  { id: 'milk', text: '牛奶', type: 'food', value: '牛奶', weight: 8, rarity: '优秀', color: 0xe8f1ff },
+  { id: 'candy', text: '星芒戒指', type: 'food', value: '星芒戒指', weight: 10, rarity: '优秀', color: 0xff7eb0 },
+  { id: 'milk', text: '月蚀护符', type: 'food', value: '月蚀护符', weight: 8, rarity: '优秀', color: 0xe8f1ff },
   { id: 'ticket', text: '幸运券', type: 'ticket', value: 1, weight: 6, rarity: '稀有', color: 0xc7a7ff },
-  { id: 'meat', text: '烤肉', type: 'food', value: '烤肉', weight: 5, rarity: '稀有', color: 0xff9f43 },
+  { id: 'meat', text: '守护晶核', type: 'food', value: '守护晶核', weight: 5, rarity: '稀有', color: 0xff9f43 },
   { id: 'jackpot', text: '大奖宝箱', type: 'goldScale', value: 8, weight: 3, rarity: '大奖', color: 0xffd700, rare: true }
 ];
 
@@ -330,11 +338,11 @@ var SPIN_PITY_LIMIT = 10;
 var CHECKIN_REWARDS = [
   { gold: 100, bonus: null },
   { gold: 200, bonus: null },
-  { gold: 300, bonus: { name: '棒棒糖', icon: '🍭' } },
+  { gold: 300, bonus: { name: '幸运券', icon: '🎡' } },
   { gold: 400, bonus: null },
-  { gold: 500, bonus: { name: '牛奶', icon: '🥛' } },
+  { gold: 500, bonus: { name: '星芒戒指', icon: '✦' } },
   { gold: 600, bonus: null },
-  { gold: 1000, bonus: { name: '烤肉', icon: '🍖' } }
+  { gold: 1000, bonus: { name: '守护晶核', icon: '◆' } }
 ];
 
 var DAILY_TASKS = [
@@ -347,9 +355,9 @@ var MAIL_REWARDS = [
   { id: 'welcome', level: 1, from: '系统', title: '欢迎来到DMAX挂机英雄', body: '新手启程礼包', rewardText: '100金', type: 'gold', value: 100 },
   { id: 'lv5', level: 5, from: '训练官', title: '主角Lv.5奖励', body: '开始挑战更高波次', rewardText: '200金', type: 'gold', value: 200 },
   { id: 'lv10', level: 10, from: '补给站', title: '主角Lv.10奖励', body: '补充冲关能量', rewardText: '30能量', type: 'energy', value: 30 },
-  { id: 'lv20', level: 20, from: '酒馆', title: '主角Lv.20奖励', body: '队伍成长补给', rewardText: '牛奶x1', type: 'food', value: '牛奶' },
+  { id: 'lv20', level: 20, from: '秘宝阁', title: '主角Lv.20奖励', body: '稀有装备试炼', rewardText: '星芒戒指x1', type: 'food', value: '星芒戒指' },
   { id: 'lv35', level: 35, from: '公会', title: '主角Lv.35奖励', body: 'BOSS挑战资助', rewardText: '2000金', type: 'gold', value: 2000 },
-  { id: 'lv50', level: 50, from: '远征队', title: '主角Lv.50奖励', body: '准备跨章节作战', rewardText: '烤肉x1', type: 'food', value: '烤肉' },
+  { id: 'lv50', level: 50, from: '远征队', title: '主角Lv.50奖励', body: '准备跨章节作战', rewardText: '守护晶核x1', type: 'food', value: '守护晶核' },
   { id: 'lv80', level: 80, from: '星门', title: '主角Lv.80奖励', body: '高阶成长基金', rewardText: '8000金', type: 'gold', value: 8000 },
   { id: 'lv120', level: 120, from: '议会', title: '主角Lv.120奖励', body: '转生前冲刺补给', rewardText: '20000金', type: 'gold', value: 20000 }
 ];
@@ -398,6 +406,7 @@ function Game(main) {
   // --- 游戏状态 ---
   this.gold = 0;
   this.energy = 100;
+  this.playerHp = 0;
   this.mainLevel = 1;
   this.wave = 1;
   this.totalCleared = 0;
@@ -412,7 +421,8 @@ function Game(main) {
   });
   this.supportShopVersion = 3;
   this.monsters = [];
-  this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
+  this.foods = {};
+  this.ensureRelics();
   this.freeSpins = 3;
   this.spinDate = new Date().toDateString();
   this.spinTickets = 0;
@@ -457,6 +467,8 @@ function Game(main) {
   this.levelLabel = null;
   this.dpsLabel = null;
   this.energyLabel = null;
+  this.playerHpFill = null;
+  this.playerHpLabel = null;
   this.goalLabel = null;
   this.exploreLabel = null;
   this.waveFill = null;
@@ -474,8 +486,12 @@ function Game(main) {
   this._sceneIndex = -1;
   this._panelOverlay = null;
   this._justHitMonster = false;
+  this._bgmTimer = null;
+  this._bgmStep = 0;
+  this._lastSupportSfx = 0;
 
   this.loadGame();
+  this.playerHp = Math.min(this.getMaxPlayerHp(), Math.max(1, this.playerHp || this.getMaxPlayerHp()));
   this.initSound();
   this.buildUI();
   this.spawnWave();
@@ -535,7 +551,7 @@ Game.prototype.getExploreText = function() {
 
 Game.prototype.totalDps = function() {
   var base = CONFIG.mainDmg(this.mainLevel, this.rebirthGems);
-  var supMult = 1 + this.rebirthGems * 0.08;
+  var supMult = CONFIG.rebirthSupportMult(this.rebirthGems);
   var sup = 0;
   for (var i = 0; i < this.supports.length; i++) {
     if (this.isSupportActive(i)) sup += this.supports[i].dps * this.supports[i].level;
@@ -554,6 +570,31 @@ Game.prototype.getSupportDpsEstimate = function() {
     total += (s.dps * s.level * 0.8 * buffs.supportMult) / interval;
   }
   return Math.floor(total);
+};
+
+Game.prototype.getDamageTypeName = function(type) {
+  if (type === 'phys') return '物理';
+  if (type === 'magic') return '法术';
+  if (type === 'true') return '真实';
+  return '普通';
+};
+
+Game.prototype.getResistanceMultiplier = function(m, damageType, isCrit) {
+  if (!m || damageType === 'true') return 1;
+  var type = damageType || 'phys';
+  var stat = type === 'magic' ? (m.resist || 0) : (m.armor || 0);
+  if (m.weakness === type) stat -= 18;
+  if (m.trait === 'antiCrit' && isCrit) stat += 22;
+  if (m.trait === 'shield' && !m._shieldBroken && type !== 'true') stat += 45;
+  stat = Math.max(-35, Math.min(85, stat));
+  return 100 / (100 + stat);
+};
+
+Game.prototype.getMonsterEffectiveHp = function(wave, isBoss, mType, damageType) {
+  var hp = CONFIG.monsterHp(wave) * (isBoss ? CONFIG.bossHpMult(wave) : 1);
+  var temp = { armor: mType && mType.armor || 0, resist: mType && mType.resist || 0, weakness: mType && mType.weakness, trait: mType && mType.trait };
+  var mult = this.getResistanceMultiplier(temp, damageType || 'phys', false);
+  return hp / Math.max(0.35, mult);
 };
 
 Game.prototype.getSkillBurstEstimate = function(targetIsBoss) {
@@ -580,8 +621,10 @@ Game.prototype.getCombatPower = function() {
 };
 
 Game.prototype.getRecommendedBossPower = function(bossWave) {
-  var hp = CONFIG.monsterHp(bossWave) * 5;
-  return Math.floor((hp / CONFIG.bossTimeLimit) * 1.12);
+  var bossIdx = Math.floor(bossWave / 10 - 1) % BOSS_TYPES.length;
+  var bossType = BOSS_TYPES[Math.max(0, bossIdx)] || BOSS_TYPES[0];
+  var hp = this.getMonsterEffectiveHp(bossWave, true, bossType, bossType.weakness || 'phys');
+  return Math.floor((hp / CONFIG.bossTimeLimit) * 1.18);
 };
 
 Game.prototype.getNextBossWave = function() {
@@ -619,9 +662,9 @@ Game.prototype.getBossPowerAdvice = function(info, hpPct) {
   }
   if (!this.skillUnlocked[1]) return '主角升到Lv.3解锁破岳，BOSS输出会明显提升。';
   if (!this.skillUnlocked[3]) return '继续刷到Lv.8解锁裂光，配合破岳更稳。';
-  if (hpPct !== undefined && hpPct <= 0.25) return '只差一点，刷一轮金币或买牛奶再挑战。';
+  if (hpPct !== undefined && hpPct <= 0.25) return '只差一点，刷一轮金币或强化技能后再挑战。';
   if (info.ratio < 0.75) return '战力差距较大，先刷金币升主角和队友。';
-  return '战力接近，带食物Buff后可以尝试挑战。';
+  return '战力接近，提升秘宝或技能后可以尝试挑战。';
 };
 
 Game.prototype.isSupportActive = function(idx) {
@@ -637,6 +680,32 @@ Game.prototype.isSupportAvailable = function(idx) {
   return this.mainLevel >= (def.recruitLv || 1);
 };
 
+Game.prototype.ensureRelics = function() {
+  if (!this.foods) this.foods = {};
+  for (var i = 0; i < FOODS.length; i++) {
+    if (this.foods[FOODS[i].name] === undefined) this.foods[FOODS[i].name] = 0;
+    if (FOODS[i].max !== undefined) this.foods[FOODS[i].name] = Math.min(FOODS[i].max, this.foods[FOODS[i].name] || 0);
+  }
+};
+
+Game.prototype.findRelicDef = function(name) {
+  for (var i = 0; i < FOODS.length; i++) {
+    if (FOODS[i].name === name) return FOODS[i];
+  }
+  return null;
+};
+
+Game.prototype.addRelic = function(name, amount) {
+  this.ensureRelics();
+  var def = this.findRelicDef(name);
+  if (!def) return false;
+  var cur = this.foods[name] || 0;
+  var max = def.max !== undefined ? def.max : 99;
+  var next = Math.min(max, cur + (amount || 1));
+  this.foods[name] = next;
+  return next > cur;
+};
+
 Game.prototype.repairSupportUnlocks = function() {
   for (var i = 0; i < this.supports.length; i++) {
     var def = SUPPORTS_DEF[i];
@@ -648,9 +717,12 @@ Game.prototype.repairSupportUnlocks = function() {
 };
 
 Game.prototype.getBuffs = function() {
-  var l = this.foods['棒棒糖'] || 0;
-  var m = this.foods['牛奶'] || 0;
-  var r = this.foods['烤肉'] || 0;
+  this.ensureRelics();
+  var star = this.foods['星芒戒指'] || 0;
+  var moon = this.foods['月蚀护符'] || 0;
+  var wind = this.foods['疾风靴'] || 0;
+  var core = this.foods['守护晶核'] || 0;
+  var scale = this.foods['龙鳞护甲'] || 0;
   var sb = this.skillBuffs || {};
   var bd = this.bossDebuffs || {};
   var stage = this.getStageBonuses();
@@ -658,10 +730,12 @@ Game.prototype.getBuffs = function() {
   var skillSpeed = sb.speedTime > 0 ? (sb.speedMult || 1) : 1;
   var skillCrit = sb.critTime > 0 ? (sb.critBonus || 0) : 0;
   return {
-    critChance: Math.max(0.02, Math.min(0.85, 0.1 + l * 0.1 + skillCrit - (bd.critDownTime > 0 ? 0.2 : 0))),
-    attackMult: (1 + m * 0.15) * (1 + r * 0.2) * skillAttack,
-    speedMult: (1 + l * 0.1) * (1 + r * 0.2) * skillSpeed,
-    supportMult: 1 + r * 0.2 + stage.support
+    critChance: Math.max(0.02, Math.min(0.85, 0.1 + star * 0.02 + skillCrit - (bd.critDownTime > 0 ? 0.2 : 0))),
+    attackMult: (1 + moon * 0.04) * skillAttack,
+    speedMult: (1 + wind * 0.03) * skillSpeed,
+    supportMult: 1 + core * 0.04 + stage.support,
+    hpMult: 1 + scale * 0.06,
+    defenseBonus: scale * 4
   };
 };
 
@@ -688,6 +762,14 @@ Game.prototype.getStageBonuses = function() {
 
 Game.prototype.getMaxEnergy = function() {
   return CONFIG.maxEnergy + this.getStageBonuses().energy;
+};
+
+Game.prototype.getMaxPlayerHp = function() {
+  return Math.floor(CONFIG.playerHp(this.mainLevel, this.rebirthGems) * this.getBuffs().hpMult);
+};
+
+Game.prototype.getPlayerDefense = function() {
+  return CONFIG.playerDefense(this.mainLevel, this.rebirthGems) + this.getBuffs().defenseBonus;
 };
 
 Game.prototype.getGoldReward = function(wave, isBoss) {
@@ -804,7 +886,11 @@ Game.prototype.createButton = function(text, color, w, h, handler, ctx) {
   lb.horizontalCenter = 0; lb.verticalCenter = 0;
   g.addChild(lb);
   g.touchEnabled = true;
-  g.addEventListener(egret.TouchEvent.TOUCH_TAP, handler, ctx);
+  var self = this;
+  g.addEventListener(egret.TouchEvent.TOUCH_TAP, function(e) {
+    self.sfxClick();
+    if (handler) handler.call(ctx || self, e);
+  }, this);
   return g;
 };
 
@@ -2416,11 +2502,33 @@ Game.prototype.buildUI = function() {
   this.energyLabel.x = STATUS_X + ENERGY_W + 14; this.energyLabel.y = statusY + 40;
   statusBar.addChild(this.energyLabel);
 
+  var HPBAR_W = 72;
+  var hpBarBg2 = new eui.Rect();
+  hpBarBg2.width = HPBAR_W; hpBarBg2.height = 12;
+  hpBarBg2.ellipseWidth = 6; hpBarBg2.ellipseHeight = 6;
+  hpBarBg2.fillColor = THEME.bgGlass;
+  hpBarBg2.x = STATUS_X + ENERGY_W + 74; hpBarBg2.y = statusY + 40;
+  statusBar.addChild(hpBarBg2);
+  this.playerHpFill = new eui.Rect();
+  this.playerHpFill.width = HPBAR_W; this.playerHpFill.height = 12;
+  this.playerHpFill.ellipseWidth = 6; this.playerHpFill.ellipseHeight = 6;
+  this.playerHpFill.fillColor = 0xef4444;
+  this.playerHpFill.x = hpBarBg2.x; this.playerHpFill.y = hpBarBg2.y;
+  statusBar.addChild(this.playerHpFill);
+  this._playerHpMaxWidth = HPBAR_W;
+  this.playerHpLabel = new eui.Label();
+  this.playerHpLabel.text = '❤' + Math.floor(this.playerHp);
+  this.playerHpLabel.size = 10; this.playerHpLabel.textColor = 0xffc7c7; this.playerHpLabel.bold = true;
+  this.playerHpLabel.width = HPBAR_W; this.playerHpLabel.height = 12; this.playerHpLabel.textAlign = 'center';
+  this.playerHpLabel.x = hpBarBg2.x; this.playerHpLabel.y = hpBarBg2.y + 1;
+  statusBar.addChild(this.playerHpLabel);
+
   // Buff 文本（右侧）：去掉自动/手动按钮后，这里给状态信息更多横向空间。
   this.buffLabel = new eui.Label();
   this.buffLabel.text = this.renderBuffText();
-  this.buffLabel.size = 11; this.buffLabel.textColor = 0xfbbf24;
-  this.buffLabel.right = 16; this.buffLabel.y = statusY + 40;
+  this.buffLabel.size = 9; this.buffLabel.textColor = 0xfbbf24;
+  this.buffLabel.width = 52; this.buffLabel.height = 12; this.buffLabel.textAlign = 'right';
+  this.buffLabel.right = 14; this.buffLabel.y = statusY + 40;
   statusBar.addChild(this.buffLabel);
 
   // 伤害飘字层（不可触摸）
@@ -2523,8 +2631,8 @@ Game.prototype.buildUI = function() {
     { text: '升级', icon: 'upgrade', fn: function() { self.openUpgrade(); } },
     { text: '图签', icon: 'codex', fn: function() { self.openMonsterCodex(); } },
     { text: '转盘', icon: 'spin', fn: function() { self.openSpinWheel(); } },
-    { text: '超市', icon: 'market', fn: function() { self.openSupermarket(); } },
-    { text: '排行', icon: 'rank', fn: function() { self.openLeaderboard(); } },
+    { text: '秘宝', icon: 'market', fn: function() { self.openSupermarket(); } },
+    { text: '档案', icon: 'rank', fn: function() { self.openLeaderboard(); } },
     { text: '商城', icon: 'shop', fn: function() { self.openShop(); } }
   ];
   for (var i = 0; i < navItems.length; i++) {
@@ -2927,6 +3035,7 @@ Game.prototype.drawSkillIcon = function(g, key, enabled) {
 
 Game.prototype.renderBuffText = function() {
   var parts = [];
+  this.ensureRelics();
   for (var i = 0; i < FOODS.length; i++) {
     var count = this.foods[FOODS[i].name] || 0;
     if (count > 0) parts.push(FOODS[i].icon + count);
@@ -2949,6 +3058,10 @@ Game.prototype.getNextGoal = function() {
   }
   if (this.pendingBossReward && this.pendingBossReward.reward) {
     return { text: '奖励：' + this.pendingBossReward.reward.title + '，点击查看', action: 'bossReward' };
+  }
+  if (this.playerHp < this.getMaxPlayerHp() * 0.28) {
+    if (this.rebirthGems >= 4) return { text: '目标：生命偏低，去秘宝阁强化龙鳞护甲', action: 'relic' };
+    return { text: '目标：生命偏低，先刷小怪回血或升级主角', action: 'battle' };
   }
   var nextBossPower = this.getBossPowerInfo(this.getNextBossWave());
   if (this.bossActive) {
@@ -3000,6 +3113,8 @@ Game.prototype.handleGoalTap = function() {
     this.challengeBoss();
   } else if (goal.action === 'bossReward') {
     this.openPendingBossReward();
+  } else if (goal.action === 'relic') {
+    this.openSupermarket();
   } else {
     this.showToast(goal.text.replace('目标：', ''));
   }
@@ -3045,7 +3160,7 @@ Game.prototype.onBattleTouch = function(e) {
 Game.prototype.battleAreaClick = function() {
   var cost = CONFIG.attackEnergyCost;
   if (this.monsters.length > 0 && this.energy >= cost) {
-    this.sfxClick();
+    this.sfxAttack(false);
     this.energy -= cost;
     this.stats.totalClicks++;
     this.checkDailyTasks('click');
@@ -3055,7 +3170,7 @@ Game.prototype.battleAreaClick = function() {
       if (this.monsters[i].hp > target.hp) { target = this.monsters[i]; tIdx = i; }
     }
     this.heroAttackAnim(tIdx);
-    this.doDamage(target, CONFIG.mainDmg(this.mainLevel, this.rebirthGems), tIdx);
+    this.doDamage(target, CONFIG.mainDmg(this.mainLevel, this.rebirthGems), tIdx, false, 'phys');
   }
 };
 
@@ -3064,22 +3179,42 @@ Game.prototype.onMonsterTouch = function(idx) {
   var m = this.monsters[idx];
   var cost = CONFIG.attackEnergyCost;
   if (!m || m.hp <= 0 || this.energy < cost) return;
-  this.sfxClick();
+  this.sfxAttack(false);
   this.energy -= cost;
   this.stats.totalClicks++;
   this.checkDailyTasks('click');
   this.heroAttackAnim(idx);
-  this.doDamage(m, CONFIG.mainDmg(this.mainLevel, this.rebirthGems), idx);
+  this.doDamage(m, CONFIG.mainDmg(this.mainLevel, this.rebirthGems), idx, false, 'phys');
 };
 
 // ==================== 战斗逻辑 ====================
 
-Game.prototype.doDamage = function(m, dmg, idx, isCrit) {
+Game.prototype.doDamage = function(m, dmg, idx, isCrit, damageType) {
+  damageType = damageType || 'phys';
   if (isCrit === undefined) isCrit = false;
   var buffs = this.getBuffs();
   dmg = Math.floor(dmg * buffs.attackMult);
-  if (!isCrit && Math.random() < buffs.critChance) { dmg *= 2; isCrit = true; }
+  var canCrit = damageType !== 'true' && m.trait !== 'antiCrit';
+  if (!isCrit && canCrit && Math.random() < buffs.critChance) { dmg *= 2; isCrit = true; }
+  var resistMult = this.getResistanceMultiplier(m, damageType, isCrit);
+  if (m.trait === 'dodge' && damageType === 'phys' && Math.random() < 0.12) {
+    this.showDamageText('闪避', false, idx);
+    this.updateUI();
+    return;
+  }
+  if (m.trait === 'shield' && !m._shieldBroken && damageType !== 'true') {
+    m._shieldHits = (m._shieldHits || 0) + 1;
+    if (m._shieldHits >= 2) {
+      m._shieldBroken = true;
+      this.showDamageText('破盾', true, idx);
+    }
+  }
+  if (damageType === 'magic' && m.weakness === 'magic') dmg = Math.floor(dmg * 1.12);
+  if (damageType === 'phys' && m.weakness === 'phys') dmg = Math.floor(dmg * 1.1);
+  if (damageType === 'true' && m.weakness === 'true') dmg = Math.floor(dmg * 1.16);
+  dmg = Math.max(1, Math.floor(dmg * resistMult));
   m.hp -= dmg;
+  if (isCrit) this.sfxCrit();
   this.showDamageText(dmg, isCrit, idx);
   // 怪物受击闪烁效果
   if (this.monsterViews[idx]) {
@@ -3116,6 +3251,56 @@ Game.prototype.showDamageText = function(dmg, isCrit, idx) {
   });
 };
 
+Game.prototype.getMonsterAttack = function(m) {
+  if (!m) return 0;
+  var atk = CONFIG.monsterAtk(this.wave, !!m.isBoss);
+  if (m.trait === 'spiked') atk *= 1.18;
+  if (m.trait === 'burn') atk *= 1.12;
+  if (m.trait === 'web') atk *= 0.92;
+  return Math.floor(atk);
+};
+
+Game.prototype.takePlayerDamage = function(raw, label) {
+  if (!raw || raw <= 0) return;
+  var def = this.getPlayerDefense();
+  var dmg = Math.max(1, Math.floor(raw * 100 / (100 + def)));
+  this.playerHp = Math.max(0, this.playerHp - dmg);
+  if (label) this.showToast(label + ' -' + this.fmt(dmg) + '生命');
+  this.sfxHurt();
+  if (this.playerHp <= 0) this.onPlayerDefeated();
+  else this.updateUI();
+};
+
+Game.prototype.processMonsterAttacks = function() {
+  if (!this.monsters || this.monsters.length === 0 || this.playerHp <= 0) return;
+  var total = 0;
+  var burn = false;
+  var web = false;
+  for (var i = 0; i < this.monsters.length; i++) {
+    var m = this.monsters[i];
+    if (!m || m.hp <= 0) continue;
+    total += this.getMonsterAttack(m);
+    if (m.trait === 'burn') burn = true;
+    if (m.trait === 'web') web = true;
+  }
+  if (total <= 0) return;
+  if (burn) this.energy = Math.max(0, this.energy - 3);
+  if (web && this.bossActive) this.bossTimer = Math.max(0, this.bossTimer - 0.3);
+  this.takePlayerDamage(total, this.bossActive ? 'BOSS压制' : '怪物反击');
+};
+
+Game.prototype.onPlayerDefeated = function() {
+  this.stopBossTimer();
+  var retreatWave = Math.floor((Math.max(1, this.wave) - 1) / 10) * 10 + 1;
+  this.wave = Math.max(1, retreatWave);
+  this.energy = Math.max(0, this.energy - 20);
+  this.playerHp = Math.floor(this.getMaxPlayerHp() * 0.65);
+  this.bossCounter = null;
+  this.showToast('💔 战败撤退：回到本轮起点，先强化再挑战');
+  this.spawnWave();
+  this.updateUI();
+};
+
 Game.prototype.onKill = function(m, idx) {
   if (m.hp > 0) return;
   var realIdx = this.monsters.indexOf(m);
@@ -3124,12 +3309,16 @@ Game.prototype.onKill = function(m, idx) {
   this.gold += reward;
   var energyBack = m.isBoss ? CONFIG.bossKillEnergyReward : CONFIG.killEnergyReward;
   if (energyBack > 0) this.energy = Math.min(this.getMaxEnergy(), this.energy + energyBack);
+  var heal = Math.floor(this.getMaxPlayerHp() * (m.isBoss ? 0.18 : 0.025));
+  if (heal > 0) this.playerHp = Math.min(this.getMaxPlayerHp(), this.playerHp + heal);
   this.killCount++;
   this.stats.totalKills++;
   if (m.isBoss) {
     this.stats.bossKills++;
     this.sfxHitBoss();
     this.maybeDropSpinTicket();
+  } else {
+    this.sfxKill();
   }
   if (this.gold > this.stats.totalGold) this.stats.totalGold = this.gold;
 
@@ -3188,15 +3377,21 @@ Game.prototype.spawnWave = function() {
   // BOSS用专属形象（按波次循环选取）
   var bossIdx = Math.floor(this.wave / 10 - 1) % BOSS_TYPES.length;
   var bossType = BOSS_TYPES[Math.max(0, bossIdx)];
+  var availableTypes = MONSTER_TYPES.filter(function(t) { return !t.wave || this.wave >= t.wave; }, this);
+  if (!availableTypes.length) availableTypes = [MONSTER_TYPES[0]];
   for (var i = 0; i < count; i++) {
-    var mType = isBoss ? bossType : MONSTER_TYPES[Math.floor(Math.random() * MONSTER_TYPES.length)];
+    var mType = isBoss ? bossType : availableTypes[Math.floor(Math.random() * availableTypes.length)];
     var spawnX = isBoss ? 0.5 : spawnXPool[i % spawnXPool.length] + (Math.random() * 0.08 - 0.04);
     var spawnY = isBoss ? 0.42 : 0.28 + Math.random() * 0.42;
     this.monsters.push({
-      hp: isBoss ? hp * 5 : hp,
-      maxHp: isBoss ? hp * 5 : hp,
+      hp: isBoss ? hp * CONFIG.bossHpMult(this.wave) : hp,
+      maxHp: isBoss ? hp * CONFIG.bossHpMult(this.wave) : hp,
       isBoss: isBoss,
       type: mType,
+      armor: (mType.armor || 0) + Math.floor(this.wave / 80) * (isBoss ? 4 : 2),
+      resist: (mType.resist || 0) + Math.floor(this.wave / 80) * (isBoss ? 4 : 2),
+      weakness: mType.weakness || 'phys',
+      trait: mType.trait || '',
       spawnX: Math.max(0.12, Math.min(0.88, spawnX)),
       spawnY: Math.max(0.18, Math.min(0.82, spawnY)),
       sizeJitter: isBoss ? Math.floor(Math.random() * 9) - 4 : Math.floor(Math.random() * 9) - 4,
@@ -3310,18 +3505,22 @@ Game.prototype.applyBossCounter = function() {
   if (shape === 'boss_eye') {
     this.energy = Math.max(0, this.energy - 12);
     this.bossDebuffs.critDownTime = 5;
+    this.takePlayerDamage(CONFIG.monsterAtk(this.wave, true) * 0.9);
     msg = '魔眼凝视：暴击下降，能量-12';
   } else if (shape === 'boss_giant') {
     this.bossDebuffs.cooldownSlowTime = 6;
     for (var i = 0; i < this.skillCD.length; i++) this.skillCD[i] += 2;
+    this.takePlayerDamage(CONFIG.monsterAtk(this.wave, true) * 1.15);
     msg = '冰霜震击：技能冷却延长';
   } else if (shape === 'boss_spider') {
     this.energy = Math.max(0, this.energy - 15);
     this.bossTimer = Math.max(0, this.bossTimer - 1.5);
+    this.takePlayerDamage(CONFIG.monsterAtk(this.wave, true) * 0.75);
     msg = '蛛网束缚：能量-15，限时-1.5秒';
   } else if (shape === 'boss_demon') {
     this.energy = Math.max(0, this.energy - 10);
     this.bossDebuffs.energyBurnTime = 4;
+    this.takePlayerDamage(CONFIG.monsterAtk(this.wave, true) * 1.0);
     msg = '炎魔灼烧：持续燃烧能量';
   } else if (shape === 'boss_phoenix' && boss && boss.maxHp && boss.hp < boss.maxHp * 0.45 && !bc.phoenixHealed) {
     bc.phoenixHealed = true;
@@ -3330,6 +3529,7 @@ Game.prototype.applyBossCounter = function() {
   } else {
     this.energy = Math.max(0, this.energy - 20);
     this.bossTimer = Math.max(0, this.bossTimer - 1);
+    this.takePlayerDamage(CONFIG.monsterAtk(this.wave, true));
     msg = 'BOSS重击：能量-20，限时-1秒';
   }
   this.showToast('⚠️ ' + msg);
@@ -3415,7 +3615,7 @@ Game.prototype.openBossFailPanel = function(hpPct, bossWave) {
   y = this.addPanelRow(panel, y, '升', 0x3498db, '提升主角\n技能伤害跟随主角等级成长', '去升级', 0x27ae60, function() {
     self.closePanel(); self.openUpgrade();
   }, false);
-  y = this.addPanelRow(panel, y, 'Buff', 0xe67e22, '购买食物\n冲Boss前用短期增益补输出', '去超市', 0x3498db, function() {
+  y = this.addPanelRow(panel, y, '秘宝', 0xe67e22, '秘宝阁装备\n转生钻石换永久稀有属性', '去秘宝', 0x3498db, function() {
     self.closePanel(); self.openSupermarket();
   }, false);
   var btn = this.createButton('继续刷怪', 0x8e44ad, 120, 34, function() { self.closePanel(); }, this);
@@ -3483,7 +3683,7 @@ Game.prototype.openBossPrepPanel = function(power) {
   y = this.addPanelRow(panel, y, '升', 0x3498db, '强化成长\n主角、队友会直接提高通过率', '去升级', 0x27ae60, function() {
     self.closePanel(); self.openUpgrade();
   }, false);
-  y = this.addPanelRow(panel, y, 'Buff', 0xe67e22, '短期爆发\n牛奶/烤肉适合冲Boss', '去超市', 0x3498db, function() {
+  y = this.addPanelRow(panel, y, '秘宝', 0xe67e22, '稀有装备\n小幅永久属性，不替代升级', '去秘宝', 0x3498db, function() {
     self.closePanel(); self.openSupermarket();
   }, false);
 
@@ -3665,6 +3865,7 @@ Game.prototype.checkLevelUp = function() {
   if (this.killCount >= CONFIG.killsNeeded(this.mainLevel)) {
     this.killCount = 0;
     this.mainLevel++;
+    this.playerHp = Math.min(this.getMaxPlayerHp(), this.playerHp + Math.floor(this.getMaxPlayerHp() * 0.25));
     this.sfxLevelUp();
     this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
     this.notifyLevelMail();
@@ -3710,6 +3911,7 @@ Game.prototype.upgradeMain = function() {
   if (this.gold < cost) { this.showToast('金币不足！'); return; }
   this.gold -= cost;
   this.mainLevel++;
+  this.playerHp = Math.min(this.getMaxPlayerHp(), this.playerHp + Math.floor(this.getMaxPlayerHp() * 0.25));
   this.sfxLevelUp();
   this.showToast('⬆️ 主角升级！Lv.' + this.mainLevel + ' 伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)));
   this.notifyLevelMail();
@@ -3801,7 +4003,7 @@ Game.prototype.useSkill = function(idx) {
   if (this.skillCD[idx] > 0) { this.showToast('冷却中！'); return; }
   if (this.monsters.length === 0) { this.showToast('没有怪物！'); return; }
   var s = SKILLS[idx];
-  this.sfxSkill();
+  this.sfxSkill(idx);
   this.skillCD[idx] = this.getSkillCooldown(s);
   var skillLv = this.skillLevels && this.skillLevels[idx] ? this.skillLevels[idx] : 1;
   var dmg = CONFIG.mainDmg(this.mainLevel, this.rebirthGems) * s.dmg * this.getSkillPowerMultiplier(idx);
@@ -3818,7 +4020,7 @@ Game.prototype.useSkill = function(idx) {
       if (liveIdx < 0 || !m || m.hp <= 0) return;
       var aoeDmg = dmg;
       if (s.effect === 'meteor' && m.isBoss) aoeDmg *= 1.35;
-      self.doDamage(m, aoeDmg, liveIdx, s.effect === 'meteor');
+      self.doDamage(m, aoeDmg, liveIdx, s.effect === 'meteor', s.type);
     });
     if (s.effect === 'speedBuff') {
       this.skillBuffs.speedTime = 10 + this.getSkillBuffBonus(idx);
@@ -3840,7 +4042,7 @@ Game.prototype.useSkill = function(idx) {
       var mi = alive[Math.floor(Math.random() * alive.length)];
       this.heroAttackAnim(mi);
       var m = this.monsters[mi];
-      if (m) this.doDamage(m, dmg, mi, false);
+      if (m) this.doDamage(m, dmg, mi, false, s.type);
     }
     this.showToast('⚔ 连斩：多段攻击');
   } else {
@@ -3854,7 +4056,7 @@ Game.prototype.useSkill = function(idx) {
       this.showToast('✦ 裂光：暴击提升' + this.skillBuffs.critTime + '秒');
     }
     this.heroAttackAnim(targetIdx);
-    this.doDamage(target, dmg, targetIdx, s.effect === 'critBuff' || s.effect === 'boss');
+    this.doDamage(target, dmg, targetIdx, s.effect === 'critBuff' || s.effect === 'boss', s.type);
   }
   this.updateUI();
 };
@@ -3890,6 +4092,13 @@ Game.prototype.updateUI = function() {
     var eMax = this._energyMaxWidth || 100;
     this.energyFill.width = Math.max(0, (this.energy / this.getMaxEnergy()) * eMax);
   }
+  if (this.playerHpFill) {
+    var hpMax2 = this._playerHpMaxWidth || 82;
+    var hpPct2 = Math.max(0, Math.min(1, this.playerHp / this.getMaxPlayerHp()));
+    this.playerHpFill.width = Math.floor(hpMax2 * hpPct2);
+    this.playerHpFill.fillColor = hpPct2 > 0.5 ? 0xef4444 : (hpPct2 > 0.25 ? 0xf59e0b : 0x8b0000);
+  }
+  if (this.playerHpLabel) this.playerHpLabel.text = '❤' + Math.max(0, Math.floor(this.playerHp));
   if (this.waveFill && this.waveFillBg) {
     var waveInCycle = ((this.wave - 1) % 10) + 1;
     var wMax = this._waveFillMaxWidth || this.waveFillBg.width;
@@ -4036,6 +4245,13 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   nameLabel.verticalAlign = 'middle';
   nameLabel.x = Math.floor((visualW - badgeW) / 2); nameLabel.y = badgeY;
   g.addChild(nameLabel);
+
+  var traitLabel = new eui.Label();
+  traitLabel.text = this.getDamageTypeName(m.weakness) + '弱' + (mType.traitName ? ' · ' + mType.traitName : '');
+  traitLabel.size = 7; traitLabel.textColor = m.weakness === 'magic' ? 0x9be7ff : (m.weakness === 'true' ? 0xffd166 : 0xffc0a8);
+  traitLabel.width = visualW; traitLabel.height = 10; traitLabel.textAlign = 'center';
+  traitLabel.x = 0; traitLabel.y = Math.max(0, badgeY - 10);
+  g.addChild(traitLabel);
 
   // --- 血条 ---
   var hpY = badgeY + badgeH + 2;
@@ -4877,9 +5093,59 @@ Game.prototype.createPanelScrollContent = function(panel, top, bottom) {
   return content;
 };
 
+Game.prototype.addUpgradeCard = function(parent, x, y, w, iconText, iconColor, titleText, metaText, btnText, btnColor, handler, disabled) {
+  var h = 78;
+  var bg = new eui.Rect();
+  bg.width = w; bg.height = h; bg.fillColor = THEME.bgRow;
+  bg.strokeColor = THEME.strokeSoft; bg.strokeWeight = 1; bg.strokeAlpha = 0.7;
+  bg.ellipseWidth = 8; bg.ellipseHeight = 8;
+  bg.x = x; bg.y = y;
+  parent.addChild(bg);
+
+  var iconBg = new eui.Rect();
+  iconBg.width = 34; iconBg.height = 34; iconBg.fillColor = iconColor;
+  iconBg.strokeColor = THEME.accentSoft; iconBg.strokeWeight = 1; iconBg.strokeAlpha = 0.65;
+  iconBg.ellipseWidth = 8; iconBg.ellipseHeight = 8;
+  iconBg.x = x + 8; iconBg.y = y + 10;
+  parent.addChild(iconBg);
+
+  var iconLb = new eui.Label();
+  iconLb.text = iconText; iconLb.size = iconText.length > 2 ? 9 : 10;
+  iconLb.textColor = THEME.textMain; iconLb.bold = true;
+  iconLb.width = 34; iconLb.height = 34; iconLb.x = iconBg.x; iconLb.y = iconBg.y;
+  iconLb.textAlign = 'center'; iconLb.verticalAlign = 'middle';
+  parent.addChild(iconLb);
+
+  var titleLb = new eui.Label();
+  titleLb.text = titleText; titleLb.size = 11; titleLb.textColor = THEME.textMain; titleLb.bold = true;
+  titleLb.x = x + 50; titleLb.y = y + 9; titleLb.width = w - 58;
+  parent.addChild(titleLb);
+
+  var metaLb = new eui.Label();
+  metaLb.text = metaText; metaLb.size = 9; metaLb.textColor = THEME.textDim;
+  metaLb.x = x + 50; metaLb.y = y + 28; metaLb.width = w - 58;
+  metaLb.lineSpacing = 3; metaLb.wordWrap = true;
+  parent.addChild(metaLb);
+
+  if (btnText) {
+    var btn = this.createButton(btnText, btnColor || THEME.accent, 70, 24, handler, this);
+    btn.x = x + w - 78; btn.y = y + h - 30;
+    if (disabled) {
+      btn.alpha = 0.4;
+      btn.touchEnabled = false;
+      btn.touchChildren = false;
+    }
+    parent.addChild(btn);
+  }
+
+  return h;
+};
+
 // ==================== 升级面板 ====================
 
-Game.prototype.openUpgrade = function() {
+Game.prototype.openUpgrade = function(tabName) {
+  if (tabName) this.upgradePanelTab = tabName;
+  if (!this.upgradePanelTab) this.upgradePanelTab = 'skills';
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
 
@@ -4896,7 +5162,7 @@ Game.prototype.openUpgrade = function() {
   var mainNextDmg = CONFIG.mainDmg(this.mainLevel + 1, this.rebirthGems);
   y = this.addPanelRow(panel, y, '主角', 0x3498db,
     '主角 Lv.' + this.mainLevel + '  伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) +
-    '\n→ Lv.' + (this.mainLevel + 1) + ' 伤害: ' + this.fmt(mainNextDmg) + '  (+' + this.fmt(mainNextDmg - CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) + ')',
+    '\n生命 ' + this.fmt(this.getMaxPlayerHp()) + ' 防御 ' + this.getPlayerDefense() + ' → 伤害+' + this.fmt(mainNextDmg - CONFIG.mainDmg(this.mainLevel, this.rebirthGems)),
     this.fmt(mainCost) + '金',
     0x27ae60,
     function() { self.upgradeMain(); },
@@ -4920,103 +5186,125 @@ Game.prototype.openUpgrade = function() {
   panel.addChild(progText);
   y += 24;
 
-  var listTitle = new eui.Label();
-  listTitle.text = '技能与辅助（滑动查看全部）';
-  listTitle.size = 13; listTitle.bold = true;
-  listTitle.textColor = THEME.accentSoft;
-  listTitle.x = panel._contentX; listTitle.y = y;
-  panel.addChild(listTitle);
-  y += 20;
+  var tabW = Math.floor((panel._contentW - 8) / 2);
+  var skillsTab = this.createButton('技能强化', this.upgradePanelTab === 'skills' ? 0x3498db : 0x30245f, tabW, 30, function() {
+    self.closePanel();
+    self.openUpgrade('skills');
+  }, this);
+  skillsTab.x = panel._contentX; skillsTab.y = y;
+  panel.addChild(skillsTab);
+  var supportTab = this.createButton('辅助英雄', this.upgradePanelTab === 'supports' ? 0x9b59b6 : 0x30245f, tabW, 30, function() {
+    self.closePanel();
+    self.openUpgrade('supports');
+  }, this);
+  supportTab.x = panel._contentX + tabW + 8; supportTab.y = y;
+  panel.addChild(supportTab);
+  y += 40;
 
-  var supportList = this.createPanelScrollContent(panel, y, 14);
-  supportList._contentX = 0;
-  supportList._contentW = panel._contentW;
+  var contentList = this.createPanelScrollContent(panel, y, 14);
+  contentList._contentX = 0;
+  contentList._contentW = panel._contentW;
   var rowY = 0;
-  var skillHeader = new eui.Label();
-  skillHeader.text = '技能强化';
-  skillHeader.size = 12; skillHeader.bold = true;
-  skillHeader.textColor = THEME.sky;
-  skillHeader.x = 0; skillHeader.y = rowY;
-  supportList.addChild(skillHeader);
-  rowY += 18;
-  for (var sk = 0; sk < SKILLS.length; sk++) {
-    var skill = SKILLS[sk];
-    var unlocked = this.skillUnlocked[sk];
-    var skillLv = this.skillLevels && this.skillLevels[sk] ? this.skillLevels[sk] : 1;
-    if (!unlocked) {
-      rowY = this.addPanelRow(supportList, rowY, 'Lv' + skill.lv, 0x4a4566,
-        skill.name + ' 未解锁\n主角Lv.' + skill.lv + '后可强化',
-        '', 0x555555,
-        function() {},
-        true
-      );
-      continue;
-    }
-    var skillCost = CONFIG.skillCost(skillLv, sk);
-    var curMul = this.getSkillPowerMultiplier(sk);
-    var nextMul = 1 + skillLv * 0.14;
-    var curCd = this.getSkillCooldown(skill);
-    var oldSkillLv = this.skillLevels[sk];
-    this.skillLevels[sk] = skillLv + 1;
-    var nextCd = this.getSkillCooldown(skill);
-    this.skillLevels[sk] = oldSkillLv;
-    (function(si, sd, lv, c, cm, nm, cd, ncd) {
-      var desc = sd.name + ' Lv.' + lv + '  倍率×' + cm.toFixed(2) + '  CD ' + cd + 's' +
-        '\n→ Lv.' + (lv + 1) + ' 倍率×' + nm.toFixed(2) + '  CD ' + ncd + 's';
-      rowY = self.addPanelRow(supportList, rowY, sd.name.slice(0,2), sd.color,
-        desc, self.fmt(c) + '金', 0x27ae60,
-        function() { self.upgradeSkill(si); },
-        self.gold < c
-      );
-    })(sk, skill, skillLv, skillCost, curMul, nextMul, curCd, nextCd);
+  var cardGap = 8;
+  var cardW = Math.floor((contentList._contentW - cardGap) / 2);
+  var cardH = 78;
+  var cardCount = 0;
+  function placeCard() {
+    var col = cardCount % 2;
+    var row = Math.floor(cardCount / 2);
+    cardCount++;
+    return { x: col * (cardW + cardGap), y: row * (cardH + cardGap) };
   }
-
-  var supportHeader = new eui.Label();
-  supportHeader.text = '辅助英雄';
-  supportHeader.size = 12; supportHeader.bold = true;
-  supportHeader.textColor = THEME.accentSoft;
-  supportHeader.x = 0; supportHeader.y = rowY + 2;
-  supportList.addChild(supportHeader);
-  rowY += 22;
-
-  // 辅助角色：全部展示；达到条件后先招募，已招募后才可升级和出战。
-  for (var i = 0; i < this.supports.length; i++) {
-    var s = this.supports[i];
-    if (!this.isSupportActive(i)) {
-      if (this.isSupportAvailable(i)) {
-        var recruitCost = CONFIG.supportRecruitCost(i);
-        (function(si, sup, c) {
-          rowY = self.addPanelRow(supportList, rowY, sup.name.slice(0,2), 0x7a4a1d,
-            sup.name + ' 可招募\nDPS: ' + self.fmt(sup.dps) + '  招募后开始自动攻击',
-            self.fmt(c) + '金', 0x27ae60,
-            function() { self.recruitSupport(si); },
-            self.gold < c
-          );
-        })(i, s, recruitCost);
-      } else {
-        rowY = this.addPanelRow(supportList, rowY, '?', 0x4a4566,
-          '神秘队友 #' + (i + 1) + ' 未发现\n主角Lv.' + SUPPORTS_DEF[i].recruitLv + '后可招募',
+  if (this.upgradePanelTab === 'skills') {
+    var unlockedCount = 0;
+    for (var sk = 0; sk < SKILLS.length; sk++) {
+      var skill = SKILLS[sk];
+      var unlocked = this.skillUnlocked[sk];
+      var skillLv = this.skillLevels && this.skillLevels[sk] ? this.skillLevels[sk] : 1;
+      if (!unlocked) {
+        var lockedPos = placeCard();
+        this.addUpgradeCard(contentList, lockedPos.x, lockedPos.y, cardW, 'Lv' + skill.lv, 0x4a4566,
+          skill.name, '未解锁\n主角Lv.' + skill.lv + '后开放',
           '', 0x555555,
           function() {},
           true
         );
+        break;
       }
-      continue;
+      unlockedCount++;
+      var skillCost = CONFIG.skillCost(skillLv, sk);
+      var curMul = this.getSkillPowerMultiplier(sk);
+      var nextMul = 1 + skillLv * 0.14;
+      var curCd = this.getSkillCooldown(skill);
+      var oldSkillLv = this.skillLevels[sk];
+      this.skillLevels[sk] = skillLv + 1;
+      var nextCd = this.getSkillCooldown(skill);
+      this.skillLevels[sk] = oldSkillLv;
+      (function(si, sd, lv, c, cm, nm, cd, ncd) {
+        var pos = placeCard();
+        self.addUpgradeCard(contentList, pos.x, pos.y, cardW, sd.name.slice(0,2), sd.color,
+          sd.name + ' Lv.' + lv,
+          self.getDamageTypeName(sd.type) + ' ×' + cm.toFixed(2) + ' / ' + cd + 's\n下级 ×' + nm.toFixed(2) + ' / ' + ncd + 's',
+          self.fmt(c) + '金', 0x27ae60,
+          function() { self.upgradeSkill(si); },
+          self.gold < c
+        );
+      })(sk, skill, skillLv, skillCost, curMul, nextMul, curCd, nextCd);
     }
-    var cost = CONFIG.supportCost(s.level);
-    var nextDps = s.dps * (s.level + 1);
-    var curDps = s.dps * s.level;
-    (function(si, sup, c, n, cur) {
-      rowY = self.addPanelRow(supportList, rowY, sup.name.slice(0,2), 0x9b59b6,
-        sup.name + ' Lv.' + sup.level + '  DPS: ' + self.fmt(cur) +
-        '\n→ Lv.' + (sup.level + 1) + ' DPS: ' + self.fmt(n) + '  (+' + self.fmt(n - cur) + ')',
-        self.fmt(c) + '金', 0x27ae60,
-        function() { self.upgradeSupport(si); },
-        self.gold < c
-      );
-    })(i, s, cost, nextDps, curDps);
+    if (unlockedCount >= SKILLS.length) {
+      var allSkill = new eui.Label();
+      allSkill.text = '所有技能已解锁，可继续强化已开放技能。';
+      allSkill.size = 11; allSkill.textColor = THEME.textDim;
+      allSkill.x = 2; allSkill.y = Math.ceil(cardCount / 2) * (cardH + cardGap) + 4; allSkill.width = contentList._contentW;
+      contentList.addChild(allSkill);
+      rowY = allSkill.y + 28;
+    }
+  } else {
+    var shownLocked = false;
+    for (var i = 0; i < this.supports.length; i++) {
+      var s = this.supports[i];
+      if (!this.isSupportActive(i)) {
+        if (this.isSupportAvailable(i)) {
+          var recruitCost = CONFIG.supportRecruitCost(i);
+          (function(si, sup, c) {
+            var pos = placeCard();
+            self.addUpgradeCard(contentList, pos.x, pos.y, cardW, sup.name.slice(0,2), 0x7a4a1d,
+              sup.name + ' 可招募',
+              'DPS ' + self.fmt(sup.dps) + '\n招募后自动攻击',
+              self.fmt(c) + '金', 0x27ae60,
+              function() { self.recruitSupport(si); },
+              self.gold < c
+            );
+          })(i, s, recruitCost);
+        } else if (!shownLocked) {
+          shownLocked = true;
+          var nextPos = placeCard();
+          this.addUpgradeCard(contentList, nextPos.x, nextPos.y, cardW, '?', 0x4a4566,
+            '神秘队友',
+            '主角Lv.' + SUPPORTS_DEF[i].recruitLv + '后发现',
+            '', 0x555555,
+            function() {},
+            true
+          );
+        }
+        continue;
+      }
+      var cost = CONFIG.supportCost(s.level);
+      var nextDps = s.dps * (s.level + 1);
+      var curDps = s.dps * s.level;
+      (function(si, sup, c, n, cur) {
+        var pos = placeCard();
+        self.addUpgradeCard(contentList, pos.x, pos.y, cardW, sup.name.slice(0,2), 0x9b59b6,
+          sup.name + ' Lv.' + sup.level,
+          'DPS ' + self.fmt(cur) + '\n下级 ' + self.fmt(n) + ' (+' + self.fmt(n - cur) + ')',
+          self.fmt(c) + '金', 0x27ae60,
+          function() { self.upgradeSupport(si); },
+          self.gold < c
+        );
+      })(i, s, cost, nextDps, curDps);
+    }
   }
-  supportList.height = rowY;
+  contentList.height = Math.max(rowY, Math.ceil(cardCount / 2) * (cardH + cardGap)) + 4;
 };
 
 // ==================== 超市面板 ====================
@@ -5026,13 +5314,14 @@ Game.prototype.openSupermarket = function() {
   var panel = this.addPanelContent(overlay);
 
   var title = new eui.Label();
-  title.text = '🛒 超市'; title.size = 18; title.textColor = 0xffffff;
+  title.text = '✦ 秘宝阁'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
+  this.ensureRelics();
   var buffs = this.getBuffs();
   var buffText = new eui.Label();
-  buffText.text = '当前buff: 暴击' + Math.floor(buffs.critChance*100) + '% | 攻击×' + buffs.attackMult.toFixed(2);
+  buffText.text = '钻石: 💎' + this.rebirthGems + '  暴击' + Math.floor(buffs.critChance*100) + '%  攻击×' + buffs.attackMult.toFixed(2);
   buffText.size = 11; buffText.textColor = 0x888888; buffText.x = panel._contentX; buffText.y = 46;
   panel.addChild(buffText);
 
@@ -5042,11 +5331,13 @@ Game.prototype.openSupermarket = function() {
     var f = FOODS[i];
     var count = this.foods[f.name] || 0;
     (function(fi, food, c) {
+      var full = food.max !== undefined && c >= food.max;
       y = self.addPanelRow(panel, y, food.icon, 0xe67e22,
-        food.name + ' ×' + c + '\n' + food.desc,
-        food.price + '金', 0x27ae60,
+        food.name + ' Lv.' + c + '/' + food.max + '\n' + food.desc,
+        full ? '满级' : ('💎' + food.price),
+        0x27ae60,
         function() { self.buyFood(fi); },
-        self.gold < food.price
+        full || self.rebirthGems < food.price
       );
     })(i, f, count);
   }
@@ -5055,10 +5346,13 @@ Game.prototype.openSupermarket = function() {
 
 Game.prototype.buyFood = function(idx) {
   var f = FOODS[idx];
-  if (this.gold < f.price) { this.showToast('金币不足！'); return; }
-  this.gold -= f.price;
+  this.ensureRelics();
+  var cur = this.foods[f.name] || 0;
+  if (f.max !== undefined && cur >= f.max) { this.showToast(f.name + '已满级'); return; }
+  if (this.rebirthGems < f.price) { this.showToast('钻石不足，转生可获得钻石'); return; }
+  this.rebirthGems -= f.price;
   this.foods[f.name] = (this.foods[f.name] || 0) + 1;
-  this.showToast(f.icon + ' 购买' + f.name + '成功！');
+  this.showToast(f.icon + ' ' + f.name + '提升至Lv.' + this.foods[f.name]);
   this.saveGame();
   this.updateUI();
   this.closePanel();
@@ -5111,7 +5405,10 @@ Game.prototype.grantSpinPrize = function(prize) {
     this.gold += gold;
     if (this.gold > this.stats.totalGold) this.stats.totalGold = this.gold;
   } else if (prize.type === 'food') {
-    this.foods[prize.value] = (this.foods[prize.value] || 0) + 1;
+    if (!this.addRelic(prize.value, 1)) {
+      this.spinTickets = (this.spinTickets || 0) + 1;
+      text = prize.value + '已满，转为幸运券×1';
+    }
   } else if (prize.type === 'energy') {
     this.energy = Math.min(this.getMaxEnergy(), this.energy + prize.value);
   } else if (prize.type === 'ticket') {
@@ -5263,57 +5560,64 @@ Game.prototype.spin = function(wheel, resultLabel, spinBtn, infoLabel) {
   });
 };
 
-// ==================== 排行榜 ====================
+// ==================== 成长档案 ====================
 
 Game.prototype.openLeaderboard = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 380;
+  panel.height = Math.min(500, (overlay.height || 667) - 74);
 
   var title = new eui.Label();
-  title.text = '🏆 排行榜'; title.size = 18; title.textColor = 0xffffff;
+  title.text = '🏆 成长档案'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
+
+  var list = this.createPanelScrollContent(panel, 52, 14);
+  list._contentX = 0;
+  list._contentW = panel._contentW;
+
+  var y = 0;
+  function header(text, color) {
+    var lb = new eui.Label();
+    lb.text = text; lb.size = 12; lb.bold = true; lb.textColor = color || THEME.accentSoft;
+    lb.x = 0; lb.y = y; lb.width = list._contentW;
+    list.addChild(lb);
+    y += 20;
+  }
+  var self = this;
+  function row(icon, label, value, color) {
+    y = self.addPanelRow(list, y, icon, color || 0x3498db, label + '\n' + value, '', 0, function() {}, false);
+  }
 
   var s = this.stats;
   var playH = Math.floor(s.playTime / 3600);
   var playM = Math.floor((s.playTime % 3600) / 60);
-  var rows = [
-    ['💰 最高金币', this.fmt(s.totalGold)],
-    ['🌊 最高波次', '第 ' + this.maxWaveReached + ' 波'],
-    ['💎 转生宝石', this.rebirthGems + ' (×' + (1 + this.rebirthGems * 0.1).toFixed(1) + '伤害)'],
-    ['🏆 阶段加成', '金+' + Math.round(this.getStageBonuses().gold * 100) + '% 能+' + this.getStageBonuses().energy],
-    ['⚔️ 总击杀数', this.fmt(s.totalKills)],
-    ['👆 总点击数', this.fmt(s.totalClicks)],
-    ['⏱️ 游戏时间', playH + 'h ' + playM + 'm'],
-    ['💪 总DPS', this.fmt(this.totalDps())]
-  ];
+  var bossInfo = this.getBossPowerInfo(this.getNextBossWave());
+  var progress = this.getProgressInfoForWave(this.wave);
+  var plan = this.getRebirthPlan();
+  var bonuses = this.getStageBonuses();
 
-  for (var i = 0; i < rows.length; i++) {
-    var rowBg = new eui.Rect();
-    rowBg.width = panel._contentW; rowBg.height = 34; rowBg.fillColor = 0x1a153f;
-    rowBg.ellipseWidth = 8; rowBg.ellipseHeight = 8;
-    rowBg.x = panel._contentX; rowBg.y = 50 + i * 38;
-    panel.addChild(rowBg);
+  header('战力', THEME.sky);
+  row('战', '当前战力', this.fmt(bossInfo.current) + ' / 推荐BOSS ' + this.fmt(bossInfo.recommended), 0x3498db);
+  row('主', '主角等级', 'Lv.' + this.mainLevel + '  DPS ' + this.fmt(this.totalDps()), 0x8e44ad);
+  row('防', '生存能力', '生命 ' + this.fmt(this.playerHp) + '/' + this.fmt(this.getMaxPlayerHp()) + '  防御 ' + this.getPlayerDefense(), 0xef4444);
+  row('技', '技能成长', '已解锁 ' + this.skillUnlocked.filter(function(v){ return v; }).length + '/' + SKILLS.length + '  强化等级总和 ' + this.skillLevels.reduce(function(a,b){ return a + b; }, 0), 0x27ae60);
 
-    var label = new eui.Label();
-    label.text = rows[i][0]; label.size = 13; label.textColor = 0xcccccc;
-    label.x = panel._contentX + 10; label.y = 50 + i * 38 + 9;
-    label.width = 120;
-    panel.addChild(label);
+  header('探索', THEME.accentSoft);
+  row('章', '当前章节', '第' + progress.chapter + '章 · BOSS ' + progress.chapterBoss + '/' + BOSSES_PER_CHAPTER + ' · 第' + this.wave + '波', 0xf39c12);
+  row('峰', '历史最高', '第 ' + this.maxWaveReached + ' 波，击杀BOSS ' + this.fmt(s.bossKills), 0xe74c3c);
+  row('转', '转生规划', '本轮新增BOSS ' + plan.newBossStages + '/' + REBIRTH_MIN_NEW_BOSSES + '，预计获得💎' + plan.gemsGain, 0xc7a7ff);
 
-    var val = new eui.Label();
-    val.text = rows[i][1]; val.size = 13; val.textColor = 0xffd700; val.bold = true;
-    val.x = panel._contentX + 132; val.y = 50 + i * 38 + 9;
-    val.width = panel._contentW - 142;
-    val.textAlign = 'right';
-    panel.addChild(val);
-  }
+  header('收藏', THEME.mint);
+  row('图', '图签/成就', '图签 ' + Object.keys(this.monsterCodex || {}).length + '  成就 ' + this.achievements.length + '/' + ACHIEVEMENTS.length, 0x2ecc71);
+  row('奖', '资源记录', '最高金币 ' + this.fmt(s.totalGold) + '  转盘 ' + this.fmt(this.totalSpins || 0) + ' 次', 0xfbbf24);
+  row('时', '游戏时间', playH + 'h ' + playM + 'm  阶段金币+' + Math.round(bonuses.gold * 100) + '%', 0x5ec8ff);
 
-  var note = new eui.Label();
-  note.text = '（排行榜数据为本地记录）'; note.size = 10; note.textColor = 0x555555;
-  note.horizontalCenter = 0; note.bottom = 16;
-  panel.addChild(note);
+  header('下一步建议', THEME.textGold);
+  row('目', '推荐行动', this.getNextGoal().text.replace('目标：', ''), 0xffd700);
+  row('建', 'BOSS建议', this.getBossPowerAdvice(bossInfo), 0xff9f43);
+
+  list.height = y + 4;
 };
 
 // ==================== 商城 ====================
@@ -5323,28 +5627,41 @@ Game.prototype.openShop = function() {
   var panel = this.addPanelContent(overlay);
 
   var title = new eui.Label();
-  title.text = '🏪 商城'; title.size = 18; title.textColor = 0xffffff;
+  title.text = '💎 钻石商城'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
   var self = this;
   var y = 50;
+  var gemsInfo = new eui.Label();
+  gemsInfo.text = '当前钻石: 💎' + this.rebirthGems + '  通过转生获得';
+  gemsInfo.size = 11; gemsInfo.textColor = 0x8f8aa8;
+  gemsInfo.x = panel._contentX; gemsInfo.y = y;
+  panel.addChild(gemsInfo);
+  y += 24;
   var energyFull = this.energy >= this.getMaxEnergy();
 
   // 能量药水
   y = this.addPanelRow(panel, y, '⚡', 0x3498db,
     '能量药水\n恢复' + CONFIG.energyPotionValue + '能量' + (energyFull ? '（当前已满）' : ''),
-    energyFull ? '已满' : '50金', 0x27ae60,
+    energyFull ? '已满' : '💎1', 0x27ae60,
     function() { self.shopBuy('energy'); },
-    this.gold < 50 || energyFull
+    this.rebirthGems < 1 || energyFull
   );
 
   // 离线扩展包
   y = this.addPanelRow(panel, y, '💤', 0x9b59b6,
     '离线扩展包\n离线上限+4h (当前' + this.offlineCap + 'h)',
-    '500金', 0x27ae60,
+    '💎3', 0x27ae60,
     function() { self.shopBuy('offline'); },
-    this.gold < 500 || this.offlineCap >= 24
+    this.rebirthGems < 3 || this.offlineCap >= 24
+  );
+
+  y = this.addPanelRow(panel, y, '券', 0xc7a7ff,
+    '幸运券礼包\n获得3张转盘券，冲稀有奖励',
+    '💎2', 0x27ae60,
+    function() { self.shopBuy('ticket'); },
+    this.rebirthGems < 2
   );
 
   // 每日任务
@@ -5454,7 +5771,9 @@ Game.prototype.claimMail = function(id) {
   } else if (mail.type === 'energy') {
     this.energy = Math.min(this.getMaxEnergy(), this.energy + mail.value);
   } else if (mail.type === 'food') {
-    this.foods[mail.value] = (this.foods[mail.value] || 0) + 1;
+    if (!this.addRelic(mail.value, 1)) {
+      this.spinTickets = (this.spinTickets || 0) + 1;
+    }
   }
   this.mailClaimed[id] = true;
   this.showToast('📧 邮件奖励: ' + mail.rewardText);
@@ -5535,7 +5854,7 @@ Game.prototype.openEnergyHelp = function() {
   panel.addChild(info);
 
   var tip = new eui.Label();
-  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n技能不消耗能量，只受冷却限制\n能量每秒恢复，也可以在商城购买';
+  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n技能不消耗能量，只受冷却限制\n能量每秒恢复，也可以在钻石商城购买';
   tip.size = 11; tip.textColor = 0x888888;
   tip.x = panel._contentX; tip.top = 108; tip.width = panel._contentW; tip.lineSpacing = 5;
   tip.wordWrap = true;
@@ -5543,16 +5862,12 @@ Game.prototype.openEnergyHelp = function() {
 
   var self = this;
   var energyFull = this.energy >= this.getMaxEnergy();
-  var buyBtn = this.createButton(energyFull ? '能量已满' : '购买能量药水 (+' + CONFIG.energyPotionValue + '⚡)', energyFull ? 0x555555 : 0x3498db, 160, 36,
+  var buyBtn = this.createButton(energyFull ? '能量已满' : '💎1 购买能量药水', energyFull ? 0x555555 : 0x3498db, 160, 36,
     function() {
       if (self.energy >= self.getMaxEnergy()) { self.showToast('能量已满，不需要购买'); return; }
-      if (self.gold < 50) { self.showToast('金币不足！'); return; }
-      self.gold -= 50;
-      self.energy = Math.min(self.getMaxEnergy(), self.energy + CONFIG.energyPotionValue);
-      self.showToast('⚡ +' + CONFIG.energyPotionValue + '能量！');
-      self.saveGame();
-      self.updateUI();
+      if (self.rebirthGems < 1) { self.showToast('钻石不足，转生可获得钻石'); return; }
       self.closePanel();
+      self.shopBuy('energy');
     }, this
   );
   buyBtn.horizontalCenter = 0; buyBtn.y = 192;
@@ -5567,15 +5882,21 @@ Game.prototype.openEnergyHelp = function() {
 Game.prototype.shopBuy = function(type) {
   if (type === 'energy') {
     if (this.energy >= this.getMaxEnergy()) { this.showToast('能量已满，不需要购买'); return; }
-    if (this.gold < 50) { this.showToast('金币不足！'); return; }
-    this.gold -= 50;
+    if (this.rebirthGems < 1) { this.showToast('钻石不足，转生可获得钻石'); return; }
+    this.rebirthGems -= 1;
     this.energy = Math.min(this.getMaxEnergy(), this.energy + CONFIG.energyPotionValue);
     this.showToast('⚡ 购买能量药水！+' + CONFIG.energyPotionValue + '能量');
   } else if (type === 'offline') {
-    if (this.gold < 500) { this.showToast('金币不足！'); return; }
-    this.gold -= 500;
+    if (this.offlineCap >= 24) { this.showToast('离线上限已满'); return; }
+    if (this.rebirthGems < 3) { this.showToast('钻石不足，转生可获得钻石'); return; }
+    this.rebirthGems -= 3;
     this.offlineCap = Math.min(24, this.offlineCap + 4);
     this.showToast('💤 离线上限提升至' + this.offlineCap + '小时！');
+  } else if (type === 'ticket') {
+    if (this.rebirthGems < 2) { this.showToast('钻石不足，转生可获得钻石'); return; }
+    this.rebirthGems -= 2;
+    this.spinTickets = (this.spinTickets || 0) + 3;
+    this.showToast('🎡 幸运券 +3');
   }
   this.saveGame();
   this.updateUI();
@@ -5599,12 +5920,12 @@ Game.prototype.openRebirth = function() {
   var plan = this.getRebirthPlan();
   var gemsGain = plan.gemsGain;
   var canRebirth = plan.canRebirth;
-  var dmgMult = 1 + this.rebirthGems * 0.1;
-  var goldMult = 1 + this.rebirthGems * 0.05;
+  var dmgMult = CONFIG.rebirthDamageMult(this.rebirthGems);
+  var supportMult = CONFIG.rebirthSupportMult(this.rebirthGems);
 
   // 当前状态
   var infoText = '转生=卡关后的主动重开：牺牲本轮养成，换永久宝石。\n' +
-    '当前宝石: 💎 ' + this.rebirthGems + '  伤害×' + dmgMult.toFixed(1) + '  金币×' + goldMult.toFixed(1) + '\n' +
+    '当前宝石: 💎 ' + this.rebirthGems + '  主角×' + dmgMult.toFixed(2) + '  队友×' + supportMult.toFixed(2) + '\n' +
     '历史最高: 第' + this.maxWaveReached + '波 / BOSS ' + plan.highestBossStage + '  本轮新增BOSS: ' + plan.newBossStages;
   var info = new eui.Label();
   info.text = infoText; info.size = 11; info.textColor = 0xcccccc;
@@ -5624,10 +5945,10 @@ Game.prototype.openRebirth = function() {
   panel.addChild(previewTitle);
 
   var newGems = this.rebirthGems + gemsGain;
-  var newDmgMult = 1 + newGems * 0.1;
-  var newGoldMult = 1 + newGems * 0.05;
+  var newDmgMult = CONFIG.rebirthDamageMult(newGems);
+  var newSupportMult = CONFIG.rebirthSupportMult(newGems);
   var previewText = '本次获得 💎 ' + gemsGain + ' = 新BOSS×2 + 章节×5 + 等级奖励' + plan.levelBonus + '\n' +
-    '累计: ' + newGems + '  伤害×' + newDmgMult.toFixed(1) + '  金币×' + newGoldMult.toFixed(1);
+    '累计: ' + newGems + '  主角×' + newDmgMult.toFixed(2) + '  队友×' + newSupportMult.toFixed(2);
   var preview = new eui.Label();
   preview.text = previewText; preview.size = 12; preview.textColor = 0xffd700;
   preview.x = panel._contentX + 10; preview.y = 154; preview.width = panel._contentW - 20; preview.lineSpacing = 4;
@@ -5640,7 +5961,7 @@ Game.prototype.openRebirth = function() {
   panel.addChild(costBg);
 
   var costText = new eui.Label();
-  costText.text = '策略：不要一能转就转。建议打完一整章，或连续挑战BOSS明显卡住时再转。\n重置：等级、波次、金币、技能等级、辅助招募、食物。\n保留：宝石、成就、历史最高、图签、邮件、BOSS阶段加成。';
+  costText.text = '策略：不要一能转就转。建议打完一整章，或连续挑战BOSS明显卡住时再转。\n重置：等级、波次、金币、技能等级、辅助招募。\n保留：宝石、秘宝装备、成就、历史最高、图签、邮件、BOSS阶段加成。';
   costText.size = 10; costText.textColor = 0xff9f9f;
   costText.x = panel._contentX + 10; costText.y = 224; costText.width = panel._contentW - 20; costText.lineSpacing = 5;
   costText.wordWrap = true;
@@ -5690,7 +6011,7 @@ Game.prototype.openRebirthConfirm = function(gemsGain) {
   panel.addChild(title);
 
   var warn = new eui.Label();
-  warn.text = '这是一次战略重开，会清空本轮等级、金币、技能强化、辅助招募和食物。\n\n你将获得 💎 ' + plan.gemsGain + ' 转生宝石，并从第1波重新开始。建议确认当前BOSS已经明显打不过，或刚打完一整章。';
+  warn.text = '这是一次战略重开，会清空本轮等级、金币、技能强化和辅助招募，秘宝装备会保留。\n\n你将获得 💎 ' + plan.gemsGain + ' 转生宝石，并从第1波重新开始。建议确认当前BOSS已经明显打不过，或刚打完一整章。';
   warn.size = 12; warn.textColor = 0xffc7c7;
   warn.x = panel._contentX; warn.y = 58; warn.width = panel._contentW; warn.lineSpacing = 6;
   warn.wordWrap = true;
@@ -5726,6 +6047,7 @@ Game.prototype.doRebirth = function(gemsGain) {
   this.gold = 0;
   this.energy = 100;
   this.mainLevel = 1;
+  this.playerHp = this.getMaxPlayerHp();
   this.wave = 1;
   this.totalCleared = 0;
   this.killCount = 0;
@@ -5736,7 +6058,7 @@ Game.prototype.doRebirth = function(gemsGain) {
     return { name: s.name, dps: s.dps, wave: s.wave, level: 1, unlocked: false, notified: false };
   });
   this.monsters = [];
-  this.foods = { '棒棒糖': 0, '牛奶': 0, '烤肉': 0 };
+  this.ensureRelics();
   this.pendingBossReward = null;
   this.bossCounter = null;
   this.stopBossTimer();
@@ -5840,7 +6162,11 @@ Game.prototype.doCheckin = function() {
   var reward = CHECKIN_REWARDS[day];
   this.gold += reward.gold;
   if (reward.bonus) {
-    this.foods[reward.bonus.name] = (this.foods[reward.bonus.name] || 0) + 1;
+    if (reward.bonus.name === '幸运券') {
+      this.spinTickets = (this.spinTickets || 0) + 1;
+    } else if (!this.addRelic(reward.bonus.name, 1)) {
+      this.spinTickets = (this.spinTickets || 0) + 1;
+    }
     this.showToast('📅 签到奖励: ' + reward.gold + '金 + ' + reward.bonus.icon + '×1');
   } else {
     this.showToast('📅 签到奖励: ' + reward.gold + '金');
@@ -6304,18 +6630,17 @@ Game.prototype.checkOfflineReward = function() {
 Game.prototype.initSound = function() {
   this.soundMuted = (localStorage.getItem('gujiyouxi_mute') === '1');
   this._audioCtx = null;
+  this._masterGain = null;
+  this._bgmGain = null;
+  this._sfxGain = null;
   // 首次用户交互时再创建 AudioContext（浏览器自动播放策略要求）
   var self = this;
   var unlock = function() {
-    if (!self._audioCtx) {
-      try {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (AC) self._audioCtx = new AC();
-      } catch(e) { self._audioCtx = null; }
-    }
+    self.ensureAudio();
     if (self._audioCtx && self._audioCtx.state === 'suspended') {
       self._audioCtx.resume();
     }
+    if (!self.soundMuted) self.startBgm();
     document.removeEventListener('touchstart', unlock);
     document.removeEventListener('mousedown', unlock);
     document.removeEventListener('keydown', unlock);
@@ -6325,10 +6650,32 @@ Game.prototype.initSound = function() {
   document.addEventListener('keydown', unlock);
 };
 
+Game.prototype.ensureAudio = function() {
+  if (this._audioCtx) return this._audioCtx;
+  try {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    var ctx = new AC();
+    this._audioCtx = ctx;
+    this._masterGain = ctx.createGain();
+    this._masterGain.gain.value = 0.9;
+    this._masterGain.connect(ctx.destination);
+    this._bgmGain = ctx.createGain();
+    this._bgmGain.gain.value = 0.42;
+    this._bgmGain.connect(this._masterGain);
+    this._sfxGain = ctx.createGain();
+    this._sfxGain.gain.value = 0.9;
+    this._sfxGain.connect(this._masterGain);
+  } catch(e) {
+    this._audioCtx = null;
+  }
+  return this._audioCtx;
+};
+
 // 内部：播放一个 envelope 包络的 oscillator
 Game.prototype._beep = function(opts) {
   if (this.soundMuted) return;
-  var ctx = this._audioCtx;
+  var ctx = this.ensureAudio();
   if (!ctx) return;
   try {
     var osc = ctx.createOscillator();
@@ -6336,7 +6683,7 @@ Game.prototype._beep = function(opts) {
     osc.type = opts.type || 'sine';
     var freq = opts.freq || 440;
     var freqEnd = opts.freqEnd || freq;
-    var now = ctx.currentTime;
+    var now = ctx.currentTime + (opts.delay || 0);
     var dur = opts.duration || 0.12;
     osc.frequency.setValueAtTime(freq, now);
     if (freqEnd !== freq) {
@@ -6347,15 +6694,60 @@ Game.prototype._beep = function(opts) {
     gain.gain.linearRampToValueAtTime(vol, now + 0.005);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
     osc.connect(gain);
-    gain.connect(ctx.destination);
+    gain.connect(opts.bus === 'bgm' && this._bgmGain ? this._bgmGain : (this._sfxGain || ctx.destination));
     osc.start(now);
     osc.stop(now + dur + 0.02);
   } catch(e) {}
 };
 
+Game.prototype.startBgm = function() {
+  if (this.soundMuted || this._bgmTimer) return;
+  if (!this.ensureAudio()) return;
+  var self = this;
+  this._bgmStep = this._bgmStep || 0;
+  function playStep() {
+    if (self.soundMuted || !self._audioCtx) return;
+    var melody = [523, 587, 659, 784, 740, 659, 587, 494, 523, 659, 784, 880, 784, 659, 587, 523];
+    var bass = [130, 130, 196, 196, 174, 174, 146, 146];
+    var step = self._bgmStep % melody.length;
+    self._beep({ bus: 'bgm', type: 'triangle', freq: melody[step], duration: 0.24, volume: 0.025 });
+    if (step % 2 === 0) self._beep({ bus: 'bgm', type: 'sine', freq: bass[Math.floor(step / 2) % bass.length], duration: 0.42, volume: 0.018 });
+    if (step % 4 === 2) self._beep({ bus: 'bgm', type: 'sine', freq: melody[step] * 2, duration: 0.12, volume: 0.01 });
+    self._bgmStep++;
+  }
+  playStep();
+  this._bgmTimer = setInterval(playStep, 420);
+};
+
+Game.prototype.stopBgm = function() {
+  if (this._bgmTimer) {
+    clearInterval(this._bgmTimer);
+    this._bgmTimer = null;
+  }
+};
+
 // --- 对外音效 + 静音切换 ---
 Game.prototype.sfxClick = function() {
   this._beep({ type: 'square', freq: 880, freqEnd: 660, duration: 0.06, volume: 0.08 });
+};
+Game.prototype.sfxAttack = function() {
+  this._beep({ type: 'triangle', freq: 360, freqEnd: 180, duration: 0.09, volume: 0.09 });
+  this._beep({ type: 'square', freq: 620, freqEnd: 360, duration: 0.05, volume: 0.045, delay: 0.025 });
+};
+Game.prototype.sfxCrit = function() {
+  this._beep({ type: 'sawtooth', freq: 880, freqEnd: 1320, duration: 0.09, volume: 0.075 });
+};
+Game.prototype.sfxKill = function() {
+  this._beep({ type: 'triangle', freq: 520, freqEnd: 780, duration: 0.11, volume: 0.06 });
+};
+Game.prototype.sfxHurt = function() {
+  this._beep({ type: 'sawtooth', freq: 180, freqEnd: 95, duration: 0.11, volume: 0.08 });
+};
+Game.prototype.sfxSupport = function() {
+  var now = Date.now();
+  if (now - (this._lastSupportSfx || 0) < 260) return;
+  this._lastSupportSfx = now;
+  this._beep({ type: 'sine', freq: 420, freqEnd: 560, duration: 0.08, volume: 0.035 });
 };
 Game.prototype.sfxHitBoss = function() {
   this._beep({ type: 'sawtooth', freq: 140, freqEnd: 60, duration: 0.35, volume: 0.2 });
@@ -6368,8 +6760,19 @@ Game.prototype.sfxLevelUp = function() {
   setTimeout(function() { self._beep({ type: 'triangle', freq: 659, duration: 0.1, volume: 0.13 }); }, 90);
   setTimeout(function() { self._beep({ type: 'triangle', freq: 784, duration: 0.18, volume: 0.15 }); }, 180);
 };
-Game.prototype.sfxSkill = function() {
-  this._beep({ type: 'sawtooth', freq: 660, freqEnd: 220, duration: 0.18, volume: 0.14 });
+Game.prototype.sfxSkill = function(idx) {
+  var tones = [
+    { type: 'triangle', freq: 720, freqEnd: 420, duration: 0.16, volume: 0.11 },
+    { type: 'sawtooth', freq: 180, freqEnd: 70, duration: 0.24, volume: 0.16 },
+    { type: 'square', freq: 520, freqEnd: 920, duration: 0.08, volume: 0.09 },
+    { type: 'sine', freq: 760, freqEnd: 1260, duration: 0.18, volume: 0.12 },
+    { type: 'triangle', freq: 440, freqEnd: 220, duration: 0.22, volume: 0.12 },
+    { type: 'sawtooth', freq: 980, freqEnd: 360, duration: 0.2, volume: 0.13 },
+    { type: 'sine', freq: 320, freqEnd: 1480, duration: 0.32, volume: 0.14 }
+  ];
+  var t = tones[idx] || tones[0];
+  this._beep(t);
+  if (idx === 2 || idx === 6) this._beep({ type: 'triangle', freq: t.freq * 1.5, freqEnd: t.freqEnd, duration: 0.12, volume: 0.06, delay: 0.08 });
 };
 Game.prototype.sfxUnlock = function() {
   this._beep({ type: 'sine', freq: 440, freqEnd: 1200, duration: 0.22, volume: 0.14 });
@@ -6378,9 +6781,11 @@ Game.prototype.sfxUnlock = function() {
 Game.prototype.toggleMute = function() {
   this.soundMuted = !this.soundMuted;
   localStorage.setItem('gujiyouxi_mute', this.soundMuted ? '1' : '0');
+  if (this.soundMuted) this.stopBgm();
+  else this.startBgm();
   this.updateMuteBtn();
   if (!this.soundMuted) this.sfxClick();
-  this.showToast(this.soundMuted ? '🔇 已静音' : '🔊 已开启音效');
+  this.showToast(this.soundMuted ? '🔇 已静音' : '🔊 BGM与音效已开启');
 };
 
 Game.prototype.updateMuteBtn = function() {
@@ -6420,6 +6825,11 @@ Game.prototype.startLoop = function() {
     self.updateUI();
   }, 1000);
 
+  // 怪物会周期性反击，形成生命值和防御压力。
+  setInterval(function() {
+    self.processMonsterAttacks();
+  }, 2500);
+
   // 主角自动攻击（每秒1次，不消耗能量）
   setInterval(function() {
     if (self.monsters.length === 0) return;
@@ -6436,10 +6846,10 @@ Game.prototype.startLoop = function() {
     self.heroAttackAnim(tIdx);
     var buffs = self.getBuffs();
     var baseDmg = CONFIG.mainDmg(self.mainLevel, self.rebirthGems);
-    self.doDamage(target, baseDmg, tIdx);
+    self.doDamage(target, baseDmg, tIdx, false, 'phys');
     var extraChance = Math.max(0, Math.min(1, buffs.speedMult - 1));
     if (target.hp > 0 && extraChance > 0 && Math.random() < extraChance) {
-      self.doDamage(target, baseDmg, tIdx);
+      self.doDamage(target, baseDmg, tIdx, false, 'phys');
     }
   }, 1000);
 
@@ -6463,7 +6873,10 @@ Game.prototype.startLoop = function() {
           var targetIdx = self.monsters.indexOf(target);
           var dmg = Math.floor(s.dps * s.level * 0.8 * buffs.supportMult);
           if (dmg <= 0) return;
+          var dmgType = def && def.role === 'magic' ? 'magic' : 'phys';
+          dmg = Math.max(1, Math.floor(dmg * self.getResistanceMultiplier(target, dmgType, false)));
           target.hp -= dmg;
+          self.sfxSupport();
           self.supportAttackAnim(idx, targetIdx, dmg);
           if (target.hp <= 0) {
             self.onKill(target, targetIdx);
@@ -6485,7 +6898,7 @@ Game.prototype.startLoop = function() {
 Game.prototype.saveGame = function() {
   try {
     localStorage.setItem('gujiyouxi_egret', JSON.stringify({
-      gold: this.gold, energy: this.energy, mainLevel: this.mainLevel,
+      gold: this.gold, energy: this.energy, playerHp: this.playerHp, mainLevel: this.mainLevel,
       wave: this.wave, totalCleared: this.totalCleared,
       killCount: this.killCount, skillCD: this.skillCD, skillUnlocked: this.skillUnlocked,
       skillLevels: this.skillLevels,
@@ -6520,6 +6933,7 @@ Game.prototype.loadGame = function() {
     if (!d) return;
     this.gold = d.gold || 0;
     this.energy = d.energy || 100;
+    if (d.playerHp !== undefined) this.playerHp = d.playerHp;
     this.mainLevel = d.mainLevel || 1;
     this.wave = d.wave || 1;
     this.totalCleared = d.totalCleared || 0;
@@ -6547,7 +6961,13 @@ Game.prototype.loadGame = function() {
       this.supportShopVersion = d.supportShopVersion;
     }
     this.repairSupportUnlocks();
-    if (d.foods) this.foods = { '棒棒糖': d.foods['棒棒糖']||0, '牛奶': d.foods['牛奶']||0, '烤肉': d.foods['烤肉']||0 };
+    if (d.foods) {
+      this.foods = {};
+      for (var fk in d.foods) {
+        if (d.foods.hasOwnProperty(fk) && this.findRelicDef(fk)) this.foods[fk] = d.foods[fk] || 0;
+      }
+      this.ensureRelics();
+    }
     if (d.freeSpins !== undefined) this.freeSpins = d.freeSpins;
     if (d.spinDate) this.spinDate = d.spinDate;
     if (d.spinTickets !== undefined) this.spinTickets = d.spinTickets;
@@ -6583,6 +7003,7 @@ Game.prototype.loadGame = function() {
     if (d.avatarIdx !== undefined) this.avatarIdx = d.avatarIdx;
     if (d.playerName) this.playerName = d.playerName;
     this.energy = Math.min(this.getMaxEnergy(), this.energy);
+    this.playerHp = Math.min(this.getMaxPlayerHp(), Math.max(1, d.playerHp !== undefined ? this.playerHp : this.getMaxPlayerHp()));
   } catch(e) {}
 };
 
