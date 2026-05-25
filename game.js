@@ -114,7 +114,25 @@ var UI_ASSETS = {
 };
 
 if (typeof window !== 'undefined') {
-  window.DMAX_PRELOAD_ASSETS = Object.keys(UI_ASSETS).map(function(key) { return UI_ASSETS[key]; });
+  window.DMAX_CRITICAL_ASSETS = [
+    UI_ASSETS.battleBackground,
+    UI_ASSETS.hero,
+    UI_ASSETS.brandDmax,
+    UI_ASSETS.monsterSlime,
+    UI_ASSETS.monsterRabbit,
+    UI_ASSETS.monsterBat,
+    UI_ASSETS.bossEye,
+    UI_ASSETS.supportCandy,
+    UI_ASSETS.hudBoss,
+    UI_ASSETS.hudEnergy,
+    UI_ASSETS.navUpgrade,
+    UI_ASSETS.navShop
+  ];
+  window.DMAX_PRELOAD_ASSETS = window.DMAX_CRITICAL_ASSETS.concat(Object.keys(UI_ASSETS).map(function(key) {
+    return UI_ASSETS[key];
+  }).filter(function(asset) {
+    return window.DMAX_CRITICAL_ASSETS.indexOf(asset) < 0;
+  }));
 }
 
 var UI_ASSET_SIZES = {};
