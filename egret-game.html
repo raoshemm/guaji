@@ -183,22 +183,51 @@
       50%      { box-shadow: 0 8px 32px rgba(251,191,36,.58); }
     }
     #start-screen .hint { margin-top: 10px; font-size: 11px; color: #9a90bb; line-height: 1.6; }
-    #start-screen .ver { margin-top: 8px; font-size: 10px; color: #6f6790; letter-spacing: .5px; word-break: break-all; }
+    #start-screen .ver { margin-top: 8px; font-size: 10px; color: #8d84a8; letter-spacing: .5px; word-break: break-all; }
+
+    /*
+     * 版本号可见化（用户 2026-11-06 指令：版本号要在上面显示、界面上也显示、加载时也要看出来）。
+     * 三处载体：加载卡片顶部胶囊、开始界面顶部胶囊、游戏内右上角常驻角标。
+     * 全部 pointer-events:none，不拦截任何点击，也不影响首次手势解锁 Web Audio。
+     */
+    .build-pill {
+      display: inline-block; margin: 0 0 12px; padding: 3px 11px;
+      font-size: 10px; line-height: 1.5; letter-spacing: .4px;
+      color: #ffd76a; background: rgba(251,191,36,.10);
+      border: 1px solid rgba(251,191,36,.42); border-radius: 99px;
+      word-break: break-all; max-width: 100%;
+    }
+    #boot-loading .note { margin-top: 7px; font-size: 11px; color: #7f769f; letter-spacing: .3px; }
+    #build-tag {
+      position: fixed; top: max(6px, env(safe-area-inset-top));
+      right: max(8px, env(safe-area-inset-right)); z-index: 900;
+      padding: 2px 7px; border-radius: 99px;
+      font: 9px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: rgba(244,215,137,.78); background: rgba(10,8,32,.55);
+      border: 1px solid rgba(251,191,36,.26); letter-spacing: .3px;
+      pointer-events: none; user-select: none; -webkit-user-select: none;
+    }
   </style>
 </head>
 <body>
   <div id="status">加载引擎中...</div>
+  <!-- 游戏内常驻版本角标：z-index 900 < 开始界面 990 < 加载卡片 1000，
+       所以加载 / 开始阶段由卡片内胶囊显示，进入游戏后由本角标接管。 -->
+  <div id="build-tag">本地版本</div>
   <div id="boot-loading" role="status" aria-live="polite">
     <div class="card">
+      <div class="build-pill" id="boot-build">本地版本</div>
       <div class="badge">D</div>
       <div class="title">DMAX 挂机英雄</div>
       <div class="sub" id="boot-sub">正在准备游戏…</div>
       <div class="track"><div class="fill" id="boot-fill"></div></div>
       <div class="meta"><span id="boot-pct">0%</span><span id="boot-count">载入中</span></div>
+      <div class="note" id="boot-note">正在读取本版资源清单…</div>
     </div>
   </div>
   <div id="start-screen" role="dialog" aria-label="开始界面" aria-live="polite">
     <div class="panel">
+      <div class="build-pill" id="start-build">本地版本</div>
       <div class="badge">D</div>
       <div class="title">DMAX 挂机英雄</div>
       <div class="tagline">挂机不停，冒险继续</div>
@@ -233,7 +262,7 @@
     var container = document.getElementById('game-container');
     // 版本号同时是 game.js / 所有图片的 cache-buster（game.js 里的 ASSET_VERSION 取此值）。
     // 约定：任何 game.js 或图片内容变更都必须 bump 这个值，否则用户会拿到 10 分钟缓存里的旧文件。
-    var BUILD_VERSION = 'gameplay-20261106-v1-fx-1';
+    var BUILD_VERSION = 'gameplay-20261106-v7-ver-badge';
     window.DMAX_GAME_VERSION = BUILD_VERSION;
     var scripts = [
       'lib/egret/egret.min.js',
@@ -281,7 +310,24 @@
     var bootPctValue = 0;
     var bootGuardTimer = null;
     var bootErrPoll = null;
+    var bootNote = document.getElementById('boot-note');
     window.DMAX_BOOT_STATE = 'loading';
+
+    // ===== 版本号三处可见（加载卡片 / 开始界面 / 游戏内角标）=====
+    // 短标签由 BUILD_VERSION 自动推导（去掉 gameplay- 前缀），不手写、不会与版本串漂移。
+    var BUILD_LABEL = String(BUILD_VERSION).replace(/^gameplay-/, '');
+    window.DMAX_BUILD_LABEL = BUILD_LABEL;
+    (function () {
+      var bootBuild = document.getElementById('boot-build');
+      if (bootBuild) bootBuild.textContent = '版本 ' + BUILD_VERSION;
+      var startBuild = document.getElementById('start-build');
+      if (startBuild) startBuild.textContent = '版本 ' + BUILD_VERSION;
+      var tag = document.getElementById('build-tag');
+      if (tag) {
+        tag.textContent = BUILD_LABEL;
+        tag.title = 'BUILD_VERSION ' + BUILD_VERSION;
+      }
+    })();
 
     // ===== 开始界面（标题屏）=====
     // 独立 DOM 层：加载卡片淡出 → 本层淡入 → 用户点击（或 6s 兜底）→ 收起。
@@ -355,7 +401,7 @@
       if (window.DMAX_START_STATE === 'ready') return;  // 幂等：DMAX_HIDE_LOADING 会被调两次
       fillStartSummary();
       var ver = document.getElementById('start-version');
-      if (ver) ver.textContent = '本地存档 · ' + BUILD_VERSION;
+      if (ver) ver.textContent = '构建 ' + BUILD_VERSION + ' · 存档格式 v1';
       window.DMAX_START_STATE = 'ready';
       startEl.className = 'is-ready';
       // 不点击也绝不卡住：纯原生兜底，不依赖 Egret Tween / rAF / 任何游戏回调（§6 红线 9、§12）
@@ -492,6 +538,8 @@
       var critical = {};
       (window.DMAX_CRITICAL_ASSETS || []).forEach(function(src) { critical[src] = true; });
       var total = assets.length;
+      // 把「素材张数」写在卡片上，避免把 91 项误当成版本号 / 误以为没更新。
+      if (bootNote) bootNote.textContent = '本版共 ' + total + ' 项素材 · 版本 ' + BUILD_LABEL;
       var doneCount = 0;
       var index = 0;
       var active = 0;
