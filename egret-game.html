@@ -117,6 +117,73 @@
       display: flex; justify-content: space-between; margin-top: 10px;
       font-size: 12px; color: #9a90bb;
     }
+
+    /*
+     * 开始界面（标题屏）：加载卡片淡出后出现，是独立的一层，便于单点回退。
+     * z-index 990 < 加载卡片 1000，所以加载期间被完全盖住、不会提前露出。
+     * 半透明 + 毛玻璃让背后已经跑起来的游戏画面透出来，避免「又是一道黑屏」。
+     * 只负责展示 + 收起，不读写存档、不暂停任何游戏定时器。
+     */
+    #start-screen {
+      position: fixed; inset: 0; z-index: 990;
+      display: flex; align-items: center; justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #f4d789;
+      background: rgba(9, 7, 22, .62);
+      -webkit-backdrop-filter: blur(7px) saturate(120%);
+      backdrop-filter: blur(7px) saturate(120%);
+      opacity: 0;
+      transition: opacity 320ms ease;
+      pointer-events: none;
+    }
+    #start-screen.is-ready { opacity: 1; pointer-events: auto; }
+    #start-screen.is-hidden { opacity: 0; pointer-events: none; }
+    #start-screen .panel {
+      width: min(320px, 82vw);
+      padding: 26px 22px 20px;
+      border-radius: 20px;
+      text-align: center;
+      background: linear-gradient(160deg, rgba(43,35,82,.96), rgba(18,16,40,.97));
+      border: 1px solid rgba(251,191,36,.35);
+      box-shadow: 0 18px 60px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08);
+      transform: translateY(10px) scale(.97);
+      transition: transform 320ms cubic-bezier(.2,.8,.3,1);
+    }
+    #start-screen.is-ready .panel { transform: translateY(0) scale(1); }
+    #start-screen .badge {
+      width: 70px; height: 70px; line-height: 70px; margin: 0 auto 14px;
+      border-radius: 18px; background: #0a0820; color: #fbbf24;
+      font-size: 42px; font-weight: 700;
+      box-shadow: 0 0 0 1px rgba(251,191,36,.28), 0 10px 34px rgba(0,0,0,.5), 0 0 34px rgba(251,191,36,.18);
+    }
+    #start-screen .title { font-size: 22px; letter-spacing: 4px; font-weight: 600; }
+    #start-screen .tagline { margin-top: 6px; font-size: 12px; color: #b9aede; letter-spacing: 1px; }
+    #start-screen .divider {
+      height: 1px; margin: 16px 0;
+      background: linear-gradient(90deg, transparent, rgba(251,191,36,.45), transparent);
+    }
+    #start-screen .row {
+      display: flex; justify-content: space-between;
+      padding: 5px 4px; font-size: 13px; color: #cfc6e8;
+    }
+    #start-screen .row b { color: #ffd76a; font-weight: 600; }
+    #start-screen .row.empty { display: block; text-align: center; }
+    #start-screen .btn {
+      display: block; width: 100%; margin-top: 18px; padding: 13px 0;
+      border: 0; border-radius: 12px; cursor: pointer;
+      font-family: inherit; font-size: 16px; font-weight: 700; letter-spacing: 3px;
+      color: #2b1d00;
+      background: linear-gradient(135deg, #ffe08a, #fbbf24 55%, #f59e0b);
+      box-shadow: 0 6px 22px rgba(251,191,36,.32);
+      animation: startPulse 2.4s ease-in-out infinite;
+    }
+    #start-screen .btn:active { transform: scale(.98); }
+    @keyframes startPulse {
+      0%, 100% { box-shadow: 0 6px 22px rgba(251,191,36,.28); }
+      50%      { box-shadow: 0 8px 32px rgba(251,191,36,.58); }
+    }
+    #start-screen .hint { margin-top: 10px; font-size: 11px; color: #9a90bb; line-height: 1.6; }
+    #start-screen .ver { margin-top: 8px; font-size: 10px; color: #6f6790; letter-spacing: .5px; word-break: break-all; }
   </style>
 </head>
 <body>
@@ -128,6 +195,19 @@
       <div class="sub" id="boot-sub">正在准备游戏…</div>
       <div class="track"><div class="fill" id="boot-fill"></div></div>
       <div class="meta"><span id="boot-pct">0%</span><span id="boot-count">载入中</span></div>
+    </div>
+  </div>
+  <div id="start-screen" role="dialog" aria-label="开始界面" aria-live="polite">
+    <div class="panel">
+      <div class="badge">D</div>
+      <div class="title">DMAX 挂机英雄</div>
+      <div class="tagline">挂机不停，冒险继续</div>
+      <div class="divider"></div>
+      <div id="start-summary"></div>
+      <div class="divider"></div>
+      <button type="button" class="btn" id="start-btn">开始冒险</button>
+      <div class="hint">点击进入并开启音效 · 6 秒后自动进入</div>
+      <div class="ver" id="start-version"></div>
     </div>
   </div>
   <!--
@@ -181,6 +261,103 @@
     var bootErrPoll = null;
     window.DMAX_BOOT_STATE = 'loading';
 
+    // ===== 开始界面（标题屏）=====
+    // 独立 DOM 层：加载卡片淡出 → 本层淡入 → 用户点击（或 6s 兜底）→ 收起。
+    // 不读改写本存档、不暂停任何游戏定时器；所有异步收起都走原生 setTimeout。
+    var START_AUTO_MS = 6000;
+    var startEl = document.getElementById('start-screen');
+    var startAutoTimer = null;
+    var startDismissed = false;
+    window.DMAX_START_STATE = 'idle';
+    window.DMAX_START_AUTOMS = START_AUTO_MS;
+
+    function clampNum(v, lo, hi) {
+      var n = Number(v);
+      if (!isFinite(n)) return lo;
+      return Math.max(lo, Math.min(hi, Math.floor(n)));
+    }
+
+    // 存档是不可信输入（G 批次口径）：只取三个展示字段，全部 Number 钳制，
+    // 用 textContent 写 DOM，不用 innerHTML，避免畸形 / 注入内容打穿首屏。
+    function fillStartSummary() {
+      var box = document.getElementById('start-summary');
+      if (!box) return;
+      while (box.firstChild) box.removeChild(box.firstChild);
+      var s = null;
+      try {
+        var raw = localStorage.getItem('gujiyouxi_egret');
+        if (raw) {
+          var d = JSON.parse(raw);
+          if (d && typeof d === 'object' && !Array.isArray(d)) s = d;
+        }
+      } catch (e) { s = null; }
+
+      function addRow(label, value) {
+        var row = document.createElement('div'); row.className = 'row';
+        var l = document.createElement('span'); l.textContent = label;
+        var b = document.createElement('b'); b.textContent = value;
+        row.appendChild(l); row.appendChild(b); box.appendChild(row);
+      }
+
+      var wave = s ? clampNum(s.maxWaveReached, 0, 1000000) : 0;
+      var level = s ? clampNum(s.mainLevel, 1, 1000000) : 1;
+      var rebirth = s ? clampNum(s.rebirthCount, 0, 1000000) : 0;
+      if (!wave && level <= 1 && !rebirth) {
+        var empty = document.createElement('div');
+        empty.className = 'row empty';
+        empty.textContent = '新的冒险 · 从第 1 波开始';
+        box.appendChild(empty);
+      } else {
+        addRow('最高波次', 'Wave ' + wave);
+        addRow('主角等级', 'Lv.' + level);
+        addRow('转生次数', rebirth + ' 次');
+      }
+    }
+
+    function dismissStartScreen(reason) {
+      if (startDismissed || !startEl) return;
+      startDismissed = true;
+      window.DMAX_START_STATE = 'hidden';
+      window.__dmaxStartDismissReason = reason || 'manual';
+      try { clearTimeout(startAutoTimer); } catch (e) {}
+      startEl.className = 'is-hidden';
+      setTimeout(function() {
+        if (startEl && startEl.parentNode) startEl.parentNode.removeChild(startEl);
+        window.__dmaxStartRemoved = true;
+      }, 320);
+    }
+
+    function showStartScreen() {
+      if (!startEl || startDismissed) return;
+      if (window.DMAX_BOOT_STATE === 'error') return;   // 失败态优先，不覆盖错误卡片
+      if (window.DMAX_START_STATE === 'ready') return;  // 幂等：DMAX_HIDE_LOADING 会被调两次
+      fillStartSummary();
+      var ver = document.getElementById('start-version');
+      if (ver) ver.textContent = '本地存档 · ' + BUILD_VERSION;
+      window.DMAX_START_STATE = 'ready';
+      startEl.className = 'is-ready';
+      // 不点击也绝不卡住：纯原生兜底，不依赖 Egret Tween / rAF / 任何游戏回调（§6 红线 9、§12）
+      try { clearTimeout(startAutoTimer); } catch (e) {}
+      startAutoTimer = setTimeout(function() { dismissStartScreen('auto'); }, START_AUTO_MS);
+    }
+
+    if (startEl) {
+      // mousedown / touchstart 会继续冒泡到 document，正好触发 game.js initSound 的
+      // 首次交互解锁（AudioContext + BGM），所以这里不要 stopPropagation。
+      startEl.addEventListener('mousedown', function() {
+        if (window.DMAX_START_STATE === 'ready') dismissStartScreen('tap');
+      });
+      startEl.addEventListener('touchstart', function() {
+        if (window.DMAX_START_STATE === 'ready') dismissStartScreen('tap');
+      }, { passive: true });
+    }
+    document.addEventListener('keydown', function(e) {
+      if (window.DMAX_START_STATE !== 'ready') return;
+      if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+        dismissStartScreen('key');
+      }
+    });
+
     function setBootLoading(text, pct) {
       if (!bootEl || bootDone) return;
       var v = Math.max(0, Math.min(100, Number(pct) || 0));
@@ -199,6 +376,9 @@
     function showBootError(msg) {
       if (!bootEl || bootDone) return;
       window.DMAX_BOOT_STATE = 'error';
+      // 错误卡片必须独占画面：清掉开始界面与其自动兜底，避免 6s 后把错误层一起撤掉。
+      try { clearTimeout(startAutoTimer); } catch (e) {}
+      dismissStartScreen('error');
       if (bootSub) bootSub.textContent = msg;
       if (bootCount) bootCount.textContent = '点击刷新重试';
       bootEl.className = 'is-error';
@@ -206,11 +386,14 @@
       if (statusEl) { statusEl.style.display = 'block'; statusEl.textContent = msg; }
     }
 
-    function hideBootLoading() {
+    function hideBootLoading(skipStart) {
       if (bootDone || !bootEl) return;
       setBootLoading('准备完成', 100);
       bootDone = true;
       window.DMAX_BOOT_STATE = 'hidden';
+      // 加载卡片开始淡出时就把开始界面铺好：z-index 更低，视觉上是一次连续交叉淡入。
+      // 60s 硬兜底走 skipStart=true，此时游戏可能尚未就绪，不该再盖一层标题屏。
+      if (!skipStart) showStartScreen();
       try { clearTimeout(bootGuardTimer); } catch (e) {}
       try { clearInterval(bootErrPoll); } catch (e) {}
       // 纯原生 setTimeout 兜底：不依赖 Egret Tween / rAF / 任何游戏回调（§6 红线 9、§12 教训）
@@ -247,7 +430,7 @@
     bootGuardTimer = setTimeout(function() {
       if (bootDone) return;
       if (window.__dmaxBootError) { showBootError('启动失败：' + window.__dmaxBootError); return; }
-      hideBootLoading();
+      hideBootLoading(true);
       if (statusEl) {
         statusEl.style.display = 'block';
         statusEl.textContent += '\n加载较慢，已跳过等待；若画面未出现请刷新页面。';
