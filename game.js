@@ -105,6 +105,44 @@ var UI_ASSETS = {
   skillGreenWhirlwind: assetUrl('assets/image2-white-assets/layout-v2/skill-green-whirlwind-white.png'),
   skillThunderbolt: assetUrl('assets/image2-white-assets/layout-v2/skill-thunderbolt-white.png'),
   skillStarMeteor: assetUrl('assets/image2-white-assets/layout-v2/skill-star-meteor-white.png'),
+  upgradeHero: assetUrl('assets/generated/upgrade-icons-v1/upgrade-hero-v1.png'),
+  upgradeSkill: assetUrl('assets/generated/upgrade-icons-v1/upgrade-skill-v1.png'),
+  upgradeSupport: assetUrl('assets/generated/upgrade-icons-v1/upgrade-support-v1.png'),
+  upgradeEquipment: assetUrl('assets/generated/upgrade-icons-v1/upgrade-equipment-v1.png'),
+  upgradeLevelup: assetUrl('assets/generated/upgrade-icons-v1/upgrade-levelup-v1.png'),
+  upgradeBatch: assetUrl('assets/generated/upgrade-icons-v1/upgrade-batch-v1.png'),
+  upgradeArchive: assetUrl('assets/generated/upgrade-icons-v1/upgrade-archive-v1.png'),
+  upgradeGold: assetUrl('assets/generated/upgrade-icons-v1/upgrade-gold-v1.png'),
+  codexBook: assetUrl('assets/generated/codex-icons-v1/codex-book-v1.png'),
+  codexMonster: assetUrl('assets/generated/codex-icons-v1/codex-monster-v1.png'),
+  codexBoss: assetUrl('assets/generated/codex-icons-v1/codex-boss-v1.png'),
+  codexUnknown: assetUrl('assets/generated/codex-icons-v1/codex-unknown-v1.png'),
+  codexResearch: assetUrl('assets/generated/codex-icons-v1/codex-research-v1.png'),
+  codexWeakness: assetUrl('assets/generated/codex-icons-v1/codex-weakness-v1.png'),
+  codexKills: assetUrl('assets/generated/codex-icons-v1/codex-kills-v1.png'),
+  codexProgress: assetUrl('assets/generated/codex-icons-v1/codex-progress-v1.png'),
+  moduleSpinWheel: assetUrl('assets/generated/module-icons-v1/module-spin-wheel-v1.png'),
+  moduleSpinGift: assetUrl('assets/generated/module-icons-v1/module-spin-gift-v1.png'),
+  moduleSpinTicket: assetUrl('assets/generated/module-icons-v1/module-spin-ticket-v1.png'),
+  moduleSpinJackpot: assetUrl('assets/generated/module-icons-v1/module-spin-jackpot-v1.png'),
+  moduleRebirthGem: assetUrl('assets/generated/module-icons-v1/module-rebirth-gem-v1.png'),
+  moduleRebirthPortal: assetUrl('assets/generated/module-icons-v1/module-rebirth-portal-v1.png'),
+  moduleRebirthTalent: assetUrl('assets/generated/module-icons-v1/module-rebirth-talent-v1.png'),
+  moduleRebirthHourglass: assetUrl('assets/generated/module-icons-v1/module-rebirth-hourglass-v1.png'),
+  moduleVaultChest: assetUrl('assets/generated/module-icons-v1/module-vault-chest-v1.png'),
+  moduleVaultRelic: assetUrl('assets/generated/module-icons-v1/module-vault-relic-v1.png'),
+  moduleVaultDiamondPouch: assetUrl('assets/generated/module-icons-v1/module-vault-diamond-pouch-v1.png'),
+  moduleVaultEnergyPotion: assetUrl('assets/generated/module-icons-v1/module-vault-energy-potion-v1.png'),
+  topHudGold: assetUrl('assets/generated/top-hud-icons-v1/top-hud-gold-v1.png'),
+  topHudDiamond: assetUrl('assets/generated/top-hud-icons-v1/top-hud-diamond-blue-v1.png'),
+  topHudSettings: assetUrl('assets/generated/top-hud-icons-v1/top-hud-settings-v1.png'),
+  topHudBoss: assetUrl('assets/generated/top-hud-icons-v1/top-hud-boss-v1.png'),
+  avatarStarMage: assetUrl('assets/generated/avatar-icons-v1/avatar-star-mage-v1.png'),
+  avatarSwordApprentice: assetUrl('assets/generated/avatar-icons-v1/avatar-sword-apprentice-v1.png'),
+  avatarForestArcher: assetUrl('assets/generated/avatar-icons-v1/avatar-forest-archer-v1.png'),
+  avatarShrineHealer: assetUrl('assets/generated/avatar-icons-v1/avatar-shrine-healer-v1.png'),
+  avatarShadowRogue: assetUrl('assets/generated/avatar-icons-v1/avatar-shadow-rogue-v1.png'),
+  avatarCrystalKnight: assetUrl('assets/generated/avatar-icons-v1/avatar-crystal-knight-v1.png'),
   navUpgrade: assetUrl('assets/image2-white-assets/layout-v2/nav-upgrade-white.png'),
   navCodex: assetUrl('assets/image2-white-assets/layout-v2/nav-codex-white.png'),
   navSpinWheel: assetUrl('assets/image2-white-assets/layout-v2/nav-spin-wheel-white.png'),
@@ -123,8 +161,10 @@ if (typeof window !== 'undefined') {
     UI_ASSETS.monsterBat,
     UI_ASSETS.bossEye,
     UI_ASSETS.supportCandy,
-    UI_ASSETS.hudBoss,
-    UI_ASSETS.hudEnergy,
+    UI_ASSETS.topHudBoss,
+    UI_ASSETS.topHudGold,
+    UI_ASSETS.topHudDiamond,
+    UI_ASSETS.avatarStarMage,
     UI_ASSETS.navUpgrade,
     UI_ASSETS.navShop
   ];
@@ -184,6 +224,44 @@ UI_ASSET_SIZES[UI_ASSETS.skillSkullCritical] = { w: 188, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.skillGreenWhirlwind] = { w: 188, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.skillThunderbolt] = { w: 188, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.skillStarMeteor] = { w: 188, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeHero] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeSkill] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeSupport] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeEquipment] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeLevelup] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeBatch] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeArchive] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.upgradeGold] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexBook] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexMonster] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexBoss] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexUnknown] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexResearch] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexWeakness] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexKills] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.codexProgress] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleSpinWheel] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleSpinGift] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleSpinTicket] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleSpinJackpot] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleRebirthGem] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleRebirthPortal] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleRebirthTalent] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleRebirthHourglass] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleVaultChest] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleVaultRelic] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleVaultDiamondPouch] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.moduleVaultEnergyPotion] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.topHudGold] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.topHudDiamond] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.topHudSettings] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.topHudBoss] = { w: 160, h: 160 };
+UI_ASSET_SIZES[UI_ASSETS.avatarStarMage] = { w: 192, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.avatarSwordApprentice] = { w: 192, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.avatarForestArcher] = { w: 192, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.avatarShrineHealer] = { w: 192, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.avatarShadowRogue] = { w: 192, h: 192 };
+UI_ASSET_SIZES[UI_ASSETS.avatarCrystalKnight] = { w: 192, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.navUpgrade] = { w: 232, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.navCodex] = { w: 232, h: 192 };
 UI_ASSET_SIZES[UI_ASSETS.navSpinWheel] = { w: 232, h: 192 };
@@ -201,12 +279,76 @@ var SKILL_ICON_ASSETS = [
   UI_ASSETS.skillStarMeteor
 ];
 
+var UPGRADE_ICON_ASSETS = {
+  hero: UI_ASSETS.upgradeHero,
+  skill: UI_ASSETS.upgradeSkill,
+  support: UI_ASSETS.upgradeSupport,
+  equipment: UI_ASSETS.upgradeEquipment,
+  levelup: UI_ASSETS.upgradeLevelup,
+  batch: UI_ASSETS.upgradeBatch,
+  archive: UI_ASSETS.upgradeArchive,
+  gold: UI_ASSETS.upgradeGold
+};
+
+var AVATAR_DEFS = [
+  { name: '星语法师', asset: UI_ASSETS.avatarStarMage, color: 0x8e44ad },
+  { name: '剑术学徒', asset: UI_ASSETS.avatarSwordApprentice, color: 0x3498db },
+  { name: '森林游侠', asset: UI_ASSETS.avatarForestArcher, color: 0x27ae60 },
+  { name: '圣堂医师', asset: UI_ASSETS.avatarShrineHealer, color: 0xf4a7c8 },
+  { name: '影刃潜行者', asset: UI_ASSETS.avatarShadowRogue, color: 0x6d28d9 },
+  { name: '晶甲骑士', asset: UI_ASSETS.avatarCrystalKnight, color: 0x5ec8ff }
+];
+
+// S2：职业加成已接入 getBuffs()。每个职业只提供 1 条明确的主加成，数值刻意保持小量级；
+// 默认职业 trainee_mage 的 bonus 为空 —— 保证旧存档 / 未转职状态的所有数值零漂移。
+// bonus 字段名与 getBuffs() 返回值对齐，后续新增职业只改这张表，不必再动战斗代码。
+var JOB_DEFS = [
+  { id: 'trainee_mage', name: '见习法师', cost: 0, color: 0xc7a7ff, bonus: {}, desc: '初始称号，无额外加成。', unlocked: true },
+  { id: 'blade_mage', name: '魔剑士', cost: 30, color: 0x7be8b7, bonus: { attack: 0.08 }, desc: '把法术灌入武器，偏稳定输出。', unlocked: false },
+  { id: 'star_oracle', name: '星术师', cost: 45, color: 0xfbbf24, bonus: { crit: 0.06 }, desc: '强化暴击窗口，适合高血量 BOSS。', unlocked: false },
+  { id: 'spirit_guard', name: '灵卫者', cost: 60, color: 0x5ec8ff, bonus: { hp: 0.10 }, desc: '偏防御与续航，提升容错。', unlocked: false }
+];
+
+function makeDefaultPlayerName() {
+  var n = Math.floor(Math.random() * 100000);
+  return '玩家' + ('00000' + n).slice(-5);
+}
+
+var CODEX_ICON_ASSETS = {
+  book: UI_ASSETS.codexBook,
+  monster: UI_ASSETS.codexMonster,
+  boss: UI_ASSETS.codexBoss,
+  unknown: UI_ASSETS.codexUnknown,
+  research: UI_ASSETS.codexResearch,
+  weakness: UI_ASSETS.codexWeakness,
+  kills: UI_ASSETS.codexKills,
+  progress: UI_ASSETS.codexProgress
+};
+
+var MODULE_ICON_ASSETS = {
+  spinWheel: UI_ASSETS.moduleSpinWheel,
+  spinGift: UI_ASSETS.moduleSpinGift,
+  spinTicket: UI_ASSETS.moduleSpinTicket,
+  spinJackpot: UI_ASSETS.moduleSpinJackpot,
+  rebirthGem: UI_ASSETS.moduleRebirthGem,
+  rebirthPortal: UI_ASSETS.moduleRebirthPortal,
+  rebirthTalent: UI_ASSETS.moduleRebirthTalent,
+  rebirthHourglass: UI_ASSETS.moduleRebirthHourglass,
+  vaultChest: UI_ASSETS.moduleVaultChest,
+  vaultRelic: UI_ASSETS.moduleVaultRelic,
+  vaultDiamondPouch: UI_ASSETS.moduleVaultDiamondPouch,
+  vaultEnergyPotion: UI_ASSETS.moduleVaultEnergyPotion
+};
+
 var NAV_ICON_ASSETS = {
   upgrade: UI_ASSETS.navUpgrade,
   codex: UI_ASSETS.navCodex,
   spin: UI_ASSETS.navSpinWheel,
   market: UI_ASSETS.navSupermarket,
+  vault: UI_ASSETS.navSupermarket,
+  rebirth: UI_ASSETS.hudRebirth,
   rank: UI_ASSETS.navRanking,
+  ranking: UI_ASSETS.navRanking,
   shop: UI_ASSETS.navShop
 };
 
@@ -234,7 +376,15 @@ var MONSTER_IMAGE_ASSETS = {
   boss_giant: UI_ASSETS.bossIceGiant,
   boss_spider: UI_ASSETS.bossSpider,
   boss_demon: UI_ASSETS.bossDemon,
-  boss_phoenix: UI_ASSETS.bossPhoenix
+  boss_phoenix: UI_ASSETS.bossPhoenix,
+  // F1：6 只隐藏怪复用现有怪物精灵（专属美术排在后续表现层批次）。
+  // monsterSpriteSource() 按 shape 查表，因此隐藏怪进刷怪池后不会出现史莱姆 fallback。
+  candy_bee: UI_ASSETS.monsterBat,
+  jelly_knight: UI_ASSETS.monsterSpike,
+  star_fox: UI_ASSETS.monsterRabbit,
+  molten_golem: UI_ASSETS.monsterDragon,
+  mirror_cat: UI_ASSETS.monsterGhost,
+  void_whale: UI_ASSETS.monsterShadow
 };
 
 var BATTLE_SCENES = [
@@ -271,7 +421,14 @@ var CONFIG = {
     return Math.floor(80 * Math.pow(level, 1.35) * mult);
   },
   upgradeCost: function(level) { return Math.floor(80 * Math.pow(level, 2.05) + 500 * level); },
-  supportRecruitCost: function(idx) { return Math.floor(300 * Math.pow(2.35, idx)); },
+  supportRecruitGoldCost: function(idx) {
+    var costs = [1800, 12000, 68000, 240000, 820000];
+    return costs[idx] || Math.floor(820000 * Math.pow(2.2, Math.max(0, idx - 4)));
+  },
+  supportRecruitDiamondCost: function(idx) {
+    var costs = [0, 0, 0, 0, 0, 8, 18, 36];
+    return costs[idx] || 36;
+  },
   supportCost: function(level) { return Math.floor(35 * Math.pow(level, 2) + 80 * level); },
   skillCost: function(level, idx) { return Math.floor((260 + idx * 180) * Math.pow(level, 1.72)); },
   killsNeeded: function(level) { return level * 4 + 4; }
@@ -307,6 +464,39 @@ var MONSTER_TYPES = [
   { name: '骷髅',   shape: 'skull',  armor: 24, resist: 28, weakness: 'true',  trait: 'antiCrit',  traitName: '抗暴', color: 0xf0ebe0, highlight: 0xffffff, outline: 0x2c2640, hpColor: 0xbdc3c7, badge: 0x2c2640, accent: 0xff3333, wave: 50  },
   { name: '火龙',   shape: 'dragon', armor: 30, resist: 45, weakness: 'phys',  trait: 'burn',      traitName: '灼烧', color: 0xe67e22, highlight: 0xffbe76, outline: 0x7a2d06, hpColor: 0xf39c12, badge: 0x7a2d06, accent: 0xff4500, wave: 80  },
   { name: '暗影',   shape: 'shadow', armor: 36, resist: 36, weakness: 'true',  trait: 'shield',    traitName: '暗盾', color: 0x1a1030, highlight: 0x4b3a7a, outline: 0x000000, hpColor: 0x34495e, badge: 0x000000, accent: 0xff0000, wave: 120 }
+];
+
+// F1：隐藏怪不再只是「预留图签位」。每只都有真实属性、出现波次与稀有遭遇概率。
+// 形象暂复用现有怪物 PNG（专属美术属于后续表现层批次），靠名称 / 词缀 / 属性 / trait 区分。
+var HIDDEN_ENCOUNTER_CHANCE = 0.045;
+// 门槛波次一律避开 10 的倍数（BOSS 波不插入隐藏怪），保证「第 N 波起」字面可遭遇。
+var HIDDEN_ENCOUNTER_MIN_WAVE = 25;
+
+var HIDDEN_MONSTER_TYPES = [
+  { name: '糖晶蜂',   shape: 'candy_bee',    armor: 12, resist: 32, weakness: 'phys',  trait: 'swarm',     traitName: '蜂群', desc: '成群时攻击更凶，物理连击最稳。', hidden: true, wave: 25,  unlockHint: '稀有遭遇：第 25 波起有概率出现' },
+  { name: '果冻骑士', shape: 'jelly_knight', armor: 62, resist: 18, weakness: 'magic', trait: 'guard',     traitName: '守备', desc: '非弱点伤害会被额外抵挡，法术爆发更有效。', hidden: true, wave: 45,  unlockHint: '稀有遭遇：第 45 波起有概率出现' },
+  { name: '星砂狐',   shape: 'star_fox',     armor: 18, resist: 46, weakness: 'true',  trait: 'phase',     traitName: '闪相', desc: '会规避物理攻击，真实伤害更稳定。', hidden: true, wave: 65,  unlockHint: '稀有遭遇：第 65 波起有概率出现' },
+  { name: '熔糖魔偶', shape: 'molten_golem', armor: 70, resist: 40, weakness: 'magic', trait: 'meltArmor', traitName: '熔甲', desc: '攻击附带穿防伤害，优先快速击杀。', hidden: true, wave: 85,  unlockHint: '稀有遭遇：第 85 波起有概率出现' },
+  { name: '镜影猫',   shape: 'mirror_cat',   armor: 28, resist: 28, weakness: 'phys',  trait: 'mirror',    traitName: '镜像', desc: '会反弹少量物理伤害，留意自身血量。', hidden: true, wave: 105, unlockHint: '稀有遭遇：第 105 波起有概率出现' },
+  { name: '虚空鲸',   shape: 'void_whale',   armor: 48, resist: 65, weakness: 'true',  trait: 'void',      traitName: '虚空', desc: '常规伤害大幅削弱，需要真实伤害与图签研究。', hidden: true, wave: 125, unlockHint: '稀有遭遇：第 125 波起有概率出现' }
+];
+
+var MONSTER_SIZE_VARIANTS = [
+  { id: 'tiny',   prefix: '幼小', scale: 0.78, hp: 0.72, atk: 0.78, armor: -4, resist: -4, move: 1.35, weight: 15 },
+  { id: 'small',  prefix: '轻灵', scale: 0.9,  hp: 0.9,  atk: 0.9,  armor: -2, resist: -2, move: 1.18, weight: 22 },
+  { id: 'normal', prefix: '',     scale: 1,    hp: 1,    atk: 1,    armor: 0,  resist: 0,  move: 1,    weight: 34 },
+  { id: 'large',  prefix: '强壮', scale: 1.14, hp: 1.28, atk: 1.16, armor: 4,  resist: 3,  move: 0.9,  weight: 20 },
+  { id: 'giant',  prefix: '巨型', scale: 1.32, hp: 1.7,  atk: 1.32, armor: 8,  resist: 6,  move: 0.78, weight: 9 }
+];
+
+var MONSTER_AFFIXES = [
+  { id: 'plain',    prefix: '',     traitName: '',     hp: 1,    atk: 1,    armor: 0,  resist: 0,  move: 1,    weight: 36, minWave: 1 },
+  { id: 'swift',    prefix: '疾行', traitName: '疾行', hp: 0.9,  atk: 0.95, armor: -2, resist: 0,  move: 1.45, weight: 14, minWave: 6 },
+  { id: 'armored',  prefix: '铁甲', traitName: '重甲', hp: 1.18, atk: 1,    armor: 10, resist: 0,  move: 0.82, weight: 12, minWave: 12 },
+  { id: 'arcane',   prefix: '秘法', traitName: '法盾', hp: 1.08, atk: 1.05, armor: 0,  resist: 12, move: 0.95, weight: 12, minWave: 18 },
+  { id: 'raging',   prefix: '狂暴', traitName: '狂暴', hp: 0.95, atk: 1.28, armor: 0,  resist: 0,  move: 1.12, weight: 10, minWave: 25 },
+  { id: 'veteran',  prefix: '精英', traitName: '精英', hp: 1.45, atk: 1.16, armor: 5,  resist: 5,  move: 0.96, weight: 8,  minWave: 40 },
+  { id: 'crystal',  prefix: '晶化', traitName: '晶化', hp: 1.22, atk: 1.08, armor: 4,  resist: 9,  move: 0.9,  weight: 8,  minWave: 60 }
 ];
 
 // BOSS 专属形象（每10波出现一次）
@@ -394,6 +584,9 @@ var DAILY_TASKS = [
   { id: 'waves', desc: '通关5波', target: 5, reward: 300, track: function(s) { return s._dailyWaves || 0; } }
 ];
 
+// S2-C：邮件表是浏览器版的「本地固定内容」，随版本一起发布，不联网下发、不接 CMS。
+// 8 封按主角等级解锁，领取标记写在存档的 mailClaimed；远端拉取需要后端，H5 静态托管不适用。
+// 条数以 C1 代码实证为准（8 封），SPEC §11 的「3 封假邮件」已失真。
 var MAIL_REWARDS = [
   { id: 'welcome', level: 1, from: '系统', title: '欢迎来到DMAX挂机英雄', body: '新手启程礼包', rewardText: '100金', type: 'gold', value: 100 },
   { id: 'lv5', level: 5, from: '训练官', title: '主角Lv.5奖励', body: '开始挑战更高波次', rewardText: '200金', type: 'gold', value: 200 },
@@ -405,6 +598,7 @@ var MAIL_REWARDS = [
   { id: 'lv120', level: 120, from: '议会', title: '主角Lv.120奖励', body: '转生前冲刺补给', rewardText: '20000金', type: 'gold', value: 20000 }
 ];
 
+// S2-C：公告同样是本地固定内容（9 条，C1 实证），不联网更新；版本号取 window.DMAX_GAME_VERSION。
 var ANNOUNCEMENTS = [
   { tag: '生存', color: 0x7be8b7, text: '新增续航体系：击杀回血提高，雷霆附带护盾，棉花糖治疗，布丁定期守护。' },
   { tag: '武器', color: 0x9b1d35, text: '新增稀有核心武器血月法杖：中后期BOSS低概率掉落，获得后造成伤害可少量吸血。' },
@@ -442,14 +636,185 @@ function Main() {
 Main.prototype = Object.create(eui.UILayer.prototype);
 Main.prototype.constructor = Main;
 
+Main.prototype.showBootOverlay = function(text) {
+  var stage = this.stage;
+  var sw = stage ? stage.stageWidth : 375;
+  var sh = stage ? stage.stageHeight : 667;
+  var scale = Math.min(sw / 375, sh / 667);
+  var overlay = new eui.Group();
+  overlay.name = 'dmaxBootOverlay';
+  overlay.touchEnabled = true;
+  overlay.width = sw;
+  overlay.height = sh;
+
+  var bg = new eui.Rect();
+  bg.width = sw;
+  bg.height = sh;
+  bg.fillColor = 0x070416;
+  overlay.addChild(bg);
+
+  var glow = new egret.Shape();
+  var gg = glow.graphics;
+  gg.beginFill(0x24164f, 0.64);
+  gg.drawCircle(sw / 2, sh * 0.29, Math.max(sw, sh) * 0.32);
+  gg.endFill();
+  glow.alpha = 0.82;
+  overlay.addChild(glow);
+
+  var card = new eui.Group();
+  card.width = Math.min(sw - 48 * scale, 310 * scale);
+  card.height = 214 * scale;
+  card.x = (sw - card.width) / 2;
+  card.y = sh * 0.46 - card.height / 2;
+  overlay.addChild(card);
+
+  var cardBg = new eui.Rect();
+  cardBg.percentWidth = 100;
+  cardBg.percentHeight = 100;
+  cardBg.fillColor = 0x0c0820;
+  cardBg.fillAlpha = 0.92;
+  cardBg.strokeColor = 0xfbbf24;
+  cardBg.strokeAlpha = 0.76;
+  cardBg.strokeWeight = Math.max(1, scale);
+  cardBg.ellipseWidth = 18 * scale;
+  cardBg.ellipseHeight = 18 * scale;
+  card.addChild(cardBg);
+
+  var markBg = new eui.Rect();
+  markBg.width = 72 * scale;
+  markBg.height = 72 * scale;
+  markBg.ellipseWidth = markBg.width;
+  markBg.ellipseHeight = markBg.height;
+  markBg.fillColor = 0xfbbf24;
+  markBg.x = (card.width - markBg.width) / 2;
+  markBg.y = 22 * scale;
+  card.addChild(markBg);
+
+  var mark = new eui.Label();
+  mark.text = 'D';
+  mark.size = Math.round(34 * scale);
+  mark.bold = true;
+  mark.textColor = 0x170b1f;
+  mark.width = markBg.width;
+  mark.textAlign = egret.HorizontalAlign.CENTER;
+  mark.verticalAlign = egret.VerticalAlign.MIDDLE;
+  mark.x = markBg.x;
+  mark.y = markBg.y + 17 * scale;
+  card.addChild(mark);
+
+  var title = new eui.Label();
+  title.text = 'DMAX 挂机英雄';
+  title.size = Math.round(24 * scale);
+  title.bold = true;
+  title.textColor = 0xfff7d6;
+  title.width = card.width;
+  title.textAlign = egret.HorizontalAlign.CENTER;
+  title.y = 112 * scale;
+  card.addChild(title);
+
+  var sub = new eui.Label();
+  sub.text = text || '正在唤醒星空遗迹';
+  sub.size = Math.round(12 * scale);
+  sub.textColor = 0xbdb4df;
+  sub.width = card.width;
+  sub.textAlign = egret.HorizontalAlign.CENTER;
+  sub.y = 144 * scale;
+  card.addChild(sub);
+
+  var barBg = new eui.Rect();
+  barBg.width = card.width - 48 * scale;
+  barBg.height = 10 * scale;
+  barBg.x = 24 * scale;
+  barBg.y = 166 * scale;
+  barBg.fillColor = 0x0d0926;
+  barBg.ellipseWidth = 8 * scale;
+  barBg.ellipseHeight = 8 * scale;
+  card.addChild(barBg);
+
+  var barFill = new eui.Rect();
+  barFill.width = barBg.width * 0.86;
+  barFill.height = barBg.height;
+  barFill.x = barBg.x;
+  barFill.y = barBg.y;
+  barFill.fillColor = 0x7be8b7;
+  barFill.ellipseWidth = barBg.ellipseWidth;
+  barFill.ellipseHeight = barBg.ellipseHeight;
+  card.addChild(barFill);
+
+  var status = new eui.Label();
+  status.text = '构建首帧中...';
+  status.size = Math.round(12 * scale);
+  status.textColor = 0xf4d789;
+  status.width = card.width;
+  status.textAlign = egret.HorizontalAlign.CENTER;
+  status.y = 190 * scale;
+  card.addChild(status);
+
+  this.addChild(overlay);
+  this._bootOverlay = overlay;
+  this._bootOverlayShownAt = Date.now();
+  return overlay;
+};
+
+Main.prototype.hideBootOverlay = function() {
+  var overlay = this._bootOverlay;
+  if (!overlay || !overlay.parent) return;
+  var elapsed = Date.now() - (this._bootOverlayShownAt || Date.now());
+  var wait = Math.max(0, 520 - elapsed);
+  var self = this;
+  var removed = false;
+  var forceRemove = function() {
+    if (removed) return;
+    removed = true;
+    if (overlay.parent) overlay.parent.removeChild(overlay);
+    if (self._bootOverlay === overlay) self._bootOverlay = null;
+  };
+  // Egret Tween 依赖引擎 ticker（rAF）。iframe / 后台标签被浏览器节流时 tween 可能
+  // 永不回调，启动遮罩会一直停在「构建首帧中...」。用原生 setTimeout 强制兜底移除。
+  setTimeout(forceRemove, wait + 600);
+  setTimeout(function() {
+    try {
+      egret.Tween.get(overlay).to({ alpha: 0 }, 260).call(forceRemove);
+    } catch (e) { forceRemove(); }
+  }, wait);
+};
+
 Main.prototype.onAdd = function() {
   this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAdd, this);
-  this.game = new Game(this);
+  var self = this;
+  if (typeof window !== 'undefined') window.__dmaxMain = this;
+  this.showBootOverlay('正在进入微信小游戏');
+  // 启动兜底：new Game() 抛错或引擎 ticker 被节流时，遮罩也不能永久停留。
+  var guard = setTimeout(function() { self.hideBootOverlay(); }, 800);
+  setTimeout(function() {
+    try {
+      self.game = new Game(self);
+      if (typeof window !== 'undefined') window.__dmaxGame = self.game;
+      if (self._bootOverlay && self._bootOverlay.parent) self.setChildIndex(self._bootOverlay, self.numChildren - 1);
+      if (typeof window !== 'undefined' && window.DMAX_HIDE_LOADING) window.DMAX_HIDE_LOADING();
+      clearTimeout(guard);
+      self.hideBootOverlay();
+    } catch (e) {
+      clearTimeout(guard);
+      var msg = (e && e.message) ? e.message : String(e);
+      if (typeof window !== 'undefined') {
+        window.__dmaxBootError = msg;
+        try { console.error('[DMAX] boot failed: ' + msg, e); } catch (e2) {}
+        try {
+          var st = (typeof document !== 'undefined' && document.getElementById) ? document.getElementById('status') : null;
+          if (st) { st.style.display = 'block'; st.textContent = '启动失败：' + msg; }
+        } catch (e3) {}
+      }
+      self.hideBootOverlay();
+    }
+  }, 80);
 };
 
 // ==================== Game 类 ====================
 function Game(main) {
   this.main = main;
+  // G 批次：先装全局错误记录，后续 buildUI / 存档 / 定时器出的问题都可被观测。
+  this.installGlobalErrorHooks();
 
   // --- 游戏状态 ---
   this.gold = 0;
@@ -481,6 +846,7 @@ function Game(main) {
   this.spinPity = 0;
   this.totalSpins = 0;
   this.lastSpinPrize = '';
+  this.spinHistory = [];
   this.stats = { totalKills: 0, totalGold: 0, totalClicks: 0, playTime: 0, bossKills: 0 };
   this.achievements = [];
   this.bossRewards = {};
@@ -492,6 +858,9 @@ function Game(main) {
   this.mailClaimed = {};
   this.offlineCap = 8;
   this.autoAttackEnabled = true;
+  this.musicMuted = false;
+  this.sfxMuted = false;
+  this.detailMode = true;
 
   // --- 转生系统 ---
   this.rebirthGems = 0;
@@ -506,7 +875,8 @@ function Game(main) {
 
   // --- 玩家个性化 ---
   this.avatarIdx = 0;       // 头像索引（0-5）
-  this.playerName = '玩家'; // 玩家昵称
+  this.playerName = makeDefaultPlayerName(); // 玩家昵称
+  this.jobId = 'trainee_mage'; // S2：默认职业为全 0 加成基线，转职后写入具体职业
 
   // --- BOSS计时器 ---
   this.bossActive = false;
@@ -538,14 +908,23 @@ function Game(main) {
   this.damageLayer = null;
   this.battleGroup = null;
   this.fieldSkin = null;
+  this._detailViews = [];
   this._sceneIndex = -1;
   this._panelOverlay = null;
+  this._activePanel = null;
+  this._panelAutoCloseTimer = null;
+  this._toastGroup = null;
   this._justHitMonster = false;
   this._bgmTimer = null;
   this._bgmStep = 0;
   this._lastSupportSfx = 0;
+  this._lastBattleShake = 0;
 
   this.loadGame();
+  try {
+    var detailPref = localStorage.getItem('gujiyouxi_detail_mode');
+    if (detailPref !== null) this.detailMode = detailPref !== '0';
+  } catch(e) {}
   this.playerHp = Math.min(this.getMaxPlayerHp(), Math.max(1, this.playerHp || this.getMaxPlayerHp()));
   this.initSound();
   this.buildUI();
@@ -553,8 +932,6 @@ function Game(main) {
   this.bindEvents();
   this.startLoop();
   this.checkOfflineReward();
-  var self = this;
-  setTimeout(function() { self.checkDailyCheckin(); }, 1200);
 
   // 监听舞台尺寸变化（设备旋转 / 地址栏伸缩 / 窗口拖拽）
   // fixedWidth 模式下宽度恒为 375，主要需要让全屏覆盖层跟随新高度
@@ -569,6 +946,52 @@ Game.prototype.fmt = function(n) {
   if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
   if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
   return n + '';
+};
+
+Game.prototype.getJobDef = function(jobId) {
+  var id = jobId || this.jobId || 'trainee_mage';
+  for (var i = 0; i < JOB_DEFS.length; i++) {
+    if (JOB_DEFS[i].id === id) return JOB_DEFS[i];
+  }
+  return JOB_DEFS[0];
+};
+
+Game.prototype.getJobName = function() {
+  return this.getJobDef(this.jobId).name;
+};
+
+// S2：把 JOB_DEFS.bonus 归一化为 getBuffs() 可直接合并的完整字段集。
+// 未知 / 非法 jobId 由 getJobDef() 兜底到 trainee_mage → 全 0，不会污染战斗数值。
+Game.prototype.getJobBuffs = function() {
+  var b = this.getJobDef(this.jobId).bonus || {};
+  return {
+    attack: b.attack || 0, crit: b.crit || 0, hp: b.hp || 0,
+    speed: b.speed || 0, defense: b.defense || 0, gold: b.gold || 0,
+    bossDamage: b.bossDamage || 0, cooldown: b.cooldown || 0, forge: b.forge || 0
+  };
+};
+
+// 玩家可读的加成摘要。职业页 / 转职 toast 共用同一真值源，避免文案与实装漂移。
+Game.prototype.getJobBonusText = function(def) {
+  var d = def || this.getJobDef(this.jobId);
+  var b = d.bonus || {};
+  if (b.attack) return '主角攻击 +' + Math.round(b.attack * 100) + '%';
+  if (b.crit) return '暴击率 +' + Math.round(b.crit * 100) + '%';
+  if (b.hp) return '生命上限 +' + Math.round(b.hp * 100) + '%';
+  if (b.speed) return '攻速 +' + Math.round(b.speed * 100) + '%';
+  if (b.gold) return '金币收益 +' + Math.round(b.gold * 100) + '%';
+  if (b.bossDamage) return 'BOSS 伤害 +' + Math.round(b.bossDamage * 100) + '%';
+  if (b.defense) return '防御 +' + b.defense;
+  return '无额外加成（初始称号）';
+};
+
+Game.prototype.refreshJobHud = function() {
+  var job = this.getJobDef(this.jobId);
+  if (this.jobLabel) {
+    this.jobLabel.text = job.name;
+    this.jobLabel.textColor = job.color || 0xc7a7ff;
+  }
+  if (this._jobBtnBg) this._jobBtnBg.strokeColor = job.color || THEME.lavender;
 };
 
 Game.prototype.waveText = function() {
@@ -679,6 +1102,9 @@ Game.prototype.getResistanceMultiplier = function(m, damageType, isCrit) {
   if (m.weakness === type) stat -= 18;
   if (m.trait === 'antiCrit' && isCrit) stat += 22;
   if (m.trait === 'shield' && !m._shieldBroken && type !== 'true') stat += 45;
+  // F1：隐藏怪真实特性。damageType === 'true' 已在开头绕过，此处 type 只会是 phys / magic。
+  if (m.trait === 'guard' && m.weakness !== type) stat += 14; // 守备：非弱点伤害额外抵挡
+  if (m.trait === 'void') stat += 18;                          // 虚空：常规伤害大幅削弱
   stat = Math.max(-35, Math.min(85, stat));
   return 100 / (100 + stat);
 };
@@ -814,6 +1240,36 @@ Game.prototype.isSupportAvailable = function(idx) {
   var def = SUPPORTS_DEF[idx];
   if (!def) return false;
   return this.mainLevel >= (def.recruitLv || 1);
+};
+
+Game.prototype.getSupportRecruitPrice = function(idx) {
+  var usesDiamond = idx >= 5;
+  var amount = usesDiamond ? CONFIG.supportRecruitDiamondCost(idx) : CONFIG.supportRecruitGoldCost(idx);
+  return {
+    currency: usesDiamond ? 'diamond' : 'gold',
+    amount: amount,
+    label: usesDiamond ? ('💎' + amount) : (this.fmt(amount) + '金'),
+    color: usesDiamond ? 0x8e44ad : 0x27ae60,
+    enough: usesDiamond ? (this.rebirthGems >= amount) : (this.gold >= amount)
+  };
+};
+
+Game.prototype.paySupportRecruitPrice = function(price) {
+  if (!price || price.amount <= 0) return true;
+  if (price.currency === 'diamond') {
+    if (this.rebirthGems < price.amount) {
+      this.showToast('钻石不足，需要' + price.amount + '钻石');
+      return false;
+    }
+    this.rebirthGems -= price.amount;
+    return true;
+  }
+  if (this.gold < price.amount) {
+    this.showToast('金币不足，需要' + this.fmt(price.amount) + '金');
+    return false;
+  }
+  this.gold -= price.amount;
+  return true;
 };
 
 Game.prototype.getSupportRoleText = function(idx, support) {
@@ -993,6 +1449,7 @@ Game.prototype.getBuffs = function() {
   var scale = this.foods['龙鳞护甲'] || 0;
   var equip = this.getEquipmentBuffs();
   var talent = this.getRebirthTalentBuffs();
+  var job = this.getJobBuffs(); // S2：职业加成，默认职业全 0
   var sb = this.skillBuffs || {};
   var bd = this.bossDebuffs || {};
   var stage = this.getStageBonuses();
@@ -1000,16 +1457,16 @@ Game.prototype.getBuffs = function() {
   var skillSpeed = sb.speedTime > 0 ? (sb.speedMult || 1) : 1;
   var skillCrit = sb.critTime > 0 ? (sb.critBonus || 0) : 0;
   return {
-    critChance: Math.max(0.02, Math.min(0.85, 0.1 + star * 0.02 + skillCrit - (bd.critDownTime > 0 ? 0.2 : 0))),
-    attackMult: (1 + moon * 0.04 + equip.attack + talent.attack) * skillAttack,
-    speedMult: (1 + wind * 0.03 + talent.speed) * skillSpeed,
+    critChance: Math.max(0.02, Math.min(0.85, 0.1 + star * 0.02 + skillCrit + job.crit - (bd.critDownTime > 0 ? 0.2 : 0))),
+    attackMult: (1 + moon * 0.04 + equip.attack + talent.attack + job.attack) * skillAttack,
+    speedMult: (1 + wind * 0.03 + talent.speed + job.speed) * skillSpeed,
     supportMult: 1 + core * 0.04 + stage.support + equip.support,
-    hpMult: 1 + scale * 0.06 + equip.hp + talent.hp,
-    defenseBonus: scale * 4 + talent.defense,
-    bossDamageMult: 1 + equip.boss,
-    cooldownBonus: talent.cooldown,
-    goldBonus: talent.gold,
-    forgeBonus: talent.forge
+    hpMult: 1 + scale * 0.06 + equip.hp + talent.hp + job.hp,
+    defenseBonus: scale * 4 + talent.defense + job.defense,
+    bossDamageMult: 1 + equip.boss + job.bossDamage,
+    cooldownBonus: talent.cooldown + job.cooldown,
+    goldBonus: talent.gold + job.gold,
+    forgeBonus: talent.forge + job.forge
   };
 };
 
@@ -1758,7 +2215,7 @@ Game.prototype.buildUI = function() {
   // 否则某些浏览器首帧会把战斗层盖到顶部栏上。
   this.main.layout = null;
 
-  var TOP_H = 132;   // 顶部HUD高度：玩家信息 + 血条 + 战斗入口
+  var TOP_H = 140;   // 顶部HUD高度：玩家信息 + 血条 + 战斗入口
   var STATUS_BAR_H = 58; // 战斗底部状态条，属于 UI，不属于背景图
   var SKILL_H = 52;  // 技能栏高度
   var NAV_H = 50;    // 底部导航高度
@@ -1773,40 +2230,35 @@ Game.prototype.buildUI = function() {
   topBar.x = 0; topBar.y = 0;
   var topBgShape = new egret.Shape();
   var tg = topBgShape.graphics;
-  tg.beginFill(0x08051c);
+  tg.beginFill(0x070416);
   tg.drawRect(0, 0, stageW, TOP_H);
   tg.endFill();
-  tg.beginFill(0x17103b, 0.98);
-  tg.drawRoundRect(6, 4, stageW - 12, TOP_H - 10, 12, 12);
+  tg.beginFill(0x120c2d, 0.98);
+  tg.drawRoundRect(6, 5, stageW - 12, TOP_H - 11, 14, 14);
   tg.endFill();
-  tg.beginFill(0x2a1f5c, 0.6);
-  tg.drawRoundRect(9, 7, stageW - 18, 54, 10, 10);
+  tg.beginFill(0x1d1646, 0.82);
+  tg.drawRoundRect(10, 9, stageW - 20, 54, 12, 12);
   tg.endFill();
-  tg.lineStyle(1.2, THEME.strokeGold, 0.72);
-  tg.drawRoundRect(6.5, 4.5, stageW - 13, TOP_H - 11, 12, 12);
+  tg.beginFill(0x0b0820, 0.72);
+  tg.drawRoundRect(10, 98, stageW - 20, 36, 12, 12);
+  tg.endFill();
+  tg.lineStyle(1, THEME.strokeGold, 0.52);
+  tg.drawRoundRect(6.5, 5.5, stageW - 13, TOP_H - 12, 14, 14);
   tg.lineStyle(0);
   tg.beginFill(THEME.accent, 0.18);
-  tg.drawRect(16, 68, stageW - 32, 1);
+  tg.drawRect(18, 66, stageW - 36, 1);
   tg.endFill();
   topBar.addChild(topBgShape);
-  var topSkin = new eui.Image();
-  topSkin.source = assetUrl('assets/ui/battle-skin-top-clean.png');
-  topSkin.width = stageW; topSkin.height = TOP_H;
-  topSkin.x = 0; topSkin.y = 0;
-  topSkin.alpha = 0;
-  topBar.addChild(topSkin);
   var topUnderline = new eui.Rect();
   topUnderline.percentWidth = 100; topUnderline.height = 2;
-  topUnderline.bottom = 0; topUnderline.fillColor = THEME.strokeGold; topUnderline.fillAlpha = 0;
+  topUnderline.bottom = 0; topUnderline.fillColor = THEME.strokeGold; topUnderline.fillAlpha = 0.26;
   topBar.addChild(topUnderline);
 
-  // --- Row1 左：头像与身份 ---
-  // 头像颜色调色板（6 种）
-  var AVATAR_COLORS = [0x8b4513, 0x3498db, 0x27ae60, 0xe74c3c, 0x9b59b6, 0xe67e22];
-  var AVATAR_ICONS  = ['🧙','🐼','🦊','🐯','🐸','🐺'];
+  // --- Row1：头像 + 玩家名 / 职业 ---
+  var avatarDef = AVATAR_DEFS[this.avatarIdx || 0] || AVATAR_DEFS[0];
   var avatarGroup = new eui.Group();
-  avatarGroup.width = 56; avatarGroup.height = 56;
-  avatarGroup.x = 10; avatarGroup.y = 8;
+  avatarGroup.width = 56; avatarGroup.height = 58;
+  avatarGroup.x = 12; avatarGroup.y = 6;
   avatarGroup.touchEnabled = true;
   var avatarGlow = new eui.Rect();
   avatarGlow.width = 56; avatarGlow.height = 56; avatarGlow.ellipseWidth = 16; avatarGlow.ellipseHeight = 16;
@@ -1820,149 +2272,112 @@ Game.prototype.buildUI = function() {
   avatarGroup.addChild(avatarFrame);
   var avatarBg = new eui.Rect();
   avatarBg.width = 44; avatarBg.height = 44; avatarBg.ellipseWidth = 12; avatarBg.ellipseHeight = 12;
-  avatarBg.fillColor = AVATAR_COLORS[this.avatarIdx || 0];
+  avatarBg.fillColor = avatarDef.color;
   avatarBg.x = 6; avatarBg.y = 6;
   avatarGroup.addChild(avatarBg);
   var avatarHero = new eui.Image();
-  this.fitImageToBox(avatarHero, UI_ASSETS.hero, 44, 44, 6, 5);
+  this.fitImageToBox(avatarHero, avatarDef.asset, 50, 50, 3, 3);
   avatarGroup.addChild(avatarHero);
-  var avatarEditBg = new eui.Rect();
-  avatarEditBg.width = 16; avatarEditBg.height = 16; avatarEditBg.ellipseWidth = 8; avatarEditBg.ellipseHeight = 8;
-  avatarEditBg.fillColor = 0x0d0926; avatarEditBg.strokeColor = THEME.strokeGold; avatarEditBg.strokeWeight = 0.8;
-  avatarEditBg.x = 38; avatarEditBg.y = 38;
-  avatarGroup.addChild(avatarEditBg);
-  var avatarEdit = new eui.Label();
-  avatarEdit.text = '✎'; avatarEdit.size = 10; avatarEdit.textColor = THEME.accentSoft; avatarEdit.bold = true;
-  avatarEdit.x = 42; avatarEdit.y = 40;
-  avatarGroup.addChild(avatarEdit);
-  var avatarIcon = new eui.Label();
-  avatarIcon.text = AVATAR_ICONS[this.avatarIdx || 0];
-  avatarIcon.size = 18; avatarIcon.horizontalCenter = 0; avatarIcon.verticalCenter = 0;
-  avatarIcon.alpha = 0;
-  avatarGroup.addChild(avatarIcon);
+  var avatarLevelBg = new eui.Rect();
+  avatarLevelBg.width = 42; avatarLevelBg.height = 14;
+  avatarLevelBg.x = 7; avatarLevelBg.y = 40;
+  avatarLevelBg.ellipseWidth = 8; avatarLevelBg.ellipseHeight = 8;
+  avatarLevelBg.fillColor = 0x24170d; avatarLevelBg.fillAlpha = 0.9;
+  avatarLevelBg.strokeColor = THEME.accent; avatarLevelBg.strokeAlpha = 0.72; avatarLevelBg.strokeWeight = 0.8;
+  avatarGroup.addChild(avatarLevelBg);
+  this.waveLabel = new eui.Label();
+  this.waveLabel.text = 'Lv.' + this.mainLevel; this.waveLabel.size = 10; this.waveLabel.textColor = 0xfbbf24; this.waveLabel.bold = true;
+  this.waveLabel.width = 42; this.waveLabel.height = 12; this.waveLabel.textAlign = 'center';
+  this.waveLabel.x = 7; this.waveLabel.y = 41;
+  avatarGroup.addChild(this.waveLabel);
   // 点击头像打开选择面板
   avatarGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openAvatarPicker(); }, this);
   this._avatarBg   = avatarBg;
-  this._avatarIcon = avatarIcon;
+  this._avatarImage = avatarHero;
   topBar.addChild(avatarGroup);
 
-  // --- Row1 中央：品牌铭牌 ---
-  var brandGroup = new eui.Group();
-  brandGroup.width = 112; brandGroup.height = 50;
-  brandGroup.x = Math.floor((stageW - brandGroup.width) / 2);
-  brandGroup.y = 7;
-  brandGroup.touchEnabled = false;
-  var brandGlow = new eui.Rect();
-  brandGlow.width = 104; brandGlow.height = 30;
-  brandGlow.x = 5; brandGlow.y = 13;
-  brandGlow.ellipseWidth = 16; brandGlow.ellipseHeight = 16;
-  brandGlow.fillColor = 0xfbbf24; brandGlow.fillAlpha = 0.08;
-  brandGroup.addChild(brandGlow);
-  var brandImg = new eui.Image();
-  this.fitImageToBox(brandImg, UI_ASSETS.brandDmax, 112, 50, 0, 0);
-  brandGroup.addChild(brandImg);
-  topBar.addChild(brandGroup);
-
-  // --- Row1 中：昵称（可点击修改）+ 玩家等级 ---
+  // 玩家身份面板。昵称后续可接微信昵称，职业按钮打开转职详情。
   var namePlate = new eui.Rect();
-  namePlate.width = 52; namePlate.height = 25;
-  namePlate.x = 70; namePlate.y = 10;
+  namePlate.width = 112; namePlate.height = 24;
+  namePlate.x = 76; namePlate.y = 10;
   namePlate.ellipseWidth = 10; namePlate.ellipseHeight = 10;
   namePlate.fillColor = 0x0d0926; namePlate.fillAlpha = 0.72;
-  namePlate.strokeColor = 0xffffff; namePlate.strokeAlpha = 0.08; namePlate.strokeWeight = 0.8;
+  namePlate.strokeColor = THEME.strokeGold; namePlate.strokeAlpha = 0.22; namePlate.strokeWeight = 0.8;
   topBar.addChild(namePlate);
   var nameLb = new eui.Label();
-  nameLb.text = (this.playerName || '玩家') + ' ✎';
-  nameLb.size = 11; nameLb.textColor = THEME.textMain; nameLb.bold = true;
-  nameLb.width = 44; nameLb.height = 18; nameLb.textAlign = 'center';
-  nameLb.x = 74; nameLb.y = 14; nameLb.touchEnabled = true;
+  nameLb.text = this.playerName || makeDefaultPlayerName();
+  nameLb.size = 13; nameLb.textColor = THEME.textMain; nameLb.bold = true;
+  nameLb.width = 102; nameLb.height = 18; nameLb.textAlign = 'center';
+  nameLb.x = 81; nameLb.y = 13; nameLb.touchEnabled = true;
   nameLb.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openNameEditor(); }, this);
   topBar.addChild(nameLb);
   this._nameLb = nameLb;
-  var wavePlate = new eui.Rect();
-  wavePlate.width = 52; wavePlate.height = 21;
-  wavePlate.x = 70; wavePlate.y = 39;
-  wavePlate.ellipseWidth = 9; wavePlate.ellipseHeight = 9;
-  wavePlate.fillColor = 0x1f174a; wavePlate.fillAlpha = 0.78;
-  wavePlate.strokeColor = THEME.strokeGold; wavePlate.strokeAlpha = 0.28; wavePlate.strokeWeight = 0.7;
-  topBar.addChild(wavePlate);
-  this.waveLabel = new eui.Label();
-  this.waveLabel.text = 'Lv.' + this.mainLevel; this.waveLabel.size = 10; this.waveLabel.textColor = 0xfbbf24;
-  this.waveLabel.width = 48; this.waveLabel.height = 14; this.waveLabel.textAlign = 'center';
-  this.waveLabel.x = 72; this.waveLabel.y = 43;
-  topBar.addChild(this.waveLabel);
 
-  // --- Row1 右：资源与系统状态 ---
-  var resPanel = new eui.Rect();
-  resPanel.width = 119; resPanel.height = 52;
-  resPanel.x = stageW - 129; resPanel.y = 8;
-  resPanel.ellipseWidth = 12; resPanel.ellipseHeight = 12;
-  resPanel.fillColor = 0x0d0926; resPanel.fillAlpha = 0.78;
-  resPanel.strokeColor = THEME.strokeGold; resPanel.strokeWeight = 0.7; resPanel.strokeAlpha = 0.36;
-  topBar.addChild(resPanel);
+  var jobDef = this.getJobDef ? this.getJobDef(this.jobId) : JOB_DEFS[0];
+  var jobGroup = new eui.Group();
+  jobGroup.width = 80; jobGroup.height = 24;
+  jobGroup.x = 193; jobGroup.y = 10;
+  jobGroup.touchEnabled = true;
+  var jobPlate = new eui.Rect();
+  jobPlate.width = 80; jobPlate.height = 24;
+  jobPlate.ellipseWidth = 10; jobPlate.ellipseHeight = 10;
+  jobPlate.fillColor = 0x19113c; jobPlate.fillAlpha = 0.92;
+  jobPlate.strokeColor = jobDef.color || THEME.lavender; jobPlate.strokeAlpha = 0.64; jobPlate.strokeWeight = 0.9;
+  jobGroup.addChild(jobPlate);
+  this.jobLabel = new eui.Label();
+  this.jobLabel.text = jobDef.name || '见习法师';
+  this.jobLabel.size = 12; this.jobLabel.bold = true; this.jobLabel.textColor = jobDef.color || 0xc7a7ff;
+  this.jobLabel.width = 70; this.jobLabel.height = 16; this.jobLabel.textAlign = 'center';
+  this.jobLabel.x = 5; this.jobLabel.y = 4;
+  jobGroup.addChild(this.jobLabel);
+  var jobArrow = new eui.Label();
+  jobArrow.text = '›'; jobArrow.size = 13; jobArrow.bold = true; jobArrow.textColor = THEME.textGold;
+  jobArrow.width = 10; jobArrow.height = 14; jobArrow.x = 66; jobArrow.y = 4;
+  jobGroup.addChild(jobArrow);
+  jobGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.openCareerPanel(); }, this);
+  this._jobBtnBg = jobPlate;
+  topBar.addChild(jobGroup);
+
+  // --- Row2：金币和钻石同一行 ---
+  var resX = 76;
   var goldPill = new eui.Rect();
-  goldPill.width = 107; goldPill.height = 20; goldPill.ellipseWidth = 10; goldPill.ellipseHeight = 10;
-  goldPill.fillColor = 0x2a1a10; goldPill.fillAlpha = 0.9;
-  goldPill.strokeColor = THEME.accent; goldPill.strokeWeight = 0.8; goldPill.strokeAlpha = 0.65;
-  goldPill.x = stageW - 123; goldPill.y = 12;
+  goldPill.width = 174; goldPill.height = 24; goldPill.ellipseWidth = 12; goldPill.ellipseHeight = 12;
+  goldPill.fillColor = 0x24170d; goldPill.fillAlpha = 0.96;
+  goldPill.strokeColor = THEME.accent; goldPill.strokeWeight = 0.9; goldPill.strokeAlpha = 0.62;
+  goldPill.x = resX; goldPill.y = 39;
   topBar.addChild(goldPill);
+  var goldIcon = new eui.Image();
+  this.fitImageToBox(goldIcon, UI_ASSETS.topHudGold, 24, 24, resX + 3, 39);
+  topBar.addChild(goldIcon);
   this.goldLabel = new eui.Label();
-  this.goldLabel.text = '💰 ' + this.fmt(this.gold);
-  this.goldLabel.size = 11; this.goldLabel.textColor = 0xffd700; this.goldLabel.bold = true;
-  this.goldLabel.width = 99; this.goldLabel.height = 15; this.goldLabel.textAlign = 'right';
-  this.goldLabel.x = stageW - 119; this.goldLabel.y = 15;
+  this.goldLabel.text = this.fmt(this.gold);
+  this.goldLabel.size = 13; this.goldLabel.textColor = 0xffd36e; this.goldLabel.bold = true;
+  this.goldLabel.width = 140; this.goldLabel.height = 18; this.goldLabel.textAlign = 'right';
+  this.goldLabel.x = resX + 28; this.goldLabel.y = 42;
   topBar.addChild(this.goldLabel);
 
   var gemPill = new eui.Rect();
-  gemPill.width = 36; gemPill.height = 18; gemPill.ellipseWidth = 9; gemPill.ellipseHeight = 9;
-  gemPill.fillColor = 0x16113a; gemPill.fillAlpha = 0.9;
-  gemPill.strokeColor = THEME.lavender; gemPill.strokeWeight = 0.8; gemPill.strokeAlpha = 0.55;
-  gemPill.x = stageW - 123; gemPill.y = 36;
+  gemPill.width = 58; gemPill.height = 24; gemPill.ellipseWidth = 12; gemPill.ellipseHeight = 12;
+  gemPill.fillColor = 0x19103d; gemPill.fillAlpha = 0.96;
+  gemPill.strokeColor = THEME.lavender; gemPill.strokeWeight = 0.9; gemPill.strokeAlpha = 0.58;
+  gemPill.x = 256; gemPill.y = 39;
   topBar.addChild(gemPill);
+  var gemIcon = new eui.Image();
+  this.fitImageToBox(gemIcon, UI_ASSETS.topHudDiamond, 22, 22, 259, 40);
+  topBar.addChild(gemIcon);
   this.gemsLabel = new eui.Label();
-  this.gemsLabel.text = '💎 ' + this.rebirthGems;
-  this.gemsLabel.size = 10; this.gemsLabel.textColor = 0xb28dd6; this.gemsLabel.bold = true;
-  this.gemsLabel.width = 34; this.gemsLabel.height = 14; this.gemsLabel.textAlign = 'center';
-  this.gemsLabel.x = stageW - 122; this.gemsLabel.y = 39;
+  this.gemsLabel.text = String(this.rebirthGems || 0);
+  this.gemsLabel.size = 13; this.gemsLabel.textColor = 0xc7a7ff; this.gemsLabel.bold = true;
+  this.gemsLabel.width = 28; this.gemsLabel.height = 18; this.gemsLabel.textAlign = 'right';
+  this.gemsLabel.x = 282; this.gemsLabel.y = 42;
   topBar.addChild(this.gemsLabel);
-
-  // 成就按钮
-  var achPill = new eui.Rect();
-  achPill.width = 34; achPill.height = 18; achPill.ellipseWidth = 9; achPill.ellipseHeight = 9;
-  achPill.fillColor = 0x24160a; achPill.fillAlpha = 0.9;
-  achPill.strokeColor = THEME.accent; achPill.strokeWeight = 0.7; achPill.strokeAlpha = 0.5;
-  achPill.x = stageW - 83; achPill.y = 36;
-  topBar.addChild(achPill);
-  var achBtn = new eui.Label();
-  achBtn.text = '🏆 ' + this.achievements.length;
-  achBtn.size = 10; achBtn.textColor = 0xf39c12; achBtn.touchEnabled = true; achBtn.bold = true;
-  achBtn.width = 34; achBtn.height = 14; achBtn.textAlign = 'center';
-  achBtn.x = stageW - 83; achBtn.y = 39;
-  achBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.openAchievements, this);
-  topBar.addChild(achBtn);
-
-  // 静音切换按钮
-  var mutePill = new eui.Rect();
-  mutePill.width = 28; mutePill.height = 18; mutePill.ellipseWidth = 9; mutePill.ellipseHeight = 9;
-  mutePill.fillColor = 0x16113a; mutePill.fillAlpha = 0.92;
-  mutePill.strokeColor = 0xffffff; mutePill.strokeWeight = 0.7; mutePill.strokeAlpha = 0.16;
-  mutePill.x = stageW - 45; mutePill.y = 36;
-  topBar.addChild(mutePill);
-  this.muteLabel = new eui.Label();
-  this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
-  this.muteLabel.size = 13; this.muteLabel.touchEnabled = true;
-  this.muteLabel.width = 28; this.muteLabel.height = 16; this.muteLabel.textAlign = 'center';
-  this.muteLabel.x = stageW - 45; this.muteLabel.y = 37;
-  this.muteLabel.alpha = 0.92;
-  this.muteLabel.addEventListener(egret.TouchEvent.TOUCH_TAP, this.toggleMute, this);
-  topBar.addChild(this.muteLabel);
 
   // 保留 updateWaveNumbers 的引用，避免其他地方调用时崩溃
   this._waveNumBgs = [];
   this._waveNumLbs = [];
 
   // --- Row2：怪物 HP 汇总条（满宽） ---
-  var HP_X = 12, HP_Y = 72, HP_W = stageW - 24, HP_H = 12;
+  var HP_X = 12, HP_Y = 82, HP_W = stageW - 24, HP_H = 12;
   var hpBg = new eui.Rect();
   hpBg.width = HP_W; hpBg.height = HP_H; hpBg.ellipseWidth = 8; hpBg.ellipseHeight = 8;
   hpBg.fillColor = 0x090616; hpBg.strokeColor = THEME.strokeGold; hpBg.strokeWeight = 0.8; hpBg.strokeAlpha = 0.5;
@@ -1983,40 +2398,47 @@ Game.prototype.buildUI = function() {
   topBar.addChild(this.hpLabel);
 
   // --- Row3：战斗入口区。把原本压在背景上的按钮收进顶部HUD，场景区域保持干净。---
-  var ACTION_Y = 91;
-  var ACTION_H = 32;
+  var ACTION_Y = 101;
+  var ACTION_H = 36;
   var actionPanel = new eui.Rect();
-  actionPanel.x = 8; actionPanel.y = ACTION_Y - 3;
-  actionPanel.width = stageW - 16; actionPanel.height = ACTION_H + 6;
+  actionPanel.x = 8; actionPanel.y = ACTION_Y - 6;
+  actionPanel.width = stageW - 16; actionPanel.height = ACTION_H + 12;
   actionPanel.ellipseWidth = 12; actionPanel.ellipseHeight = 12;
-  actionPanel.fillColor = 0x0d0926; actionPanel.fillAlpha = 0.92;
-  actionPanel.strokeColor = THEME.strokeGold; actionPanel.strokeWeight = 0.8; actionPanel.strokeAlpha = 0.5;
+  actionPanel.fillColor = 0x0d0926; actionPanel.fillAlpha = 0.46;
+  actionPanel.strokeColor = THEME.strokeGold; actionPanel.strokeWeight = 0.8; actionPanel.strokeAlpha = 0.58;
   topBar.addChild(actionPanel);
 
   var bossBtnGroup = new eui.Group();
-  bossBtnGroup.width = 118; bossBtnGroup.height = ACTION_H;
+  bossBtnGroup.width = 112; bossBtnGroup.height = ACTION_H;
   bossBtnGroup.x = 12; bossBtnGroup.y = ACTION_Y;
   bossBtnGroup.touchEnabled = true;
   this._bossBtnBg = new eui.Rect();
   this._bossBtnBg.width = bossBtnGroup.width; this._bossBtnBg.height = ACTION_H;
   this._bossBtnBg.ellipseWidth = 12; this._bossBtnBg.ellipseHeight = 12;
-  this._bossBtnBg.fillColor = 0x7a1520;
-  this._bossBtnBg.strokeColor = THEME.strokeGold; this._bossBtnBg.strokeWeight = 1; this._bossBtnBg.strokeAlpha = 0.72;
+  this._bossBtnBg.fillColor = 0x861626; this._bossBtnBg.fillAlpha = 0.98;
+  this._bossBtnBg.strokeColor = THEME.strokeGold; this._bossBtnBg.strokeWeight = 1.1; this._bossBtnBg.strokeAlpha = 0.86;
   bossBtnGroup.addChild(this._bossBtnBg);
+  var bossIconBg = new eui.Rect();
+  bossIconBg.width = 30; bossIconBg.height = 30;
+  bossIconBg.x = 4; bossIconBg.y = 3;
+  bossIconBg.ellipseWidth = 10; bossIconBg.ellipseHeight = 10;
+  bossIconBg.fillColor = 0x260817; bossIconBg.fillAlpha = 0.55;
+  bossIconBg.strokeColor = 0xffd36e; bossIconBg.strokeWeight = 0.7; bossIconBg.strokeAlpha = 0.34;
+  bossBtnGroup.addChild(bossIconBg);
   var bossIconImg = new eui.Image();
-  this.fitImageToBox(bossIconImg, UI_ASSETS.hudBoss, 28, 28, 5, 2);
+  this.fitImageToBox(bossIconImg, UI_ASSETS.topHudBoss, 28, 28, 5, 4);
   bossBtnGroup.addChild(bossIconImg);
   this._bossBtnText = new eui.Label();
-  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 11;
+  this._bossBtnText.text = '挑战BOSS'; this._bossBtnText.size = 12;
   this._bossBtnText.textColor = 0xffffff; this._bossBtnText.bold = true;
-  this._bossBtnText.width = 82; this._bossBtnText.height = 16;
-  this._bossBtnText.x = 32; this._bossBtnText.y = 6;
+  this._bossBtnText.width = 72; this._bossBtnText.height = 16;
+  this._bossBtnText.x = 37; this._bossBtnText.y = 6;
   bossBtnGroup.addChild(this._bossBtnText);
   this._bossBtnHint = new eui.Label();
   this._bossBtnHint.text = '第9波开启'; this._bossBtnHint.size = 8;
   this._bossBtnHint.textColor = 0xffd7a3;
-  this._bossBtnHint.width = 82; this._bossBtnHint.height = 12;
-  this._bossBtnHint.x = 32; this._bossBtnHint.y = 20;
+  this._bossBtnHint.width = 72; this._bossBtnHint.height = 12;
+  this._bossBtnHint.x = 38; this._bossBtnHint.y = 22;
   bossBtnGroup.addChild(this._bossBtnHint);
   bossBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
     self.challengeBoss();
@@ -2025,16 +2447,15 @@ Game.prototype.buildUI = function() {
   this._bossBtnGroup = bossBtnGroup;
 
   var quickDefs = [
-    { asset: UI_ASSETS.hudCheckin, text: '签', fn: function() { self.openCheckin(); } },
-    { asset: UI_ASSETS.hudDailyTask, text: '日', fn: function() { self.openDailyTasks(); } },
-    { asset: UI_ASSETS.hudMail, text: '邮', fn: function() { self.openMail(); } },
-    { asset: UI_ASSETS.hudAnnouncement, text: '告', fn: function() { self.openAnnouncement(); } },
-    { asset: UI_ASSETS.hudRebirth, text: '转', fn: function() { self.openRebirth(); } },
-    { asset: UI_ASSETS.hudEnergy, text: '能', fn: function() { self.openEnergyHelp(); } }
+    { asset: UI_ASSETS.hudCheckin, text: '签到', fn: function() { self.openCheckin(); } },
+    { asset: UI_ASSETS.hudDailyTask, text: '任务', fn: function() { self.openDailyTasks(); } },
+    { asset: UI_ASSETS.hudMail, text: '邮件', fn: function() { self.openMail(); } },
+    { asset: UI_ASSETS.hudAnnouncement, text: '公告', fn: function() { self.openAnnouncement(); } },
+    { asset: UI_ASSETS.topHudSettings, text: '设置', fn: function() { self.openSettingsPanel(); } }
   ];
-  var quickX = 140;
-  var quickW = 34;
-  var quickGap = 4;
+  var quickX = 132;
+  var quickW = 43;
+  var quickGap = 3;
   for (var qi = 0; qi < quickDefs.length; qi++) {
     var qd = quickDefs[qi];
     var qg = new eui.Group();
@@ -2043,18 +2464,18 @@ Game.prototype.buildUI = function() {
     qg.touchEnabled = true;
     var qbg = new eui.Rect();
     qbg.width = quickW; qbg.height = ACTION_H;
-    qbg.ellipseWidth = 10; qbg.ellipseHeight = 10;
+    qbg.ellipseWidth = 12; qbg.ellipseHeight = 12;
     qbg.fillColor = 0x1b1444; qbg.fillAlpha = 0.96;
     qbg.strokeColor = THEME.strokeGold; qbg.strokeWeight = 0.7; qbg.strokeAlpha = 0.4;
     qg.addChild(qbg);
     var qiImg = new eui.Image();
-    this.fitImageToBox(qiImg, qd.asset, 24, 23, 5, 0);
+    this.fitImageToBox(qiImg, qd.asset, 27, 24, 8, 2);
     qg.addChild(qiImg);
     var qtLb = new eui.Label();
-    qtLb.text = qd.text; qtLb.size = 8; qtLb.bold = true;
+    qtLb.text = qd.text; qtLb.size = 9; qtLb.bold = true;
     qtLb.textColor = THEME.accentSoft;
-    qtLb.width = quickW; qtLb.height = 10;
-    qtLb.textAlign = 'center'; qtLb.x = 0; qtLb.y = 22;
+    qtLb.width = quickW; qtLb.height = 12;
+    qtLb.textAlign = 'center'; qtLb.x = 0; qtLb.y = 24;
     qg.addChild(qtLb);
     (function(fn) {
       qg.addEventListener(egret.TouchEvent.TOUCH_TAP, fn, self);
@@ -2663,10 +3084,12 @@ Game.prototype.buildUI = function() {
   heroNameBg.strokeColor = THEME.strokeGold; heroNameBg.strokeWeight = 0.5;
   heroNameBg.horizontalCenter = 0; heroNameBg.top = 92;
   heroGroup.addChild(heroNameBg);
+  this._heroNameBg = heroNameBg;
   var heroName = new eui.Label();
   heroName.text = '星语法师'; heroName.size = 10; heroName.bold = true;
   heroName.textColor = THEME.accentSoft; heroName.horizontalCenter = 0; heroName.top = 93;
   heroGroup.addChild(heroName);
+  this._heroNameLabel = heroName;
   this.levelLabel = new eui.Label();
   this.levelLabel.text = 'Lv.' + this.mainLevel; this.levelLabel.size = 10;
   this.levelLabel.textColor = THEME.accent; this.levelLabel.bold = true;
@@ -2907,9 +3330,9 @@ Game.prototype.buildUI = function() {
     { text: '升级', icon: 'upgrade', fn: function() { self.openUpgrade(); } },
     { text: '图签', icon: 'codex', fn: function() { self.openMonsterCodex(); } },
     { text: '转盘', icon: 'spin', fn: function() { self.openSpinWheel(); } },
-    { text: '秘宝', icon: 'market', fn: function() { self.openSupermarket(); } },
-    { text: '档案', icon: 'rank', fn: function() { self.openLeaderboard(); } },
-    { text: '商城', icon: 'shop', fn: function() { self.openShop(); } }
+    { text: '转生', icon: 'rebirth', fn: function() { self.openRebirth(); } },
+    { text: '宝库', icon: 'vault', fn: function() { self.openVault(); } },
+    { text: '成绩', icon: 'ranking', fn: function() { self.openFriendRanking(); } }
   ];
   for (var i = 0; i < navItems.length; i++) {
     var nb = this.createNavBtn(navItems[i].text, navItems[i].icon, navItems[i].fn);
@@ -3522,7 +3945,7 @@ Game.prototype.doDamage = function(m, dmg, idx, isCrit, damageType) {
   var canCrit = damageType !== 'true' && m.trait !== 'antiCrit';
   if (!isCrit && canCrit && Math.random() < buffs.critChance) { dmg *= 2; isCrit = true; }
   var resistMult = this.getResistanceMultiplier(m, damageType, isCrit);
-  if (m.trait === 'dodge' && damageType === 'phys' && Math.random() < 0.12) {
+  if ((m.trait === 'dodge' || m.trait === 'phase') && damageType === 'phys' && Math.random() < 0.12) {
     this.showDamageText('闪避', false, idx);
     this.updateUI();
     return;
@@ -3544,6 +3967,10 @@ Game.prototype.doDamage = function(m, dmg, idx, isCrit, damageType) {
   var beforeHp = m.hp;
   m.hp -= dmg;
   var dealt = Math.max(0, Math.min(beforeHp, dmg));
+  // F1 镜像：物理攻击反弹少量伤害。直接扣 HP，不走 takePlayerDamage，避免递归触发战败。
+  if (m.trait === 'mirror' && damageType === 'phys' && dealt > 0) {
+    this.playerHp = Math.max(1, this.playerHp - Math.max(1, Math.floor(dealt * 0.06)));
+  }
   if (dealt > 0 && this.coreWeapon && this.coreWeapon.owned) {
     var leech = Math.min(this.getMaxPlayerHp() * CORE_WEAPON_DEF.healCap, dealt * CORE_WEAPON_DEF.lifesteal);
     this.healPlayer(leech, CORE_WEAPON_DEF.name, true);
@@ -3591,6 +4018,9 @@ Game.prototype.getMonsterAttack = function(m) {
   if (m.trait === 'spiked') atk *= 1.18;
   if (m.trait === 'burn') atk *= 1.12;
   if (m.trait === 'web') atk *= 0.92;
+  // F1 蜂群：同波还有其它存活怪时更凶。
+  if (m.trait === 'swarm' && this.monsters && this.monsters.length >= 2) atk *= 1.15;
+  if (m.attackMult) atk *= m.attackMult;
   return Math.floor(atk);
 };
 
@@ -3614,10 +4044,24 @@ Game.prototype.takePlayerDamage = function(raw, label) {
   this.playerHp = Math.max(0, this.playerHp - dmg);
   if (label) this.showToast(label + ' -' + this.fmt(dmg) + '生命' + (shieldReduce > 0 ? '（护盾减伤）' : ''));
   this.showPlayerDamageText(dmg);
-  this.shakeBattle(4);
+  if (this.shouldShakeOnPlayerDamage(raw, dmg, label)) {
+    this.shakeBattle(this.bossActive ? 5 : 3);
+  }
   this.sfxHurt();
   if (this.playerHp <= 0) this.onPlayerDefeated();
   else this.updateUI();
+};
+
+Game.prototype.shouldShakeOnPlayerDamage = function(raw, dmg, label) {
+  var now = Date.now ? Date.now() : new Date().getTime();
+  if (this._lastBattleShake && now - this._lastBattleShake < 1200) return false;
+  var maxHp = Math.max(1, this.getMaxPlayerHp());
+  var isBossHit = !!this.bossActive || (label && String(label).indexOf('BOSS') >= 0);
+  var isHeavyHit = dmg >= Math.max(25, maxHp * 0.12);
+  var isDanger = this.playerHp > 0 && this.playerHp / maxHp <= 0.35;
+  if (!isBossHit && !isHeavyHit && !isDanger) return false;
+  this._lastBattleShake = now;
+  return true;
 };
 
 Game.prototype.showPlayerDamageText = function(dmg) {
@@ -3673,9 +4117,13 @@ Game.prototype.monsterAttackAnim = function(idx) {
   orb.graphics.drawCircle(0, 0, 7);
   orb.x = start.x; orb.y = start.y;
   this.damageLayer.addChild(orb);
-  egret.Tween.get(mv, { override: false })
-    .to({ y: mv.y - 4 }, 80)
-    .to({ y: mv.y }, 120);
+  var hitSprite = mv._sprite || mv;
+  var spriteBaseY = hitSprite._baseY !== undefined ? hitSprite._baseY : hitSprite.y;
+  hitSprite._baseY = spriteBaseY;
+  egret.Tween.removeTweens(hitSprite);
+  egret.Tween.get(hitSprite)
+    .to({ y: spriteBaseY - 5 }, 70)
+    .to({ y: spriteBaseY }, 110);
   egret.Tween.get(orb)
     .to({ x: endX, y: endY, scaleX: 1.4, scaleY: 1.4 }, 260, egret.Ease.quadIn)
     .call(function() { if (orb.parent) orb.parent.removeChild(orb); });
@@ -3686,6 +4134,7 @@ Game.prototype.processMonsterAttacks = function() {
   var total = 0;
   var burn = false;
   var web = false;
+  var melt = false;
   for (var i = 0; i < this.monsters.length; i++) {
     var m = this.monsters[i];
     if (!m || m.hp <= 0) continue;
@@ -3693,8 +4142,11 @@ Game.prototype.processMonsterAttacks = function() {
     this.monsterAttackAnim(i);
     if (m.trait === 'burn') burn = true;
     if (m.trait === 'web') web = true;
+    if (m.trait === 'meltArmor') melt = true;
   }
   if (total <= 0) return;
+  // F1 熔甲：额外造成一笔无视主角部分防御的穿防伤害；下限 1 点，保证低等级也生效。
+  if (melt) total += Math.max(1, Math.floor(this.getPlayerDefense() * 0.12));
   if (burn) this.energy = Math.max(0, this.energy - 3);
   if (web && this.bossActive) this.bossTimer = Math.max(0, this.bossTimer - 0.3);
   this.takePlayerDamage(total, this.bossActive ? 'BOSS压制' : '怪物反击');
@@ -3703,13 +4155,29 @@ Game.prototype.processMonsterAttacks = function() {
 Game.prototype.onPlayerDefeated = function() {
   var failedBossWave = this.wave % 10 === 0 ? this.wave : 0;
   this.stopBossTimer();
+  var lostWave = this.wave;
   var retreatWave = Math.floor((Math.max(1, this.wave) - 1) / 10) * 10 + 1;
   this.wave = Math.max(1, retreatWave);
   if (failedBossWave) this.setBossRetryLock(failedBossWave);
   this.energy = Math.max(0, this.energy - 20);
   this.playerHp = Math.floor(this.getMaxPlayerHp() * 0.65);
   this.bossCounter = null;
-  this.showToast('💔 战败撤退：回到本轮起点，先强化再挑战');
+  // P 批次：连续战败是挂机游戏最典型的卡关螺旋——玩家只会反复撤退，却不知道差在哪。
+  // 第 2 次连续战败给一次结构化诊断（复用 BOSS 失败面板的等级 / 装备建议），每段只弹一次。
+  this._defeatStreak = (this._defeatStreak || 0) + 1;
+  if (this._defeatStreak >= 2 && !this._defeatHintShown) {
+    this._defeatHintShown = true;
+    var self = this;
+    var streak = this._defeatStreak;
+    this.safeTimeout('defeatAdvice', function() {
+      if (self._panelOverlay && self._panelOverlay.parent) return; // 已有面板时不叠加
+      self.openBossFailPanel(0, self.getNextBossWave(), {
+        normalDefeat: true, streak: streak, lostWave: lostWave, retreatWave: retreatWave
+      });
+    }, 700);
+  } else {
+    this.showToast('💔 战败撤退：回到本轮起点，先强化再挑战');
+  }
   this.spawnWave();
   this.updateUI();
 };
@@ -3745,7 +4213,8 @@ Game.prototype.onKill = function(m, idx) {
   if (m.type && m.type.shape) {
     if (!this.monsterCodex[m.type.shape]) {
       this.monsterCodex[m.type.shape] = { encountered: true, kills: 0 };
-      this.showToast('📖 新图签！发现【' + m.type.name + '】');
+      // S1/H-1：改走节流入口，连续发现多个新怪时不逐条刷屏。
+      this.notifyCodexDiscovery(m.type.name);
     }
     this.monsterCodex[m.type.shape].kills++;
   }
@@ -3771,28 +4240,101 @@ Game.prototype.maybeDropSpinTicket = function() {
 
 // ==================== 波次 ====================
 
+Game.prototype.weightedPick = function(list, weightKey) {
+  if (!list || !list.length) return null;
+  weightKey = weightKey || 'weight';
+  var total = 0;
+  for (var i = 0; i < list.length; i++) total += Math.max(0, list[i][weightKey] || 1);
+  var r = Math.random() * Math.max(1, total);
+  for (var j = 0; j < list.length; j++) {
+    r -= Math.max(0, list[j][weightKey] || 1);
+    if (r <= 0) return list[j];
+  }
+  return list[list.length - 1];
+};
+
+Game.prototype.getRandomMonsterCount = function() {
+  if (this.wave <= 3) return 2 + Math.floor(Math.random() * 2);
+  if (this.wave <= 10) return 3 + Math.floor(Math.random() * 3);
+  if (this.wave <= 30) return 3 + Math.floor(Math.random() * 4);
+  var count = 4 + Math.floor(Math.random() * 4);
+  if (this.wave >= 80 && Math.random() < 0.28) count++;
+  return Math.min(8, count);
+};
+
+Game.prototype.pickMonsterVariant = function(isBoss) {
+  if (isBoss) {
+    return {
+      size: MONSTER_SIZE_VARIANTS[2],
+      affix: MONSTER_AFFIXES[0]
+    };
+  }
+  var affixes = MONSTER_AFFIXES.filter(function(a) { return !a.minWave || this.wave >= a.minWave; }, this);
+  if (!affixes.length) affixes = [MONSTER_AFFIXES[0]];
+  return {
+    size: this.weightedPick(MONSTER_SIZE_VARIANTS) || MONSTER_SIZE_VARIANTS[2],
+    affix: this.weightedPick(affixes) || MONSTER_AFFIXES[0]
+  };
+};
+
+Game.prototype.getMonsterDisplayName = function(mType, sizeVariant, affix) {
+  var parts = [];
+  if (affix && affix.prefix) parts.push(affix.prefix);
+  if (sizeVariant && sizeVariant.prefix) parts.push(sizeVariant.prefix);
+  parts.push(mType && mType.name ? mType.name : '怪物');
+  return parts.join('');
+};
+
+Game.prototype.getMonsterFeatureText = function(mt, found) {
+  if (!mt) return '';
+  if (!found) {
+    if (mt.hidden) return '稀有遭遇 · 第 ' + (mt.wave || HIDDEN_ENCOUNTER_MIN_WAVE) + ' 波后可能出现';
+    return '特点待发现';
+  }
+  var parts = [];
+  if (mt.traitName) parts.push(mt.traitName);
+  if (mt.desc) parts.push(mt.desc);
+  if (!parts.length) parts.push('常规敌人');
+  return parts.join('：');
+};
+
+Game.prototype.getMonsterSpawnSlots = function(count) {
+  var templates = [
+    { x: 0.18, y: 0.18 }, { x: 0.50, y: 0.16 }, { x: 0.82, y: 0.20 },
+    { x: 0.28, y: 0.38 }, { x: 0.62, y: 0.40 },
+    { x: 0.16, y: 0.58 }, { x: 0.48, y: 0.62 }, { x: 0.80, y: 0.60 }
+  ];
+  for (var i = templates.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = templates[i];
+    templates[i] = templates[j];
+    templates[j] = tmp;
+  }
+  return templates.slice(0, Math.max(1, count));
+};
+
+// F1：稀有遭遇判定。roll 可由测试显式传入，避免依赖随机源。
+// 每波最多替换 1 只普通怪；BOSS 波与低波次不触发；只从已达出现波次的隐藏怪里挑。
+Game.prototype.pickHiddenEncounter = function(roll) {
+  if (this.wave % 10 === 0) return null;
+  if (this.wave < HIDDEN_ENCOUNTER_MIN_WAVE) return null;
+  var r = (typeof roll === 'number') ? roll : Math.random();
+  if (r >= HIDDEN_ENCOUNTER_CHANCE) return null;
+  var pool = [];
+  for (var i = 0; i < HIDDEN_MONSTER_TYPES.length; i++) {
+    if (this.wave >= HIDDEN_MONSTER_TYPES[i].wave) pool.push(HIDDEN_MONSTER_TYPES[i]);
+  }
+  if (!pool.length) return null;
+  return pool[Math.floor(Math.random() * pool.length)];
+};
+
 Game.prototype.spawnWave = function() {
   this.updateBattleScene(false);
   var isBoss = this.wave % 10 === 0;
-  var count;
-  if (isBoss) {
-    count = 1;
-  } else if (this.wave <= 5) {
-    count = 2;
-  } else if (this.wave <= 15) {
-    count = 3;
-  } else {
-    count = 4;
-  }
+  var count = isBoss ? 1 : this.getRandomMonsterCount();
   var hp = CONFIG.monsterHp(this.wave);
   this.monsters = [];
-  var spawnXPool = [0.18, 0.38, 0.62, 0.82];
-  for (var sp = spawnXPool.length - 1; sp > 0; sp--) {
-    var swapIdx = Math.floor(Math.random() * (sp + 1));
-    var tmpX = spawnXPool[sp];
-    spawnXPool[sp] = spawnXPool[swapIdx];
-    spawnXPool[swapIdx] = tmpX;
-  }
+  var spawnSlots = this.getMonsterSpawnSlots(count);
   // BOSS用专属形象（按波次循环选取）
   var bossIdx = Math.floor(this.wave / 10 - 1) % BOSS_TYPES.length;
   var bossType = BOSS_TYPES[Math.max(0, bossIdx)];
@@ -3800,23 +4342,44 @@ Game.prototype.spawnWave = function() {
   if (!availableTypes.length) availableTypes = [MONSTER_TYPES[0]];
   for (var i = 0; i < count; i++) {
     var mType = isBoss ? bossType : availableTypes[Math.floor(Math.random() * availableTypes.length)];
-    var spawnX = isBoss ? 0.5 : spawnXPool[i % spawnXPool.length] + (Math.random() * 0.08 - 0.04);
-    var spawnY = isBoss ? 0.42 : 0.28 + Math.random() * 0.42;
+    // F1：每波首只有机会替换为稀有隐藏怪；替换后属性 / 弱点 / trait 全部走真实数据。
+    if (!isBoss && i === 0) {
+      var hiddenType = this.pickHiddenEncounter();
+      if (hiddenType) {
+        mType = hiddenType;
+        this.showToast('✨ 稀有遭遇！' + hiddenType.name + ' 出现了');
+      }
+    }
+    var variant = this.pickMonsterVariant(isBoss);
+    var sizeVariant = variant.size || MONSTER_SIZE_VARIANTS[2];
+    var affix = variant.affix || MONSTER_AFFIXES[0];
+    var slot = spawnSlots[i % spawnSlots.length] || { x: 0.5, y: 0.4 };
+    var spawnX = isBoss ? 0.5 : slot.x + (Math.random() * 0.08 - 0.04);
+    var spawnY = isBoss ? 0.42 : slot.y + (Math.random() * 0.08 - 0.04);
+    var hpMult = isBoss ? CONFIG.bossHpMult(this.wave) : (sizeVariant.hp || 1) * (affix.hp || 1) * (count >= 6 ? 0.86 : 1);
+    var atkMult = (sizeVariant.atk || 1) * (affix.atk || 1);
+    var moveMult = (sizeVariant.move || 1) * (affix.move || 1);
+    var baseHp = Math.max(1, Math.floor(hp * hpMult));
     this.monsters.push({
-      hp: isBoss ? hp * CONFIG.bossHpMult(this.wave) : hp,
-      maxHp: isBoss ? hp * CONFIG.bossHpMult(this.wave) : hp,
+      hp: baseHp,
+      maxHp: baseHp,
       isBoss: isBoss,
       type: mType,
-      armor: (mType.armor || 0) + Math.floor(this.wave / 80) * (isBoss ? 4 : 2),
-      resist: (mType.resist || 0) + Math.floor(this.wave / 80) * (isBoss ? 4 : 2),
+      displayName: isBoss ? mType.name : this.getMonsterDisplayName(mType, sizeVariant, affix),
+      sizeVariant: sizeVariant,
+      affix: affix,
+      sizeScale: sizeVariant.scale || 1,
+      attackMult: atkMult,
+      armor: Math.max(0, (mType.armor || 0) + Math.floor(this.wave / 80) * (isBoss ? 4 : 2) + (sizeVariant.armor || 0) + (affix.armor || 0)),
+      resist: Math.max(0, (mType.resist || 0) + Math.floor(this.wave / 80) * (isBoss ? 4 : 2) + (sizeVariant.resist || 0) + (affix.resist || 0)),
       weakness: mType.weakness || 'phys',
       trait: mType.trait || '',
       spawnX: Math.max(0.12, Math.min(0.88, spawnX)),
-      spawnY: Math.max(0.18, Math.min(0.82, spawnY)),
-      sizeJitter: isBoss ? Math.floor(Math.random() * 9) - 4 : Math.floor(Math.random() * 9) - 4,
-      moveRange: isBoss ? 26 : 14 + Math.floor(Math.random() * 18),
-      moveDur: isBoss ? 1900 + Math.floor(Math.random() * 500) : 1200 + Math.floor(Math.random() * 1100),
-      floatRange: isBoss ? 7 : 3 + Math.floor(Math.random() * 4),
+      spawnY: Math.max(0.08, Math.min(0.74, spawnY)),
+      sizeJitter: isBoss ? Math.floor(Math.random() * 9) - 4 : Math.floor(Math.random() * 7) - 3,
+      moveRange: isBoss ? 26 : Math.floor((10 + Math.floor(Math.random() * 22)) * moveMult),
+      moveDur: isBoss ? 1900 + Math.floor(Math.random() * 500) : Math.floor((1050 + Math.floor(Math.random() * 1050)) / Math.max(0.7, moveMult)),
+      floatRange: isBoss ? 7 : Math.max(2, Math.floor((3 + Math.floor(Math.random() * 5)) * moveMult)),
       phase: Math.floor(Math.random() * 500)
     });
     // 图签：标记遇到
@@ -4001,6 +4564,7 @@ Game.prototype.onBossFail = function() {
   setTimeout(function() {
     self.spawnWave();
     self.updateUI();
+    if (self._panelOverlay && self._panelOverlay.parent) return;
     self.openBossFailPanel(hpPct, failedWave);
   }, 1000);
 };
@@ -4009,13 +4573,15 @@ Game.prototype.getBossFailAdvice = function(hpPct, bossWave) {
   return this.getBossPowerAdvice(this.getBossPowerInfo(bossWave || this.getNextBossWave()), hpPct);
 };
 
-Game.prototype.openBossFailPanel = function(hpPct, bossWave) {
+Game.prototype.openBossFailPanel = function(hpPct, bossWave, opts) {
+  opts = opts || {};
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 336;
+  this.setPanelContentHeight(panel, 354);
 
   var title = new eui.Label();
-  title.text = '💀 BOSS挑战失败'; title.size = 18; title.textColor = 0xffffff;
+  title.text = opts.normalDefeat ? '💔 连续战败，先强化一下' : '💀 BOSS挑战失败';
+  title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
@@ -4023,8 +4589,15 @@ Game.prototype.openBossFailPanel = function(hpPct, bossWave) {
   var power = this.getBossPowerInfo(bossWave || this.getNextBossWave());
   var pct = Math.max(0, Math.min(1, power.current / power.recommended));
   var info = new eui.Label();
-  info.text = 'Boss剩余生命约 ' + remain + '%\n战力 ' + this.fmt(power.current) + ' / 推荐 ' + this.fmt(power.recommended) +
-    '\n' + this.getBossFailAdvice(hpPct, power.wave);
+  if (opts.normalDefeat) {
+    // 普通战败没有 BOSS 血量百分比，改为说明「退了多少」+ 可执行的强化建议。
+    info.text = '已连续战败 ' + (opts.streak || 2) + ' 次，从第 ' + (opts.lostWave || this.wave) +
+      ' 波退回第 ' + (opts.retreatWave || this.wave) + ' 波\n战力 ' + this.fmt(power.current) +
+      ' / 下个BOSS建议 ' + this.fmt(power.recommended) + '\n' + this.getBossPowerAdvice(power);
+  } else {
+    info.text = 'Boss剩余生命约 ' + remain + '%\n战力 ' + this.fmt(power.current) + ' / 推荐 ' + this.fmt(power.recommended) +
+      '\n' + this.getBossFailAdvice(hpPct, power.wave);
+  }
   info.size = 12; info.textColor = 0xcccccc;
   info.x = panel._contentX; info.y = 56; info.width = panel._contentW; info.lineSpacing = 6;
   info.wordWrap = true;
@@ -4048,9 +4621,34 @@ Game.prototype.openBossFailPanel = function(hpPct, bossWave) {
   y = this.addPanelRow(panel, y, '秘宝', 0xe67e22, '秘宝阁装备\n转生钻石换永久稀有属性', '去秘宝', 0x3498db, function() {
     self.closePanel(); self.openSupermarket();
   }, false);
-  var btn = this.createButton('继续刷怪', 0x8e44ad, 120, 34, function() { self.closePanel(); }, this);
-  btn.horizontalCenter = 0; btn.y = y + 2;
+
+  var autoHint = new eui.Label();
+  autoHint.text = '4秒后自动关闭，继续刷怪';
+  autoHint.size = 10; autoHint.textColor = THEME.textDim;
+  autoHint.x = panel._contentX; autoHint.y = y + 2; autoHint.width = panel._contentW; autoHint.height = 14;
+  autoHint.textAlign = 'center';
+  panel.addChild(autoHint);
+
+  var btn = this.createButton('继续刷怪(4)', 0x8e44ad, 132, 34, function() { self.closePanel(); }, this);
+  btn.horizontalCenter = 0; btn.y = y + 18;
   panel.addChild(btn);
+
+  var count = 4;
+  var btnLabel = btn.getChildAt ? btn.getChildAt(1) : null;
+  this._panelAutoCloseTimer = this.safeInterval('panelAutoClose', function() {
+    count--;
+    if (!overlay.parent || self._panelOverlay !== overlay) {
+      if (self._panelAutoCloseTimer) clearInterval(self._panelAutoCloseTimer);
+      self._panelAutoCloseTimer = null;
+      return;
+    }
+    if (count <= 0) {
+      self.closePanel();
+      return;
+    }
+    if (btnLabel && btnLabel.text !== undefined) btnLabel.text = '继续刷怪(' + count + ')';
+    if (autoHint && autoHint.text !== undefined) autoHint.text = count + '秒后自动关闭，继续刷怪';
+  }, 1000);
 };
 
 // ==================== 挑战BOSS按钮逻辑 ====================
@@ -4071,12 +4669,7 @@ Game.prototype.challengeBoss = function() {
     this.showToast('⚠️ 需通过第9波后才能挑战BOSS (' + waveInCycle + '/9)');
     return;
   }
-  var power = this.getBossPowerInfo(this.getNextBossWave());
-  if (power.ratio < 0.96) {
-    this.openBossPrepPanel(power);
-    return;
-  }
-  // 满足条件：跳到BOSS波
+  // 满足条件：直接跳到BOSS波，不再弹出战力评估二次确认。
   this.skipToBoss();
 };
 
@@ -4084,7 +4677,7 @@ Game.prototype.openBossPrepPanel = function(power) {
   power = power || this.getBossPowerInfo(this.getNextBossWave());
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 330;
+  this.setPanelContentHeight(panel, 330);
 
   var title = new eui.Label();
   title.text = '💀 BOSS战力评估'; title.size = 18; title.textColor = 0xffffff;
@@ -4256,7 +4849,13 @@ Game.prototype.nextWave = function() {
   this.wave++;
   this.advanceBossRetryLock(clearedWave);
   this.totalCleared++;
-  if (this.wave > this.maxWaveReached) this.maxWaveReached = this.wave;
+  // 成功推进一步即重置连续战败计数与引导标记，避免长期挂机后把偶发战败误判成卡关。
+  this._defeatStreak = 0;
+  this._defeatHintShown = false;
+  if (this.wave > this.maxWaveReached) {
+    this.maxWaveReached = this.wave;
+    this.syncWxFriendRankScore(false);
+  }
   if (wasBoss) {
     this.updateBattleScene(true);
     var nextProgress = this.getProgressInfoForWave(this.wave);
@@ -4289,7 +4888,7 @@ Game.prototype.openPendingBossReward = function() {
 Game.prototype.openBossSuccessPanel = function(stage, rewardInfo) {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 306;
+  this.setPanelContentHeight(panel, 306);
   var cleared = this.getProgressInfoForBossStage(stage);
   var next = this.getProgressInfoForWave(this.wave);
 
@@ -4433,9 +5032,8 @@ Game.prototype.recruitSupport = function(idx) {
   if (!s || !def) return;
   if (!this.isSupportAvailable(idx)) { this.showToast('尚未达到招募条件！'); return; }
   if (s.unlocked) { this.showToast(s.name + '已加入队伍'); return; }
-  var cost = CONFIG.supportRecruitCost(idx);
-  if (this.gold < cost) { this.showToast('金币不足！'); return; }
-  this.gold -= cost;
+  var price = this.getSupportRecruitPrice(idx);
+  if (!this.paySupportRecruitPrice(price)) return;
   s.unlocked = true;
   s.notified = true;
   this.showToast('🌟 招募成功：【' + s.name + '】加入队伍！');
@@ -4539,8 +5137,9 @@ Game.prototype.updateWaveNumbers = function() {
 };
 
 Game.prototype.updateUI = function() {
-  if (this.goldLabel) this.goldLabel.text = '💰 ' + this.fmt(this.gold);
+  if (this.goldLabel) this.goldLabel.text = this.fmt(this.gold);
   if (this.waveLabel) this.waveLabel.text = 'Lv.' + this.mainLevel;
+  this.refreshJobHud();
   this.updateWaveNumbers();
   if (this.levelLabel) this.levelLabel.text = 'Lv.' + this.mainLevel;
   if (this.dpsLabel) this.dpsLabel.text = 'DPS: ' + this.fmt(this.totalDps());
@@ -4568,7 +5167,8 @@ Game.prototype.updateUI = function() {
     this.waveFill.width = (waveInCycle / 10) * wMax;
   }
   if (this.buffLabel) this.buffLabel.text = this.renderBuffText();
-  if (this.gemsLabel) this.gemsLabel.text = '💎 ' + this.rebirthGems;
+  if (this.gemsLabel) this.gemsLabel.text = String(this.rebirthGems || 0);
+  this.applyDetailMode();
   // 更新HP条
   if (this.hpFill && this.hpLabel && this.monsters.length > 0) {
     var hpMax = this._hpMaxWidth || 140;
@@ -4597,6 +5197,22 @@ Game.prototype.updateUI = function() {
   this.updateSkillBtns();
 };
 
+Game.prototype.applyDetailMode = function() {
+  var detail = this.detailMode !== false;
+  if (this._heroNameBg) this._heroNameBg.visible = detail;
+  if (this._heroNameLabel) this._heroNameLabel.visible = detail;
+  if (this.levelLabel) this.levelLabel.visible = detail;
+  if (this.dpsLabel) this.dpsLabel.visible = detail;
+  if (!this.monsterViews) return;
+  for (var i = 0; i < this.monsterViews.length; i++) {
+    var mv = this.monsterViews[i];
+    if (!mv || !mv._detailViews) continue;
+    for (var j = 0; j < mv._detailViews.length; j++) {
+      if (mv._detailViews[j]) mv._detailViews[j].visible = detail;
+    }
+  }
+};
+
 Game.prototype.updateMonsterDisplay = function() {
   // 清除旧的怪物显示
   for (var i = 0; i < this.monsterViews.length; i++) {
@@ -4617,6 +5233,7 @@ Game.prototype.updateMonsterDisplay = function() {
   if (this.damageLayer && this.damageLayer.parent) {
     this.battleGroup.setChildIndex(this.damageLayer, this.battleGroup.numChildren - 1);
   }
+  this.applyDetailMode();
 };
 
 Game.prototype.updateMonsterHealthView = function(idx) {
@@ -4642,9 +5259,9 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   // 每只怪物大小不同：基础尺寸 + 按 idx 的随机偏移
   var baseSz = m.isBoss ? 84 : 54;
   var sizeVariants = [0, 8, -6, 10, -4, 6, -8, 4]; // 每个位置的大小偏移
-  var sz = baseSz + (m.sizeJitter !== undefined ? m.sizeJitter : (sizeVariants[idx % sizeVariants.length] || 0));
+  var sz = Math.floor(baseSz * (m.sizeScale || 1)) + (m.sizeJitter !== undefined ? m.sizeJitter : (sizeVariants[idx % sizeVariants.length] || 0));
   if (m.isBoss) sz = Math.max(78, Math.min(96, sz));
-  else sz = Math.max(44, Math.min(64, sz));
+  else sz = Math.max(36, Math.min(74, sz));
   var mType = m.type || MONSTER_TYPES[0];
 
   // 怪物在中央战斗区随机出生，保留足够边界给来回走动。
@@ -4652,8 +5269,8 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   var centerMaxX = cw - 18;
   var spawnX = m.spawnX !== undefined ? m.spawnX : ((idx + 0.5) / Math.max(1, total));
   var spawnY = m.spawnY !== undefined ? m.spawnY : 0.45;
-  var labelText = m.isBoss ? mType.name : mType.name;
-  var badgeW = m.isBoss ? 82 : 62;
+  var labelText = m.displayName || (m.isBoss ? mType.name : mType.name);
+  var badgeW = m.isBoss ? 82 : Math.max(54, Math.min(86, labelText.length * 12 + 10));
   badgeW = Math.max(badgeW, m.isBoss ? 62 : 46);
   var visualW = Math.max(sz, badgeW);
   var labelBlockH = m.isBoss ? 42 : 38;
@@ -4701,7 +5318,7 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   g.addChild(badge);
   var nameLabel = new eui.Label();
   nameLabel.text = labelText;
-  nameLabel.size = m.isBoss ? 10 : 9;
+  nameLabel.size = m.isBoss ? 10 : (labelText.length > 4 ? 8 : 9);
   nameLabel.textColor = 0xffffff; nameLabel.bold = true;
   nameLabel.width = badgeW; nameLabel.height = badgeH;
   nameLabel.textAlign = 'center';
@@ -4710,7 +5327,10 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   g.addChild(nameLabel);
 
   var traitLabel = new eui.Label();
-  traitLabel.text = this.getDamageTypeName(m.weakness) + '弱' + (mType.traitName ? ' · ' + mType.traitName : '');
+  var traitParts = [this.getDamageTypeName(m.weakness) + '弱'];
+  if (m.affix && m.affix.traitName) traitParts.push(m.affix.traitName);
+  if (mType.traitName) traitParts.push(mType.traitName);
+  traitLabel.text = traitParts.join(' · ');
   traitLabel.size = 7; traitLabel.textColor = m.weakness === 'magic' ? 0x9be7ff : (m.weakness === 'true' ? 0xffd166 : 0xffc0a8);
   traitLabel.width = visualW; traitLabel.height = 10; traitLabel.textAlign = 'center';
   traitLabel.x = 0; traitLabel.y = Math.max(0, badgeY - 10);
@@ -4744,6 +5364,10 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   hpText.x = 0; hpText.y = hpY + hpH + 1;
   g.addChild(hpText);
   g._hpText = hpText;
+  g._detailViews = [badge, nameLabel, traitLabel, hpText];
+  if (this.detailMode === false) {
+    for (var dv = 0; dv < g._detailViews.length; dv++) g._detailViews[dv].visible = false;
+  }
 
   // === 走动动画 ===
   var moveRange = m.moveRange || (m.isBoss ? 18 : (10 + idx * 4));
@@ -5383,10 +6007,16 @@ Game.prototype.updateSkillBtns = function() {
 
 // ==================== 面板系统 ====================
 
-Game.prototype.createPanelOverlay = function() {
+Game.prototype.createPanelOverlay = function(options) {
+  options = options || {};
+  if (this._panelAutoCloseTimer) {
+    clearInterval(this._panelAutoCloseTimer);
+    this._panelAutoCloseTimer = null;
+  }
   if (this._panelOverlay && this._panelOverlay.parent) {
     this._panelOverlay.parent.removeChild(this._panelOverlay);
   }
+  this._activePanel = null;
   var overlay = new eui.Group();
   // 铺满整个舞台（包括动态调整后的尺寸），避免旋转 / 地址栏伸缩后出现裸露区域
   if (this.main.stage) {
@@ -5400,8 +6030,11 @@ Game.prototype.createPanelOverlay = function() {
   overlay.touchEnabled = true;
   var dim = new eui.Rect();
   dim.percentWidth = 100; dim.percentHeight = 100;
-  dim.fillColor = 0x03020a; dim.fillAlpha = 0.68;
+  var isWxLayout = typeof window !== 'undefined' && !!window.DMAX_WX_SAFE_AREA;
+  dim.fillColor = options.dimColor !== undefined ? options.dimColor : 0x070416;
+  dim.fillAlpha = options.dimAlpha !== undefined ? options.dimAlpha : (isWxLayout ? 0.42 : 0.58);
   overlay.addChild(dim);
+  overlay._dim = dim;
   this._panelOverlay = overlay;
   // 加到 stage 上，不受布局影响
   if (this.main.stage) {
@@ -5413,10 +6046,15 @@ Game.prototype.createPanelOverlay = function() {
 };
 
 Game.prototype.closePanel = function() {
+  if (this._panelAutoCloseTimer) {
+    clearInterval(this._panelAutoCloseTimer);
+    this._panelAutoCloseTimer = null;
+  }
   if (this._panelOverlay && this._panelOverlay.parent) {
     this._panelOverlay.parent.removeChild(this._panelOverlay);
   }
   this._panelOverlay = null;
+  this._activePanel = null;
   this._upgradeScroller = null;
 };
 
@@ -5430,41 +6068,55 @@ Game.prototype.onStageResize = function() {
     this._panelOverlay.width = stage.stageWidth;
     this._panelOverlay.height = stage.stageHeight;
   }
+  if (this._activePanel) {
+    var safeTop = Math.max(0, this._safeTop || 0);
+    var safeBottom = Math.max(0, this._safeBottom || 0);
+    this._activePanel.width = stage.stageWidth;
+    this._activePanel.height = Math.max(480, stage.stageHeight - safeTop - safeBottom);
+    this._activePanel.y = safeTop;
+    this._activePanel._contentW = this._activePanel.width - 32;
+  }
 };
 
-Game.prototype.addPanelContent = function(overlay) {
+Game.prototype.addPanelContent = function(overlay, options) {
+  options = options || {};
   var panel = new eui.Group();
   var stageW = overlay.width || 375;
   var stageH = overlay.height || 667;
-  panel.width = Math.min(348, stageW - 22);
-  panel.height = Math.min(500, stageH - 72);
-  panel.horizontalCenter = 0; panel.verticalCenter = 0;
+  var safeTop = Math.max(0, this._safeTop || 0);
+  var safeBottom = Math.max(0, this._safeBottom || 0);
+  panel.width = stageW;
+  panel.height = Math.max(480, stageH - safeTop - safeBottom);
+  panel.x = 0; panel.y = safeTop;
   panel._contentX = 16;
   panel._contentW = panel.width - 32;
+  panel._pageMode = true;
+  panel._pageHeight = panel.height;
+  panel._headerH = 50;
 
   var panelBg = new eui.Rect();
   panelBg.percentWidth = 100; panelBg.percentHeight = 100;
-  panelBg.fillColor = 0x140d32; panelBg.ellipseWidth = 14; panelBg.ellipseHeight = 14;
-  panelBg.strokeColor = THEME.strokeGold; panelBg.strokeWeight = 1.5; panelBg.strokeAlpha = 0.9;
+  panelBg.fillColor = 0x100a2a; panelBg.ellipseWidth = 0; panelBg.ellipseHeight = 0;
+  panelBg.strokeColor = THEME.strokeGold; panelBg.strokeWeight = 0; panelBg.strokeAlpha = 0;
   panel.addChild(panelBg);
 
   var innerStroke = new eui.Rect();
-  innerStroke.width = panel.width - 8; innerStroke.percentHeight = 100;
-  innerStroke.x = 4; innerStroke.y = 4;
-  innerStroke.ellipseWidth = 12; innerStroke.ellipseHeight = 12;
+  innerStroke.width = panel.width - 12; innerStroke.height = panel.height - 12;
+  innerStroke.x = 6; innerStroke.y = 6;
+  innerStroke.ellipseWidth = 0; innerStroke.ellipseHeight = 0;
   innerStroke.fillAlpha = 0;
-  innerStroke.strokeColor = 0xffffff; innerStroke.strokeWeight = 0.7; innerStroke.strokeAlpha = 0.1;
+  innerStroke.strokeColor = THEME.strokeGold; innerStroke.strokeWeight = 0.8; innerStroke.strokeAlpha = 0.18;
   panel.addChild(innerStroke);
 
   var headerBg = new eui.Rect();
-  headerBg.percentWidth = 100; headerBg.height = 42;
-  headerBg.fillColor = 0x21154c; headerBg.fillAlpha = 0.98;
-  headerBg.ellipseWidth = 14; headerBg.ellipseHeight = 14;
+  headerBg.percentWidth = 100; headerBg.height = panel._headerH;
+  headerBg.fillColor = 0x17103a; headerBg.fillAlpha = 0.98;
+  headerBg.ellipseWidth = 0; headerBg.ellipseHeight = 0;
   panel.addChild(headerBg);
 
   var headerMask = new eui.Rect();
-  headerMask.percentWidth = 100; headerMask.height = 13;
-  headerMask.y = 29; headerMask.fillColor = 0x21154c;
+  headerMask.percentWidth = 100; headerMask.height = 1;
+  headerMask.y = panel._headerH - 1; headerMask.fillColor = THEME.strokeGold; headerMask.fillAlpha = 0.38;
   panel.addChild(headerMask);
 
   var topGlow = new eui.Rect();
@@ -5472,27 +6124,81 @@ Game.prototype.addPanelContent = function(overlay) {
   topGlow.top = 0; topGlow.fillColor = THEME.accent; topGlow.fillAlpha = 0.55;
   panel.addChild(topGlow);
   overlay.addChild(panel);
+  this._activePanel = panel;
 
+  var closeBtnGroup = new eui.Group();
+  closeBtnGroup.width = 84; closeBtnGroup.height = 34;
+  closeBtnGroup.x = 12; closeBtnGroup.top = 8;
+  closeBtnGroup.touchEnabled = true;
+  var closeGlow = new eui.Rect();
+  closeGlow.width = 84; closeGlow.height = 34;
+  closeGlow.ellipseWidth = 14; closeGlow.ellipseHeight = 14;
+  closeGlow.fillColor = 0xfbbf24; closeGlow.fillAlpha = 0.08;
+  closeBtnGroup.addChild(closeGlow);
   var closeBtnBg = new eui.Rect();
-  closeBtnBg.width = 28; closeBtnBg.height = 28;
+  closeBtnBg.width = 84; closeBtnBg.height = 34;
   closeBtnBg.ellipseWidth = 14; closeBtnBg.ellipseHeight = 14;
   closeBtnBg.fillColor = 0x0b0820;
-  closeBtnBg.strokeColor = THEME.strokeGold; closeBtnBg.strokeWeight = 1; closeBtnBg.strokeAlpha = 0.72;
-  closeBtnBg.right = 10; closeBtnBg.top = 7;
-  closeBtnBg.touchEnabled = true;
-  panel.addChild(closeBtnBg);
+  closeBtnBg.strokeColor = THEME.strokeGold; closeBtnBg.strokeWeight = 1.2; closeBtnBg.strokeAlpha = 0.86;
+  closeBtnGroup.addChild(closeBtnBg);
+  var closeIconBg = new eui.Rect();
+  closeIconBg.width = 24; closeIconBg.height = 24;
+  closeIconBg.x = 6; closeIconBg.y = 5;
+  closeIconBg.ellipseWidth = 12; closeIconBg.ellipseHeight = 12;
+  closeIconBg.fillColor = 0x24183f; closeIconBg.strokeColor = THEME.accentSoft;
+  closeIconBg.strokeWeight = 0.8; closeIconBg.strokeAlpha = 0.7;
+  closeBtnGroup.addChild(closeIconBg);
+  var closeArrow = new eui.Label();
+  closeArrow.text = '‹'; closeArrow.size = 24; closeArrow.textColor = THEME.textGold; closeArrow.bold = true;
+  closeArrow.width = 24; closeArrow.height = 24;
+  closeArrow.x = 6; closeArrow.y = 3;
+  closeArrow.textAlign = 'center'; closeArrow.verticalAlign = 'middle';
+  closeBtnGroup.addChild(closeArrow);
   var closeBtn = new eui.Label();
-  closeBtn.text = '×'; closeBtn.size = 19; closeBtn.textColor = THEME.accentSoft; closeBtn.bold = true;
-  closeBtn.width = 28; closeBtn.height = 28;
-  closeBtn.right = 10; closeBtn.top = 7;
+  closeBtn.text = options.backText || '返回'; closeBtn.size = 13; closeBtn.textColor = THEME.accentSoft; closeBtn.bold = true;
+  closeBtn.width = 48; closeBtn.height = 32;
+  closeBtn.x = 31; closeBtn.y = 1;
   closeBtn.textAlign = 'center'; closeBtn.verticalAlign = 'middle';
-  closeBtn.touchEnabled = true;
+  closeBtn.touchEnabled = false;
+  closeBtnGroup.addChild(closeBtn);
   var self = this;
-  closeBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
-  closeBtnBg.addEventListener(egret.TouchEvent.TOUCH_TAP, function() { self.closePanel(); }, this);
-  panel.addChild(closeBtn);
+  var backHandler = options.onBack || function() { self.closePanel(); };
+  closeBtnGroup.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.sfxClick();
+    backHandler.call(self);
+  }, this);
+  panel.addChild(closeBtnGroup);
 
   return panel;
+};
+
+Game.prototype.setPanelContentHeight = function(panel, height) {
+  if (!panel) return;
+  panel._contentDesiredHeight = height;
+};
+
+Game.prototype.addPageMetricCard = function(parent, x, y, w, h, title, value, color) {
+  var bg = new eui.Rect();
+  bg.width = w; bg.height = h;
+  bg.ellipseWidth = 8; bg.ellipseHeight = 8;
+  bg.fillColor = 0x151038; bg.fillAlpha = 0.96;
+  bg.strokeColor = color || THEME.strokeGold; bg.strokeWeight = 1; bg.strokeAlpha = 0.5;
+  bg.x = x; bg.y = y;
+  parent.addChild(bg);
+
+  var titleLb = new eui.Label();
+  titleLb.text = title; titleLb.size = 9; titleLb.textColor = THEME.textDim;
+  titleLb.x = x + 8; titleLb.y = y + 7; titleLb.width = w - 16; titleLb.height = 12;
+  parent.addChild(titleLb);
+
+  var valueLb = new eui.Label();
+  valueLb.text = value; valueLb.size = 12; valueLb.bold = true; valueLb.textColor = color || THEME.textMain;
+  valueLb.x = x + 8; valueLb.y = y + 23; valueLb.width = w - 16; valueLb.height = 16;
+  valueLb.wordWrap = true;
+  parent.addChild(valueLb);
+  bg._titleLabel = titleLb;
+  bg._valueLabel = valueLb;
+  return bg;
 };
 
 Game.prototype.addPanelRow = function(panel, y, iconText, iconColor, infoText, btnText, btnColor, handler, disabled) {
@@ -5550,51 +6256,64 @@ Game.prototype.createPanelScrollContent = function(panel, top, bottom) {
   scroller.y = top;
   scroller.width = panel._contentW !== undefined ? panel._contentW : (panel.width - 32);
   scroller.height = Math.max(80, panel.height - top - (bottom || 14));
+  scroller.scrollPolicyH = eui.ScrollPolicy ? eui.ScrollPolicy.OFF : 'off';
+  scroller.scrollPolicyV = eui.ScrollPolicy ? eui.ScrollPolicy.AUTO : 'auto';
+  scroller.bounces = false;
   var content = new eui.Group();
   content.width = scroller.width;
+  content.scrollH = 0;
   scroller.viewport = content;
+  scroller.addEventListener(egret.Event.CHANGE, function() {
+    if (content.scrollH !== 0) content.scrollH = 0;
+  }, this);
   panel.addChild(scroller);
   content._scroller = scroller;
   return content;
 };
 
-Game.prototype.addUpgradeCard = function(parent, x, y, w, iconText, iconColor, titleText, metaText, btnText, btnColor, handler, disabled) {
-  var h = 78;
+Game.prototype.addUpgradeCard = function(parent, x, y, w, iconText, iconColor, titleText, metaText, btnText, btnColor, handler, disabled, iconAsset) {
+  var h = 96;
   var bg = new eui.Rect();
   bg.width = w; bg.height = h; bg.fillColor = THEME.bgRow;
   bg.strokeColor = THEME.strokeSoft; bg.strokeWeight = 1; bg.strokeAlpha = 0.7;
-  bg.ellipseWidth = 8; bg.ellipseHeight = 8;
+  bg.ellipseWidth = 10; bg.ellipseHeight = 10;
   bg.x = x; bg.y = y;
   parent.addChild(bg);
 
   var iconBg = new eui.Rect();
-  iconBg.width = 34; iconBg.height = 34; iconBg.fillColor = iconColor;
+  iconBg.width = 48; iconBg.height = 48; iconBg.fillColor = iconColor;
   iconBg.strokeColor = THEME.accentSoft; iconBg.strokeWeight = 1; iconBg.strokeAlpha = 0.65;
-  iconBg.ellipseWidth = 8; iconBg.ellipseHeight = 8;
-  iconBg.x = x + 8; iconBg.y = y + 10;
+  iconBg.ellipseWidth = 12; iconBg.ellipseHeight = 12;
+  iconBg.x = x + 10; iconBg.y = y + 14;
   parent.addChild(iconBg);
 
-  var iconLb = new eui.Label();
-  iconLb.text = iconText; iconLb.size = iconText.length > 2 ? 9 : 10;
-  iconLb.textColor = THEME.textMain; iconLb.bold = true;
-  iconLb.width = 34; iconLb.height = 34; iconLb.x = iconBg.x; iconLb.y = iconBg.y;
-  iconLb.textAlign = 'center'; iconLb.verticalAlign = 'middle';
-  parent.addChild(iconLb);
+  if (iconAsset) {
+    var iconImg = new eui.Image();
+    this.fitImageToBox(iconImg, iconAsset, 44, 44, iconBg.x + 2, iconBg.y + 2);
+    parent.addChild(iconImg);
+  } else {
+    var iconLb = new eui.Label();
+    iconLb.text = iconText; iconLb.size = iconText.length > 2 ? 10 : 13;
+    iconLb.textColor = THEME.textMain; iconLb.bold = true;
+    iconLb.width = 48; iconLb.height = 48; iconLb.x = iconBg.x; iconLb.y = iconBg.y;
+    iconLb.textAlign = 'center'; iconLb.verticalAlign = 'middle';
+    parent.addChild(iconLb);
+  }
 
   var titleLb = new eui.Label();
-  titleLb.text = titleText; titleLb.size = 11; titleLb.textColor = THEME.textMain; titleLb.bold = true;
-  titleLb.x = x + 50; titleLb.y = y + 9; titleLb.width = w - 58;
+  titleLb.text = titleText; titleLb.size = 13; titleLb.textColor = THEME.textMain; titleLb.bold = true;
+  titleLb.x = x + 70; titleLb.y = y + 12; titleLb.width = w - 150;
   parent.addChild(titleLb);
 
   var metaLb = new eui.Label();
-  metaLb.text = metaText; metaLb.size = 9; metaLb.textColor = THEME.textDim;
-  metaLb.x = x + 50; metaLb.y = y + 28; metaLb.width = w - 58;
-  metaLb.lineSpacing = 3; metaLb.wordWrap = true;
+  metaLb.text = metaText; metaLb.size = 10; metaLb.textColor = THEME.textDim;
+  metaLb.x = x + 70; metaLb.y = y + 34; metaLb.width = w - 150;
+  metaLb.lineSpacing = 4; metaLb.wordWrap = true;
   parent.addChild(metaLb);
 
   if (btnText) {
-    var btn = this.createButton(btnText, btnColor || THEME.accent, 70, 24, handler, this);
-    btn.x = x + w - 78; btn.y = y + h - 30;
+    var btn = this.createButton(btnText, btnColor || THEME.accent, 78, 30, handler, this);
+    btn.x = x + w - 90; btn.y = y + 34;
     if (disabled) {
       btn.alpha = 0.4;
       btn.touchEnabled = false;
@@ -5669,53 +6388,90 @@ Game.prototype.openUpgrade = function(tabName) {
   panel.addChild(title);
 
   var self = this;
-  var y = 54;
-
-  // 主角（显示当前 + 下一级预览）
+  var bossInfo = this.getBossPowerInfo(this.getNextBossWave());
   var mainCost = CONFIG.upgradeCost(this.mainLevel);
   var mainNextDmg = CONFIG.mainDmg(this.mainLevel + 1, this.rebirthGems);
-  var mainRowStart = y;
-  y = this.addPanelRow(panel, y, '主角', 0x3498db,
-    '主角 Lv.' + this.mainLevel + '  伤害: ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) +
-    '\n生命 ' + this.fmt(this.getMaxPlayerHp()) + ' 防御 ' + this.getPlayerDefense() + ' → 伤害+' + this.fmt(mainNextDmg - CONFIG.mainDmg(this.mainLevel, this.rebirthGems)),
-    this.fmt(mainCost) + '金',
-    0x27ae60,
-    function() { self.upgradeMain(); },
-    this.gold < mainCost
-  );
   var batch10 = this.getAffordableMainLevels(10);
   var batch100 = this.getAffordableMainLevels(100);
-  if (batch10 >= 10 || batch100 >= 100) {
-    var batchY = mainRowStart + 64;
-    if (batch10 >= 10) {
-      var up10 = this.createButton('+10级', 0x2d8f62, 58, 22, function() { self.upgradeMainBatch(10); }, this);
-      up10.x = panel._contentX + panel._contentW - 132; up10.y = batchY;
-      panel.addChild(up10);
-    }
-    if (batch100 >= 100) {
-      var up100 = this.createButton('+100级', 0xd99022, 66, 22, function() { self.upgradeMainBatch(100); }, this);
-      up100.x = panel._contentX + panel._contentW - 68; up100.y = batchY;
-      panel.addChild(up100);
-    }
-    y += 26;
+
+  var heroY = 58;
+  var heroH = 106;
+  var heroBg = new eui.Rect();
+  heroBg.width = panel._contentW; heroBg.height = heroH;
+  heroBg.x = panel._contentX; heroBg.y = heroY;
+  heroBg.ellipseWidth = 12; heroBg.ellipseHeight = 12;
+  heroBg.fillColor = 0x151038; heroBg.fillAlpha = 0.98;
+  heroBg.strokeColor = THEME.strokeGold; heroBg.strokeWeight = 1; heroBg.strokeAlpha = 0.45;
+  panel.addChild(heroBg);
+
+  var heroIconBg = new eui.Rect();
+  heroIconBg.width = 58; heroIconBg.height = 58;
+  heroIconBg.x = panel._contentX + 10; heroIconBg.y = heroY + 12;
+  heroIconBg.ellipseWidth = 12; heroIconBg.ellipseHeight = 12;
+  heroIconBg.fillColor = 0x21164d;
+  heroIconBg.strokeColor = THEME.accentSoft; heroIconBg.strokeWeight = 1; heroIconBg.strokeAlpha = 0.75;
+  panel.addChild(heroIconBg);
+  var heroIcon = new eui.Image();
+  this.fitImageToBox(heroIcon, UPGRADE_ICON_ASSETS.hero, 54, 54, heroIconBg.x + 2, heroIconBg.y + 2);
+  panel.addChild(heroIcon);
+
+  var archiveBtn = this.createButton('  档案', 0x30245f, 58, 24, function() {
+    self.openLeaderboard({ returnTo: 'upgrade', tab: self.upgradePanelTab || 'skills' });
+  }, this);
+  archiveBtn.x = panel._contentX + 10; archiveBtn.y = heroY + 76;
+  panel.addChild(archiveBtn);
+  var archiveIcon = new eui.Image();
+  this.fitImageToBox(archiveIcon, UPGRADE_ICON_ASSETS.archive, 15, 15, archiveBtn.x + 6, archiveBtn.y + 4);
+  panel.addChild(archiveIcon);
+
+  var heroTitle = new eui.Label();
+  heroTitle.text = '主角 Lv.' + this.mainLevel;
+  heroTitle.size = 14; heroTitle.bold = true; heroTitle.textColor = 0xffffff;
+  heroTitle.x = panel._contentX + 78; heroTitle.y = heroY + 12; heroTitle.width = panel._contentW - 236;
+  panel.addChild(heroTitle);
+
+  var heroStats = new eui.Label();
+  heroStats.text = '战力 ' + this.fmt(bossInfo.current) + '  金币 ' + this.fmt(this.gold) + '\n' +
+    '伤害 ' + this.fmt(CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) + '  下级 +' + this.fmt(mainNextDmg - CONFIG.mainDmg(this.mainLevel, this.rebirthGems)) + '\n' +
+    '生命 ' + this.fmt(this.getMaxPlayerHp()) + '  防御 ' + this.getPlayerDefense() + '  💎' + this.rebirthGems;
+  heroStats.size = 10; heroStats.textColor = THEME.textDim;
+  heroStats.x = panel._contentX + 78; heroStats.y = heroY + 34; heroStats.width = panel._contentW - 236;
+  heroStats.lineSpacing = 4;
+  panel.addChild(heroStats);
+
+  var costIcon = new eui.Image();
+  this.fitImageToBox(costIcon, UPGRADE_ICON_ASSETS.gold, 24, 24, panel._contentX + panel._contentW - 156, heroY + 10);
+  panel.addChild(costIcon);
+  var costText = new eui.Label();
+  costText.text = this.fmt(mainCost) + ' 金';
+  costText.size = 11; costText.bold = true; costText.textColor = this.gold >= mainCost ? THEME.textGold : THEME.danger;
+  costText.x = panel._contentX + panel._contentW - 128; costText.y = heroY + 16; costText.width = 118;
+  costText.textAlign = 'right';
+  panel.addChild(costText);
+
+  function setUpgradeButtonDisabled(btn, disabled) {
+    if (!disabled) return;
+    btn.alpha = 0.42;
+    btn.touchEnabled = false;
+    btn.touchChildren = false;
   }
 
-  // 进度条
-  var progBg = new eui.Rect();
-  progBg.width = panel._contentW; progBg.height = 8; progBg.fillColor = 0x140e36;
-  progBg.x = panel._contentX; progBg.y = y;
-  panel.addChild(progBg);
-  var progFill = new eui.Rect();
-  progFill.width = panel._contentW * (this.killCount / CONFIG.killsNeeded(this.mainLevel));
-  progFill.height = 8; progFill.fillColor = 0xd4a017;
-  progFill.x = panel._contentX; progFill.y = y;
-  panel.addChild(progFill);
-  y += 14;
-  var progText = new eui.Label();
-  progText.text = '击杀进度: ' + this.killCount + '/' + CONFIG.killsNeeded(this.mainLevel);
-  progText.size = 11; progText.textColor = 0x888888; progText.x = panel._contentX; progText.y = y;
-  panel.addChild(progText);
-  y += 24;
+  var btnY = heroY + 58;
+  var btnX = panel._contentX + panel._contentW - 158;
+  var up1 = this.createButton('升1', this.gold >= mainCost ? 0x27ae60 : 0x555555, 48, 30, function() { self.upgradeMain(); }, this);
+  up1.x = btnX; up1.y = btnY;
+  setUpgradeButtonDisabled(up1, this.gold < mainCost);
+  panel.addChild(up1);
+  var up10 = this.createButton('+10', batch10 >= 10 ? 0x2d8f62 : 0x555555, 48, 30, function() { self.upgradeMainBatch(10); }, this);
+  up10.x = btnX + 54; up10.y = btnY;
+  setUpgradeButtonDisabled(up10, batch10 < 10);
+  panel.addChild(up10);
+  var up100 = this.createButton('+100', batch100 >= 100 ? 0xd99022 : 0x555555, 56, 30, function() { self.upgradeMainBatch(100); }, this);
+  up100.x = btnX + 108; up100.y = btnY;
+  setUpgradeButtonDisabled(up100, batch100 < 100);
+  panel.addChild(up100);
+
+  var y = heroY + heroH + 12;
 
   var tabW = Math.floor((panel._contentW - 16) / 3);
   var skillsTab = this.createButton('技能强化', this.upgradePanelTab === 'skills' ? 0x3498db : 0x30245f, tabW, 30, function() {
@@ -5746,15 +6502,22 @@ Game.prototype.openUpgrade = function(tabName) {
   contentList._contentX = 0;
   contentList._contentW = panel._contentW;
   var rowY = 0;
-  var cardGap = 8;
-  var cardW = Math.floor((contentList._contentW - cardGap) / 2);
-  var cardH = 78;
+  var cardGap = 10;
+  var cardW = contentList._contentW;
+  var cardH = 96;
   var cardCount = 0;
+  var listIntro = new eui.Label();
+  listIntro.text = this.upgradePanelTab === 'skills' ? '技能强化影响爆发、控制和BOSS击杀节奏。' :
+    (this.upgradePanelTab === 'supports' ? '辅助英雄提供持续输出、治疗和护盾，未招募前不会参战。' :
+    '装备锻造消耗锻造石，提供稳定的永久战斗属性。');
+  listIntro.size = 11; listIntro.textColor = THEME.textDim;
+  listIntro.x = 2; listIntro.y = 0; listIntro.width = contentList._contentW;
+  listIntro.wordWrap = true;
+  contentList.addChild(listIntro);
+  var listStartY = 30;
   function placeCard() {
-    var col = cardCount % 2;
-    var row = Math.floor(cardCount / 2);
-    cardCount++;
-    return { x: col * (cardW + cardGap), y: row * (cardH + cardGap) };
+    var row = cardCount++;
+    return { x: 0, y: listStartY + row * (cardH + cardGap) };
   }
   if (this.upgradePanelTab === 'skills') {
     var unlockedCount = 0;
@@ -5768,7 +6531,8 @@ Game.prototype.openUpgrade = function(tabName) {
           skill.name, '未解锁\n主角Lv.' + skill.lv + '后开放',
           '', 0x555555,
           function() {},
-          true
+          true,
+          UPGRADE_ICON_ASSETS.skill
         );
         break;
       }
@@ -5788,7 +6552,8 @@ Game.prototype.openUpgrade = function(tabName) {
           self.getDamageTypeName(sd.type) + ' ×' + cm.toFixed(2) + ' / ' + cd + 's\n下级 ×' + nm.toFixed(2) + ' / ' + ncd + 's',
           self.fmt(c) + '金', 0x27ae60,
           function() { self.upgradeSkill(si); },
-          self.gold < c
+          self.gold < c,
+          SKILL_ICON_ASSETS[si] || UPGRADE_ICON_ASSETS.skill
         );
       })(sk, skill, skillLv, skillCost, curMul, nextMul, curCd, nextCd);
     }
@@ -5796,36 +6561,36 @@ Game.prototype.openUpgrade = function(tabName) {
       var allSkill = new eui.Label();
       allSkill.text = '所有技能已解锁，可继续强化已开放技能。';
       allSkill.size = 11; allSkill.textColor = THEME.textDim;
-      allSkill.x = 2; allSkill.y = Math.ceil(cardCount / 2) * (cardH + cardGap) + 4; allSkill.width = contentList._contentW;
+      allSkill.x = 2; allSkill.y = listStartY + cardCount * (cardH + cardGap) + 4; allSkill.width = contentList._contentW;
       contentList.addChild(allSkill);
       rowY = allSkill.y + 28;
     }
   } else if (this.upgradePanelTab === 'supports') {
-    var shownLocked = false;
     for (var i = 0; i < this.supports.length; i++) {
       var s = this.supports[i];
       if (!this.isSupportActive(i)) {
         if (this.isSupportAvailable(i)) {
-          var recruitCost = CONFIG.supportRecruitCost(i);
-          (function(si, sup, c) {
+          var recruitPrice = this.getSupportRecruitPrice(i);
+          (function(si, sup, price) {
             var pos = placeCard();
             self.addUpgradeCard(contentList, pos.x, pos.y, cardW, sup.name.slice(0,2), 0x7a4a1d,
               sup.name + ' 可招募',
               self.getSupportRoleText(si, sup),
-              self.fmt(c) + '金', 0x27ae60,
+              price.label, price.color,
               function() { self.recruitSupport(si); },
-              self.gold < c
+              !price.enough,
+              UPGRADE_ICON_ASSETS.support
             );
-          })(i, s, recruitCost);
-        } else if (!shownLocked) {
-          shownLocked = true;
+          })(i, s, recruitPrice);
+        } else {
           var nextPos = placeCard();
           this.addUpgradeCard(contentList, nextPos.x, nextPos.y, cardW, '?', 0x4a4566,
-            '神秘队友',
+            '神秘队友 ' + (i + 1) + '/8',
             '主角Lv.' + SUPPORTS_DEF[i].recruitLv + '后发现',
             '', 0x555555,
             function() {},
-            true
+            true,
+            UPGRADE_ICON_ASSETS.support
           );
         }
         continue;
@@ -5841,7 +6606,8 @@ Game.prototype.openUpgrade = function(tabName) {
           roleText,
           self.fmt(c) + '金', 0x27ae60,
           function() { self.upgradeSupport(si); },
-          self.gold < c
+          self.gold < c,
+          UPGRADE_ICON_ASSETS.support
         );
       })(i, s, cost, nextDps, curDps);
     }
@@ -5850,7 +6616,7 @@ Game.prototype.openUpgrade = function(tabName) {
     var stoneInfo = new eui.Label();
     stoneInfo.text = '锻造石: ' + this.fmt(this.forgeStones) + '  BOSS必掉，高波小怪低概率掉落';
     stoneInfo.size = 11; stoneInfo.textColor = THEME.textDim;
-    stoneInfo.x = 2; stoneInfo.y = 0; stoneInfo.width = contentList._contentW;
+    stoneInfo.x = 2; stoneInfo.y = 20; stoneInfo.width = contentList._contentW;
     contentList.addChild(stoneInfo);
     rowY = 24;
     for (var eq = 0; eq < EQUIPMENT_DEFS.length; eq++) {
@@ -5868,11 +6634,12 @@ Game.prototype.openUpgrade = function(tabName) {
           ed.desc + ' +' + nowPct + '%\n下阶 +' + nextPct + '%',
           full ? '满阶' : (cost + '石'), 0xe67e22,
           function() { self.upgradeEquipment(ei); },
-          full || self.forgeStones < cost
+          full || self.forgeStones < cost,
+          UPGRADE_ICON_ASSETS.equipment
         );
       })(eq, equip, equipLv, equipCost, statNow, statNext);
     }
-    rowY += Math.ceil(cardCount / 2) * (cardH + cardGap);
+    rowY += listStartY + cardCount * (cardH + cardGap);
     var coreY = rowY + 4;
     this.ensureEquipment();
     var coreBg = new eui.Rect();
@@ -5900,51 +6667,163 @@ Game.prototype.openUpgrade = function(tabName) {
     contentList.addChild(coreDesc);
     rowY = coreY + 76;
   }
-  contentList.height = Math.max(rowY, Math.ceil(cardCount / 2) * (cardH + cardGap)) + 4;
+  contentList.height = Math.max(rowY, listStartY + cardCount * (cardH + cardGap)) + 4;
   if (this._upgradeScroller && this._upgradeScroller.viewport && restoreScroll > 0) {
     var maxScroll = Math.max(0, contentList.height - this._upgradeScroller.height);
     this._upgradeScroller.viewport.scrollV = Math.min(restoreScroll, maxScroll);
   }
 };
 
-// ==================== 超市面板 ====================
+// ==================== 宝库 / 钻石消费入口 ====================
 
-Game.prototype.openSupermarket = function() {
+Game.prototype.openVault = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
+  this.setPanelContentHeight(panel, 430);
 
   var title = new eui.Label();
-  title.text = '✦ 秘宝阁'; title.size = 18; title.textColor = 0xffffff;
+  title.text = '宝库'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
+  var vaultTitleIcon = new eui.Image();
+  this.fitImageToBox(vaultTitleIcon, MODULE_ICON_ASSETS.vaultChest, 30, 30, Math.floor(panel.width / 2) - 54, 10);
+  panel.addChild(vaultTitleIcon);
+
+  this.ensureRelics();
+  var relicOwned = 0;
+  for (var rk in this.foods) {
+    if (this.foods.hasOwnProperty(rk)) relicOwned += this.foods[rk] || 0;
+  }
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '当前钻石', '💎 ' + this.rebirthGems, 0xc7a7ff);
+  var diamondIcon = new eui.Image();
+  this.fitImageToBox(diamondIcon, UI_ASSETS.topHudDiamond, 24, 24, panel._contentX + metricW - 34, 68);
+  panel.addChild(diamondIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '秘宝等级', relicOwned + ' 级', 0xe67e22);
+  var relicMetricIcon = new eui.Image();
+  this.fitImageToBox(relicMetricIcon, MODULE_ICON_ASSETS.vaultRelic, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 68);
+  panel.addChild(relicMetricIcon);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '离线收益', this.offlineCap + ' 小时', 0x9b59b6);
+  var offlineIcon = new eui.Image();
+  this.fitImageToBox(offlineIcon, MODULE_ICON_ASSETS.rebirthHourglass, 24, 24, panel._contentX + metricW - 34, 120);
+  panel.addChild(offlineIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '幸运券', String(this.spinTickets || 0), THEME.sky);
+  var ticketMetricIcon = new eui.Image();
+  this.fitImageToBox(ticketMetricIcon, MODULE_ICON_ASSETS.spinTicket, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 120);
+  panel.addChild(ticketMetricIcon);
+
+  var intro = new eui.Label();
+  intro.text = '宝库统一管理钻石成长：秘宝偏永久属性，补给偏短期消耗；转生天赋强化在「转生」页，此处不重复入口。';
+  intro.size = 11; intro.textColor = THEME.textDim;
+  intro.x = panel._contentX; intro.y = 166; intro.width = panel._contentW;
+  intro.wordWrap = true;
+  panel.addChild(intro);
+
+  var self = this;
+  var y = 202;
+  this.addUpgradeCard(panel, panel._contentX, y, panel._contentW, '秘宝', 0xe67e22,
+    '秘宝阁',
+    '永久属性成长，不会随转生重置\n适合卡BOSS时补攻击、生存或暴击路线',
+    '进入', 0x27ae60,
+    function() { self.closePanel(); self.openSupermarket({ returnTo: 'vault' }); },
+    false,
+    MODULE_ICON_ASSETS.vaultRelic
+  );
+  y += 106;
+  this.addUpgradeCard(panel, panel._contentX, y, panel._contentW, '补给', 0x3498db,
+    '钻石补给',
+    '能量、离线收益、幸运券等消耗品\n承接原钻石商城，用钻石直接兑换',
+    '进入', 0x3498db,
+    function() { self.closePanel(); self.openShop({ returnTo: 'vault' }); },
+    false,
+    MODULE_ICON_ASSETS.vaultDiamondPouch
+  );
+  y += 106;
+
+  var reserve = new eui.Label();
+  reserve.text = '钻石来源：转生结算。天赋与秘宝共用钻石，可按路线分配。';
+  reserve.size = 10; reserve.textColor = THEME.textDim;
+  reserve.x = panel._contentX; reserve.y = y + 2; reserve.width = panel._contentW;
+  reserve.textAlign = 'center';
+  panel.addChild(reserve);
+};
+
+// ==================== 秘宝阁 ====================
+
+Game.prototype.openSupermarket = function(options) {
+  options = options || {};
+  var overlay = this.createPanelOverlay();
+  var self = this;
+  var panel = this.addPanelContent(overlay, {
+    backText: options.returnTo === 'vault' ? '宝库' : '返回',
+    onBack: options.returnTo === 'vault' ? function() {
+      self.openVault();
+    } : null
+  });
+
+  var title = new eui.Label();
+  title.text = '宝库 · 秘宝阁'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+  var relicTitleIcon = new eui.Image();
+  this.fitImageToBox(relicTitleIcon, MODULE_ICON_ASSETS.vaultRelic, 30, 30, Math.floor(panel.width / 2) - 86, 10);
+  panel.addChild(relicTitleIcon);
 
   this.ensureRelics();
   var buffs = this.getBuffs();
-  var buffText = new eui.Label();
-  buffText.text = '钻石: 💎' + this.rebirthGems + '  暴击' + Math.floor(buffs.critChance*100) + '%  攻击×' + buffs.attackMult.toFixed(2);
-  buffText.size = 11; buffText.textColor = 0x888888; buffText.x = panel._contentX; buffText.y = 46;
-  panel.addChild(buffText);
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '钻石', '💎 ' + this.rebirthGems, 0xc7a7ff);
+  var relicDiamondIcon = new eui.Image();
+  this.fitImageToBox(relicDiamondIcon, UI_ASSETS.topHudDiamond, 24, 24, panel._contentX + metricW - 34, 68);
+  panel.addChild(relicDiamondIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '暴击率', Math.floor(buffs.critChance * 100) + '%', 0xffd36e);
+  var relicCritIcon = new eui.Image();
+  this.fitImageToBox(relicCritIcon, MODULE_ICON_ASSETS.vaultRelic, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 68);
+  panel.addChild(relicCritIcon);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '攻击倍率', '×' + buffs.attackMult.toFixed(2), THEME.sky);
+  var relicAtkIcon = new eui.Image();
+  this.fitImageToBox(relicAtkIcon, MODULE_ICON_ASSETS.rebirthTalent, 24, 24, panel._contentX + metricW - 34, 120);
+  panel.addChild(relicAtkIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '生存倍率', '×' + buffs.hpMult.toFixed(2), THEME.mint);
+  var relicHpIcon = new eui.Image();
+  this.fitImageToBox(relicHpIcon, UI_ASSETS.topHudDiamond, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 120);
+  panel.addChild(relicHpIcon);
 
-  var self = this;
-  var y = 68;
+  var list = this.createPanelScrollContent(panel, 170, 14);
+  list._contentX = 0;
+  list._contentW = panel._contentW;
+  var y = 0;
+  var intro = new eui.Label();
+  intro.text = '秘宝提供长期属性，不会在转生时重置。卡BOSS时优先补攻击、生存或暴击路线；转生天赋请在「转生」页升级。';
+  intro.size = 11; intro.textColor = THEME.textDim;
+  intro.x = 2; intro.y = y; intro.width = list._contentW; intro.wordWrap = true;
+  list.addChild(intro);
+  y += 34;
   for (var i = 0; i < FOODS.length; i++) {
     var f = FOODS[i];
     var count = this.foods[f.name] || 0;
     (function(fi, food, c) {
       var full = food.max !== undefined && c >= food.max;
-      y = self.addPanelRow(panel, y, food.icon, 0xe67e22,
-        food.name + ' Lv.' + c + '/' + food.max + '\n' + food.desc,
+      self.addUpgradeCard(list, 0, y, list._contentW, food.icon, 0xe67e22,
+        food.name + ' Lv.' + c + '/' + food.max,
+        food.desc + '\n消耗钻石：' + food.price,
         full ? '满级' : ('💎' + food.price),
         0x27ae60,
-        function() { self.buyFood(fi); },
-        full || self.rebirthGems < food.price
+        function() { self.buyFood(fi, { returnTo: options.returnTo }); },
+        full || self.rebirthGems < food.price,
+        MODULE_ICON_ASSETS.vaultRelic
       );
+      y += 106;
     })(i, f, count);
   }
-  panel.height = y + 16;
+  list.height = y + 8;
+  this.setPanelContentHeight(panel, y + 16);
 };
 
-Game.prototype.buyFood = function(idx) {
+Game.prototype.buyFood = function(idx, options) {
+  options = options || {};
   var f = FOODS[idx];
   this.ensureRelics();
   var cur = this.foods[f.name] || 0;
@@ -5956,7 +6835,7 @@ Game.prototype.buyFood = function(idx) {
   this.saveGame();
   this.updateUI();
   this.closePanel();
-  this.openSupermarket();
+  this.openSupermarket({ returnTo: options.returnTo });
 };
 
 // ==================== 转盘面板 ====================
@@ -5970,6 +6849,7 @@ Game.prototype.resetSpinDaily = function() {
   if (this.spinTickets === undefined) this.spinTickets = 0;
   if (this.spinPity === undefined) this.spinPity = 0;
   if (this.totalSpins === undefined) this.totalSpins = 0;
+  if (!this.spinHistory) this.spinHistory = [];
 };
 
 Game.prototype.getSpinGoldBase = function() {
@@ -5983,6 +6863,16 @@ Game.prototype.getSpinPrizeText = function(prize) {
   if (prize.type === 'food') return prize.value + '×1';
   if (prize.type === 'ticket') return '幸运券×' + prize.value;
   return prize.text;
+};
+
+Game.prototype.getSpinPrizeIconAsset = function(prize) {
+  if (!prize) return MODULE_ICON_ASSETS.spinGift;
+  if (prize.rare || prize.rarity === '大奖') return MODULE_ICON_ASSETS.spinJackpot;
+  if (prize.type === 'ticket') return MODULE_ICON_ASSETS.spinTicket;
+  if (prize.type === 'energy') return MODULE_ICON_ASSETS.vaultEnergyPotion;
+  if (prize.type === 'food') return MODULE_ICON_ASSETS.vaultRelic;
+  if (prize.type === 'goldScale') return MODULE_ICON_ASSETS.vaultDiamondPouch;
+  return MODULE_ICON_ASSETS.spinGift;
 };
 
 Game.prototype.pickSpinPrize = function() {
@@ -6017,7 +6907,103 @@ Game.prototype.grantSpinPrize = function(prize) {
   this.totalSpins = (this.totalSpins || 0) + 1;
   this.spinPity = prize.rare || prize.rarity === '大奖' ? 0 : (this.spinPity || 0) + 1;
   this.lastSpinPrize = prize.text + ' · ' + text;
+  this.pushSpinHistory(prize, text);
   return text;
+};
+
+Game.prototype.formatSpinHistoryTime = function(date) {
+  var h = date.getHours();
+  var m = date.getMinutes();
+  return (h < 10 ? '0' + h : '' + h) + ':' + (m < 10 ? '0' + m : '' + m);
+};
+
+Game.prototype.pushSpinHistory = function(prize, rewardText) {
+  if (!this.spinHistory) this.spinHistory = [];
+  this.spinHistory.unshift({
+    prize: prize.text,
+    reward: rewardText,
+    rarity: prize.rarity || '普通',
+    time: this.formatSpinHistoryTime(new Date())
+  });
+  if (this.spinHistory.length > 6) this.spinHistory.length = 6;
+};
+
+Game.prototype.renderSpinHistory = function(group) {
+  if (!group) return;
+  while (group.numChildren > 0) group.removeChildAt(0);
+  var rowW = group._rowW || 320;
+  var title = new eui.Label();
+  title.text = '最近中奖';
+  title.size = 12; title.bold = true; title.textColor = THEME.textMain;
+  title.x = 0; title.y = 0; title.width = rowW;
+  group.addChild(title);
+  var history = this.spinHistory || [];
+  if (!history.length) {
+    var emptyBg = new eui.Rect();
+    emptyBg.width = rowW; emptyBg.height = 34; emptyBg.ellipseWidth = 8; emptyBg.ellipseHeight = 8;
+    emptyBg.fillColor = 0x151038; emptyBg.fillAlpha = 0.86;
+    emptyBg.strokeColor = THEME.strokeSoft; emptyBg.strokeWeight = 1; emptyBg.strokeAlpha = 0.3;
+    emptyBg.y = 20;
+    group.addChild(emptyBg);
+    var empty = new eui.Label();
+    empty.text = '暂无记录，抽一次后会显示在这里。';
+    empty.size = 10; empty.textColor = THEME.textDim;
+    empty.x = 10; empty.y = 30; empty.width = rowW - 20;
+    group.addChild(empty);
+    return;
+  }
+  var maxRows = Math.min(4, history.length);
+  for (var i = 0; i < maxRows; i++) {
+    var item = history[i];
+    var y = 20 + i * 28;
+    var isRare = item.rarity === '稀有' || item.rarity === '大奖';
+    var bg = new eui.Rect();
+    bg.width = rowW; bg.height = 24; bg.ellipseWidth = 8; bg.ellipseHeight = 8;
+    bg.fillColor = isRare ? 0x2a1846 : 0x151038; bg.fillAlpha = 0.9;
+    bg.strokeColor = isRare ? THEME.strokeGold : THEME.strokeSoft;
+    bg.strokeWeight = 1; bg.strokeAlpha = isRare ? 0.58 : 0.28;
+    bg.y = y;
+    group.addChild(bg);
+    var timeLb = new eui.Label();
+    timeLb.text = item.time || '--:--';
+    timeLb.size = 9; timeLb.textColor = THEME.textDim;
+    timeLb.x = 8; timeLb.y = y + 7; timeLb.width = 34;
+    group.addChild(timeLb);
+    var nameLb = new eui.Label();
+    nameLb.text = item.prize + ' · ' + item.reward;
+    nameLb.size = 10; nameLb.textColor = isRare ? THEME.textGold : THEME.textMain;
+    nameLb.x = 46; nameLb.y = y + 6; nameLb.width = rowW - 54;
+    group.addChild(nameLb);
+  }
+};
+
+Game.prototype.createSpinMachineSlot = function(parent, x, y, w, h, titleText, asset) {
+  var slot = new eui.Group();
+  slot.width = w; slot.height = h; slot.x = x; slot.y = y;
+  var bg = new eui.Rect();
+  bg.width = w; bg.height = h; bg.ellipseWidth = 12; bg.ellipseHeight = 12;
+  bg.fillColor = 0x0d0926; bg.fillAlpha = 0.96;
+  bg.strokeColor = THEME.strokeSoft; bg.strokeWeight = 1.2; bg.strokeAlpha = 0.48;
+  slot.addChild(bg);
+  var shine = new eui.Rect();
+  shine.width = w - 10; shine.height = 18; shine.x = 5; shine.y = 5;
+  shine.ellipseWidth = 9; shine.ellipseHeight = 9;
+  shine.fillColor = 0xffffff; shine.fillAlpha = 0.08;
+  slot.addChild(shine);
+  var icon = new eui.Image();
+  this.fitImageToBox(icon, asset || MODULE_ICON_ASSETS.spinGift, 52, 52, Math.floor((w - 52) / 2), 16);
+  slot.addChild(icon);
+  var lb = new eui.Label();
+  lb.text = titleText || '待开奖';
+  lb.size = 10; lb.bold = true; lb.textColor = THEME.textMain;
+  lb.width = w; lb.height = 16; lb.x = 0; lb.y = h - 20;
+  lb.textAlign = 'center';
+  slot.addChild(lb);
+  slot._bg = bg;
+  slot._icon = icon;
+  slot._label = lb;
+  parent.addChild(slot);
+  return slot;
 };
 
 Game.prototype.openSpinWheel = function() {
@@ -6025,150 +7011,325 @@ Game.prototype.openSpinWheel = function() {
 
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 500;
+  this.setPanelContentHeight(panel, 640);
 
   var title = new eui.Label();
-  title.text = '🎡 转盘'; title.size = 18; title.textColor = 0xffffff;
+  title.text = '转盘'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
+  var titleIcon = new eui.Image();
+  this.fitImageToBox(titleIcon, MODULE_ICON_ASSETS.spinWheel, 30, 30, Math.floor(panel.width / 2) - 58, 10);
+  panel.addChild(titleIcon);
+
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  var freeCard = this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '今日免费', this.freeSpins + '/3', THEME.mint);
+  var freeIcon = new eui.Image();
+  this.fitImageToBox(freeIcon, MODULE_ICON_ASSETS.spinGift, 24, 24, panel._contentX + metricW - 34, 68);
+  panel.addChild(freeIcon);
+  var ticketCard = this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '幸运券', String(this.spinTickets || 0), THEME.sky);
+  var ticketIcon = new eui.Image();
+  this.fitImageToBox(ticketIcon, MODULE_ICON_ASSETS.spinTicket, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 68);
+  panel.addChild(ticketIcon);
+  var pityCard = this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '保底进度', (this.spinPity || 0) + '/' + SPIN_PITY_LIMIT, THEME.accentSoft);
+  var pityIcon = new eui.Image();
+  this.fitImageToBox(pityIcon, MODULE_ICON_ASSETS.spinJackpot, 24, 24, panel._contentX + metricW - 34, 120);
+  panel.addChild(pityIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '金币基准', this.fmt(this.getSpinGoldBase()), THEME.textGold);
+  var goldIcon = new eui.Image();
+  this.fitImageToBox(goldIcon, MODULE_ICON_ASSETS.vaultDiamondPouch, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 120);
+  panel.addChild(goldIcon);
 
   var info = new eui.Label();
-  info.text = '今日免费: ' + this.freeSpins + '/3  幸运券: ' + (this.spinTickets || 0) + '  保底: ' + (this.spinPity || 0) + '/' + SPIN_PITY_LIMIT;
-  info.size = 11; info.textColor = 0xaaaaaa;
-  info.horizontalCenter = 0; info.top = 40;
+  info.text = '改为摇奖机开奖，奖励随等级和关卡成长。';
+  info.size = 11; info.textColor = 0x8f8aa8;
+  info.x = panel._contentX; info.top = 164; info.width = panel._contentW;
+  info.textAlign = 'center';
   panel.addChild(info);
 
-  // 转盘外圈
-  var wheelSize = 180;
-  var colors = [0xe74c3c, 0x3498db, 0x2ecc71, 0xf39c12, 0x9b59b6, 0x1abc9c, 0xe67e22, 0x34495e];
-  var wheel = new eui.Group();
-  wheel.width = wheelSize; wheel.height = wheelSize;
-  wheel.horizontalCenter = 0; wheel.top = 65;
-  wheel.anchorOffsetX = wheelSize / 2; wheel.anchorOffsetY = wheelSize / 2;
-  wheel.x = Math.floor(panel.width / 2) + wheelSize / 2; wheel.y = 65 + wheelSize / 2;
+  var machineTop = 184;
+  var machineH = 152;
+  var machine = new eui.Group();
+  machine.width = panel._contentW; machine.height = machineH;
+  machine.x = panel._contentX; machine.y = machineTop;
+  panel.addChild(machine);
 
-  for (var i = 0; i < 8; i++) {
-    var prize = SPIN_PRIZES[i];
-    var seg = new eui.Rect();
-    seg.width = wheelSize; seg.height = wheelSize;
-    seg.fillColor = prize.color || colors[i]; seg.ellipseWidth = wheelSize; seg.ellipseHeight = wheelSize;
-    seg.alpha = 0.16 + i * 0.035;
-    wheel.addChild(seg);
-    var segLabel = new eui.Label();
-    segLabel.text = prize.text; segLabel.size = 10; segLabel.textColor = 0xffffff;
-    var angle = (i * 45 + 22.5) * Math.PI / 180;
-    var r = wheelSize * 0.32;
-    segLabel.x = wheelSize / 2 + r * Math.cos(angle) - 20;
-    segLabel.y = wheelSize / 2 + r * Math.sin(angle) - 6;
-    segLabel.width = 40; segLabel.textAlign = 'center';
-    wheel.addChild(segLabel);
-  }
-  panel.addChild(wheel);
+  var machineBg = new eui.Rect();
+  machineBg.width = machine.width; machineBg.height = machineH;
+  machineBg.ellipseWidth = 16; machineBg.ellipseHeight = 16;
+  machineBg.fillColor = 0x151038; machineBg.fillAlpha = 0.98;
+  machineBg.strokeColor = THEME.strokeGold; machineBg.strokeWeight = 1.2; machineBg.strokeAlpha = 0.52;
+  machine.addChild(machineBg);
+  var machineTopGlow = new eui.Rect();
+  machineTopGlow.width = machine.width - 18; machineTopGlow.height = 24;
+  machineTopGlow.x = 9; machineTopGlow.y = 8;
+  machineTopGlow.ellipseWidth = 12; machineTopGlow.ellipseHeight = 12;
+  machineTopGlow.fillColor = 0xfbbf24; machineTopGlow.fillAlpha = 0.08;
+  machine.addChild(machineTopGlow);
+  var machineTitle = new eui.Label();
+  machineTitle.text = '幸运摇奖机';
+  machineTitle.size = 12; machineTitle.bold = true; machineTitle.textColor = THEME.textGold;
+  machineTitle.x = 14; machineTitle.y = 14; machineTitle.width = 120;
+  machine.addChild(machineTitle);
+  var machineHint = new eui.Label();
+  machineHint.text = '中间奖格为本次结果';
+  machineHint.size = 10; machineHint.textColor = THEME.textDim;
+  machineHint.x = machine.width - 142; machineHint.y = 15; machineHint.width = 96; machineHint.textAlign = 'right';
+  machine.addChild(machineHint);
 
-  // 中心圆
-  var centerCircle = new eui.Rect();
-  centerCircle.width = 36; centerCircle.height = 36;
-  centerCircle.ellipseWidth = 18; centerCircle.ellipseHeight = 18;
-  centerCircle.fillColor = 0xffffff;
-  centerCircle.horizontalCenter = 0; centerCircle.top = 65 + wheelSize / 2 - 18;
-  panel.addChild(centerCircle);
+  var slotY = 42;
+  var leverW = 42;
+  var slotGap = 8;
+  var slotW = Math.floor((machine.width - leverW - 48 - slotGap * 2) / 3);
+  var slotH = 88;
+  var slotA = this.createSpinMachineSlot(machine, 14, slotY, slotW, slotH, '预热', MODULE_ICON_ASSETS.spinGift);
+  var slotB = this.createSpinMachineSlot(machine, 14 + slotW + slotGap, slotY, slotW, slotH, '开奖', MODULE_ICON_ASSETS.spinWheel);
+  var slotC = this.createSpinMachineSlot(machine, 14 + (slotW + slotGap) * 2, slotY, slotW, slotH, '结算', MODULE_ICON_ASSETS.spinJackpot);
+  machine._slots = [slotA, slotB, slotC];
+  machine._originX = machine.x;
 
-  // 指针
-  var pointer = new eui.Label();
-  pointer.text = '▼'; pointer.size = 24; pointer.textColor = 0xffffff;
-  pointer.horizontalCenter = 0; pointer.top = 55;
-  panel.addChild(pointer);
+  var lever = new eui.Group();
+  lever.width = leverW; lever.height = 98;
+  lever.x = machine.width - leverW - 12; lever.y = 42;
+  lever.touchEnabled = true;
+  var leverTrack = new eui.Rect();
+  leverTrack.width = 12; leverTrack.height = 70; leverTrack.x = 15; leverTrack.y = 16;
+  leverTrack.ellipseWidth = 6; leverTrack.ellipseHeight = 6;
+  leverTrack.fillColor = 0x0b0820; leverTrack.strokeColor = THEME.strokeGold; leverTrack.strokeWeight = 1; leverTrack.strokeAlpha = 0.45;
+  lever.addChild(leverTrack);
+  var leverKnob = new eui.Rect();
+  leverKnob.width = 28; leverKnob.height = 28; leverKnob.x = 7; leverKnob.y = 0;
+  leverKnob.ellipseWidth = 14; leverKnob.ellipseHeight = 14;
+  leverKnob.fillColor = 0xe74c3c; leverKnob.strokeColor = 0xffffff; leverKnob.strokeWeight = 1; leverKnob.strokeAlpha = 0.42;
+  lever.addChild(leverKnob);
+  var leverLb = new eui.Label();
+  leverLb.text = '拉';
+  leverLb.size = 11; leverLb.bold = true; leverLb.textColor = 0xffffff;
+  leverLb.width = 28; leverLb.height = 28; leverLb.x = 7; leverLb.y = 7; leverLb.textAlign = 'center';
+  lever.addChild(leverLb);
+  lever._knob = leverKnob;
+  lever._label = leverLb;
+  machine.addChild(lever);
+  machine._lever = lever;
 
   // 结果文字
   var resultLabel = new eui.Label();
   resultLabel.text = this.lastSpinPrize ? '上次: ' + this.lastSpinPrize : '奖励随等级和关卡成长';
   resultLabel.size = 13; resultLabel.textColor = 0xffd700;
-  resultLabel.horizontalCenter = 0; resultLabel.top = 65 + wheelSize + 15;
+  resultLabel.horizontalCenter = 0; resultLabel.top = machineTop + machineH + 10;
   panel.addChild(resultLabel);
 
-  var rule = new eui.Label();
-  rule.text = 'BOSS有概率掉幸运券；10抽内必出稀有或大奖。金币奖励按当前进度成长。';
-  rule.size = 10; rule.textColor = 0x8f8aa8;
-  rule.x = panel._contentX; rule.y = 65 + wheelSize + 42; rule.width = panel._contentW;
-  rule.textAlign = 'center'; rule.wordWrap = true;
-  panel.addChild(rule);
+  var remainLabel = new eui.Label();
+  remainLabel.text = '剩余：免费 ' + this.freeSpins + '/3 · 幸运券 ' + (this.spinTickets || 0);
+  remainLabel.size = 11; remainLabel.textColor = THEME.textDim;
+  remainLabel.x = panel._contentX; remainLabel.top = machineTop + machineH + 31;
+  remainLabel.width = panel._contentW; remainLabel.textAlign = 'center';
+  panel.addChild(remainLabel);
+
+  var historyGroup = new eui.Group();
+  historyGroup.x = panel._contentX;
+  historyGroup.y = machineTop + machineH + 56;
+  historyGroup._rowW = panel._contentW;
+  panel.addChild(historyGroup);
+  this.renderSpinHistory(historyGroup);
 
   var prizeGrid = new eui.Group();
-  prizeGrid.x = panel._contentX; prizeGrid.y = 65 + wheelSize + 70;
+  prizeGrid.x = panel._contentX; prizeGrid.y = machineTop + machineH + 184;
   panel.addChild(prizeGrid);
+  var poolTitle = new eui.Label();
+  poolTitle.text = '奖池预览';
+  poolTitle.size = 12; poolTitle.bold = true; poolTitle.textColor = THEME.textMain;
+  poolTitle.x = 0; poolTitle.y = -22; poolTitle.width = panel._contentW;
+  prizeGrid.addChild(poolTitle);
   for (var pi = 0; pi < SPIN_PRIZES.length; pi++) {
     var pp = SPIN_PRIZES[pi];
     var cellW = Math.floor((panel._contentW - 8) / 2);
+    var cellH = 36;
     var cx = (pi % 2) * (cellW + 8);
-    var cy = Math.floor(pi / 2) * 22;
+    var cy = Math.floor(pi / 2) * 40;
     var cellBg = new eui.Rect();
-    cellBg.width = cellW; cellBg.height = 18; cellBg.fillColor = 0x1a153f;
-    cellBg.ellipseWidth = 6; cellBg.ellipseHeight = 6;
+    cellBg.width = cellW; cellBg.height = cellH; cellBg.fillColor = 0x1a153f;
+    cellBg.ellipseWidth = 8; cellBg.ellipseHeight = 8;
+    cellBg.strokeColor = pp.color || THEME.strokeSoft; cellBg.strokeWeight = 1; cellBg.strokeAlpha = pp.rare || pp.rarity === '大奖' ? 0.62 : 0.28;
     cellBg.x = cx; cellBg.y = cy;
     prizeGrid.addChild(cellBg);
+    var prizeIcon = new eui.Image();
+    this.fitImageToBox(prizeIcon, this.getSpinPrizeIconAsset(pp), 24, 24, cx + 7, cy + 6);
+    prizeGrid.addChild(prizeIcon);
     var cellLb = new eui.Label();
-    cellLb.text = pp.text + ' · ' + this.getSpinPrizeText(pp);
+    cellLb.text = pp.text + '  ' + this.getSpinPrizeText(pp);
     cellLb.size = 9; cellLb.textColor = pp.color || 0xffffff;
-    cellLb.x = cx + 6; cellLb.y = cy + 4; cellLb.width = cellW - 12;
+    cellLb.x = cx + 38; cellLb.y = cy + 12; cellLb.width = cellW - 44;
     prizeGrid.addChild(cellLb);
   }
 
-  // 抽奖按钮
+  var rule = new eui.Label();
+  rule.text = '10抽内必出稀有或大奖，BOSS有概率掉幸运券。';
+  rule.size = 10; rule.textColor = 0x8f8aa8;
+  rule.x = panel._contentX; rule.bottom = 56; rule.width = panel._contentW;
+  rule.textAlign = 'center'; rule.wordWrap = true;
+  panel.addChild(rule);
+
   var self = this;
   var canSpin = this.freeSpins > 0 || this.spinTickets > 0;
-  var spinBtn = this.createButton(
-    this.freeSpins > 0 ? '免费抽奖' : (this.spinTickets > 0 ? '使用幸运券' : '今日次数已用完'),
-    canSpin ? 0xe74c3c : 0x555555,
-    120, 36,
-    function() { self.spin(wheel, resultLabel, spinBtn, info); },
-    this
-  );
-  spinBtn.horizontalCenter = 0; spinBtn.bottom = 14;
   if (!canSpin) {
-    spinBtn.alpha = 0.4;
-    spinBtn.touchEnabled = false;
-    spinBtn.touchChildren = false;
+    lever.alpha = 0.45;
+    lever.touchEnabled = false;
+    lever.touchChildren = false;
+    if (lever._label) lever._label.text = '空';
   }
-  panel.addChild(spinBtn);
+  lever.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
+    self.spin(machine, resultLabel, lever, info, {
+      free: freeCard._valueLabel,
+      ticket: ticketCard._valueLabel,
+      pity: pityCard._valueLabel,
+      history: historyGroup,
+      remain: remainLabel
+    });
+  }, this);
 };
 
-Game.prototype.spin = function(wheel, resultLabel, spinBtn, infoLabel) {
+Game.prototype.spin = function(machine, resultLabel, trigger, infoLabel, metrics) {
   this.resetSpinDaily();
   if (this.freeSpins <= 0 && this.spinTickets <= 0) return;
   if (this.freeSpins > 0) this.freeSpins--;
   else this.spinTickets--;
-  spinBtn.alpha = 0.4;
-  spinBtn.touchEnabled = false;
+  trigger.alpha = 0.5;
+  trigger.touchEnabled = false;
+  trigger.touchChildren = false;
 
   var prize = this.pickSpinPrize();
+  var slots = machine && machine._slots ? machine._slots : [];
+  var lever = machine && machine._lever;
+  var visualPool = [
+    MODULE_ICON_ASSETS.spinGift,
+    MODULE_ICON_ASSETS.spinTicket,
+    MODULE_ICON_ASSETS.vaultEnergyPotion,
+    MODULE_ICON_ASSETS.vaultRelic,
+    MODULE_ICON_ASSETS.vaultDiamondPouch,
+    MODULE_ICON_ASSETS.spinJackpot
+  ];
+  for (var i = 0; i < slots.length; i++) {
+    var slot = slots[i];
+    egret.Tween.removeTweens(slot);
+    egret.Tween.removeTweens(slot._icon);
+    if (slot._bg) {
+      slot._bg.strokeColor = THEME.strokeSoft;
+      slot._bg.strokeAlpha = 0.48;
+    }
+    if (slot._label) {
+      slot._label.text = i === 1 ? '开奖中' : '滚动中';
+      slot._label.textColor = THEME.textMain;
+    }
+    if (slot._icon) {
+      slot._icon.source = visualPool[(Math.floor(Math.random() * visualPool.length))];
+      slot._icon.alpha = 0.62;
+      slot._icon.y = 20;
+      var tween = egret.Tween.get(slot._icon);
+      for (var roll = 0; roll < 14; roll++) {
+        (function(icon, offset) {
+          tween.call(function() {
+            icon.source = visualPool[(Math.floor(Math.random() * visualPool.length) + offset) % visualPool.length];
+          });
+        })(slot._icon, i + roll);
+        tween.to({ y: 32, alpha: 0.3 }, 120, egret.Ease.sineInOut)
+          .to({ y: 14, alpha: 0.86 }, 120, egret.Ease.sineInOut);
+      }
+    }
+  }
+  if (machine) {
+    egret.Tween.removeTweens(machine);
+    machine.x = machine._originX || machine.x;
+    egret.Tween.get(machine)
+      .to({ x: machine.x + 4 }, 90)
+      .to({ x: machine.x - 4 }, 110)
+      .to({ x: machine.x + 3 }, 110)
+      .to({ x: machine._originX || machine.x }, 110)
+      .wait(600)
+      .to({ x: (machine._originX || machine.x) + 2 }, 90)
+      .to({ x: machine._originX || machine.x }, 120);
+  }
+  if (lever && lever._knob) {
+    egret.Tween.removeTweens(lever._knob);
+    egret.Tween.get(lever._knob)
+      .to({ y: 42 }, 260, egret.Ease.quadIn)
+      .wait(2600)
+      .to({ y: 0 }, 420, egret.Ease.backOut);
+  }
+  if (lever && lever._label) lever._label.text = '摇';
+  if (resultLabel) resultLabel.text = '摇奖中...';
+  if (metrics && metrics.remain) metrics.remain.text = '开奖中：免费 ' + this.freeSpins + '/3 · 幸运券 ' + (this.spinTickets || 0);
 
-  // 转盘旋转动画
-  var targetRotation = 1440 + Math.random() * 360;
   var self = this;
-  egret.Tween.get(wheel).to({ rotation: targetRotation }, 1500, egret.Ease.quadOut).call(function() {
+  egret.Tween.get(machine || trigger).wait(3600).call(function() {
     var rewardText = self.grantSpinPrize(prize);
+    var resultAsset = self.getSpinPrizeIconAsset(prize);
+    if (slots[0] && slots[0]._icon) {
+      slots[0]._icon.source = prize.rarity === '大奖' ? MODULE_ICON_ASSETS.spinJackpot : MODULE_ICON_ASSETS.spinGift;
+      slots[0]._icon.alpha = 1;
+      slots[0]._icon.y = 16;
+      slots[0]._label.text = prize.rarity || '普通';
+    }
+    if (slots[1] && slots[1]._icon) {
+      slots[1]._icon.source = resultAsset;
+      slots[1]._icon.alpha = 1;
+      slots[1]._icon.y = 16;
+      slots[1]._label.text = prize.text;
+      slots[1]._label.textColor = prize.rare || prize.rarity === '大奖' ? THEME.textGold : THEME.textMain;
+      if (slots[1]._bg) {
+        slots[1]._bg.strokeColor = prize.color || THEME.strokeGold;
+        slots[1]._bg.strokeAlpha = 0.86;
+      }
+      egret.Tween.get(slots[1])
+        .to({ scaleX: 1.06, scaleY: 1.06 }, 110, egret.Ease.backOut)
+        .to({ scaleX: 1, scaleY: 1 }, 130, egret.Ease.quadOut);
+    }
+    if (slots[2] && slots[2]._icon) {
+      slots[2]._icon.source = rewardText.indexOf('幸运券') >= 0 ? MODULE_ICON_ASSETS.spinTicket : resultAsset;
+      slots[2]._icon.alpha = 1;
+      slots[2]._icon.y = 16;
+      slots[2]._label.text = '已入账';
+    }
     resultLabel.text = '获得: ' + prize.text + ' · ' + rewardText;
     self.showToast('🎡 转盘奖励: ' + prize.text + ' ' + rewardText);
     self.saveGame();
     self.updateUI();
-    if (infoLabel) infoLabel.text = '今日免费: ' + self.freeSpins + '/3  幸运券: ' + (self.spinTickets || 0) + '  保底: ' + (self.spinPity || 0) + '/' + SPIN_PITY_LIMIT;
+    if (infoLabel) infoLabel.text = '今日免费 ' + self.freeSpins + '/3 · 幸运券 ' + (self.spinTickets || 0) + ' · 保底 ' + (self.spinPity || 0) + '/' + SPIN_PITY_LIMIT;
+    if (metrics) {
+      if (metrics.free) metrics.free.text = self.freeSpins + '/3';
+      if (metrics.ticket) metrics.ticket.text = String(self.spinTickets || 0);
+      if (metrics.pity) metrics.pity.text = (self.spinPity || 0) + '/' + SPIN_PITY_LIMIT;
+      if (metrics.history) self.renderSpinHistory(metrics.history);
+      if (metrics.remain) metrics.remain.text = '剩余：免费 ' + self.freeSpins + '/3 · 幸运券 ' + (self.spinTickets || 0);
+    }
     if (self.freeSpins > 0 || self.spinTickets > 0) {
-      spinBtn.alpha = 1; spinBtn.touchEnabled = true;
-      var btnLb = spinBtn.getChildAt(1);
-      if (btnLb) btnLb.text = self.freeSpins > 0 ? '再来一次 (' + self.freeSpins + ')' : '使用幸运券 (' + self.spinTickets + ')';
+      trigger.alpha = 1;
+      trigger.touchEnabled = true;
+      trigger.touchChildren = true;
+      if (lever && lever._label) lever._label.text = '拉';
+    } else {
+      if (lever && lever._label) lever._label.text = '空';
+      trigger.alpha = 0.45;
     }
   });
 };
 
-// ==================== 成长档案 ====================
+// ==================== 主角档案 ====================
 
-Game.prototype.openLeaderboard = function() {
+Game.prototype.openLeaderboard = function(options) {
+  options = options || {};
   var overlay = this.createPanelOverlay();
-  var panel = this.addPanelContent(overlay);
-  panel.height = Math.min(500, (overlay.height || 667) - 74);
+  var self = this;
+  var panel = this.addPanelContent(overlay, {
+    backText: options.returnTo === 'upgrade' ? '升级' : '返回',
+    onBack: options.returnTo === 'upgrade' ? function() {
+      self.openUpgrade(options.tab || self.upgradePanelTab || 'skills');
+    } : null
+  });
+  this.setPanelContentHeight(panel, Math.min(500, (overlay.height || 667) - 74));
 
   var title = new eui.Label();
-  title.text = '🏆 成长档案'; title.size = 18; title.textColor = 0xffffff;
+  title.text = '主角档案'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
@@ -6184,7 +7345,6 @@ Game.prototype.openLeaderboard = function() {
     list.addChild(lb);
     y += 20;
   }
-  var self = this;
   function row(icon, label, value, color) {
     y = self.addPanelRow(list, y, icon, color || 0x3498db, label + '\n' + value, '', 0, function() {}, false);
   }
@@ -6220,67 +7380,245 @@ Game.prototype.openLeaderboard = function() {
   list.height = y + 4;
 };
 
-// ==================== 商城 ====================
+// ==================== 微信好友排行 ====================
 
-Game.prototype.openShop = function() {
+Game.prototype.getFriendRankScore = function() {
+  return Math.max(this.maxWaveReached || 0, this.wave || 1);
+};
+
+Game.prototype.syncWxFriendRankScore = function(force) {
+  var score = this.getFriendRankScore();
+  var now = Date.now ? Date.now() : new Date().getTime();
+  if (!force && this._lastWxRankScore === score && this._lastWxRankSyncAt && now - this._lastWxRankSyncAt < 60000) return;
+  this._lastWxRankScore = score;
+  this._lastWxRankSyncAt = now;
+  try {
+    if (typeof wx === 'undefined' || !wx) return;
+    if (wx.setUserCloudStorage) {
+      wx.setUserCloudStorage({
+        KVDataList: [
+          { key: 'wave_rank', value: String(score) },
+          { key: 'boss_kills', value: String(this.stats ? (this.stats.bossKills || 0) : 0) }
+        ]
+      });
+    }
+    if (wx.getOpenDataContext) {
+      wx.getOpenDataContext().postMessage({
+        type: 'updateFriendWaveRank',
+        score: score,
+        wave: this.wave || 1,
+        maxWave: score,
+        bossKills: this.stats ? (this.stats.bossKills || 0) : 0,
+        width: 320,
+        height: 270
+      });
+    }
+  } catch(e) {}
+};
+
+Game.prototype.openFriendRanking = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
+  this.setPanelContentHeight(panel, 520);
+
+  // S1/H-2：提前判定环境。H5（无 wx）降级为「本地成绩单」；微信侧仍走开放数据域冲关榜，保留不删。
+  var wxReady = false;
+  try {
+    wxReady = typeof wx !== 'undefined' && !!wx && !!wx.getOpenDataContext;
+  } catch (e) { wxReady = false; }
 
   var title = new eui.Label();
-  title.text = '💎 钻石商城'; title.size = 18; title.textColor = 0xffffff;
+  title.text = wxReady ? '冲关排名' : '本地成绩单'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
+  var score = this.getFriendRankScore();
+  this.syncWxFriendRankScore(true);
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '我的最高波次', '第 ' + score + ' 波', THEME.accentSoft);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '击杀BOSS', this.fmt(this.stats ? this.stats.bossKills : 0), 0xff8888);
+
+  var board = new eui.Rect();
+  board.width = panel._contentW; board.height = 270;
+  board.x = panel._contentX; board.y = 124;
+  board.ellipseWidth = 10; board.ellipseHeight = 10;
+  board.fillColor = 0x0d0926; board.fillAlpha = 0.92;
+  board.strokeColor = THEME.strokeGold; board.strokeWeight = 1; board.strokeAlpha = 0.46;
+  panel.addChild(board);
+
+  try {
+    if (wxReady) {
+      if (typeof sharedCanvas !== 'undefined') {
+        sharedCanvas.width = Math.floor(board.width);
+        sharedCanvas.height = Math.floor(board.height);
+      }
+      wx.getOpenDataContext().postMessage({
+        type: 'showFriendWaveRank',
+        score: score,
+        wave: this.wave,
+        maxWave: score,
+        bossKills: this.stats ? this.stats.bossKills : 0,
+        width: Math.floor(board.width),
+        height: Math.floor(board.height)
+      });
+      if (typeof platform !== 'undefined' && platform.openDataContext && platform.openDataContext.createDisplayObject) {
+        var rankCanvas = platform.openDataContext.createDisplayObject('bitmap', board.width, board.height);
+        rankCanvas.x = board.x;
+        rankCanvas.y = board.y;
+        rankCanvas.touchEnabled = false;
+        panel.addChild(rankCanvas);
+        this._friendRankCanvas = rankCanvas;
+      }
+    }
+  } catch(e) {
+    wxReady = false;
+  }
+
+  // S1/H-2：H5 不再显示「占位 / 后期接入」，改为本机存档里可直接读到的真实成绩。
+  var s = this.stats || {};
+  var playSeconds = s.playTime || 0;
+  var playH = Math.floor(playSeconds / 3600);
+  var playM = Math.floor((playSeconds % 3600) / 60);
+  var rows = wxReady ? [] : [
+    ['历史最高波次', '第 ' + score + ' 波 · 当前第 ' + (this.wave || 1) + ' 波'],
+    ['BOSS 击杀 / 转生', this.fmt(s.bossKills || 0) + ' 只 · ' + (this.rebirthCount || 0) + ' 次'],
+    ['图签 / 成就', Object.keys(this.monsterCodex || {}).length + ' 项 · ' + this.achievements.length + '/' + ACHIEVEMENTS.length],
+    ['累计金币 / 时长', this.fmt(s.totalGold || 0) + ' · ' + playH + 'h ' + playM + 'm']
+  ];
+
+  var rowGap = wxReady ? 70 : 58;
+  var rowRanks = ['①', '②', '③', '④'];
+  for (var i = 0; i < rows.length; i++) {
+    var rowY = 146 + i * rowGap;
+    var rankLb = new eui.Label();
+    rankLb.text = rowRanks[i] || (i === 0 ? '榜' : String(i));
+    rankLb.size = 12; rankLb.bold = true; rankLb.textColor = THEME.textGold;
+    rankLb.x = panel._contentX + 14; rankLb.y = rowY + 8; rankLb.width = 28; rankLb.textAlign = 'center';
+    panel.addChild(rankLb);
+
+    var nameLb = new eui.Label();
+    nameLb.text = rows[i][0]; nameLb.size = 12; nameLb.bold = true; nameLb.textColor = THEME.textMain;
+    nameLb.x = panel._contentX + 50; nameLb.y = rowY + 2; nameLb.width = panel._contentW - 64;
+    panel.addChild(nameLb);
+
+    var valueLb = new eui.Label();
+    valueLb.text = rows[i][1]; valueLb.size = 10; valueLb.textColor = THEME.textDim;
+    valueLb.x = panel._contentX + 50; valueLb.y = rowY + 22; valueLb.width = panel._contentW - 64;
+    panel.addChild(valueLb);
+  }
+
+  var hint = new eui.Label();
+  hint.text = wxReady ? '已请求微信开放数据域绘制冲关榜' : '浏览器版本地成绩单 · 数据取自本机存档，不联网比较';
+  hint.size = 10; hint.textColor = THEME.textDim;
+  hint.x = panel._contentX; hint.y = 414; hint.width = panel._contentW; hint.textAlign = 'center';
+  panel.addChild(hint);
+};
+
+// ==================== 钻石补给 ====================
+
+Game.prototype.openShop = function(options) {
+  options = options || {};
+  var overlay = this.createPanelOverlay();
   var self = this;
-  var y = 50;
-  var gemsInfo = new eui.Label();
-  gemsInfo.text = '当前钻石: 💎' + this.rebirthGems + '  通过转生获得';
-  gemsInfo.size = 11; gemsInfo.textColor = 0x8f8aa8;
-  gemsInfo.x = panel._contentX; gemsInfo.y = y;
-  panel.addChild(gemsInfo);
-  y += 24;
+  var panel = this.addPanelContent(overlay, {
+    backText: options.returnTo === 'vault' ? '宝库' : '返回',
+    onBack: options.returnTo === 'vault' ? function() {
+      self.openVault();
+    } : null
+  });
+
+  var title = new eui.Label();
+  title.text = '宝库 · 钻石补给'; title.size = 18; title.textColor = 0xffffff;
+  title.horizontalCenter = 0; title.top = 14;
+  panel.addChild(title);
+  var shopTitleIcon = new eui.Image();
+  this.fitImageToBox(shopTitleIcon, MODULE_ICON_ASSETS.vaultDiamondPouch, 30, 30, Math.floor(panel.width / 2) - 104, 10);
+  panel.addChild(shopTitleIcon);
+
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '当前钻石', '💎 ' + this.rebirthGems, 0xc7a7ff);
+  var shopDiamondIcon = new eui.Image();
+  this.fitImageToBox(shopDiamondIcon, UI_ASSETS.topHudDiamond, 24, 24, panel._contentX + metricW - 34, 68);
+  panel.addChild(shopDiamondIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '能量', Math.floor(this.energy) + '/' + this.getMaxEnergy(), THEME.sky);
+  var shopEnergyIcon = new eui.Image();
+  this.fitImageToBox(shopEnergyIcon, MODULE_ICON_ASSETS.vaultEnergyPotion, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 68);
+  panel.addChild(shopEnergyIcon);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '离线收益', this.offlineCap + ' 小时', 0x9b59b6);
+  var shopOfflineIcon = new eui.Image();
+  this.fitImageToBox(shopOfflineIcon, MODULE_ICON_ASSETS.rebirthHourglass, 24, 24, panel._contentX + metricW - 34, 120);
+  panel.addChild(shopOfflineIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '幸运券', String(this.spinTickets || 0), THEME.accentSoft);
+  var shopTicketIcon = new eui.Image();
+  this.fitImageToBox(shopTicketIcon, MODULE_ICON_ASSETS.spinTicket, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 120);
+  panel.addChild(shopTicketIcon);
+
+  var list = this.createPanelScrollContent(panel, 170, 14);
+  list._contentX = 0;
+  list._contentW = panel._contentW;
+  var y = 0;
+  var intro = new eui.Label();
+  intro.text = '钻石补给偏短期消耗，适合冲关、补能量或补转盘机会。';
+  intro.size = 11; intro.textColor = THEME.textDim;
+  intro.x = 2; intro.y = y; intro.width = list._contentW; intro.wordWrap = true;
+  list.addChild(intro);
+  y += 34;
   var energyFull = this.energy >= this.getMaxEnergy();
 
-  // 能量药水
-  y = this.addPanelRow(panel, y, '⚡', 0x3498db,
-    '能量药水\n恢复' + CONFIG.energyPotionValue + '能量' + (energyFull ? '（当前已满）' : ''),
+  this.addUpgradeCard(list, 0, y, list._contentW, '⚡', 0x3498db,
+    '能量药水',
+    '恢复' + CONFIG.energyPotionValue + '能量' + (energyFull ? '\n当前能量已满' : '\n用于继续手动攻击冲关'),
     energyFull ? '已满' : '💎1', 0x27ae60,
-    function() { self.shopBuy('energy'); },
-    this.rebirthGems < 1 || energyFull
+    function() { self.shopBuy('energy', { returnTo: options.returnTo }); },
+    this.rebirthGems < 1 || energyFull,
+    MODULE_ICON_ASSETS.vaultEnergyPotion
   );
+  y += 106;
 
-  // 离线扩展包
-  y = this.addPanelRow(panel, y, '💤', 0x9b59b6,
-    '离线扩展包\n离线上限+4h (当前' + this.offlineCap + 'h)',
+  this.addUpgradeCard(list, 0, y, list._contentW, '💤', 0x9b59b6,
+    '离线扩展包',
+    '离线上限+4h\n当前上限 ' + this.offlineCap + 'h',
     '💎3', 0x27ae60,
-    function() { self.shopBuy('offline'); },
-    this.rebirthGems < 3 || this.offlineCap >= 24
+    function() { self.shopBuy('offline', { returnTo: options.returnTo }); },
+    this.rebirthGems < 3 || this.offlineCap >= 24,
+    MODULE_ICON_ASSETS.rebirthHourglass
   );
+  y += 106;
 
-  y = this.addPanelRow(panel, y, '券', 0xc7a7ff,
-    '幸运券礼包\n获得3张转盘券，冲稀有奖励',
+  this.addUpgradeCard(list, 0, y, list._contentW, '券', 0xc7a7ff,
+    '幸运券礼包',
+    '获得3张转盘券\n用于冲稀有奖励和保底进度',
     '💎2', 0x27ae60,
-    function() { self.shopBuy('ticket'); },
-    this.rebirthGems < 2
+    function() { self.shopBuy('ticket', { returnTo: options.returnTo }); },
+    this.rebirthGems < 2,
+    MODULE_ICON_ASSETS.spinTicket
   );
+  y += 106;
 
-  // 每日任务
-  y = this.addPanelRow(panel, y, '📋', 0xe67e22,
-    '每日任务\n查看每日任务进度',
+  this.addUpgradeCard(list, 0, y, list._contentW, '📋', 0xe67e22,
+    '每日任务',
+    '查看每日任务进度\n补充金币和日常目标',
     '查看', 0x3498db,
     function() { self.closePanel(); self.openDailyTasks(); },
-    false
+    false,
+    MODULE_ICON_ASSETS.spinGift
   );
+  y += 106;
 
-  // 成就
-  y = this.addPanelRow(panel, y, '🏆', 0xf39c12,
-    '成就系统\n已完成: ' + this.achievements.length + '/' + ACHIEVEMENTS.length,
+  this.addUpgradeCard(list, 0, y, list._contentW, '🏆', 0xf39c12,
+    '成就系统',
+    '已完成: ' + this.achievements.length + '/' + ACHIEVEMENTS.length + '\n达成即自动发放金币',
     '查看', 0x3498db,
     function() { self.closePanel(); self.openAchievements(); },
-    false
+    false,
+    MODULE_ICON_ASSETS.spinJackpot
   );
+  y += 106;
 
-  panel.height = y + 16;
+  list.height = y + 8;
+  this.setPanelContentHeight(panel, y + 16);
 };
 
 // ==================== 邮件系统 ====================
@@ -6288,19 +7626,40 @@ Game.prototype.openShop = function() {
 Game.prototype.openMail = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = Math.min(500, (overlay.height || 667) - 74);
+  this.setPanelContentHeight(panel, Math.min(500, (overlay.height || 667) - 74));
 
   var title = new eui.Label();
   title.text = '📧 邮件'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
+  // S2-C：说明这是本地等级奖励，不暗示存在服务器邮件。
+  var mailLocalHint = new eui.Label();
+  mailLocalHint.text = '本地等级奖励 · 随浏览器版本发布，不联网下发，领取记录保存在本机存档';
+  mailLocalHint.size = 9; mailLocalHint.textColor = THEME.textDim;
+  mailLocalHint.horizontalCenter = 0; mailLocalHint.top = 38;
+  mailLocalHint.width = panel._contentW; mailLocalHint.textAlign = 'center';
+  panel.addChild(mailLocalHint);
+
   var self = this;
-  var list = this.createPanelScrollContent(panel, 52, 14);
+  var mails = MAIL_REWARDS.slice();
+  var unlockedCount = 0;
+  var claimedCount = 0;
+  for (var mi = 0; mi < mails.length; mi++) {
+    if (this.mainLevel >= mails[mi].level) unlockedCount++;
+    if (this.mailClaimed[mails[mi].id]) claimedCount++;
+  }
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '已解锁', unlockedCount + '/' + mails.length, THEME.sky);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '已领取', claimedCount + '/' + mails.length, THEME.mint);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '主角等级', 'Lv.' + this.mainLevel, THEME.accentSoft);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '邮件奖励', '金币/能量/秘宝', THEME.textGold);
+
+  var list = this.createPanelScrollContent(panel, 170, 14);
   list._contentX = 0;
   list._contentW = panel._contentW;
   var y = 0;
-  var mails = MAIL_REWARDS.slice();
   for (var i = 0; i < mails.length; i++) {
     var m = mails[i];
     var unlocked = this.mainLevel >= m.level;
@@ -6388,7 +7747,7 @@ Game.prototype.claimMail = function(id) {
 Game.prototype.openAnnouncement = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 374;
+  this.setPanelContentHeight(panel, 374);
 
   var title = new eui.Label();
   title.text = '📢 公告'; title.size = 18; title.textColor = 0xffffff;
@@ -6396,9 +7755,10 @@ Game.prototype.openAnnouncement = function() {
   panel.addChild(title);
 
   var version = new eui.Label();
-  version.text = '版本：' + (window.DMAX_GAME_VERSION || ASSET_VERSION || 'local-dev');
+  version.text = '版本：' + (window.DMAX_GAME_VERSION || ASSET_VERSION || 'local-dev') + '  ·  本地公告，不联网更新';
   version.size = 10; version.textColor = 0x8f8aa8;
   version.horizontalCenter = 0; version.top = 40;
+  version.width = panel._contentW; version.textAlign = 'center';
   panel.addChild(version);
 
   var anns = ANNOUNCEMENTS;
@@ -6431,7 +7791,7 @@ Game.prototype.openAnnouncement = function() {
 
     y += 60;
   }
-  panel.height = y + 16;
+  this.setPanelContentHeight(panel, y + 16);
 };
 
 // ==================== 能量互助 ====================
@@ -6439,24 +7799,32 @@ Game.prototype.openAnnouncement = function() {
 Game.prototype.openEnergyHelp = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 284;
+  this.setPanelContentHeight(panel, 420);
 
   var title = new eui.Label();
   title.text = '⚡ 能量互助'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
-  var info = new eui.Label();
-  info.text = '当前能量: ⚡' + Math.floor(this.energy) + '/' + this.getMaxEnergy() +
-    '\n每秒恢复: +' + CONFIG.energyRecovery;
-  info.size = 13; info.textColor = 0xcccccc;
-  info.x = panel._contentX; info.top = 54; info.width = panel._contentW; info.lineSpacing = 6;
-  panel.addChild(info);
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '当前能量', Math.floor(this.energy) + '/' + this.getMaxEnergy(), THEME.sky);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '自然恢复', '+' + CONFIG.energyRecovery + '/秒', THEME.mint);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '点击消耗', '-' + CONFIG.attackEnergyCost + '/次', THEME.accentSoft);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '药水恢复', '+' + CONFIG.energyPotionValue, THEME.textGold);
+
+  var guideBg = new eui.Rect();
+  guideBg.width = panel._contentW; guideBg.height = 96;
+  guideBg.x = panel._contentX; guideBg.y = 176;
+  guideBg.ellipseWidth = 10; guideBg.ellipseHeight = 10;
+  guideBg.fillColor = 0x151038;
+  guideBg.strokeColor = THEME.strokeSoft; guideBg.strokeWeight = 1; guideBg.strokeAlpha = 0.45;
+  panel.addChild(guideBg);
 
   var tip = new eui.Label();
-  tip.text = '点击战斗区域消耗' + CONFIG.attackEnergyCost + '能量\n技能不消耗能量，只受冷却限制\n能量每秒恢复，也可以在钻石商城购买';
-  tip.size = 11; tip.textColor = 0x888888;
-  tip.x = panel._contentX; tip.top = 108; tip.width = panel._contentW; tip.lineSpacing = 5;
+  tip.text = '能量用于手动点击战斗区域。技能只受冷却限制，不消耗能量。\n能量会自动恢复；冲BOSS前不足时，可以从宝库补充药水。';
+  tip.size = 12; tip.textColor = 0xcccccc;
+  tip.x = panel._contentX + 12; tip.y = 194; tip.width = panel._contentW - 24; tip.lineSpacing = 6;
   tip.wordWrap = true;
   panel.addChild(tip);
 
@@ -6470,7 +7838,7 @@ Game.prototype.openEnergyHelp = function() {
       self.shopBuy('energy');
     }, this
   );
-  buyBtn.horizontalCenter = 0; buyBtn.y = 192;
+  buyBtn.horizontalCenter = 0; buyBtn.y = 304;
   if (energyFull) {
     buyBtn.alpha = 0.45;
     buyBtn.touchEnabled = false;
@@ -6479,7 +7847,8 @@ Game.prototype.openEnergyHelp = function() {
   panel.addChild(buyBtn);
 };
 
-Game.prototype.shopBuy = function(type) {
+Game.prototype.shopBuy = function(type, options) {
+  options = options || {};
   if (type === 'energy') {
     if (this.energy >= this.getMaxEnergy()) { this.showToast('能量已满，不需要购买'); return; }
     if (this.rebirthGems < 1) { this.showToast('钻石不足，转生可获得钻石'); return; }
@@ -6501,7 +7870,7 @@ Game.prototype.shopBuy = function(type) {
   this.saveGame();
   this.updateUI();
   this.closePanel();
-  this.openShop();
+  this.openShop({ returnTo: options.returnTo });
 };
 
 // ==================== 转生系统 ====================
@@ -6509,12 +7878,15 @@ Game.prototype.shopBuy = function(type) {
 Game.prototype.openRebirth = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = Math.min(540, (overlay.height || 667) - 60);
+  this.setPanelContentHeight(panel, Math.min(620, (overlay.height || 667) - 60));
 
   var title = new eui.Label();
-  title.text = '💎 转生'; title.size = 18; title.textColor = 0xffffff;
+  title.text = '转生'; title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
+  var titleIcon = new eui.Image();
+  this.fitImageToBox(titleIcon, UI_ASSETS.topHudDiamond, 30, 30, Math.floor(panel.width / 2) - 58, 10);
+  panel.addChild(titleIcon);
 
   var self = this;
   var plan = this.getRebirthPlan();
@@ -6523,17 +7895,45 @@ Game.prototype.openRebirth = function() {
   var dmgMult = CONFIG.rebirthDamageMult(this.rebirthGems);
   var supportMult = CONFIG.rebirthSupportMult(this.rebirthGems);
 
-  // 当前状态
-  var infoText = '转生=卡关后的主动重开：牺牲本轮养成，换永久宝石。\n' +
-    '当前宝石: 💎 ' + this.rebirthGems + '  主角×' + dmgMult.toFixed(2) + '  队友×' + supportMult.toFixed(2) + '\n' +
-    '历史最高: 第' + this.maxWaveReached + '波 / BOSS ' + plan.highestBossStage + '  本轮新增BOSS: ' + plan.newBossStages;
-  var info = new eui.Label();
-  info.text = infoText; info.size = 11; info.textColor = 0xcccccc;
-  info.x = panel._contentX; info.top = 50; info.width = panel._contentW; info.lineSpacing = 5;
-  info.wordWrap = true;
-  panel.addChild(info);
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '当前宝石', '💎 ' + this.rebirthGems, 0xc7a7ff);
+  var gemIcon = new eui.Image();
+  this.fitImageToBox(gemIcon, UI_ASSETS.topHudDiamond, 24, 24, panel._contentX + metricW - 34, 68);
+  panel.addChild(gemIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '本次预计', '+💎 ' + gemsGain, THEME.textGold);
+  var portalMetricIcon = new eui.Image();
+  this.fitImageToBox(portalMetricIcon, MODULE_ICON_ASSETS.rebirthPortal, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 68);
+  panel.addChild(portalMetricIcon);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '历史最高', '第' + this.maxWaveReached + '波', THEME.sky);
+  var hourIcon = new eui.Image();
+  this.fitImageToBox(hourIcon, MODULE_ICON_ASSETS.rebirthHourglass, 24, 24, panel._contentX + metricW - 34, 120);
+  panel.addChild(hourIcon);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '新增BOSS', plan.newBossStages + '/' + REBIRTH_MIN_NEW_BOSSES, canRebirth ? THEME.mint : THEME.danger);
+  var talentMetricIcon = new eui.Image();
+  this.fitImageToBox(talentMetricIcon, MODULE_ICON_ASSETS.rebirthTalent, 24, 24, panel._contentX + metricW + metricGap + metricW - 34, 120);
+  panel.addChild(talentMetricIcon);
 
-  var list = this.createPanelScrollContent(panel, 116, 14);
+  var introBg = new eui.Rect();
+  introBg.width = panel._contentW; introBg.height = 44;
+  introBg.x = panel._contentX; introBg.y = 164;
+  introBg.ellipseWidth = 10; introBg.ellipseHeight = 10;
+  introBg.fillColor = 0x151038;
+  introBg.strokeColor = canRebirth ? THEME.mint : THEME.strokeSoft;
+  introBg.strokeWeight = 1; introBg.strokeAlpha = 0.48;
+  panel.addChild(introBg);
+
+  var intro = new eui.Label();
+  intro.text = '转生是卡关后的主动重开：牺牲本轮养成换取永久宝石。本页是转生天赋强化的唯一入口，宝石也可在秘宝阁换永久属性。';
+  intro.size = 11; intro.textColor = 0xcccccc;
+  intro.x = panel._contentX + 46; intro.y = 178; intro.width = panel._contentW - 56;
+  intro.wordWrap = true;
+  panel.addChild(intro);
+  var introIcon = new eui.Image();
+  this.fitImageToBox(introIcon, MODULE_ICON_ASSETS.rebirthPortal, 30, 30, panel._contentX + 8, 171);
+  panel.addChild(introIcon);
+
+  var list = this.createPanelScrollContent(panel, 222, 14);
   var listW = panel._contentW;
   var y = 0;
 
@@ -6545,8 +7945,11 @@ Game.prototype.openRebirth = function() {
 
   var previewTitle = new eui.Label();
   previewTitle.text = '转生收益预览'; previewTitle.size = 13; previewTitle.textColor = 0xf39c12;
-  previewTitle.x = 10; previewTitle.y = y + 8;
+  previewTitle.x = 48; previewTitle.y = y + 8;
   list.addChild(previewTitle);
+  var previewIcon = new eui.Image();
+  this.fitImageToBox(previewIcon, UI_ASSETS.topHudDiamond, 32, 32, 10, y + 8);
+  list.addChild(previewIcon);
 
   var newGems = this.rebirthGems + gemsGain;
   var newDmgMult = CONFIG.rebirthDamageMult(newGems);
@@ -6555,13 +7958,16 @@ Game.prototype.openRebirth = function() {
     '累计: ' + newGems + '  主角×' + newDmgMult.toFixed(2) + '  队友×' + newSupportMult.toFixed(2);
   var preview = new eui.Label();
   preview.text = previewText; preview.size = 12; preview.textColor = 0xffd700;
-  preview.x = 10; preview.y = y + 32; preview.width = listW - 20; preview.lineSpacing = 4;
+  preview.x = 48; preview.y = y + 32; preview.width = listW - 58; preview.lineSpacing = 4;
   list.addChild(preview);
   y += 92;
 
+  var talentTitleIcon = new eui.Image();
+  this.fitImageToBox(talentTitleIcon, MODULE_ICON_ASSETS.rebirthTalent, 24, 24, 0, y - 4);
+  list.addChild(talentTitleIcon);
   var talentTitle = new eui.Label();
   talentTitle.text = '转生天赋'; talentTitle.size = 13; talentTitle.textColor = 0xc7a7ff; talentTitle.bold = true;
-  talentTitle.x = 2; talentTitle.y = y;
+  talentTitle.x = 30; talentTitle.y = y;
   list.addChild(talentTitle);
   y += 22;
 
@@ -6582,14 +7988,13 @@ Game.prototype.openRebirth = function() {
     bg.strokeColor = talent.color; bg.strokeWeight = 1; bg.strokeAlpha = lv > 0 ? 0.75 : 0.35;
     bg.x = x; bg.y = cy;
     list.addChild(bg);
-    var icon = new eui.Rect();
-    icon.width = 34; icon.height = 34; icon.ellipseWidth = 8; icon.ellipseHeight = 8;
-    icon.fillColor = talent.color; icon.x = x + 8; icon.y = cy + 8;
-    list.addChild(icon);
-    var iconLb = new eui.Label();
-    iconLb.text = talent.icon; iconLb.size = 14; iconLb.bold = true; iconLb.textColor = 0xffffff;
-    iconLb.x = icon.x; iconLb.y = icon.y + 9; iconLb.width = 34; iconLb.textAlign = 'center';
-    list.addChild(iconLb);
+    var iconBg = new eui.Rect();
+    iconBg.width = 34; iconBg.height = 34; iconBg.ellipseWidth = 8; iconBg.ellipseHeight = 8;
+    iconBg.fillColor = talent.color; iconBg.x = x + 8; iconBg.y = cy + 8;
+    list.addChild(iconBg);
+    var talentIconImg = new eui.Image();
+    this.fitImageToBox(talentIconImg, MODULE_ICON_ASSETS.rebirthTalent, 30, 30, iconBg.x + 2, iconBg.y + 2);
+    list.addChild(talentIconImg);
     var name = new eui.Label();
     name.text = talent.name + ' Lv.' + lv + '/' + talent.max; name.size = 11; name.bold = true; name.textColor = 0xffffff;
     name.x = x + 48; name.y = cy + 8; name.width = cardW - 54;
@@ -6623,9 +8028,12 @@ Game.prototype.openRebirth = function() {
   var costText = new eui.Label();
   costText.text = '策略：不要一能转就转。建议打完一整章，或连续挑战BOSS明显卡住时再转。\n重置：等级、波次、金币、技能等级、辅助招募。\n保留：宝石、秘宝装备、成就、历史最高、图签、邮件、BOSS阶段加成。';
   costText.size = 10; costText.textColor = 0xff9f9f;
-  costText.x = 10; costText.y = y + 10; costText.width = listW - 20; costText.lineSpacing = 5;
+  costText.x = 50; costText.y = y + 10; costText.width = listW - 60; costText.lineSpacing = 5;
   costText.wordWrap = true;
   list.addChild(costText);
+  var costIcon = new eui.Image();
+  this.fitImageToBox(costIcon, MODULE_ICON_ASSETS.rebirthHourglass, 34, 34, 10, y + 28);
+  list.addChild(costIcon);
   y += 106;
 
   // 转生条件提示
@@ -6667,7 +8075,7 @@ Game.prototype.openRebirthConfirm = function(gemsGain) {
   if (!plan.canRebirth) { this.showToast(plan.reason); return; }
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 292;
+  this.setPanelContentHeight(panel, 292);
 
   var title = new eui.Label();
   title.text = '确认转生'; title.size = 18; title.textColor = 0xffffff;
@@ -6746,7 +8154,6 @@ Game.prototype.checkDailyCheckin = function() {
     var diff = Math.floor((new Date(today) - lastDate) / 86400000);
     if (diff > 1) this.checkinDay = 0;
   }
-  this.openCheckin(true);
 };
 
 Game.prototype.openCheckin = function(auto) {
@@ -6756,7 +8163,7 @@ Game.prototype.openCheckin = function(auto) {
 
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 366;
+  this.setPanelContentHeight(panel, 366);
 
   var title = new eui.Label();
   title.text = '📅 每日签到'; title.size = 18; title.textColor = 0xffffff;
@@ -6764,9 +8171,18 @@ Game.prototype.openCheckin = function(auto) {
   panel.addChild(title);
 
   var contText = new eui.Label();
-  contText.text = '连续签到: ' + this.checkinDay + '天'; contText.size = 12; contText.textColor = 0xaaaaaa;
-  contText.horizontalCenter = 0; contText.top = 45;
+  contText.text = alreadyChecked ? '今日已领取，明天继续累计连续签到。' : '今天可领取第' + (day + 1) + '天奖励。';
+  contText.size = 11; contText.textColor = 0xaaaaaa;
+  contText.x = panel._contentX; contText.top = 164; contText.width = panel._contentW;
+  contText.textAlign = 'center';
   panel.addChild(contText);
+
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '连续签到', this.checkinDay + '天', THEME.mint);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '今日状态', alreadyChecked ? '已领取' : '可领取', alreadyChecked ? THEME.textDim : THEME.textGold);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '金币奖励', '随天数递增', THEME.sky);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '额外奖励', '秘宝/券', THEME.accentSoft);
 
   var cardW = 72;
   var cardH = 78;
@@ -6777,7 +8193,7 @@ Game.prototype.openCheckin = function(auto) {
     var done = alreadyChecked ? i < day : i < day;
     var isToday = !alreadyChecked && i === day;
     var col = i % 4; var row = Math.floor(i / 4);
-    var cx = startX + col * (cardW + gapX); var cy = 70 + row * 88;
+    var cx = startX + col * (cardW + gapX); var cy = 190 + row * 88;
 
     var itemBg = new eui.Rect();
     itemBg.width = cardW; itemBg.height = cardH; itemBg.ellipseWidth = 8; itemBg.ellipseHeight = 8;
@@ -6877,7 +8293,7 @@ Game.prototype.openDailyTasks = function() {
   this.resetDailyTasks();
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = 282;
+  this.setPanelContentHeight(panel, 430);
 
   var title = new eui.Label();
   title.text = '📋 每日任务'; title.size = 18; title.textColor = 0xffffff;
@@ -6885,7 +8301,20 @@ Game.prototype.openDailyTasks = function() {
   panel.addChild(title);
 
   var self = this;
-  var y = 54;
+  var claimedCount = 0;
+  var doneCount = 0;
+  for (var ci = 0; ci < DAILY_TASKS.length; ci++) {
+    if (this.dailyTaskClaimed[ci]) claimedCount++;
+    if (this.dailyTaskDone[ci]) doneCount++;
+  }
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '今日击杀', String(this.stats._dailyKills || 0), THEME.sky);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '今日点击', String(this.stats._dailyClicks || 0), THEME.accentSoft);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '推进波次', String(this.stats._dailyWaves || 0), THEME.mint);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '完成进度', claimedCount + '/' + DAILY_TASKS.length, THEME.textGold);
+
+  var y = 174;
 
   for (var i = 0; i < DAILY_TASKS.length; i++) {
     var t = DAILY_TASKS[i];
@@ -6950,7 +8379,7 @@ Game.prototype.openDailyTasks = function() {
 
     y += 62;
   }
-  panel.height = y + 16;
+  this.setPanelContentHeight(panel, y + 16);
 };
 
 Game.prototype.claimTask = function(idx) {
@@ -6983,15 +8412,37 @@ Game.prototype.checkAchievements = function() {
 Game.prototype.openAchievements = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = Math.min(500, (overlay.height || 667) - 74);
+  this.setPanelContentHeight(panel, Math.min(500, (overlay.height || 667) - 74));
 
   var title = new eui.Label();
-  title.text = '🏆 成就 (' + this.achievements.length + '/' + ACHIEVEMENTS.length + ')';
+  title.text = '🏆 成就';
   title.size = 18; title.textColor = 0xffffff;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
-  var list = this.createPanelScrollContent(panel, 50, 14);
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  var completePct = ACHIEVEMENTS.length ? Math.floor(this.achievements.length / ACHIEVEMENTS.length * 100) : 0;
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '完成数量', this.achievements.length + '/' + ACHIEVEMENTS.length, THEME.textGold);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '完成率', completePct + '%', THEME.mint);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '最高波次', '第' + this.maxWaveReached + '波', THEME.sky);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '击杀BOSS', this.fmt(this.stats ? this.stats.bossKills : 0), THEME.danger);
+
+  // F4：成就是「达成即自动发放」，不是待领取奖励；同时给出下一个可追的目标。
+  var nextTarget = null;
+  for (var ni = 0; ni < ACHIEVEMENTS.length; ni++) {
+    if (this.achievements.indexOf(ACHIEVEMENTS[ni].id) < 0) { nextTarget = ACHIEVEMENTS[ni]; break; }
+  }
+  var achHint = new eui.Label();
+  achHint.text = nextTarget
+    ? ('达成即自动发放金币，无需领取  ·  下一个：' + nextTarget.name + '（+' + nextTarget.reward + '金）')
+    : '全部成就已达成，奖励均已自动发放';
+  achHint.size = 9; achHint.textColor = THEME.textDim;
+  achHint.x = panel._contentX; achHint.y = 158;
+  achHint.width = panel._contentW;
+  panel.addChild(achHint);
+
+  var list = this.createPanelScrollContent(panel, 186, 14);
   var listW = panel._contentW;
   var y = 0;
   for (var i = 0; i < ACHIEVEMENTS.length; i++) {
@@ -7024,219 +8475,289 @@ Game.prototype.openAchievements = function() {
     list.addChild(descLb);
 
     var rewardLb = new eui.Label();
-    rewardLb.text = completed ? '✓ +' + a.reward + '金' : '+' + a.reward + '金';
-    rewardLb.size = 11; rewardLb.textColor = completed ? 0xffd700 : 0x666666;
-    rewardLb.x = listW - 76; rewardLb.y = y + 14;
-    rewardLb.width = 66; rewardLb.textAlign = 'right';
+    rewardLb.text = completed ? '✓ 已发 +' + a.reward + '金' : '待达成 +' + a.reward + '金';
+    rewardLb.size = 10; rewardLb.textColor = completed ? 0xffd700 : 0x666666;
+    rewardLb.x = listW - 88; rewardLb.y = y + 14;
+    rewardLb.width = 78; rewardLb.textAlign = 'right';
     list.addChild(rewardLb);
 
     y += 50;
   }
+  list.height = y + 4;
 };
 
 // ==================== 图签系统（怪物图鉴） ====================
 
+// S1/H-1：图签新发现 toast 节流。只做提示合并，不改动 monsterCodex 记录逻辑。
+// 窗口内的后续发现累计，窗口结束后合并成一条计数提示，避免连续击杀时刷屏。
+Game.prototype.notifyCodexDiscovery = function(name) {
+  var now = Date.now ? Date.now() : new Date().getTime();
+  var WINDOW_MS = 1500;
+  if (this._codexToastAt && now - this._codexToastAt < WINDOW_MS) {
+    this._codexToastPending = (this._codexToastPending || 0) + 1;
+    return;
+  }
+  var pending = this._codexToastPending || 0;
+  this._codexToastAt = now;
+  this._codexToastPending = 0;
+  if (pending > 0) this.showToast('📖 新图签 ×' + (pending + 1) + '（已合并提示）');
+  else this.showToast('📖 新图签！发现【' + name + '】');
+};
+
 Game.prototype.openMonsterCodex = function() {
   var overlay = this.createPanelOverlay();
   var panel = this.addPanelContent(overlay);
-  panel.height = Math.min(500, (overlay.height || 667) - 74);
+  this.setPanelContentHeight(panel, Math.min(620, (overlay.height || 667) - 74));
 
   var discovered = 0;
+  var totalKills = 0;
+  var totalResearch = 0;
   for (var i = 0; i < MONSTER_TYPES.length; i++) {
-    if (this.monsterCodex[MONSTER_TYPES[i].shape]) discovered++;
+    var normalEntry = this.monsterCodex[MONSTER_TYPES[i].shape];
+    if (normalEntry) {
+      discovered++;
+      totalKills += normalEntry.kills || 0;
+      totalResearch += this.getCodexResearchLevel(MONSTER_TYPES[i].shape, false);
+    }
   }
   var bossDiscovered = 0;
   for (var i = 0; i < BOSS_TYPES.length; i++) {
-    if (this.monsterCodex[BOSS_TYPES[i].shape]) bossDiscovered++;
+    var bossEntry = this.monsterCodex[BOSS_TYPES[i].shape];
+    if (bossEntry) {
+      bossDiscovered++;
+      totalKills += bossEntry.kills || 0;
+      totalResearch += this.getCodexResearchLevel(BOSS_TYPES[i].shape, true);
+    }
   }
-  var total = MONSTER_TYPES.length + BOSS_TYPES.length;
+  var hiddenDiscovered = 0;
+  for (var hi = 0; hi < HIDDEN_MONSTER_TYPES.length; hi++) {
+    var hiddenEntry = this.monsterCodex[HIDDEN_MONSTER_TYPES[hi].shape];
+    if (hiddenEntry) {
+      hiddenDiscovered++;
+      totalKills += hiddenEntry.kills || 0;
+      totalResearch += this.getCodexResearchLevel(HIDDEN_MONSTER_TYPES[hi].shape, false);
+    }
+  }
+  var total = MONSTER_TYPES.length + HIDDEN_MONSTER_TYPES.length + BOSS_TYPES.length;
+  var foundTotal = discovered + bossDiscovered;
+  foundTotal += hiddenDiscovered;
+  var progressPct = total ? Math.floor(foundTotal / total * 100) : 0;
 
   var title = new eui.Label();
-  title.text = '📖 图签收藏 (' + (discovered + bossDiscovered) + '/' + total + ')';
-  title.size = 15; title.textColor = THEME.accentSoft; title.bold = true;
-  title.horizontalCenter = 0; title.top = 12;
+  title.text = '图签收藏';
+  title.size = 18; title.textColor = THEME.accentSoft; title.bold = true;
+  title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
-  var normalBadge = new eui.Rect();
-  normalBadge.width = Math.floor((panel._contentW - 8) / 2); normalBadge.height = 28;
-  normalBadge.x = panel._contentX; normalBadge.y = 44;
-  normalBadge.ellipseWidth = 8; normalBadge.ellipseHeight = 8;
-  normalBadge.fillColor = 0x0e1a2a; normalBadge.strokeColor = THEME.sky;
-  normalBadge.strokeWeight = 1; normalBadge.strokeAlpha = 0.55;
-  panel.addChild(normalBadge);
-  var normalBadgeLb = new eui.Label();
-  normalBadgeLb.text = '普通怪物 ' + discovered + '/' + MONSTER_TYPES.length;
-  normalBadgeLb.size = 11; normalBadgeLb.bold = true; normalBadgeLb.textColor = THEME.sky;
-  normalBadgeLb.width = normalBadge.width; normalBadgeLb.height = 16;
-  normalBadgeLb.x = normalBadge.x; normalBadgeLb.y = normalBadge.y + 7; normalBadgeLb.textAlign = 'center';
-  panel.addChild(normalBadgeLb);
+  var titleIcon = new eui.Image();
+  this.fitImageToBox(titleIcon, CODEX_ICON_ASSETS.book, 28, 28, Math.floor(panel.width / 2) - 74, 10);
+  panel.addChild(titleIcon);
 
-  var bossBadgeTop = new eui.Rect();
-  bossBadgeTop.width = normalBadge.width; bossBadgeTop.height = 28;
-  bossBadgeTop.x = panel._contentX + normalBadge.width + 8; bossBadgeTop.y = 44;
-  bossBadgeTop.ellipseWidth = 8; bossBadgeTop.ellipseHeight = 8;
-  bossBadgeTop.fillColor = 0x2a0a0a; bossBadgeTop.strokeColor = 0xff6666;
-  bossBadgeTop.strokeWeight = 1; bossBadgeTop.strokeAlpha = 0.65;
-  panel.addChild(bossBadgeTop);
-  var bossBadgeLb = new eui.Label();
-  bossBadgeLb.text = 'BOSS ' + bossDiscovered + '/' + BOSS_TYPES.length;
-  bossBadgeLb.size = 11; bossBadgeLb.bold = true; bossBadgeLb.textColor = 0xff8888;
-  bossBadgeLb.width = bossBadgeTop.width; bossBadgeLb.height = 16;
-  bossBadgeLb.x = bossBadgeTop.x; bossBadgeLb.y = bossBadgeTop.y + 7; bossBadgeLb.textAlign = 'center';
-  panel.addChild(bossBadgeLb);
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '收集进度', foundTotal + '/' + total + ' · ' + progressPct + '%', THEME.textGold);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '普通/隐藏', discovered + '+' + hiddenDiscovered + '/' + (MONSTER_TYPES.length + HIDDEN_MONSTER_TYPES.length), THEME.sky);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, 'BOSS 图签', bossDiscovered + '/' + BOSS_TYPES.length, 0xff8888);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '击杀研究', this.fmt(totalKills) + ' / Lv.' + totalResearch, THEME.accentSoft);
 
-  var list = this.createPanelScrollContent(panel, 80, 14);
+  var guideBg = new eui.Rect();
+  guideBg.width = panel._contentW; guideBg.height = 42;
+  guideBg.x = panel._contentX; guideBg.y = 166;
+  guideBg.ellipseWidth = 10; guideBg.ellipseHeight = 10;
+  guideBg.fillColor = 0x151038;
+  guideBg.strokeColor = THEME.strokeSoft; guideBg.strokeWeight = 1; guideBg.strokeAlpha = 0.44;
+  panel.addChild(guideBg);
+
+  var guideIcon = new eui.Image();
+  this.fitImageToBox(guideIcon, CODEX_ICON_ASSETS.research, 30, 30, panel._contentX + 8, 172);
+  panel.addChild(guideIcon);
+
+  var guide = new eui.Label();
+  guide.text = '发现怪物后记录击杀，研究等级会提供对应克制伤害。';
+  guide.size = 11; guide.textColor = THEME.textDim;
+  guide.x = panel._contentX + 46; guide.y = 178; guide.width = panel._contentW - 56;
+  guide.wordWrap = true;
+  panel.addChild(guide);
+
+  var list = this.createPanelScrollContent(panel, 222, 14);
   var listW = panel._contentW;
-
-  // 分栏标题
-  var secNormal = new eui.Label();
-  secNormal.text = '普通怪物';
-  secNormal.size = 12; secNormal.bold = true; secNormal.textColor = THEME.sky;
-  secNormal.horizontalCenter = 0; secNormal.top = 34;
-  secNormal.y = 0; secNormal.width = listW; secNormal.textAlign = 'center';
-  list.addChild(secNormal);
-
-  var COLS = 2;
-  var GAP_X = 8; var GAP_Y = 6;
-  var CARD_W = Math.floor((panel._contentW - GAP_X) / 2);
-  var CARD_H = 78;
-  var START_X = 0; var START_Y = 18;
   var self = this;
+  var y = 0;
 
-  // 渲染一张图签卡片
-  function renderCard(mt, cardIdx, startY, isBossType) {
+  function addSection(iconAsset, text, subText, color) {
+    var secBg = new eui.Rect();
+    secBg.width = listW; secBg.height = 38;
+    secBg.x = 0; secBg.y = y;
+    secBg.ellipseWidth = 10; secBg.ellipseHeight = 10;
+    secBg.fillColor = 0x100b2f;
+    secBg.strokeColor = color; secBg.strokeWeight = 1; secBg.strokeAlpha = 0.45;
+    list.addChild(secBg);
+
+    var secIcon = new eui.Image();
+    self.fitImageToBox(secIcon, iconAsset, 30, 30, 8, y + 4);
+    list.addChild(secIcon);
+
+    var secTitle = new eui.Label();
+    secTitle.text = text; secTitle.size = 13; secTitle.bold = true; secTitle.textColor = color;
+    secTitle.x = 46; secTitle.y = y + 6; secTitle.width = listW - 56;
+    list.addChild(secTitle);
+
+    var secSub = new eui.Label();
+    secSub.text = subText; secSub.size = 9; secSub.textColor = THEME.textDim;
+    secSub.x = 46; secSub.y = y + 23; secSub.width = listW - 56;
+    list.addChild(secSub);
+    y += 48;
+  }
+
+  function renderCard(mt, isBossType, isHiddenCard) {
     var codexEntry = self.monsterCodex[mt.shape];
     var found = !!codexEntry;
     var researchLv = found ? self.getCodexResearchLevel(mt.shape, isBossType) : 0;
     var bonusPct = Math.floor(self.getCodexDamageBonus(mt.shape, isBossType) * 100);
     var nextResearch = found ? self.getCodexNextResearchKills(mt.shape, isBossType) : null;
-    var col = cardIdx % COLS; var row = Math.floor(cardIdx / COLS);
-    var cx2 = START_X + col * (CARD_W + GAP_X);
-    var cy2 = startY + row * (CARD_H + GAP_Y);
+    var cardH = 98;
+    var cx2 = 0;
+    var cy2 = y;
+    var color = found ? (isBossType ? 0xff6666 : (mt.badge || THEME.sky)) : 0x3b3654;
 
-    // 卡片背景
     var cardBg = new eui.Rect();
-    cardBg.width = CARD_W; cardBg.height = CARD_H;
-    cardBg.ellipseWidth = 8; cardBg.ellipseHeight = 8;
-    cardBg.fillColor = found ? (isBossType ? 0x2a0a0a : 0x0e1a2a) : 0x1a1a1a;
-    cardBg.strokeColor = found ? (isBossType ? 0xff4444 : mt.badge) : 0x333333;
-    cardBg.strokeWeight = found ? (isBossType ? 2 : 1.5) : 1;
+    cardBg.width = listW; cardBg.height = cardH;
+    cardBg.ellipseWidth = 10; cardBg.ellipseHeight = 10;
+    cardBg.fillColor = found ? (isBossType ? 0x24102a : 0x0e1a2a) : 0x14121f;
+    cardBg.strokeColor = color;
+    cardBg.strokeWeight = 1; cardBg.strokeAlpha = found ? 0.62 : 0.3;
     cardBg.x = cx2; cardBg.y = cy2;
     list.addChild(cardBg);
 
-    // 怪物缩略图
-    var thumb = new egret.Shape();
-    if (found) {
-      self.drawMonsterShape(thumb.graphics, mt, 44, isBossType);
-    } else {
-      var tg = thumb.graphics;
-      tg.beginFill(0x444444); tg.drawCircle(22, 22, 18); tg.endFill();
-      tg.beginFill(0x222222); tg.drawCircle(22, 22, 13); tg.endFill();
-      tg.lineStyle(2, 0x666666);
-      tg.moveTo(18, 18); tg.lineTo(26, 26);
-      tg.moveTo(26, 18); tg.lineTo(18, 26);
-    }
-    thumb.x = cx2 + 4; thumb.y = cy2 + 18;
-    list.addChild(thumb);
+    var classIcon = new eui.Image();
+    self.fitImageToBox(classIcon, isBossType ? CODEX_ICON_ASSETS.boss : CODEX_ICON_ASSETS.monster, 24, 24, cx2 + listW - 34, cy2 + 8);
+    classIcon.alpha = found ? 1 : 0.38;
+    list.addChild(classIcon);
 
-    // 名字
+    var thumbBg = new eui.Rect();
+    thumbBg.width = 60; thumbBg.height = 60;
+    thumbBg.x = cx2 + 10; thumbBg.y = cy2 + 18;
+    thumbBg.ellipseWidth = 12; thumbBg.ellipseHeight = 12;
+    thumbBg.fillColor = found ? 0x09071a : 0x1b1729;
+    thumbBg.strokeColor = color; thumbBg.strokeWeight = 1; thumbBg.strokeAlpha = found ? 0.7 : 0.28;
+    list.addChild(thumbBg);
+
+    if (found) {
+      var thumbImg = new eui.Image();
+      self.fitImageToBox(thumbImg, self.monsterSpriteSource(mt, isBossType), isBossType ? 56 : 52, isBossType ? 56 : 52, thumbBg.x + (isBossType ? 2 : 4), thumbBg.y + (isBossType ? 2 : 4));
+      list.addChild(thumbImg);
+    } else {
+      var unknownImg = new eui.Image();
+      self.fitImageToBox(unknownImg, CODEX_ICON_ASSETS.unknown, 52, 52, thumbBg.x + 4, thumbBg.y + 4);
+      unknownImg.alpha = 0.74;
+      list.addChild(unknownImg);
+    }
+
     var nameLb2 = new eui.Label();
-    nameLb2.text = found ? (isBossType ? '👑 ' + mt.name : mt.name) : '???';
-    nameLb2.size = 12; nameLb2.bold = true;
+    nameLb2.text = found ? mt.name : (isHiddenCard ? '隐藏目标' : '未知目标');
+    nameLb2.size = 13; nameLb2.bold = true;
     nameLb2.textColor = found ? (isBossType ? 0xff8888 : 0xffffff) : 0x555555;
-    nameLb2.x = cx2 + 52; nameLb2.y = cy2 + 6;
-    nameLb2.width = CARD_W - 58;
+    nameLb2.x = cx2 + 82; nameLb2.y = cy2 + 10;
+    nameLb2.width = listW - 128;
     list.addChild(nameLb2);
 
-    // 出现波次
-    var waveLb = new eui.Label();
-    waveLb.text = found ? '波次: ' + (mt.wave || (isBossType ? '每10波' : '?')) : '未发现';
-    waveLb.size = 9; waveLb.textColor = found ? THEME.accent : 0x444444;
-    waveLb.x = cx2 + 52; waveLb.y = cy2 + 24;
-    waveLb.width = CARD_W - 58;
-    list.addChild(waveLb);
+    var weakInfo = self.getDamageTypeName(mt.weakness) + '弱  物防' + (mt.armor || 0) + ' / 法抗' + (mt.resist || 0);
+    var waveText = found ? ('出现：' + (mt.wave || (isBossType ? '每10波' : '?'))) : (isHiddenCard ? (mt.unlockHint || '稀有遭遇') : '继续推进关卡后解锁记录');
+    var statText = found ? ('击杀 ' + (codexEntry.kills || 0) + '  研究 Lv.' + researchLv) : '未发现';
+    var weakText = found ? weakInfo : (isHiddenCard ? weakInfo : '弱点与抗性未知');
+    var bonusText = found ? ('克制 +' + bonusPct + '%' + (nextResearch ? '  下级 ' + nextResearch + '击杀' : '  已满研')) : '发现后开放研究加成';
+    var featureText = self.getMonsterFeatureText(mt, found);
 
-    // 击杀数
-    var killLb2 = new eui.Label();
-    killLb2.text = found ? ('击杀: ' + (codexEntry.kills || 0) + '  研Lv.' + researchLv) : '';
-    killLb2.size = 9; killLb2.textColor = 0x888888;
-    killLb2.x = cx2 + 52; killLb2.y = cy2 + 38;
-    killLb2.width = CARD_W - 58;
-    list.addChild(killLb2);
+    var meta1 = new eui.Label();
+    meta1.text = waveText + '\n' + statText + '  ·  ' + featureText;
+    meta1.size = 10; meta1.textColor = found ? THEME.textDim : 0x666666;
+    meta1.x = cx2 + 82; meta1.y = cy2 + 31; meta1.width = listW - 126;
+    meta1.lineSpacing = 4;
+    list.addChild(meta1);
 
-    if (found) {
-      var researchLb = new eui.Label();
-      researchLb.text = '克制+' + bonusPct + '%' + (nextResearch ? '  下级' + nextResearch : '  满研');
-      researchLb.size = 8; researchLb.textColor = researchLv > 0 ? THEME.accentSoft : THEME.textDim;
-      researchLb.width = CARD_W - 58; researchLb.wordWrap = true;
-      researchLb.x = cx2 + 52; researchLb.y = cy2 + 52;
-      list.addChild(researchLb);
-    }
+    var weaknessIcon = new eui.Image();
+    self.fitImageToBox(weaknessIcon, CODEX_ICON_ASSETS.weakness, 17, 17, cx2 + 82, cy2 + 68);
+    weaknessIcon.alpha = found ? 1 : 0.35;
+    list.addChild(weaknessIcon);
 
-    // BOSS 标记
+    var weakLb = new eui.Label();
+    weakLb.text = weakText;
+    weakLb.size = 9; weakLb.textColor = found ? THEME.accentSoft : 0x666666;
+    weakLb.x = cx2 + 104; weakLb.y = cy2 + 71; weakLb.width = Math.floor((listW - 122) * 0.52);
+    list.addChild(weakLb);
+
+    var researchIcon = new eui.Image();
+    self.fitImageToBox(researchIcon, CODEX_ICON_ASSETS.research, 17, 17, cx2 + Math.floor(listW * 0.62), cy2 + 68);
+    researchIcon.alpha = found ? 1 : 0.35;
+    list.addChild(researchIcon);
+
+    var researchLb = new eui.Label();
+    researchLb.text = bonusText;
+    researchLb.size = 9; researchLb.textColor = found ? THEME.textGold : 0x666666;
+    researchLb.x = cx2 + Math.floor(listW * 0.62) + 22; researchLb.y = cy2 + 71;
+    researchLb.width = listW - researchLb.x - 8;
+    list.addChild(researchLb);
+
     if (isBossType && found) {
-      var bossBadge = new eui.Rect();
-      bossBadge.width = 30; bossBadge.height = 13;
-      bossBadge.ellipseWidth = 6; bossBadge.ellipseHeight = 6;
-      bossBadge.fillColor = 0x7a0000; bossBadge.x = cx2 + CARD_W - 36; bossBadge.y = cy2 + 4;
-      list.addChild(bossBadge);
+      var bossTagBg = new eui.Rect();
+      bossTagBg.width = 34; bossTagBg.height = 16;
+      bossTagBg.ellipseWidth = 8; bossTagBg.ellipseHeight = 8;
+      bossTagBg.fillColor = 0x641313; bossTagBg.x = cx2 + listW - 76; bossTagBg.y = cy2 + 12;
+      bossTagBg.strokeColor = 0xff8888; bossTagBg.strokeWeight = 1; bossTagBg.strokeAlpha = 0.6;
+      list.addChild(bossTagBg);
       var bossTag = new eui.Label();
       bossTag.text = 'BOSS'; bossTag.size = 8; bossTag.bold = true;
-      bossTag.textColor = 0xff8888; bossTag.x = cx2 + CARD_W - 34; bossTag.y = cy2 + 5;
+      bossTag.textColor = 0xffbbbb; bossTag.x = bossTagBg.x; bossTag.y = bossTagBg.y + 4;
+      bossTag.width = bossTagBg.width; bossTag.textAlign = 'center';
       list.addChild(bossTag);
     }
-  } // end renderCard
 
-  // 普通怪物
+    y += cardH + 8;
+  }
+
+  addSection(CODEX_ICON_ASSETS.monster, '普通怪物', '按首次出现波次排序，研究后提升克制伤害', THEME.sky);
   for (var i = 0; i < MONSTER_TYPES.length; i++) {
-    renderCard(MONSTER_TYPES[i], i, START_Y, false);
+    renderCard(MONSTER_TYPES[i], false, false);
   }
 
-  // BOSS 分栏标题
-  var normalRows = Math.ceil(MONSTER_TYPES.length / COLS);
-  var bossSectionY = START_Y + normalRows * (CARD_H + GAP_Y) + 10;
-  var secBoss = new eui.Label();
-  secBoss.text = 'BOSS 图签';
-  secBoss.size = 12; secBoss.bold = true; secBoss.textColor = 0xff8888;
-  secBoss.x = 0; secBoss.width = listW; secBoss.textAlign = 'center'; secBoss.y = bossSectionY;
-  list.addChild(secBoss);
+  y += 4;
+  addSection(CODEX_ICON_ASSETS.unknown, '隐藏怪物', '第 ' + HIDDEN_ENCOUNTER_MIN_WAVE + ' 波起稀有遭遇，共 ' + HIDDEN_MONSTER_TYPES.length + ' 只；发现后计入研究加成', 0xc7a7ff);
+  for (var hi2 = 0; hi2 < HIDDEN_MONSTER_TYPES.length; hi2++) {
+    renderCard(HIDDEN_MONSTER_TYPES[hi2], false, true);
+  }
 
-  // BOSS 怪物
+  y += 4;
+  addSection(CODEX_ICON_ASSETS.boss, 'BOSS 图签', '每个章节阶段的关键敌人，记录弱点、抗性和研究进度', 0xff8888);
   for (var i = 0; i < BOSS_TYPES.length; i++) {
-    renderCard(BOSS_TYPES[i], i, bossSectionY + 18, true);
+    renderCard(BOSS_TYPES[i], true, false);
   }
 
-  // 关闭按钮
-  var bossRows = Math.ceil(BOSS_TYPES.length / COLS);
-  var closeY = bossSectionY + 18 + bossRows * (CARD_H + GAP_Y) + 10;
-  var closeBtn = this.createButton('关闭', THEME.bgLite, 100, 32, function() {
-    if (overlay.parent) overlay.parent.removeChild(overlay);
-  }, this);
-  closeBtn.x = Math.floor((listW - 100) / 2); closeBtn.y = closeY;
-  list.addChild(closeBtn);
+  list.height = y + 8;
 };
 
 // ==================== 离线收益 ====================
 
 Game.prototype.checkOfflineReward = function() {
   try {
+    if (this._offlineRewardShown) return;
+    this._offlineRewardShown = true;
     var lastTime = parseInt(localStorage.getItem('gujiyouxi_egret_time') || '0');
-    if (!lastTime) return;
     var now = Date.now();
-    var elapsed = Math.floor((now - lastTime) / 1000);
-    if (elapsed < 60) return;
+    var elapsed = lastTime ? Math.max(0, Math.floor((now - lastTime) / 1000)) : 0;
     var maxOffline = this.offlineCap * 3600;
-    var seconds = Math.min(elapsed, maxOffline);
-    var dps = this.totalDps();
-    var reward = Math.floor(dps * 0.1 * seconds);
-    if (reward <= 0) return;
+    var seconds = Math.min(Math.max(elapsed, 60), maxOffline);
+    var dps = Math.max(1, this.totalDps());
+    var reward = Math.max(1, Math.floor(dps * 0.1 * seconds));
     this.gold += reward;
+    this.saveGame();
     var hours = Math.floor(seconds / 3600);
     var mins = Math.floor((seconds % 3600) / 60);
     var timeStr = hours > 0 ? hours + '小时' + mins + '分钟' : mins + '分钟';
+    var timeHint = elapsed >= 60 ? '你离开了 ' + timeStr : '本次登录奖励，按1分钟计算';
 
     var self = this;
-    setTimeout(function() {
+    self.safeTimeout('offlineReward', function() {
+      try {
       var overlay = self.createPanelOverlay();
       var panel = new eui.Group();
       panel.width = 300; panel.height = 220;
@@ -7252,7 +8773,7 @@ Game.prototype.checkOfflineReward = function() {
       panel.addChild(t1);
 
       var t2 = new eui.Label();
-      t2.text = '你离开了 ' + timeStr; t2.size = 12; t2.textColor = 0xaaaaaa;
+      t2.text = timeHint; t2.size = 12; t2.textColor = 0xaaaaaa;
       t2.horizontalCenter = 0; t2.top = 55;
       panel.addChild(t2);
 
@@ -7267,16 +8788,62 @@ Game.prototype.checkOfflineReward = function() {
       t4.horizontalCenter = 0; t4.top = 130;
       panel.addChild(t4);
 
-      // 「×2 看广告」按钮（占位：模拟广告已看，直接翻倍）
-      var adBtn = self.createButton('📺 看广告 ×2', 0x27ae60, 150, 36, function() {
-        // 实际接入广告 SDK 时替换此处逻辑
+      // S1/H-3：H5 无真实激励视频 SDK，按钮点一下就直接翻倍。文案必须说真话，
+      // 但奖励逻辑（grantDoubleReward 的 doubled 单次守卫）一行不动。
+      var canShowWxAd = false;
+      try {
+        canShowWxAd = typeof wx !== 'undefined' && !!wx && !!wx.createRewardedVideoAd &&
+          typeof window !== 'undefined' && !!window.DMAX_OFFLINE_AD_UNIT_ID;
+      } catch (e) { canShowWxAd = false; }
+
+      var t5 = new eui.Label();
+      t5.text = canShowWxAd ? '观看广告后收益翻倍' : '浏览器版无需广告，点击直接领取双倍';
+      t5.size = 10; t5.textColor = 0x8f86c9;
+      t5.horizontalCenter = 0; t5.top = 146;
+      panel.addChild(t5);
+
+      var doubled = false;
+      var grantDoubleReward = function() {
+        if (doubled) return;
+        doubled = true;
         self.gold += reward; // 再加一次，等效 ×2
         t3.text = '+' + self.fmt(reward * 2) + ' 💰 (×2)';
-        adBtn.alpha = 0.4; adBtn.touchEnabled = false;
+        // S1/H-3：不再关闭 touchEnabled，置灰后仍可点击，由回调给出「已翻倍」反馈。
+        adBtn.alpha = 0.4;
         var adLb = adBtn.getChildAt(1);
         if (adLb) adLb.text = '✓ 已翻倍';
         self.showToast('💰 收益已翻倍！');
         self.updateUI();
+        self.saveGame();
+      };
+      var adBtn = self.createButton(canShowWxAd ? '📺 看广告 ×2' : '🎁 领取双倍收益', 0x27ae60, 150, 36, function() {
+        // S1/H-3：二次点击给明确 toast，不再默默无响应；不重复发奖。
+        if (doubled) { self.showToast('本次离线收益已翻倍'); return; }
+        var wxApi = typeof wx !== 'undefined' ? wx : null;
+        var adUnitId = typeof window !== 'undefined' ? (window.DMAX_OFFLINE_AD_UNIT_ID || '') : '';
+        if (wxApi && wxApi.createRewardedVideoAd && adUnitId) {
+          var ad = wxApi.createRewardedVideoAd({ adUnitId: adUnitId });
+          var cleanup = function() {
+            if (ad.offClose) ad.offClose(onClose);
+            if (ad.offError) ad.offError(onError);
+          };
+          var onClose = function(res) {
+            cleanup();
+            if (!res || res.isEnded) grantDoubleReward();
+            else self.showToast('看完广告可获得2倍收益');
+          };
+          var onError = function() {
+            cleanup();
+            grantDoubleReward();
+          };
+          if (ad.onClose) ad.onClose(onClose);
+          if (ad.onError) ad.onError(onError);
+          ad.show().catch(function() {
+            ad.load().then(function() { return ad.show(); }).catch(function() { grantDoubleReward(); });
+          });
+        } else {
+          grantDoubleReward();
+        }
       }, self);
       adBtn.horizontalCenter = 0; adBtn.top = 160;
       panel.addChild(adBtn);
@@ -7287,6 +8854,11 @@ Game.prototype.checkOfflineReward = function() {
       panel.addChild(btn);
 
       overlay.addChild(panel);
+      } catch (e) {
+        // 异步回调不受外层 try 保护：中途抛错会让遮罩永久停留（与 §12 同类）。
+        try { self.closePanel(); } catch (e2) {}
+        self.reportRuntimeError(e, 'offlineReward');
+      }
     }, 500);
   } catch(e) {}
 };
@@ -7294,7 +8866,12 @@ Game.prototype.checkOfflineReward = function() {
 // ==================== 音效系统（Web Audio 程序合成，无需外部文件） ====================
 
 Game.prototype.initSound = function() {
-  this.soundMuted = (localStorage.getItem('gujiyouxi_mute') === '1');
+  var oldMuted = localStorage.getItem('gujiyouxi_mute') === '1';
+  var musicPref = localStorage.getItem('gujiyouxi_music_mute');
+  var sfxPref = localStorage.getItem('gujiyouxi_sfx_mute');
+  this.musicMuted = musicPref !== null ? musicPref === '1' : (!!this.musicMuted || oldMuted);
+  this.sfxMuted = sfxPref !== null ? sfxPref === '1' : (!!this.sfxMuted || oldMuted);
+  this.soundMuted = this.musicMuted && this.sfxMuted;
   this._audioCtx = null;
   this._masterGain = null;
   this._bgmGain = null;
@@ -7306,7 +8883,7 @@ Game.prototype.initSound = function() {
     if (self._audioCtx && self._audioCtx.state === 'suspended') {
       self._audioCtx.resume();
     }
-    if (!self.soundMuted) self.startBgm();
+    if (!self.musicMuted) self.startBgm();
     document.removeEventListener('touchstart', unlock);
     document.removeEventListener('mousedown', unlock);
     document.removeEventListener('keydown', unlock);
@@ -7340,7 +8917,8 @@ Game.prototype.ensureAudio = function() {
 
 // 内部：播放一个 envelope 包络的 oscillator
 Game.prototype._beep = function(opts) {
-  if (this.soundMuted) return;
+  var bus = opts && opts.bus === 'bgm' ? 'bgm' : 'sfx';
+  if (bus === 'bgm' ? this.musicMuted : this.sfxMuted) return;
   var ctx = this.ensureAudio();
   if (!ctx) return;
   try {
@@ -7360,19 +8938,19 @@ Game.prototype._beep = function(opts) {
     gain.gain.linearRampToValueAtTime(vol, now + 0.005);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
     osc.connect(gain);
-    gain.connect(opts.bus === 'bgm' && this._bgmGain ? this._bgmGain : (this._sfxGain || ctx.destination));
+    gain.connect(bus === 'bgm' && this._bgmGain ? this._bgmGain : (this._sfxGain || ctx.destination));
     osc.start(now);
     osc.stop(now + dur + 0.02);
   } catch(e) {}
 };
 
 Game.prototype.startBgm = function() {
-  if (this.soundMuted || this._bgmTimer) return;
+  if (this.musicMuted || this._bgmTimer) return;
   if (!this.ensureAudio()) return;
   var self = this;
   this._bgmStep = this._bgmStep || 0;
   function playStep() {
-    if (self.soundMuted || !self._audioCtx) return;
+    if (self.musicMuted || !self._audioCtx) return;
     var melody = [523, 587, 659, 784, 740, 659, 587, 494, 523, 659, 784, 880, 784, 659, 587, 523];
     var bass = [130, 130, 196, 196, 174, 174, 146, 146];
     var step = self._bgmStep % melody.length;
@@ -7445,32 +9023,350 @@ Game.prototype.sfxUnlock = function() {
 };
 
 Game.prototype.toggleMute = function() {
-  this.soundMuted = !this.soundMuted;
-  localStorage.setItem('gujiyouxi_mute', this.soundMuted ? '1' : '0');
-  if (this.soundMuted) this.stopBgm();
+  var muted = !(this.musicMuted && this.sfxMuted);
+  this.musicMuted = muted;
+  this.sfxMuted = muted;
+  this.soundMuted = muted;
+  localStorage.setItem('gujiyouxi_mute', muted ? '1' : '0');
+  localStorage.setItem('gujiyouxi_music_mute', this.musicMuted ? '1' : '0');
+  localStorage.setItem('gujiyouxi_sfx_mute', this.sfxMuted ? '1' : '0');
+  if (this.musicMuted) this.stopBgm();
   else this.startBgm();
   this.updateMuteBtn();
-  if (!this.soundMuted) this.sfxClick();
-  this.showToast(this.soundMuted ? '🔇 已静音' : '🔊 BGM与音效已开启');
+  if (!this.sfxMuted) this.sfxClick();
+  this.showToast(muted ? '已关闭音乐与音效' : '音乐与音效已开启');
 };
 
 Game.prototype.updateMuteBtn = function() {
-  if (this.muteLabel) this.muteLabel.text = this.soundMuted ? '🔇' : '🔊';
+  this.soundMuted = this.musicMuted && this.sfxMuted;
+  if (this.muteLabel) this.muteLabel.text = '⚙ 设置';
+};
+
+Game.prototype.persistSettings = function() {
+  this.soundMuted = this.musicMuted && this.sfxMuted;
+  try {
+    localStorage.setItem('gujiyouxi_mute', this.soundMuted ? '1' : '0');
+    localStorage.setItem('gujiyouxi_music_mute', this.musicMuted ? '1' : '0');
+    localStorage.setItem('gujiyouxi_sfx_mute', this.sfxMuted ? '1' : '0');
+    localStorage.setItem('gujiyouxi_detail_mode', this.detailMode === false ? '0' : '1');
+  } catch(e) {}
+  this.saveGame();
+};
+
+Game.prototype.openSettingsPanel = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay);
+  this.setPanelContentHeight(panel, Math.min(548, (overlay.height || 667) - 72));
+  var title = new eui.Label();
+  title.text = '设置'; title.size = 18; title.textColor = 0xffffff; title.bold = true;
+  title.horizontalCenter = 0; title.top = 13;
+  panel.addChild(title);
+
+  var self = this;
+  var metricGap = 8;
+  var metricW = Math.floor((panel._contentW - metricGap) / 2);
+  this.addPageMetricCard(panel, panel._contentX, 58, metricW, 44, '音乐', this.musicMuted ? '关闭' : '开启', this.musicMuted ? THEME.textDim : THEME.mint);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 58, metricW, 44, '音效', this.sfxMuted ? '关闭' : '开启', this.sfxMuted ? THEME.textDim : THEME.sky);
+  this.addPageMetricCard(panel, panel._contentX, 110, metricW, 44, '界面信息', this.detailMode === false ? '简洁' : '详细', THEME.accentSoft);
+  this.addPageMetricCard(panel, panel._contentX + metricW + metricGap, 110, metricW, 44, '战斗提示', '居中浮层', THEME.textGold);
+
+  function addToggle(y, icon, titleText, descText, getter, setter) {
+    var rowX = panel._contentX;
+    var rowW = panel._contentW;
+    var row = new eui.Rect();
+    row.width = rowW; row.height = 54;
+    row.x = rowX; row.y = y;
+    row.ellipseWidth = 10; row.ellipseHeight = 10;
+    row.fillColor = 0x1a153f;
+    row.strokeColor = THEME.strokeSoft; row.strokeWeight = 1; row.strokeAlpha = 0.45;
+    panel.addChild(row);
+
+    var iconLb = new eui.Label();
+    iconLb.text = icon; iconLb.size = 18; iconLb.width = 30; iconLb.height = 30;
+    iconLb.x = rowX + 10; iconLb.y = y + 12; iconLb.textAlign = 'center'; iconLb.verticalAlign = 'middle';
+    panel.addChild(iconLb);
+
+    var nameLb = new eui.Label();
+    nameLb.text = titleText; nameLb.size = 12; nameLb.bold = true; nameLb.textColor = THEME.textMain;
+    nameLb.x = rowX + 48; nameLb.y = y + 8; nameLb.width = rowW - 130; nameLb.height = 16;
+    panel.addChild(nameLb);
+
+    var descLb = new eui.Label();
+    descLb.text = descText; descLb.size = 9; descLb.textColor = THEME.textDim;
+    descLb.x = rowX + 48; descLb.y = y + 28; descLb.width = rowW - 130; descLb.height = 14;
+    panel.addChild(descLb);
+
+    var btn = self.createButton('', 0x27ae60, 64, 28, function() {
+      setter(!getter());
+      self.persistSettings();
+      self.applyDetailMode();
+      if (!self.musicMuted) self.startBgm();
+      else self.stopBgm();
+      if (!self.sfxMuted) self.sfxClick();
+      self.closePanel();
+      self.openSettingsPanel();
+    }, self);
+    btn.x = rowX + rowW - 74; btn.y = y + 13;
+    panel.addChild(btn);
+
+    var btnLabel = btn.getChildAt ? btn.getChildAt(1) : null;
+    if (btnLabel && btnLabel.text !== undefined) btnLabel.text = getter() ? '开' : '关';
+    if (!getter()) {
+      var bg = btn.getChildAt ? btn.getChildAt(0) : null;
+      if (bg && bg.fillColor !== undefined) bg.fillColor = 0x555555;
+    }
+  }
+
+  addToggle(176, '♪', '音乐', '控制背景旋律', function() { return !self.musicMuted; }, function(v) { self.musicMuted = !v; });
+  addToggle(238, '✦', '音效', '控制点击、攻击、击杀反馈', function() { return !self.sfxMuted; }, function(v) { self.sfxMuted = !v; });
+  addToggle(300, '详', '详情显示', '显示怪物抗性、状态、血量数字与主角信息', function() { return self.detailMode !== false; }, function(v) { self.detailMode = v; });
+
+  // F2+F3：本地数据管理与战绩分享。H5 无后端，存档迁移靠导出 / 导入，分享走 Web Share + 剪贴板降级。
+  var sectionY = 366;
+  var secBg = new eui.Rect();
+  secBg.width = panel._contentW; secBg.height = 168;
+  secBg.x = panel._contentX; secBg.y = sectionY;
+  secBg.ellipseWidth = 10; secBg.ellipseHeight = 10;
+  secBg.fillColor = 0x120e2e;
+  secBg.strokeColor = THEME.strokeSoft; secBg.strokeWeight = 1; secBg.strokeAlpha = 0.4;
+  panel.addChild(secBg);
+
+  var secTitle = new eui.Label();
+  secTitle.text = '本地数据与分享';
+  secTitle.size = 13; secTitle.bold = true; secTitle.textColor = THEME.textGold;
+  secTitle.x = panel._contentX + 12; secTitle.y = sectionY + 10;
+  secTitle.width = panel._contentW - 24;
+  panel.addChild(secTitle);
+
+  var secDesc = new eui.Label();
+  secDesc.text = '存档只保存在这台设备的浏览器里。复制备份可换机恢复；战绩可复制分享。';
+  secDesc.size = 9; secDesc.textColor = THEME.textDim;
+  secDesc.x = panel._contentX + 12; secDesc.y = sectionY + 30;
+  secDesc.width = panel._contentW - 24; secDesc.wordWrap = true;
+  panel.addChild(secDesc);
+
+  var btnW = Math.floor((panel._contentW - 34) / 2);
+  var copyBtn = self.createButton('📤 复制存档备份', 0x27ae60, btnW, 32, function() {
+    self.copyTextToClipboard(self.exportSave(), function(ok) {
+      self.showToast(ok ? '存档已复制，请粘贴保存' : '当前浏览器不支持复制，请用支持剪贴板的浏览器');
+    });
+  }, self);
+  copyBtn.x = panel._contentX + 12; copyBtn.y = sectionY + 56;
+  panel.addChild(copyBtn);
+
+  var importBtn = self.createButton('📥 导入备份', 0x8e44ad, btnW, 32, function() {
+    self.readClipboardText(function(text) {
+      if (!text) { self.showToast('未读取到剪贴板内容'); return; }
+      var result = self.importSave(text);
+      self.closePanel();
+      self.showToast(result.message);
+    });
+  }, self);
+  importBtn.x = panel._contentX + 22 + btnW; importBtn.y = sectionY + 56;
+  panel.addChild(importBtn);
+
+  var shareBtn = self.createButton('🎉 分享我的战绩', 0x2980b9, panel._contentW - 24, 32, function() {
+    self.shareRecord();
+  }, self);
+  shareBtn.x = panel._contentX + 12; shareBtn.y = sectionY + 98;
+  panel.addChild(shareBtn);
+
+  var verLb = new eui.Label();
+  verLb.text = '版本 ' + (window.DMAX_GAME_VERSION || ASSET_VERSION || 'local-dev') + '  ·  存档格式 v1  ·  不联网';
+  verLb.size = 9; verLb.textColor = 0x8f8aa8;
+  verLb.x = panel._contentX + 12; verLb.y = sectionY + 140;
+  verLb.width = panel._contentW - 24;
+  panel.addChild(verLb);
 };
 
 // ==================== Toast ====================
 
+Game.prototype.getToastY = function() {
+  var wxHome = this._wxHomeLayout || (typeof DMAX_WX_HOME_LAYOUT !== 'undefined' ? DMAX_WX_HOME_LAYOUT : null);
+  if (wxHome && wxHome.top && wxHome.top.actionPanel) {
+    return Math.min(wxHome.bands.battle.y + 8, wxHome.top.actionPanel.y + wxHome.top.actionPanel.h + 7);
+  }
+  return Math.max(138, (this._safeTop || 0) + 138);
+};
+
 Game.prototype.showToast = function(msg) {
-  var el = new eui.Label();
-  el.text = msg; el.size = 14; el.textColor = 0xffffff;
-  el.horizontalCenter = 0; el.top = 60;
-  el.background = true; el.backgroundColor = 0x000000; el.alpha = 0.85;
-  el.paddingLeft = 16; el.paddingRight = 16; el.paddingTop = 8; el.paddingBottom = 8;
+  if (this._toastGroup && this._toastGroup.parent) {
+    egret.Tween.removeTweens(this._toastGroup);
+    this._toastGroup.parent.removeChild(this._toastGroup);
+  }
+  var stageW = (this.main.stage && this.main.stage.stageWidth) ? this.main.stage.stageWidth : 375;
+  var text = String(msg || '');
+  var longText = text.length > 22;
+  var toastW = Math.min(stageW - 28, Math.max(178, text.length * (longText ? 9 : 12) + 42));
+  var toastH = longText ? 44 : 34;
+
+  var el = new eui.Group();
+  el.width = toastW; el.height = toastH;
+  el.x = Math.floor((stageW - toastW) / 2);
+  el.y = this.getToastY();
+  el.alpha = 0.96;
+
+  var bg = new eui.Rect();
+  bg.width = toastW; bg.height = toastH;
+  bg.ellipseWidth = 16; bg.ellipseHeight = 16;
+  bg.fillColor = 0x070416; bg.fillAlpha = 0.88;
+  bg.strokeColor = THEME.strokeGold; bg.strokeWeight = 1; bg.strokeAlpha = 0.5;
+  el.addChild(bg);
+
+  var lb = new eui.Label();
+  lb.text = text; lb.size = longText ? 11 : 13; lb.textColor = 0xffffff; lb.bold = true;
+  lb.width = toastW - 24; lb.height = toastH - 8;
+  lb.x = 12; lb.y = 4;
+  lb.textAlign = 'center'; lb.verticalAlign = 'middle';
+  lb.wordWrap = longText;
+  el.addChild(lb);
+
+  this._toastGroup = el;
   this.main.addChild(el);
   egret.Tween.get(el)
     .wait(1600)
-    .to({ alpha: 0, y: el.y - 20 }, 400)
+    .to({ alpha: 0, y: el.y - 12 }, 360)
     .call(function() { if (el.parent) el.parent.removeChild(el); });
+};
+
+// ==================== 运行时稳定性护栏（G 批次） ====================
+// 挂机游戏的头号风险：setInterval 回调抛错时浏览器不会移除该定时器，回路会持续报错，
+// 玩家只看到「卡住」却拿不到任何线索。这里统一做「记录 → 节流提示 → 让循环继续跑」。
+// 另一风险是后台标签被节流后「每秒 ++」式计时严重失真，故统一按真实时间差推进。
+Game.prototype.reportRuntimeError = function(err, tag) {
+  var msg = '';
+  try { msg = (err && err.message) ? String(err.message) : String(err); } catch (e) {}
+  if (!msg) msg = 'unknown error';
+  if (typeof window !== 'undefined' && window) {
+    if (!window.__dmaxRuntimeErrors) window.__dmaxRuntimeErrors = [];
+    if (window.__dmaxRuntimeErrors.length < 20) {
+      window.__dmaxRuntimeErrors.push({ tag: tag || 'runtime', message: msg, at: Date.now() });
+    }
+    window.__dmaxLastRuntimeError = msg;
+  }
+  try { if (typeof console !== 'undefined' && console.error) console.error('[DMAX][' + (tag || 'runtime') + '] ' + msg); } catch (e) {}
+  var now = Date.now();
+  if (!this._lastErrorToastAt || now - this._lastErrorToastAt > 60000) {
+    this._lastErrorToastAt = now;
+    var self = this;
+    // 提示本身也可能因 UI 未就绪而失败：延后一拍并再包一层，绝不让兜底逻辑二次抛错。
+    try {
+      setTimeout(function() {
+        try { self.showToast('⚠ 遇到小问题已自动恢复，建议到设置页导出存档'); } catch (e2) {}
+      }, 0);
+    } catch (e3) {}
+  }
+};
+
+Game.prototype.safeInterval = function(tag, fn, ms) {
+  var self = this;
+  return setInterval(function() {
+    try { fn(); } catch (e) { self.reportRuntimeError(e, tag); }
+  }, ms);
+};
+
+Game.prototype.safeTimeout = function(tag, fn, ms) {
+  var self = this;
+  return setTimeout(function() {
+    try { fn(); } catch (e) { self.reportRuntimeError(e, tag); }
+  }, ms);
+};
+
+Game.prototype.installGlobalErrorHooks = function() {
+  if (typeof window === 'undefined' || !window) return;
+  if (window.__dmaxErrorHooksInstalled) return; // 多实例 / 热重载时只装一次
+  window.__dmaxErrorHooksInstalled = true;
+  var self = this;
+  var record = function(err, tag) {
+    var msg = '';
+    try { msg = (err && err.message) ? String(err.message) : String(err); } catch (e) {}
+    if (!msg || msg === 'undefined') msg = tag;
+    if (!window.__dmaxGlobalErrors) window.__dmaxGlobalErrors = [];
+    if (window.__dmaxGlobalErrors.length < 20) {
+      window.__dmaxGlobalErrors.push({ tag: tag, message: msg, at: Date.now() });
+    }
+  };
+  try {
+    window.addEventListener('error', function(ev) { record(ev && (ev.error || ev.message), 'window.onerror'); });
+    window.addEventListener('unhandledrejection', function(ev) { record(ev && ev.reason, 'unhandledrejection'); });
+  } catch (e) {}
+  try {
+    if (typeof document !== 'undefined' && document && document.addEventListener) {
+      document.addEventListener('visibilitychange', function() {
+        try { self.onVisibilityChange(); } catch (e2) { self.reportRuntimeError(e2, 'visibility'); }
+      });
+    }
+  } catch (e) {}
+};
+
+// 后台补算只推进「按秒递减」的计时字段，不重复触发 tickSkillBuffs 里的能量扣除 / UI 副作用。
+Game.prototype.decayBuffSeconds = function(secs) {
+  if (!this.skillBuffs) return;
+  var fields = ['attackTime', 'speedTime', 'critTime', 'shieldTime'];
+  for (var i = 0; i < fields.length; i++) {
+    var k = fields[i];
+    if (this.skillBuffs[k] > 0) this.skillBuffs[k] = Math.max(0, this.skillBuffs[k] - secs);
+  }
+  if (this.skillBuffs.shieldTime <= 0) this.skillBuffs.shieldReduce = 0;
+  if (this.bossDebuffs) {
+    var dfields = ['critDownTime', 'cooldownSlowTime', 'energyBurnTime'];
+    for (var j = 0; j < dfields.length; j++) {
+      var dk = dfields[j];
+      if (this.bossDebuffs[dk] > 0) this.bossDebuffs[dk] = Math.max(0, this.bossDebuffs[dk] - secs);
+    }
+  }
+};
+
+// 前台 dt 恒为 1，逐字段等价于原来的 playTime++ / skillCD-- / tickSkillBuffs()；
+// 后台被节流后 dt>1，一次性补齐计时。明确不补发金币 / 伤害 / 击杀（那是离线收益，避免重复发放）。
+Game.prototype.advanceSeconds = function(dt) {
+  var secs = Math.max(1, Math.min(300, Math.floor(dt || 1)));
+  var before = this.stats.playTime;
+  this.stats.playTime = before + secs;
+  var interval = CONFIG.energyRecoveryInterval;
+  if (interval > 0) {
+    var ticks = Math.floor(this.stats.playTime / interval) - Math.floor(before / interval);
+    if (ticks > 0) this.energy = Math.min(this.getMaxEnergy(), this.energy + ticks * CONFIG.energyRecovery);
+  }
+  for (var i = 0; i < this.skillCD.length; i++) {
+    if (this.skillCD[i] > 0) this.skillCD[i] = Math.max(0, this.skillCD[i] - secs);
+  }
+  if (secs === 1) this.tickSkillBuffs();
+  else this.decayBuffSeconds(secs);
+  return secs;
+};
+
+Game.prototype.scheduleTick = function() {
+  var now = Date.now();
+  var last = this._lastTickAt || now;
+  this._lastTickAt = now;
+  var dt = Math.floor((now - last) / 1000);
+  this.advanceSeconds(dt < 1 ? 1 : dt);
+  this.updateUI();
+};
+
+Game.prototype.onVisibilityChange = function() {
+  var hidden = (typeof document !== 'undefined' && document && !!document.hidden);
+  if (hidden) { this._hiddenAt = Date.now(); return; }
+  this._hiddenAt = 0;
+  // 回到前台立刻补一次，不必等下一次被节流的 interval；共用 _lastTickAt 防止重复补算。
+  var now = Date.now();
+  if (!this._lastTickAt || now - this._lastTickAt > 1500) this.scheduleTick();
+};
+
+// 存档写入失败（隐私模式 / quota 满）不能静默：玩家否则会玩很久才发现进度全丢。
+Game.prototype.warnSaveFailure = function(err) {
+  if (typeof window !== 'undefined' && window) window.__dmaxSaveFailed = true;
+  var now = Date.now();
+  if (this._lastSaveWarnAt && now - this._lastSaveWarnAt < 120000) return;
+  this._lastSaveWarnAt = now;
+  var self = this;
+  try {
+    setTimeout(function() {
+      try { self.showToast('⚠ 本地存储不可用，进度可能丢失，请到设置页导出存档'); } catch (e) {}
+    }, 0);
+  } catch (e2) {}
+  try { if (typeof console !== 'undefined' && console.error) console.error('[DMAX][saveGame] ' + ((err && err.message) ? err.message : String(err))); } catch (e3) {}
 };
 
 // ==================== 游戏主循环 ====================
@@ -7478,26 +9374,17 @@ Game.prototype.showToast = function(msg) {
 Game.prototype.startLoop = function() {
   var self = this;
 
-  // 每秒：技能CD + 游戏时间；能量按较慢节奏恢复，避免长期满能量。
-  setInterval(function() {
-    self.stats.playTime++;
-    if (self.stats.playTime % CONFIG.energyRecoveryInterval === 0) {
-      self.energy = Math.min(self.getMaxEnergy(), self.energy + CONFIG.energyRecovery);
-    }
-    for (var i = 0; i < self.skillCD.length; i++) {
-      if (self.skillCD[i] > 0) self.skillCD[i]--;
-    }
-    self.tickSkillBuffs();
-    self.updateUI();
-  }, 1000);
+  // 每秒：技能CD + 游戏时长 + 能量恢复。G 批次改为按真实时间差推进（见 advanceSeconds），
+  // 前台逐字段等价于原逻辑；后台标签被节流时不再把 60 秒计成 1 秒。
+  self.safeInterval('tick', function() { self.scheduleTick(); }, 1000);
 
   // 怪物会周期性反击，形成生命值和防御压力。
-  setInterval(function() {
+  self.safeInterval('monsterAttack', function() {
     self.processMonsterAttacks();
   }, 2500);
 
   // 治疗/守护型辅助提供续航，避免反击体系只剩硬扛。
-  setInterval(function() {
+  self.safeInterval('supportHeal', function() {
     if (self.playerHp <= 0) return;
     if (self.isSupportActive(1)) {
       var healer = self.supports[1];
@@ -7506,7 +9393,7 @@ Game.prototype.startLoop = function() {
     }
   }, 6000);
 
-  setInterval(function() {
+  self.safeInterval('supportGuard', function() {
     if (self.playerHp <= 0) return;
     if (self.isSupportActive(3) && (!self.skillBuffs || self.skillBuffs.shieldTime <= 0)) {
       var guard = self.supports[3];
@@ -7519,7 +9406,7 @@ Game.prototype.startLoop = function() {
   }, 12000);
 
   // 主角自动攻击（每秒1次，不消耗能量）
-  setInterval(function() {
+  self.safeInterval('heroAttack', function() {
     if (self.monsters.length === 0) return;
     // 只攻击 hp > 0 的怪物，避免已被辅助角色击杀后重复触发 onKill
     var aliveMonsters = self.monsters.filter(function(m) { return m.hp > 0; });
@@ -7547,8 +9434,8 @@ Game.prototype.startLoop = function() {
       var def = SUPPORTS_DEF[idx];
       // 初始延迟错开，避免同时攻击
       var initDelay = idx * 200 + Math.random() * 300;
-      setTimeout(function() {
-        setInterval(function() {
+      self.safeTimeout('supportStart' + idx, function() {
+        self.safeInterval('support' + idx, function() {
           var s = self.supports[idx];
           if (!self.isSupportActive(idx) || self.monsters.length === 0) return;
           var aliveMonsters = self.monsters.filter(function(m) { return m.hp > 0; });
@@ -7582,7 +9469,7 @@ Game.prototype.startLoop = function() {
   }
 
   // 每15秒自动存档
-  setInterval(function() { self.saveGame(); }, 15000);
+  self.safeInterval('autoSave', function() { self.saveGame(); }, 15000);
 };
 
 // ==================== 存档 ====================
@@ -7590,6 +9477,7 @@ Game.prototype.startLoop = function() {
 Game.prototype.saveGame = function() {
   try {
     localStorage.setItem('gujiyouxi_egret', JSON.stringify({
+      v: 1,
       gold: this.gold, energy: this.energy, playerHp: this.playerHp, mainLevel: this.mainLevel,
       wave: this.wave, totalCleared: this.totalCleared,
       killCount: this.killCount, skillCD: this.skillCD, skillUnlocked: this.skillUnlocked,
@@ -7601,6 +9489,7 @@ Game.prototype.saveGame = function() {
       spinPity: this.spinPity || 0,
       totalSpins: this.totalSpins || 0,
       lastSpinPrize: this.lastSpinPrize || '',
+      spinHistory: this.spinHistory || [],
       stats: this.stats, checkinDay: this.checkinDay, checkinDate: this.checkinDate,
       dailyTaskDate: this.dailyTaskDate, dailyTaskDone: this.dailyTaskDone,
       dailyTaskClaimed: this.dailyTaskClaimed,
@@ -7616,120 +9505,454 @@ Game.prototype.saveGame = function() {
       bossRetryLock: this.bossRetryLock,
       monsterCodex: this.monsterCodex,
       avatarIdx: this.avatarIdx || 0,
-      playerName: this.playerName || '玩家'
+      playerName: this.playerName || makeDefaultPlayerName(),
+      jobId: this.jobId || 'trainee_mage',
+      musicMuted: !!this.musicMuted,
+      sfxMuted: !!this.sfxMuted,
+      detailMode: this.detailMode !== false
     }));
     localStorage.setItem('gujiyouxi_egret_time', Date.now().toString());
-  } catch(e) {}
+  } catch(e) {
+    // 隐私模式 / quota 满 / 被禁用：不能静默丢进度，给一次可执行的提示并留下标记。
+    this.warnSaveFailure(e);
+  }
+};
+
+// S0: 存档迁移入口。把任意历史版本存档归一化为 v1 完整结构。
+// 纯数据函数：只读入参 d、不修改 this，返回新对象；原有字段一律原样保留（不重置既有进度）。
+// 默认值统一用 d.x !== undefined ? d.x : DEFAULT，避免 || 把合法 0 / false 吞掉。
+Game.prototype.migrateSave = function(d) {
+  if (!d || typeof d !== 'object') return null;
+  var out = {};
+  for (var key in d) {
+    if (Object.prototype.hasOwnProperty.call(d, key)) out[key] = d[key];
+  }
+  function def(name, value) {
+    out[name] = out[name] !== undefined ? out[name] : value;
+  }
+  def('gold', 0);
+  def('energy', 100);
+  def('mainLevel', 1);
+  def('wave', 1);
+  def('totalCleared', 0);
+  def('killCount', 0);
+  def('skillCD', [0,0,0,0,0,0,0]);
+  def('skillUnlocked', [true, false, false, false, false, false, false]);
+  def('skillLevels', [1,1,1,1,1,1,1]);
+  def('supports', null);
+  def('foods', {});
+  def('equipmentLevels', []);
+  def('forgeStones', 0);
+  def('coreWeapon', { owned: false, pity: 0 });
+  def('freeSpins', 3);
+  def('spinDate', new Date().toDateString());
+  def('spinTickets', 0);
+  def('spinPity', 0);
+  def('totalSpins', 0);
+  def('lastSpinPrize', '');
+  def('spinHistory', []);
+  def('stats', {});
+  def('checkinDay', 0);
+  def('checkinDate', '');
+  def('dailyTaskDate', '');
+  def('dailyTaskDone', [false, false, false]);
+  def('dailyTaskClaimed', [false, false, false]);
+  def('mailClaimed', {});
+  def('achievements', []);
+  def('bossRewards', {});
+  def('offlineCap', 8);
+  def('autoAttackEnabled', true);
+  def('rebirthGems', 0);
+  def('rebirthTalents', []);
+  def('maxWaveReached', 0);
+  def('lastRebirthBossStage', 0);
+  def('rebirthCount', 0);
+  def('bossRetryLock', null);
+  def('monsterCodex', {});
+  def('avatarIdx', 0);
+  def('jobId', 'trainee_mage');
+  def('musicMuted', false);
+  def('sfxMuted', false);
+  def('detailMode', true);
+  // 畸形旧档兜底：数组字段保证是数组，对象字段保证是对象，字符串字段保证是字符串。
+  if (!Array.isArray(out.skillCD)) out.skillCD = [0,0,0,0,0,0,0];
+  if (!Array.isArray(out.skillUnlocked)) out.skillUnlocked = [true, false, false, false, false, false, false];
+  if (!Array.isArray(out.skillLevels)) out.skillLevels = [1,1,1,1,1,1,1];
+  if (!Array.isArray(out.spinHistory)) out.spinHistory = [];
+  if (!Array.isArray(out.dailyTaskDone)) out.dailyTaskDone = [false, false, false];
+  if (!Array.isArray(out.dailyTaskClaimed)) out.dailyTaskClaimed = [false, false, false];
+  if (!Array.isArray(out.equipmentLevels)) out.equipmentLevels = [];
+  if (!Array.isArray(out.rebirthTalents)) out.rebirthTalents = [];
+  if (!Array.isArray(out.achievements)) out.achievements = [];
+  if (!out.stats || typeof out.stats !== 'object') out.stats = {};
+  // stats 原先直接沿用入参引用，畸形字符串会让 playTime++ 变成字符串拼接并污染主循环，
+  // 这里重建对象并统一转成非负有限数。
+  var cleanStats = {};
+  var STAT_KEYS = { totalKills: 0, totalGold: 0, totalClicks: 0, playTime: 0, bossKills: 0 };
+  for (var stk in STAT_KEYS) {
+    if (!Object.prototype.hasOwnProperty.call(STAT_KEYS, stk)) continue;
+    cleanStats[stk] = Math.min(1e15, Math.max(0, toNum(out.stats[stk], STAT_KEYS[stk])));
+  }
+  out.stats = cleanStats;
+  if (!out.foods || typeof out.foods !== 'object') out.foods = {};
+  if (!out.mailClaimed || typeof out.mailClaimed !== 'object') out.mailClaimed = {};
+  if (!out.bossRewards || typeof out.bossRewards !== 'object') out.bossRewards = {};
+  if (!out.monsterCodex || typeof out.monsterCodex !== 'object') out.monsterCodex = {};
+  if (!out.coreWeapon || typeof out.coreWeapon !== 'object') out.coreWeapon = { owned: false, pity: 0 };
+  if (typeof out.playerName !== 'string') out.playerName = '';
+  if (typeof out.jobId !== 'string' || out.jobId === '') out.jobId = 'trainee_mage';
+  // S2：jobId 必须是已知职业。否则 getJobDef() 虽会静默兜底，存档里却留着脏值，
+  // 后续新增职业时容易把脏值一并算进加成表。
+  var jobKnown = false;
+  for (var ji = 0; ji < JOB_DEFS.length; ji++) {
+    if (JOB_DEFS[ji].id === out.jobId) { jobKnown = true; break; }
+  }
+  if (!jobKnown) out.jobId = 'trainee_mage';
+  if (typeof out.spinDate !== 'string') out.spinDate = new Date().toDateString();
+  if (typeof out.lastSpinPrize !== 'string') out.lastSpinPrize = '';
+  if (typeof out.checkinDate !== 'string') out.checkinDate = '';
+  if (typeof out.dailyTaskDate !== 'string') out.dailyTaskDate = '';
+  // S1/P2：数字 / 布尔字段类型兜底。旧档可能把数值写成字符串、把布尔写成 0/1/'false'，
+  // 不校正会原样写回存档，后续运算出现字符串拼接或真值误判（gold:'12345' 即典型）。
+  function toNum(v, fallback) {
+    if (typeof v === 'number' && isFinite(v)) return v;
+    if (typeof v === 'string' && v.trim() !== '' && isFinite(Number(v))) return Number(v);
+    return fallback;
+  }
+  function toBool(v, fallback) {
+    if (typeof v === 'boolean') return v;
+    if (v === 'true' || v === 1 || v === '1') return true;
+    if (v === 'false' || v === 0 || v === '0' || v === '' || v === null || v === undefined) return false;
+    return fallback;
+  }
+  function numArray(arr, fallback) {
+    if (!Array.isArray(arr)) return arr;
+    var res = [];
+    for (var i = 0; i < arr.length; i++) res.push(toNum(arr[i], fallback));
+    return res;
+  }
+  function boolArray(arr, fallback) {
+    if (!Array.isArray(arr)) return arr;
+    var res = [];
+    for (var i = 0; i < arr.length; i++) res.push(toBool(arr[i], fallback));
+    return res;
+  }
+  var NUM_FIELDS = {
+    gold: 0, energy: 100, mainLevel: 1, wave: 1, totalCleared: 0, killCount: 0,
+    freeSpins: 3, spinTickets: 0, spinPity: 0, totalSpins: 0, forgeStones: 0,
+    checkinDay: 0, offlineCap: 8, rebirthGems: 0, maxWaveReached: 0,
+    lastRebirthBossStage: 0, rebirthCount: 0, avatarIdx: 0
+  };
+  for (var nf in NUM_FIELDS) {
+    if (Object.prototype.hasOwnProperty.call(NUM_FIELDS, nf)) out[nf] = toNum(out[nf], NUM_FIELDS[nf]);
+  }
+  // G 批次：数值范围钳制。导入接口允许任意 JSON，NaN / 负数 / 超大波次会让 CONFIG.monsterHp()
+  // 等公式产出 Infinity，随后 UI 与主循环一起失效。正常存档全部落在区间内，钳制为零漂移。
+  var NUM_LIMITS = {
+    gold: [0, 1e15], energy: [0, 1e9], mainLevel: [1, 100000], wave: [1, 100000],
+    totalCleared: [0, 1e9], killCount: [0, 1e9], freeSpins: [0, 10000], spinTickets: [0, 100000],
+    spinPity: [0, 100000], totalSpins: [0, 1e9], forgeStones: [0, 1e9], checkinDay: [0, 10000],
+    offlineCap: [1, 24], rebirthGems: [0, 1e6], maxWaveReached: [0, 100000],
+    lastRebirthBossStage: [0, 100000], rebirthCount: [0, 100000], avatarIdx: [0, 63]
+  };
+  for (var nl in NUM_LIMITS) {
+    if (!Object.prototype.hasOwnProperty.call(NUM_LIMITS, nl)) continue;
+    var lv = out[nl];
+    if (typeof lv !== 'number' || !isFinite(lv)) lv = NUM_FIELDS[nl];
+    out[nl] = Math.min(NUM_LIMITS[nl][1], Math.max(NUM_LIMITS[nl][0], lv));
+  }
+  var BOOL_FIELDS = { autoAttackEnabled: true, musicMuted: false, sfxMuted: false, detailMode: true };
+  for (var bf in BOOL_FIELDS) {
+    if (Object.prototype.hasOwnProperty.call(BOOL_FIELDS, bf)) out[bf] = toBool(out[bf], BOOL_FIELDS[bf]);
+  }
+  out.skillCD = numArray(out.skillCD, 0);
+  out.skillLevels = numArray(out.skillLevels, 1);
+  out.equipmentLevels = numArray(out.equipmentLevels, 0);
+  out.skillUnlocked = boolArray(out.skillUnlocked, false);
+  out.dailyTaskDone = boolArray(out.dailyTaskDone, false);
+  out.dailyTaskClaimed = boolArray(out.dailyTaskClaimed, false);
+  // 超长数组会让 loadGame / UI 遍历卡死（导入接口可塞百万级元素），统一裁剪到合理上限。
+  var ARRAY_FIELDS = ['skillCD', 'skillUnlocked', 'skillLevels', 'equipmentLevels', 'spinHistory',
+    'dailyTaskDone', 'dailyTaskClaimed', 'rebirthTalents', 'achievements', 'supports'];
+  for (var af = 0; af < ARRAY_FIELDS.length; af++) {
+    var an = ARRAY_FIELDS[af];
+    if (Array.isArray(out[an]) && out[an].length > 64) out[an] = out[an].slice(0, 64);
+  }
+  if (out.coreWeapon && typeof out.coreWeapon === 'object') {
+    var cw = {};
+    for (var cwk in out.coreWeapon) {
+      if (Object.prototype.hasOwnProperty.call(out.coreWeapon, cwk)) cw[cwk] = out.coreWeapon[cwk];
+    }
+    cw.owned = toBool(cw.owned, false);
+    cw.pity = toNum(cw.pity, 0);
+    out.coreWeapon = cw;
+  }
+  if (Array.isArray(out.supports)) {
+    var fixedSupports = [];
+    for (var sp = 0; sp < out.supports.length; sp++) {
+      var s = out.supports[sp];
+      if (!s || typeof s !== 'object') { fixedSupports.push(s); continue; }
+      var sc = {};
+      for (var sk in s) {
+        if (Object.prototype.hasOwnProperty.call(s, sk)) sc[sk] = s[sk];
+      }
+      sc.level = toNum(sc.level, 1);
+      sc.unlocked = toBool(sc.unlocked, false);
+      sc.notified = toBool(sc.notified, false);
+      fixedSupports.push(sc);
+    }
+    out.supports = fixedSupports;
+  }
+  // playerHp 故意不设默认值：末尾需要区分「旧档没写」与「写了 0」；非法值按「没写」处理。
+  if (out.playerHp !== undefined) {
+    var hp = toNum(out.playerHp, null);
+    if (hp === null) delete out.playerHp; else out.playerHp = hp;
+  }
+  // --- 历史迁移规则（集中在此，不再散落） ---
+  out._resetSupports = out.supportShopVersion !== 3;
+  out.supportShopVersion = 3;
+  if (out.round && out.round > 1 && !out.maxWaveReached) {
+    out.maxWaveReached = (out.round - 1) * 10 + out.wave;
+  }
+  out.v = 1; // 当前 schema 版本；saveGame 写回时同样为 1
+  return out;
 };
 
 Game.prototype.loadGame = function() {
   try {
-    var d = JSON.parse(localStorage.getItem('gujiyouxi_egret'));
+    var d = this.migrateSave(JSON.parse(localStorage.getItem('gujiyouxi_egret')));
     if (!d) return;
-    this.gold = d.gold || 0;
-    this.energy = d.energy || 100;
+    // migrateSave 已保证以下字段存在，统一直接取值；不再用 || 吞掉合法 0 / false。
+    this.gold = d.gold;
+    this.energy = d.energy;
     if (d.playerHp !== undefined) this.playerHp = d.playerHp;
-    this.mainLevel = d.mainLevel || 1;
-    this.wave = d.wave || 1;
-    this.totalCleared = d.totalCleared || 0;
-    this.killCount = d.killCount || 0;
-    this.skillCD = d.skillCD || [0,0,0,0,0,0,0];
-    this.skillUnlocked = d.skillUnlocked || [true, false, false, false, false, false, false];
-    this.skillLevels = d.skillLevels || [1,1,1,1,1,1,1];
+    this.mainLevel = d.mainLevel;
+    this.wave = d.wave;
+    this.totalCleared = d.totalCleared;
+    this.killCount = d.killCount;
+    this.skillCD = d.skillCD;
+    this.skillUnlocked = d.skillUnlocked;
+    this.skillLevels = d.skillLevels;
     while (this.skillLevels.length < SKILLS.length) this.skillLevels.push(1);
-    if (d.supports) {
+    if (Array.isArray(d.supports)) {
       for (var i = 0; i < d.supports.length; i++) {
-        if (this.supports[i]) {
-          this.supports[i].level = d.supports[i].level;
-          this.supports[i].unlocked = d.supports[i].unlocked;
+        if (this.supports[i] && d.supports[i]) {
+          this.supports[i].level = d.supports[i].level !== undefined ? d.supports[i].level : 1;
+          this.supports[i].unlocked = d.supports[i].unlocked !== undefined ? d.supports[i].unlocked : false;
           this.supports[i].notified = !!d.supports[i].notified;
         }
       }
     }
-    if (d.supportShopVersion !== 3) {
+    this.foods = {};
+    for (var fk in d.foods) {
+      if (Object.prototype.hasOwnProperty.call(d.foods, fk) && this.findRelicDef(fk)) {
+        this.foods[fk] = d.foods[fk] !== undefined ? d.foods[fk] : 0;
+      }
+    }
+    this.equipmentLevels = d.equipmentLevels;
+    this.forgeStones = d.forgeStones;
+    this.coreWeapon = d.coreWeapon;
+    this.freeSpins = d.freeSpins;
+    this.spinDate = d.spinDate;
+    this.spinTickets = d.spinTickets;
+    this.spinPity = d.spinPity;
+    this.totalSpins = d.totalSpins;
+    this.lastSpinPrize = d.lastSpinPrize;
+    this.spinHistory = d.spinHistory.slice(0, 6);
+    for (var k in d.stats) {
+      if (Object.prototype.hasOwnProperty.call(d.stats, k)) this.stats[k] = d.stats[k];
+    }
+    this.checkinDay = d.checkinDay;
+    this.checkinDate = d.checkinDate;
+    this.dailyTaskDate = d.dailyTaskDate;
+    this.dailyTaskDone = d.dailyTaskDone;
+    this.dailyTaskClaimed = d.dailyTaskClaimed;
+    while (this.dailyTaskDone.length < DAILY_TASKS.length) this.dailyTaskDone.push(false);
+    while (this.dailyTaskClaimed.length < DAILY_TASKS.length) this.dailyTaskClaimed.push(false);
+    this.mailClaimed = d.mailClaimed;
+    this.achievements = d.achievements;
+    this.bossRewards = d.bossRewards;
+    this.offlineCap = d.offlineCap;
+    this.autoAttackEnabled = d.autoAttackEnabled;
+    this.rebirthGems = d.rebirthGems;
+    this.rebirthTalents = d.rebirthTalents;
+    this.maxWaveReached = d.maxWaveReached;
+    this.lastRebirthBossStage = d.lastRebirthBossStage;
+    this.rebirthCount = d.rebirthCount;
+    this.bossRetryLock = d.bossRetryLock;
+    this.monsterCodex = d.monsterCodex;
+    this.avatarIdx = d.avatarIdx;
+    this.playerName = (d.playerName !== '' && d.playerName !== '玩家') ? d.playerName : makeDefaultPlayerName();
+    this.jobId = d.jobId;
+    this.musicMuted = !!d.musicMuted;
+    this.sfxMuted = !!d.sfxMuted;
+    this.detailMode = d.detailMode !== false;
+
+    // S0 收敛点：历史迁移与 4 项结构修补集中在此，且全部在字段赋值完成后执行。
+    if (d._resetSupports) {
       for (var si = 0; si < this.supports.length; si++) {
         this.supports[si].unlocked = false;
         this.supports[si].notified = false;
       }
-      this.supportShopVersion = 3;
-    } else {
-      this.supportShopVersion = d.supportShopVersion;
     }
+    this.supportShopVersion = d.supportShopVersion;
     this.repairSupportUnlocks();
-    if (d.foods) {
-      this.foods = {};
-      for (var fk in d.foods) {
-        if (d.foods.hasOwnProperty(fk) && this.findRelicDef(fk)) this.foods[fk] = d.foods[fk] || 0;
-      }
-      this.ensureRelics();
-    }
-    if (d.equipmentLevels) this.equipmentLevels = d.equipmentLevels;
-    if (d.forgeStones !== undefined) this.forgeStones = d.forgeStones;
-    if (d.coreWeapon) this.coreWeapon = d.coreWeapon;
+    this.ensureRelics();
     this.ensureEquipment();
-    if (d.freeSpins !== undefined) this.freeSpins = d.freeSpins;
-    if (d.spinDate) this.spinDate = d.spinDate;
-    if (d.spinTickets !== undefined) this.spinTickets = d.spinTickets;
-    if (d.spinPity !== undefined) this.spinPity = d.spinPity;
-    if (d.totalSpins !== undefined) this.totalSpins = d.totalSpins;
-    if (d.lastSpinPrize) this.lastSpinPrize = d.lastSpinPrize;
-    if (d.stats) {
-      for (var k in d.stats) { if (d.stats.hasOwnProperty(k)) this.stats[k] = d.stats[k]; }
-    }
-    if (d.checkinDay !== undefined) this.checkinDay = d.checkinDay;
-    if (d.checkinDate) this.checkinDate = d.checkinDate;
-    if (d.dailyTaskDate) this.dailyTaskDate = d.dailyTaskDate;
-    if (d.dailyTaskDone) this.dailyTaskDone = d.dailyTaskDone;
-    if (d.dailyTaskClaimed) this.dailyTaskClaimed = d.dailyTaskClaimed;
-    while (this.dailyTaskDone.length < DAILY_TASKS.length) this.dailyTaskDone.push(false);
-    if (!this.dailyTaskClaimed) this.dailyTaskClaimed = [false, false, false];
-    while (this.dailyTaskClaimed.length < DAILY_TASKS.length) this.dailyTaskClaimed.push(false);
-    if (d.mailClaimed) this.mailClaimed = d.mailClaimed;
-    if (d.achievements) this.achievements = d.achievements;
-    if (d.bossRewards) this.bossRewards = d.bossRewards;
-    if (d.offlineCap) this.offlineCap = d.offlineCap;
-    if (d.autoAttackEnabled !== undefined) this.autoAttackEnabled = d.autoAttackEnabled;
-    if (d.rebirthGems) this.rebirthGems = d.rebirthGems;
-    if (d.rebirthTalents) this.rebirthTalents = d.rebirthTalents;
     this.ensureRebirthTalents();
-    if (d.maxWaveReached) this.maxWaveReached = d.maxWaveReached;
-    if (d.lastRebirthBossStage !== undefined) this.lastRebirthBossStage = d.lastRebirthBossStage;
-    if (d.rebirthCount !== undefined) this.rebirthCount = d.rebirthCount;
-    if (d.bossRetryLock) this.bossRetryLock = d.bossRetryLock;
-    if (d.monsterCodex) this.monsterCodex = d.monsterCodex;
-    // 兼容旧存档的 round 字段
-    if (d.round && d.round > 1 && !d.maxWaveReached) {
-      this.maxWaveReached = (d.round - 1) * 10 + (d.wave || 1);
-    }
-    // 新增字段：头像索引、玩家昵称、邀请/关注奖励领取标记
-    if (d.avatarIdx !== undefined) this.avatarIdx = d.avatarIdx;
-    if (d.playerName) this.playerName = d.playerName;
+
     this.energy = Math.min(this.getMaxEnergy(), this.energy);
     this.playerHp = Math.min(this.getMaxPlayerHp(), Math.max(1, d.playerHp !== undefined ? this.playerHp : this.getMaxPlayerHp()));
-  } catch(e) {}
+  } catch(e) {
+    // 单字段畸形不应无声地丢整份进度：留下可观测标记，主循环护栏会兜住后续异常。
+    this._loadError = (e && e.message) ? String(e.message) : String(e);
+    if (typeof window !== 'undefined' && window) window.__dmaxLoadError = this._loadError;
+    try { if (typeof console !== 'undefined' && console.error) console.error('[DMAX][loadGame] ' + this._loadError); } catch (e2) {}
+  }
+};
+
+
+// ==================== 存档管理与分享（H5 纯本地，云存档 / CMS 的替代） ====================
+// H5 静态托管无后端：存档只在本机 localStorage，导出 / 导入是唯一可跨设备迁移的手段。
+// 所有浏览器能力都走 typeof 守卫 + try/catch，无 navigator / 无 clipboard 时静默降级，不抛错。
+
+Game.prototype.exportSave = function() {
+  this.saveGame();
+  try { return localStorage.getItem('gujiyouxi_egret') || ''; }
+  catch (e) { return ''; }
+};
+
+Game.prototype.importSave = function(text) {
+  if (typeof text !== 'string') return { ok: false, message: '存档内容为空' };
+  var raw = text.replace(/^\s+|\s+$/g, '');
+  if (!raw) return { ok: false, message: '存档内容为空' };
+  if (raw.length > 200000) return { ok: false, message: '存档过大，已拒绝导入' };
+  var parsed;
+  try { parsed = JSON.parse(raw); }
+  catch (e) { return { ok: false, message: '不是有效的存档 JSON' }; }
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    return { ok: false, message: '存档格式不正确' };
+  }
+  var migrated = this.migrateSave(parsed);
+  if (!migrated) return { ok: false, message: '存档无法识别' };
+  if (migrated.v !== 1) migrated.v = 1;
+  try {
+    localStorage.setItem('gujiyouxi_egret', JSON.stringify(migrated));
+    // 导入是「替换进度」，重置离线时间源，避免按旧时间戳补发一大笔离线收益。
+    localStorage.setItem('gujiyouxi_egret_time', Date.now().toString());
+  } catch (e) { return { ok: false, message: '本地存储写入失败' }; }
+  this.loadGame();
+  this.updateUI();
+  this.spawnWave();
+  return { ok: true, message: '存档导入成功，进度已恢复' };
+};
+
+Game.prototype.copyTextToClipboard = function(text, cb) {
+  var finish = function(ok, how) { if (cb) cb(ok, how); };
+  var promptFallback = function() {
+    try {
+      if (typeof window !== 'undefined' && typeof window.prompt === 'function') {
+        window.prompt('复制下面的文本（当前浏览器不支持自动复制）', text);
+        finish(true, 'prompt');
+        return;
+      }
+    } catch (e2) {}
+    finish(false, 'none');
+  };
+  try {
+    if (typeof navigator !== 'undefined' && navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      var p = navigator.clipboard.writeText(text);
+      if (p && typeof p.then === 'function') {
+        p.then(function() { finish(true, 'clipboard'); }, function() { promptFallback(); });
+      } else finish(true, 'clipboard');
+      return;
+    }
+  } catch (e) {}
+  promptFallback();
+};
+
+Game.prototype.readClipboardText = function(cb) {
+  var fallback = function() {
+    try {
+      if (typeof window !== 'undefined' && typeof window.prompt === 'function') {
+        return window.prompt('粘贴之前复制的存档 JSON', '') || '';
+      }
+    } catch (e) {}
+    return '';
+  };
+  try {
+    if (typeof navigator !== 'undefined' && navigator.clipboard && typeof navigator.clipboard.readText === 'function') {
+      var p = navigator.clipboard.readText();
+      if (p && typeof p.then === 'function') {
+        p.then(function(t) { cb(String(t || '')); }, function() { cb(fallback()); });
+      } else cb(String(p || ''));
+      return;
+    }
+  } catch (e) {}
+  cb(fallback());
+};
+
+Game.prototype.getShareText = function() {
+  var stats = this.stats || {};
+  var codexCount = Object.keys(this.monsterCodex || {}).length;
+  var codexTotal = MONSTER_TYPES.length + HIDDEN_MONSTER_TYPES.length + BOSS_TYPES.length;
+  var version = (typeof window !== 'undefined' && window.DMAX_GAME_VERSION) || ASSET_VERSION || 'local-dev';
+  return [
+    '【DMAX挂机英雄 · 星夜糖果屋】我的挂机战绩',
+    '最高波次：第 ' + this.maxWaveReached + ' 波',
+    'BOSS 击杀 ' + this.fmt(stats.bossKills || 0) + ' · 累计击杀 ' + this.fmt(stats.totalKills || 0),
+    '转生 ' + this.rebirthCount + ' 次 · 宝石 ' + this.rebirthGems + ' · 职业 ' + this.getJobName(),
+    '图签 ' + codexCount + '/' + codexTotal + ' · 成就 ' + this.achievements.length + '/' + ACHIEVEMENTS.length,
+    '版本 ' + version + '（H5 版，数据仅保存在本机）'
+  ].join('\n');
+};
+
+Game.prototype.shareRecord = function(cb) {
+  var self = this;
+  var text = this.getShareText();
+  var finish = function(ok, how) {
+    if (ok) self.showToast(how === 'share' ? '分享面板已打开' : '战绩已复制，粘贴即可分享');
+    else self.showToast('当前环境不支持分享，可在「本地成绩单」查看数据');
+    if (cb) cb(ok, how);
+  };
+  try {
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+      var p = navigator.share({ title: 'DMAX挂机英雄 · 我的战绩', text: text });
+      if (p && typeof p.then === 'function') {
+        p.then(function() { finish(true, 'share'); }, function() {
+          self.copyTextToClipboard(text, function(ok2) { finish(ok2, 'clipboard'); });
+        });
+      } else finish(true, 'share');
+      return;
+    }
+  } catch (e) {}
+  this.copyTextToClipboard(text, function(ok) { finish(ok, 'clipboard'); });
 };
 
 
 // ==================== 头像选择器 ====================
 
 Game.prototype.openAvatarPicker = function() {
-  var AVATAR_COLORS = [0x8b4513, 0x3498db, 0x27ae60, 0xe74c3c, 0x9b59b6, 0xe67e22];
-  var AVATAR_ICONS  = ['🧙','🐼','🦊','🐯','🐸','🐺'];
-  var AVATAR_NAMES  = ['法师','熊猫','狐狸','老虎','青蛙','狼'];
-
   var overlay = this.createPanelOverlay();
   var panel = new eui.Group();
-  panel.width = 320; panel.height = 260;
+  panel.width = 338; panel.height = 302;
   panel.horizontalCenter = 0; panel.verticalCenter = 0;
   var pBg = new eui.Rect();
   pBg.percentWidth = 100; pBg.percentHeight = 100;
-  pBg.fillColor = 0x2a1f5c; pBg.ellipseWidth = 12; pBg.ellipseHeight = 12;
+  pBg.fillColor = 0x151038; pBg.ellipseWidth = 14; pBg.ellipseHeight = 14;
+  pBg.strokeColor = THEME.strokeGold; pBg.strokeWeight = 1; pBg.strokeAlpha = 0.56;
   panel.addChild(pBg);
 
   var title = new eui.Label();
-  title.text = '选择头像'; title.size = 16; title.textColor = 0xffffff; title.bold = true;
+  title.text = '选择头像'; title.size = 17; title.textColor = 0xffffff; title.bold = true;
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
+
+  var subtitle = new eui.Label();
+  subtitle.text = '这里只选择形象；职业与加成在「职业详情」里查看。';
+  subtitle.size = 10; subtitle.textColor = THEME.textDim;
+  subtitle.horizontalCenter = 0; subtitle.top = 38; subtitle.width = 260; subtitle.textAlign = 'center';
+  panel.addChild(subtitle);
 
   // 关闭按钮
   var closeBtn = new eui.Label();
@@ -7740,12 +9963,13 @@ Game.prototype.openAvatarPicker = function() {
   panel.addChild(closeBtn);
 
   // 3列 × 2行 头像格子
-  var COLS = 3, CELL_W = 80, CELL_H = 90, GAP = 10;
-  var START_X = (320 - COLS * CELL_W - (COLS - 1) * GAP) / 2;
-  var START_Y = 50;
+  var COLS = 3, CELL_W = 92, CELL_H = 104, GAP = 10;
+  var START_X = (338 - COLS * CELL_W - (COLS - 1) * GAP) / 2;
+  var START_Y = 64;
 
-  for (var i = 0; i < AVATAR_ICONS.length; i++) {
+  for (var i = 0; i < AVATAR_DEFS.length; i++) {
     (function(idx) {
+      var def = AVATAR_DEFS[idx] || AVATAR_DEFS[0];
       var col = idx % COLS, row = Math.floor(idx / COLS);
       var cx = START_X + col * (CELL_W + GAP);
       var cy = START_Y + row * (CELL_H + GAP);
@@ -7759,39 +9983,47 @@ Game.prototype.openAvatarPicker = function() {
       var border = new eui.Rect();
       border.width = CELL_W; border.height = CELL_H;
       border.ellipseWidth = 10; border.ellipseHeight = 10;
-      border.fillColor = 0x1a153f;
-      border.strokeColor = (self.avatarIdx === idx) ? 0xfbbf24 : 0x333333;
+      border.fillColor = 0x0d0926;
+      border.strokeColor = (self.avatarIdx === idx) ? 0xfbbf24 : 0x3b2f66;
       border.strokeWeight = (self.avatarIdx === idx) ? 2 : 1;
       border.percentWidth = 100; border.percentHeight = 100;
       cell.addChild(border);
 
       // 头像圆形底色
       var iconBg = new eui.Rect();
-      iconBg.width = 44; iconBg.height = 44;
-      iconBg.ellipseWidth = 22; iconBg.ellipseHeight = 22;
-      iconBg.fillColor = AVATAR_COLORS[idx];
+      iconBg.width = 60; iconBg.height = 60;
+      iconBg.ellipseWidth = 18; iconBg.ellipseHeight = 18;
+      iconBg.fillColor = def.color;
+      iconBg.strokeColor = THEME.accentSoft; iconBg.strokeWeight = 0.8; iconBg.strokeAlpha = 0.65;
       iconBg.horizontalCenter = 0; iconBg.top = 8;
       cell.addChild(iconBg);
 
-      var iconLb = new eui.Label();
-      iconLb.text = AVATAR_ICONS[idx]; iconLb.size = 20;
-      iconLb.horizontalCenter = 0; iconLb.top = 18;
-      cell.addChild(iconLb);
+      var iconImg = new eui.Image();
+      self.fitImageToBox(iconImg, def.asset, 66, 66, 13, 4);
+      cell.addChild(iconImg);
 
       var nameLb2 = new eui.Label();
-      nameLb2.text = AVATAR_NAMES[idx]; nameLb2.size = 11;
-      nameLb2.textColor = 0xcccccc;
-      nameLb2.horizontalCenter = 0; nameLb2.top = 56;
+      nameLb2.text = def.name; nameLb2.size = def.name.length > 4 ? 9 : 10;
+      nameLb2.textColor = (self.avatarIdx === idx) ? THEME.textGold : 0xcccccc;
+      nameLb2.width = CELL_W; nameLb2.height = 14; nameLb2.textAlign = 'center';
+      nameLb2.x = 0; nameLb2.top = 76;
       cell.addChild(nameLb2);
+
+      var jobHint = new eui.Label();
+      jobHint.text = idx === 0 ? '当前职业' : '形象';
+      jobHint.size = 8; jobHint.textColor = THEME.textDim;
+      jobHint.width = CELL_W; jobHint.height = 10; jobHint.textAlign = 'center';
+      jobHint.x = 0; jobHint.top = 91;
+      cell.addChild(jobHint);
 
       cell.addEventListener(egret.TouchEvent.TOUCH_TAP, function() {
         self.avatarIdx = idx;
         // 刷新顶部头像显示
-        if (self._avatarBg)   self._avatarBg.fillColor = AVATAR_COLORS[idx];
-        if (self._avatarIcon) self._avatarIcon.text = AVATAR_ICONS[idx];
+        if (self._avatarBg) self._avatarBg.fillColor = def.color;
+        if (self._avatarImage) self.fitImageToBox(self._avatarImage, def.asset, 50, 50, 3, 3);
         self.saveGame();
         self.closePanel();
-        self.showToast('✅ 头像已更换为' + AVATAR_NAMES[idx]);
+        self.showToast('✅ 头像已更换为' + def.name);
       }, self);
 
       panel.addChild(cell);
@@ -7826,7 +10058,7 @@ Game.prototype.openNameEditor = function() {
   panel.addChild(closeBtn);
 
   var hint = new eui.Label();
-  hint.text = '当前昵称：' + (this.playerName || '玩家');
+  hint.text = '当前昵称：' + (this.playerName || makeDefaultPlayerName());
   hint.size = 12; hint.textColor = 0xaaaaaa;
   hint.horizontalCenter = 0; hint.top = 52;
   panel.addChild(hint);
@@ -7844,7 +10076,7 @@ Game.prototype.openNameEditor = function() {
       var col = idx % 3, row = Math.floor(idx / 3);
       var pb = self.createButton(name, 0x4a2d6b, 70, 26, function() {
         self.playerName = name;
-        if (self._nameLb) self._nameLb.text = name + ' ✏️';
+        if (self._nameLb) self._nameLb.text = name;
         self.saveGame();
         self.closePanel();
         self.showToast('✅ 昵称已改为：' + name);
@@ -7857,11 +10089,11 @@ Game.prototype.openNameEditor = function() {
   // 手动输入按钮（调用 prompt）
   var inputBtn = self.createButton('✏️ 手动输入', 0x27ae60, 120, 34, function() {
     // Egret 环境中通过 prompt 获取输入
-    var newName = window.prompt('请输入新昵称（最多8个字符）：', self.playerName || '玩家');
+    var newName = window.prompt ? window.prompt('请输入新昵称（最多8个字符）：', self.playerName || makeDefaultPlayerName()) : self.playerName;
     if (newName && newName.trim()) {
       var trimmed = newName.trim().slice(0, 8);
       self.playerName = trimmed;
-      if (self._nameLb) self._nameLb.text = trimmed + ' ✏️';
+      if (self._nameLb) self._nameLb.text = trimmed;
       self.saveGame();
       self.closePanel();
       self.showToast('✅ 昵称已改为：' + trimmed);
@@ -7871,6 +10103,128 @@ Game.prototype.openNameEditor = function() {
   panel.addChild(inputBtn);
 
   overlay.addChild(panel);
+};
+
+// ==================== 职业 / 转职 ====================
+
+Game.prototype.openCareerPanel = function() {
+  var overlay = this.createPanelOverlay();
+  var panel = this.addPanelContent(overlay, { title: '职业详情' });
+  var self = this;
+  var contentX = panel._contentX || 16;
+  var contentW = panel._contentW || 343;
+  var y = 66;
+  var current = this.getJobDef(this.jobId);
+
+  var title = new eui.Label();
+  title.text = '职业详情';
+  title.size = 18; title.bold = true; title.textColor = 0xffffff;
+  title.x = contentX + 96; title.y = 16; title.width = contentW - 120; title.height = 22;
+  title.textAlign = 'center';
+  panel.addChild(title);
+
+  var heroCard = new eui.Group();
+  heroCard.width = contentW; heroCard.height = 100;
+  heroCard.x = contentX; heroCard.y = y;
+  var heroBg = new eui.Rect();
+  heroBg.percentWidth = 100; heroBg.percentHeight = 100;
+  heroBg.ellipseWidth = 10; heroBg.ellipseHeight = 10;
+  heroBg.fillColor = 0x17103a; heroBg.fillAlpha = 0.98;
+  heroBg.strokeColor = current.color || THEME.lavender; heroBg.strokeWeight = 1; heroBg.strokeAlpha = 0.58;
+  heroCard.addChild(heroBg);
+  var avatarDef = AVATAR_DEFS[this.avatarIdx || 0] || AVATAR_DEFS[0];
+  var avatarBg = new eui.Rect();
+  avatarBg.width = 68; avatarBg.height = 68; avatarBg.x = 12; avatarBg.y = 16;
+  avatarBg.ellipseWidth = 18; avatarBg.ellipseHeight = 18;
+  avatarBg.fillColor = avatarDef.color; avatarBg.strokeColor = THEME.strokeGold; avatarBg.strokeWeight = 0.9; avatarBg.strokeAlpha = 0.72;
+  heroCard.addChild(avatarBg);
+  var avatarImg = new eui.Image();
+  this.fitImageToBox(avatarImg, avatarDef.asset, 74, 74, 9, 12);
+  heroCard.addChild(avatarImg);
+  var curName = new eui.Label();
+  curName.text = (this.playerName || makeDefaultPlayerName()) + ' · ' + current.name;
+  curName.size = 15; curName.bold = true; curName.textColor = current.color || THEME.textGold;
+  curName.x = 94; curName.y = 17; curName.width = contentW - 108; curName.height = 20;
+  heroCard.addChild(curName);
+  var curInfo = new eui.Label();
+  curInfo.text = '等级 Lv.' + this.mainLevel + '    钻石 ' + (this.rebirthGems || 0);
+  curInfo.size = 11; curInfo.textColor = THEME.textDim;
+  curInfo.x = 94; curInfo.y = 43; curInfo.width = contentW - 108; curInfo.height = 16;
+  heroCard.addChild(curInfo);
+  var desc = new eui.Label();
+  desc.text = '当前加成：' + this.getJobBonusText(current);
+  desc.size = 11; desc.textColor = 0xd9d2ff; desc.lineSpacing = 3;
+  desc.x = 94; desc.y = 63; desc.width = contentW - 108; desc.height = 34;
+  heroCard.addChild(desc);
+  panel.addChild(heroCard);
+
+  var hint = new eui.Label();
+  hint.text = '转职消耗钻石并立即生效：每个职业提供 1 条专属加成，效果随存档保留。可随时再次转职，费用按目标职业收取。';
+  hint.size = 11; hint.textColor = THEME.textDim; hint.lineSpacing = 4;
+  hint.x = contentX; hint.y = y + 114; hint.width = contentW; hint.height = 36;
+  panel.addChild(hint);
+
+  var listY = y + 160;
+  for (var i = 0; i < JOB_DEFS.length; i++) {
+    (function(job, idx) {
+      var row = new eui.Group();
+      row.width = contentW; row.height = 70;
+      row.x = contentX; row.y = listY + idx * 78;
+      var selected = self.jobId === job.id;
+      var canPay = (self.rebirthGems || 0) >= job.cost;
+      var rowBg = new eui.Rect();
+      rowBg.percentWidth = 100; rowBg.percentHeight = 100;
+      rowBg.ellipseWidth = 9; rowBg.ellipseHeight = 9;
+      rowBg.fillColor = selected ? 0x24183f : 0x151038;
+      rowBg.fillAlpha = 0.98;
+      rowBg.strokeColor = selected ? THEME.strokeGold : (job.color || THEME.lavender);
+      rowBg.strokeWeight = selected ? 1.2 : 0.8; rowBg.strokeAlpha = selected ? 0.72 : 0.42;
+      row.addChild(rowBg);
+
+      var badge = new eui.Rect();
+      badge.width = 42; badge.height = 42; badge.x = 12; badge.y = 14;
+      badge.ellipseWidth = 14; badge.ellipseHeight = 14;
+      badge.fillColor = job.color || THEME.lavender; badge.fillAlpha = 0.18;
+      badge.strokeColor = job.color || THEME.lavender; badge.strokeWeight = 1; badge.strokeAlpha = 0.7;
+      row.addChild(badge);
+      var badgeLb = new eui.Label();
+      badgeLb.text = selected ? '现' : '职'; badgeLb.size = 17; badgeLb.bold = true; badgeLb.textColor = job.color || THEME.textGold;
+      badgeLb.width = 42; badgeLb.height = 24; badgeLb.x = 12; badgeLb.y = 23; badgeLb.textAlign = 'center';
+      row.addChild(badgeLb);
+
+      var name = new eui.Label();
+      name.text = job.name; name.size = 14; name.bold = true; name.textColor = job.color || THEME.textGold;
+      name.x = 66; name.y = 11; name.width = 92; name.height = 20;
+      row.addChild(name);
+      var detail = new eui.Label();
+      detail.text = self.getJobBonusText(job) + '\n' + job.desc; detail.size = 10; detail.textColor = 0xd9d2ff; detail.lineSpacing = 3;
+      detail.x = 66; detail.y = 34; detail.width = contentW - 172; detail.height = 30;
+      row.addChild(detail);
+
+      var btnText = selected ? '当前' : (job.cost ? ('钻石' + job.cost) : '选择');
+      var btnColor = selected ? 0x555555 : (canPay ? 0x8e44ad : 0x3b3b46);
+      var btn = self.createButton(btnText, btnColor, 74, 30, function() {
+        if (selected) {
+          self.showToast('当前已经是' + job.name);
+          return;
+        }
+        if (self.rebirthGems < job.cost) {
+          self.showToast('钻石不足，需要' + job.cost + '钻石');
+          return;
+        }
+        self.rebirthGems -= job.cost;
+        self.jobId = job.id;
+        self.refreshJobHud();
+        self.updateUI();
+        self.saveGame();
+        self.closePanel();
+        self.showToast('转职成功：' + job.name + '（' + self.getJobBonusText(job) + '）');
+      }, self);
+      btn.x = contentW - 86; btn.y = 20;
+      row.addChild(btn);
+      panel.addChild(row);
+    })(JOB_DEFS[i], i);
+  }
 };
 
 // ==================== BOSS 全屏闪烁动效 ====================
