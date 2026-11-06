@@ -75,7 +75,7 @@
 
     /*
      * 首次进入的加载进度卡片。
-     * preloadGameImages() 在 egret.runEgret() 之前跑完，94 张素材（约 18MB）下载期间
+     * preloadGameImages() 在 egret.runEgret() 之前跑完，91 张素材（R 批次优化后约 7MB）下载期间
      * canvas 尚未建立、game.js 里的 Egret 启动遮罩根本不存在，纯 DOM 层是唯一能覆盖
      * 这段时间的载体。纯 CSS + 原生 setTimeout，不依赖 Egret Tween / rAF（§12 事故）。
      */
@@ -231,7 +231,9 @@
   <script>
     var statusEl = document.getElementById('status');
     var container = document.getElementById('game-container');
-    var BUILD_VERSION = 'gameplay-20260613-wx-ui-loop-polish-1';
+    // 版本号同时是 game.js / 所有图片的 cache-buster（game.js 里的 ASSET_VERSION 取此值）。
+    // 约定：任何 game.js 或图片内容变更都必须 bump 这个值，否则用户会拿到 10 分钟缓存里的旧文件。
+    var BUILD_VERSION = 'gameplay-20261106-load-opt-1';
     window.DMAX_GAME_VERSION = BUILD_VERSION;
     var scripts = [
       'lib/egret/egret.min.js',
@@ -475,7 +477,10 @@
       var active = 0;
       var finished = false;
       var failed = [];
-      var concurrency = 3;
+      // 线上是 GitHub Pages（高 RTT 跨国链路），单请求 TTFB 实测约 0.75s。
+      // 并发 3 时 91 项要排约 31 批；提到 12 后约 8 批，HTTP/2 多路复用可承载。
+      // 不设更高是为了避免客户端一次性铺开过多 Image 对象、反而触发排队拥塞。
+      var concurrency = 12;
       var maxRetry = 3;
       var timeout = setTimeout(function() {
         if (finished) return;
@@ -606,7 +611,9 @@
         return;
       }
       var s = document.createElement('script');
-      s.src = scripts[idx] + (scripts[idx] === 'game.js' ? '?v=' + BUILD_VERSION + '&t=' + Date.now() : '');
+      // 只用版本号做 cache-buster，不拼 Date.now()：旧写法每次刷新都强制重下 439KB 的
+      // game.js，等于把浏览器缓存完全废掉。改 game.js 时 bump BUILD_VERSION 即可失效。
+      s.src = scripts[idx] + (scripts[idx] === 'game.js' ? '?v=' + BUILD_VERSION : '');
       s.onload = function() {
         var name = scripts[idx].split('/').pop();
         statusEl.textContent = (idx+1) + '/' + scripts.length + ' OK ' + name;
