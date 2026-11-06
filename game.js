@@ -1670,15 +1670,102 @@ Game.prototype.getBattleScene = function() {
 Game.prototype.updateBattleScene = function(animate) {
   if (!this.fieldSkin) return;
   var idx = this.getBattleSceneIndex();
-  if (idx === this._sceneIndex && this.fieldSkin.source) return;
+  if (idx === this._sceneIndex && this.fieldSkin.source) return; // V1-6 保留幂等短路
   var scene = this.getBattleScene();
+  var oldSource = this.fieldSkin.source;
   this._sceneIndex = idx;
   this.coverImageInBox(this.fieldSkin, scene.asset, this._stageW || 375, this._battleH || 423, 0, 0);
+  if (this._v1Crossfade === false) {
+    // 单点回退：退回 V1 前的单图淡入，并拆掉持久色调层。
+    if (this._v1DayTint && this._v1DayTint.parent) {
+      this._v1DayTint.parent.removeChild(this._v1DayTint);
+      this._v1DayTint = null;
+    }
+    if (animate) {
+      this.fieldSkin.alpha = 0;
+      egret.Tween.get(this.fieldSkin).to({ alpha: 1 }, 450);
+    } else {
+      this.fieldSkin.alpha = 1;
+    }
+    return;
+  }
+  if (animate && oldSource) this._v1CrossfadeScene(oldSource);
   if (animate) {
     this.fieldSkin.alpha = 0;
     egret.Tween.get(this.fieldSkin).to({ alpha: 1 }, 450);
   } else {
     this.fieldSkin.alpha = 1;
+  }
+  this._v1ApplyDayTint(idx, !!animate);
+};
+
+// V1-6：旧场景作为单例 ghost 在新图之上淡出，新图同时淡入 = 交叉淡化。
+// ghost 只允许一个（_v1SceneGhost），换场太快也不会堆积；Tween 卡住时 900ms 原生兜底强制回收。
+Game.prototype._v1CrossfadeScene = function(oldSource) {
+  if (!this.battleGroup || !oldSource || this._v1SceneGhost) return;
+  var bg = this.battleGroup;
+  var ghost = new eui.Image();
+  this.coverImageInBox(ghost, oldSource, this._stageW || 375, this._battleH || 423, 0, 0);
+  ghost.touchEnabled = false;
+  var fieldIdx = -1;
+  try {
+    if (bg.getChildIndex) fieldIdx = bg.getChildIndex(this.fieldSkin);
+    else if (bg.children) fieldIdx = bg.children.indexOf(this.fieldSkin);
+  } catch (e) { fieldIdx = -1; }
+  bg.addChild(ghost);
+  if (fieldIdx >= 0 && bg.setChildIndex) {
+    bg.setChildIndex(ghost, Math.min(fieldIdx + 1, bg.numChildren - 1));
+  }
+  var self = this;
+  var removed = false;
+  this._v1SceneGhost = ghost;
+  var forceRemove = function() {
+    if (removed) return;
+    removed = true;
+    try { egret.Tween.removeTweens(ghost); } catch (e) {}
+    if (ghost.parent) ghost.parent.removeChild(ghost);
+    if (self._v1SceneGhost === ghost) self._v1SceneGhost = null;
+  };
+  egret.Tween.get(ghost).to({ alpha: 0 }, 450).call(forceRemove);
+  this.safeTimeout('v1-scene-ghost', forceRemove, 900);
+};
+
+// V1-6：早晚色调层。一个持久 Rect 单例复用，不随换场新增显示对象；按场景序号轮转 4 段色调。
+Game.prototype._v1ApplyDayTint = function(idx, animate) {
+  if (!this.battleGroup || !this.fieldSkin) return;
+  var TINTS = [
+    { color: THEME.bgDeep,      alpha: 0.10 }, // 深夜
+    { color: THEME.sky,         alpha: 0.06 }, // 清晨
+    { color: THEME.accentSoft,  alpha: 0.05 }, // 白昼
+    { color: THEME.pink,        alpha: 0.07 }  // 黄昏
+  ];
+  var t = TINTS[idx % TINTS.length] || TINTS[0];
+  var rect = this._v1DayTint;
+  if (!rect || !rect.parent) {
+    rect = new eui.Rect();
+    rect.width = this._stageW || 375;
+    rect.height = this._battleH || 423;
+    rect.touchEnabled = false;
+    this._v1DayTint = rect;
+    var bg = this.battleGroup;
+    var fieldIdx = -1;
+    try {
+      if (bg.getChildIndex) fieldIdx = bg.getChildIndex(this.fieldSkin);
+      else if (bg.children) fieldIdx = bg.children.indexOf(this.fieldSkin);
+    } catch (e) { fieldIdx = -1; }
+    bg.addChild(rect);
+    if (fieldIdx >= 0 && bg.setChildIndex) {
+      bg.setChildIndex(rect, Math.min(fieldIdx + 1, bg.numChildren - 1));
+    }
+  }
+  rect.fillColor = t.color;
+  rect.fillAlpha = t.alpha;
+  try { egret.Tween.removeTweens(rect); } catch (e) {}
+  if (animate) {
+    rect.alpha = 0;
+    egret.Tween.get(rect).to({ alpha: 1 }, 450);
+  } else {
+    rect.alpha = 1;
   }
 };
 
@@ -3976,7 +4063,9 @@ Game.prototype.doDamage = function(m, dmg, idx, isCrit, damageType) {
     this.healPlayer(leech, CORE_WEAPON_DEF.name, true);
   }
   if (isCrit) this.sfxCrit();
-  this.showDamageText(dmg, isCrit, idx);
+  var isWeakHit = !!(m.weakness && m.weakness === damageType);
+  this.showDamageText(dmg, isCrit, idx, damageType, isWeakHit);
+  if (this._v1HitFlash !== false) this._v1HitFlashFx(idx);
   // 怪物受击闪烁效果
   if (this.monsterViews[idx]) {
     var mv = this.monsterViews[idx];
@@ -3996,20 +4085,122 @@ Game.prototype.doDamage = function(m, dmg, idx, isCrit, damageType) {
   this.updateUI();
 };
 
-Game.prototype.showDamageText = function(dmg, isCrit, idx) {
+// ==================== V1 表现层 · 统一 FX 生命周期 ====================
+// §12 事故教训：iframe / 后台标签下 rAF 被节流，egret.Tween 的 .call() 可能永不触发。
+// 因此所有新增显示对象都走这里：幂等 forceRemove + 原生 setTimeout 兜底 + 数量上限。
+// 四个开关（_v1HitFlash / _v1ShakeTiers / _v1Crossfade / _v1RareFx）缺省开启，
+// 在实例上置 false 即可单点回退，不触碰任何数值 / 公式 / 存档结构。
+var V1_FX_MAX_LIVE = 40;
+
+Game.prototype._v1TrackFx = function(obj, parent, animate, ttl, tag) {
+  if (!obj || !parent) return null;
+  var live = this._v1FxLive || (this._v1FxLive = []);
+  for (var i = live.length - 1; i >= 0; i--) {
+    if (!live[i] || !live[i].obj || !live[i].obj.parent) live.splice(i, 1);
+  }
+  if (live.length >= V1_FX_MAX_LIVE) return null; // 超限直接不创建，绝不无界 addChild
+  var entry = { obj: obj, parent: parent, removed: false };
+  var forceRemove = function() {
+    if (entry.removed) return;
+    entry.removed = true;
+    try { egret.Tween.removeTweens(obj); } catch (e) {}
+    if (obj.parent) obj.parent.removeChild(obj);
+    var k = live.indexOf(entry);
+    if (k >= 0) live.splice(k, 1);
+  };
+  entry.forceRemove = forceRemove;
+  live.push(entry);
+  parent.addChild(obj);
+  try {
+    if (animate) animate(obj, forceRemove);
+  } catch (e) {
+    forceRemove();
+    return null;
+  }
+  this.safeTimeout(tag || 'v1-fx', forceRemove, ttl || 900);
+  return obj;
+};
+
+// V1-1：受击闪白。80ms 白色高光叠在怪物位置，自带幂等回收与 320ms 原生兜底。
+Game.prototype._v1HitFlashFx = function(idx) {
+  if (this._v1HitFlash === false) return null;
+  if (!this.damageLayer) return null;
+  var pos = this.getMonsterCenter(idx);
+  var flash = new egret.Shape();
+  flash.graphics.beginFill(0xffffff, 0.85);
+  flash.graphics.drawRoundRect(-22, -22, 44, 44, 12);
+  flash.graphics.endFill();
+  flash.x = pos.x;
+  flash.y = pos.y;
+  flash.scaleX = 0.6;
+  flash.scaleY = 0.6;
+  flash.touchEnabled = false;
+  return this._v1TrackFx(flash, this.damageLayer, function(o, done) {
+    egret.Tween.get(o)
+      .to({ scaleX: 1.1, scaleY: 1.1, alpha: 0.7 }, 40)
+      .to({ scaleX: 1.25, scaleY: 1.25, alpha: 0 }, 80)
+      .call(done);
+  }, 320, 'v1-hit-flash');
+};
+
+// V1-7：稀有遭遇出场金色描边 + 缩放弹跳，挂在怪物 view 上，自带幂等回收与原生兜底。
+// 专属美术仍留 V2；这里只补表现，不改刷怪表 / 数值 / 存档。
+Game.prototype._v1RareSpawnFx = function(view, visualW, sz) {
+  if (!view) return null;
+  var ring = new egret.Shape();
+  ring.graphics.lineStyle(2, THEME.strokeGold, 0.95);
+  ring.graphics.drawCircle(0, 0, Math.max(18, Math.floor(sz * 0.55)));
+  ring.graphics.lineStyle(1, THEME.accentSoft, 0.8);
+  ring.graphics.drawCircle(0, 0, Math.max(24, Math.floor(sz * 0.72)));
+  ring.x = Math.floor(visualW / 2);
+  ring.y = Math.floor(sz / 2);
+  ring.scaleX = 0.3;
+  ring.scaleY = 0.3;
+  ring.touchEnabled = false;
+  return this._v1TrackFx(ring, view, function(o, done) {
+    egret.Tween.get(o)
+      .to({ scaleX: 1.15, scaleY: 1.15 }, 220)
+      .to({ scaleX: 1.35, scaleY: 1.35, alpha: 0 }, 320)
+      .call(done);
+  }, 1100, 'v1-rare-spawn');
+};
+
+// V1-2：伤害飘字分级。第 4 参 damageType 缺省时严格走下方原分支（一字未改），
+// 传入时才启用暴击 / 弱点 / 真实 / 法术的颜色、字号与缩放弹跳。
+Game.prototype.showDamageText = function(dmg, isCrit, idx, damageType, isWeak) {
   var txt = new egret.TextField();
   var isWord = typeof dmg === 'string';
   txt.text = (isWord ? dmg : ('-' + this.fmt(dmg))) + (isCrit && !isWord ? '!' : '');
   txt.size = isCrit ? 26 : 20;
   txt.textColor = isCrit ? THEME.accent : THEME.pink;
+  var graded = !isWord && !!damageType;
+  if (graded) {
+    if (isCrit) { txt.size = 30; txt.textColor = THEME.accent; }
+    else if (isWeak) { txt.size = 24; txt.textColor = THEME.sky; }
+    else if (damageType === 'true') { txt.size = 22; txt.textColor = THEME.lavender; }
+    else if (damageType === 'magic') { txt.size = 21; txt.textColor = THEME.mint; }
+    else { txt.size = 20; txt.textColor = THEME.pink; }
+  }
   txt.bold = true;
   var pos = this.getMonsterCenter(idx);
   txt.x = pos.x - 18 + (Math.random() * 16 - 8);
   txt.y = pos.y - 26 + Math.random() * 10;
-  this.damageLayer.addChild(txt);
-  egret.Tween.get(txt).to({ y: txt.y - 50, alpha: 0 }, 700).call(function() {
-    if (txt.parent) txt.parent.removeChild(txt);
-  });
+  if (!graded) {
+    // 原分支：5 个旧调用点（3 个字符串 + 未透传的 2 处工具调用）严格保持原样。
+    this.damageLayer.addChild(txt);
+    egret.Tween.get(txt).to({ y: txt.y - 50, alpha: 0 }, 700).call(function() {
+      if (txt.parent) txt.parent.removeChild(txt);
+    });
+    return;
+  }
+  txt.scaleX = 0.6;
+  txt.scaleY = 0.6;
+  this._v1TrackFx(txt, this.damageLayer, function(o, done) {
+    egret.Tween.get(o)
+      .to({ scaleX: 1.18, scaleY: 1.18 }, 90)
+      .to({ scaleX: 1, scaleY: 1, y: o.y - 50, alpha: 0 }, 610)
+      .call(done);
+  }, 1200, 'v1-damage-text');
 };
 
 Game.prototype.getMonsterAttack = function(m) {
@@ -4045,7 +4236,11 @@ Game.prototype.takePlayerDamage = function(raw, label) {
   if (label) this.showToast(label + ' -' + this.fmt(dmg) + '生命' + (shieldReduce > 0 ? '（护盾减伤）' : ''));
   this.showPlayerDamageText(dmg);
   if (this.shouldShakeOnPlayerDamage(raw, dmg, label)) {
-    this.shakeBattle(this.bossActive ? 5 : 3);
+    // V1-4：三档幅度。伤害数值与 shouldShakeOnPlayerDamage 的 1200ms 冷却 / 降频策略一字未改，
+    // 这里只把「轻击 / BOSS / 重击」档位传给表现层。
+    var hpCap = Math.max(1, this.getMaxPlayerHp());
+    var heavyHit = dmg >= Math.max(25, hpCap * 0.12);
+    this.shakeBattle(this.bossActive ? (heavyHit ? 8 : 5) : (heavyHit ? 6 : 3));
   }
   this.sfxHurt();
   if (this.playerHp <= 0) this.onPlayerDefeated();
@@ -4095,10 +4290,22 @@ Game.prototype.shakeBattle = function(power) {
   var baseX = 0;
   egret.Tween.removeTweens(this.battleGroup);
   this.battleGroup.x = baseX;
+  if (this._v1ShakeTiers === false) {
+    // 单点回退：保持 V1 前的原 Tween 链。
+    egret.Tween.get(this.battleGroup)
+      .to({ x: baseX - power }, 35)
+      .to({ x: baseX + power }, 55)
+      .to({ x: baseX - Math.floor(power / 2) }, 45)
+      .to({ x: baseX }, 45);
+    return;
+  }
+  var tier = power >= 6 ? 3 : (power >= 4 ? 2 : 1);
+  var amp = [0, 3, 5, 8][tier];
+  this._v1ShakeTier = tier;
   egret.Tween.get(this.battleGroup)
-    .to({ x: baseX - power }, 35)
-    .to({ x: baseX + power }, 55)
-    .to({ x: baseX - Math.floor(power / 2) }, 45)
+    .to({ x: baseX - amp }, 35)
+    .to({ x: baseX + amp }, 55)
+    .to({ x: baseX - Math.floor(amp / 2) }, 45)
     .to({ x: baseX }, 45);
 };
 
@@ -5244,7 +5451,7 @@ Game.prototype.updateMonsterHealthView = function(idx) {
   if (mv._hpFill) {
     mv._hpFill.width = Math.max(0, (mv._hpMaxWidth || mv._hpFill.width) * pct);
     var mType = m.type || MONSTER_TYPES[0];
-    mv._hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
+    mv._hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? (mType.hpColor || (mType.hidden ? THEME.strokeGold : THEME.ok)) : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
   }
   if (mv._hpText) {
     mv._hpText.text = Math.max(0, Math.floor(m.hp)) + '/' + m.maxHp;
@@ -5309,9 +5516,11 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   var badge = new eui.Rect();
   badge.width = badgeW; badge.height = badgeH;
   badge.ellipseWidth = badgeH; badge.ellipseHeight = badgeH;
-  badge.fillColor = m.isBoss ? 0x5a0a08 : mType.badge;
+  // V1-7：隐藏怪缺 badge / hpColor 色板字段，用 THEME 兜底，避免 fillColor=undefined。
+  var isRare = !!mType.hidden;
+  badge.fillColor = m.isBoss ? 0x5a0a08 : (mType.badge || (isRare ? THEME.bgGlass : THEME.bgLite));
   badge.fillAlpha = 0.92;
-  badge.strokeColor = m.isBoss ? THEME.strokeGold : 0xffffff;
+  badge.strokeColor = (m.isBoss || isRare) ? THEME.strokeGold : 0xffffff;
   badge.strokeWeight = m.isBoss ? 1.5 : 1;
   badge.strokeAlpha = m.isBoss ? 0.9 : 0.6;
   badge.x = Math.floor((visualW - badgeW) / 2); badge.y = badgeY;
@@ -5348,7 +5557,7 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   var pct = Math.max(0, m.hp / m.maxHp);
   var hpFill = new eui.Rect();
   hpFill.width = Math.max(0, hpW * pct); hpFill.height = hpH;
-  hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? mType.hpColor : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
+  hpFill.fillColor = m.isBoss ? 0xe74c3c : (pct > 0.5 ? (mType.hpColor || (isRare ? THEME.strokeGold : THEME.ok)) : (pct > 0.2 ? 0xf39c12 : 0xe74c3c));
   hpFill.ellipseWidth = hpH; hpFill.ellipseHeight = hpH;
   hpFill.x = hpBg.x; hpFill.y = hpY;
   g.addChild(hpFill);
@@ -5365,6 +5574,8 @@ Game.prototype.createMonsterView = function(m, idx, total) {
   g.addChild(hpText);
   g._hpText = hpText;
   g._detailViews = [badge, nameLabel, traitLabel, hpText];
+  // V1-7：稀有遭遇出场表现（金色描边 / 出现动画），专属美术仍留 V2。
+  if (this._v1RareFx !== false && isRare) this._v1RareSpawnFx(g, visualW, sz);
   if (this.detailMode === false) {
     for (var dv = 0; dv < g._detailViews.length; dv++) g._detailViews[dv].visible = false;
   }
@@ -8941,6 +9152,16 @@ Game.prototype._beep = function(opts) {
     gain.connect(bus === 'bgm' && this._bgmGain ? this._bgmGain : (this._sfxGain || ctx.destination));
     osc.start(now);
     osc.stop(now + dur + 0.02);
+    // V1-5：可选双振荡器。harmonic 缺省时严格保持上方单 osc 分支不变，
+    // 其余 10 个 sfx* 调用音色零变化；第二 osc 与主 osc 共用同一 gain / 同一 bus。
+    if (opts && opts.harmonic) {
+      var osc2 = ctx.createOscillator();
+      osc2.type = osc.type;
+      osc2.frequency.setValueAtTime(Math.max(1, freq * opts.harmonic), now);
+      osc2.connect(gain);
+      osc2.start(now);
+      osc2.stop(now + dur + 0.02);
+    }
   } catch(e) {}
 };
 
@@ -8979,13 +9200,15 @@ Game.prototype.sfxAttack = function() {
   this._beep({ type: 'square', freq: 620, freqEnd: 360, duration: 0.05, volume: 0.045, delay: 0.025 });
 };
 Game.prototype.sfxCrit = function() {
-  this._beep({ type: 'sawtooth', freq: 880, freqEnd: 1320, duration: 0.09, volume: 0.075 });
+  // V1-5：暴击叠加高八度泛音，与受击的低八度形成事件音色层次。
+  this._beep({ type: 'sawtooth', freq: 880, freqEnd: 1320, duration: 0.09, volume: 0.075, harmonic: 1.5 });
 };
 Game.prototype.sfxKill = function() {
   this._beep({ type: 'triangle', freq: 520, freqEnd: 780, duration: 0.11, volume: 0.06 });
 };
 Game.prototype.sfxHurt = function() {
-  this._beep({ type: 'sawtooth', freq: 180, freqEnd: 95, duration: 0.11, volume: 0.08 });
+  // V1-5：玩家受击叠低八度泛音，让「挨打」比「打人」更沉。
+  this._beep({ type: 'sawtooth', freq: 180, freqEnd: 95, duration: 0.11, volume: 0.08, harmonic: 0.5 });
 };
 Game.prototype.sfxSupport = function() {
   var now = Date.now();
