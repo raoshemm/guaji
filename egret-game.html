@@ -64,18 +64,72 @@
       }
     }
 
+    /* 详细日志 / 错误层：默认隐藏，仅失败时显示；层级高于加载卡片，保证错误可见可点。 */
     #status {
       display: none;
       color: #0f0; position: fixed; top: max(10px, env(safe-area-inset-top)); left: 10px;
-      font-family: monospace; font-size: 12px; z-index: 999; background: rgba(0,0,0,0.7);
+      font-family: monospace; font-size: 12px; z-index: 1100; background: rgba(0,0,0,0.7);
       padding: 4px 8px; border-radius: 4px; white-space: pre-line; max-width: 90%;
-      pointer-events: none;
+      pointer-events: auto;
     }
 
+    /*
+     * 首次进入的加载进度卡片。
+     * preloadGameImages() 在 egret.runEgret() 之前跑完，94 张素材（约 18MB）下载期间
+     * canvas 尚未建立、game.js 里的 Egret 启动遮罩根本不存在，纯 DOM 层是唯一能覆盖
+     * 这段时间的载体。纯 CSS + 原生 setTimeout，不依赖 Egret Tween / rAF（§12 事故）。
+     */
+    #boot-loading {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 50% 32%, #2b2352 0%, #1a1a2e 58%, #0d0b1c 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #f4d789;
+      opacity: 1;
+      transition: opacity 260ms ease;
+      pointer-events: none;
+    }
+    #boot-loading.is-hidden { opacity: 0; }
+    #boot-loading.is-error { pointer-events: auto; cursor: pointer; }
+    #boot-loading.is-error .sub { color: #ffb4a8; }
+    #boot-loading .card { width: min(300px, 78vw); text-align: center; }
+    #boot-loading .badge {
+      width: 64px; height: 64px; line-height: 64px; margin: 0 auto 18px;
+      border-radius: 16px; background: #0a0820; color: #fbbf24;
+      font-size: 38px; font-weight: 700; box-shadow: 0 8px 30px rgba(0,0,0,.45);
+    }
+    #boot-loading .title { font-size: 19px; letter-spacing: 3px; font-weight: 600; }
+    #boot-loading .sub {
+      margin: 12px 0 20px; min-height: 20px;
+      font-size: 13px; line-height: 1.5; color: #cfc6e8;
+      word-break: break-all;
+    }
+    #boot-loading .track {
+      height: 8px; border-radius: 99px; overflow: hidden;
+      background: rgba(255,255,255,.12);
+    }
+    #boot-loading .fill {
+      height: 100%; width: 0%; border-radius: 99px;
+      background: linear-gradient(90deg, #fbbf24, #7be8b7);
+      transition: width 200ms ease;
+    }
+    #boot-loading .meta {
+      display: flex; justify-content: space-between; margin-top: 10px;
+      font-size: 12px; color: #9a90bb;
+    }
   </style>
 </head>
 <body>
   <div id="status">加载引擎中...</div>
+  <div id="boot-loading" role="status" aria-live="polite">
+    <div class="card">
+      <div class="badge">D</div>
+      <div class="title">DMAX 挂机英雄</div>
+      <div class="sub" id="boot-sub">正在准备游戏…</div>
+      <div class="track"><div class="fill" id="boot-fill"></div></div>
+      <div class="meta"><span id="boot-pct">0%</span><span id="boot-count">载入中</span></div>
+    </div>
+  </div>
   <!--
     必须加 class="egret-player" + data-* 属性：
     egret.runEgret() 内部会 querySelectorAll('.egret-player') 找容器并为每个
@@ -112,12 +166,66 @@
     // 逻辑宽度固定 375（fixedWidth 缩放模式）
     var LOGICAL_W = 375;
 
+    // ===== 首次进入的加载进度 =====
+    // loadScript / preloadGameImages 早已通过 setBootLoading(text, pct) 传回阶段文字与
+    // 百分比，此前 H5 把该函数置空并把 #status 设为 display:none，导致最慢的素材下载
+    // 阶段整屏只有纯色背景。这里补上可见载体，不改动任何调用点。
+    var bootEl = document.getElementById('boot-loading');
+    var bootSub = document.getElementById('boot-sub');
+    var bootFill = document.getElementById('boot-fill');
+    var bootPct = document.getElementById('boot-pct');
+    var bootCount = document.getElementById('boot-count');
+    var bootDone = false;
+    var bootPctValue = 0;
+    var bootGuardTimer = null;
+    var bootErrPoll = null;
+    window.DMAX_BOOT_STATE = 'loading';
+
     function setBootLoading(text, pct) {
-      // H5 预览不再展示启动遮罩；微信小游戏入口由 buildEgretWxgame.js 绘制。
+      if (!bootEl || bootDone) return;
+      var v = Math.max(0, Math.min(100, Number(pct) || 0));
+      if (v > bootPctValue) bootPctValue = v;   // 失败重试时百分比不回跳
+      if (bootSub) bootSub.textContent = text || '正在准备游戏…';
+      if (bootFill) bootFill.style.width = bootPctValue + '%';
+      if (bootPct) bootPct.textContent = bootPctValue + '%';
+      if (bootCount) {
+        var m = /素材预加载\s*(\d+)\s*\/\s*(\d+)/.exec(text || '');
+        if (m) bootCount.textContent = '素材 ' + m[1] + ' / ' + m[2];
+        else if (/^加载\s/.test(text || '')) bootCount.textContent = '引擎脚本';
+        else if (/重试/.test(text || '')) bootCount.textContent = '正在重试';
+      }
+    }
+
+    function showBootError(msg) {
+      if (!bootEl || bootDone) return;
+      window.DMAX_BOOT_STATE = 'error';
+      if (bootSub) bootSub.textContent = msg;
+      if (bootCount) bootCount.textContent = '点击刷新重试';
+      bootEl.className = 'is-error';
+      bootEl.onclick = function() { location.reload(); };
+      if (statusEl) { statusEl.style.display = 'block'; statusEl.textContent = msg; }
+    }
+
+    function hideBootLoading() {
+      if (bootDone || !bootEl) return;
+      setBootLoading('准备完成', 100);
+      bootDone = true;
+      window.DMAX_BOOT_STATE = 'hidden';
+      try { clearTimeout(bootGuardTimer); } catch (e) {}
+      try { clearInterval(bootErrPoll); } catch (e) {}
+      // 纯原生 setTimeout 兜底：不依赖 Egret Tween / rAF / 任何游戏回调（§6 红线 9、§12 教训）
+      setTimeout(function() {
+        if (!bootEl) return;
+        bootEl.className = 'is-hidden';
+        setTimeout(function() {
+          if (bootEl && bootEl.parentNode) bootEl.parentNode.removeChild(bootEl);
+          window.__dmaxBootLoadingRemoved = true;
+        }, 320);
+      }, 160);
     }
 
     window.DMAX_HIDE_LOADING = function() {
-      setBootLoading('进入游戏', 100);
+      hideBootLoading();
       // 二次兜底：若 Main 的启动遮罩仍在（iframe / 后台标签节流导致 tween 未跑），
       // 直接再触发一次隐藏，避免永久停在「构建首帧中...」。
       try {
@@ -125,6 +233,26 @@
         if (m && typeof m.hideBootOverlay === 'function') m.hideBootOverlay();
       } catch (e) {}
     };
+
+    // game.js 里 new Game() 抛错时只置 __dmaxBootError、不回调 HTML 层，这里把它转成可见错误态。
+    bootErrPoll = setInterval(function() {
+      if (bootDone) { clearInterval(bootErrPoll); return; }
+      if (window.__dmaxBootError) {
+        clearInterval(bootErrPoll);
+        showBootError('启动失败：' + window.__dmaxBootError);
+      }
+    }, 300);
+
+    // 硬兜底：60s 后无论何种状态都淡出遮罩，绝不永久挡住画面。
+    bootGuardTimer = setTimeout(function() {
+      if (bootDone) return;
+      if (window.__dmaxBootError) { showBootError('启动失败：' + window.__dmaxBootError); return; }
+      hideBootLoading();
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.textContent += '\n加载较慢，已跳过等待；若画面未出现请刷新页面。';
+      }
+    }, 60000);
 
     /**
      * 容器被锁成 9:16，所以理论上 stageHeight 恒等于 375 × 16/9 ≈ 667。
@@ -169,6 +297,7 @@
       var timeout = setTimeout(function() {
         if (finished) return;
         statusEl.textContent += '\n网络较慢，继续重试素材...';
+        if (bootSub) bootSub.textContent = '网络较慢，正在加载素材…';
       }, 9000);
 
       function finishOne(src, ok, tries) {
@@ -214,6 +343,7 @@
         if (criticalFailed.length) {
           statusEl.textContent = '关键素材加载失败 ' + criticalFailed.length + ' 个，点击这里重试';
           setBootLoading('关键素材加载失败，点击重试', 78);
+          showBootError('关键素材加载失败 ' + criticalFailed.length + ' 个，点击刷新重试');
           statusEl.style.cursor = 'pointer';
           statusEl.onclick = function() {
             statusEl.onclick = null;
@@ -287,6 +417,7 @@
           } catch(e) {
             statusEl.textContent += '\n[ERR] ' + e.message;
             setBootLoading('启动失败：' + e.message, 100);
+            showBootError('启动失败：' + e.message);
           }
         });
         return;
@@ -302,6 +433,7 @@
       s.onerror = function() {
         statusEl.textContent += '\n[ERR] 加载失败: ' + scripts[idx];
         setBootLoading('加载失败：' + scripts[idx], 100);
+        showBootError('加载失败：' + scripts[idx] + '，点击刷新重试');
       };
       document.head.appendChild(s);
     }
