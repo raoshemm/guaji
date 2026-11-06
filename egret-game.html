@@ -245,6 +245,26 @@
       'game.js'
     ];
 
+    // 引擎脚本「下载」并行化：loadScript 仍严格串行 appendChild 保证 7 个库的
+    // 依赖与执行顺序不变，这里只用 rel=preload 让浏览器提前把字节取回 HTTP 缓存。
+    // 线上 GitHub Pages 是高 RTT 链路，实测 7 个脚本串行最坏要 11.5s；预取后
+    // 每个 script 标签都命中缓存，串行链几乎瞬间跑完，且执行情况完全不变。
+    // URL 必须与 loadScript 拼出来的一字不差，否则会变成双重下载。
+    try {
+      var preloadSupported = !!(document.createElement('link').relList &&
+        document.createElement('link').relList.supports &&
+        document.createElement('link').relList.supports('preload'));
+      if (preloadSupported) {
+        scripts.forEach(function (name) {
+          var link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'script';
+          link.href = name + (name === 'game.js' ? '?v=' + BUILD_VERSION : '');
+          document.head.appendChild(link);
+        });
+      }
+    } catch (e) { /* 不支持 preload 时退化为原串行加载，无副作用 */ }
+
     // 逻辑宽度固定 375（fixedWidth 缩放模式）
     var LOGICAL_W = 375;
 
@@ -559,7 +579,12 @@
                 finishOne(src, false, tries);
               }
             };
-            loader.src = src + (src.indexOf('?') >= 0 ? '&' : '?') + 'r=' + tries;
+            // 首次加载必须复用游戏内 img.source 的原样 URL（assetUrl 已带 ?v=BUILD_VERSION）。
+            // 旧写法无条件拼 &r=0，浏览器缓存键含完整查询串，导致预加载的图与游戏内
+            // 请求的图被视为两个资源、同一张图下载两遍（用户反馈「进去后图片也不太快」）。
+            // 只有重试才加 r=tries 绕过可能的失败缓存。
+            loader.src = tries === 0 ? src
+              : src + (src.indexOf('?') >= 0 ? '&' : '?') + 'r=' + tries;
           }
           load();
         }
