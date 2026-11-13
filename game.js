@@ -234,6 +234,8 @@ var UI_ASSETS = {
   mageSkillStarfall: assetUrl('assets/generated/mage-skills-v1/skill-mage-starfall-v1.png'),
   // R82：六职业隐藏款造型与同裁近景头像。沿用 R72 第 4 槽 60 钻，不新增槽数、
   // 不改解锁条件、不改面板网格；皮肤 id 保持不变，老档解锁状态直接沿用。
+  // R104 订正：「不改解锁条件」是 R82 当期口径；现由 CONTENT_PHASES 阶段表接管，
+  // 隐藏款走阶梯价（SKIN_TIER_PRICE），id 与老档兼容性仍逐字保留。
   hiddenHeroTraineeMage: assetUrl('assets/generated/hero-hidden-v1/hero-trainee_mage-hidden-v1.png'),
   hiddenHeroBladeMage: assetUrl('assets/generated/hero-hidden-v1/hero-blade_mage-hidden-v1.png'),
   hiddenHeroStarOracle: assetUrl('assets/generated/hero-hidden-v1/hero-star_oracle-hidden-v1.png'),
@@ -663,10 +665,10 @@ var AVATAR_DEFS = [
 // ==================== R72：当前职业皮肤（唯一真值表） ====================
 // 号主第 5 条：点头像 = 当前职业的皮肤，不是「再切一次职业」。职业切换留在原职业入口。
 // 零战力红线：皮肤只提供 asset / icon / 名字 / 颜色，绝不进 getBuffs / computeBuffs / 伤害公式。
-// 每职业 4 槽：① 免费默认 ② 等级 Lv30 ③ 成就 w100 ④ 钻石 60。
+// 每职业 4 槽：① 免费默认 ② ③ ④ 由 R104 CONTENT_PHASES 阶段表逐阶段放出。
 // kind='art' 是独立新造型；kind='tint' 是同立绘的配色款（面板明写「配色款」，不冒充造型）。
-// [PLACEHOLDER] Lv30 / w100 / 60 钻三个门槛未经真机验证：它们与「买职业」共用同一个钻石池，
-// 目的是制造「换手感 vs 换造型」的新决策，不是新增日常负担。
+// R104：本表只登记「哪一款属于哪一槽」，门槛 / 价格 / 节奏一律不在本表写死；
+// 唯一真值在 CONTENT_PHASES + getSkinGate()，真机校准只改那张表，判定代码一行不动。
 var SKIN_DEFS = (function() {
   var defs = {};
   defs.trainee_mage = [
@@ -677,15 +679,15 @@ var SKIN_DEFS = (function() {
     { id: 'mage_dawn', jobId: 'trainee_mage', name: '晨曦学徒', kind: 'art',
       asset: UI_ASSETS.heroMageDawn, icon: UI_ASSETS.avatarStarMage,
       avatar: UI_ASSETS.avatarMageDawn, color: 0xd9a441,
-      unlock: { type: 'level', value: 30 } },
+      unlock: { type: 'phase', slot: 1 } },
     { id: 'mage_frost', jobId: 'trainee_mage', name: '霜月魔女', kind: 'art',
       asset: UI_ASSETS.heroMageFrost, icon: UI_ASSETS.avatarStarMage,
       avatar: UI_ASSETS.avatarMageFrost, color: 0x5ec8ff,
-      unlock: { type: 'achievement', value: 'w100' } },
+      unlock: { type: 'phase', slot: 2 } },
     { id: 'mage_void', jobId: 'trainee_mage', name: '星穹加冕', kind: 'art',
       asset: UI_ASSETS.hiddenHeroTraineeMage, icon: UI_ASSETS.avatarStarMage,
       avatar: UI_ASSETS.hiddenAvatarTraineeMage, color: 0x9b6dff,
-      unlock: { type: 'gems', value: 60 } }
+      unlock: { type: 'phase', slot: 3 } }
   ];
   // 其余五职业：本轮先给「配色款」，造型美术排在独立批次。数据齐了，补图不用改面板。
   var jobs = [
@@ -696,12 +698,13 @@ var SKIN_DEFS = (function() {
     { id: 'crystal_knight', base: '晶甲骑士', asset: UI_ASSETS.heroCrystalKnight, icon: UI_ASSETS.avatarCrystalKnight }
   ];
   var variants = [
-    { key: 'dawn', label: '晨光', color: 0xd9a441, tint: 0xffd98a, unlock: { type: 'level', value: 30 } },
-    { key: 'frost', label: '霜月', color: 0x5ec8ff, tint: 0x8fd8ff, unlock: { type: 'achievement', value: 'w100' } },
-    { key: 'void', label: '星海', color: 0x9b6dff, tint: 0xb08cff, unlock: { type: 'gems', value: 60 } }
+    { key: 'dawn', label: '晨光', color: 0xd9a441, tint: 0xffd98a, unlock: { type: 'phase', slot: 1 } },
+    { key: 'frost', label: '霜月', color: 0x5ec8ff, tint: 0x8fd8ff, unlock: { type: 'phase', slot: 2 } },
+    { key: 'void', label: '星海', color: 0x9b6dff, tint: 0xb08cff, unlock: { type: 'phase', slot: 3 } }
   ];
   // R82：第 4 槽 60 钻从配色款升级为隐藏款独立造型。id 不变保老档解锁状态，
   // kind 改 art 后 applySkinTint 不再染色，面板也不再显示配色款后缀。
+  // R104 订正：槽位归属改由 unlock.slot 登记，60 钻的静态门槛已迁走，不再从本表读价格。
   var hiddenArt = {
     blade_mage:     { name: '苍曜誓约', hero: UI_ASSETS.hiddenHeroBladeMage,     avatar: UI_ASSETS.hiddenAvatarBladeMage },
     star_oracle:    { name: '天穹星冕', hero: UI_ASSETS.hiddenHeroStarOracle,    avatar: UI_ASSETS.hiddenAvatarStarOracle },
@@ -722,12 +725,33 @@ var SKIN_DEFS = (function() {
         asset: hd ? hd.hero : m.asset,
         icon: m.icon, avatar: hd ? hd.avatar : undefined,
         color: s.color, tint: hd ? undefined : s.tint,
-        unlock: { type: s.unlock.type, value: s.unlock.value } });
+        unlock: { type: 'phase', slot: s.unlock.slot } });
     }
     defs[m.id] = list;
   }
   return defs;
 })();
+
+// ==================== R104：内容阶段表（皮肤 / 后续内容的唯一投放真值） ====================
+// 号主口径：照 1 个月来玩、长期挂机、永久挂机、后续分阶段逐步迭代加内容。
+// 主刻度 = rebirthCount（单调、已落盘、30 天下限模型 0→11 分布均匀）；
+// maxWaveReached 作「不转生玩家」的兜底，避免任何人被永久卡死。
+// mainLevel 会转生重置、rebirthGems 花掉即降且掉伤害倍率，两者都不当长期尺子。
+// 阈值全部是 [PLACEHOLDER]：真机校准只改本表，判定逻辑 getSkinGate() 一行不动。
+// kind: 'skin' 放出第 slot 槽；后续加称号 / 图鉴 / 新系统 = 加一行 + 一个新 kind。
+// mode: 'or' 表任一满足即可（P1 防首周空窗），'and' 表两者同时满足（留一档余量）。
+// wave 取历史最高波（单调），等价于 probe:longrun 的章节刻度，少一层换算就少一层漂移。
+var CONTENT_PHASES = [
+  { phase: 0, kind: 'intro',   slot: 0, reb: 0, wave: 0,    mode: 'or',  label: '开局',     note: '收藏进度与下一款预告常驻' },
+  { phase: 1, kind: 'skin',    slot: 1, reb: 2, wave: 750,  mode: 'or',  label: '第一阶段', note: '六职业晨光款' },
+  { phase: 2, kind: 'skin',    slot: 2, reb: 3, wave: 950,  mode: 'and', label: '第二阶段', note: '六职业霜月款' },
+  { phase: 3, kind: 'skin',    slot: 3, reb: 5, wave: 1050, mode: 'and', label: '第三阶段', note: '六职业隐藏款（阶梯价）' },
+  { phase: 4, kind: 'monthly', slot: 4, reb: 8, wave: 1250, mode: 'and', label: '月度收藏', note: '第 5 槽 / 后续迭代挂这里' }
+];
+// P5+ 递推层：每 3 次转生推进一轮、不封顶 —— 「永久挂机」的落点。
+var CONTENT_RECURSIVE = { base: 8, step: 3, startPhase: 5 };
+// 阶梯价 [PLACEHOLDER]：h = 已解锁隐藏款数 → 120/160/200/240/280/320，合计 1320 钻。
+var SKIN_TIER_PRICE = { base: 120, step: 40 };
 
 // ==================== R52：职业 / 属性 / 克制 唯一真值表 ====================
 // 沿用游戏既有的 phys / magic / true 三系（MONSTER_TYPES / BOSS_TYPES / SKILLS /
@@ -2956,43 +2980,135 @@ Game.prototype.isSkinUnlocked = function(s) {
   if (!s.unlock || s.unlock.type === 'free') return true;
   return !!(this.unlockedSkins && this.unlockedSkins.indexOf(s.id) >= 0);
 };
-Game.prototype.getSkinUnlockText = function(s) {
-  if (!s || !s.unlock) return '';
-  var u = s.unlock;
-  if (u.type === 'level') return '主角 Lv.' + u.value + ' 解锁';
-  if (u.type === 'achievement') return '成就「波涛汹涌」解锁 · 到达第 100 波';
-  if (u.type === 'gems') return u.value + ' 钻石解锁';
-  return '默认造型';
+// R104：阶段读数只来自已落盘字段，不新增存档字段。
+Game.prototype.getContentProgress = function() {
+  var best = Math.max(1, Number(this.maxWaveReached) || 0, Number(this.wave) || 1);
+  return {
+    reb: Math.max(0, Number(this.rebirthCount) || 0),
+    wave: best,
+    chapter: this.getProgressInfoForWave(best).chapter
+  };
 };
-// 条件型（等级 / 成就）达成即可免费领；钻石型要真扣费。
-// achievements 是 id 数组（见 checkAchievements），不是对象 —— 别写成 achievements[id]。
+Game.prototype.isContentPhaseReached = function(p, prog) {
+  if (!p) return false;
+  var q = prog || this.getContentProgress();
+  var r = q.reb >= p.reb, w = q.wave >= p.wave;
+  return p.mode === 'or' ? (r || w) : (r && w);
+};
+// 当前阶段号：P0~P4 由表判定，P5+ 按每 step 次转生递推、不封顶。
+Game.prototype.getContentPhase = function() {
+  var q = this.getContentProgress(), phase = 0;
+  for (var i = 0; i < CONTENT_PHASES.length; i++) {
+    var p = CONTENT_PHASES[i];
+    if (this.isContentPhaseReached(p, q)) phase = Math.max(phase, p.phase);
+  }
+  var c = CONTENT_RECURSIVE;
+  if (q.reb >= c.base) {
+    var cycles = Math.floor((q.reb - c.base) / c.step);
+    if (cycles > 0) phase = Math.max(phase, c.startPhase + cycles - 1);
+  }
+  return phase;
+};
+// 下一阶段差额：面板预告与未解锁卡片共用，避免两处口径打架。
+Game.prototype.getNextContentPhase = function() {
+  var q = this.getContentProgress();
+  for (var i = 1; i < CONTENT_PHASES.length; i++) {
+    var p = CONTENT_PHASES[i];
+    if (this.isContentPhaseReached(p, q)) continue;
+    var bits = [];
+    if (q.reb < p.reb) bits.push('还差 ' + (p.reb - q.reb) + ' 次转生');
+    if (q.wave < p.wave) bits.push('还差 ' + (p.wave - q.wave) + ' 波');
+    return { phase: p.phase, label: p.label, note: p.note,
+      need: bits.join(p.mode === 'or' ? ' 或 ' : ' · ') };
+  }
+  var c = CONTENT_RECURSIVE;
+  var k = Math.floor((q.reb - c.base) / c.step);
+  return { phase: c.startPhase + k, label: '永恒阶段',
+    note: '每 ' + c.step + ' 次转生放出一组新目标',
+    need: '还差 ' + Math.max(1, (c.base + (k + 1) * c.step) - q.reb) + ' 次转生' };
+};
+// 皮肤所在槽位（0 = 免费默认款）。
+Game.prototype.getSkinSlot = function(s) {
+  if (!s || !s.unlock) return -1;
+  if (s.unlock.type === 'free') return 0;
+  if (s.unlock.type === 'phase') return Number(s.unlock.slot) || 0;
+  return -1;
+};
+// 隐藏款阶梯价：h = 已解锁第 4 槽的数量，与购买顺序无关。
+Game.prototype.getSkinPrice = function(s) {
+  if (this.getSkinSlot(s) !== 3) return 0;
+  var h = 0;
+  for (var k in SKIN_DEFS) {
+    if (!Object.prototype.hasOwnProperty.call(SKIN_DEFS, k)) continue;
+    var last = SKIN_DEFS[k][3];
+    if (last && last.id !== s.id && this.isSkinUnlocked(last)) h++;
+  }
+  return SKIN_TIER_PRICE.base + SKIN_TIER_PRICE.step * h;
+};
+// ==================== R104：皮肤门槛单一真值 ====================
+// 四处共读：getSkinUnlockText（文案）/ getSkinClaimState（能否领）/ selectSkin（扣费）/ 面板 stateLb。
+// 老档已解锁 id 永不回退；同职业串行前置；阶段未到直接给出差额。
+Game.prototype.getSkinGate = function(s) {
+  var slot = this.getSkinSlot(s);
+  if (slot < 0) return { ok: false, reason: '造型筹备中', price: 0, phase: 0, need: '' };
+  if (slot === 0 || this.isSkinUnlocked(s)) {
+    return { ok: true, reason: '', price: 0, phase: this.getContentPhase(), need: '' };
+  }
+  var list = this.getSkinList(s.jobId);
+  for (var i = 1; i < slot; i++) {
+    if (list[i] && !this.isSkinUnlocked(list[i])) {
+      return { ok: false, reason: '先领取「' + list[i].name + '」', price: 0,
+        phase: this.getContentPhase(), need: '先领上一款造型' };
+    }
+  }
+  var rule = null;
+  for (var j = 0; j < CONTENT_PHASES.length; j++) {
+    if (CONTENT_PHASES[j].kind === 'skin' && CONTENT_PHASES[j].slot === slot) rule = CONTENT_PHASES[j];
+  }
+  if (!rule) return { ok: false, reason: '造型筹备中', price: 0, phase: 0, need: '' };
+  var q = this.getContentProgress();
+  if (!this.isContentPhaseReached(rule, q)) {
+    var bits = [];
+    if (q.reb < rule.reb) bits.push('还差 ' + (rule.reb - q.reb) + ' 次转生');
+    if (q.wave < rule.wave) bits.push('还差 ' + (rule.wave - q.wave) + ' 波');
+    var need = bits.join(rule.mode === 'or' ? ' 或 ' : ' · ');
+    return { ok: false, reason: rule.label + '开启 · ' + need, price: 0,
+      phase: rule.phase, need: need };
+  }
+  var price = this.getSkinPrice(s);
+  if (price > 0) {
+    var gems = Number(this.rebirthGems) || 0;
+    if (gems < price) {
+      return { ok: false, reason: '还差 ' + (price - gems) + ' 钻石', price: price,
+        phase: rule.phase, need: price + ' 钻' };
+    }
+  }
+  return { ok: true, reason: '', price: price, phase: rule.phase, need: '' };
+};
+Game.prototype.getSkinUnlockText = function(s) {
+  var gate = this.getSkinGate(s);
+  if (gate.ok) return gate.price > 0 ? (gate.price + ' 钻 · 点击解锁') : '已达成 · 点击领取';
+  return gate.reason;
+};
+// 阶段 / 前置达成即可免费领；隐藏款走阶梯价真扣费。
+// 保留函数名 getSkinClaimState：checkWxgameDist.js 的产物锚点按名字找它，改名会凭空制造回归。
 Game.prototype.getSkinClaimState = function(s) {
-  if (!s || !s.unlock) return { ok: false, reason: '造型筹备中' };
-  if (this.isSkinUnlocked(s)) return { ok: true, reason: '' };
-  var u = s.unlock, lv = Number(this.mainLevel) || 1, gems = Number(this.rebirthGems) || 0;
-  if (u.type === 'level') {
-    return lv >= u.value ? { ok: true, reason: '' }
-      : { ok: false, reason: '主角还差 ' + (u.value - lv) + ' 级' };
-  }
-  if (u.type === 'achievement') {
-    return (this.achievements && this.achievements.indexOf(u.value) >= 0)
-      ? { ok: true, reason: '' }
-      : { ok: false, reason: '先拿到「波涛汹涌」成就（第 100 波）' };
-  }
-  if (u.type === 'gems') {
-    return gems >= u.value ? { ok: true, reason: '' }
-      : { ok: false, reason: '还差 ' + (u.value - gems) + ' 钻石' };
-  }
-  return { ok: false, reason: '造型筹备中' };
+  var gate = this.getSkinGate(s);
+  return { ok: gate.ok, reason: gate.reason };
 };
 Game.prototype.selectSkin = function(s) {
   if (!s || s.jobId !== this.jobId) return false;
-  var claim = this.getSkinClaimState(s);
-  if (!claim.ok) { this.showToast(claim.reason); return false; }
+  var gate = this.getSkinGate(s);
+  if (!gate.ok) { this.showToast(gate.reason); return false; }
   if (!this.isSkinUnlocked(s)) {
-    if (s.unlock && s.unlock.type === 'gems') this.rebirthGems -= s.unlock.value;
+    if (gate.price > 0) this.rebirthGems = (Number(this.rebirthGems) || 0) - gate.price;
     if (!this.unlockedSkins) this.unlockedSkins = [];
     if (this.unlockedSkins.indexOf(s.id) < 0) this.unlockedSkins.push(s.id);
+    // R104：阶段达成埋点，只进本地事件缓冲 / we 分析白名单，不新增存档字段。
+    try {
+      this.track('content_phase', { phase: gate.phase, reb: Number(this.rebirthCount) || 0,
+        wave: Number(this.maxWaveReached) || 0, skin: s.id });
+    } catch (eTrack) {}
   }
   this.skinId = s.id;
   var job = this.getJobDef(this.jobId);
@@ -18544,7 +18660,7 @@ Game.prototype.openDiamondInfo = function() {
   var useLines = [
     '转职：魔剑士 30 / 星术师 45 / 灵卫者 60 / 影刃 80 / 晶甲骑士 100',
     '招募买断：部分队友只能用钻石直接买断',
-    '皮肤与秘宝：各 60 钻解锁，皮肤是外观、秘宝改机制',
+    '皮肤：按阶段开放，外观零战力；秘宝 60 钻改机制',
     '超商食材：钻石换永久加成',
     '兑换所：换锻造石 / 离线补给 / 转盘券'
   ];
@@ -23947,7 +24063,7 @@ var DMAX_EVENT_STORE_MAX = 50;
 // R70：微信 we分析自定义事件白名单。只上报关键漏斗事件，避免高频事件（wave_up / panel_open）
 // 刷爆配额（单次生命周期 999 条）。后台需在「mp → 数据助手 → 自定义事件」配置同名事件后
 // 才看得到数据；未配置时客户端照常调用、静默无副作用。H5 无 wx.reportEvent，自动跳过。
-var DMAX_WX_EVENTS = { launch: 1, guide_complete: 1, rebirth: 1, boss_fail: 1, ad_complete: 1 };
+var DMAX_WX_EVENTS = { launch: 1, guide_complete: 1, rebirth: 1, boss_fail: 1, ad_complete: 1, content_phase: 1 };
 // 错误缓冲原本只在内存里：进程一崩 / 重开工具就全丢，开发者工具的 Console 又不落盘，
 // 真机问题根本取不到证。用独立 key 落盘（同样不进主存档），只留最近 40 条。
 var DMAX_ERROR_KEY = 'gujiyouxi_egret_errors';
@@ -25315,11 +25431,34 @@ Game.prototype.openAvatarPicker = function() {
   title.horizontalCenter = 0; title.top = 14;
   panel.addChild(title);
 
+  // R104：首日就有可见目标 —— 收藏数字 + 进度条 + 页脚的下一阶段预告。
+  var collected = 0, total = 0;
+  for (var sk in SKIN_DEFS) {
+    if (!Object.prototype.hasOwnProperty.call(SKIN_DEFS, sk)) continue;
+    for (var si = 1; si < SKIN_DEFS[sk].length; si++) {
+      total++;
+      if (self.isSkinUnlocked(SKIN_DEFS[sk][si])) collected++;
+    }
+  }
+  var nextPhase = self.getNextContentPhase();
   var subtitle = new eui.Label();
-  subtitle.text = '皮肤只改外观，不加战力 · 解锁后永久保留';
+  subtitle.text = '皮肤只改外观，不加战力 · 收藏 ' + collected + '/' + total + ' · 解锁后永久保留';
   subtitle.size = 10; subtitle.textColor = THEME.textDim;
   subtitle.horizontalCenter = 0; subtitle.top = 38; subtitle.width = 310; subtitle.textAlign = 'center';
   panel.addChild(subtitle);
+
+  var BAR_W = 260, BAR_X = (338 - BAR_W) / 2;
+  var barBg = new eui.Rect();
+  barBg.width = BAR_W; barBg.height = 5;
+  barBg.fillColor = 0x2a2440; barBg.ellipseWidth = 4; barBg.ellipseHeight = 4;
+  barBg.x = BAR_X; barBg.top = 55;
+  panel.addChild(barBg);
+  var barFill = new eui.Rect();
+  barFill.width = total ? Math.round(BAR_W * collected / total) : 0;
+  barFill.height = 5;
+  barFill.fillColor = THEME.strokeGold; barFill.ellipseWidth = 4; barFill.ellipseHeight = 4;
+  barFill.x = BAR_X; barFill.top = 55;
+  if (collected > 0) panel.addChild(barFill);
 
   var closeBtn = new eui.Label();
   closeBtn.text = '×'; closeBtn.size = UI.T1; closeBtn.textColor = THEME.textMain;
@@ -25334,7 +25473,7 @@ Game.prototype.openAvatarPicker = function() {
   var list = this.getSkinList();
   var COLS = 2, CELL_W = 148, CELL_H = 132, GAP = 10;
   var START_X = (338 - COLS * CELL_W - (COLS - 1) * GAP) / 2;
-  var START_Y = 62;
+  var START_Y = 68;   // R104：给进度条让出 6px，页脚仍在 396 面板内
 
   for (var i = 0; i < list.length; i++) {
     (function(skin, idx) {
@@ -25380,9 +25519,9 @@ Game.prototype.openAvatarPicker = function() {
       cell.addChild(nameLb);
 
       var stateLb = new eui.Label();
+      var gate = self.getSkinGate(skin);
       stateLb.text = selected ? '使用中' : (unlocked ? '点击使用'
-        : (claim.ok ? (skin.unlock && skin.unlock.type === 'gems'
-            ? (skin.unlock.value + ' 钻 · 点击解锁') : '已达成 · 点击领取')
+        : (claim.ok ? (gate.price > 0 ? (gate.price + ' 钻 · 点击解锁') : '已达成 · 点击领取')
           : self.getSkinUnlockText(skin)));
       stateLb.size = 10;
       stateLb.textColor = selected ? THEME.textGold : (claim.ok ? THEME.mint : THEME.textDim);
@@ -25407,7 +25546,8 @@ Game.prototype.openAvatarPicker = function() {
   }
 
   var foot = new eui.Label();
-  foot.text = '新造型陆续开放中 · 配色款是同立绘换色，不是新造型\n切换职业请点顶部「职业」入口';
+  foot.text = '下一目标 · ' + nextPhase.label + '：' + nextPhase.need +
+    '\n切换职业请点顶部「职业」入口';
   foot.size = 10; foot.textColor = THEME.textDim; foot.lineSpacing = 3;
   foot.wordWrap = true; foot.horizontalCenter = 0;
   foot.top = START_Y + 2 * (CELL_H + GAP) + 2; foot.width = 310; foot.textAlign = 'center';
