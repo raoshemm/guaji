@@ -300,7 +300,7 @@
     var container = document.getElementById('game-container');
     // 版本号同时是 game.js / 所有图片的 cache-buster（game.js 里的 ASSET_VERSION 取此值）。
     // 约定：任何 game.js 或图片内容变更都必须 bump 这个值，否则用户会拿到 10 分钟缓存里的旧文件。
-    var BUILD_VERSION = 'gameplay-20261113-r104-1';
+    var BUILD_VERSION = 'gameplay-20261113-r107-1';
     window.DMAX_GAME_VERSION = BUILD_VERSION;
     var scripts = [
       'lib/egret/egret.min.js',
@@ -309,8 +309,18 @@
       'lib/res/res.min.js',
       'lib/tween/tween.min.js',
       'lib/eui/eui.min.js',
-      'game.js'
+      'game.js',
+      'audio/audio-config.js',
+      'audio/AudioEngine.js',
+      'audio/install.js'
     ];
+
+    // DMAX 音频：game.js 与音频模块跟随 BUILD_VERSION 失效缓存；lib 保持原 URL 命中长期缓存。
+    // preload 与 loadScript 必须走同一个函数，否则 URL 不一致会变成双重下载。
+    function dmaxScriptUrl(name) {
+      var needsVersion = (name === 'game.js' || name.indexOf('audio/') === 0);
+      return name + (needsVersion ? '?v=' + BUILD_VERSION : '');
+    }
 
     // 引擎脚本「下载」并行化：loadScript 仍严格串行 appendChild 保证 7 个库的
     // 依赖与执行顺序不变，这里只用 rel=preload 让浏览器提前把字节取回 HTTP 缓存。
@@ -326,7 +336,7 @@
           var link = document.createElement('link');
           link.rel = 'preload';
           link.as = 'script';
-          link.href = name + (name === 'game.js' ? '?v=' + BUILD_VERSION : '');
+          link.href = dmaxScriptUrl(name);
           document.head.appendChild(link);
         });
       }
@@ -699,6 +709,14 @@
     function loadScript(idx) {
       if (idx >= scripts.length) {
         statusEl.textContent += '\n引擎脚本就绪，初始化...';
+        // ---- DMAX 音频：脚本齐备、Game 实例尚未构造，此处安装最干净 ----
+        if (window.DMAXAudioInstall && typeof window.Game === 'function') {
+          try {
+            window.DMAXAudioInstall(window.Game, { assetRoot: 'audio' });
+          } catch (e) {
+            console.warn('[dmax-audio] install failed:', e && e.message);
+          }
+        }
         setBootLoading('引擎就绪，初始化...', 34);
         preloadGameImages(function() {
           try {
@@ -741,7 +759,7 @@
       var s = document.createElement('script');
       // 只用版本号做 cache-buster，不拼 Date.now()：旧写法每次刷新都强制重下 439KB 的
       // game.js，等于把浏览器缓存完全废掉。改 game.js 时 bump BUILD_VERSION 即可失效。
-      s.src = scripts[idx] + (scripts[idx] === 'game.js' ? '?v=' + BUILD_VERSION : '');
+      s.src = dmaxScriptUrl(scripts[idx]);
       s.onload = function() {
         var name = scripts[idx].split('/').pop();
         statusEl.textContent = (idx+1) + '/' + scripts.length + ' OK ' + name;

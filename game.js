@@ -577,6 +577,71 @@ function jobCastTheme(jobId) { return JOB_CAST_THEMES[jobId] || JOB_CAST_THEMES.
 var CAST_SHAPE_KEYS = ['volley', 'pierce', 'sweep', 'sigil', 'dome', 'bloom', 'cataclysm'];
 function castShapeKey(idx) { return CAST_SHAPE_KEYS[idx] || CAST_SHAPE_KEYS[0]; }
 
+// ===== R106 六职业逐招释放规格 =====
+// 号主 2026-11-13 真机反馈：默认法师可以，其余五个职业释放的技能和方式千篇一律，只是换了颜色。
+// 根因：R85 的位骨架 CAST_SHAPE_KEYS 对五职业完全共用，职业只换几何花纹与配色，方式没换。
+// 本表让位退回槽位，35 招各有一条独立演出规格。字段口径见 docs/DMAX挂机英雄-六职业施法特效美术规格-r106.md 第 3 节与第 4 节。
+// m=motion 运动原语 | n=count 主体元素数 | g=stagger 错峰毫秒 | o=origin 起点
+// p=pose 主角起手 | i=impact 命中符号 | b=objs 单招显示对象数上限
+// 硬约束：spec 只读，不参与任何伤害 / CD / 蓝耗 / 回能 / 随机序列结算。
+// R106 二稿：首版虽然每职业七招互不相同，但同一个位跨职业仍撞车（增益位只有 2 种运动、
+// 回复位也只有 2 种）。probe:castkit 实测后重排到七个位各 ≥4 种，14 原语全覆盖。
+var CAST_KIT_SPECS = {
+  blade_mage: [
+    { m: 'zigzag',   n: 6,  g: 55,  o: 'hero',    p: 'draw',   i: 'cross',  b: 10 },
+    { m: 'pierce',   n: 1,  g: 0,   o: 'hero',    p: 'raise',  i: 'shard',  b: 8 },
+    { m: 'sweepArc', n: 3,  g: 95,  o: 'hero',    p: 'spin',   i: 'cross',  b: 9 },
+    { m: 'rise',     n: 3,  g: 120, o: 'hero',    p: 'raise',  i: 'cross',  b: 8 },
+    { m: 'pillar',   n: 2,  g: 0,   o: 'ground',  p: 'guard',  i: 'shield', b: 7 },
+    { m: 'drain',    n: 3,  g: 80,  o: 'target',  p: 'draw',   i: 'heal',   b: 8 },
+    { m: 'converge', n: 12, g: 42,  o: 'ring',    p: 'raise',  i: 'burst',  b: 16 }
+  ],
+  star_oracle: [
+    { m: 'straight', n: 5,  g: 90,  o: 'hero',    p: 'raise',  i: 'star',   b: 9 },
+    { m: 'drop',     n: 1,  g: 0,   o: 'sky',     p: 'raise',  i: 'star',   b: 8 },
+    { m: 'orbit',    n: 3,  g: 140, o: 'hero',    p: 'raise',  i: 'star',   b: 8 },
+    { m: 'converge', n: 8,  g: 60,  o: 'ring',    p: 'raise',  i: 'star',   b: 11 },
+    { m: 'rise',     n: 6,  g: 55,  o: 'ground',  p: 'guard',  i: 'shield', b: 10 },
+    { m: 'pillar',   n: 5,  g: 70,  o: 'ground',  p: 'raise',  i: 'heal',   b: 9 },
+    { m: 'volley',   n: 7,  g: 78,  o: 'sky',     p: 'raise',  i: 'star',   b: 13 }
+  ],
+  spirit_guard: [
+    { m: 'straight', n: 3,  g: 90,  o: 'hero',    p: 'raise',  i: 'ripple', b: 8 },
+    { m: 'converge', n: 4,  g: 110, o: 'ground',  p: 'seal',   i: 'ripple', b: 9 },
+    { m: 'chain',    n: 3,  g: 130, o: 'hero',    p: 'raise',  i: 'ripple', b: 10 },
+    { m: 'expand',   n: 2,  g: 180, o: 'hero',    p: 'seal',   i: 'heal',   b: 8 },
+    { m: 'orbit',    n: 1,  g: 0,   o: 'ring',    p: 'guard',  i: 'shield', b: 9 },
+    { m: 'rise',     n: 4,  g: 100, o: 'ground',  p: 'seal',   i: 'heal',   b: 9 },
+    { m: 'pillar',   n: 2,  g: 0,   o: 'ground',  p: 'raise',  i: 'ripple', b: 11 }
+  ],
+  shadow_rogue: [
+    { m: 'blink',    n: 3,  g: 45,  o: 'behind',  p: 'crouch', i: 'cross',  b: 9 },
+    { m: 'straight', n: 1,  g: 0,   o: 'behind',  p: 'crouch', i: 'burst',  b: 8 },
+    { m: 'volley',   n: 5,  g: 60,  o: 'hero',    p: 'spin',   i: 'cross',  b: 10 },
+    { m: 'orbit',    n: 2,  g: 0,   o: 'ring',    p: 'crouch', i: 'cross',  b: 7 },
+    { m: 'expand',   n: 3,  g: 90,  o: 'ground',  p: 'crouch', i: 'shield', b: 8 },
+    { m: 'converge', n: 2,  g: 90,  o: 'ring',    p: 'crouch', i: 'heal',   b: 8 },
+    { m: 'chain',    n: 6,  g: 55,  o: 'hero',    p: 'crouch', i: 'burst',  b: 13 }
+  ],
+  crystal_knight: [
+    { m: 'pierce',   n: 1,  g: 0,   o: 'hero',    p: 'guard',  i: 'shard',  b: 7 },
+    { m: 'drop',     n: 1,  g: 0,   o: 'sky',     p: 'raise',  i: 'shard',  b: 9 },
+    { m: 'expand',   n: 3,  g: 120, o: 'ground',  p: 'guard',  i: 'shard',  b: 9 },
+    { m: 'converge', n: 3,  g: 90,  o: 'ground',  p: 'guard',  i: 'shield', b: 9 },
+    { m: 'pillar',   n: 5,  g: 65,  o: 'ground',  p: 'guard',  i: 'shield', b: 10 },
+    { m: 'drain',    n: 3,  g: 110, o: 'ground',  p: 'guard',  i: 'heal',   b: 8 },
+    { m: 'volley',   n: 5,  g: 90,  o: 'sky',     p: 'raise',  i: 'burst',  b: 14 }
+  ]
+};
+function castKitSpec(jobId, idx) {
+  var kit = CAST_KIT_SPECS[jobId];
+  return (kit && kit[idx]) || null;
+}
+var CAST_KIT_MOTIONS = [
+  'straight', 'volley', 'zigzag', 'pierce', 'drop', 'rise', 'sweepArc',
+  'orbit', 'blink', 'expand', 'converge', 'chain', 'pillar', 'drain'
+];
+
 // R68：七招「生效时刻」——按位固定，与被点下的那一刻隔开。
 // 号主原话：「飞弹落到怪物身上的时候才掉血，而不是一点马上就掉血」「所有技能都应该是这样」。
 // 数值口径：一律早于该位 castMs 收尾，让「施法完毕」和「效果落地」是同一屏内的事，
@@ -785,13 +850,15 @@ var JOB_MANUAL_DEFAULT = {
   // 不需要在任何地方写「if (jobId === 'crystal_knight')」这种硬判断。
   thornsBase: 0,       // 无甲时反弹（单位 = 一次平A基础）
   thornsPerArmor: 0,   // 每层甲额外反弹
-  elemScale: 1         // 属性系数：真伤不吃抗性，所以打折（见 getJobElementScale）
+  elemScale: 1,        // 属性系数：真伤不吃抗性，所以打折（见 getJobElementScale）
+  armorBreakPct: 0     // R105：对高护甲目标的手动额外增伤，只有魔剑士配
 };
 
 var JOB_DEFS = [
   { id: 'trainee_mage', name: '见习法师', cost: 0, color: 0xc7a7ff, bonus: {},
     element: 'magic', counterPct: 0, bossExtraPct: 0, counterBosses: [], scenes: '星空遗迹',
     avatarIdx: 0, heroAsset: UI_ASSETS.heroTraineeMage, unlockLevel: 1, unlocked: true,
+    identity: '节拍器 · 参照系',
     desc: '均衡起手。五连一停的节奏，是后面所有职业的参照系。',
     // R61：tip 是「转职后第一条提示」的正文。六个职业手感差异这么大，
     // 不告诉玩家「这个卡一下是节奏不是 bug」，第一次转职就会被当成故障。
@@ -800,10 +867,11 @@ var JOB_DEFS = [
     // 不改它 —— 它现在是「参照系」，别的职业跟它比才有意义。
     manual: { softCap: 6, hitScale: 1.00, comboGain: 1.00, feel: '五连一停' } },
 
-  { id: 'blade_mage', name: '魔剑士', cost: 30, color: 0x7be8b7, bonus: { attack: 0.08, crit: 0.05 },
+  { id: 'blade_mage', name: '魔剑士', cost: 30, color: 0x7be8b7, bonus: { attack: 0.08, crit: 0.05, forge: 0.03 },
     element: 'phys', counterPct: 0.12, bossExtraPct: 0.08, counterBosses: ['boss_eye', 'boss_spider'], scenes: '天空神殿',
     avatarIdx: 1, heroAsset: UI_ASSETS.heroBladeMage, unlockLevel: 20, unlocked: false,
-    desc: '把法术灌进剑里。最省体力，但也只是比其他职业多点一会儿。',
+    identity: '不停手 · 连斩机',
+    desc: '不停手的物理连斩机：八击一次终斩，对重甲额外破防。',
     tip: '最省体力，但回能放慢后也会见底 —— 换的是「多点一会儿」，不是无限连。',
     // 无限连的物理基础：单次耗能 ×0.30 且**不做频率递增**，7 击/秒只花 2.1 能量，
     // 低于基础回能 3/秒 —— 能量池不但不降，还会缓慢回涨，永远不会因为能量见底停手。
@@ -812,43 +880,49 @@ var JOB_DEFS = [
     // R67：costMult 0.30 → 0.20。回能 3→1.5 后 7 击/秒 ×0.30 = 2.1/s 已超过回能，
     // R60「能量池不降、永远不断手」在数学上必然破产。降到 0.20 后 1.4/s < 1.5/s，
     // 它仍是最耐点的职业，但也会见底 —— 这是号主第 4 条在职业层的直接后果，不是数值事故。
-    manual: { softCap: 7, hitScale: 0.95, costMult: 0.20, rampEvery: 0, comboGain: 0.45, capScale: 0.90,
-      critChance: 0.12, critMult: 2.2, gimmick: 'flurry', feel: '无限连 · 随机暴击' } },
+    manual: { softCap: 7, hitScale: 0.95, costMult: 0.20, rampEvery: 0, comboGain: 0.45, capScale: 0.99,
+      critChance: 0.12, critMult: 2.2, armorBreakPct: 0.18,
+      gimmick: 'flurry', feel: '八击终斩 · 破重甲' } },
 
-  { id: 'star_oracle', name: '星术师', cost: 45, color: 0xfbbf24, bonus: { attack: 0.12, hp: 0.04 },
+  { id: 'star_oracle', name: '星术师', cost: 45, color: 0xfbbf24, bonus: { attack: 0.12, hp: 0.04, forge: 0.06 },
     element: 'true', counterPct: 0.15, bossExtraPct: 0.10, counterBosses: ['boss_phoenix', 'boss_eye'], scenes: '水晶峡谷',
     avatarIdx: 2, heroAsset: UI_ASSETS.heroStarOracle, unlockLevel: 40, unlocked: false,
-    desc: '星辉真伤无视一切抗性。打得穿，但不打得疼。',
+    identity: '真伤 · 星陨炮台',
+    desc: '七招全真伤：谁都打得动，技能命中还会把蓝条往回推。',
     tip: '两轻一重：第 3 下是星陨，还带溅射。别在第二下停手，那等于白扔一次爆发。',
     // 真伤是「保险」：任何 BOSS 的抗性都吃不到它，代价是 elemScale 0.82 全局打折、
     // 且真伤不能暴击（doDamage 的既有规则）。所以它永远能打，但永远不是最快。
-    manual: { softCap: 6, hitScale: 1.00, costMult: 1.05, comboGain: 0.55,
+    manual: { softCap: 6, hitScale: 1.00, costMult: 1.05, comboGain: 0.55, capScale: 1.10,
       gimmick: 'burst3', elemScale: 0.82, feel: '两轻一重 · 第三下炸' } },
 
-  { id: 'spirit_guard', name: '灵卫者', cost: 60, color: 0x5ec8ff, bonus: { attack: 0.15, hp: 0.16, defense: 4 },
+  { id: 'spirit_guard', name: '灵卫者', cost: 60, color: 0x5ec8ff, bonus: { attack: 0.15, hp: 0.16, defense: 4, forge: 0.09 },
     element: 'magic', counterPct: 0.15, bossExtraPct: 0.10, counterBosses: ['boss_giant'], scenes: '月光森林',
     avatarIdx: 3, heroAsset: UI_ASSETS.heroSpiritGuard, unlockLevel: 60, unlocked: false,
-    desc: '一下双击，打掉的血还会回来一点。耐得住磨。',
+    identity: '双击 · 自愈稳压器',
+    desc: '一下双击、七招全回血，还比别家多一次复活。',
     tip: '一下算两段、每击回一点血。节奏是慢的（200ms 一下），点太急反而会被节奏挡住。',
     // 单击结算两段（各 0.56），并且每击回一点血 —— 手感是「啪啪」两下，
     // 定位是唯一能长时间挂着手动不掉血的职业。
     manual: { softCap: 5, intervalMs: 200, hitScale: 0.50, hitCount: 2, costMult: 0.90,
-      comboGain: 0.60, gimmick: 'lifesteal', feel: '双击 · 每击回复' } },
+      comboGain: 0.60, capScale: 1.10,
+      gimmick: 'lifesteal', feel: '双击 · 每击回复' } },
 
-  { id: 'shadow_rogue', name: '影刃潜行者', cost: 80, color: 0xb388ff, bonus: { attack: 0.18, bossDamage: 0.12, crit: 0.04 },
+  { id: 'shadow_rogue', name: '影刃潜行者', cost: 80, color: 0xb388ff, bonus: { attack: 0.18, bossDamage: 0.12, crit: 0.04, forge: 0.13 },
     element: 'phys', counterPct: 0.20, bossExtraPct: 0.10, counterBosses: ['boss_demon', 'boss_spider'], scenes: '月光森林',
     avatarIdx: 4, heroAsset: UI_ASSETS.heroShadowRogue, unlockLevel: 80, unlocked: false,
-    desc: '连得越久越准。连击会把暴击率一点点喂上去。',
+    identity: '短窗 · 处决者',
+    desc: '连击喂暴击，五秒烟幕倾泻完就撤；残血首领吃处决。',
     tip: '连击越久越准，每 5 连再多 4% 暴击。断连代价最大的职业 —— 宁可慢，别停。',
     // 连击曲线最陡（comboGain 1.30，封顶 +78%），而且每 5 连额外 +4% 暴击率（上限 +20%）。
     // 手感是「越点越热」—— 断连代价最大的职业，也是连击读数的真正主角。
-    manual: { softCap: 7, hitScale: 0.74, costMult: 0.85, comboGain: 1.30, capScale: 0.88,
-      gimmick: 'execute', feel: '越点越狠 · 连击喂暴击' } },
+    manual: { softCap: 7, hitScale: 0.74, costMult: 0.85, comboGain: 1.30, capScale: 0.968,
+      gimmick: 'execute', feel: '连击喂暴击 · 残血处决' } },
 
-  { id: 'crystal_knight', name: '晶甲骑士', cost: 100, color: 0x5ec8ff, bonus: { attack: 0.22, defense: 10, hp: 0.18 },
+  { id: 'crystal_knight', name: '晶甲骑士', cost: 100, color: 0x5ec8ff, bonus: { attack: 0.22, defense: 10, hp: 0.18, forge: 0.20 },
     element: 'true', counterPct: 0.20, bossExtraPct: 0.10, counterBosses: ['boss_phoenix', 'boss_demon'], scenes: '天空神殿',
     avatarIdx: 5, heroAsset: UI_ASSETS.heroCrystalKnight, unlockLevel: 100, unlocked: false,
-    desc: '四下蓄一层甲。甲越厚，敌人打你弹回去的越多。',
+    identity: '叠甲 · 反伤堡垒',
+    desc: '七招都与甲层互相喂养，锻造石掉得最多，复活还保一层甲。',
     tip: '点 4 下叠 1 层甲，满 3 层时挨打会反伤。甲是拿来扛的，不是拿来存的 —— 满层就去顶。',
     // 每 4 击把第 4 击换成 2.4 倍的盾击（AOE），并且每 4 击给自己叠 1 层甲（最多 3 层，
     // 每层减伤 10%）。DPS 与法师基本持平，强项是「BOSS 战里不容易被打死」。
@@ -859,7 +933,7 @@ var JOB_DEFS = [
     // 系数压到 0.30 时静置一场只弹 1.2 倍平A，屏幕上几乎没读数。0.45 能看见，
     // 但相对 5 次/秒的 64 倍仍是零头，挂机党拿不到大头。满甲 1.50 才是真正的那一档。
     manual: { softCap: 5, intervalMs: 200, hitScale: 0.86, costMult: 1.10, comboGain: 0.50,
-      thornsBase: 0.45, thornsPerArmor: 0.35,
+      thornsBase: 0.45, thornsPerArmor: 0.35, capScale: 1.10,
       gimmick: 'shield4', elemScale: 0.82, feel: '四下盾击 · 叠甲反伤' } }
 ];
 
@@ -874,12 +948,15 @@ var JOB_DEFS = [
 //   ③ HP + ATK + DEF 倍率之和 = 3.00 → R60「不能有最强职业」延续到三维；
 //   ④ ATK 压在 0.94~1.06 → 不把 R60 定稿的秒伤倍差 ≤1.30 顶破。
 var JOB_VITALS = {
+  // R105：三维守恒 3.00 取消，改为随累计钻价单调递增 3.00 → 3.30；
+  // 体力 / 法力产能也随档递增，但小池快回 / 大池慢回的窗口形状差异保留。
+  // 法师全 1.00 冻结；六职业的 ep / mp 乘积分别递增到 1.15 / 1.10。
   trainee_mage:   { energyCap: 1.00, energyRegen: 1.00, manaCap: 1.00, manaRegen: 1.00, hp: 1.00, atk: 1.00, def: 1.00 },
-  blade_mage:     { energyCap: 0.85, energyRegen: 1.20, manaCap: 1.00, manaRegen: 1.00, hp: 0.96, atk: 1.04, def: 1.00 },
-  star_oracle:    { energyCap: 1.05, energyRegen: 0.95, manaCap: 1.10, manaRegen: 0.95, hp: 0.98, atk: 1.03, def: 0.99 },
-  spirit_guard:   { energyCap: 1.10, energyRegen: 1.05, manaCap: 0.95, manaRegen: 1.05, hp: 1.08, atk: 0.95, def: 0.97 },
-  shadow_rogue:   { energyCap: 0.80, energyRegen: 1.25, manaCap: 0.90, manaRegen: 1.15, hp: 0.93, atk: 1.06, def: 1.01 },
-  crystal_knight: { energyCap: 1.25, energyRegen: 0.85, manaCap: 0.95, manaRegen: 1.00, hp: 1.09, atk: 0.94, def: 0.97 }
+  blade_mage:     { energyCap: 0.85, energyRegen: 1.21, manaCap: 1.00, manaRegen: 1.02, hp: 0.94, atk: 1.13, def: 0.99 },
+  star_oracle:    { energyCap: 1.05, energyRegen: 1.01, manaCap: 1.10, manaRegen: 0.95, hp: 0.99, atk: 1.09, def: 1.04 },
+  spirit_guard:   { energyCap: 1.10, energyRegen: 0.99, manaCap: 0.95, manaRegen: 1.12, hp: 1.16, atk: 1.02, def: 1.00 },
+  shadow_rogue:   { energyCap: 0.80, energyRegen: 1.40, manaCap: 0.90, manaRegen: 1.20, hp: 0.96, atk: 1.21, def: 1.07 },
+  crystal_knight: { energyCap: 1.25, energyRegen: 0.92, manaCap: 0.95, manaRegen: 1.16, hp: 1.20, atk: 1.02, def: 1.08 }
 };
 function getJobVitals(jobId) { return JOB_VITALS[jobId] || JOB_VITALS.trainee_mage; }
 function getJobVitalsText(jobId) {
@@ -1543,9 +1620,9 @@ var JOB_SKILL_KITS = {
   // 倍率才是「打多少」。改 CD 会把六种手感改成同一种。
   // 护栏随之从「同线」改为「按价格单调递增且相邻 ≤1.15」（probe:skills）。
   blade_mage: [
-    { name: '连斩', role: '两段 · 回能', cd: 3, dmg: 0.72, hits: 2, type: 'phys', effect: 'multi', energy: 6,
+    { name: '连斩', role: '两段 · 回能', cd: 3, dmg: 0.72, hits: 2, type: 'phys', effect: 'multi', energy: 6, edgeGain: 1,
       color: 0x7be8b7, glow: 0xc5f5dd },
-    { name: '破岳', role: '首领爆发', cd: 14, dmg: 4.19, hits: 1, type: 'phys', effect: 'boss', vsBoss: 2.15,
+    { name: '破岳', role: '首领爆发', cd: 14, dmg: 4.19, hits: 1, type: 'phys', effect: 'boss', vsBoss: 2.15, armorBreak: 0.15,
       color: 0xff9f43, glow: 0xffd4a3 },
     { name: '剑风', role: '全屏范围', cd: 18, dmg: 1.77, hits: 0, type: 'phys', effect: 'aoe',
       color: 0xa3e635, glow: 0xd9f99d },
@@ -1555,15 +1632,15 @@ var JOB_SKILL_KITS = {
       color: 0x94a3b8, glow: 0xcbd5e1 },
     { name: '血刃', role: '治疗 · 持续', cd: 36, dmg: 0, hits: 1, type: 'phys', effect: 'heal', kind: '治疗', heal: { pct: 0.14, perLv: 0.010, hot: 0.018, time: 8 },
       color: 0x86efac, glow: 0xbbf7d0 },
-    { name: '万刃归一', role: '十二段 · 终极', cd: 64, dmg: 0.94, hits: 12, type: 'phys', effect: 'multi',
+    { name: '万刃归一', role: '十二段 · 终极', cd: 64, dmg: 0.94, hits: 12, type: 'phys', effect: 'multi', edgeGain: 2,
       color: 0x34d399, glow: 0x6ee7b7 }
   ],
   // 星术师（45 钻 · ×1.21）：真伤不靠克制吃饭，所以它的技能全是「打得穿」。
   // R81：倍率按档位抬 1.57，真伤 0.82 的全局折扣仍然在 —— 它买的是「任何 BOSS 都打得动」。
   star_oracle: [
-    { name: '星屑', role: '两段 · 回能', cd: 3.5, dmg: 1.10, hits: 2, type: 'true', effect: 'multi', energy: 6,
+    { name: '星屑', role: '两段 · 回能', cd: 3.5, dmg: 1.10, hits: 2, type: 'true', effect: 'multi', energy: 6, manaBack: 3,
       color: 0xfbbf24, glow: 0xfff1b0 },
-    { name: '星坠', role: '首领爆发', cd: 13, dmg: 6.91, hits: 1, type: 'true', effect: 'boss', vsBoss: 2.00,
+    { name: '星坠', role: '首领爆发', cd: 13, dmg: 6.91, hits: 1, type: 'true', effect: 'boss', vsBoss: 2.00, manaBack: 5,
       color: 0xc4b5fd, glow: 0xe9d5ff },
     { name: '星环', role: '全屏范围', cd: 20, dmg: 2.67, hits: 0, type: 'true', effect: 'aoe',
       color: 0x818cf8, glow: 0xc7d2fe },
@@ -1573,7 +1650,7 @@ var JOB_SKILL_KITS = {
       color: 0x60a5fa, glow: 0xbfdbfe },
     { name: '星泉', role: '治疗 · 持续', cd: 40, dmg: 0, hits: 1, type: 'true', effect: 'heal', kind: '治疗', heal: { pct: 0.16, perLv: 0.011, hot: 0.012, time: 7 },
       color: 0x5eead4, glow: 0x99f6e4 },
-    { name: '银河坠落', role: '全屏 · 终极', cd: 72, dmg: 7.54, hits: 0, type: 'true', effect: 'meteor', vsBoss: 1.40,
+    { name: '银河坠落', role: '全屏 · 终极', cd: 72, dmg: 7.54, hits: 0, type: 'true', effect: 'meteor', vsBoss: 1.40, manaBack: 8,
       color: 0xe9d5ff, glow: 0xf5f3ff }
   ],
   // 灵卫者（60 钻 · ×1.30）：唯一的「攻守一体」—— 每一招都自带回血，瞬回最高。
@@ -1584,11 +1661,11 @@ var JOB_SKILL_KITS = {
       color: 0xffffff, glow: 0xf8fafc },
     { name: '灵潮', role: '全屏 · 自愈', cd: 20, dmg: 2.04, hits: 0, type: 'magic', effect: 'aoe', healOnCast: 0.01,
       color: 0x67e8f9, glow: 0xa5f3fc },
-    { name: '守护誓约', role: '法强 +20% · 暴击 +15%', cd: 25, dmg: 1.21, hits: 1, type: 'magic', effect: 'buff', kind: '增益', buff: { atk: 0.20, crit: 0.15, time: 10 },
+    { name: '守护誓约', role: '法强 +20% · 暴击 +15%', cd: 25, dmg: 1.21, hits: 1, type: 'magic', effect: 'buff', kind: '增益', buff: { atk: 0.20, crit: 0.15, time: 10 }, healOnCast: 0.008,
       color: 0xa5b4fc, glow: 0xc7d2fe },
-    { name: '荆棘之环', role: '减伤 35% · 9 秒', cd: 27, dmg: 0, hits: 1, type: 'magic', effect: 'shield', kind: '护盾', shield: { reduce: 0.35, time: 9, perLv: 0.010 },
+    { name: '荆棘之环', role: '减伤 35% · 9 秒', cd: 27, dmg: 0, hits: 1, type: 'magic', effect: 'shield', kind: '护盾', shield: { reduce: 0.35, time: 9, perLv: 0.010 }, healOnCast: 0.012,
       color: 0x7dd3fc, glow: 0xbae6fd },
-    { name: '圣愈', role: '瞬回最高', cd: 34, dmg: 0, hits: 1, type: 'magic', effect: 'heal', kind: '治疗', heal: { pct: 0.24, perLv: 0.014, hot: 0.008, time: 6 },
+    { name: '圣愈', role: '瞬回最高', cd: 34, dmg: 0, hits: 1, type: 'magic', effect: 'heal', kind: '治疗', heal: { pct: 0.24, perLv: 0.014, hot: 0.008, time: 6 }, healOnCast: 0.016,
       color: 0x6ee7b7, glow: 0xa7f3d0 },
     { name: '灵界之门', role: '全屏 · 终极', cd: 68, dmg: 6.34, hits: 0, type: 'magic', effect: 'meteor', vsBoss: 1.25, healOnCast: 0.04,
       color: 0xdbeafe, glow: 0xeff6ff }
@@ -1597,7 +1674,7 @@ var JOB_SKILL_KITS = {
   shadow_rogue: [
     { name: '影袭', role: '单体 · 回能', cd: 3, dmg: 1.85, hits: 1, type: 'phys', effect: 'single', energy: 4,
       color: 0x8b5cf6, glow: 0xc4b5fd },
-    { name: '背刺', role: '首领爆发', cd: 12, dmg: 5.54, hits: 1, type: 'phys', effect: 'boss', vsBoss: 2.30,
+    { name: '背刺', role: '首领爆发', cd: 12, dmg: 5.54, hits: 1, type: 'phys', effect: 'boss', vsBoss: 2.30, executeMark: 1.8,
       color: 0xf43f5e, glow: 0xfda4af },
     { name: '刀扇', role: '全屏范围', cd: 18, dmg: 1.93, hits: 0, type: 'phys', effect: 'aoe',
       color: 0xa78bfa, glow: 0xddd6fe },
@@ -1607,7 +1684,7 @@ var JOB_SKILL_KITS = {
       color: 0x64748b, glow: 0xcbd5e1 },
     { name: '饮血刻印', role: '治疗 · 持续', cd: 36, dmg: 0, hits: 1, type: 'phys', effect: 'heal', kind: '治疗', heal: { pct: 0.10, perLv: 0.009, hot: 0.020, time: 8 },
       color: 0xfb7185, glow: 0xfecdd3 },
-    { name: '千影', role: '十段 · 终极', cd: 60, dmg: 1.00, hits: 10, type: 'phys', effect: 'multi',
+    { name: '千影', role: '十段 · 终极', cd: 60, dmg: 1.00, hits: 10, type: 'phys', effect: 'multi', executeMark: 1.8,
       color: 0x4c1d95, glow: 0xa78bfa }
   ],
   // 晶甲骑士：技能和甲层绑死。叠甲、按甲加治疗、按甲加伤害 —— 三处都在说同一句话：
@@ -1615,13 +1692,13 @@ var JOB_SKILL_KITS = {
   crystal_knight: [
     { name: '盾击', role: '单体 · 叠甲', cd: 4, dmg: 3.78, hits: 1, type: 'true', effect: 'single', armorGain: 1,
       color: 0x22d3ee, glow: 0xa5f3fc },
-    { name: '破甲槌', role: '首领爆发', cd: 14, dmg: 7.96, hits: 1, type: 'true', effect: 'boss', vsBoss: 2.00,
+    { name: '破甲槌', role: '首领爆发', cd: 14, dmg: 7.96, hits: 1, type: 'true', effect: 'boss', vsBoss: 2.00, armorBreak: 0.12,
       color: 0xf59e0b, glow: 0xfcd34d },
     { name: '震荡波', role: '全屏 · 叠甲', cd: 20, dmg: 3.58, hits: 0, type: 'true', effect: 'aoe', armorGain: 1,
       color: 0x38bdf8, glow: 0xbae6fd },
     { name: '铁壁战吼', role: '攻击 +20% · 叠 2 甲', cd: 26, dmg: 1.59, hits: 1, type: 'true', effect: 'buff', kind: '增益', buff: { atk: 0.20, time: 10 }, armorGain: 2,
       color: 0xfbbf24, glow: 0xfef3c7 },
-    { name: '盾墙', role: '减伤 45% · 9 秒', cd: 30, dmg: 0, hits: 1, type: 'true', effect: 'shield', kind: '护盾', shield: { reduce: 0.45, time: 9, perLv: 0.010 },
+    { name: '盾墙', role: '减伤 45% · 9 秒', cd: 30, dmg: 0, hits: 1, type: 'true', effect: 'shield', kind: '护盾', shield: { reduce: 0.45, time: 9, perLv: 0.010 }, armorGain: 1,
       color: 0x0ea5e9, glow: 0x7dd3fc },
     { name: '战地救护', role: '治疗 · 按甲加成', cd: 38, dmg: 0, hits: 1, type: 'true', effect: 'heal', kind: '治疗', heal: { pct: 0.16, perLv: 0.011, hot: 0.012, time: 6 }, healPerArmor: 0.04,
       color: 0x67e8f9, glow: 0xcffafe },
@@ -1634,6 +1711,76 @@ var JOB_SKILL_KITS = {
 // 不用再手写第二份 —— 两份数据必然会漂。
 var MAGE_SKILL_SNAPSHOT = JSON.parse(JSON.stringify(SKILLS));
 
+// ===== R105：六职业技能详情 / 形状 key 的单一真值表 =====
+// 号主 2026-11-13：把方案落实到游戏里，技能详情、技能名称、图标都要按职业配套。
+// 改前的真实状态：七位技能名早已按职业不同，35 张位图也早已按职业切换，
+// 但长按说明卡的第 5 行只对见习法师有内容，另外五个职业是一片空白；
+// 第 2 行又把暴击、攻速、持续回复、对首领倍率全部略掉，六套读起来一个样。
+// 本轮做法：法师那七句 tip 一个字不动（号主认可的参照系），另外五套各补七句；
+// 每句 ≤20 字，写的是这一招在本职业里的身份，不重复数值卡里已有的数字。
+// 表按位对齐 JOB_SKILL_KITS，buildSkillTable 与面板共读，杜绝第二份文案。
+var JOB_SKILL_TIPS = {
+  blade_mage: [
+    '两段起手攒锋锐，八击换终斩',
+    '对重甲额外破防，专啃硬壳怪',
+    '剑气横扫全场，段数铺开不卡手',
+    '暴击与攻击双给，短窗更狠',
+    '薄盾七秒，扛一轮就撤',
+    '持续回血八秒，最长的一档',
+    '十二连斩计数，越数越锋利'
+  ],
+  star_oracle: [
+    '两发星屑回能，真伤穿抗性',
+    '六套最高爆发，不挑弱点',
+    '全场星环，真伤不吃减免',
+    '唯一加攻速，交完一套回得更快',
+    '星纱罩体八秒，减伤三成八',
+    '治疗最薄，靠打得穿换续航',
+    '冷却最长的一发，全场真伤'
+  ],
+  spirit_guard: [
+    '双击起手，每一下都回血',
+    '首领爆发也自愈，冷却最短',
+    '全屏灵潮，命中就回血',
+    '增益也带自愈，攻守一体',
+    '血越低，荆棘之环越硬',
+    '危血回得最多，按损失血量加成',
+    '全场终极，回血最多的一招'
+  ],
+  shadow_rogue: [
+    '单体起手，别家都是多段',
+    '挂处决印记，残血首领吃满',
+    '短窗开场，刀扇全场铺开',
+    '暴击三成，八秒爆发窗',
+    '烟幕五秒倒计时，减伤五成',
+    '瞬回最低，持续回血最高',
+    '冷却最短的终极，十段倾泻'
+  ],
+  crystal_knight: [
+    '起手就叠甲，第一秒在干活',
+    '满甲额外破防，越厚越狠',
+    '全屏叠甲，甲层三点亮起',
+    '一次叠两层甲，还加攻击',
+    '盾墙按甲层加时长',
+    '每层甲都加治疗，越厚回越多',
+    '满甲切换形态，按甲层加伤'
+  ]
+};
+// 形状 key 只服务 drawSkillIcon 的备用绘制（位图缺失时才用）；
+// 主按钮一律走 SKILL_ICON_ASSETS 的 42 张职业位图。
+// 合法值来自 drawSkillIcon 的九个 case，按职业语义错开，不再七位同形。
+var JOB_SKILL_ICONS = {
+  blade_mage:     ['triple', 'smash', 'whirl', 'crit',   'shield', 'heal',   'slash'],
+  star_oracle:    ['slash',  'meteor','whirl', 'thunder','shield', 'heal',   'meteor'],
+  spirit_guard:   ['triple', 'smash', 'whirl', 'crit',   'shield', 'heal',   'meteor'],
+  shadow_rogue:   ['slash',  'smash', 'whirl', 'crit',   'shield', 'heal',   'triple'],
+  crystal_knight: ['smash',  'smash', 'whirl', 'shield', 'shield', 'heal',   'meteor']
+};
+function jobSkillTip(jobId, idx) {
+  if (jobId === 'trainee_mage' || !JOB_SKILL_TIPS[jobId]) return mageCastProfile(idx).tip;
+  return JOB_SKILL_TIPS[jobId][idx] || mageCastProfile(idx).tip;
+}
+
 // 唯一的技能表构建点：转职、读档、新开局都走这里。
 // 原地改 SKILLS 的字段（不换数组、不换对象），所以所有 `SKILLS[i]` 的旧引用自动跟着变 ——
 // 这也是这轮能改动 40 多处调用点却只改一个函数的原因。
@@ -1645,7 +1792,10 @@ function buildSkillTable(jobId) {
     var dst = SKILLS[i] || (SKILLS[i] = {});
     dst.name = from.name || ('技能' + (i + 1));
     dst.role = from.role || slot.role;
-    dst.lv = slot.lv;
+    // R105 L1：三行改成 from 优先、slot 兜底。未配 lv / grow 的职业仍走位默认值，
+    // 这样 R8 的解锁分布与 R4 的 0.14 / 0.025 成长均值断言零漂移；
+    // 需要按职业错开时，只要往 kit 里写 lv / grow 就生效，不必再改构建函数。
+    dst.lv = (from.lv === undefined) ? slot.lv : from.lv;
     dst.cd = Number(from.cd) || 10;
     dst.dmg = Number(from.dmg) || 0;
     dst.hits = (from.hits === undefined) ? 1 : from.hits;
@@ -1656,14 +1806,21 @@ function buildSkillTable(jobId) {
     // 是同一个颜色 —— 玩家换职业后看到的还是那七个颜色，视觉上等于没换。
     dst.color = (from.color === undefined) ? slot.color : from.color;
     dst.glow = (from.glow === undefined) ? slot.glow : from.glow;
-    dst.icon = slot.icon;
-    dst.grow = slot.grow;
+    dst.icon = from.icon || (JOB_SKILL_ICONS[jobId] || [])[i] || slot.icon;
+    dst.grow = from.grow || slot.grow;
+    dst.tip = from.tip || jobSkillTip(jobId, i);
     dst.vsBoss = Number(from.vsBoss) || 0;
     dst.energy = Number(from.energy) || 0;
     dst.healOnCast = Number(from.healOnCast) || 0;
     dst.armorGain = Number(from.armorGain) || 0;
     dst.healPerArmor = Number(from.healPerArmor) || 0;
     dst.armorScale = Number(from.armorScale) || 0;
+    // R105 新增四条声明性独占字段，消费点集中在 useSkill.applyExtras 与 applyManualHit。
+    // 默认全 0 时行为与改前逐字相同，不新增存档字段。
+    dst.edgeGain = Number(from.edgeGain) || 0;
+    dst.manaBack = Number(from.manaBack) || 0;
+    dst.executeMark = Number(from.executeMark) || 0;
+    dst.armorBreak = Number(from.armorBreak) || 0;
     // 下面四个必须显式覆盖成 null：不覆盖的话，法师的护盾参数会被剑士的护盾位继承，
     // 表现就是「换了职业，减伤数值还是上一个职业的」。
     dst.buff = from.buff || null;
@@ -7877,22 +8034,29 @@ Game.prototype.createNavBtn = function(text, icon, fn) {
 // ===== R66 长按技能说明 =====
 // 文案全部从 SKILLS / MANA_COSTS / MAGE_CAST_PROFILES 派生，不手写第二份数值。
 function describeSkillForTip(idx) {
+  // R105：第 2 行从「只看得到伤害」改成按字段派生，暴击 / 攻速 / 持续回复 /
+  // 对首领倍率都要写在卡上。文案长度控制在单行 11 号字宽度内，全部从 SKILLS 读。
   var s = SKILLS[idx];
   if (!s) return '';
+  var boss = s.vsBoss ? ' · 首领 ×' + (Number(s.vsBoss) || 0).toFixed(2) : '';
   if (s.effect === 'shield') {
     var sh = s.shield || {};
-    return '减伤 ' + Math.round((Number(sh.reduce) || 0) * 100) + '% · 持续 ' + (Number(sh.time) || 0) + ' 秒';
+    return '减伤 ' + Math.round((Number(sh.reduce) || 0) * 100) + '% · ' + (Number(sh.time) || 0) + ' 秒';
   }
   if (s.effect === 'heal') {
     var h = s.heal || {};
-    return '瞬回 ' + Math.round((Number(h.pct) || 0) * 100) + '% 生命 + 持续回复';
+    return '瞬回 ' + Math.round((Number(h.pct) || 0) * 100) + '% + 每秒 ' +
+      ((Number(h.hot) || 0) * 100).toFixed(1) + '%';
   }
   if (s.effect === 'buff') {
-    var b = s.buff || {};
-    return '法强 +' + Math.round((Number(b.atk) || 0) * 100) + '% · 持续 ' + (Number(b.time) || 0) + ' 秒';
+    var b = s.buff || {}, parts = [];
+    if (b.atk) parts.push('攻 +' + Math.round(b.atk * 100) + '%');
+    if (b.crit) parts.push('暴 +' + Math.round(b.crit * 100) + '%');
+    if (b.spd) parts.push('速 +' + Math.round(b.spd * 100) + '%');
+    return (parts.join(' ') || '增益') + ' · ' + (Number(b.time) || 0) + ' 秒';
   }
-  if (s.hits === 0) return '全场 ' + (Number(s.dmg) || 0).toFixed(2) + ' 倍伤害';
-  return (Number(s.hits) || 1) + ' 段 × ' + (Number(s.dmg) || 0).toFixed(2) + ' 倍伤害';
+  if (s.hits === 0) return '全场 ' + (Number(s.dmg) || 0).toFixed(2) + ' 倍' + boss;
+  return (Number(s.hits) || 1) + ' 段 × ' + (Number(s.dmg) || 0).toFixed(2) + ' 倍' + boss;
 }
 
 Game.prototype.hideSkillTip = function() {
@@ -7943,9 +8107,8 @@ Game.prototype.showSkillTip = function(idx, btn) {
   line('伤害 ×' + curMul.toFixed(2) + ' → 下级 ×' + nextMul.toFixed(2) +
        '（每级 +' + Math.round(growP * 100) + '%）',
        70, 10, 0x9be15d, false);
-  if (this.jobId === 'trainee_mage') {
-    line(mageCastProfile(idx).tip, 90, 10, 0xb9c6e6, false);
-  }
+  // R105：第 5 行六职业都显示自己那一招的身份文案，法师沿用 R66 原句一字不动。
+  line(s.tip || jobSkillTip(this.jobId, idx), 90, 10, 0xb9c6e6, false);
   this.main.addChild(g);
   this._skillTip = g;
   this._skillTipTimer = this.safeTimeout('skillTipHide', function() { self.hideSkillTip(); }, 3600);
@@ -8940,6 +9103,12 @@ Game.prototype.applyManualHit = function(m, idx, cost) {
   var shotTag = '';
   var tag = man.gimmick;
 
+  // R105 剑士：八击一次「终斩」。与星术师的第 3 击、骑士的第 4 击在周期上错开，
+  // 语义也不同：锋锐是攒出来的，不是节拍送的。技能「连斩 / 万刃归一」也会喂同一个计数。
+  if (tag === 'flurry') {
+    this._jobEdgeNo = (this._jobEdgeNo || 0) + 1;
+    if (this._jobEdgeNo % 8 === 0) { shotMult = 2; shotTag = 'edge'; }
+  }
   // 星术师：两轻一重。第 3 击是 2.5 倍的星陨，并且溅射到旁边两只。
   if (tag === 'burst3') {
     this._jobBurstNo = (this._jobBurstNo || 0) + 1;
@@ -8988,7 +9157,18 @@ Game.prototype.applyManualHit = function(m, idx, cost) {
   // 抗性 / 弱点 / 真伤穿透三套规则才对手动点击真正生效。
   var elem = this.getJobElement().key;
   var base = CONFIG.mainDmg(this.mainLevel, this.rebirthGems) * this.getJobElementScale(man);
+  // R105 两条手动层独占倍率：
+  //  · 破甲：剑士自带，或刚放过破岳 / 破甲槌后的 6 秒窗口，只对高护甲目标生效；
+  //  · 处决：影刃对残血首领，或背刺 / 千影挂上印记后的 8 秒窗口。
+  // 两者都挂在 seg 上、同受秒伤预算约束，连点器拿不到额外比例优势。
+  var breakPct = Number(man.armorBreakPct) || 0;
+  if ((this._armorBreakUntil || 0) > now) breakPct = Math.max(breakPct, Number(this._armorBreakPct) || 0);
+  var armorMult = (m && Number(m.armor) >= 30 && breakPct > 0) ? (1 + breakPct) : 1;
+  var lowBoss = !!(m && m.isBoss && m.maxHp > 0 && m.hp / m.maxHp < 0.25);
+  var marked = (this._executeMarkUntil || 0) > now;
+  var executeMult = (tag === 'execute' && (lowBoss || marked)) ? 1.8 : 1;
   var seg = (use / hits) * (crit ? (Number(man.critMult) || 2) : 1) * manualScale;
+  seg = seg * armorMult * executeMult;
   for (var hi = 0; hi < hits; hi++) {
     this.doDamage(m, base * seg, idx, crit, elem);
   }
@@ -9012,6 +9192,9 @@ Game.prototype.applyManualHit = function(m, idx, cost) {
   // 表现：爆发击给一次专属飘字，让玩家知道「这一下不一样」。
   if (shotTag === 'burst') this.showDamageText('星陨', true, idx);
   if (shotTag === 'shield') this.showDamageText('盾击', true, idx);
+  if (shotTag === 'edge') this.showDamageText('终斩', true, idx);
+  if (armorMult > 1) this.showDamageText('破甲', true, idx);
+  if (executeMult > 1) this.showDamageText('处决', true, idx);
 };
 
 Game.prototype.battleAreaClick = function() {
@@ -10277,338 +10460,657 @@ function r85Shards(g, n, color, inner, outer) {
   }
 }
 
-// ---------- R85-A：五职业专属施法演出 ----------
+// ---------- R106：五职业逐招专属演出 ----------
+// 号主 2026-11-13 真机反馈：其余五个职业释放的技能和方式千篇一律，只是换了颜色。
+// R85 的做法是位骨架乘职业主题：位决定怎么走，职业只换几何花纹与配色。
+// 本轮把位退回槽位，改由 CAST_KIT_SPECS 给 35 招各配一条运动规格。
+// R85-A 旧函数原文逐字保存在 audit/_r106_legacy-jobCastFx.js.txt，作为历史快照。
+// 四条契约逐字保留：法师分流、fxLayer 分层、命中时刻对齐、全部对象走对象池。
+// 只读写表现层：不碰伤害 / CD / 蓝耗 / 回能 / 随机序列 / 存档，不新增定时器与常驻对象。
 Game.prototype._jobCastFx = function(idx, targetIdx) {
   if (this._skillFxOff === true || !this.damageLayer) return null;
   var theme = jobCastTheme(this.jobId);
-  if (theme.id === 'mage') return null;          // 法师由 _mageCastFx 独占，回落 R65
+  if (theme.id === 'mage') return null;
   var s = SKILLS[idx];
   if (!s) return null;
   var self = this, layer = this.fxLayer || this.damageLayer;
   var hitAt = skillHitDelay(idx);
   var ms = Math.max(700, Math.round((hitAt + 180) * theme.castScale));
   var color = s.color || theme.primary, glow = s.glow || theme.edge;
+  var geom = theme.geom, deep = theme.deep;
   var hero = this.getHeroCastPoint();
   var hasTarget = (targetIdx !== undefined && targetIdx !== null && targetIdx >= 0);
   var pos = hasTarget ? this.getMonsterCenter(targetIdx) : { x: hero.x, y: hero.y + 46 };
-  var shape = castShapeKey(idx);
-  var geom = theme.geom, sparks = theme.sparks, deep = theme.deep;
+  var spec = castKitSpec(this.jobId, idx) ||
+    { m: 'straight', n: 3, g: 60, o: 'hero', p: 'raise', i: 'burst', b: 10 };
+  var made = 0;
+  var coreCap = Math.max(3, spec.b - 3);
 
+  function place(draw, ttl, animate, ox, oy, tag) {
+    var sh = new egret.Shape();
+    try { draw(sh.graphics); } catch (eDraw) { return null; }
+    sh.x = (ox === undefined ? pos.x : ox);
+    sh.y = (oy === undefined ? pos.y : oy);
+    sh.touchEnabled = false;
+    try { if (egret.BlendMode && egret.BlendMode.ADD) sh.blendMode = egret.BlendMode.ADD; } catch (eB) {}
+    return self._v1TrackFx(sh, layer, animate, ttl, tag || 'r106-cast');
+  }
+  // 主体走预算闸门；起手姿态与命中符号各占固定名额，保证任何时候都看得见因果。
   function add(draw, ttl, animate, ox, oy, tag) {
-    var sp = new egret.Shape();
-    try { draw(sp.graphics); } catch (eDraw) { return null; }
-    sp.x = (ox === undefined ? pos.x : ox);
-    sp.y = (oy === undefined ? pos.y : oy);
-    sp.touchEnabled = false;
-    try { if (egret.BlendMode && egret.BlendMode.ADD) sp.blendMode = egret.BlendMode.ADD; } catch (eB) {}
-    return self._v1TrackFx(sp, layer, animate, ttl, tag || 'r85-cast');
+    if (made >= coreCap) return null;
+    made++;
+    return place(draw, ttl, animate, ox, oy, tag || 'r106-core');
+  }
+  function always(draw, ttl, animate, ox, oy, tag) {
+    return place(draw, ttl, animate, ox, oy, tag || 'r106-fixed');
   }
   function liveTargets() {
     var out = [], list = self.monsters || [];
     for (var i = 0; i < list.length; i++) if (list[i] && list[i].hp > 0) out.push(i);
     return out;
   }
-  // 主角脚下的横向光波：所有七位共用，宽度按形态给，越大的招铺得越满。
+  function motif(g, R, a, w) { r85Motif(g, geom, R, color, a === undefined ? 0.9 : a, w || 2.4); }
+  function bolt(g) { r85Bolt(g, geom, color, glow); }
+  function arrival(k) { return Math.max(230, hitAt - k * spec.g); }
+  function arc(g, R, a0, a1, w, c, alpha) {
+    g.lineStyle(w, c, alpha);
+    var steps = 12;
+    for (var q = 0; q <= steps; q++) {
+      var ang = a0 + (a1 - a0) * q / steps;
+      var px = Math.cos(ang) * R, py = Math.sin(ang) * R * 0.42;
+      if (q === 0) g.moveTo(px, py); else g.lineTo(px, py);
+    }
+  }
+
+  // 六种主角起手姿态：按技能语义选，不再七招一个样。
+  function pose(kind) {
+    var y = hero.y + 30;
+    var rise = function(o, done) {
+      o.alpha = 0; o.scaleX = 0.55;
+      egret.Tween.get(o).to({ alpha: 1, scaleX: 1.1 }, 95, egret.Ease.quadOut)
+        .to({ alpha: 0 }, 240).call(done);
+    };
+    if (kind === 'draw') {
+      always(function(g) {
+        g.lineStyle(3.4, glow, 0.92); g.moveTo(-32, 4); g.lineTo(30, -16);
+        g.lineStyle(1.8, 0xffffff, 0.8); g.moveTo(-24, -2); g.lineTo(22, -22);
+      }, 400, rise, hero.x, y, 'r106-pose');
+    } else if (kind === 'raise') {
+      always(function(g) {
+        g.lineStyle(3, glow, 0.9); g.moveTo(0, 12); g.lineTo(0, -46);
+        g.lineStyle(2, 0xffffff, 0.8); g.moveTo(-10, -40); g.lineTo(0, -54); g.lineTo(10, -40);
+      }, 420, rise, hero.x, y, 'r106-pose');
+    } else if (kind === 'seal') {
+      always(function(g) {
+        g.lineStyle(3, color, 0.9); g.drawEllipse(-30, -10, 60, 20);
+        g.lineStyle(1.6, glow, 0.8); g.drawEllipse(-18, -6, 36, 12);
+        g.moveTo(-26, 0); g.lineTo(26, 0);
+      }, 460, rise, hero.x, y + 16, 'r106-pose');
+    } else if (kind === 'crouch') {
+      always(function(g) {
+        g.lineStyle(3.2, glow, 0.9); g.moveTo(-26, 10); g.lineTo(-8, -6);
+        g.moveTo(26, 10); g.lineTo(8, -6);
+        g.lineStyle(1.6, 0xffffff, 0.75); g.moveTo(-18, 12); g.lineTo(18, 12);
+      }, 360, rise, hero.x, y, 'r106-pose');
+    } else if (kind === 'guard') {
+      always(function(g) {
+        g.lineStyle(3.4, glow, 0.95);
+        r85StrokePoly(g, r85Poly(6, 22, -Math.PI / 2, 0.9), true);
+        g.lineStyle(1.6, 0xffffff, 0.8); g.moveTo(0, -20); g.lineTo(0, 20);
+      }, 460, rise, hero.x, y - 6, 'r106-pose');
+    } else {
+      always(function(g) {
+        g.lineStyle(3, color, 0.9); g.drawEllipse(-34, -12, 68, 24);
+        g.lineStyle(2, glow, 0.8); g.drawEllipse(-20, -7, 40, 14);
+      }, 420, rise, hero.x, y, 'r106-pose');
+    }
+  }
+
+  // 八种命中符号，统一在 hitAt 那一帧亮，与掉血同源。
+  function impact(kind, x, y) {
+    var wait = Math.max(60, hitAt - 110);
+    function put(draw, ttl, animate) {
+      return always(draw, ttl, animate, x, y, 'r106-impact');
+    }
+    function pop(o, done, hold) {
+      o.alpha = 0; o.scaleX = 0.4; o.scaleY = 0.4;
+      egret.Tween.get(o).wait(wait).to({ alpha: 1, scaleX: 1.1, scaleY: 1.1 }, 90, egret.Ease.quadOut)
+        .to({ alpha: 0, scaleX: 1.55, scaleY: 1.55 }, hold || 230).call(done);
+    }
+    if (kind === 'cross') {
+      put(function(g) {
+        g.lineStyle(4, glow, 0.95); g.moveTo(-20, -20); g.lineTo(20, 20);
+        g.moveTo(20, -20); g.lineTo(-20, 20);
+        g.lineStyle(2, 0xffffff, 0.9); g.moveTo(-26, 0); g.lineTo(26, 0);
+      }, hitAt + 420, pop);
+    } else if (kind === 'burst') {
+      put(function(g) {
+        r85Shards(g, 10, glow, 12, 46);
+        g.lineStyle(3, color, 0.9); g.drawCircle(0, 0, 20);
+      }, hitAt + 420, pop);
+    } else if (kind === 'pierce') {
+      put(function(g) {
+        g.lineStyle(4, glow, 0.92); g.drawCircle(0, 0, 34);
+        g.lineStyle(2.4, 0xffffff, 0.85); g.drawCircle(0, 0, 22);
+        g.lineStyle(1.6, color, 0.8); g.drawCircle(0, 0, 12);
+      }, hitAt + 420, pop);
+    } else if (kind === 'star') {
+      put(function(g) {
+        g.lineStyle(3.2, glow, 0.95);
+        r85StrokePoly(g, r85Poly(4, 30, -Math.PI / 2, 1), true);
+        g.lineStyle(2, 0xffffff, 0.9); g.drawCircle(0, 0, 9);
+        for (var k = 0; k < 4; k++) {
+          var a = k * Math.PI / 2;
+          g.moveTo(Math.cos(a) * 12, Math.sin(a) * 12);
+          g.lineTo(Math.cos(a) * 38, Math.sin(a) * 38);
+        }
+      }, hitAt + 420, pop);
+    } else if (kind === 'ripple') {
+      put(function(g) {
+        g.lineStyle(3.4, glow, 0.9); g.drawEllipse(-38, -13, 76, 26);
+        g.lineStyle(2.4, 0xffffff, 0.8); g.drawEllipse(-26, -9, 52, 18);
+        g.lineStyle(1.6, color, 0.75); g.drawEllipse(-14, -5, 28, 10);
+      }, hitAt + 420, function(o, done) {
+        o.alpha = 0; o.scaleX = 0.35; o.scaleY = 0.35;
+        egret.Tween.get(o).wait(wait).to({ alpha: 1 }, 80)
+          .to({ scaleX: 1.7, scaleY: 1.7, alpha: 0 }, 300, egret.Ease.quadOut).call(done);
+      });
+    } else if (kind === 'shield') {
+      put(function(g) {
+        g.lineStyle(4, glow, 0.95);
+        r85StrokePoly(g, r85Poly(6, 40, -Math.PI / 2, 0.9), true);
+        g.lineStyle(2, 0xffffff, 0.8);
+        r85StrokePoly(g, r85Poly(6, 28, -Math.PI / 2, 0.9), true);
+      }, hitAt + 420, function(o, done) {
+        o.alpha = 0; o.scaleX = 1.5; o.scaleY = 1.5;
+        egret.Tween.get(o).wait(wait).to({ alpha: 1, scaleX: 1, scaleY: 1 }, 150, egret.Ease.quadIn)
+          .to({ alpha: 0 }, 220).call(done);
+      });
+    } else if (kind === 'heal') {
+      put(function(g) {
+        g.lineStyle(5, 0xffffff, 0.95);
+        g.moveTo(-13, -30); g.lineTo(13, -30); g.moveTo(0, -44); g.lineTo(0, -16);
+        g.lineStyle(4, glow, 0.9);
+        g.moveTo(-9, -68); g.lineTo(9, -68); g.moveTo(0, -78); g.lineTo(0, -58);
+      }, hitAt + 420, function(o, done) {
+        var by = o.y; o.alpha = 0; o.y = by + 12;
+        egret.Tween.get(o).wait(wait).to({ alpha: 1, y: by - 16 }, 150, egret.Ease.quadOut)
+          .to({ alpha: 0, y: by - 46 }, 240).call(done);
+      });
+      // 灵卫者 healOnCast 的身份符号：每招都补一枚绿色小十字。
+      if (geom === 'wave') {
+        put(function(g) {
+          g.lineStyle(2.6, 0x7be8b7, 0.9);
+          g.moveTo(-7, -22); g.lineTo(7, -22); g.moveTo(0, -29); g.lineTo(0, -15);
+        }, hitAt + 420, function(o, done) {
+          o.alpha = 0;
+          egret.Tween.get(o).wait(wait + 90).to({ alpha: 1 }, 70)
+            .to({ alpha: 0 }, 200).call(done);
+        });
+      }
+    } else {
+      put(function(g) {
+        r85Shards(g, 8, glow, 14, 40);
+        g.lineStyle(3, color, 0.9);
+        r85StrokePoly(g, r85Poly(6, 22, -Math.PI / 2, 0.9), true);
+      }, hitAt + 420, pop);
+    }
+    // 星术师 manaBack 的身份符号：命中后一点星辉回流主角。
+    if (geom === 'star') {
+      always(function(g) {
+        g.lineStyle(2.4, glow, 0.9); g.moveTo(0, 0); g.lineTo(0, -18);
+        g.beginFill(0xffffff, 0.9); g.drawCircle(0, -20, 3); g.endFill();
+      }, hitAt + 460, function(o, done) {
+        o.alpha = 0;
+        egret.Tween.get(o).wait(wait + 120).to({ alpha: 1, y: o.y - 18 }, 160, egret.Ease.quadOut)
+          .to({ alpha: 0, y: o.y - 46 }, 200).call(done);
+      }, hero.x - 14, hero.y - 20, 'r106-manaback');
+    }
+    // 影刃 executeMark 的身份符号：菱形处决印记。
+    if (geom === 'shade' && (idx === 1 || idx === 6)) {
+      put(function(g) {
+        g.lineStyle(2.6, 0xff7eb0, 0.92);
+        g.moveTo(0, -26); g.lineTo(18, 0); g.lineTo(0, 26); g.lineTo(-18, 0); g.lineTo(0, -26);
+        g.moveTo(-8, 0); g.lineTo(8, 0);
+      }, hitAt + 460, function(o, done) {
+        o.alpha = 0; o.scaleX = 0.6; o.scaleY = 0.6;
+        egret.Tween.get(o).wait(wait + 40).to({ alpha: 1, scaleX: 1, scaleY: 1 }, 120)
+          .to({ alpha: 0 }, 240).call(done);
+      });
+    }
+    // 骑士 armorGain 的身份符号：六边甲片落地。
+    if (geom === 'crystal' && (idx === 0 || idx === 3 || idx === 4)) {
+      put(function(g) {
+        g.lineStyle(2.4, glow, 0.88);
+        r85StrokePoly(g, r85Poly(6, 14, -Math.PI / 2, 0.86), true);
+      }, hitAt + 460, function(o, done) {
+        o.alpha = 0;
+        egret.Tween.get(o).wait(wait + 60).to({ alpha: 1, y: o.y + 12 }, 150)
+          .to({ alpha: 0 }, 200).call(done);
+      });
+    }
+  }
+
   function groundWave(maxScale, ttl) {
     add(function(g) {
       g.lineStyle(5, color, 0.85); g.drawEllipse(-60, -20, 120, 40);
       g.lineStyle(2, glow, 0.75); g.drawEllipse(-60, -20, 120, 40);
-      g.lineStyle(1.2, 0xffffff, 0.6); g.drawEllipse(-30, -10, 60, 20);
     }, ttl, function(o, done) {
-      o.scaleX = 0.30; o.scaleY = 0.55; o.alpha = 1;
-      egret.Tween.get(o).to({ scaleX: maxScale, scaleY: 1.75, alpha: 0 }, ttl - 80, egret.Ease.quadOut).call(done);
-    }, hero.x, hero.y + 46);
-  }
-  // 收束前奏：八道短线从外向主角聚拢，再起手环炸开。所有职业、所有位都有，
-  // 解决的是「按下去那一瞬没东西发生」；形状按几何族变。
-  var gather = new egret.Shape();
-  (function() {
-    var gg = gather.graphics;
-    for (var i = 0; i < 8; i++) {
-      var a = i * Math.PI / 4;
-      gg.lineStyle(2.2, glow, 0.85);
-      gg.moveTo(Math.cos(a) * 46, Math.sin(a) * 20);
-      gg.lineTo(Math.cos(a) * 22, Math.sin(a) * 10);
-    }
-    gather.x = hero.x; gather.y = hero.y + 30; gather.touchEnabled = false;
-    self._v1TrackFx(gather, layer, function(o, done) {
-      o.scaleX = 1.5; o.scaleY = 1.5; o.alpha = 0;
-      egret.Tween.get(o).to({ scaleX: 0.7, scaleY: 0.7, alpha: 1 }, 110, egret.Ease.quadIn)
-        .to({ scaleX: 1.15, alpha: 0 }, 170, egret.Ease.quadOut).call(done);
-    }, 420, 'r85-gather');
-  })();
-  add(function(g) {
-    g.lineStyle(4, glow, 0.92);
-    r85Motif(g, geom, 20, color, 0.92, 2.6);
-  }, Math.min(ms, 620), function(o, done) {
-    o.scaleX = 0.45; o.scaleY = 0.45; o.alpha = 1;
-    egret.Tween.get(o).to({ scaleX: 2.05, scaleY: 2.05, alpha: 0 }, 400, egret.Ease.quadOut).call(done);
-  }, hero.x, hero.y + 34);
-  // 有目标的招：主角到目标之间一条职业色光带，把因果关系接上。
-  if (hasTarget) {
-    (function() {
-      var dx = pos.x - hero.x, dy = pos.y - hero.y;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      if (!isFinite(dist) || dist < 8) return;
-      add(function(g) {
-        g.lineStyle(8, color, 0.20); g.moveTo(0, 0); g.lineTo(58, 0);
-        g.lineStyle(2.6, glow, 0.95); g.moveTo(0, 0); g.lineTo(58, 0);
-        g.beginFill(0xffffff, 0.9); g.drawCircle(0, 0, 4); g.endFill();
-      }, 440, function(o, done) {
-        o.rotation = Math.atan2(dy, dx) * 180 / Math.PI;
-        o.scaleX = 0.3; o.alpha = 0.2;
-        egret.Tween.get(o)
-          .to({ scaleX: Math.max(0.6, Math.min(2.8, dist / 80)), alpha: 1 }, 110, egret.Ease.quadOut)
-          .to({ alpha: 0 }, 170).call(done);
-      }, hero.x, hero.y, 'r85-beam');
-    })();
+      o.scaleX = 0.3; o.scaleY = 0.55; o.alpha = 1;
+      egret.Tween.get(o).to({ scaleX: maxScale, scaleY: 1.7, alpha: 0 }, ttl - 80, egret.Ease.quadOut).call(done);
+    }, hero.x, hero.y + 46, 'r106-ground');
   }
 
-  // ---- ① 起手位：N 枚飞行物分头覆盖每只活怪，全部在 hitAt 同一刻抵达 ----
-  if (shape === 'volley') {
-    var live = liveTargets();
-    if (!live.length) live = [hasTarget ? targetIdx : -1];
-    var count = Math.min(sparks, Math.max(4, live.length * 2));
-    for (var b = 0; b < count; b++) {
-      var ti = live.length ? live[b % live.length] : -1;
-      var tp = (ti >= 0) ? this.getMonsterCenter(ti) : { x: hero.x + 92, y: hero.y + 44 };
-      if (!tp) continue;
-      (function(ex, ey, sx, sy, delay, bend) {
-        var bolt = new egret.Shape();
-        r85Bolt(bolt.graphics, geom, color, glow);
-        bolt.x = sx; bolt.y = sy; bolt.touchEnabled = false;
-        self._v1TrackFx(bolt, layer, function(o, done) {
-          var arrive = Math.max(240, hitAt - delay);
-          var legA = Math.floor(arrive * 0.44);
-          var legB = Math.max(130, arrive - 50 - legA);
-          var midX = (sx + ex) / 2 + bend, midY = Math.min(sy, ey) - 24;
+  // 命中落点：天降 / 目标侧落在怪身上，自身技落在主角身上。
+  var atSelf = (spec.o === 'hero' || spec.o === 'ground' || spec.o === 'ring');
+  var impactX = atSelf ? hero.x : pos.x;
+  var impactY = atSelf ? hero.y + 20 : pos.y;
+  pose(spec.p);
+  impact(spec.i, impactX, impactY);
+
+  // ---- ① 直线连发：无弧度、无分头，数量少而密 ----
+  if (spec.m === 'straight') {
+    // 背刺类从目标背后短距直刺，其余从主角胸口平推；同一个原语按 origin 分两种走法。
+    var fromBehind = (spec.o === 'behind');
+    for (var a = 0; a < spec.n; a++) {
+      (function(k) {
+        var off = (k - (spec.n - 1) / 2) * 12;
+        var sx = fromBehind ? pos.x + 34 + off : hero.x + off;
+        var sy = fromBehind ? pos.y - 14 - (k % 2) * 8 : hero.y - 6 - (k % 2) * 8;
+        var ex = fromBehind ? pos.x : pos.x + off * 0.4, ey = pos.y;
+        add(bolt, hitAt + 170, function(o, done) {
           o.alpha = 0;
-          egret.Tween.get(o).wait(delay).to({ alpha: 1 }, 55)
-            .to({ x: midX, y: midY, scaleX: 1.22, scaleY: 1.22 }, legA, egret.Ease.quadOut)
-            .to({ x: ex, y: ey, scaleX: 0.72, scaleY: 0.72, alpha: 0.15 }, legB, egret.Ease.quadIn)
+          egret.Tween.get(o).wait(k * spec.g).to({ alpha: 1 }, 45)
+            .to({ x: ex, y: ey, scaleX: 0.78, scaleY: 0.78, alpha: 0.2 }, arrival(k), egret.Ease.quadIn)
             .call(done);
-        }, hitAt + 170, 'r85-volley');
-      })(tp.x, tp.y, hero.x + ((b % 3) - 1) * 15, hero.y - 8 - (b % 2) * 9,
-         (b % 5) * 42, (b % 2 ? 1 : -1) * (20 + (b % 3) * 9));
+        }, sx, sy, 'r106-straight');
+      })(a);
     }
-    groundWave(2.4, 680);
     return true;
   }
 
-  // ---- ② 爆发位：从主角贯穿到目标的粗光柱 + 落点三层裂环 ----
-  if (shape === 'pierce') {
-    var pdx = pos.x - hero.x, pdy = pos.y - hero.y;
-    var plen = Math.sqrt(pdx * pdx + pdy * pdy);
-    if (!isFinite(plen)) plen = 80;
+  // ---- ② 分头齐射：弧线覆盖每只活怪，全部在 hitAt 同一刻抵达 ----
+  if (spec.m === 'volley') {
+    var stageW = self._stageW || 375;
+    var volleyLive = liveTargets();
+    if (!volleyLive.length) volleyLive = [hasTarget ? targetIdx : -1];
+    for (var v = 0; v < spec.n; v++) {
+      (function(k) {
+        var ti = volleyLive[k % volleyLive.length];
+        var tp = (ti >= 0) ? self.getMonsterCenter(ti) : { x: hero.x + 92, y: hero.y + 44 };
+        if (!tp) return;
+        // 星雨 / 天罚从屏幕上方斜向坠落，普通齐射从主角走弧线；origin 决定起飞方向。
+        var fromSky = (spec.o === 'sky');
+        // 天降系从整个战斗区上沿横向铺开，而不是全挤在目标左上方压住章节带。
+        var sx = fromSky
+          ? 40 + (spec.n === 1 ? 0 : k * (stageW - 80) / (spec.n - 1))
+          : hero.x + ((k % 3) - 1) * 16;
+        var sy = fromSky ? 162 - (k % 2) * 8 : hero.y - 8 - (k % 2) * 10;
+        var midX = fromSky ? (sx + tp.x) / 2 + (k % 2 ? 18 : -18)
+          : (sx + tp.x) / 2 + (k % 2 ? 1 : -1) * (24 + (k % 3) * 12);
+        var midY = fromSky ? (sy + tp.y) / 2 : Math.min(sy, tp.y) - 26 - (k % 3) * 8;
+        // 浅色天空上亮色飞弹会糊掉：补深底与向下拖尾，轮廓清楚且不碰顶部进度带。
+        add(fromSky ? function(g) {
+          g.beginFill(deep, 0.5); g.drawRect(-10, -6, 20, 34); g.endFill();
+          g.lineStyle(2.2, glow, 0.9); g.moveTo(0, -6); g.lineTo(0, 28);
+          bolt(g);
+        } : bolt, hitAt + 170, function(o, done) {
+          var ar = arrival(k), legA = Math.floor(ar * 0.44), legB = Math.max(130, ar - 50 - legA);
+          o.alpha = 0;
+          egret.Tween.get(o).wait(k * spec.g).to({ alpha: 1 }, 50)
+            .to({ x: midX, y: midY, scaleX: 1.2, scaleY: 1.2 }, legA, egret.Ease.quadOut)
+            .to({ x: tp.x, y: tp.y, scaleX: 0.7, scaleY: 0.7, alpha: 0.18 }, legB, egret.Ease.quadIn)
+            .call(done);
+        }, sx, sy, 'r106-volley');
+      })(v);
+    }
+    // 天罚的低频色闪：沿用 R16 降噪闸门，自动施法下不会周期性糊屏。
+    if (geom === 'crystal' && this.consumeFxGate('r106CataclysmFlash', FX_METEOR_FLASH_GATE_MS)) {
+      add(function(g) {
+        g.beginFill(glow, 0.12); g.drawRect(-240, -320, 480, 640); g.endFill();
+      }, 260, function(o, done) {
+        o.alpha = 0.75;
+        egret.Tween.get(o).to({ alpha: 0 }, 200).call(done);
+      }, pos.x, pos.y, 'r106-flash');
+    }
+    groundWave(2.6, 700);
+    return true;
+  }
+
+  // ---- ③ 折线连斩：逐段逼近，左右交错，锋锐层数刻度同时亮 ----
+  if (spec.m === 'zigzag') {
+    for (var z = 0; z < spec.n; z++) {
+      (function(k) {
+        var t = (k + 1) / (spec.n + 1);
+        var zx = hero.x + (pos.x - hero.x) * t;
+        var zy = hero.y + (pos.y - hero.y) * t;
+        var side = (k % 2 ? 1 : -1);
+        add(function(g) {
+          g.lineStyle(4.2, color, 0.92);
+          g.moveTo(-22, -14 * side); g.lineTo(20, 14 * side);
+          g.lineStyle(2, 0xffffff, 0.85);
+          g.moveTo(-14, -8 * side); g.lineTo(14, 9 * side);
+        }, hitAt + 170, function(o, done) {
+          o.alpha = 0; o.scaleX = 0.5;
+          egret.Tween.get(o).wait(k * spec.g)
+            .to({ alpha: 1, scaleX: 1.15, rotation: side * 12 }, 80, egret.Ease.quadOut)
+            .to({ alpha: 0, scaleX: 1.5 }, 170).call(done);
+        }, zx, zy, 'r106-zigzag');
+      })(z);
+    }
     add(function(g) {
-      g.lineStyle(16 * theme.weight, color, 0.20); g.moveTo(0, 0); g.lineTo(60, 0);
-      g.lineStyle(7 * theme.weight, glow, 0.85); g.moveTo(0, 0); g.lineTo(60, 0);
-      g.lineStyle(2.4, 0xffffff, 0.95); g.moveTo(0, 0); g.lineTo(60, 0);
       for (var q = 0; q < 3; q++) {
-        g.lineStyle(2 - q * 0.4, glow, 0.7 - q * 0.18);
-        g.moveTo(58, -8 - q * 6); g.lineTo(74 + q * 8, 0); g.lineTo(58, 8 + q * 6);
+        g.lineStyle(2.4, glow, 0.9);
+        g.moveTo(-16 + q * 14, 10); g.lineTo(-16 + q * 14, -8 - q * 5);
+      }
+    }, hitAt + 170, function(o, done) {
+      o.alpha = 0;
+      egret.Tween.get(o).wait(Math.max(60, hitAt - 260)).to({ alpha: 1 }, 90)
+        .to({ alpha: 0 }, 220).call(done);
+    }, hero.x, hero.y - 40, 'r106-edge');
+    return true;
+  }
+
+  // ---- ④ 贯穿：从起点刺穿目标继续前伸，落点三层裂环 ----
+  if (spec.m === 'pierce') {
+    var bx = (spec.o === 'behind') ? pos.x + 46 : hero.x;
+    var by = (spec.o === 'behind') ? pos.y - 8 : hero.y;
+    var dx = pos.x - bx, dy = pos.y - by;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    if (!isFinite(len) || len < 8) len = 80;
+    add(function(g) {
+      g.lineStyle(15 * theme.weight, color, 0.2); g.moveTo(0, 0); g.lineTo(60, 0);
+      g.lineStyle(6 * theme.weight, glow, 0.88); g.moveTo(0, 0); g.lineTo(60, 0);
+      g.lineStyle(2.2, 0xffffff, 0.95); g.moveTo(0, 0); g.lineTo(60, 0);
+      for (var q = 0; q < 3; q++) {
+        g.lineStyle(2 - q * 0.4, glow, 0.72 - q * 0.18);
+        g.moveTo(56, -8 - q * 6); g.lineTo(72 + q * 8, 0); g.lineTo(56, 8 + q * 6);
       }
     }, Math.min(ms, 780), function(o, done) {
-      o.rotation = Math.atan2(pdy, pdx) * 180 / Math.PI;
-      o.scaleX = 0.15; o.alpha = 0;
-      egret.Tween.get(o)
-        .to({ scaleX: Math.max(0.7, Math.min(3.0, plen / 60)), alpha: 1 }, 170, egret.Ease.quadOut)
-        .to({ alpha: 0, scaleY: 1.7 }, Math.max(180, Math.min(ms - 220, 420))).call(done);
-    }, hero.x, hero.y, 'r85-pierce');
-    add(function(g) {
-      g.lineStyle(6, deep, 0.45); g.drawCircle(0, 0, 38);
-      g.lineStyle(4, glow, 0.95); g.drawCircle(0, 0, 32);
-      g.lineStyle(2, 0xffffff, 0.9); g.drawCircle(0, 0, 20);
-      r85Motif(g, geom, 44, color, 0.85, 2.2);
-    }, Math.min(ms, 700), function(o, done) {
-      o.alpha = 0; o.scaleX = 0.35; o.scaleY = 0.35;
-      egret.Tween.get(o).wait(Math.max(90, hitAt - 260))
-        .to({ alpha: 1, scaleX: 1.25, scaleY: 1.25 }, 130, egret.Ease.quadOut)
-        .to({ alpha: 0, scaleX: 1.7, scaleY: 1.7 }, 260).call(done);
-    }, pos.x, pos.y);
-    groundWave(2.7, 700);
+      o.rotation = Math.atan2(dy, dx) * 180 / Math.PI;
+      o.scaleX = 0.12; o.alpha = 0;
+      egret.Tween.get(o).to({ scaleX: Math.max(0.7, Math.min(3, len / 60)), alpha: 1 }, 160, egret.Ease.quadOut)
+        .to({ alpha: 0, scaleY: 1.6 }, Math.max(180, Math.min(ms - 210, 420))).call(done);
+    }, bx, by, 'r106-pierce');
     return true;
   }
 
-  // ---- ③ 群攻位：全屏横扫 + 四层递进波 + 每只怪一枚落点 ----
-  if (shape === 'sweep') {
-    groundWave(4.5, ms);
-    for (var w = 0; w < 4; w++) {
-      (function(wi) {
+  // ---- ⑤ 天降：自屏幕上方垂直或斜向坠落，带长尾 ----
+  if (spec.m === 'drop') {
+    for (var d = 0; d < spec.n; d++) {
+      (function(k) {
+        var ex = pos.x + (k - (spec.n - 1) / 2) * 26;
+        var ey = pos.y + (k % 2) * 8;
+        var sx = ex - 24 - (k % 3) * 10, sy = 158 - (k % 2) * 12;
+        // 光柱主体向下延伸，头部在下方；不向上拖尾就不会压住章节带。
         add(function(g) {
-          g.lineStyle(6 - wi, wi % 2 ? glow : color, 0.85 - wi * 0.16);
-          r85Motif(g, geom, 46 + wi * 16, wi % 2 ? glow : color, 0.82 - wi * 0.15, 3 - wi * 0.4);
-        }, ms, function(o, done) {
-          o.scaleX = 0.30; o.scaleY = 0.44; o.alpha = 0;
-          egret.Tween.get(o).wait(wi * 105)
-            .to({ alpha: 1 }, 70)
-            .to({ scaleX: 2.0, scaleY: 1.6, alpha: 0 }, Math.max(260, ms - wi * 105 - 130), egret.Ease.quadOut)
+          g.beginFill(deep, 0.42); g.drawRect(-19, 0, 38, 76); g.endFill();
+          g.lineStyle(2, glow, 0.85); g.moveTo(-19, 0); g.lineTo(-19, 76);
+          g.lineTo(19, 76); g.lineTo(19, 0);
+          g.beginFill(color, 0.32); g.drawRect(-15, 0, 30, 70); g.endFill();
+          g.beginFill(glow, 0.85); g.drawRect(-5, 0, 10, 70); g.endFill();
+          motif(g, 22, 0.9, 2.6);
+        }, hitAt + 190, function(o, done) {
+          o.alpha = 0; o.scaleY = 0.45;
+          egret.Tween.get(o).wait(k * spec.g)
+            .to({ alpha: 1, scaleY: 1 }, 130, egret.Ease.quadIn)
+            .to({ x: ex, y: ey, alpha: 0.15, scaleX: 1.5 }, Math.max(150, arrival(k) - 130), egret.Ease.quadIn)
             .call(done);
-        }, hero.x, hero.y + 40);
+        }, sx, sy, 'r106-drop');
+      })(d);
+    }
+    groundWave(2.2, 680);
+    return true;
+  }
+
+  // ---- ⑥ 地升：元素自脚下向上生长，与天降方向完全相反 ----
+  if (spec.m === 'rise') {
+    for (var u = 0; u < spec.n; u++) {
+      (function(k) {
+        var gx = hero.x + (k - (spec.n - 1) / 2) * 18;
+        var gy = hero.y + 42;
+        add(function(g) {
+          g.lineStyle(3.2, glow, 0.9); g.moveTo(0, 0); g.lineTo(0, -70);
+          motif(g, 12, 0.9, 2.2);
+          g.lineStyle(1.8, 0xffffff, 0.8); g.moveTo(-8, -8); g.lineTo(8, -8);
+        }, hitAt + 190, function(o, done) {
+          o.alpha = 0; o.scaleY = 0.16;
+          egret.Tween.get(o).wait(k * spec.g)
+            .to({ alpha: 1, scaleY: 1, y: gy - 30 }, Math.max(200, arrival(k) * 0.6), egret.Ease.quadOut)
+            .to({ alpha: 0, y: gy - 62 }, 240).call(done);
+        }, gx, gy, 'r106-rise');
+      })(u);
+    }
+    return true;
+  }
+
+  // ---- ⑦ 扇形横扫：以主角为圆心的三道弧，角度逐道推进 ----
+  if (spec.m === 'sweepArc') {
+    for (var w = 0; w < spec.n; w++) {
+      (function(k) {
+        add(function(g) {
+          var a0 = -0.95 + k * 0.20, a1 = 0.95 - k * 0.12;
+          arc(g, 76 + k * 22, a0, a1, 6 - k, k % 2 ? glow : color, 0.88 - k * 0.16);
+          g.lineStyle(2, 0xffffff, 0.7);
+          g.moveTo(0, 0); g.lineTo(Math.cos(a0) * (76 + k * 22), Math.sin(a0) * (76 + k * 22) * 0.42);
+        }, ms, function(o, done) {
+          o.alpha = 0; o.scaleX = 0.32; o.scaleY = 0.45;
+          egret.Tween.get(o).wait(k * spec.g).to({ alpha: 1 }, 70)
+            .to({ scaleX: 1.6, scaleY: 1.5, alpha: 0 }, Math.max(260, arrival(k)), egret.Ease.quadOut)
+            .call(done);
+        }, hero.x, hero.y + 24, 'r106-sweep');
       })(w);
     }
     var sweepLive = liveTargets();
-    for (var sl = 0; sl < sweepLive.length && sl < 6; sl++) {
-      (function(si, delay) {
-        var sp2 = self.getMonsterCenter(si);
-        if (!sp2) return;
+    for (var sl = 0; sl < sweepLive.length && sl < 4; sl++) {
+      (function(mi, delay) {
+        var mp = self.getMonsterCenter(mi);
+        if (!mp) return;
         add(function(g) {
-          g.lineStyle(3, glow, 0.9); g.drawCircle(0, 0, 18);
-          r85Shards(g, 5, color, 8, 20);
+          g.lineStyle(2.8, glow, 0.9); g.drawCircle(0, 0, 16);
         }, 480, function(o, done) {
-          o.alpha = 0; o.scaleX = 0.5; o.scaleY = 0.5;
-          egret.Tween.get(o).wait(delay)
-            .to({ alpha: 1, scaleX: 1.5, scaleY: 1.5 }, 150, egret.Ease.quadOut)
+          o.alpha = 0;
+          egret.Tween.get(o).wait(delay).to({ alpha: 1, scaleX: 1.4, scaleY: 1.4 }, 130)
             .to({ alpha: 0 }, 180).call(done);
-        }, sp2.x, sp2.y);
+        }, mp.x, mp.y, 'r106-sweep-hit');
       })(sweepLive[sl], sl * 70);
     }
     return true;
   }
 
-  // ---- ④ 增益位：脚下法阵展开 + 上冲的职业符号 + 身侧光柱（无目标也演） ----
-  if (shape === 'sigil') {
-    add(function(g) {
-      g.lineStyle(5, color, 0.9); r85Motif(g, geom, 58, color, 0.9, 3.4);
-      g.lineStyle(2, glow, 0.85); r85Motif(g, geom, 36, glow, 0.85, 1.8);
-      for (var k = 0; k < 8; k++) {
-        var a = k * Math.PI / 4;
-        g.lineStyle(2, glow, 0.8);
-        g.moveTo(Math.cos(a) * 46, Math.sin(a) * 17);
-        g.lineTo(Math.cos(a + 0.34) * 46, Math.sin(a + 0.34) * 17);
-      }
-    }, ms, function(o, done) {
-      o.scaleX = 0.35; o.scaleY = 0.35; o.alpha = 0;
-      egret.Tween.get(o).to({ scaleX: 1.35, scaleY: 1.35, alpha: 1 }, 230, egret.Ease.quadOut)
-        .to({ alpha: 0 }, Math.max(220, ms - 300)).call(done);
-    }, hero.x, hero.y + 48);
-    add(function(g) {
-      g.beginFill(color, 0.18); g.drawRect(-18, -112, 36, 112); g.endFill();
-      g.beginFill(glow, 0.42); g.drawRect(-6, -112, 12, 112); g.endFill();
-    }, ms, function(o, done) {
-      o.alpha = 0; o.scaleY = 0.5;
-      egret.Tween.get(o).to({ alpha: 1, scaleY: 1 }, 150, egret.Ease.quadOut)
-        .to({ alpha: 0 }, Math.max(260, ms - 220)).call(done);
-    }, hero.x, hero.y + 30);
-    add(function(g) {
-      g.lineStyle(3.2, glow, 0.95);
-      r85Motif(g, geom, 9, color, 0.95, 2.6);
-      for (var u = 0; u < 3; u++) {
-        var ux = -26 + u * 26;
-        g.moveTo(ux - 7, -24); g.lineTo(ux, -40); g.lineTo(ux + 7, -24);
-      }
-    }, ms, function(o, done) {
-      var by = o.y; o.alpha = 0; o.y = by + 10;
-      egret.Tween.get(o).to({ alpha: 1, y: by - 30 }, 300, egret.Ease.quadOut)
-        .to({ alpha: 0, y: by - 56 }, Math.max(240, ms - 360)).call(done);
-    }, hero.x, hero.y + 14);
-    groundWave(1.9, 640);
-    return true;
-  }
-
-  // ---- ⑤ 护盾位：从 1.6 倍合拢到贴合的罩 + 结构线 + 脚下一圈 ----
-  if (shape === 'dome') {
-    add(function(g) {
-      g.lineStyle(6, glow, 0.95);
-      r85Motif(g, geom, 62, color, 0.95, 4);
-      g.lineStyle(2, 0xffffff, 0.85);
-      r85Motif(g, geom, 46, glow, 0.85, 1.6);
-      g.lineStyle(1.4, color, 0.55);
-      g.drawEllipse(-64, -20, 128, 40);
-    }, ms, function(o, done) {
-      o.scaleX = 1.62; o.scaleY = 1.62; o.alpha = 0;
-      egret.Tween.get(o).to({ scaleX: 1, scaleY: 1, alpha: 1 }, 230, egret.Ease.quadIn)
-        .to({ alpha: 0 }, Math.max(260, ms - 300)).call(done);
-    }, hero.x, hero.y + 8);
-    add(function(g) {
-      g.lineStyle(5, color, 0.92); g.drawEllipse(-44, -14, 88, 28);
-      g.lineStyle(2, 0xffffff, 0.9); g.drawEllipse(-44, -14, 88, 28);
-    }, 560, function(o, done) {
-      o.scaleX = 0.4; o.scaleY = 0.4; o.alpha = 1;
-      egret.Tween.get(o).to({ scaleX: 2.2, scaleY: 2.2, alpha: 0 }, 460, egret.Ease.quadOut).call(done);
-    }, hero.x, hero.y + 52);
-    groundWave(2.1, 680);
-    return true;
-  }
-
-  // ---- ⑥ 回复位：三圈错峰外扩 + 上升符号 + 胸口光点簇 ----
-  if (shape === 'bloom') {
-    for (var r = 0; r < 3; r++) {
-      (function(ri) {
+  // ---- ⑧ 环绕：星点绕主角走一圈椭圆轨道，绕完再射向目标 ----
+  if (spec.m === 'orbit') {
+    for (var ob = 0; ob < spec.n; ob++) {
+      (function(k) {
+        var R = 52 + (k % 3) * 12;
+        var a0 = k * Math.PI * 2 / spec.n;
         add(function(g) {
-          g.lineStyle(5, glow, 0.88); r85Motif(g, geom, 32, color, 0.88, 3);
-        }, ms, function(o, done) {
-          o.scaleX = 0.3; o.scaleY = 0.3; o.alpha = 0;
-          egret.Tween.get(o).wait(ri * 140).to({ alpha: 1 }, 85)
-            .to({ scaleX: 3.3, scaleY: 3.3, alpha: 0 }, Math.max(280, ms - ri * 140 - 160), egret.Ease.quadOut)
+          bolt(g);
+          g.lineStyle(1.8, glow, 0.7); g.drawCircle(0, 0, 12);
+        }, hitAt + 200, function(o, done) {
+          var ar = arrival(k), leg = Math.max(90, Math.floor(ar / 4));
+          o.alpha = 0;
+          var cx = hero.x, cy = hero.y + 10;
+          egret.Tween.get(o).wait(k * spec.g)
+            .to({ alpha: 1, x: cx + Math.cos(a0) * R, y: cy + Math.sin(a0) * R * 0.5 }, 60)
+            .to({ x: cx + Math.cos(a0 + 1.6) * R, y: cy + Math.sin(a0 + 1.6) * R * 0.5 }, leg, egret.Ease.sineInOut)
+            .to({ x: cx + Math.cos(a0 + 3.2) * R, y: cy + Math.sin(a0 + 3.2) * R * 0.5 }, leg, egret.Ease.sineInOut)
+            .to({ x: pos.x, y: pos.y, alpha: 0.2, scaleX: 0.7, scaleY: 0.7 }, leg, egret.Ease.quadIn)
             .call(done);
-        }, hero.x, hero.y + 26);
-      })(r);
+        }, hero.x, hero.y + 10, 'r106-orbit');
+      })(ob);
     }
-    add(function(g) {
-      g.lineStyle(6, 0xffffff, 0.95);
-      g.moveTo(-14, -34); g.lineTo(14, -34); g.moveTo(0, -48); g.lineTo(0, -20);
-      g.lineStyle(5, glow, 0.9);
-      g.moveTo(-10, -78); g.lineTo(10, -78); g.moveTo(0, -88); g.lineTo(0, -68);
-      for (var q = 0; q < 5; q++) {
-        g.beginFill(glow, 0.7);
-        g.drawCircle(-18 + (q % 3) * 18, -14 - Math.floor(q / 3) * 16, 2.6);
-        g.endFill();
-      }
-    }, ms, function(o, done) {
-      var by = o.y; o.alpha = 0;
-      egret.Tween.get(o).to({ alpha: 1, y: by - 26 }, 290, egret.Ease.quadOut)
-        .to({ alpha: 0, y: by - 58 }, Math.max(260, ms - 350)).call(done);
-    }, hero.x, hero.y + 10);
-    groundWave(1.8, 660);
     return true;
   }
 
-  // ---- ⑦ 终极位：多枚天降分头砸向每只怪 + 全场光波 + 中心巨型爆发 ----
-  if (shape === 'cataclysm') {
-    var liveC = liveTargets();
-    if (!liveC.length) liveC = [hasTarget ? targetIdx : -1];
-    for (var m = 0; m < liveC.length && m < 7; m++) {
-      (function(mi, miDelay) {
-        var cp = (mi >= 0) ? self.getMonsterCenter(mi) : { x: hero.x + 92, y: hero.y + 44 };
-        if (!cp) return;
+  // ---- ⑨ 瞬移残影：起点在目标背后，短距突进后立刻消散 ----
+  if (spec.m === 'blink') {
+    for (var bk = 0; bk < spec.n; bk++) {
+      (function(k) {
+        var side = (k % 2 ? 1 : -1);
+        var sx = pos.x + 34 + side * 16, sy = pos.y - 10 - (k % 3) * 8;
         add(function(g) {
-          g.beginFill(color, 0.42); g.drawRect(-15, -216, 30, 216); g.endFill();
-          g.beginFill(glow, 0.85); g.drawRect(-5, -216, 10, 216); g.endFill();
-          g.lineStyle(3, glow, 0.9); g.drawCircle(0, 0, 24);
-          r85Motif(g, geom, 30, color, 0.85, 2);
-        }, ms, function(o, done) {
-          o.alpha = 0; o.scaleY = 0.45;
-          var land = Math.max(250, hitAt - miDelay);
-          egret.Tween.get(o).wait(miDelay)
-            .to({ alpha: 1, scaleY: 1 }, 135, egret.Ease.quadIn)
-            .to({ alpha: 0, scaleX: 1.65 }, Math.max(130, land - 135)).call(done);
-        }, cp.x, cp.y, 'r85-cataclysm');
-      })(liveC[m], m * 78);
+          g.beginFill(deep, 0.55); g.drawRect(-9, -26, 18, 52); g.endFill();
+          g.lineStyle(3, color, 0.9); g.moveTo(-9, -26); g.lineTo(9, 26);
+          g.lineStyle(2, glow, 0.85); g.moveTo(-9, 26); g.lineTo(9, -26);
+        }, hitAt + 170, function(o, done) {
+          o.alpha = 0; o.scaleY = 0.6;
+          egret.Tween.get(o).wait(k * spec.g)
+            .to({ alpha: 1, scaleY: 1 }, 55, egret.Ease.quadOut)
+            .to({ x: pos.x - side * 10, y: pos.y, alpha: 0, scaleX: 1.6 }, 180, egret.Ease.quadIn)
+            .call(done);
+        }, sx, sy, 'r106-blink');
+      })(bk);
     }
-    add(function(g) {
-      g.lineStyle(7, color, 0.9); g.drawCircle(0, 0, 44);
-      g.lineStyle(3, glow, 0.9); g.drawCircle(0, 0, 66);
-      r85Shards(g, Math.min(12, sparks + 2), glow, 34, 96);
-    }, ms, function(o, done) {
-      o.alpha = 0; o.scaleX = 0.3; o.scaleY = 0.3;
-      egret.Tween.get(o).wait(Math.max(120, hitAt - 180))
-        .to({ alpha: 1, scaleX: 1.2, scaleY: 1.2 }, 150, egret.Ease.quadOut)
-        .to({ alpha: 0, scaleX: 1.9, scaleY: 1.9 }, 340).call(done);
-    }, pos.x, pos.y);
-    // 战斗区低亮度色闪：沿用 R16 的降噪闸门，自动施法下不会周期性糊屏。
-    if (this.consumeFxGate('r85CataclysmFlash', FX_METEOR_FLASH_GATE_MS)) {
-      add(function(g) {
-        g.beginFill(glow, 0.22); g.drawRect(-240, -320, 480, 640); g.endFill();
-      }, 260, function(o, done) {
-        o.alpha = 0.85;
-        egret.Tween.get(o).to({ alpha: 0 }, 200).call(done);
-      }, pos.x, pos.y);
-    }
-    groundWave(4.8, ms);
     return true;
   }
-  return false;
+
+  // ---- ⑩ 同心外扩：圆波或方波按几何族变，逐层错峰 ----
+  if (spec.m === 'expand') {
+    var square = (geom === 'crystal');
+    for (var e = 0; e < spec.n; e++) {
+      (function(k) {
+        add(function(g) {
+          g.lineStyle(5 - k, k % 2 ? glow : color, 0.88 - k * 0.16);
+          if (square) {
+            var R = 34 + k * 18;
+            g.moveTo(-R, -R * 0.4); g.lineTo(R, -R * 0.4);
+            g.lineTo(R, R * 0.4); g.lineTo(-R, R * 0.4); g.lineTo(-R, -R * 0.4);
+          } else {
+            motif(g, 34 + k * 16, 0.85 - k * 0.15, 3 - k * 0.4);
+          }
+        }, ms, function(o, done) {
+          o.alpha = 0; o.scaleX = 0.3; o.scaleY = 0.42;
+          egret.Tween.get(o).wait(k * spec.g).to({ alpha: 1 }, 70)
+            .to({ scaleX: 2.1, scaleY: 1.7, alpha: 0 }, Math.max(260, arrival(k)), egret.Ease.quadOut)
+            .call(done);
+        }, hero.x, hero.y + 30, 'r106-expand');
+      })(e);
+    }
+    return true;
+  }
+
+  // ---- ⑪ 多向收束：N 枚自四周在 hitAt 同一刻归到一点 ----
+  if (spec.m === 'converge') {
+    var cx2 = (spec.o === 'ground') ? hero.x : (atSelf ? hero.x : pos.x);
+    var cy2 = (spec.o === 'ground') ? hero.y + 10 : (atSelf ? hero.y : pos.y);
+    for (var c = 0; c < spec.n; c++) {
+      (function(k) {
+        var ang = k * Math.PI * 2 / spec.n + 0.22;
+        var sx = cx2 + Math.cos(ang) * (92 + (k % 3) * 16);
+        var sy = cy2 + Math.sin(ang) * (54 + (k % 2) * 14);
+        add(function(g) {
+          bolt(g);
+          g.lineStyle(1.8, glow, 0.7); g.moveTo(0, 0); g.lineTo(-Math.cos(ang) * 16, -Math.sin(ang) * 10);
+        }, hitAt + 180, function(o, done) {
+          o.alpha = 0;
+          egret.Tween.get(o).wait(Math.min(k * spec.g, Math.max(60, hitAt - 260)))
+            .to({ alpha: 1 }, 45)
+            .to({ x: cx2, y: cy2, scaleX: 0.6, scaleY: 0.6, alpha: 0.2 },
+              Math.max(220, hitAt - Math.min(k * spec.g, Math.max(60, hitAt - 260)) - 45), egret.Ease.quadIn)
+            .call(done);
+        }, sx, sy, 'r106-converge');
+      })(c);
+    }
+    add(function(g) {
+      g.lineStyle(4, glow, 0.9); g.drawCircle(0, 0, 24);
+      motif(g, 40, 0.8, 2.2);
+    }, hitAt + 200, function(o, done) {
+      o.alpha = 0; o.scaleX = 0.35; o.scaleY = 0.35;
+      egret.Tween.get(o).wait(Math.max(80, hitAt - 150))
+        .to({ alpha: 1, scaleX: 1.2, scaleY: 1.2 }, 120, egret.Ease.quadOut)
+        .to({ alpha: 0, scaleX: 1.8, scaleY: 1.8 }, 260).call(done);
+    }, cx2, cy2, 'r106-converge-core');
+    return true;
+  }
+
+  // ---- ⑫ 逐怪连跳：在活怪之间一段一段串过去 ----
+  if (spec.m === 'chain') {
+    var chainLive = liveTargets();
+    if (!chainLive.length) chainLive = [hasTarget ? targetIdx : -1];
+    for (var ch = 0; ch < spec.n; ch++) {
+      (function(k) {
+        var from = (k === 0) ? hero : ((chainLive[(k - 1) % chainLive.length] >= 0)
+          ? self.getMonsterCenter(chainLive[(k - 1) % chainLive.length]) : pos);
+        var to = (chainLive[k % chainLive.length] >= 0)
+          ? self.getMonsterCenter(chainLive[k % chainLive.length]) : pos;
+        if (!from || !to) return;
+        add(function(g) {
+          g.lineStyle(4, color, 0.85); g.moveTo(-16, 0); g.lineTo(16, 0);
+          g.lineStyle(2, 0xffffff, 0.85); g.moveTo(-8, -8); g.lineTo(8, 8);
+        }, hitAt + 190, function(o, done) {
+          o.alpha = 0; o.rotation = Math.atan2(to.y - from.y, to.x - from.x) * 180 / Math.PI;
+          egret.Tween.get(o).wait(k * spec.g).to({ alpha: 1 }, 45)
+            .to({ x: to.x, y: to.y, alpha: 0.15, scaleX: 1.6 }, 190, egret.Ease.quadOut)
+            .call(done);
+        }, from.x, from.y, 'r106-chain');
+      })(ch);
+    }
+    return true;
+  }
+
+  // ---- ⑬ 竖直结构：柱 / 墙 / 门 / 网自地面搭起，柱间连线 ----
+  if (spec.m === 'pillar') {
+    var baseY = hero.y + 44;
+    var span = Math.min(46, 150 / Math.max(1, spec.n));
+    for (var pi = 0; pi < spec.n; pi++) {
+      (function(k) {
+        var px = hero.x + (k - (spec.n - 1) / 2) * span;
+        add(function(g) {
+          g.beginFill(color, 0.16); g.drawRect(-7, -86, 14, 86); g.endFill();
+          g.lineStyle(3, glow, 0.92); g.moveTo(-7, 0); g.lineTo(-7, -86);
+          g.lineTo(7, -86); g.lineTo(7, 0);
+          motif(g, 13, 0.9, 2);
+        }, hitAt + 190, function(o, done) {
+          o.alpha = 0; o.scaleY = 0.12;
+          egret.Tween.get(o).wait(k * spec.g)
+            .to({ alpha: 1, scaleY: 1 }, Math.max(180, arrival(k) * 0.5), egret.Ease.quadOut)
+            .to({ alpha: 0 }, 260).call(done);
+        }, px, baseY, 'r106-pillar');
+      })(pi);
+    }
+    add(function(g) {
+      g.lineStyle(2.4, glow, 0.75);
+      for (var k = 0; k < spec.n - 1; k++) {
+        var x0 = (k - (spec.n - 1) / 2) * span, x1 = x0 + span;
+        g.moveTo(x0, -58); g.lineTo(x1, -58);
+        g.moveTo(x0, -28); g.lineTo(x1, -28);
+      }
+    }, hitAt + 190, function(o, done) {
+      o.alpha = 0;
+      egret.Tween.get(o).wait(Math.max(90, hitAt - 320)).to({ alpha: 1 }, 140)
+        .to({ alpha: 0 }, 300).call(done);
+    }, hero.x, baseY, 'r106-pillar-link');
+    return true;
+  }
+
+  // ---- ⑭ 回抽：丝线自目标收回主角胸口 ----
+  if (spec.m === 'drain') {
+    for (var dr = 0; dr < spec.n; dr++) {
+      (function(k) {
+        var off = (k - (spec.n - 1) / 2) * 12;
+        var dx2 = hero.x - pos.x, dy2 = hero.y - pos.y;
+        add(function(g) {
+          g.lineStyle(3.4, color, 0.9); g.moveTo(0, 0); g.lineTo(dx2, dy2);
+          g.lineStyle(1.8, 0xffffff, 0.8); g.moveTo(off * 0.3, 6); g.lineTo(dx2 + off * 0.3, dy2 + 6);
+        }, hitAt + 190, function(o, done) {
+          o.alpha = 0; o.scaleX = 1; o.scaleY = 1;
+          egret.Tween.get(o).wait(k * spec.g).to({ alpha: 1 }, 70)
+            .to({ scaleX: 0.18, scaleY: 0.18, alpha: 0.1 }, Math.max(220, arrival(k)), egret.Ease.quadIn)
+            .call(done);
+        }, pos.x, pos.y, 'r106-drain');
+      })(dr);
+    }
+    return true;
+  }
+
+  // 兜底：未知 motion 仍给一条直线，保证七位任何情况都有演出。
+  add(bolt, hitAt + 170, function(o, done) {
+    o.alpha = 0;
+    egret.Tween.get(o).to({ alpha: 1 }, 60)
+      .to({ x: pos.x, y: pos.y, alpha: 0.2 }, arrival(0), egret.Ease.quadIn).call(done);
+  }, hero.x, hero.y, 'r106-fallback');
+  return true;
 };
 
 // ---------- R85-B：技能命中的打击感包 ----------
@@ -12981,9 +13483,13 @@ Game.prototype.resetCombatStateOnRevive = function() {
   // ② 连击与甲层归零：这两个是「这一轮点出来的」，死了就不该带走。
   this.combo = 0;
   this._comboAt = 0;
-  this.jobArmor = 0;
+  // R105：骑士复活保 1 层甲；另外三套会话态独占计数一并清零。
+  this.jobArmor = this.getReviveProfile ? this.getReviveProfile().keepArmor : 0;
   this._jobShieldNo = 0;
   this._jobBurstNo = 0;
+  this._jobEdgeNo = 0;
+  this._executeMarkUntil = 0;
+  this._armorBreakUntil = 0;
   if (this.comboLabel) this.comboLabel.visible = false;
   if (this.refreshArmorLabel) this.refreshArmorLabel();
   // ③ 技能冷却清零。死了重来，技能应该能重新用 —— 但要先有能量，
@@ -13032,6 +13538,19 @@ Game.prototype.setCombatFrozen = function(on) {
 // ===== R80：复活次数 =====
 // 号主要的是「挂机不被打断」：有次数时死亡就地满血续战，面板一次都不弹；
 // 次数烧光才停下来看死因。两件事都保住，靠的就是这一层。
+// ===== R105：复活按职业分化（单一真值）=====
+// R73 阵亡契约不可回退：三条槽、不退波、每 10 波补 1 次都保持。
+// 本轮只在既有槽位上加职业加值，不新增结算分支、不新增存档字段。
+Game.prototype.getReviveProfile = function() {
+  var j = this.jobId;
+  return {
+    hpPct: (j === 'spirit_guard') ? 0.70 : (Number(CONFIG.defeatHpPct) || 0.50),
+    energyPct: (j === 'blade_mage') ? 1.00 : (Number(CONFIG.defeatEnergyPct) || 0.50),
+    manaPct: Number(CONFIG.defeatManaPct) || 0.50,
+    keepArmor: (j === 'crystal_knight') ? 1 : 0,
+    extraCharges: (j === 'spirit_guard') ? 1 : 0
+  };
+};
 Game.prototype.getReviveChargeMax = function() {
   var base = Math.max(0, Number(CONFIG.reviveChargeBase) || 0);
   var bonus = 0;
@@ -13041,7 +13560,8 @@ Game.prototype.getReviveChargeMax = function() {
     var every = Math.max(1, Number(CONFIG.reviveTalentEvery) || 2);
     if (lv > 0) bonus = Math.floor(lv / every);
   } catch (eTal) { bonus = 0; }
-  return Math.min(Math.max(1, Number(CONFIG.reviveChargeMax) || 6), base + bonus);
+  var jobExtra = this.getReviveProfile ? this.getReviveProfile().extraCharges : 0;
+  return Math.min(Math.max(1, Number(CONFIG.reviveChargeMax) || 6), base + bonus + jobExtra);
 };
 
 // 每 10 波补 1 次。跨档才补，同一档反复进出不重复发。
@@ -13084,10 +13604,11 @@ Game.prototype.tryAutoRevive = function(lostWave) {
 
   this.setCombatFrozen(true);
   this.playerHp = 0;
+  var rp = this.getReviveProfile();
   var pending = {
-    energy: Math.max(0, Math.floor(this.getMaxEnergy() * (Number(CONFIG.defeatEnergyPct) || 0))),
-    mana: Math.max(0, Math.floor(this.getMaxMana() * (Number(CONFIG.defeatManaPct) || 0))),
-    hp: Math.max(1, Math.floor(this.getMaxPlayerHp() * CONFIG.defeatHpPct))
+    energy: Math.max(0, Math.floor(this.getMaxEnergy() * rp.energyPct)),
+    mana: Math.max(0, Math.floor(this.getMaxMana() * rp.manaPct)),
+    hp: Math.max(1, Math.floor(this.getMaxPlayerHp() * rp.hpPct))
   };
   // 原地复活：BOSS 波把倒计时重新给满（不退波、不解锁重试），杂兵波什么都不动。
   if (this.bossActive || (Number(this.bossTimer) || 0) > 0) {
@@ -13408,10 +13929,11 @@ Game.prototype.onPlayerDefeated = function() {
   this._panelFreeze = false;
   this.setCombatFrozen(true);
   this.playerHp = 0;
+  var rp2 = this.getReviveProfile();
   this._pendingRevive = {
-    energy: Math.max(0, Math.floor(this.getMaxEnergy() * (Number(CONFIG.defeatEnergyPct) || 0))),
-    mana: Math.max(0, Math.floor(this.getMaxMana() * (Number(CONFIG.defeatManaPct) || 0))),
-    hp: Math.max(1, Math.floor(this.getMaxPlayerHp() * CONFIG.defeatHpPct))
+    energy: Math.max(0, Math.floor(this.getMaxEnergy() * rp2.energyPct)),
+    mana: Math.max(0, Math.floor(this.getMaxMana() * rp2.manaPct)),
+    hp: Math.max(1, Math.floor(this.getMaxPlayerHp() * rp2.hpPct))
   };
   // R68：先把死因拍成快照（captureDeathReport 自己清账本）。
   this.captureDeathReport(lostWave, retreatWave);
@@ -14553,7 +15075,9 @@ Game.prototype.openBossFailPanel = function(hpPct, bossWave, opts) {
     info.text = '主角阵亡 · 从第 ' + (opts.lostWave || this.wave) + ' 波退回第 ' +
       (opts.retreatWave || this.wave) + ' 波，重新来\n' +
       // R72：三条槽统一 50%，文案从 CONFIG 派生，不手写第二份数值。
-      '生命/体力/法力各 ' + Math.round(CONFIG.defeatHpPct * 100) + '% · 技能冷却重置' +
+      '生命 ' + Math.round(this.getReviveProfile().hpPct * 100) + '% / 体力 ' +
+      Math.round(this.getReviveProfile().energyPct * 100) + '% / 法力 ' +
+      Math.round(this.getReviveProfile().manaPct * 100) + '% · 技能冷却重置' +
       (Number(CONFIG.reviveGraceSec) > 0 ? ' · ' + CONFIG.reviveGraceSec + ' 秒减伤 ' +
         Math.round((Number(CONFIG.reviveGraceReduce) || 0) * 100) + '%' : '') +
       ((opts.streak || 0) > 1 ? ' · 已连败 ' + opts.streak + ' 次' : '') +
@@ -15729,6 +16253,35 @@ Game.prototype.useSkill = function(idx, silent) {
     if (s.healOnCast) {
       var h0 = Math.floor(self.getMaxPlayerHp() * (s.healOnCast + lvN * 0.002));
       if (h0 > 0) self.healPlayer(h0, s.name, true);
+    }
+    // R105：四条声明性独占效果，全部只写会话态，零存档字段、零新增自动施法分支。
+    if (s.edgeGain) {
+      self._jobEdgeNo = (self._jobEdgeNo || 0) + s.edgeGain;
+      self._floatPooledText('edgeGain', '锋锐 +' + s.edgeGain, 12, 0x7be8b7,
+        (self.heroGroup ? self.heroGroup.x + 34 : 160),
+        (self.heroGroup ? self.heroGroup.y + 40 : 300), 26, 700);
+    }
+    if (s.manaBack) {
+      var mb = Math.min(self.getMaxMana() - self.mana, s.manaBack);
+      if (mb > 0) {
+        self.mana += mb;
+        self._floatPooledText('manaBack', '星轨回蓝 +' + Math.floor(mb), 12, 0xfbbf24,
+          (self.heroGroup ? self.heroGroup.x + 34 : 160),
+          (self.heroGroup ? self.heroGroup.y + 54 : 314), 26, 700);
+      }
+    }
+    if (s.executeMark) {
+      self._executeMarkUntil = Date.now() + 8000;
+      self._floatPooledText('executeMark', '处决印记 8 秒', 12, 0xb388ff,
+        (self.heroGroup ? self.heroGroup.x + 34 : 160),
+        (self.heroGroup ? self.heroGroup.y + 68 : 328), 26, 700);
+    }
+    if (s.armorBreak) {
+      self._armorBreakUntil = Date.now() + 6000;
+      self._armorBreakPct = Math.max(Number(self._armorBreakPct) || 0, s.armorBreak);
+      self._floatPooledText('armorBreak', '破甲 6 秒', 12, 0xff9f43,
+        (self.heroGroup ? self.heroGroup.x + 34 : 160),
+        (self.heroGroup ? self.heroGroup.y + 82 : 342), 26, 700);
     }
   };
   if (isSupport) {
@@ -25975,7 +26528,7 @@ Game.prototype.openCareerPanel = function() {
   kBg.strokeColor = THEME.strokeGold; kBg.strokeWeight = 0.8; kBg.strokeAlpha = 0.36;
   kit.addChild(kBg);
   var kTitle = new eui.Label();
-  kTitle.text = '技能组 · 每个职业各一套';
+  kTitle.text = '技能组 · 每职业一套（名称 / 图标 / 长按说明随职业切换）';
   kTitle.size = 11; kTitle.bold = true; kTitle.textColor = THEME.textGold;
   kTitle.x = 10; kTitle.y = 8; kTitle.width = contentW - 20; kTitle.height = 16;
   kTitle.wordWrap = true;
@@ -25984,7 +26537,7 @@ Game.prototype.openCareerPanel = function() {
     var kJob = JOB_DEFS[kj];
     var kNames = describeSkillKit(kJob.id);
     var kLine = new eui.Label();
-    kLine.text = kJob.name + '｜' + kNames.join(' · ');
+    kLine.text = kJob.name + '·' + (kJob.identity || '') + '｜' + kNames.join(' · ');
     kLine.size = 10; kLine.textColor = (kJob.id === this.jobId) ? THEME.textGold : THEME.textDim;
     kLine.lineSpacing = 2; kLine.wordWrap = true;
     kLine.x = 10; kLine.y = 30 + kj * 32;
@@ -25992,12 +26545,23 @@ Game.prototype.openCareerPanel = function() {
     kit.addChild(kLine);
   }
   var kFoot = new eui.Label();
-  kFoot.text = '七位依次：起手 / 爆发 / 群攻 / 增益 / 护盾 / 回复 / 终极。第 5、6 位六个职业都有，差别在减伤多少、持续多久、回多少。';
+  // R105：原脚注写的是「第 5、6 位六个职业都有」，等于把换皮感写进面板。
+  // 现在改成逐套点名独占效果，并把越贵越强的阶梯写在同一张卡里。
+  kFoot.text = '七位依次：起手 / 爆发 / 群攻 / 增益 / 护盾 / 回复 / 终极。' +
+    '剑士攒锋锐破甲，星术师回蓝，灵卫者七招自愈，影刃挂处决，骑士七招喂甲层。';
   kFoot.size = 10; kFoot.textColor = 0x9bd4ff; kFoot.lineSpacing = 2; kFoot.wordWrap = true;
   kFoot.x = 10; kFoot.y = 30 + JOB_DEFS.length * 32 + 2;
-  kFoot.width = contentW - 20; kFoot.height = 26;
+  kFoot.width = contentW - 20; kFoot.height = 38;
   kit.addChild(kFoot);
-  kit.height = 30 + JOB_DEFS.length * 32 + 30;
+  // R105：强度阶梯单独一行，花钻之前就能读到「买到的更贵也更强」。
+  var kLadder = new eui.Label();
+  kLadder.text = '强度阶梯（累计钻）：0 / 30 / 75 / 135 / 215 / 315 → 越强越贵；' +
+    '用错属性照样吃力。锻造专精：骑士 > 影刃 > 灵卫者 > 星术师 > 剑士。';
+  kLadder.size = 10; kLadder.textColor = 0x9be15d; kLadder.lineSpacing = 2; kLadder.wordWrap = true;
+  kLadder.x = 10; kLadder.y = 30 + JOB_DEFS.length * 32 + 42;
+  kLadder.width = contentW - 20; kLadder.height = 38;
+  kit.addChild(kLadder);
+  kit.height = 30 + JOB_DEFS.length * 32 + 86;
   body.addChild(kit);
   // R61：反伤说明。这张表是玩家判断「我该转哪个职业」的唯一依据，
   // 反伤既然是骑士的第二个输出回路，就不能只写在手感那四个字里。
@@ -26014,7 +26578,7 @@ Game.prototype.openCareerPanel = function() {
   thornsLine.width = contentW - 20; thornsLine.height = 30;
   matrix.addChild(thornsLine);
   // R64：矩阵之后多了技能组速查，面板高度必须跟着长 —— 否则最后那张卡会被裁掉半行。
-  body.height = matrixY + 184 + 8 + (30 + JOB_DEFS.length * 32 + 30) + 10;
+  body.height = matrixY + 184 + 8 + (30 + JOB_DEFS.length * 32 + 86) + 10;
 };
 
 // R77：颜色与文字参数化。原来写死金色 +「✦ 首领出现！」，BOSS 波的预警卡
