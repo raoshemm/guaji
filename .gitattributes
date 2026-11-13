@@ -1,0 +1,21 @@
+# 2026-11-13：build:wxgame:egret 的 72 条补丁锚点按 \n 字面匹配，
+# 任何 CRLF 都会导致锚点连锁失配。本机 core.autocrlf=true，checkout 时必须强制 LF。
+# 唯一代码真值 game.js 一旦被写成 CRLF，整条小游戏构建链会失效。
+*.js    text eol=lf
+*.html  text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.py    text eol=lf
+*.yml   text eol=lf
+*.css   text eol=lf
+*.svg   text eol=lf
+
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.mp3   binary
+*.wav   binary
+*.woff  binary
+*.ttf   binary
