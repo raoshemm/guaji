@@ -199,12 +199,15 @@
     }
     #boot-loading .note { margin-top: 7px; font-size: 11px; color: #7f769f; letter-spacing: .3px; }
     #build-tag {
-      position: fixed; top: max(6px, env(safe-area-inset-top));
-      right: max(8px, env(safe-area-inset-right)); z-index: 900;
-      padding: 2px 7px; border-radius: 99px;
-      font: 9px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-      color: rgba(244,215,137,.78); background: rgba(10,8,32,.55);
-      border: 1px solid rgba(251,191,36,.26); letter-spacing: .3px;
+      /* 游戏内常驻角标：HUD 顶部这一行已被「玩家名 / 称号」占满，
+         所以这里退成水印：8px、无描边、低透明度、贴最右上角，
+         并且打开任何全屏面板时由 game.js 收起（面板标题栏最挤）。 */
+      position: fixed; top: max(2px, calc(env(safe-area-inset-top) - 2px));
+      right: max(4px, env(safe-area-inset-right)); z-index: 900;
+      padding: 0 5px; border-radius: 99px;
+      font: 8px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: rgba(244,215,137,.52); background: rgba(10,8,32,.30);
+      border: none; letter-spacing: .2px;
       pointer-events: none; user-select: none; -webkit-user-select: none;
     }
   </style>
@@ -258,11 +261,46 @@
        data-show-fps="false"
        data-show-log="false"></div>
   <script>
+    // ===== 安全区探针（UI 规范 v1.0 §3.2）=====
+    // env(safe-area-inset-*) 只能在真实渲染节点上取到，用 0 尺寸 div 的 padding 读出来，
+    // 再换算成 375 逻辑单位写进 window.DMAX_SAFE_AREA。
+    // 小游戏端由适配层写同一个对象 —— game.js 只走一条分支，不再有「H5 无安全区」的第二套皮肤。
+    // 需要 viewport-fit=cover（本页已有），否则 iPhone 上 env() 恒为 0。
+    (function () {
+      var probe = document.createElement('div');
+      probe.id = 'safe-probe';
+      probe.style.cssText =
+        'position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;' +
+        'padding-top:env(safe-area-inset-top,0px);' +
+        'padding-bottom:env(safe-area-inset-bottom,0px);' +
+        'padding-left:env(safe-area-inset-left,0px);' +
+        'padding-right:env(safe-area-inset-right,0px);';
+      document.body.appendChild(probe);
+      function px(v) { var n = parseFloat(v); return isFinite(n) ? n : 0; }
+      function sync() {
+        var cs = window.getComputedStyle(probe);
+        var vw = document.documentElement.clientWidth || window.innerWidth || 375;
+        var k = 375 / vw;   // CSS px → 375 逻辑单位
+        window.DMAX_SAFE_AREA = {
+          top: Math.round(px(cs.paddingTop) * k),
+          bottom: Math.round(px(cs.paddingBottom) * k),
+          left: Math.round(px(cs.paddingLeft) * k),
+          right: Math.round(px(cs.paddingRight) * k),
+          capsuleLeft: 375,   // H5 无胶囊，给满宽
+          source: 'h5-probe'
+        };
+      }
+      sync();
+      window.addEventListener('orientationchange', function () { setTimeout(sync, 150); });
+      window.addEventListener('resize', sync);
+    })();
+  </script>
+  <script>
     var statusEl = document.getElementById('status');
     var container = document.getElementById('game-container');
     // 版本号同时是 game.js / 所有图片的 cache-buster（game.js 里的 ASSET_VERSION 取此值）。
     // 约定：任何 game.js 或图片内容变更都必须 bump 这个值，否则用户会拿到 10 分钟缓存里的旧文件。
-    var BUILD_VERSION = 'gameplay-20261106-v7-ver-badge';
+    var BUILD_VERSION = 'gameplay-20261112-r103-1';
     window.DMAX_GAME_VERSION = BUILD_VERSION;
     var scripts = [
       'lib/egret/egret.min.js',
@@ -317,14 +355,23 @@
     // 短标签由 BUILD_VERSION 自动推导（去掉 gameplay- 前缀），不手写、不会与版本串漂移。
     var BUILD_LABEL = String(BUILD_VERSION).replace(/^gameplay-/, '');
     window.DMAX_BUILD_LABEL = BUILD_LABEL;
+    // 游戏内常驻角标只放「月日.序号」：完整短标签 26 个字符，8px 下在 375 宽上是贴着
+    // 右缘压在画面上的噪音，窄屏更挤，而且没人会在游戏里读版本号。
+    // 完整串保留在角标 title 属性、加载卡片与设置面板里，需要核对时随时可查。
+    var BUILD_TAG = (function (label) {
+      var m = String(label).match(/^(\d{4})(\d{2})(\d{2})-.*?(\d+)$/);
+      return m ? ('v' + m[2] + m[3] + '.' + m[4]) : String(label).slice(0, 8);
+    })(BUILD_LABEL);
+    window.DMAX_BUILD_TAG = BUILD_TAG;
     (function () {
       var bootBuild = document.getElementById('boot-build');
       if (bootBuild) bootBuild.textContent = '版本 ' + BUILD_VERSION;
       var startBuild = document.getElementById('start-build');
-      if (startBuild) startBuild.textContent = '版本 ' + BUILD_VERSION;
+      // 用短标签，完整串在加载卡片和角标里已经出现过，这里再写一遍会把胶囊撑满。
+      if (startBuild) startBuild.textContent = '版本 ' + BUILD_LABEL;
       var tag = document.getElementById('build-tag');
       if (tag) {
-        tag.textContent = BUILD_LABEL;
+        tag.textContent = BUILD_TAG;
         tag.title = 'BUILD_VERSION ' + BUILD_VERSION;
       }
     })();
@@ -389,6 +436,13 @@
       window.__dmaxStartDismissReason = reason || 'manual';
       try { clearTimeout(startAutoTimer); } catch (e) {}
       startEl.className = 'is-hidden';
+      // R74：标题屏一收起就放开场序列（主角落场 → 然后才是引导气泡）。
+      // 只读调用、不依赖返回值；游戏未就绪时它是空操作，绝不拖慢收起动画。
+      try {
+        if (window.__dmaxGame && typeof window.__dmaxGame.onStartScreenDismissed === 'function') {
+          window.__dmaxGame.onStartScreenDismissed(reason || 'manual');
+        }
+      } catch (eIntro) {}
       setTimeout(function() {
         if (startEl && startEl.parentNode) startEl.parentNode.removeChild(startEl);
         window.__dmaxStartRemoved = true;
@@ -401,7 +455,8 @@
       if (window.DMAX_START_STATE === 'ready') return;  // 幂等：DMAX_HIDE_LOADING 会被调两次
       fillStartSummary();
       var ver = document.getElementById('start-version');
-      if (ver) ver.textContent = '构建 ' + BUILD_VERSION + ' · 存档格式 v1';
+      // 版本号已在顶部胶囊和加载卡片各显示一次，这里再说一遍既冗余又会折行（实测「v1」被挤到第二行）。
+      if (ver) ver.textContent = '存档格式 v1 · 本机存档 · 不联网';
       window.DMAX_START_STATE = 'ready';
       startEl.className = 'is-ready';
       // 不点击也绝不卡住：纯原生兜底，不依赖 Egret Tween / rAF / 任何游戏回调（§6 红线 9、§12）
